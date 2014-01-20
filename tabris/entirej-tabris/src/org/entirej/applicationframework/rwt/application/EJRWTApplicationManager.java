@@ -25,7 +25,6 @@ import java.util.Locale;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
-import org.entirej.applicationframework.rwt.application.interfaces.EJRWTApplicationStatusbar;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormContainer;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJGridPane;
 import org.entirej.applicationframework.rwt.renderers.form.EJRWTFormRenderer;
@@ -73,10 +72,7 @@ public class EJRWTApplicationManager implements EJApplicationManager, Serializab
         return _applicationContainer.getFormContainer();
     }
 
-    public EJRWTApplicationStatusbar getStatusbar()
-    {
-        return _applicationContainer.getStatusbar();
-    }
+   
 
     @Override
     public void setFrameworkManager(EJFrameworkManager manager)
@@ -90,45 +86,9 @@ public class EJRWTApplicationManager implements EJApplicationManager, Serializab
         return messenger;
     }
 
-    /**
-     * Returns the main application window of this application
-     * <p>
-     * The window is passed from the Application when building the application
-     * via this layout manager. There will only be a root window if the
-     * application is started as a stand-alone application or an Applet. If the
-     * application is started as a portlet then there will be no root window
-     * 
-     * @return The root window of this application or null if the application
-     *         was started as a portlet application
-     */
-    public Composite getMainWindow()
-    {
-        if (_applicationContainer == null)
-        {
-            throw new IllegalStateException("Unable to access application root window until the application has been build");
-        }
+ 
 
-        return _applicationContainer.getMainPane();
-    }
-
-    /**
-     * Builds and initialises the application from a stand alone application or
-     * an applet
-     * 
-     * @param container
-     *            The application container is the outline for the application.
-     *            It contains all {@link EJSwingApplicationComponent}'s that
-     *            make up this application
-     * @param rootFrame
-     *            If the application is run as a standalone application or
-     *            started as an applet then the rootFrame will be the actual
-     *            application frame. This is then used to position dialog
-     *            windows or messages etc. This ensures that the dialogs belong
-     *            to the main application and do not get hidden behind the
-     *            application when navigating through windows
-     * @param applicationIcon
-     *            The icon to use for the application
-     */
+  
     public void buildApplication(EJRWTApplicationContainer container, Composite mainWindow)
     {
         if (container == null)

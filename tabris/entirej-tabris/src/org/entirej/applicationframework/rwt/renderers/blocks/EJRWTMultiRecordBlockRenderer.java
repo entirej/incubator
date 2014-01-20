@@ -238,34 +238,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
 
     protected void notifyStatus()
     {
-        if (hasFocus())
-        {
-            EJRWTApplicationManager mng = (EJRWTApplicationManager) _block.getFrameworkManager().getApplicationManager();
-            int displayedRecordCount = getDisplayedRecordCount();
-            if (mng.getStatusbar() != null)
-            {
-                EJDataRecord focusedRecord = getFocusedRecord();
-                int displayedRecordNumber = getDisplayedRecordNumber(focusedRecord);
-                if (displayedRecordCount > 0 && displayedRecordNumber == -1)
-                {
-                    mng.getStatusbar().setStatus2("");
-                }
-                else
-                {
-                    mng.getStatusbar().setStatus2(String.format("%s of %s", String.valueOf(displayedRecordNumber + 1), String.valueOf(displayedRecordCount)));
-                }
-            }
-
-        }
-        else
-        {
-            EJRWTApplicationManager mng = (EJRWTApplicationManager) _block.getFrameworkManager().getApplicationManager();
-            if (mng.getStatusbar() != null)
-            {
-                mng.getStatusbar().setStatus2("");
-
-            }
-        }
+        //TODO
     }
 
     @Override

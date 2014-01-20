@@ -19,10 +19,12 @@
 package org.entirej.applicationframework.rwt.application.launcher;
 
 import static org.eclipse.rap.rwt.internal.service.ContextProvider.getContext;
+import static org.eclipse.rap.rwt.internal.service.ContextProvider.getApplicationContext;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,16 +43,23 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationContainer;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
+import org.entirej.applicationframework.rwt.pages.EJRWTMenuComponentPage;
 import org.entirej.framework.core.EJFrameworkHelper;
 import org.entirej.framework.core.EJFrameworkInitialiser;
 import org.entirej.framework.core.interfaces.EJMessenger;
 import org.entirej.framework.core.properties.EJCoreLayoutContainer;
+import org.entirej.framework.core.properties.EJCoreMenuProperties;
 import org.entirej.framework.core.properties.EJCoreProperties;
 
-public abstract class EJRWTApplicationLauncher implements ApplicationConfiguration
+import com.eclipsesource.tabris.TabrisClientInstaller;
+import com.eclipsesource.tabris.ui.Page;
+import com.eclipsesource.tabris.ui.PageConfiguration;
+import com.eclipsesource.tabris.ui.TabrisUI;
+import com.eclipsesource.tabris.ui.UIConfiguration;
+
+public abstract class EJTabrisApplicationLauncher implements ApplicationConfiguration
 {
 
-    protected static final String THEME_DEFAULT = "org.entirej.applicationframework.rwt.Default";
 
     public void configure(Application configuration)
     {
@@ -72,22 +81,9 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
         return "EJ Loading...";
     }
 
-    protected String getBaseThemeCSSLocation()
-    {
-        return "theme/default.css";
-    }
+  
 
-    protected String getThemeCSSLocation()
-    {
-        return null;
-    }
-
-    // disable due to RWT bug
-    // https://bugs.eclipse.org/bugs/show_bug.cgi?id=410895
-    // protected String getDefaultTabCloseMessage()
-    // {
-    // return "__DEFAULT__";
-    // }
+   
 
     protected String getWebPathContext()
     {
@@ -114,8 +110,7 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
 
     public void createEntryPoint(final Application configuration)
     {
-
-        configuration.setOperationMode(OperationMode.SWT_COMPATIBILITY);
+        TabrisClientInstaller.install( configuration );
         Map<String, String> properties = new HashMap<String, String>();
         if (this.getClass().getClassLoader().getResource("application.ejprop") != null)
         {
@@ -134,18 +129,9 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
         properties.put(WebClient.PAGE_TITLE, layoutContainer.getTitle());
         properties.put(WebClient.FAVICON, getFavicon());
         properties.put(WebClient.BODY_HTML, getBodyHtml());
-        properties.put(WebClient.THEME_ID, THEME_DEFAULT);
         configuration.addResource(getFavicon(), new FileResource());
         configuration.addResource(getLoadingImage(), new FileResource());
-        configuration.addStyleSheet(THEME_DEFAULT, "resource/theme/default.css");
-        configuration.addStyleSheet(THEME_DEFAULT, getBaseThemeCSSLocation());
-        configuration.addResource(getBaseThemeCSSLocation(), new FileResource());
-        if (getThemeCSSLocation() != null)
-        {
-
-            configuration.addStyleSheet(THEME_DEFAULT, getThemeCSSLocation());
-            configuration.addResource(getThemeCSSLocation(), new FileResource());
-        }
+       
 
         configuration.addEntryPoint(String.format("/%s", getWebPathContext()), new EntryPointFactory()
         {
@@ -160,7 +146,6 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
                 {
                     // ignore if already registered
                 }
-                registerWidgetHandlers();
                 return new EntryPoint()
                 {
 
@@ -187,40 +172,32 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
 
                         getContext().getUISession().setAttribute("ej.applicationManager", applicationManager);
 
-                        EJCoreLayoutContainer layoutContainer = EJCoreProperties.getInstance().getLayoutContainer();
-                        // Now build the application container
-                        EJRWTApplicationContainer appContainer = new EJRWTApplicationContainer(layoutContainer);
+                        
 
-                        // Add the application menu and status bar to the app
-                        // container
-                        EJMessenger messenger = applicationManager.getApplicationMessenger();
-                        if (messenger == null)
-                        {
-                            throw new NullPointerException("The ApplicationComponentProvider must provide an Messenger via method: getApplicationMessenger()");
-                        }
+                        
                         Display display = Display.getDefault();
                         if (display.isDisposed())
                             display = new Display();
-                        Shell shell = new Shell(display, SWT.NO_TRIM);
                         preApplicationBuild(applicationManager);
+                        
+                        
+                        
+                       
+                        
+                        //build tabris ui
+                        UIConfiguration uiConfiguration = new UIConfiguration();
+                        initRootPageConfiguration(uiConfiguration);
+                        Shell shell = new Shell(display, SWT.NO_TRIM);
+                        TabrisUI tabrisUI = new TabrisUI(uiConfiguration);
+                        // Now build the application container
+                        EJRWTApplicationContainer appContainer = new EJRWTApplicationContainer();
+                        
                         applicationManager.buildApplication(appContainer, shell);
                         postApplicationBuild(applicationManager);
+                        tabrisUI.create(shell);
                         shell.layout();
                         shell.setMaximized(true);
-                        // disable due to RWT bug
-                        // https://bugs.eclipse.org/bugs/show_bug.cgi?id=410895
-                        // ExitConfirmation confirmation =
-                        // RWT.getClient().getService(ExitConfirmation.class);
-                        // String message = getDefaultTabCloseMessage();
-                        // if ("__DEFAULT__".equals(message))
-                        // {
-                        // confirmation.setMessage(String.format("Do you want to close %s ?",
-                        // EJCoreProperties.getInstance().getLayoutContainer().getTitle()));
-                        // }
-                        // else if (message != null)
-                        // {
-                        // confirmation.setMessage(message);
-                        // }
+
 
                         return openShell(display, shell);
                     }
@@ -229,11 +206,69 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
         }, properties);
     }
 
+    
+    
+    protected void initRootPageConfiguration(UIConfiguration configuration)
+    {
+        //by default add menu page
+        
+         
+        addRootPageConfiguration(configuration, DefaultMenuPage.ID, DefaultMenuPage.class, "Menu");
+        
+    }
+    
+     static String getDefaultMenuID()
+    {
+        Collection<EJCoreMenuProperties> allMenuProperties = EJCoreProperties.getInstance().getMenuContainer().getAllMenuProperties();
+        String defaultMenu = null;
+        for (EJCoreMenuProperties ejCoreMenuProperties : allMenuProperties)
+        {
+            if(ejCoreMenuProperties.isDefault())
+            {
+                defaultMenu = ejCoreMenuProperties.getName(); 
+                break;
+            }
+        }
+        if(defaultMenu==null)
+        {
+            throw  new RuntimeException("application.ejprop default menu not defined");
+        }
+        return defaultMenu;
+    }
+    
+    public static class DefaultMenuPage extends EJRWTMenuComponentPage
+    {
+        static final String ID = "EJRWTDMP";
+
+        
+        public DefaultMenuPage()
+        {
+            super(getDefaultMenuID());
+        }
+        
+    }
+    
+    protected void addRootPageConfiguration(UIConfiguration configuration,String id,Class<? extends Page> page,String title,InputStream image)
+    {
+        PageConfiguration pageConfig = new PageConfiguration( id, page);
+        pageConfig.setTitle( title);
+        if(image!=null)
+            pageConfig.setImage(image);
+        pageConfig.setTopLevel(true);
+        configuration.addPageConfiguration( pageConfig );
+    }
+    
+    protected void addRootPageConfiguration(UIConfiguration configuration,String id,Class<? extends Page> page,String title)
+    {
+        addRootPageConfiguration(configuration, id, page, title, null);
+    }
+    
+    
     @SuppressWarnings("deprecation")
     public static int openShell(Display display, Shell shell)
     {
         shell.open();
-        if (RWT.getLifeCycle() instanceof RWTLifeCycle)
+        if (getApplicationContext().getLifeCycleFactory().getLifeCycle() instanceof RWTLifeCycle)
         {
             while (!shell.isDisposed())
             {
@@ -248,21 +283,18 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
 
     public void preApplicationBuild(EJFrameworkHelper frameworkHelper)
     {
-    };
+    }
 
     public void postApplicationBuild(EJFrameworkHelper frameworkHelper)
     {
-    };
+    }
 
     public void registerServiceHandlers()
     {
 
     }
 
-    public void registerWidgetHandlers()
-    {
-       
-    }
+ 
 
     public static class FileResource implements ResourceLoader
     {
@@ -274,31 +306,10 @@ public abstract class EJRWTApplicationLauncher implements ApplicationConfigurati
 
         public ClassLoader getLoader()
         {
-            return EJRWTApplicationLauncher.class.getClassLoader();
+            return EJTabrisApplicationLauncher.class.getClassLoader();
         }
 
     }
 
-    public static void reloadApplication(EJFrameworkHelper frameworkHelper)
-    {
-        // disable due to RWT bug
-        // https://bugs.eclipse.org/bugs/show_bug.cgi?id=410895
-        // ExitConfirmation confirmation =
-        // RWT.getClient().getService(ExitConfirmation.class);
-        // confirmation.setMessage(null);
-        StringBuffer url = new StringBuffer();
-        url.append(RWT.getRequest().getContextPath());
-        url.append(RWT.getRequest().getServletPath());
-        String encodeURL = RWT.getResponse().encodeURL(url.toString());
-        if (encodeURL.contains("jsessionid"))
-        {
-            encodeURL = encodeURL.substring(0, encodeURL.indexOf("jsessionid"));
-        }
-        String browserText = MessageFormat.format("parent.window.location.href = \"{0}\";", encodeURL);
-        JavaScriptExecutor executor = RWT.getClient().getService(JavaScriptExecutor.class);
-        if (executor != null)
-        {
-            executor.execute(browserText);
-        }
-    }
+    
 }

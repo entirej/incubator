@@ -25,22 +25,14 @@ import java.util.Collections;
 import java.util.List;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.eclipse.swt.widgets.Label;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTFormPopUp;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTSingleFormContainer;
-import org.entirej.applicationframework.rwt.application.interfaces.EJRWTAppComponentRenderer;
-import org.entirej.applicationframework.rwt.application.interfaces.EJRWTApplicationComponent;
-import org.entirej.applicationframework.rwt.application.interfaces.EJRWTApplicationStatusbar;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormChosenEvent;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormChosenListener;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormClosedListener;
@@ -51,16 +43,7 @@ import org.entirej.applicationframework.rwt.renderers.form.EJRWTFormRenderer;
 import org.entirej.framework.core.data.controllers.EJPopupFormController;
 import org.entirej.framework.core.internal.EJInternalForm;
 import org.entirej.framework.core.properties.EJCoreFormProperties;
-import org.entirej.framework.core.properties.EJCoreLayoutContainer;
-import org.entirej.framework.core.properties.EJCoreLayoutItem;
-import org.entirej.framework.core.properties.EJCoreLayoutItem.LayoutComponent;
-import org.entirej.framework.core.properties.EJCoreLayoutItem.LayoutGroup;
-import org.entirej.framework.core.properties.EJCoreLayoutItem.LayoutSpace;
-import org.entirej.framework.core.properties.EJCoreLayoutItem.SplitGroup;
-import org.entirej.framework.core.properties.EJCoreLayoutItem.SplitGroup.ORIENTATION;
-import org.entirej.framework.core.properties.EJCoreLayoutItem.TabGroup;
 import org.entirej.framework.core.renderers.interfaces.EJApplicationComponentRenderer;
-import org.entirej.framework.core.renderers.registry.EJRendererFactory;
 
 public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedListener, EJRWTFormClosedListener, EJRWTFormSelectedListener,
         EJRWTFormChosenListener
@@ -68,21 +51,12 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
 
     private static final long                 serialVersionUID      = 1L;
 
-    protected List<EJRWTApplicationComponent> _addedComponents;
 
-    protected Composite                       _mainPane;
     protected EJRWTFormContainer              _formContainer;
-    protected EJRWTApplicationStatusbar       _statusbar;
     protected List<EJRWTSingleFormContainer>  _singleFormContainers = new ArrayList<EJRWTSingleFormContainer>();
     protected EJRWTApplicationManager         _applicationManager;
-    static final java.lang.String             CUSTOM_VARIANT        = "org.eclipse.rap.rwt.customVariant";
-    protected final EJCoreLayoutContainer     _layoutContainer;
 
-    public EJRWTApplicationContainer(EJCoreLayoutContainer layoutContainer)
-    {
-        _layoutContainer = layoutContainer;
-        _addedComponents = new ArrayList<EJRWTApplicationComponent>();
-    }
+  
 
     /**
      * Returns the {@link EJSwingFormContainer} used within this application
@@ -94,43 +68,16 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
         return _formContainer;
     }
 
-    /**
-     * Returns the {@link EJRWTApplicationStatusbar} used within this
-     * application
-     * 
-     * @return This applications {@link EJRWTApplicationStatusbar}
-     */
-    public EJRWTApplicationStatusbar getStatusbar()
-    {
-        return _statusbar;
-    }
+   
 
-    /**
-     * Returns the main application window of this application
-     * <p>
-     * The window is passed from the Application when the application is build.
-     * via this layout manager. There will only be a root window if the
-     * application is started as a stand alone application or an Applet. If the
-     * application is started as a portlet then there will be no root window
-     * 
-     * @return The root window of this application or null if the application
-     *         was started as a portlet application
-     */
-    public Composite getMainPane()
-    {
-        return _mainPane;
-    }
+    
 
     void buildApplication(EJRWTApplicationManager applicationManager, Composite mainWindow)
     {
         _applicationManager = applicationManager;
 
-        _mainPane = new Composite(mainWindow, SWT.NO_FOCUS);
-        _mainPane.setData(CUSTOM_VARIANT, "applayout");
 
-        mainWindow.setLayout(new FillLayout());
 
-        buildApplicationContainer();
 
         if (_formContainer == null)
         {
@@ -343,292 +290,9 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
         return getForm(formName) != null;
     }
 
-    protected void buildApplicationContainer()
-    {
-        GridLayout gridLayout = new GridLayout(_layoutContainer.getColumns(), true);
-        _mainPane.setLayout(gridLayout);
 
-        List<EJCoreLayoutItem> items = _layoutContainer.getItems();
-        for (EJCoreLayoutItem item : items)
-        {
-            switch (item.getType())
-            {
-                case GROUP:
-                    createGroupLayout(_mainPane, (LayoutGroup) item);
-                    break;
-                case SPACE:
-                    createSpace(_mainPane, (LayoutSpace) item);
-                    break;
-                case COMPONENT:
-                    createComponent(_mainPane, (LayoutComponent) item);
-                    break;
-                case SPLIT:
-                    createSplitLayout(_mainPane, (SplitGroup) item);
-                    break;
-                case TAB:
-                    createTabLayout(_mainPane, (TabGroup) item);
-                    break;
-            }
-        }
-        _mainPane.layout();
-        if (_formContainer != null)
-        {
-            for (EJRWTApplicationComponent applicationComponent : _addedComponents)
-            {
-                if (applicationComponent instanceof EJRWTFormSelectedListener)
-                {
-                    _formContainer.addFormSelectedListener(applicationComponent);
-                }
-            }
-        }
-        for (EJRWTSingleFormContainer singleFormContainer : _singleFormContainers)
-        {
-            if (singleFormContainer.getForm() != null)
-            {
-                fireFormOpened(singleFormContainer.getForm());
-            }
-        }
-    }
 
-    private GridData createGridData(EJCoreLayoutItem layoutItem)
-    {
-        GridData gd = new GridData();
-        gd.minimumHeight = layoutItem.getMinHeight();
-        gd.minimumWidth = layoutItem.getMinWidth();
-        gd.heightHint = layoutItem.getHintHeight();
-        gd.widthHint = layoutItem.getHintWidth();
-        gd.verticalSpan = layoutItem.getVerticalSpan();
-        gd.horizontalSpan = layoutItem.getHorizontalSpan();
-
-        switch (layoutItem.getGrab())
-        {
-            case BOTH:
-                gd.grabExcessHorizontalSpace = true;
-                gd.grabExcessVerticalSpace = true;
-                break;
-            case HORIZONTAL:
-                gd.grabExcessHorizontalSpace = true;
-                break;
-            case VERTICAL:
-                gd.grabExcessVerticalSpace = true;
-                break;
-            case NONE:
-                break;
-        }
-
-        switch (layoutItem.getFill())
-        {
-            case BOTH:
-                gd.verticalAlignment = SWT.FILL;
-                gd.horizontalAlignment = SWT.FILL;
-                break;
-            case VERTICAL:
-                gd.verticalAlignment = SWT.FILL;
-                break;
-            case HORIZONTAL:
-                gd.horizontalAlignment = SWT.FILL;
-                break;
-            case NONE:
-                break;
-        }
-
-        return gd;
-    }
-
-    private void createSpace(Composite parent, EJCoreLayoutItem.LayoutSpace space)
-    {
-        Label spaceLabel = new Label(parent, SWT.NONE);
-        spaceLabel.setLayoutData(createGridData(space));
-    }
-
-    private void createComponent(Composite parent, EJCoreLayoutItem.LayoutComponent component)
-    {
-        try
-        {
-            EJApplicationComponentRenderer applicationComponentRenderer = EJRendererFactory.getInstance().getApplicationComponentRenderer(
-                    component.getRenderer());
-            if (applicationComponentRenderer instanceof EJRWTFormContainer)
-            {
-                if (_formContainer != null)
-                {
-                    throw new IllegalStateException("Multiple EJRWTFormContainer setup in layout");
-                }
-                _formContainer = (EJRWTFormContainer) applicationComponentRenderer;
-            }
-            if (applicationComponentRenderer instanceof EJRWTApplicationStatusbar)
-            {
-                if (_statusbar != null)
-                {
-                    throw new IllegalStateException("Multiple EJRWTApplicationStatusbar setup in layout");
-                }
-                _statusbar = (EJRWTApplicationStatusbar) applicationComponentRenderer;
-            }
-            if (applicationComponentRenderer instanceof EJRWTSingleFormContainer)
-            {
-
-                _singleFormContainers.add((EJRWTSingleFormContainer) applicationComponentRenderer);
-            }
-            if (applicationComponentRenderer instanceof EJRWTApplicationComponent)
-            {
-                _addedComponents.add((EJRWTApplicationComponent) applicationComponentRenderer);
-            }
-
-            EJRWTAppComponentRenderer renderer = (EJRWTAppComponentRenderer) applicationComponentRenderer;
-            renderer.createContainer(_applicationManager, parent, component.getRendereProperties());
-            renderer.getGuiComponent().setLayoutData(createGridData(component));
-            return;
-        }
-        catch (Exception e)
-        {
-            _applicationManager.getApplicationMessenger().handleException(e, true);
-        }
-
-        // fail over
-        Composite layoutBody = new Composite(parent, SWT.NO_FOCUS | SWT.BORDER);
-        layoutBody.setLayoutData(createGridData(component));
-        layoutBody.setLayout(new GridLayout());
-        Label spaceLabel = new Label(layoutBody, SWT.NONE);
-        spaceLabel.setText(String.format("<%s>",
-                component.getRenderer() == null || component.getRenderer().length() == 0 ? "<component>" : component.getRenderer()));
-        spaceLabel.setLayoutData(createGridData(component));
-        spaceLabel.setLayoutData(new GridData(GridData.FILL_BOTH));
-    }
-
-    private void createGroupLayout(Composite parent, EJCoreLayoutItem.LayoutGroup group)
-    {
-        Composite layoutBody = new Composite(parent, SWT.NO_FOCUS | (group.isBorder() ? SWT.BORDER : SWT.NONE));
-        layoutBody.setLayoutData(createGridData(group));
-        layoutBody.setData(CUSTOM_VARIANT, "applayout");
-        List<EJCoreLayoutItem> items = group.getItems();
-        if (items.size() > 0)
-        {
-            GridLayout gridLayout = new GridLayout(group.getColumns(), false);
-            if (group.isHideMargin())
-            {
-                gridLayout.marginHeight = 0;
-                gridLayout.marginWidth = 0;
-            }
-
-            layoutBody.setLayout(gridLayout);
-            for (EJCoreLayoutItem item : items)
-            {
-                switch (item.getType())
-                {
-                    case GROUP:
-                        createGroupLayout(layoutBody, (LayoutGroup) item);
-                        break;
-                    case SPACE:
-                        createSpace(layoutBody, (LayoutSpace) item);
-                        break;
-                    case COMPONENT:
-                        createComponent(layoutBody, (LayoutComponent) item);
-                        break;
-                    case SPLIT:
-                        createSplitLayout(layoutBody, (SplitGroup) item);
-                        break;
-                    case TAB:
-                        createTabLayout(layoutBody, (TabGroup) item);
-                        break;
-                }
-            }
-        }
-        else
-        {
-            layoutBody.setLayout(new GridLayout());
-            Label compLabel = new Label(layoutBody, SWT.NONE);
-            compLabel.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-        }
-    }
-
-    private void createSplitLayout(Composite parent, EJCoreLayoutItem.SplitGroup group)
-    {
-        SashForm layoutBody = new SashForm(parent, group.getOrientation() == ORIENTATION.HORIZONTAL ? SWT.HORIZONTAL : SWT.VERTICAL);
-        layoutBody.setLayoutData(createGridData(group));
-        List<EJCoreLayoutItem> items = group.getItems();
-        if (items.size() > 0)
-        {
-            int[] weights = new int[items.size()];
-
-            for (EJCoreLayoutItem item : items)
-            {
-                weights[items.indexOf(item)] = item.getHintWidth() + 1;
-                switch (item.getType())
-                {
-                    case GROUP:
-                        createGroupLayout(layoutBody, (LayoutGroup) item);
-                        break;
-                    case SPACE:
-                        createSpace(layoutBody, (LayoutSpace) item);
-                        break;
-                    case COMPONENT:
-                        createComponent(layoutBody, (LayoutComponent) item);
-                        break;
-                    case SPLIT:
-                        createSplitLayout(layoutBody, (SplitGroup) item);
-                        break;
-                    case TAB:
-                        createTabLayout(layoutBody, (TabGroup) item);
-                        break;
-
-                }
-            }
-
-            layoutBody.setWeights(weights);
-        }
-        else
-        {
-            layoutBody.setLayout(new GridLayout());
-            Label compLabel = new Label(layoutBody, SWT.NONE);
-            compLabel.setLayoutData(new GridData(GridData.FILL_BOTH));
-
-        }
-
-        layoutBody.setBackground(parent.getBackground());
-    }
-
-    private void createTabLayout(Composite parent, EJCoreLayoutItem.TabGroup group)
-    {
-        CTabFolder layoutBody = new CTabFolder(parent, SWT.BORDER | (group.getOrientation() == TabGroup.ORIENTATION.TOP ? SWT.TOP : SWT.BOTTOM));
-
-        layoutBody.setLayoutData(createGridData(group));
-        List<EJCoreLayoutItem> items = group.getItems();
-
-        for (EJCoreLayoutItem item : items)
-        {
-            CTabItem tabItem = new CTabItem(layoutBody, SWT.NONE);
-            Composite composite = new Composite(layoutBody, SWT.NO_FOCUS);
-            composite.setData(CUSTOM_VARIANT, "applayout");
-            composite.setData("TAB_ITEM", tabItem);
-            composite.setLayout(new GridLayout());
-            tabItem.setControl(composite);
-            tabItem.setText(item.getName() != null ? item.getName() : "");
-            switch (item.getType())
-            {
-                case GROUP:
-                    createGroupLayout(composite, (LayoutGroup) item);
-                    break;
-                case SPACE:
-                    createSpace(composite, (LayoutSpace) item);
-                    break;
-                case COMPONENT:
-                    createComponent(composite, (LayoutComponent) item);
-                    break;
-                case SPLIT:
-                    createSplitLayout(composite, (SplitGroup) item);
-                    break;
-                case TAB:
-                    createTabLayout(composite, (TabGroup) item);
-                    break;
-
-            }
-        }
-        if (items.size() > 0)
-        {
-            layoutBody.setSelection(0);
-        }
-
-    }
+    
 
     @Override
     public void formChosen(EJRWTFormChosenEvent event)
@@ -643,28 +307,19 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
     @Override
     public void fireFormClosed(EJInternalForm closedForm)
     {
-        for (EJRWTApplicationComponent component : _addedComponents)
-        {
-            component.fireFormClosed(closedForm);
-        }
+       
     }
 
     @Override
     public void fireFormOpened(EJInternalForm openedForm)
     {
-        for (EJRWTApplicationComponent component : _addedComponents)
-        {
-            component.fireFormOpened(openedForm);
-        }
+        
     }
 
     @Override
     public void fireFormSelected(EJInternalForm selectedForm)
     {
-        for (EJRWTApplicationComponent component : _addedComponents)
-        {
-            component.fireFormSelected(selectedForm);
-        }
+        
     }
 
     public EJInternalForm getForm(String formName)
