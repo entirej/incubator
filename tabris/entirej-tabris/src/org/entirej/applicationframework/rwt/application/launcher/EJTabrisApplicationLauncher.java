@@ -18,9 +18,11 @@
  ******************************************************************************/
 package org.entirej.applicationframework.rwt.application.launcher;
 
+import static com.eclipsesource.tabris.internal.Clauses.whenNull;
 import static org.eclipse.rap.rwt.internal.service.ContextProvider.getContext;
 import static org.eclipse.rap.rwt.internal.service.ContextProvider.getApplicationContext;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.MessageFormat;
@@ -39,6 +41,10 @@ import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.internal.lifecycle.RWTLifeCycle;
 import org.eclipse.rap.rwt.service.ResourceLoader;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationContainer;
@@ -52,6 +58,11 @@ import org.entirej.framework.core.properties.EJCoreMenuProperties;
 import org.entirej.framework.core.properties.EJCoreProperties;
 
 import com.eclipsesource.tabris.TabrisClientInstaller;
+import com.eclipsesource.tabris.internal.ZIndexStackLayout;
+import com.eclipsesource.tabris.internal.ui.Controller;
+import com.eclipsesource.tabris.internal.ui.UIDescriptor;
+import com.eclipsesource.tabris.internal.ui.UIImpl;
+import com.eclipsesource.tabris.internal.ui.rendering.UIRenderer;
 import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 import com.eclipsesource.tabris.ui.TabrisUI;
@@ -112,6 +123,8 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
     {
         TabrisClientInstaller.install( configuration );
         Map<String, String> properties = new HashMap<String, String>();
+
+        configuration.setOperationMode(OperationMode.SWT_COMPATIBILITY);
         if (this.getClass().getClassLoader().getResource("application.ejprop") != null)
         {
             EJFrameworkInitialiser.initialiseFramework("application.ejprop");
@@ -171,7 +184,7 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
                         }
 
                         getContext().getUISession().setAttribute("ej.applicationManager", applicationManager);
-
+                       
                         
 
                         
@@ -186,21 +199,81 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
                         
                         //build tabris ui
                         UIConfiguration uiConfiguration = new UIConfiguration();
+                        getContext().getUISession().setAttribute("ej.tabrisUIConfiguration", uiConfiguration);
+
                         initRootPageConfiguration(uiConfiguration);
+                        
                         Shell shell = new Shell(display, SWT.NO_TRIM);
-                        TabrisUI tabrisUI = new TabrisUI(uiConfiguration);
                         // Now build the application container
                         EJRWTApplicationContainer appContainer = new EJRWTApplicationContainer();
-                        
+
+                        create(shell, uiConfiguration);
                         applicationManager.buildApplication(appContainer, shell);
                         postApplicationBuild(applicationManager);
-                        tabrisUI.create(shell);
                         shell.layout();
                         shell.setMaximized(true);
 
 
                         return openShell(display, shell);
                     }
+                    
+                    
+                    public void create( Shell shell ,UIConfiguration uiConfiguration) {
+                        whenNull( shell ).throwIllegalArgument( "Shell must not be null" );
+                        prepareShell( shell );
+                        UIDescriptor uiDescriptor = uiConfiguration.getAdapter( UIDescriptor.class );
+                        UIRenderer uiRenderer = uiDescriptor.getRendererFactory().createUIRenderer( shell );
+                        Composite pageParent = uiRenderer.getPageParent();
+                        pageParent.setLayout( new ZIndexStackLayout() );
+                        Controller controller = new Controller( uiRenderer, uiDescriptor );
+                        UIImpl ui = prepareUi( pageParent.getDisplay(), uiRenderer, uiConfiguration, controller );
+
+                        getContext().getUISession().setAttribute("ej.tabrisUI", ui);
+                        configure( uiConfiguration, ui );
+                        setUiColors( pageParent.getDisplay(), uiRenderer, uiConfiguration );
+                        setUiImage( pageParent.getDisplay(), uiRenderer, uiConfiguration );
+                        prepareController( controller, ui );
+                      }
+
+                      private void prepareShell( Shell shell ) {
+                        shell.setMaximized( true );
+                      }
+
+                      private UIImpl prepareUi( Display display, UIRenderer uiRenderer, UIConfiguration configuration, Controller controller ) {
+                        UIImpl ui = new UIImpl( display, controller, configuration );
+                        uiRenderer.setUi( ui );
+                        uiRenderer.setController( controller );
+                        return ui;
+                      }
+
+                      private void configure( UIConfiguration configuration, UIImpl ui ) {
+                        ui.markInitialized();
+                      }
+
+                      private void setUiColors( Display display, UIRenderer uiRenderer, UIConfiguration configuration ) {
+                        RGB background = configuration.getBackground();
+                        if( background != null ) {
+                          uiRenderer.setBackground( new Color( display, background ) );
+                        }
+                        RGB foreground = configuration.getForeground();
+                        if( foreground != null ) {
+                          uiRenderer.setForeground( new Color( display, foreground ) );
+                        }
+                      }
+
+                      private void setUiImage( Display display, UIRenderer uiRenderer, UIConfiguration configuration ) {
+                        byte[] imageBytes = configuration.getImage();
+                        if( imageBytes != null ) {
+                          Image image = new Image( display, new ByteArrayInputStream( imageBytes ) );
+                          uiRenderer.setImage( image );
+                        }
+                      }
+
+                      private void prepareController( Controller controller, UIImpl ui ) {
+                        controller.setUI( ui );
+                        controller.createGlobalActions( ui );
+                        controller.createRootPages( ui );
+                      }
                 };
             }
         }, properties);

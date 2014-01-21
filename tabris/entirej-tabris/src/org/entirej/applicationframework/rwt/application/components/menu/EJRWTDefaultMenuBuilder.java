@@ -24,8 +24,10 @@ package org.entirej.applicationframework.rwt.application.components.menu;
 import java.io.Serializable;
 
 import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
@@ -42,10 +44,12 @@ import org.entirej.framework.core.actionprocessor.interfaces.EJMenuActionProcess
 import org.entirej.framework.core.enumerations.EJFrameworkMessage;
 import org.entirej.framework.core.interfaces.EJApplicationManager;
 
+import com.eclipsesource.tabris.widgets.enhancement.TreeDecorator;
+import com.eclipsesource.tabris.widgets.enhancement.TreeDecorator.TreePart;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
+
 public class EJRWTDefaultMenuBuilder implements Serializable
 {
-    public static final String   COMMAND_MESSAGE_HISTORY = "_COMMAND_MESSAGE_HISTORY";
-    public static final String   COMMAND_ABOUT_DIALOG    = "COMMAND_MESSAGE_HISTORY";
 
     private TreeViewer           _menuTree;
     private EJApplicationManager _applicationManager;
@@ -57,9 +61,13 @@ public class EJRWTDefaultMenuBuilder implements Serializable
         this._parent = parent;
     }
 
-    private TreeViewer createMenuTree(EJRWTMenuTreeRoot root, boolean tselectionMode)
+    private TreeViewer createMenuTree(EJRWTMenuTreeRoot root)
     {
         _menuTree = new TreeViewer(_parent);
+        //enable tabris options
+        TreeDecorator onTree = Widgets.onTree(_menuTree.getTree());
+        onTree.enableBackButtonNavigation();
+        //onTree.enableAlternativeSelection(TreePart.LEAF);
 
         _menuTree.setContentProvider(new EJRWTMenuTreeContentProvider());
         _menuTree.setLabelProvider(new LabelProvider()
@@ -85,7 +93,6 @@ public class EJRWTDefaultMenuBuilder implements Serializable
             }
 
         });
-        _menuTree.setAutoExpandLevel(2);
         _menuTree.setInput(root);
 
         EJMenuActionProcessor actionProcessor = null;
@@ -126,53 +133,11 @@ public class EJRWTDefaultMenuBuilder implements Serializable
         }
         final EJMenuActionProcessor menuActionProcessor = actionProcessor;
 
-        if (tselectionMode)
-        {
-            _menuTree.getTree().addMouseListener(new MouseAdapter()
-            {
-                @Override
-                public void mouseUp(MouseEvent event)
-                {
-                    ISelection selection = _menuTree.getSelection();
-                    if (selection instanceof IStructuredSelection)
-                    {
-                        IStructuredSelection structuredSelection = (IStructuredSelection) selection;
-                        if (structuredSelection.getFirstElement() instanceof EJRWTMenuTreeElement)
-                        {
-                            EJRWTMenuTreeElement element = (EJRWTMenuTreeElement) structuredSelection.getFirstElement();
-                            if (element.getType() == Type.FORM)
-                            {
-                                _applicationManager.getFrameworkManager().openForm(element.getActionCommand(), null, false);
-                            }
-                            else if (element.getType() == Type.ACTION && menuActionProcessor != null)
-                            {
-                                try
-                                {
-                                    menuActionProcessor.executeActionCommand(element.getActionCommand());
-                                }
-                                catch (EJActionProcessorException e)
-                                {
-                                    _applicationManager.getApplicationMessenger().handleException(e, true);
-                                }
-                            }
+        
+        _menuTree.addSelectionChangedListener( new ISelectionChangedListener() {
 
-                        }
-                    }
-                }
-            });
-
-        }
-        _menuTree.getTree().addSelectionListener(new SelectionListener()
-        {
-            @Override
-            public void widgetSelected(SelectionEvent arg0)
-            {
-            }
-
-            @Override
-            public void widgetDefaultSelected(SelectionEvent arg0)
-            {
-                ISelection selection = _menuTree.getSelection();
+            public void selectionChanged( SelectionChangedEvent event ) {
+                IStructuredSelection selection = ( IStructuredSelection )event.getSelection();
                 if (selection instanceof IStructuredSelection)
                 {
                     IStructuredSelection structuredSelection = (IStructuredSelection) selection;
@@ -180,10 +145,8 @@ public class EJRWTDefaultMenuBuilder implements Serializable
                     {
                         EJRWTMenuTreeElement element = (EJRWTMenuTreeElement) structuredSelection.getFirstElement();
                         if (element.getType() == Type.FORM)
-                        {
                             _applicationManager.getFrameworkManager().openForm(element.getActionCommand(), null, false);
-                        }
-                        else if (element.getType() == Type.ACTION && menuActionProcessor != null)
+                        else if (element.getType() == Type.ACTION && menuActionProcessor!=null)
                         {
                             try
                             {
@@ -194,11 +157,11 @@ public class EJRWTDefaultMenuBuilder implements Serializable
                                 _applicationManager.getApplicationMessenger().handleException(e, true);
                             }
                         }
-
+                        
                     }
                 }
             }
-
+            
         });
         return _menuTree;
     }
@@ -207,16 +170,10 @@ public class EJRWTDefaultMenuBuilder implements Serializable
     {
         EJRWTMenuTreeRoot root = EJRWTDefaultMenuPropertiesBuilder.buildMenuProperties(_applicationManager, menuId);
 
-        _menuTree = createMenuTree(root, false);
+        _menuTree = createMenuTree(root);
         return _menuTree.getControl();
     }
 
-    public Control createTreeComponent(String menuId, boolean tselectionMode)
-    {
-        EJRWTMenuTreeRoot root = EJRWTDefaultMenuPropertiesBuilder.buildMenuProperties(_applicationManager, menuId);
-
-        _menuTree = createMenuTree(root, tselectionMode);
-        return _menuTree.getControl();
-    }
+    
 
 }

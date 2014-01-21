@@ -25,7 +25,7 @@ public class EJRWTFormPopupPage extends AbstractPage
         final int width = form.getProperties().getFormWidth();
         EJRWTFormRenderer renderer = ((EJRWTFormRenderer) form.getRenderer());
         
-        
+       
         parent.setLayout(new FillLayout());
         final ScrolledComposite scrollComposite = new ScrolledComposite(parent,
                 SWT.V_SCROLL | SWT.H_SCROLL);

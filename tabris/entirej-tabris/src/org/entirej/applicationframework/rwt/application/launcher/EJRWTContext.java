@@ -22,6 +22,10 @@ import static org.eclipse.rap.rwt.internal.service.ContextProvider.getContext;
 
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 
+import com.eclipsesource.tabris.ui.TabrisUI;
+import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.UIConfiguration;
+
 public class EJRWTContext
 {
     private static final String CONTEXT_ID = "ej.EJRWTContext";
@@ -39,5 +43,13 @@ public class EJRWTContext
     public static EJRWTApplicationManager getEJRWTApplicationManager()
     {
         return (EJRWTApplicationManager) getContext().getUISession().getAttribute("ej.applicationManager");
+    }
+    public static UIConfiguration getUiConfiguration()
+    {
+        return (UIConfiguration) getContext().getUISession().getAttribute("ej.tabrisUIConfiguration");
+    }
+    public static UI getTabrisUI()
+    {
+        return (UI) getContext().getUISession().getAttribute("ej.tabrisUI");
     }
 }

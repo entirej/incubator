@@ -15,7 +15,6 @@ public class EJRWTFormPage extends AbstractPage
 
 
     private static final long serialVersionUID = 406668660828951594L;
-    public static final String ID          = EJRWTFormPage.class.getName();
     public static final String FORM_ID_KEY = "FPIK";
 
     @Override
@@ -35,5 +34,15 @@ public class EJRWTFormPage extends AbstractPage
         scrollComposite.setExpandVertical(true);
         scrollComposite.setMinSize(width, height);
     }
+    
+    
+    public static PageData createPageData(EJInternalForm form)
+    {
+        PageData data = new PageData();
+        data.set(FORM_ID_KEY, form);
+        return data;
+    }
+    
+    
 
 }
