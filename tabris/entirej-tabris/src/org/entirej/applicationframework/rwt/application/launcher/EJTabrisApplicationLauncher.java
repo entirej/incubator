@@ -81,6 +81,10 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
     {
         return "icons/favicon.ico";
     }
+    protected String getApplicationIcon()
+    {
+        return "icons/EJ.png";
+    }
 
     protected String getLoadingImage()
     {
@@ -199,6 +203,7 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
                         
                         //build tabris ui
                         UIConfiguration uiConfiguration = new UIConfiguration();
+                        uiConfiguration.setImage(EJTabrisApplicationLauncher.class.getClassLoader().getResourceAsStream(getApplicationIcon()));
                         getContext().getUISession().setAttribute("ej.tabrisUIConfiguration", uiConfiguration);
 
                         initRootPageConfiguration(uiConfiguration);

@@ -47,8 +47,10 @@ import org.entirej.framework.core.internal.EJInternalForm;
 import org.entirej.framework.core.properties.EJCoreFormProperties;
 import org.entirej.framework.core.renderers.interfaces.EJApplicationComponentRenderer;
 
+import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.PageStyle;
 import com.eclipsesource.tabris.ui.TabrisUI;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
@@ -95,63 +97,92 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
                 @Override
                 public EJInternalForm switchToForm(String key)
                 {
-                    // TODO Auto-generated method stub
+                    //not supported
                     return null;
                 }
                 
                 @Override
                 public void removeFormSelectedListener(EJRWTFormSelectedListener selectionListener)
                 {
-                    // TODO Auto-generated method stub
+                    //ignore
                     
                 }
                 
                 @Override
                 public void popupFormClosed()
                 {
-                    // TODO Auto-generated method stub
+                    PageData currentPageData = ui.getPageOperator().getCurrentPageData();
+                    if(currentPageData!=null && currentPageData.get("POPUP", Boolean.class))
+                    {
+                        Page currentPage = ui.getPageOperator().getCurrentPage();
+                        closeForm(((EJRWTFormPage)currentPage).getForm());
+                    }
                     
                 }
                 
                 @Override
                 public void openPopupForm(EJPopupFormController popupController)
                 {
-                    // TODO Auto-generated method stub
+                    EJInternalForm form = popupController.getPopupForm();
+                    
+                    final EJCoreFormProperties formProp = form.getProperties();
+                    String pageID = toFormPageIDe(formProp.getName());
+                    if(configuration.getPageConfiguration(pageID)==null)
+                    {
+                        PageConfiguration pageConfiguration = new PageConfiguration( pageID, EJRWTFormPage.class )
+                        .setTitle( formProp.getTitle() );
+                        pageConfiguration.setStyle(PageStyle.FULLSCREEN);
+                        configuration.addPageConfiguration(pageConfiguration);
+                        
+                    }
+                    
+                    PageData pageData = EJRWTFormPage.createPageData(form);
+                    pageData.set("POPUP", Boolean.TRUE);
+                    ui.getPageOperator().openPage(pageID, pageData);
+                    
                     
                 }
                 
                 @Override
                 public Collection<EJInternalForm> getAllForms()
                 {
-                    // TODO Auto-generated method stub
-                    return null;
+                    return Collections.emptyList();
                 }
                 
                 @Override
                 public EJInternalForm getActiveForm()
                 {
-                    // TODO Auto-generated method stub
-                    return null;
+                    Page currentPage = ui.getPageOperator().getCurrentPage();
+                    return currentPage instanceof EJRWTFormPage ? ((EJRWTFormPage)currentPage).getForm() : null;
                 }
                 
                 @Override
                 public boolean containsForm(String formName)
                 {
-                    // TODO Auto-generated method stub
                     return false;
                 }
                 
                 @Override
                 public void closeForm(EJInternalForm form)
                 {
-                    // TODO Auto-generated method stub
-                    
+
+                    String pageId = toFormPageIDe(form.getProperties().getName());
+                    if(pageId.equals( ui.getPageOperator().getCurrentPageId()))
+                    {
+                        ui.getPageOperator().closeCurrentPage();
+                    }
+                    //switch to page page and close;
+                    PageConfiguration pageConfiguration = configuration.getPageConfiguration(pageId);
+                    if(pageConfiguration!=null)
+                    {
+                        configuration.removePageConfiguration(pageId);
+                    }
                 }
                 
                 @Override
                 public void addFormSelectedListener(EJRWTFormSelectedListener selectionListener)
                 {
-                    // TODO Auto-generated method stub
+                    //ignore
                     
                 }
                 
@@ -164,9 +195,13 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
                     {
                         PageConfiguration pageConfiguration = new PageConfiguration( pageID, EJRWTFormPage.class )
                         .setTitle( formProp.getTitle() );
+                        pageConfiguration.setStyle(PageStyle.DEFAULT);
                         configuration.addPageConfiguration(pageConfiguration);
+                        
                     }
+                    
                     PageData pageData = EJRWTFormPage.createPageData(form);
+                    pageData.set("POPUP", Boolean.FALSE);
                     ui.getPageOperator().openPage(pageID, pageData);
                     return form;
                 }
@@ -258,8 +293,7 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
                 @Override
                 public EJInternalForm addForm(final EJInternalForm form)
                 {
-                    final int height = form.getProperties().getFormHeight();
-                    final int width = form.getProperties().getFormWidth();
+                    
 
                     final EJRWTFormRenderer formRenderer = (EJRWTFormRenderer) form.getRenderer();
                     _popupDialog = new EJRWTAbstractDialog(_applicationManager.getShell())

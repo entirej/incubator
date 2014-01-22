@@ -16,25 +16,36 @@ public class EJRWTFormPage extends AbstractPage
 
     private static final long serialVersionUID = 406668660828951594L;
     public static final String FORM_ID_KEY = "FPIK";
-
+    
+    private  EJInternalForm form;
+    
+    
     @Override
     public void createContent(Composite parent, PageData data)
     {
-        EJInternalForm form = data.get(FORM_ID_KEY, EJInternalForm.class);
-        final  int height = form.getProperties().getFormHeight();
-        final int width = form.getProperties().getFormWidth();
-        EJRWTFormRenderer renderer = ((EJRWTFormRenderer) form.getRenderer());
-        
-        parent.setLayout(new FillLayout());
-        final ScrolledComposite scrollComposite = new ScrolledComposite(parent,
-                SWT.V_SCROLL | SWT.H_SCROLL);
-        renderer.createControl(scrollComposite);
-        scrollComposite.setContent(renderer.getGuiComponent());
-        scrollComposite.setExpandHorizontal(true);
-        scrollComposite.setExpandVertical(true);
-        scrollComposite.setMinSize(width, height);
+         form = data.get(FORM_ID_KEY, EJInternalForm.class);
+        if(form!=null)
+        {
+            final  int height = form.getProperties().getFormHeight();
+            final int width = form.getProperties().getFormWidth();
+            EJRWTFormRenderer renderer = ((EJRWTFormRenderer) form.getRenderer());
+            
+            parent.setLayout(new FillLayout());
+            final ScrolledComposite scrollComposite = new ScrolledComposite(parent,
+                    SWT.V_SCROLL | SWT.H_SCROLL);
+            renderer.createControl(scrollComposite);
+            scrollComposite.setContent(renderer.getGuiComponent());
+            scrollComposite.setExpandHorizontal(true);
+            scrollComposite.setExpandVertical(true);
+            scrollComposite.setMinSize(width, height);
+        }
     }
     
+    
+    public EJInternalForm getForm()
+    {
+        return form;
+    }
     
     public static PageData createPageData(EJInternalForm form)
     {
