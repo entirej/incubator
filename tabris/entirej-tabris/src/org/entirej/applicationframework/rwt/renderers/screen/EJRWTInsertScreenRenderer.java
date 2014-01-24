@@ -27,7 +27,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
+import org.entirej.applicationframework.rwt.application.launcher.EJRWTContext;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJGridPane;
+import org.entirej.applicationframework.rwt.pages.EJRWTFormPage;
+import org.entirej.applicationframework.rwt.pages.EJRWTScreenPage;
 import org.entirej.applicationframework.rwt.renderers.item.EJRWTItemTextChangeNotifier;
 import org.entirej.applicationframework.rwt.renderers.item.EJRWTItemTextChangeNotifier.ChangeListener;
 import org.entirej.applicationframework.rwt.renderers.screen.definition.interfaces.EJRWTScreenRendererDefinitionProperties;
@@ -53,17 +56,23 @@ import org.entirej.framework.core.renderers.registry.EJInsertScreenItemRendererR
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.eclipsesource.tabris.ui.PageConfiguration;
+import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.PageStyle;
+import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.UIConfiguration;
+
 public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer implements EJInsertScreenRenderer, EJItemValueChangedListener
 {
     private final int                          INSERT_OK_ACTION_COMMAND     = 0;
     private final int                          INSERT_CANCEL_ACTION_COMMAND = -1;
 
     private EJEditableBlockController          _block;
-    private EJRWTAbstractDialog                _insertDialog;
+    private EJRWTScreenPage.Context                _insertDialog;
     private EJInsertScreenItemRendererRegister _itemRegister;
     private EJFrameworkManager                 _frameworkManager;
-    private boolean                            _maximize;
     final Logger                               _logger                       = LoggerFactory.getLogger(EJRWTInsertScreenRenderer.class);
+    private String title;
 
     @Override
     public void refreshInsertScreenRendererProperty(String propertyName)
@@ -129,16 +138,29 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
     @Override
     public void open(EJDataRecord record)
     {
+       
         _itemRegister.resetRegister();
         setupInsertScreen();
+        
+        String pageID = toPageID(_block.getProperties().getName());
+        final UI ui = EJRWTContext.getTabrisUI();
+        final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+        
+        if(configuration.getPageConfiguration(pageID)==null)
+        {
+            PageConfiguration pageConfiguration = new PageConfiguration( pageID, EJRWTScreenPage.class )
+            .setTitle( title != null ? title : "");
+            pageConfiguration.setStyle(PageStyle.DEFAULT);
+            configuration.addPageConfiguration(pageConfiguration);
+            
+        }
+        PageData pageData = EJRWTScreenPage.createPageData(_insertDialog);
+        ui.getPageOperator().openPage(pageID, pageData);
+        
+        
 
         _itemRegister.register(record);
-        _insertDialog.centreLocation();
-        if (_maximize)
-        {
-            _insertDialog.getShell().setMaximized(_maximize);
-        }
-        _insertDialog.open();
+        _insertDialog.validate();
     }
 
     @Override
@@ -175,9 +197,8 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
         // Setup pane for Insert window
         EJFrameworkExtensionProperties rendererProperties = _block.getProperties().getInsertScreenRendererProperties();
 
-        String title = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.TITLE);
+         title = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.TITLE);
         final int width = rendererProperties.getIntProperty(EJRWTScreenRendererDefinitionProperties.WIDTH, 300);
-        _maximize = rendererProperties.getBooleanProperty(EJRWTScreenRendererDefinitionProperties.MAXIMIZE, false);
         final int height = rendererProperties.getIntProperty(EJRWTScreenRendererDefinitionProperties.HEIGHT, 500);
         final int numCols = rendererProperties.getIntProperty(EJRWTScreenRendererDefinitionProperties.NUM_COLS, 1);
         final String insertButtonLabel = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.EXECUTE_BUTTON_TEXT);
@@ -202,7 +223,7 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
         final int ID_BUTTON_4 = 4;
         final int ID_BUTTON_5 = 5;
 
-        _insertDialog = new EJRWTAbstractDialog(getRWTManager().getShell())
+        _insertDialog = new EJRWTScreenPage.Context ()
         {
             @Override
             public void createBody(Composite parent)
@@ -243,8 +264,8 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
             @Override
             public void validate()
             {
-                Button button = getButton(INSERT_OK_ACTION_COMMAND);
-                if (button == null)
+                Button button = page.getButton(INSERT_OK_ACTION_COMMAND);
+                if (button == null || button.isDisposed())
                 {
                     return;
                 }
@@ -261,11 +282,10 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
             }
 
             @Override
-            public int open()
+            public void open()
             {
                 validate();
                 setFoucsItemRenderer();
-                return super.open();
             }
 
             @Override
@@ -277,8 +297,8 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
                 addExtraButton(parent, button3Label, ID_BUTTON_3);
                 addExtraButton(parent, button2Label, ID_BUTTON_2);
                 addExtraButton(parent, button1Label, ID_BUTTON_1);
-                createButton(parent, INSERT_OK_ACTION_COMMAND, insertButtonLabel == null ? "Insert" : insertButtonLabel, true);
-                createButton(parent, INSERT_CANCEL_ACTION_COMMAND, cancelButtonLabel == null ? "Cancel" : cancelButtonLabel, false);
+                page.createButton(parent, INSERT_OK_ACTION_COMMAND, insertButtonLabel == null ? "Insert" : insertButtonLabel, true);
+                page.createButton(parent, INSERT_CANCEL_ACTION_COMMAND, cancelButtonLabel == null ? "Cancel" : cancelButtonLabel, false);
             }
 
             private void addExtraButton(Composite parent, String label, int id)
@@ -287,15 +307,29 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
                 {
                     return;
                 }
-                createButton(parent, id, label, false);
+                page.createButton(parent, id, label, false);
             }
 
             @Override
-            public boolean close()
+            public void close()
             {
                 _block.removeItemValueChangedListener(EJRWTInsertScreenRenderer.this);
                 _block.setRendererFocus(true);
-                return super.close();
+                
+                final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+                final UI ui = EJRWTContext.getTabrisUI();
+                String pageID = toPageID(_block.getProperties().getName());
+                if(pageID.equals( ui.getPageOperator().getCurrentPageId()))
+                {
+                    ui.getPageOperator().closeCurrentPage();
+                }
+                //switch to page page and close;
+                PageConfiguration pageConfiguration = configuration.getPageConfiguration(pageID);
+                if(pageConfiguration!=null)
+                {
+                    configuration.removePageConfiguration(pageID);
+                }
+                
             }
 
             @Override
@@ -305,7 +339,7 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
             }
 
             @Override
-            protected void buttonPressed(int buttonId)
+            public void buttonPressed(int buttonId)
             {
                 try
                 {
@@ -327,7 +361,7 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
                             catch (EJApplicationException e)
                             {
 
-                                setButtonEnable(buttonId, false);
+                                page.setButtonEnable(buttonId, false);
                                 throw e;
                             }
                             close();
@@ -379,13 +413,16 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
                 super.buttonPressed(buttonId);
             }
         };
-        _insertDialog.create();
-        _insertDialog.getShell().setData("INSERT - " + _block.getProperties().getName());
-        _insertDialog.getShell().setText(title != null ? title : "");
-        // add dialog border offsets
-        _insertDialog.getShell().setSize(width + 80, height + 100);
+        
+        
     }
 
+    
+    private String toPageID(String name)
+    {
+        return String.format("EJFI_%s", name);
+    }
+    
     @Override
     protected EJInternalEditableBlock getBlock()
     {
@@ -421,4 +458,8 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
             _insertDialog.validate();
         }
     }
+    
+    
+    
+    
 }

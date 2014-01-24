@@ -28,6 +28,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 public abstract class EJRWTAbstractDialog extends Dialog implements Serializable
@@ -37,9 +38,9 @@ public abstract class EJRWTAbstractDialog extends Dialog implements Serializable
 
     public EJRWTAbstractDialog(final Shell parent)
     {
-        super(parent);
+        super(new Shell(Display.getCurrent(), SWT.NO_TRIM));
         _parent = parent;
-        setShellStyle(getShellStyle() | SWT.RESIZE | SWT.MAX);
+        setShellStyle(getShellStyle() );
         setBlockOnOpen(false);
     }
 

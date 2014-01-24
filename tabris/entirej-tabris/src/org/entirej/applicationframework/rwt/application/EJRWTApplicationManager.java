@@ -89,15 +89,15 @@ public class EJRWTApplicationManager implements EJApplicationManager, Serializab
  
 
   
-    public void buildApplication(EJRWTApplicationContainer container, Composite mainWindow)
+    public void buildApplication(EJRWTApplicationContainer container, Shell shell)
     {
         if (container == null)
         {
             throw new NullPointerException("The ApplicationContainer cannot bu null");
         }
-        shell = mainWindow.getShell();
+        this.shell = shell;
         _applicationContainer = container;
-        _applicationContainer.buildApplication(this, mainWindow);
+        _applicationContainer.buildApplication(this);
     }
 
     @Override

@@ -82,7 +82,7 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
 
     
 
-    void buildApplication(EJRWTApplicationManager applicationManager, Composite mainWindow)
+    void buildApplication(EJRWTApplicationManager applicationManager)
     {
         _applicationManager = applicationManager;
 

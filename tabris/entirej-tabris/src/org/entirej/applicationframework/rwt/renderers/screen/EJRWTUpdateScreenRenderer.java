@@ -136,10 +136,7 @@ public class EJRWTUpdateScreenRenderer extends EJRWTAbstractScreenRenderer imple
         setupUpdateScreen();
         _itemRegister.register(recordToUpdate);
         _updateDialog.centreLocation();
-        if (_maximize)
-        {
-            _updateDialog.getShell().setMaximized(_maximize);
-        }
+        _updateDialog.getShell().setMaximized(true);
         _updateDialog.open();
     }
 

@@ -200,7 +200,7 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
                         
                         
                        
-                        
+                      
                         //build tabris ui
                         UIConfiguration uiConfiguration = new UIConfiguration();
                         uiConfiguration.setImage(EJTabrisApplicationLauncher.class.getClassLoader().getResourceAsStream(getApplicationIcon()));
@@ -212,6 +212,7 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
                         // Now build the application container
                         EJRWTApplicationContainer appContainer = new EJRWTApplicationContainer();
 
+                        
                         create(shell, uiConfiguration);
                         applicationManager.buildApplication(appContainer, shell);
                         postApplicationBuild(applicationManager);

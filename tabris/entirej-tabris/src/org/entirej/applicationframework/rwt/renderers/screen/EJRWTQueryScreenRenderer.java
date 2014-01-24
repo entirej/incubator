@@ -152,10 +152,9 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
         _itemRegister.register(queryRecord);
         _itemRegister.initialiseRegisteredRenderers();
         _queryDialog.centreLocation();
-        if (_maximize)
-        {
-            _queryDialog.getShell().setMaximized(_maximize);
-        }
+        
+        _queryDialog.getShell().setMaximized(true);
+        
         _queryDialog.open();
     }
 
