@@ -27,7 +27,9 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
+import org.entirej.applicationframework.rwt.application.launcher.EJRWTContext;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJGridPane;
+import org.entirej.applicationframework.rwt.pages.EJRWTScreenPage;
 import org.entirej.applicationframework.rwt.renderers.item.EJRWTItemTextChangeNotifier;
 import org.entirej.applicationframework.rwt.renderers.item.EJRWTItemTextChangeNotifier.ChangeListener;
 import org.entirej.applicationframework.rwt.renderers.screen.definition.interfaces.EJRWTScreenRendererDefinitionProperties;
@@ -61,19 +63,25 @@ import org.entirej.framework.core.service.EJRestrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.eclipsesource.tabris.ui.PageConfiguration;
+import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.PageStyle;
+import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.UIConfiguration;
+
 public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implements EJQueryScreenRenderer, EJItemValueChangedListener
 {
     private final int                         QUERY_OK_ACTION_COMMAND     = 0;
     private final int                         QUERY_CANCEL_ACTION_COMMAND = 2;
     private final int                         QUERY_CLEAR_ACTION_COMMAND  = 4;
-    
+
     private EJBlockController                 _block;
-    private EJRWTAbstractDialog               _queryDialog;
+    private EJRWTScreenPage.Context           _queryDialog;
     private EJQueryScreenItemRendererRegister _itemRegister;
     private EJFrameworkManager                _frameworkManager;
-    private boolean                           _maximize;
-    
-    final Logger                              _logger                      = LoggerFactory.getLogger(EJRWTQueryScreenRenderer.class);
+
+    final Logger                              _logger                     = LoggerFactory.getLogger(EJRWTQueryScreenRenderer.class);
+    private String title;
 
     @Override
     public void refreshQueryScreenRendererProperty(String propertyName)
@@ -149,13 +157,22 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
     {
         _itemRegister.resetRegister();
         setupQueryScreen();
+        
+        String pageID = toPageID(_block.getProperties().getName());
+        final UI ui = EJRWTContext.getTabrisUI();
+        final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+
+        if (configuration.getPageConfiguration(pageID) == null)
+        {
+            PageConfiguration pageConfiguration = new PageConfiguration(pageID, EJRWTScreenPage.class).setTitle(title != null ? title : "");
+            pageConfiguration.setStyle(PageStyle.DEFAULT);
+            configuration.addPageConfiguration(pageConfiguration);
+
+        }
+        PageData pageData = EJRWTScreenPage.createPageData(_queryDialog);
+        ui.getPageOperator().openPage(pageID, pageData);
         _itemRegister.register(queryRecord);
         _itemRegister.initialiseRegisteredRenderers();
-        _queryDialog.centreLocation();
-        
-        _queryDialog.getShell().setMaximized(true);
-        
-        _queryDialog.open();
     }
 
     @Override
@@ -163,6 +180,12 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
     {
         _queryDialog.close();
         _queryDialog = null;
+    }
+    
+    
+    private String toPageID(String name)
+    {
+        return String.format("EJFQ_%s", name);
     }
 
     @Override
@@ -192,16 +215,15 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
         // Setup pane for query window
         EJFrameworkExtensionProperties rendererProperties = _block.getProperties().getQueryScreenRendererProperties();
 
-        String title = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.TITLE);
+        title = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.TITLE);
         final int width = rendererProperties.getIntProperty(EJRWTScreenRendererDefinitionProperties.WIDTH, 300);
         final int height = rendererProperties.getIntProperty(EJRWTScreenRendererDefinitionProperties.HEIGHT, 500);
-        _maximize = rendererProperties.getBooleanProperty(EJRWTScreenRendererDefinitionProperties.MAXIMIZE, false);
         final int numCols = rendererProperties.getIntProperty(EJRWTScreenRendererDefinitionProperties.NUM_COLS, 1);
         final String queryButtonLabel = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.EXECUTE_BUTTON_TEXT);
         final String cancelButtonLabel = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.CANCEL_BUTTON_TEXT);
         final String clearButtonLabel = rendererProperties.getStringProperty(EJRWTScreenRendererDefinitionProperties.CLEAR_BUTTON_TEXT);
 
-        _queryDialog = new EJRWTAbstractDialog(getRWTManager().getShell())
+        _queryDialog = new EJRWTScreenPage.Context()
         {
             private static final long serialVersionUID = -4685316941898120169L;
 
@@ -244,8 +266,8 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
             @Override
             public void validate()
             {
-                Button button = getButton(QUERY_OK_ACTION_COMMAND);
-                if (button == null)
+                Button button = page.getButton(QUERY_OK_ACTION_COMMAND);
+                if (button == null || button.isDisposed())
                 {
                     return;
                 }
@@ -262,31 +284,42 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
             }
 
             @Override
-            public int open()
+            public void open()
             {
                 validate();
                 setFoucsItemRenderer();
-                return super.open();
             }
 
             @Override
             protected void createButtonsForButtonBar(Composite parent)
             {
-                createButton(parent, QUERY_OK_ACTION_COMMAND, queryButtonLabel == null ? "Query" : queryButtonLabel, true);
-                createButton(parent, QUERY_CLEAR_ACTION_COMMAND, clearButtonLabel == null ? "Clear" : clearButtonLabel, false);
-                createButton(parent, QUERY_CANCEL_ACTION_COMMAND, cancelButtonLabel == null ? "Cancel" : cancelButtonLabel, false);
+                page.createButton(parent, QUERY_OK_ACTION_COMMAND, queryButtonLabel == null ? "Query" : queryButtonLabel, true);
+                page.createButton(parent, QUERY_CLEAR_ACTION_COMMAND, clearButtonLabel == null ? "Clear" : clearButtonLabel, false);
+                page.createButton(parent, QUERY_CANCEL_ACTION_COMMAND, cancelButtonLabel == null ? "Cancel" : cancelButtonLabel, false);
             }
 
             @Override
-            public boolean close()
+            public void close()
             {
                 _block.removeItemValueChangedListener(EJRWTQueryScreenRenderer.this);
                 _block.setRendererFocus(true);
-                return super.close();
+                final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+                final UI ui = EJRWTContext.getTabrisUI();
+                String pageID = toPageID(_block.getProperties().getName());
+                if (pageID.equals(ui.getPageOperator().getCurrentPageId()))
+                {
+                    ui.getPageOperator().closeCurrentPage();
+                }
+                // switch to page page and close;
+                PageConfiguration pageConfiguration = configuration.getPageConfiguration(pageID);
+                if (pageConfiguration != null)
+                {
+                    configuration.removePageConfiguration(pageID);
+                }
             }
 
             @Override
-            protected void buttonPressed(int buttonId)
+            public void buttonPressed(int buttonId)
             {
                 try
                 {
@@ -330,7 +363,7 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
                             }
                             catch (EJApplicationException e)
                             {
-                                setButtonEnable(buttonId, false);
+                                page.setButtonEnable(buttonId, false);
                                 throw e;
                             }
                             close();
@@ -358,11 +391,6 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
                 super.buttonPressed(buttonId);
             }
         };
-        _queryDialog.create();
-        _queryDialog.getShell().setData("QUERY - " + _block.getProperties().getName());
-        _queryDialog.getShell().setText(title != null ? title : "");
-        // add dialog border offsets
-        _queryDialog.getShell().setSize(width + 80, height + 100);
     }
 
     @Override

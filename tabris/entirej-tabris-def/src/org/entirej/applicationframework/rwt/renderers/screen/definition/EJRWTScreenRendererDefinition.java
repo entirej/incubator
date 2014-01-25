@@ -78,10 +78,7 @@ public abstract class EJRWTScreenRendererDefinition implements EJRendererDefinit
         height.setDefaultValue("400");
         height.setMandatory(true);
 
-        EJDevPropertyDefinition maximize = new EJDevPropertyDefinition(EJRWTScreenRendererDefinitionProperties.MAXIMIZE, EJPropertyDefinitionType.BOOLEAN);
-        maximize.setLabel("Maximize");
-        maximize.setDescription("Maximize dialog on open");
-        maximize.setDefaultValue("false");
+       
 
         EJDevPropertyDefinition numCols = new EJDevPropertyDefinition(EJRWTScreenRendererDefinitionProperties.NUM_COLS, EJPropertyDefinitionType.INTEGER);
         numCols.setLabel("Number of Columns");
@@ -102,7 +99,6 @@ public abstract class EJRWTScreenRendererDefinition implements EJRendererDefinit
         mainGroup.addPropertyDefinition(title);
         mainGroup.addPropertyDefinition(width);
         mainGroup.addPropertyDefinition(height);
-        mainGroup.addPropertyDefinition(maximize);
         mainGroup.addPropertyDefinition(numCols);
         mainGroup.addPropertyDefinition(saveButtonLabel);
         mainGroup.addPropertyDefinition(cancelButtonLabel);

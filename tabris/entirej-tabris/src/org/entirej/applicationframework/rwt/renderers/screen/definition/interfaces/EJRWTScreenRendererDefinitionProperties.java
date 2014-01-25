@@ -23,7 +23,6 @@ public interface EJRWTScreenRendererDefinitionProperties
     public static final String EXTRA_BUTTONS_GROUP               = "EXTRA_BUTTONS";
     public static final String WIDTH                             = "WIDTH";
     public static final String HEIGHT                            = "HEIGHT";
-    public static final String MAXIMIZE                          = "MAXIMIZE";
     public static final String TITLE                             = "TITLE";
     public static final String NUM_COLS                          = "NUMCOLS";
 
