@@ -15,8 +15,10 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
 
 import com.eclipsesource.tabris.ui.AbstractPage;
+import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageData;
 
 public  class EJRWTScreenPage extends AbstractPage
@@ -285,6 +287,11 @@ public  class EJRWTScreenPage extends AbstractPage
         public void buttonPressed(int buttonId)
         {
             
+        }
+
+        public EJRWTScreenPage getPage()
+        {
+            return page;
         }
     }
     

@@ -45,6 +45,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 import org.entirej.applicationframework.rwt.application.EJRWTImageRetriever;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
+import org.entirej.applicationframework.rwt.application.launcher.EJRWTContext;
+import org.entirej.applicationframework.rwt.pages.EJRWTScreenPage;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppItemRenderer;
 import org.entirej.applicationframework.rwt.renderers.blocks.definition.interfaces.EJRWTMultiRecordBlockDefinitionProperties;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractFilteredTable;
@@ -70,6 +72,12 @@ import org.entirej.framework.core.renderers.EJManagedItemRendererWrapper;
 import org.entirej.framework.core.renderers.interfaces.EJLovRenderer;
 import org.entirej.framework.core.renderers.interfaces.EJQueryScreenRenderer;
 
+import com.eclipsesource.tabris.ui.PageConfiguration;
+import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.PageStyle;
+import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.UIConfiguration;
+
 public class EJRWTStandardLovRenderer implements EJLovRenderer
 {
     final int                       OK_ACTION_COMMAND     = 1;
@@ -82,7 +90,7 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
     private boolean                 _validate             = true;
 
     private EJFrameworkManager      _frameworkManager;
-    private EJRWTAbstractDialog     _dialog;
+    private EJRWTScreenPage.Context     _dialog;
 
     private EJInternalBlock         _block;
     private FilteredContentProvider _filteredContentProvider;
@@ -139,21 +147,39 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
         return null;
     }
 
+    
+    private String toPageID(String name)
+    {
+        return String.format("EJFLOV_%s", name);
+    }
+    
     protected void buildGui()
     {
         int width = _lovController.getDefinitionProperties().getWidth();
         int height = _lovController.getDefinitionProperties().getHeight();
 
-        _dialog = new EJRWTAbstractDialog(getRWTManager().getShell())
+        _dialog = new EJRWTScreenPage.Context()
         {
             private static final long serialVersionUID = -4685316941898120169L;
 
             @Override
-            public boolean close()
+            public void close()
             {
                 _tableViewer = null;
                 _dialog = null;
-                return super.close();
+                final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+                final UI ui = EJRWTContext.getTabrisUI();
+                String pageID = toPageID(_block.getProperties().getName());
+                if (pageID.equals(ui.getPageOperator().getCurrentPageId()))
+                {
+                    ui.getPageOperator().closeCurrentPage();
+                }
+                // switch to page page and close;
+                PageConfiguration pageConfiguration = configuration.getPageConfiguration(pageID);
+                if (pageConfiguration != null)
+                {
+                    configuration.removePageConfiguration(pageID);
+                }
             }
 
             @Override
@@ -372,8 +398,8 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
             protected void createButtonsForButtonBar(Composite parent)
             {
 
-                createButton(parent, OK_ACTION_COMMAND, "OK", true);
-                createButton(parent, CANCEL_ACTION_COMMAND, "Cancel", false);
+                page.createButton(parent, OK_ACTION_COMMAND, "OK", true);
+                page.createButton(parent, CANCEL_ACTION_COMMAND, "Cancel", false);
             }
 
             @Override
@@ -383,7 +409,7 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
             }
 
             @Override
-            protected void buttonPressed(int buttonId)
+            public void buttonPressed(int buttonId)
             {
                 switch (buttonId)
                 {
@@ -415,12 +441,7 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
 
             }
         };
-        _dialog.create();
-        _tableViewer.setInput(new Object());
-        selectRow(0);
-        _dialog.getShell().setSize(width + 80, height + 100);// add dialog
-                                                             // border
-                                                             // offsets
+        
     }
 
     @Override
@@ -482,17 +503,30 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
         {
             title = _itemToValidate.getLovMappingProperties().getLovDisplayName();
         }
-        _dialog.getShell().setText(title == null ? "" : title);
+        String pageID = toPageID(_block.getProperties().getName());
+        final UI ui = EJRWTContext.getTabrisUI();
+        final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+        
+        if(configuration.getPageConfiguration(pageID)==null)
+        {
+            PageConfiguration pageConfiguration = new PageConfiguration( pageID, EJRWTScreenPage.class )
+            .setTitle( title != null ? title : "");
+            pageConfiguration.setStyle(PageStyle.DEFAULT);
+            configuration.addPageConfiguration(pageConfiguration);
+            
+        }
+        PageData pageData = EJRWTScreenPage.createPageData(_dialog);
+        ui.getPageOperator().openPage(pageID, pageData);
 
-        _dialog.setButtonEnable(OK_ACTION_COMMAND, _itemToValidate.getManagedLovItemRenderer().isEditAllowed());
-        selectRow(0);
+        _dialog.getPage().setButtonEnable(OK_ACTION_COMMAND, _itemToValidate.getManagedLovItemRenderer().isEditAllowed());
+ 
         if (_tableViewer != null && !_tableViewer.getTable().isDisposed())
         {
             _tableViewer.getTable().forceFocus();
         }
 
-        _dialog.centreLocation();
-        _dialog.open();
+        _tableViewer.setInput(new Object());
+        selectRow(0);
     }
 
     @Override
