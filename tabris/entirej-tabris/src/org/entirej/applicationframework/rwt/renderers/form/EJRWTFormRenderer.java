@@ -38,8 +38,10 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
+import org.entirej.applicationframework.rwt.application.launcher.EJRWTContext;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJGridPane;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJStackedPane;
+import org.entirej.applicationframework.rwt.pages.EJRWTScreenPage;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppBlockRenderer;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppFormRenderer;
 import org.entirej.framework.core.EJApplicationException;
@@ -59,6 +61,12 @@ import org.entirej.framework.core.properties.interfaces.EJCanvasProperties;
 import org.entirej.framework.core.properties.interfaces.EJFormProperties;
 import org.entirej.framework.core.properties.interfaces.EJStackedPageProperties;
 import org.entirej.framework.core.properties.interfaces.EJTabPageProperties;
+
+import com.eclipsesource.tabris.ui.PageConfiguration;
+import com.eclipsesource.tabris.ui.PageData;
+import com.eclipsesource.tabris.ui.PageStyle;
+import com.eclipsesource.tabris.ui.UI;
+import com.eclipsesource.tabris.ui.UIConfiguration;
 
 public class EJRWTFormRenderer implements EJRWTAppFormRenderer
 {
@@ -578,7 +586,7 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
 
     private final class PopupCanvasHandler implements CanvasHandler
     {
-        EJRWTAbstractDialog      _popupDialog;
+        EJRWTScreenPage.Context      _popupDialog;
 
         final EJCanvasProperties canvasProperties;
         final EJCanvasController canvasController;
@@ -611,7 +619,7 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
             final int ID_BUTTON_2 = 2;
             final int ID_BUTTON_3 = 3;
 
-            _popupDialog = new EJRWTAbstractDialog(getRWTManager().getShell())
+            _popupDialog = new EJRWTScreenPage.Context()
             {
                 private static final long serialVersionUID = -4685316941898120169L;
 
@@ -635,11 +643,7 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
                     scrollComposite.setMinSize(_mainPane.computeSize(SWT.DEFAULT, SWT.DEFAULT, true));
                 }
 
-                @Override
-                public int open()
-                {
-                    return super.open();
-                }
+               
 
                 @Override
                 protected void createButtonsForButtonBar(Composite parent)
@@ -657,18 +661,32 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
                     {
                         return;
                     }
-                    createButton(parent, id, label, false);
+                    page.createButton(parent, id, label, false);
 
                 }
 
                 @Override
-                public boolean close()
+                public void close()
                 {
-                    return super.close();
+                    final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+                    final UI ui = EJRWTContext.getTabrisUI();
+                    String pageID = toPageID(name);
+                    if (pageID.equals(ui.getPageOperator().getCurrentPageId()))
+                    {
+                        ui.getPageOperator().closeCurrentPage();
+                    }
+                    // switch to page page and close;
+                    PageConfiguration pageConfiguration = configuration.getPageConfiguration(pageID);
+                    if (pageConfiguration != null)
+                    {
+                        configuration.removePageConfiguration(pageID);
+                    }
                 }
 
+                
+                
                 @Override
-                protected void buttonPressed(int buttonId)
+                public void buttonPressed(int buttonId)
                 {
                     switch (buttonId)
                     {
@@ -697,16 +715,30 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
 
                 }
             };
-            _popupDialog.create();
-
-            _popupDialog.getShell().setData("POPUP - " + name);
-            _popupDialog.getShell().setText(pageTitle != null ? pageTitle : "");
-            // add dialog border offsets
-            _popupDialog.getShell().setSize(width + 80, height + 100);
-            _popupDialog.centreLocation();
-            _popupDialog.open();
+           
+            
+            String pageID = toPageID(name);
+            final UI ui = EJRWTContext.getTabrisUI();
+            final UIConfiguration configuration = EJRWTContext.getUiConfiguration();
+            
+            if(configuration.getPageConfiguration(pageID)==null)
+            {
+                PageConfiguration pageConfiguration = new PageConfiguration( pageID, EJRWTScreenPage.class )
+                .setTitle( pageTitle != null ? pageTitle : "");
+                pageConfiguration.setStyle(PageStyle.DEFAULT);
+                configuration.addPageConfiguration(pageConfiguration);
+                
+            }
+            PageData pageData = EJRWTScreenPage.createPageData(_popupDialog);
+            ui.getPageOperator().openPage(pageID, pageData);
         }
 
+        
+        private String toPageID(String name)
+        {
+            return String.format("EJFP_%s", name);
+        }
+        
         void close()
         {
             if (_popupDialog != null)
