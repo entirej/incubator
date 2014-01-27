@@ -730,37 +730,9 @@ public class EJRWTComboItemRenderer implements EJRWTAppItemRenderer, FocusListen
                 });
 
                 final EJFrameworkExtensionProperties rendererProp = EJCoreProperties.getInstance().getApplicationDefinedProperties();
-                final EJFrameworkExtensionProperties propertyGroup = rendererProp.getPropertyGroup(EJRWTSingleRecordBlockDefinitionProperties.ACTION_GROUP);
+               
 
-                String lovKey = "SHIFT+ARROW_DOWN";
-                if (propertyGroup != null)
-                {
-                    lovKey = propertyGroup.getStringProperty(EJRWTSingleRecordBlockDefinitionProperties.ACTION_LOV_KEY);
-                }
-
-                if (lovKey == null)
-                {
-                    lovKey = "SHIFT+ARROW_DOWN";
-                }
-
-                label.setData(EJ_RWT.ACTIVE_KEYS, new String[] { lovKey });
-                getComboControl().setData(EJ_RWT.ACTIVE_KEYS, new String[] { lovKey });
-                addKeyListener(new KeyListener()
-                {
-                    @Override
-                    public void keyReleased(KeyEvent arg0)
-                    {
-                        if ((arg0.stateMask & SWT.SHIFT) != 0 && arg0.keyCode == SWT.ARROW_DOWN)
-                        {
-                            _item.getItemLovController().displayLov(EJLovDisplayReason.LOV);
-                        }
-                    }
-
-                    @Override
-                    public void keyPressed(KeyEvent arg0)
-                    {
-                    }
-                });
+                
                 return label;
             }
         };

@@ -40,7 +40,7 @@ public class EJRWTDateTimeItemRendererDefinition implements EJDevItemRendererDef
     public static final String PROPERTY_TYPE                  = "TYPE";
     public static final String PROPERTY_TYPE_DATE             = "DATE";
     public static final String PROPERTY_TYPE_TIME             = "TIME";
-    public static final String PROPERTY_TYPE_CALENDAR         = "CALENDAR";
+    //public static final String PROPERTY_TYPE_CALENDAR         = "CALENDAR";
 
     public static final String PROPERTY_DETAILS               = "DETAILS";
     public static final String PROPERTY_DETAILS_SHORT         = "SHORT";
@@ -81,7 +81,7 @@ public class EJRWTDateTimeItemRendererDefinition implements EJDevItemRendererDef
         {
             propertyDefinition.addValidValue(PROPERTY_TYPE_DATE, "Date");
             propertyDefinition.addValidValue(PROPERTY_TYPE_TIME, "Time");
-            propertyDefinition.addValidValue(PROPERTY_TYPE_CALENDAR, "Calendar");
+            //propertyDefinition.addValidValue(PROPERTY_TYPE_CALENDAR, "Calendar");
         }
         if (propertyDefinition.getName().equals(PROPERTY_DETAILS))
         {

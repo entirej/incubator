@@ -36,6 +36,8 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
 import org.entirej.applicationframework.rwt.application.launcher.EJRWTContext;
@@ -375,14 +377,14 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
                 break;
         }
         final String name = canvasProperties.getName();
-        final CTabFolder folder = new CTabFolder(parent, style);
+        final TabFolder folder = new TabFolder(parent, style);
         EJTabFolder tabFolder = new EJTabFolder(folder);
         folder.addSelectionListener(new SelectionAdapter()
         {
             @Override
             public void widgetSelected(SelectionEvent e)
             {
-                canvasController.tabPageChanged(name, (String) folder.getSelection().getData("TAB_KEY"));
+                canvasController.tabPageChanged(name, (String) folder.getSelection()[0].getData("TAB_KEY"));
             }
         });
         _tabFolders.put(name, tabFolder);
@@ -393,7 +395,7 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
         {
             if (page.isVisible())
             {
-                CTabItem tabItem = new CTabItem(folder, SWT.NONE);
+                TabItem tabItem = new TabItem(folder, SWT.NONE);
                 tabItem.setData("TAB_KEY", page.getName());
                 EJRWTEntireJGridPane pageCanvas = new EJRWTEntireJGridPane(folder, page.getNumCols());
                 tabItem.setText(page.getPageTitle() != null && page.getPageTitle().length() > 0 ? page.getPageTitle() : page.getName());
@@ -756,10 +758,10 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
 
     class EJTabFolder
     {
-        final CTabFolder            folder;
-        final Map<String, CTabItem> tabPages = new HashMap<String, CTabItem>();
+        final TabFolder            folder;
+        final Map<String, TabItem> tabPages = new HashMap<String, TabItem>();
 
-        EJTabFolder(CTabFolder folder)
+        EJTabFolder(TabFolder folder)
         {
             super();
             this.folder = folder;
@@ -767,7 +769,7 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
 
         public void showPage(String pageName)
         {
-            CTabItem cTabItem = tabPages.get(pageName);
+            TabItem cTabItem = tabPages.get(pageName);
             if (cTabItem != null)
             {
                 folder.setSelection(cTabItem);
@@ -785,27 +787,27 @@ public class EJRWTFormRenderer implements EJRWTAppFormRenderer
             return tabPages.containsKey(key);
         }
 
-        CTabItem get(String key)
+        TabItem get(String key)
         {
             return tabPages.get(key);
         }
 
-        CTabItem put(String key, CTabItem value)
+        TabItem put(String key, TabItem value)
         {
             return tabPages.put(key, value);
         }
 
-        CTabItem remove(String key)
+        TabItem remove(String key)
         {
             return tabPages.remove(key);
         }
 
         public String getActiveKey()
         {
-            CTabItem selection = folder.getSelection();
-            if (selection != null)
+            TabItem[] selection = folder.getSelection();
+            if (selection != null && selection.length>0)
             {
-                return (String) selection.getData("TAB_KEY");
+                return (String) selection[0].getData("TAB_KEY");
             }
             return null;
         }

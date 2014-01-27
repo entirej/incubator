@@ -42,13 +42,7 @@ public interface EJRWTSingleRecordBlockDefinitionProperties
     public final String  MAIN_EXPAND_X_PROPERTY              = "EXPAND_X";
     public final String  MAIN_EXPAND_Y_PROPERTY              = "EXPAND_Y";
 
-    public final String  ACTION_GROUP                        = "ACTION_GROUP";
-    public final String  ACTION_QUERY_KEY                    = "KEY_QUERY";
-    public final String  ACTION_INSERT_KEY                   = "KEY_INSERT";
-    public final String  ACTION_UPDATE_KEY                   = "KEY_UPDATE";
-    public final String  ACTION_DELETE_KEY                   = "KEY_DELETE";
-    public final String  ACTION_REFRESH_KEY                  = "KEY_REFRESH";
-    public final String  ACTION_LOV_KEY                      = "KEY_LOV";
+    
     public final String  VISUAL_ATTRIBUTE_PROPERTY           = "VISUAL_ATTRIBUTE";
     public final String  DISPLAYED_WIDTH_PROPERTY            = "DISPLAYED_WIDTH";
     public final String  DISPLAYED_HEIGHT_PROPERTY           = "DISPLAYED_HEIGHT";

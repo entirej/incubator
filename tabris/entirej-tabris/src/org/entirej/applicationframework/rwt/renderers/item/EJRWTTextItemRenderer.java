@@ -42,6 +42,7 @@ import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -746,7 +747,7 @@ public class EJRWTTextItemRenderer implements EJRWTAppItemRenderer, FocusListene
                 @Override
                 public Control createActionLabel(Composite parent)
                 {
-                    Label label = new Label(parent, SWT.NONE);
+                    Button label = new Button(parent, SWT.NONE);
                     label.setImage(EJRWTImageRetriever.get(EJRWTImageRetriever.IMG_FIND_LOV));
                     label.addFocusListener(EJRWTTextItemRenderer.this);
                     label.addMouseListener(new MouseListener()
@@ -773,20 +774,9 @@ public class EJRWTTextItemRenderer implements EJRWTAppItemRenderer, FocusListene
                     });
 
                     final EJFrameworkExtensionProperties rendererProp = EJCoreProperties.getInstance().getApplicationDefinedProperties();
-                    final EJFrameworkExtensionProperties propertyGroup = rendererProp.getPropertyGroup(EJRWTSingleRecordBlockDefinitionProperties.ACTION_GROUP);
+                         
 
-                    String lovKey = "SHIFT+ARROW_DOWN";
-                    if (propertyGroup != null)
-                    {
-                        lovKey = propertyGroup.getStringProperty(EJRWTSingleRecordBlockDefinitionProperties.ACTION_LOV_KEY);
-                    }
-
-                    if (lovKey == null)
-                    {
-                        lovKey = "SHIFT+ARROW_DOWN";
-                    }
-
-                    String[] keys = new String[] { lovKey, "ENTER", "RETURN", "CR" };
+                    String[] keys = new String[] { "ENTER", "RETURN", "CR" };
                     label.setData(EJ_RWT.ACTIVE_KEYS, keys);
                     getTextControl().setData(EJ_RWT.ACTIVE_KEYS, keys);
                     addKeyListener(new KeyListener()

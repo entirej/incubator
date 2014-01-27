@@ -31,8 +31,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
-import org.entirej.applicationframework.rwt.application.form.containers.EJRWTFormPopUp;
-import org.entirej.applicationframework.rwt.application.form.containers.EJRWTSingleFormContainer;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormChosenEvent;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormChosenListener;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormClosedListener;
@@ -63,7 +61,6 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
 
 
     protected EJRWTFormContainer              _formContainer;
-    protected List<EJRWTSingleFormContainer>  _singleFormContainers = new ArrayList<EJRWTSingleFormContainer>();
     protected EJRWTApplicationManager         _applicationManager;
 
   
@@ -212,143 +209,8 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
                 }
             };
         }
-        //fallback dialog base options
-        if (_formContainer == null)
-        {
-            _formContainer = new EJRWTFormContainer()
-            {
-                EJRWTAbstractDialog _popupDialog;
-                EJRWTFormPopUp      _formPopup;
-
-                @Override
-                public EJInternalForm switchToForm(String key)
-                {
-                    // ignore
-                    return null;
-                }
-
-                @Override
-                public void removeFormSelectedListener(EJRWTFormSelectedListener selectionListener)
-                {
-                    // ignore
-                }
-
-                @Override
-                public void popupFormClosed()
-                {
-                    if (_formPopup != null)
-                    {
-                        _formPopup.close();
-                        _formPopup = null;
-                    }
-                }
-
-                @Override
-                public void openPopupForm(EJPopupFormController popupController)
-                {
-                    _formPopup = new EJRWTFormPopUp(_applicationManager.getShell(), popupController);
-                    _formPopup.showForm();
-
-                }
-
-                @Override
-                public Collection<EJInternalForm> getAllForms()
-                {
-                    // ignore
-                    return Collections.emptyList();
-                }
-
-                @Override
-                public EJInternalForm getActiveForm()
-                {
-                    // ignore
-                    return null;
-                }
-
-                @Override
-                public boolean containsForm(String formName)
-                {
-                    // ignore
-                    return false;
-                }
-
-                @Override
-                public void closeForm(EJInternalForm form)
-                {
-                    if (_popupDialog != null)
-                    {
-                        _popupDialog.close();
-                        _popupDialog = null;
-                    }
-
-                }
-
-                @Override
-                public void addFormSelectedListener(EJRWTFormSelectedListener selectionListener)
-                {
-                    // ignore
-
-                }
-
-                @Override
-                public EJInternalForm addForm(final EJInternalForm form)
-                {
-                    
-
-                    final EJRWTFormRenderer formRenderer = (EJRWTFormRenderer) form.getRenderer();
-                    _popupDialog = new EJRWTAbstractDialog(_applicationManager.getShell())
-                    {
-                        private static final long serialVersionUID = -4685316941898120169L;
-
-                        @Override
-                        public void createBody(Composite parent)
-                        {
-                            parent.setLayout(new FillLayout());
-                            final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
-                            formRenderer.createControl(scrollComposite);
-                            scrollComposite.setContent(formRenderer.getGuiComponent());
-                            scrollComposite.setExpandHorizontal(true);
-                            scrollComposite.setExpandVertical(true);
-                            scrollComposite.setMinSize(form.getProperties().getFormWidth(), form.getProperties().getFormHeight());
-
-                            formRenderer.gainInitialFocus();
-                        }
-
-                        @Override
-                        public int open()
-                        {
-                            return super.open();
-                        }
-
-                        private void addExtraButton(Composite parent, String label, int id)
-                        {
-                            if (label == null || label.length() == 0)
-                            {
-                                return;
-                            }
-                            createButton(parent, id, label, false);
-
-                        }
-
-                        @Override
-                        public boolean close()
-                        {
-                            return super.close();
-                        }
-
-                    };
-                    _popupDialog.create();
-                    final EJCoreFormProperties coreFormProperties = form.getProperties();
-                    _popupDialog.getShell().setData("POPUP - " + coreFormProperties.getName());
-                    _popupDialog.getShell().setText(coreFormProperties.getTitle() == null ? coreFormProperties.getName() : coreFormProperties.getTitle());
-                    // add dialog border offsets
-                    _popupDialog.getShell().setMaximized(true);
-                    _popupDialog.centreLocation();
-                    _popupDialog.open();
-                    return form;
-                }
-            };
-        }
+       
+        
 
     }
 
@@ -458,13 +320,7 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
     public EJInternalForm getForm(String formName)
     {
 
-        for (EJRWTSingleFormContainer singleFormContainer : _singleFormContainers)
-        {
-            if (singleFormContainer.getForm() != null && formName.equals(singleFormContainer.getForm().getProperties().getName()))
-            {
-                return singleFormContainer.getForm();
-            }
-        }
+        
 
         for (EJInternalForm form : getFormContainer().getAllForms())
         {
@@ -493,17 +349,7 @@ public class EJRWTApplicationContainer implements Serializable, EJRWTFormOpenedL
                 return switchToForm;
             }
         }
-        for (EJRWTSingleFormContainer container : _singleFormContainers)
-        {
-            if (container.getForm() != null && key.equalsIgnoreCase(container.getForm().getProperties().getName()))
-            {
-                if (container instanceof EJApplicationComponentRenderer)
-                {
-                    switchTabs((Control) ((EJApplicationComponentRenderer) container).getGuiComponent());
-                }
-                return container.getForm();
-            }
-        }
+        
         return null;
     }
 

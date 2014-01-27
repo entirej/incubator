@@ -31,6 +31,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Label;
@@ -441,7 +442,8 @@ public class EJRWTLabelItemRenderer implements EJRWTAppItemRenderer, FocusListen
         }
         else
         {
-            final Link linkField = new Link(composite, style);
+            //change to button
+            final Button linkField = new Button(composite, style);
 
             _labelField = new SWTComponentAdapter()
             {
@@ -452,7 +454,7 @@ public class EJRWTLabelItemRenderer implements EJRWTAppItemRenderer, FocusListen
                 {
                     if (controlState(linkField))
                     {
-                        linkField.setText(String.format("<a>%s</a>", value = text));
+                        linkField.setText(value = text);
                     }
                 }
 

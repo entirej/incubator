@@ -71,46 +71,7 @@ public class EJRWTApplicationDefinition implements EJApplicationDefinition
 
         mainGroup.addPropertyDefinition(displayTabBorder);
 
-        EJDevPropertyDefinitionGroup actionGroup = new EJDevPropertyDefinitionGroup(EJRWTSingleRecordBlockDefinitionProperties.ACTION_GROUP, "Shortcuts");
-        mainGroup.addSubGroup(actionGroup);        
-
-        EJDevPropertyDefinition queryAction = new EJDevPropertyDefinition(EJRWTSingleRecordBlockDefinitionProperties.ACTION_QUERY_KEY,
-                EJPropertyDefinitionType.STRING);
-        queryAction.setLabel("Query");
-        queryAction.setDefaultValue("SHIFT+Q");
-        queryAction.setDescription("Use this shortcut to open the Query Screen");
-        EJDevPropertyDefinition insertAction = new EJDevPropertyDefinition(EJRWTSingleRecordBlockDefinitionProperties.ACTION_INSERT_KEY,
-                EJPropertyDefinitionType.STRING);
-        insertAction.setLabel("Insert");
-        insertAction.setDefaultValue("SHIFT+I");
-        queryAction.setDescription("Use this shortcut to open the Insert Screen");
-        EJDevPropertyDefinition updateAction = new EJDevPropertyDefinition(EJRWTSingleRecordBlockDefinitionProperties.ACTION_UPDATE_KEY,
-                EJPropertyDefinitionType.STRING);
-        updateAction.setLabel("Update");
-        updateAction.setDefaultValue("SHIFT+U");
-        queryAction.setDescription("Use this shortcut to open the Update Screen");
-        EJDevPropertyDefinition deleteAction = new EJDevPropertyDefinition(EJRWTSingleRecordBlockDefinitionProperties.ACTION_DELETE_KEY,
-                EJPropertyDefinitionType.STRING);
-        deleteAction.setLabel("Delete");
-        deleteAction.setDefaultValue("SHIFT+D");
-        queryAction.setDescription("Use this shortcut to delete the current record");
-        EJDevPropertyDefinition refreshAction = new EJDevPropertyDefinition(EJRWTSingleRecordBlockDefinitionProperties.ACTION_REFRESH_KEY,
-                EJPropertyDefinitionType.STRING);
-        refreshAction.setLabel("Refresh");
-        refreshAction.setDefaultValue("SHIFT+R");
-        queryAction.setDescription("Use this shortcut to refresh the current block by calling the blocks execute last query method");
-        EJDevPropertyDefinition lovAction = new EJDevPropertyDefinition(EJRWTSingleRecordBlockDefinitionProperties.ACTION_LOV_KEY,
-                EJPropertyDefinitionType.STRING);
-        lovAction.setLabel("Lov");
-        queryAction.setDescription("Use this shortcut to open the lov assigned with the current item");
-        lovAction.setDefaultValue("SHIFT+ARROW_DOWN");
-
-        actionGroup.addPropertyDefinition(queryAction);
-        actionGroup.addPropertyDefinition(insertAction);
-        actionGroup.addPropertyDefinition(updateAction);
-        actionGroup.addPropertyDefinition(deleteAction);
-        actionGroup.addPropertyDefinition(refreshAction);
-        actionGroup.addPropertyDefinition(lovAction);
+       
 
         // Application message settings
 

@@ -43,6 +43,7 @@ import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Point;
@@ -474,7 +475,7 @@ public class EJRWTDateItemRenderer extends EJRWTTextItemRenderer
     @Override
     public Control createCustomButtonControl(final Composite parent)
     {
-        final Label label = new Label(parent, SWT.NONE);
+        final Button label = new Button(parent, SWT.NONE);
         label.setImage(EJRWTImageRetriever.get(EJRWTImageRetriever.IMG_DATE_SELECTION));
         label.addMouseListener(new MouseListener()
         {
@@ -502,7 +503,7 @@ public class EJRWTDateItemRenderer extends EJRWTTextItemRenderer
                 Shell shell = ((EJRWTApplicationManager) _item.getForm().getFrameworkManager().getApplicationManager()).getShell();
                 final Shell abstractDialog = new Shell(shell, SWT.ON_TOP | SWT.APPLICATION_MODAL | SWT.TITLE | SWT.CLOSE);
                 abstractDialog.setLayout(new GridLayout(2, false));
-                final DateTime calendar = new DateTime(abstractDialog, SWT.CALENDAR | SWT.BORDER);
+                final DateTime calendar = new DateTime(abstractDialog, SWT.DATE | SWT.LONG);
 
                 Date currentDate = getValue();
                 if (currentDate != null)
@@ -517,32 +518,30 @@ public class EJRWTDateItemRenderer extends EJRWTTextItemRenderer
                     }
                 }
 
-                calendar.addMouseListener(new MouseAdapter()
-                {
-                    @Override
-                    public void mouseDoubleClick(MouseEvent e)
-                    {
-                        if (e.y >= 40)
-                        {
-                            selectDate(abstractDialog, calendar);
-                        }
-                    }
-                });
-
-                String[] keys = new String[] { "ENTER", "RETURN", "CR" };
-                calendar.setData(EJ_RWT.ACTIVE_KEYS, keys);
-                calendar.addKeyListener(new KeyAdapter()
-                {
-                    @Override
-                    public void keyReleased(KeyEvent e)
-                    {
-
-                    }
-                });
+              
                 GridData gridData = new GridData();
                 gridData.horizontalSpan = 2;
                 calendar.setLayoutData(gridData);
-
+                
+                calendar.addSelectionListener(new SelectionListener()
+                {
+                    
+                    @Override
+                    public void widgetSelected(SelectionEvent arg0)
+                    {
+                        selectDate(abstractDialog, calendar);
+                        
+                    }
+                    
+                    @Override
+                    public void widgetDefaultSelected(SelectionEvent arg0)
+                    {
+                        // TODO Auto-generated method stub
+                        
+                    }
+                });
+                
+               
                 Button today = new Button(abstractDialog, SWT.PUSH);
                 today.setText("Today");
                 today.addSelectionListener(new SelectionAdapter()

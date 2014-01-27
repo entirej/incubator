@@ -18,13 +18,8 @@
  ******************************************************************************/
 package org.entirej.applicationframework.rwt.renderers.blocks;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
-import org.eclipse.rwt.EJ_RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -38,12 +33,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
-import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 import org.entirej.applicationframework.rwt.application.EJRWTImageRetriever;
-import org.entirej.applicationframework.rwt.application.components.actions.EJRWTDeleteAction;
-import org.entirej.applicationframework.rwt.application.components.actions.EJRWTInsertAction;
-import org.entirej.applicationframework.rwt.application.components.actions.EJRWTQueryAction;
-import org.entirej.applicationframework.rwt.application.components.actions.EJRWTUpdateAction;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJGridPane;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppBlockRenderer;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppItemRenderer;
@@ -51,8 +41,6 @@ import org.entirej.applicationframework.rwt.renderers.blocks.definition.interfac
 import org.entirej.applicationframework.rwt.renderers.screen.EJRWTInsertScreenRenderer;
 import org.entirej.applicationframework.rwt.renderers.screen.EJRWTQueryScreenRenderer;
 import org.entirej.applicationframework.rwt.renderers.screen.EJRWTUpdateScreenRenderer;
-import org.entirej.applicationframework.rwt.utils.EJRWTKeysUtil;
-import org.entirej.applicationframework.rwt.utils.EJRWTKeysUtil.KeyInfo;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.data.EJDataRecord;
@@ -95,9 +83,6 @@ public class EJRWTSingleRecordBlockRenderer implements EJRWTAppBlockRenderer, Ke
     private EJRWTQueryScreenRenderer         _queryScreenRenderer;
     private EJRWTInsertScreenRenderer        _insertScreenRenderer;
     private EJRWTUpdateScreenRenderer        _updateScreenRenderer;
-
-    private List<String>                     _actionkeys        = new ArrayList<String>();
-    private Map<KeyInfo, String>             _actionInfoMap     = new HashMap<EJRWTKeysUtil.KeyInfo, String>();
 
     protected EJInternalEditableBlock getBlock()
     {
@@ -599,27 +584,7 @@ public class EJRWTSingleRecordBlockRenderer implements EJRWTAppBlockRenderer, Ke
             }
         
 
-        EJFrameworkExtensionProperties rendererProp = EJCoreProperties.getInstance().getApplicationDefinedProperties();
-        if (rendererProp != null)
-        {
-            EJFrameworkExtensionProperties propertyGroup = rendererProp.getPropertyGroup(EJRWTSingleRecordBlockDefinitionProperties.ACTION_GROUP);
-            if (propertyGroup != null)
-            {
-                addActionKeyinfo(propertyGroup.getStringProperty(EJRWTSingleRecordBlockDefinitionProperties.ACTION_QUERY_KEY),
-                        EJRWTSingleRecordBlockDefinitionProperties.ACTION_QUERY_KEY);
-                addActionKeyinfo(propertyGroup.getStringProperty(EJRWTSingleRecordBlockDefinitionProperties.ACTION_INSERT_KEY),
-                        EJRWTSingleRecordBlockDefinitionProperties.ACTION_INSERT_KEY);
-                addActionKeyinfo(propertyGroup.getStringProperty(EJRWTSingleRecordBlockDefinitionProperties.ACTION_UPDATE_KEY),
-                        EJRWTSingleRecordBlockDefinitionProperties.ACTION_UPDATE_KEY);
-                addActionKeyinfo(propertyGroup.getStringProperty(EJRWTSingleRecordBlockDefinitionProperties.ACTION_DELETE_KEY),
-                        EJRWTSingleRecordBlockDefinitionProperties.ACTION_DELETE_KEY);
-                addActionKeyinfo(propertyGroup.getStringProperty(EJRWTSingleRecordBlockDefinitionProperties.ACTION_REFRESH_KEY),
-                        EJRWTSingleRecordBlockDefinitionProperties.ACTION_REFRESH_KEY);
 
-            }
-        }
-
-        hookKeyListener(_mainPane);
         hookFocusListener(_mainPane);
         _mainPane.cleanLayout();
 
@@ -639,22 +604,7 @@ public class EJRWTSingleRecordBlockRenderer implements EJRWTAppBlockRenderer, Ke
         });
     }
 
-    private void addActionKeyinfo(String actionKey, String actionId)
-    {
-        if (actionKey != null && actionKey.trim().length() > 0)
-        {
-            try
-            {
-                KeyInfo keyInfo = EJRWTKeysUtil.toKeyInfo(actionKey);
-                _actionInfoMap.put(keyInfo, actionId);
-                _actionkeys.add(actionKey);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-    }
+    
 
     private void createItemGroup(Composite parent, EJItemGroupProperties groupProperties)
     {
@@ -671,7 +621,6 @@ public class EJRWTSingleRecordBlockRenderer implements EJRWTAppBlockRenderer, Ke
                 group.setLayoutData(createItemGroupGridData(groupProperties));
                 group.setText(frameTitle);
                 parent = group;
-                hookKeyListener(group);
                 group.addMouseListener(new MouseAdapter()
                 {
                     @Override
@@ -691,7 +640,6 @@ public class EJRWTSingleRecordBlockRenderer implements EJRWTAppBlockRenderer, Ke
         }
 
         groupPane.getLayout().verticalSpacing = 1;
-        hookKeyListener(groupPane);
         groupPane.addMouseListener(new MouseAdapter()
         {
             @Override
@@ -899,7 +847,6 @@ public class EJRWTSingleRecordBlockRenderer implements EJRWTAppBlockRenderer, Ke
             }
 
             hookFocusListener(itemRenderer.getGuiComponent());
-            hookKeyListener(itemRenderer.getGuiComponent());
 
             EJScreenItemProperties itemProperties = item.getProperties();
 
@@ -929,86 +876,12 @@ public class EJRWTSingleRecordBlockRenderer implements EJRWTAppBlockRenderer, Ke
     @Override
     public void keyReleased(KeyEvent arg0)
     {
-        int keyCode = arg0.keyCode;
-        KeyInfo keyInfo = EJRWTKeysUtil.toKeyInfo(keyCode, (arg0.stateMask & SWT.SHIFT) != 0, (arg0.stateMask & SWT.CTRL) != 0, (arg0.stateMask & SWT.ALT) != 0);
-
-        String actionID = _actionInfoMap.get(keyInfo);
-        if (actionID != null)
-        {
-            if (EJRWTSingleRecordBlockDefinitionProperties.ACTION_QUERY_KEY.equals(actionID))
-            {
-                if (EJRWTQueryAction.canExecute(_block))
-                {
-                    _block.enterQuery();
-                    gainFocus();
-                }
-            }
-            else if (EJRWTSingleRecordBlockDefinitionProperties.ACTION_INSERT_KEY.equals(actionID))
-            {
-                if (EJRWTInsertAction.canExecute(_block))
-                {
-                    _block.enterInsert(false);
-                    gainFocus();
-                }
-            }
-            else if (EJRWTSingleRecordBlockDefinitionProperties.ACTION_UPDATE_KEY.equals(actionID))
-            {
-                if (EJRWTUpdateAction.canExecute(_block))
-                {
-                    _block.enterUpdate();
-                    gainFocus();
-                }
-            }
-            else if (EJRWTSingleRecordBlockDefinitionProperties.ACTION_DELETE_KEY.equals(actionID))
-            {
-                if (EJRWTDeleteAction.canExecute(_block))
-                {
-                    _block.askToDeleteCurrentRecord(null);
-                    gainFocus();
-                }
-            }
-            else if (EJRWTSingleRecordBlockDefinitionProperties.ACTION_REFRESH_KEY.equals(actionID))
-            {
-                _block.getBlock().refreshAfterChange(_mainItemRegister.getRegisteredRecord());
-                gainFocus();
-            }
-        }
-        else
-        {
-            // default actions
-            if (arg0.keyCode == SWT.ARROW_UP)
-            {
-                _block.previousRecord();
-            }
-            else if (arg0.keyCode == SWT.ARROW_DOWN)
-            {
-                _block.nextRecord();
-            }
-        }
+        
+       
+        
     }
 
-    private void hookKeyListener(Control control)
-    {
-        List<String> subActions = new ArrayList<String>(_actionkeys);
-        subActions.add("ARROW_UP");
-        subActions.add("ARROW_DOWN");
-        Object data = control.getData(EJ_RWT.ACTIVE_KEYS);
-
-        if (data != null)
-        {
-            String[] current = (String[]) data;
-            for (String action : current)
-            {
-                if (subActions.contains(action))
-                {
-                    continue;
-                }
-                subActions.add(action);
-            }
-        }
-        control.setData(EJ_RWT.ACTIVE_KEYS, subActions.toArray(new String[0]));
-        control.addKeyListener(this);
-    }
+   
 
     private void hookFocusListener(final Control control)
     {
