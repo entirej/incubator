@@ -66,6 +66,9 @@ import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkE
 import org.entirej.framework.core.properties.interfaces.EJItemProperties;
 import org.entirej.framework.core.properties.interfaces.EJScreenItemProperties;
 
+import com.eclipsesource.tabris.widgets.enhancement.TextDecorator;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
+
 public class EJRWTTextItemRenderer implements EJRWTAppItemRenderer, FocusListener, Serializable, EJRWTItemTextChangeNotifier
 {
     private List<ChangeListener>              _changeListeners  = new ArrayList<EJRWTItemTextChangeNotifier.ChangeListener>(1);
@@ -690,6 +693,12 @@ public class EJRWTTextItemRenderer implements EJRWTAppItemRenderer, FocusListene
                 }
             });
         }
+        
+        String keyboard = _rendererProps.getStringProperty(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD);
+        setupKeyboard(text,keyboard==null?EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_ASCII:keyboard);
+        
+        
+        
         return text;
     }
 
@@ -1058,6 +1067,41 @@ public class EJRWTTextItemRenderer implements EJRWTAppItemRenderer, FocusListene
         for (ChangeListener listener : new ArrayList<ChangeListener>(_changeListeners))
         {
             listener.changed();
+        }
+    }
+    
+    
+    protected void setupKeyboard(Text text,String keyboard)
+    {
+        
+        TextDecorator textDecorator = Widgets.onText(text);
+        if(keyboard.equals(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_ASCII))
+        {
+            textDecorator.useAsciiKeyboard();
+        }
+        else if(keyboard.equals(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_DECIMAL))
+        {
+            textDecorator.useDecimalKeyboard();
+        }
+        else if(keyboard.equals(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_EMAIL))
+        {
+            textDecorator.useEmailKeyboard();
+        }
+        else if(keyboard.equals(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_NUMBERS))
+        {
+            textDecorator.useNumberKeyboard();
+        }
+        else if(keyboard.equals(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_NUMBERS_AND_PUNCTUATION))
+        {
+            textDecorator.useNumbersAndPunctuationKeyboard();
+        }
+        else if(keyboard.equals(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_PHONE))
+        {
+            textDecorator.usePhoneKeyboard();
+        }
+        else if(keyboard.equals(EJRWTTextItemRendererDefinitionProperties.PROPERTY_KEYBOARD_URL))
+        {
+            textDecorator.useUrlKeyboard();
         }
     }
 }

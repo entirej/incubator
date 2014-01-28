@@ -51,6 +51,17 @@ public class EJRWTTextItemRendererDefinition implements EJDevItemRendererDefinit
     public static final String PROPERTY_DISPLAY_VAUE_AS_LABEL     = "DISPLAY_VALUE_AS_LABEL";
     public static final String PROPERTY_SELECT_ON_FOCUS           = "SELECT_ON_FOCUS";
     public static final String PROPERTY_DISPLAY_VAUE_AS_PROTECTED = "PROTECTED";
+    
+    
+    
+    public static final String PROPERTY_KEYBOARD = "KEYBOARD";
+    public static final String PROPERTY_KEYBOARD_ASCII = "ASCII";
+    public static final String PROPERTY_KEYBOARD_NUMBERS = "NUMBERS";
+    public static final String PROPERTY_KEYBOARD_DECIMAL = "DECIMAL";
+    public static final String PROPERTY_KEYBOARD_NUMBERS_AND_PUNCTUATION = "NUMBERS_AND_PUNCTUATION";
+    public static final String PROPERTY_KEYBOARD_URL = "URL";
+    public static final String PROPERTY_KEYBOARD_PHONE = "PHONE";
+    public static final String PROPERTY_KEYBOARD_EMAIL = "EMAIL";
 
     public EJRWTTextItemRendererDefinition()
     {
@@ -112,10 +123,27 @@ public class EJRWTTextItemRendererDefinition implements EJDevItemRendererDefinit
         selectOnFocus.setLabel("Select on focus");
         selectOnFocus.setDescription("Indicates if this item should select text on focus");
         selectOnFocus.setDefaultValue("false");
+        
+        
+        //tabris keyboard layout options 
+        EJDevPropertyDefinition keyborad = new EJDevPropertyDefinition(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD, EJPropertyDefinitionType.STRING);
+        keyborad.setLabel("Keyboard");
+        keyborad.setDescription("The keybord layout when enter values.");
+        keyborad.setDefaultValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_ASCII);
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_ASCII, "ASCII");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_NUMBERS, "Numbers");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_NUMBERS_AND_PUNCTUATION, "Numbers and Punctuation");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_DECIMAL, "Decimal");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_URL, "URL");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_EMAIL, "Email");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_PHONE, "Phone");
+        
 
         mainGroup.addPropertyDefinition(maxLength);
         mainGroup.addPropertyDefinition(textCase);
         mainGroup.addPropertyDefinition(textAlignment);
+        mainGroup.addPropertyDefinition(keyborad);
+        
         mainGroup.addPropertyDefinition(displayValueAsLabel);
         mainGroup.addPropertyDefinition(protectedField);
         mainGroup.addPropertyDefinition(selectOnFocus);

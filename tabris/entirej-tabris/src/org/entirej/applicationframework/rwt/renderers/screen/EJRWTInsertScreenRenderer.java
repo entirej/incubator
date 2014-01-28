@@ -327,7 +327,7 @@ public class EJRWTInsertScreenRenderer extends EJRWTAbstractScreenRenderer imple
                 PageConfiguration pageConfiguration = configuration.getPageConfiguration(pageID);
                 if(pageConfiguration!=null)
                 {
-                    configuration.removePageConfiguration(pageID);
+                    //configuration.removePageConfiguration(pageID);
                 }
                 
             }

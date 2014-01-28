@@ -314,7 +314,7 @@ public class EJRWTQueryScreenRenderer extends EJRWTAbstractScreenRenderer implem
                 PageConfiguration pageConfiguration = configuration.getPageConfiguration(pageID);
                 if (pageConfiguration != null)
                 {
-                    configuration.removePageConfiguration(pageID);
+                    //configuration.removePageConfiguration(pageID);
                 }
             }
 

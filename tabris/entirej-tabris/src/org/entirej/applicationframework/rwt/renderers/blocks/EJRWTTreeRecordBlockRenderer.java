@@ -91,6 +91,9 @@ import org.entirej.framework.core.renderers.interfaces.EJInsertScreenRenderer;
 import org.entirej.framework.core.renderers.interfaces.EJQueryScreenRenderer;
 import org.entirej.framework.core.renderers.interfaces.EJUpdateScreenRenderer;
 
+import com.eclipsesource.tabris.widgets.enhancement.TreeDecorator;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
+
 public class EJRWTTreeRecordBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
 {
    
@@ -702,8 +705,8 @@ public class EJRWTTreeRecordBlockRenderer implements EJRWTAppBlockRenderer, KeyL
             }
             _tableViewer = new TreeViewer(table);
         }
-
-        Control[] children = table.getChildren();
+        TreeDecorator onTree = Widgets.onTree(_tableViewer.getTree());
+        onTree.enableBackButtonNavigation();
         
         ColumnViewerToolTipSupport.enableFor(_tableViewer);
 

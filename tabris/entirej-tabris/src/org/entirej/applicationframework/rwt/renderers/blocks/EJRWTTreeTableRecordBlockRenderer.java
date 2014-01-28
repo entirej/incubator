@@ -97,6 +97,9 @@ import org.entirej.framework.core.renderers.interfaces.EJInsertScreenRenderer;
 import org.entirej.framework.core.renderers.interfaces.EJQueryScreenRenderer;
 import org.entirej.framework.core.renderers.interfaces.EJUpdateScreenRenderer;
 
+import com.eclipsesource.tabris.widgets.enhancement.TreeDecorator;
+import com.eclipsesource.tabris.widgets.enhancement.Widgets;
+
 public class EJRWTTreeTableRecordBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
 {
     private static final long              serialVersionUID = -1300484097701416526L;
@@ -713,11 +716,12 @@ public class EJRWTTreeTableRecordBlockRenderer implements EJRWTAppBlockRenderer,
 
         table.setLinesVisible(_rendererProp.getBooleanProperty(EJRWTTreeTableBlockDefinitionProperties.SHOW_VERTICAL_LINES, true));
         table.setHeaderVisible(_rendererProp.getBooleanProperty(EJRWTTreeTableBlockDefinitionProperties.SHOW_HEADING_PROPERTY, true));
-        Control[] children = table.getChildren();
+ 
     
         // final boolean hideSelection = (style & SWT.HIDE_SELECTION) != 0;
         _tableViewer = new TreeViewer(table);
-
+        TreeDecorator onTree = Widgets.onTree(_tableViewer.getTree());
+        onTree.enableBackButtonNavigation();
         ColumnViewerToolTipSupport.enableFor(_tableViewer);
 
         EJRWTTreeTableViewerColumnFactory factory = new EJRWTTreeTableViewerColumnFactory(_tableViewer);

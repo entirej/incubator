@@ -109,9 +109,25 @@ public class EJRWTTextAreaRendererDefinition implements EJDevItemRendererDefinit
         wrapText.setDefaultValue("true");
         wrapText.setDescription("Indicates if this item text should be wraped and should should display horizontal scroll or not.");
 
+        
+      //tabris keyboard layout options 
+        EJDevPropertyDefinition keyborad = new EJDevPropertyDefinition(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD, EJPropertyDefinitionType.STRING);
+        keyborad.setLabel("Keyboard");
+        keyborad.setDescription("The keybord layout when enter values.");
+        keyborad.setDefaultValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_ASCII);
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_ASCII, "ASCII");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_NUMBERS, "Numbers");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_NUMBERS_AND_PUNCTUATION, "Numbers and Punctuation");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_DECIMAL, "Decimal");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_URL, "URL");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_EMAIL, "Email");
+        keyborad.addValidValue(EJRWTTextItemRendererDefinition.PROPERTY_KEYBOARD_PHONE, "Phone");
+        
+        
         mainGroup.addPropertyDefinition(maxLength);
         mainGroup.addPropertyDefinition(textCase);
         mainGroup.addPropertyDefinition(textAlignment);
+        mainGroup.addPropertyDefinition(keyborad);
         mainGroup.addPropertyDefinition(displayValueAsLabel);
         mainGroup.addPropertyDefinition(wrapText);
 
