@@ -21,7 +21,7 @@ package org.entirej.applicationframework.rwt.application.components;
 import java.io.Serializable;
 
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.rwt.EJ_RWT;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyListener;
@@ -178,7 +178,7 @@ public abstract class EJRWTAbstractActionText extends Composite implements Seria
     @Override
     public void setData(String key, Object value)
     {
-        if (EJ_RWT.ACTIVE_KEYS.equals(key))
+        if (RWT.ACTIVE_KEYS.equals(key))
         {
             textControl.setData(key, value);
         }
@@ -197,7 +197,7 @@ public abstract class EJRWTAbstractActionText extends Composite implements Seria
     @Override
     public Object getData(String key)
     {
-        if (EJ_RWT.ACTIVE_KEYS.equals(key))
+        if (RWT.ACTIVE_KEYS.equals(key))
         {
             return textControl.getData(key);
         }

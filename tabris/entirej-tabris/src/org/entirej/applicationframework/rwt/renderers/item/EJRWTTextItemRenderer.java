@@ -27,7 +27,7 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.rwt.EJ_RWT;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -785,8 +785,8 @@ public class EJRWTTextItemRenderer implements EJRWTAppItemRenderer, FocusListene
                          
 
                     String[] keys = new String[] { "ENTER", "RETURN", "CR" };
-                    label.setData(EJ_RWT.ACTIVE_KEYS, keys);
-                    getTextControl().setData(EJ_RWT.ACTIVE_KEYS, keys);
+                    label.setData(RWT.ACTIVE_KEYS, keys);
+                    getTextControl().setData(RWT.ACTIVE_KEYS, keys);
                     addKeyListener(new KeyListener()
                     {
                         @Override

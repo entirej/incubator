@@ -25,7 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.eclipse.rwt.EJ_RWT;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CLabel;
 import org.eclipse.swt.events.MouseAdapter;
@@ -99,7 +99,7 @@ public class EJRWTNotifierDialog
         });
 
         final Composite inner = new Composite(_shell, SWT.BORDER);
-        inner.setData(EJ_RWT.CUSTOM_VARIANT, "notifierDialog");
+        inner.setData(RWT.CUSTOM_VARIANT, "notifierDialog");
         GridLayout gl = new GridLayout(3, false);
         gl.marginLeft = 5;
         gl.marginTop = 0;

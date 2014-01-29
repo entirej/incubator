@@ -16,22 +16,30 @@
  * Contributors:
  *     Mojave Innovations GmbH - initial API and implementation
  ******************************************************************************/
-package org.eclipse.rwt;
+package org.entirej.applicationframework.rwt.application.launcher;
 
-public class EJ_RWT
+import org.eclipse.rap.rwt.internal.textsize.TextSizeUtil;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Display;
+
+public class EJRWTUtils
 {
 
-    public static final java.lang.String ACTIVE_KEYS        = "org.eclipse.rap.rwt.activeKeys";
+    public static Image getImage(String name, ClassLoader loader)
+    {
+        return new Image(Display.getDefault(), loader.getResourceAsStream(name));
 
-    public static final java.lang.String CANCEL_KEYS        = "org.eclipse.rap.rwt.cancelKeys";
+    }
 
-    public static final java.lang.String CUSTOM_ITEM_HEIGHT = "org.eclipse.rap.rwt.customItemHeight";
+    public static float getAvgCharWidth(Font font)
+    {
+        return TextSizeUtil.getAvgCharWidth(font);
+    }
 
-    public static final java.lang.String MARKUP_ENABLED     = "org.eclipse.rap.rwt.markupEnabled";
+    public static int getCharHeight(Font font)
+    {
+        return TextSizeUtil.getCharHeight(font);
+    }
 
-    public static final java.lang.String FIXED_COLUMNS      = "org.eclipse.rap.rwt.fixedColumns";
-
-    public static final java.lang.String DEFAULT_THEME_ID   = "org.eclipse.rap.rwt.theme.Default";
-
-    public static final java.lang.String CUSTOM_VARIANT     = "org.eclipse.rap.rwt.customVariant";
 }

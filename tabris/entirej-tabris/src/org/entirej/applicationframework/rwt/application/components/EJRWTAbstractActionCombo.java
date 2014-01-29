@@ -21,7 +21,7 @@ package org.entirej.applicationframework.rwt.application.components;
 import java.io.Serializable;
 
 import org.eclipse.jface.layout.GridLayoutFactory;
-import org.eclipse.rwt.EJ_RWT;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.events.KeyListener;
@@ -145,7 +145,7 @@ public abstract class EJRWTAbstractActionCombo extends Composite implements Seri
     @Override
     public void setData(String key, Object value)
     {
-        if (EJ_RWT.ACTIVE_KEYS.equals(key))
+        if (RWT.ACTIVE_KEYS.equals(key))
         {
             comboControl.setData(key, value);
         }
@@ -164,7 +164,7 @@ public abstract class EJRWTAbstractActionCombo extends Composite implements Seri
     @Override
     public Object getData(String key)
     {
-        if (EJ_RWT.ACTIVE_KEYS.equals(key))
+        if (RWT.ACTIVE_KEYS.equals(key))
         {
             return comboControl.getData(key);
         }

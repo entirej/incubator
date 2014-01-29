@@ -23,7 +23,7 @@ import java.util.Map;
 
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.Image;
-import org.entirej.applicationframework.rwt.application.launcher.RWTUtils;
+import org.entirej.applicationframework.rwt.application.launcher.EJRWTUtils;
 
 public class EJRWTImageRetriever
 {
@@ -74,18 +74,18 @@ public class EJRWTImageRetriever
 
     public static float getAvgCharWidth(Font font)
     {
-        return RWTUtils.getAvgCharWidth(font);
+        return EJRWTUtils.getAvgCharWidth(font);
     }
 
     public static int getCharHeight(Font font)
     {
-        return RWTUtils.getCharHeight(font);
+        return EJRWTUtils.getCharHeight(font);
     }
 
     private static Image create(String name)
     {
         ClassLoader loader = EJRWTImageRetriever.class.getClassLoader();
-        return RWTUtils.getImage(name, loader);
+        return EJRWTUtils.getImage(name, loader);
     }
 
     
