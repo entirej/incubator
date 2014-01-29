@@ -19,18 +19,11 @@
 package org.entirej.applicationframework.rwt.application;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
-import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabItem;
-import org.eclipse.swt.custom.ScrolledComposite;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
-import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormChosenEvent;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormChosenListener;
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormClosedListener;
@@ -39,7 +32,6 @@ import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormOpen
 import org.entirej.applicationframework.rwt.application.interfaces.EJRWTFormSelectedListener;
 import org.entirej.applicationframework.rwt.application.launcher.EJRWTContext;
 import org.entirej.applicationframework.rwt.pages.EJRWTFormPage;
-import org.entirej.applicationframework.rwt.renderers.form.EJRWTFormRenderer;
 import org.entirej.framework.core.data.controllers.EJPopupFormController;
 import org.entirej.framework.core.internal.EJInternalForm;
 import org.entirej.framework.core.properties.EJCoreFormProperties;
@@ -49,7 +41,6 @@ import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 import com.eclipsesource.tabris.ui.PageData;
 import com.eclipsesource.tabris.ui.PageStyle;
-import com.eclipsesource.tabris.ui.TabrisUI;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 

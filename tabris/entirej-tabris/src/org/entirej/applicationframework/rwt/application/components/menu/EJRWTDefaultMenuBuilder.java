@@ -23,16 +23,11 @@ package org.entirej.applicationframework.rwt.application.components.menu;
 
 import java.io.Serializable;
 
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.swt.events.MouseAdapter;
-import org.eclipse.swt.events.MouseEvent;
-import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -45,7 +40,6 @@ import org.entirej.framework.core.enumerations.EJFrameworkMessage;
 import org.entirej.framework.core.interfaces.EJApplicationManager;
 
 import com.eclipsesource.tabris.widgets.enhancement.TreeDecorator;
-import com.eclipsesource.tabris.widgets.enhancement.TreeDecorator.TreePart;
 import com.eclipsesource.tabris.widgets.enhancement.Widgets;
 
 public class EJRWTDefaultMenuBuilder implements Serializable

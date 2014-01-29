@@ -26,7 +26,6 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
-import org.entirej.applicationframework.rwt.application.form.containers.EJRWTAbstractDialog;
 import org.entirej.applicationframework.rwt.application.launcher.EJRWTContext;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJGridPane;
 import org.entirej.applicationframework.rwt.pages.EJRWTScreenPage;
@@ -34,7 +33,6 @@ import org.entirej.applicationframework.rwt.renderers.item.EJRWTItemTextChangeNo
 import org.entirej.applicationframework.rwt.renderers.item.EJRWTItemTextChangeNotifier.ChangeListener;
 import org.entirej.applicationframework.rwt.renderers.screen.definition.interfaces.EJRWTScreenRendererDefinitionProperties;
 import org.entirej.framework.core.EJApplicationException;
-import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJFrameworkManager;
 import org.entirej.framework.core.EJLovBlock;
 import org.entirej.framework.core.EJQueryBlock;

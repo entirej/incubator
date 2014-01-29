@@ -19,25 +19,22 @@
 package org.entirej.applicationframework.rwt.application.launcher;
 
 import static com.eclipsesource.tabris.internal.Clauses.whenNull;
-import static org.eclipse.rap.rwt.internal.service.ContextProvider.getContext;
 import static org.eclipse.rap.rwt.internal.service.ContextProvider.getApplicationContext;
+import static org.eclipse.rap.rwt.internal.service.ContextProvider.getContext;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.Application;
 import org.eclipse.rap.rwt.application.Application.OperationMode;
 import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.application.EntryPointFactory;
 import org.eclipse.rap.rwt.client.WebClient;
-import org.eclipse.rap.rwt.client.service.JavaScriptExecutor;
 import org.eclipse.rap.rwt.internal.lifecycle.RWTLifeCycle;
 import org.eclipse.rap.rwt.service.ResourceLoader;
 import org.eclipse.swt.SWT;
@@ -52,7 +49,6 @@ import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 import org.entirej.applicationframework.rwt.pages.EJRWTMenuComponentPage;
 import org.entirej.framework.core.EJFrameworkHelper;
 import org.entirej.framework.core.EJFrameworkInitialiser;
-import org.entirej.framework.core.interfaces.EJMessenger;
 import org.entirej.framework.core.properties.EJCoreLayoutContainer;
 import org.entirej.framework.core.properties.EJCoreMenuProperties;
 import org.entirej.framework.core.properties.EJCoreProperties;
@@ -65,7 +61,6 @@ import com.eclipsesource.tabris.internal.ui.UIImpl;
 import com.eclipsesource.tabris.internal.ui.rendering.UIRenderer;
 import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
-import com.eclipsesource.tabris.ui.TabrisUI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 
 public abstract class EJTabrisApplicationLauncher implements ApplicationConfiguration

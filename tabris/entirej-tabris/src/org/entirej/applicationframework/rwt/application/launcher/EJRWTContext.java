@@ -22,7 +22,6 @@ import static org.eclipse.rap.rwt.internal.service.ContextProvider.getContext;
 
 import org.entirej.applicationframework.rwt.application.EJRWTApplicationManager;
 
-import com.eclipsesource.tabris.ui.TabrisUI;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 
