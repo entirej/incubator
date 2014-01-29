@@ -39,6 +39,7 @@ import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -58,6 +59,7 @@ import org.eclipse.swt.widgets.Tree;
 import org.entirej.applicationframework.rwt.layout.EJRWTEntireJGridPane;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppBlockRenderer;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppItemRenderer;
+import org.entirej.applicationframework.rwt.renderers.blocks.definition.interfaces.EJRWTMultiRecordBlockDefinitionProperties;
 import org.entirej.applicationframework.rwt.renderers.blocks.definition.interfaces.EJRWTSingleRecordBlockDefinitionProperties;
 import org.entirej.applicationframework.rwt.renderers.blocks.definition.interfaces.EJRWTTreeBlockDefinitionProperties;
 import org.entirej.applicationframework.rwt.renderers.screen.EJRWTInsertScreenRenderer;
@@ -706,6 +708,13 @@ public class EJRWTTreeRecordBlockRenderer implements EJRWTAppBlockRenderer, KeyL
         }
         TreeDecorator onTree = Widgets.onTree(_tableViewer.getTree());
         onTree.enableBackButtonNavigation();
+        
+        
+        int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, 0);
+        if(rowheight>0)
+        {
+           table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
+        }
         
         ColumnViewerToolTipSupport.enableFor(_tableViewer);
 

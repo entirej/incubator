@@ -34,6 +34,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -571,20 +572,10 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             }
         
 
-        int style = SWT.VIRTUAL;
-
-        if (!rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER, false))
-        {
-            style = style | SWT.BORDER;
-        }
-        if (rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION_PROPERTY, true))
-        {
-            style = style | SWT.FULL_SELECTION;
-        }
-        else
-        {
-            style = style | SWT.HIDE_SELECTION;
-        }
+        int style = SWT.VIRTUAL  | SWT.FULL_SELECTION;
+        
+        
+        
         Collection<EJItemGroupProperties> allItemGroupProperties = _block.getProperties().getScreenItemGroupContainer(EJScreenType.MAIN)
                 .getAllItemGroupProperties();
         final Table table;
@@ -813,8 +804,14 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             };
         }
 
-        table.setLinesVisible(rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.SHOW_VERTICAL_LINES, true));
-        table.setHeaderVisible(rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.SHOW_HEADING_PROPERTY, true));
+        int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, 0);
+        if(rowheight>0)
+        {
+           table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
+        }
+        
+        table.setLinesVisible(false);
+        table.setHeaderVisible(false);
       
 
         EJRWTTableViewerColumnFactory factory = new EJRWTTableViewerColumnFactory(_tableViewer);
@@ -1030,16 +1027,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                 column.setData("KEY", itemProps.getReferencedItemName());
                 column.setToolTipText(itemProps.getHint());
 
-                column.setMoveable(blockProperties.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_REORDER, true));
-                column.setResizable(blockProperties.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_RESIZE, true));
-                if (blockProperties.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_ROW_SORTING, true))
-                {
-                    EJRWTAbstractTableSorter columnSorter = itemRenderer.getColumnSorter(itemProps, item);
-                    if (columnSorter != null)
-                    {
-                        new EJRWTTableSortSelectionListener(_tableViewer, column, columnSorter, SWT.UP, false);
-                    }
-                }
+               
                 // ensure that the width property of the table column is in
                 // Characters
                 Font font = labelProvider.getFont(new Object());

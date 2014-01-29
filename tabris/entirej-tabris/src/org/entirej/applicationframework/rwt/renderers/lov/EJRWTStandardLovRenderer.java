@@ -34,6 +34,7 @@ import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
@@ -194,22 +195,9 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
                 layout.marginBottom = 0;
                 layout.marginTop = 0;
                 parent.setLayout(layout);
-                int style = SWT.VIRTUAL;
+                int style = SWT.VIRTUAL | SWT.FULL_SELECTION;
                 EJFrameworkExtensionProperties rendererProp = _lovController.getDefinitionProperties().getLovRendererProperties();
 
-                if (!rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER, false))
-                {
-                    style = style | SWT.BORDER;
-                }
-
-                if (rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION_PROPERTY, true))
-                {
-                    style = style | SWT.FULL_SELECTION;
-                }
-                else
-                {
-                    style = style | SWT.HIDE_SELECTION;
-                }
                 final EJRWTAbstractFilteredTable filterTree;
                 Table table;
 
@@ -243,9 +231,15 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
                 table = (_tableViewer = filterTree.getViewer()).getTable();
 
                 table.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
-                table.setLinesVisible(rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.SHOW_VERTICAL_LINES, true));
-                table.setHeaderVisible(rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.SHOW_HEADING_PROPERTY, true));
+                table.setLinesVisible(false);
+                table.setHeaderVisible(false);
 
+                int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, 0);
+                if(rowheight>0)
+                {
+                   table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
+                }
+                
                 EJRWTTableViewerColumnFactory factory = new EJRWTTableViewerColumnFactory(_tableViewer);
                 ColumnViewerToolTipSupport.enableFor(_tableViewer);
                 Collection<EJItemGroupProperties> allItemGroupProperties = _block.getProperties().getScreenItemGroupContainer(EJScreenType.MAIN)
@@ -688,16 +682,7 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
                 TableColumn column = viewerColumn.getColumn();
                 column.setToolTipText(itemProps.getHint());
 
-                column.setMoveable(blockProperties.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_REORDER, true));
-                column.setResizable(blockProperties.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_RESIZE, true));
-                if (blockProperties.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_ROW_SORTING, true))
-                {
-                    EJRWTAbstractTableSorter columnSorter = itemRenderer.getColumnSorter(itemProps, item);
-                    if (columnSorter != null)
-                    {
-                        new EJRWTTableSortSelectionListener(_tableViewer, column, columnSorter, SWT.UP, false);
-                    }
-                }
+               
 
                 // ensure that the width property of the table column is in
                 // Characters

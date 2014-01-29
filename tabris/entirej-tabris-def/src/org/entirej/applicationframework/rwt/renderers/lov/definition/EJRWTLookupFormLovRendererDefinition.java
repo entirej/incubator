@@ -75,28 +75,18 @@ public class EJRWTLookupFormLovRendererDefinition implements EJDevLovRendererDef
         showTableBorder.setDescription("If selected, the renderer will hide the lov's standard border");
         showTableBorder.setDefaultValue("false");
 
-        EJDevPropertyDefinition showTableHeader = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.SHOW_HEADING_PROPERTY,
-                EJPropertyDefinitionType.BOOLEAN);
-        showTableHeader.setLabel("Show Headings");
-        showTableHeader.setDescription("If selected, column headings will be displayed");
-        showTableHeader.setDefaultValue("true");
+       
 
-        EJDevPropertyDefinition allowRowSelection = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION_PROPERTY,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowRowSelection.setLabel("Allow Row Selection");
-        allowRowSelection.setDescription("Indicates if row selection is allowed for this lov");
-        allowRowSelection.setDefaultValue("true");
+        
+        
+        EJDevPropertyDefinition rowHeight = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, EJPropertyDefinitionType.INTEGER);
+        rowHeight.setLabel("Custom Row Height");
+        rowHeight.setDescription("If provided, the renderer will use custom row height");
 
-        EJDevPropertyDefinition showVerticalLines = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.SHOW_VERTICAL_LINES,
-                EJPropertyDefinitionType.BOOLEAN);
-        showVerticalLines.setLabel("Show Vertical Lines");
-        showVerticalLines.setDescription("Indicates if vertical lines should be displayed within the lov");
-        showVerticalLines.setDefaultValue("true");
+      
 
         mainGroup.addPropertyDefinition(showTableBorder);
-        mainGroup.addPropertyDefinition(showTableHeader);
-        mainGroup.addPropertyDefinition(allowRowSelection);
-        mainGroup.addPropertyDefinition(showVerticalLines);
+        mainGroup.addPropertyDefinition(rowHeight);
 
         return mainGroup;
     }
@@ -115,11 +105,7 @@ public class EJRWTLookupFormLovRendererDefinition implements EJDevLovRendererDef
     public EJPropertyDefinitionGroup getItemPropertiesDefinitionGroup()
     {
         EJDevPropertyDefinitionGroup mainGroup = new EJDevPropertyDefinitionGroup("Lov Renderer: Required Item Properties");
-        EJDevPropertyDefinition isFixedInTable = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.IS_COLUMN_FIXED,
-                EJPropertyDefinitionType.BOOLEAN);
-        isFixedInTable.setLabel("Fixed Column");
-        isFixedInTable.setDescription("Indicates if this column is fixed to the left part of this lov. Fixed columns hold their position even when the user scrolls horizontally to see the hidden columns");
-        isFixedInTable.setDefaultValue("false");
+        
 
         EJDevPropertyDefinition displayWidth = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY,
                 EJPropertyDefinitionType.INTEGER);
@@ -136,30 +122,10 @@ public class EJRWTLookupFormLovRendererDefinition implements EJDevLovRendererDef
         headerAlignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT, "Right");
         headerAlignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
 
-        EJDevPropertyDefinition allowColumnSorting = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_ROW_SORTING,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowColumnSorting.setLabel("Allow Column Sorting");
-        allowColumnSorting.setDescription("If selected, the user will be able to re-order the data within the lov by clicking on the column header. Only lov contents will be sorted, no new data will be retreived from the datasource");
-        allowColumnSorting.setDefaultValue("true");
+        
 
-        EJDevPropertyDefinition allowColunmResize = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_RESIZE,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowColunmResize.setLabel("Allow Resize of Column");
-        allowColunmResize.setDescription("If selected, the user will be able to resize the width of the columns wtihin this lov");
-        allowColunmResize.setDefaultValue("true");
-
-        EJDevPropertyDefinition allowColunmReorder = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_REORDER,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowColunmReorder.setLabel("Allow Re-Order of Column");
-        allowColunmReorder.setDescription("If selected, the user will be able to move columns of this lov to change their displayed position. The re-positioning will not be saved and the next time the lov is displayed, columns will be displayed in their original positions");
-        allowColunmReorder.setDefaultValue("true");
-
-        mainGroup.addPropertyDefinition(isFixedInTable);
         mainGroup.addPropertyDefinition(displayWidth);
         mainGroup.addPropertyDefinition(headerAlignment);
-        mainGroup.addPropertyDefinition(allowColumnSorting);
-        mainGroup.addPropertyDefinition(allowColunmResize);
-        mainGroup.addPropertyDefinition(allowColunmReorder);
 
         return mainGroup;
     }

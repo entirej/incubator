@@ -142,35 +142,23 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         showTableBorder.setDescription("If selected, the renderer will hide the blocks standard border");
         showTableBorder.setDefaultValue("false");
 
-        EJDevPropertyDefinition showTableHeader = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.SHOW_HEADING_PROPERTY,
-                EJPropertyDefinitionType.BOOLEAN);
-        showTableHeader.setLabel("Show Headings");
-        showTableHeader.setDescription("If selected, the cloumn headings of the block will be displayed");
-        showTableHeader.setDefaultValue("true");
+       
 
-        EJDevPropertyDefinition allowRowSelection = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION_PROPERTY,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowRowSelection.setLabel("Allow Row Selection");
-        allowRowSelection.setDescription("Indicates if row selection is allowed for this block");
-        allowRowSelection.setDefaultValue("true");
-
-        EJDevPropertyDefinition filter = new EJDevPropertyDefinition(EJRWTTreeBlockDefinitionProperties.FILTER, EJPropertyDefinitionType.BOOLEAN);
+        EJDevPropertyDefinition rowHeight = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, EJPropertyDefinitionType.INTEGER);
+        rowHeight.setLabel("Custom Row Height");
+        rowHeight.setDescription("If provided, the renderer will use custom row height");
+        
+        EJDevPropertyDefinition filter = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.FILTER, EJPropertyDefinitionType.BOOLEAN);
         filter.setLabel("Add Filter");
         filter.setDescription("If selected, the renderer will display a filter field above the blocks data. This filter can then be used by users to filter the blocks displayed data");
         filter.setDefaultValue("false");
 
-        EJDevPropertyDefinition showVerticalLines = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.SHOW_VERTICAL_LINES,
-                EJPropertyDefinitionType.BOOLEAN);
-        showVerticalLines.setLabel("Show Vertical Lines");
-        showVerticalLines.setDescription("Indicates if the block should display vertical lines");
-        showVerticalLines.setDefaultValue("true");
+       
 
         mainGroup.addPropertyDefinition(doubleClickActionCommand);
         mainGroup.addPropertyDefinition(showTableBorder);
-        mainGroup.addPropertyDefinition(showTableHeader);
-        mainGroup.addPropertyDefinition(allowRowSelection);
         mainGroup.addPropertyDefinition(filter);
-        mainGroup.addPropertyDefinition(showVerticalLines);
+        mainGroup.addPropertyDefinition(rowHeight);
 
     
 
@@ -181,11 +169,7 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
     {
         EJDevPropertyDefinitionGroup mainGroup = new EJDevPropertyDefinitionGroup("Multi-Record Block: Required Item Properties");
 
-        EJDevPropertyDefinition isFixedInTable = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.IS_COLUMN_FIXED,
-                EJPropertyDefinitionType.BOOLEAN);
-        isFixedInTable.setLabel("Fixed Column");
-        isFixedInTable.setDescription("Indicates if this column is fixed to the left part of this block. Fixed columns hold their position even when the user scrolls horizontally to see the hidden columns");
-        isFixedInTable.setDefaultValue("false");
+       
 
         EJDevPropertyDefinition displayedWidth = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY,
                 EJPropertyDefinitionType.INTEGER);
@@ -203,37 +187,16 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         headerAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT, "Right");
         headerAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
 
-        EJDevPropertyDefinition allowColumnSorting = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_ROW_SORTING,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowColumnSorting.setLabel("Allow Column Sorting");
-        allowColumnSorting.setDescription("If selected, the user will be able to re-order the data within the block by clicking on the column header. Only block contents will be sorted, no new data will be retreived from the datasource");
-        allowColumnSorting.setDefaultValue("true");
-
-        EJDevPropertyDefinition allowColunmResize = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_RESIZE,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowColunmResize.setLabel("Allow Resize of Column");
-        allowColunmResize.setDescription("If selected, the user will be able to resize the width of the columns within the block");
-        allowColunmResize.setDefaultValue("true");
-
-        EJDevPropertyDefinition allowColunmReorder = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ALLOW_COLUMN_REORDER,
-                EJPropertyDefinitionType.BOOLEAN);
-        allowColunmReorder.setLabel("Allow Re-Order of Column");
-        allowColunmReorder.setDescription("If selected, the user will be able to move columns of this block to change their displayed position. The re-positioning will not be saved and the next time the block is displayed, columns will be displayed in their original positions");
-        allowColunmReorder.setDefaultValue("true");
-
+       
         EJDevPropertyDefinition visualAttribute = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.VISUAL_ATTRIBUTE_PROPERTY,
                 EJPropertyDefinitionType.VISUAL_ATTRIBUTE);
         visualAttribute.setLabel("Visual Attribute");
         visualAttribute.setDescription("The column will be displayed using the properties from the chosen visual attribute");
         visualAttribute.setMandatory(false);
 
-        mainGroup.addPropertyDefinition(isFixedInTable);
         mainGroup.addPropertyDefinition(displayedWidth);
         mainGroup.addPropertyDefinition(headerAllignment);
 
-        mainGroup.addPropertyDefinition(allowColumnSorting);
-        mainGroup.addPropertyDefinition(allowColunmResize);
-        mainGroup.addPropertyDefinition(allowColunmReorder);
         mainGroup.addPropertyDefinition(visualAttribute);
 
         return mainGroup;
