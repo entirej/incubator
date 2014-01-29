@@ -35,6 +35,9 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -579,7 +582,6 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
         Collection<EJItemGroupProperties> allItemGroupProperties = _block.getProperties().getScreenItemGroupContainer(EJScreenType.MAIN)
                 .getAllItemGroupProperties();
         final Table table;
-        final boolean hideSelection = (style & SWT.HIDE_SELECTION) != 0;
         final EJRWTAbstractFilteredTable filterTree;
         if (rendererProp.getBooleanProperty(EJRWTTreeBlockDefinitionProperties.FILTER, false))
         {
@@ -617,30 +619,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                         @Override
                         protected TableViewer doCreateTableViewer(Composite parent, int style)
                         {
-                            return _tableViewer = new TableViewer(parent)
-                            {
-                                private static final long serialVersionUID = 5803610958722645987L;
-
-                                @Override
-                                public void setSelection(ISelection selection)
-                                {
-                                    if (hideSelection)
-                                    {
-                                        selection = new StructuredSelection();
-                                    }
-                                    super.setSelection(selection);
-                                }
-
-                                @Override
-                                public void setSelection(ISelection selection, boolean reveal)
-                                {
-                                    if (hideSelection)
-                                    {
-                                        selection = new StructuredSelection();
-                                    }
-                                    super.setSelection(selection, reveal);
-                                }
-                            };
+                            return _tableViewer = new TableViewer(parent);
                         }
                     };
                 }
@@ -668,30 +647,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                         @Override
                         protected TableViewer doCreateTableViewer(Composite parent, int style)
                         {
-                            return _tableViewer = new TableViewer(parent)
-                            {
-                                private static final long serialVersionUID = 5803610958722645987L;
-
-                                @Override
-                                public void setSelection(ISelection selection)
-                                {
-                                    if (hideSelection)
-                                    {
-                                        selection = new StructuredSelection();
-                                    }
-                                    super.setSelection(selection);
-                                }
-
-                                @Override
-                                public void setSelection(ISelection selection, boolean reveal)
-                                {
-                                    if (hideSelection)
-                                    {
-                                        selection = new StructuredSelection();
-                                    }
-                                    super.setSelection(selection, reveal);
-                                }
-                            };
+                            return _tableViewer = new TableViewer(parent);
                         }
                     };
                     filterTree.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
@@ -720,30 +676,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                     @Override
                     protected TableViewer doCreateTableViewer(Composite parent, int style)
                     {
-                        return _tableViewer = new TableViewer(parent)
-                        {
-                            private static final long serialVersionUID = 5803610958722645987L;
-
-                            @Override
-                            public void setSelection(ISelection selection)
-                            {
-                                if (hideSelection)
-                                {
-                                    selection = new StructuredSelection();
-                                }
-                                super.setSelection(selection);
-                            }
-
-                            @Override
-                            public void setSelection(ISelection selection, boolean reveal)
-                            {
-                                if (hideSelection)
-                                {
-                                    selection = new StructuredSelection();
-                                }
-                                super.setSelection(selection, reveal);
-                            }
-                        };
+                        return _tableViewer = new TableViewer(parent);
                     }
                 };
 
@@ -780,50 +713,28 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                 table.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
             }
 
-            _tableViewer = new TableViewer(table)
-            {
-                @Override
-                public void setSelection(ISelection selection)
-                {
-                    if (hideSelection)
-                    {
-                        selection = new StructuredSelection();
-                    }
-                    super.setSelection(selection);
-                }
-
-                @Override
-                public void setSelection(ISelection selection, boolean reveal)
-                {
-                    if (hideSelection)
-                    {
-                        selection = new StructuredSelection();
-                    }
-                    super.setSelection(selection, reveal);
-                }
-            };
+            _tableViewer = new TableViewer(table);
         }
 
-        int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, 0);
-        if(rowheight>0)
-        {
-           table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
-        }
         
-        table.setLinesVisible(false);
+        
+        table.setLinesVisible(true);
         table.setHeaderVisible(false);
       
 
         EJRWTTableViewerColumnFactory factory = new EJRWTTableViewerColumnFactory(_tableViewer);
         ColumnViewerToolTipSupport.enableFor(_tableViewer);
 
-        boolean autoSize = false;
+       
         final List<ColumnLabelProvider> nodeTextProviders = new ArrayList<ColumnLabelProvider>();
 
+        Template template = new  Template();
+        
+        int colIndex = 0;
         for (EJItemGroupProperties groupProperties : allItemGroupProperties)
         {
             Collection<EJScreenItemProperties> itemProperties = groupProperties.getAllItemProperties();
-            autoSize = itemProperties.size() == 1;
+            
             for (EJScreenItemProperties screenItemProperties : itemProperties)
             {
                 EJCoreMainScreenItemProperties mainScreenItemProperties = (EJCoreMainScreenItemProperties) screenItemProperties;
@@ -831,20 +742,28 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                 if (screenItem != null)
                 {
                     nodeTextProviders.add(screenItem);
+                    TextCell textCell = new TextCell(template);
+                    textCell.setBindingIndex(colIndex);
+                    textCell.setHorizontalAlignment( SWT.LEFT );
+                    textCell.setVerticalAlignment( SWT.TOP );
+                    textCell.setTop((colIndex* 25)+5);//TODO 
+                    textCell.setWidth( 180 );
+                    textCell.setHeight( 25 );
+                    colIndex++;
+                    textCell.setLeft( 5 ); 
+
                 }
-                if (autoSize)
-                {
-                    EJFrameworkExtensionProperties itemBl = mainScreenItemProperties.getBlockRendererRequiredProperties();
-                    autoSize = itemBl != null && itemBl.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY, 0) <= 0;
-                }
+                
             }
         }
-        if (autoSize)
+        
+        int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, Math.max((colIndex+1)*25, 60));
+        if(rowheight>0)
         {
-            EJRWTTableAutoResizeAdapter adapter = new EJRWTTableAutoResizeAdapter(table);
-            table.addControlListener(adapter);
-            adapter.controlResized(null);
+           table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
         }
+        table.setData(RWT.ROW_TEMPLATE,template);
+    
 
         table.addFocusListener(new FocusListener()
         {
