@@ -37,6 +37,9 @@ import java.util.Map;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -1161,5 +1164,12 @@ public class EJRWTComboItemRenderer implements EJRWTAppItemRenderer, FocusListen
         {
             listener.changed();
         }
+    }
+    
+    @Override
+    public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
+    {
+        TextCell textCell = new TextCell(template);
+        return textCell;
     }
 }

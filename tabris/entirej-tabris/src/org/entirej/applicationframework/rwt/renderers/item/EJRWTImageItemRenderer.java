@@ -26,6 +26,11 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.ImageCell;
+import org.eclipse.rap.rwt.template.ImageCell.ScaleMode;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -100,6 +105,16 @@ public class EJRWTImageItemRenderer implements EJRWTAppItemRenderer, FocusListen
         _itemProperties = _item.getReferencedItemProperties();
         _screenItemProperties = screenItemProperties;
         _rendererProps = _itemProperties.getItemRendererProperties();
+        
+        String pictureName = _rendererProps.getStringProperty(EJRWTImageItemRendererDefinitionProperties.PROPERTY_IMAGE);
+
+        if (pictureName != null && pictureName.length() > 0)
+        {
+            if (pictureName != null && pictureName.trim().length() > 0)
+            {
+                _defaultImage = EJRWTImageRetriever.get(pictureName);
+            }
+        }
     }
 
     @Override
@@ -373,15 +388,9 @@ public class EJRWTImageItemRenderer implements EJRWTAppItemRenderer, FocusListen
         final String label = _screenItemProperties.getLabel();
         final Label labelField = new Label(composite, style);
 
-        String pictureName = _rendererProps.getStringProperty(EJRWTImageItemRendererDefinitionProperties.PROPERTY_IMAGE);
-
-        if (pictureName != null && pictureName.length() > 0)
-        {
-            if (pictureName != null && pictureName.trim().length() > 0)
-            {
-                labelField.setImage(_defaultImage = EJRWTImageRetriever.get(pictureName));
-            }
-        }
+        
+         labelField.setImage(_defaultImage );
+        
 
         _labelField = labelField;
         _labelField.setText(label != null ? label : "");
@@ -530,4 +539,12 @@ public class EJRWTImageItemRenderer implements EJRWTAppItemRenderer, FocusListen
     {
         return false;
     }
+    
+    @Override
+    public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
+    {
+        ImageCell imageCell = new ImageCell(template);
+        return imageCell;
+    }
+    
 }

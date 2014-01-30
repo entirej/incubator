@@ -18,27 +18,15 @@
  ******************************************************************************/
 package org.entirej.applicationframework.rwt.renderers.block.definition;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
 
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
-import org.eclipse.ui.forms.widgets.ExpandableComposite;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
-import org.eclipse.ui.forms.widgets.Section;
 import org.entirej.applicationframework.rwt.renderers.block.definition.interfaces.EJRWTMultiRecordBlockDefinitionProperties;
-import org.entirej.applicationframework.rwt.renderers.block.definition.interfaces.EJRWTSingleRecordBlockDefinitionProperties;
-import org.entirej.applicationframework.rwt.renderers.block.definition.interfaces.EJRWTTreeBlockDefinitionProperties;
 import org.entirej.applicationframework.rwt.renderers.screen.definition.EJRWTInsertScreenRendererDefinition;
 import org.entirej.applicationframework.rwt.renderers.screen.definition.EJRWTQueryScreenRendererDefinition;
 import org.entirej.applicationframework.rwt.renderers.screen.definition.EJRWTUpdateScreenRendererDefinition;
@@ -50,11 +38,9 @@ import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDe
 import org.entirej.framework.core.properties.interfaces.EJMainScreenProperties;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinition;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinitionGroup;
-import org.entirej.framework.dev.properties.EJDevPropertyDefinitionList;
 import org.entirej.framework.dev.properties.interfaces.EJDevBlockDisplayProperties;
-import org.entirej.framework.dev.properties.interfaces.EJDevItemGroupDisplayProperties;
-import org.entirej.framework.dev.properties.interfaces.EJDevMainScreenItemDisplayProperties;
 import org.entirej.framework.dev.properties.interfaces.EJDevScreenItemDisplayProperties;
+import org.entirej.framework.dev.renderer.definition.EJDevBlockRendererDefinitionControl;
 import org.entirej.framework.dev.renderer.definition.EJDevItemRendererDefinitionControl;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevBlockRendererDefinition;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevInsertScreenRendererDefinition;
@@ -131,11 +117,13 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
     {
         EJDevPropertyDefinitionGroup mainGroup = new EJDevPropertyDefinitionGroup("Multi-Record Block");
 
-        EJDevPropertyDefinition doubleClickActionCommand = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.DOUBLE_CLICK_ACTION_COMMAND,
-                EJPropertyDefinitionType.ACTION_COMMAND);
-        doubleClickActionCommand.setLabel("Double Click Action Command");
-        doubleClickActionCommand.setDescription("Add an action command that will be sent to the action processor when a user double clicks on this block");
-
+       
+        EJDevPropertyDefinition rowSelaction = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION,
+                EJPropertyDefinitionType.BOOLEAN);
+        rowSelaction.setLabel("Row Selection");
+        rowSelaction.setDescription("If selected, the renderer will support row selection");
+        rowSelaction.setDefaultValue("true");
+        
         EJDevPropertyDefinition showTableBorder = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER,
                 EJPropertyDefinitionType.BOOLEAN);
         showTableBorder.setLabel("Hide Table Border");
@@ -155,10 +143,10 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
 
        
 
-        mainGroup.addPropertyDefinition(doubleClickActionCommand);
         mainGroup.addPropertyDefinition(showTableBorder);
         mainGroup.addPropertyDefinition(filter);
         mainGroup.addPropertyDefinition(rowHeight);
+        mainGroup.addPropertyDefinition(rowSelaction);
 
     
 
@@ -170,22 +158,66 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         EJDevPropertyDefinitionGroup mainGroup = new EJDevPropertyDefinitionGroup("Multi-Record Block: Required Item Properties");
 
        
+        //cell action to support selection
+        EJDevPropertyDefinition cellActionCommand = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_ACTION_COMMAND,
+                EJPropertyDefinitionType.ACTION_COMMAND);
+        cellActionCommand.setLabel("Action Command");
+        cellActionCommand.setDescription("Add an action command that will be sent to the action processor when a user click on this cell");
 
-        EJDevPropertyDefinition displayedWidth = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY,
+        
+        //cell width & height
+        EJDevPropertyDefinition height = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY,
                 EJPropertyDefinitionType.INTEGER);
-        displayedWidth.setLabel("Displayed Width");
-        displayedWidth
-                .setDescription("The width (in characters) of this items column within the block.If zero is specified then the width of the column will be relative to the data it contains and the width of the other columns");
-
-        EJDevPropertyDefinition headerAllignment = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALIGNMENT,
+        height.setLabel("Height");
+        height.setDescription("The height  of this items column within the cell.");
+        
+        
+        EJDevPropertyDefinition width = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.WIDTH_PROPERTY,
+                EJPropertyDefinitionType.INTEGER);
+        width.setLabel("Width");
+        width.setDescription("The width of this items column within the cell.");
+       
+        
+        
+        EJDevPropertyDefinition top = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_TOP,
+                EJPropertyDefinitionType.INTEGER);
+        top.setLabel("Top");
+        top.setDescription("Sets the top offset of the cell, i.e. the distance from the top edge of the template.");
+        EJDevPropertyDefinition bottom = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_BOTTOM,
+                EJPropertyDefinitionType.INTEGER);
+        bottom.setLabel("Bottom");
+        bottom.setDescription("Sets the bottom offset of the cell, i.e. the distance from the bottom edge of the template.");
+        EJDevPropertyDefinition left = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_LEFT,
+                EJPropertyDefinitionType.INTEGER);
+        left.setLabel("Left");
+        left.setDescription("Sets the left offset of the cell, i.e. the distance from the left edge of the template.");
+        EJDevPropertyDefinition right = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_RIGHT,
+                EJPropertyDefinitionType.INTEGER);
+        right.setLabel("Right");
+        right.setDescription("Sets the right offset of the cell, i.e. the distance from the right edge of the template.");
+        
+        
+        EJDevPropertyDefinition vAllignment = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT,
                 EJPropertyDefinitionType.STRING);
-        headerAllignment.setLabel("Column Alignment");
-        headerAllignment.setDescription("Indicates the alignment of the contents within this column.");
-        headerAllignment.setDefaultValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT);
+        vAllignment.setLabel("Vertical Alignment");
+        vAllignment.setDescription("Indicates the alignment of the contents within this cell.");
+        vAllignment.setDefaultValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE);
 
-        headerAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT, "Left");
-        headerAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT, "Right");
-        headerAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE, "None");
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_TOP, "Top");
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM, "Bottom");
+        
+        EJDevPropertyDefinition hAllignment = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT,
+                EJPropertyDefinitionType.STRING);
+        hAllignment.setLabel("Horizontal Alignment");
+        hAllignment.setDescription("Indicates the alignment of the contents within this cell.");
+        hAllignment.setDefaultValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE);
+        
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE, "None");
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT, "Left");
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT, "Right");
 
        
         EJDevPropertyDefinition visualAttribute = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.VISUAL_ATTRIBUTE_PROPERTY,
@@ -194,9 +226,16 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         visualAttribute.setDescription("The column will be displayed using the properties from the chosen visual attribute");
         visualAttribute.setMandatory(false);
 
-        mainGroup.addPropertyDefinition(displayedWidth);
-        mainGroup.addPropertyDefinition(headerAllignment);
+        mainGroup.addPropertyDefinition(width);
+        mainGroup.addPropertyDefinition(height);
+        mainGroup.addPropertyDefinition(hAllignment);
+        mainGroup.addPropertyDefinition(vAllignment);
+        mainGroup.addPropertyDefinition(top);
+        mainGroup.addPropertyDefinition(left);
+        mainGroup.addPropertyDefinition(right);
+        mainGroup.addPropertyDefinition(bottom);
 
+        mainGroup.addPropertyDefinition(cellActionCommand);
         mainGroup.addPropertyDefinition(visualAttribute);
 
         return mainGroup;
@@ -210,7 +249,7 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
     }
 
     @Override
-    public EJRWTTableRendererDefinitionControl addBlockControlToCanvas(EJMainScreenProperties mainScreenProperties,
+    public EJDevBlockRendererDefinitionControl addBlockControlToCanvas(EJMainScreenProperties mainScreenProperties,
             EJDevBlockDisplayProperties blockDisplayProperties, Composite parent, FormToolkit toolkit)
     {
         EJFrameworkExtensionProperties rendererProperties = blockDisplayProperties.getBlockRendererProperties();
@@ -234,86 +273,12 @@ public class EJRWTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
 
         layoutBody.setLayout(new GridLayout(mainScreenProperties.getNumCols(), false));
 
-        EJRWTTableRendererDefinitionControl control = addTable(blockDisplayProperties, layoutBody, toolkit);
-
-        return control;
+        Label browser = new Label(layoutBody, SWT.NONE);
+        browser.setText("TABLE RENDERER-TABRIS-ROW-TEMPLATE");
+        return new EJDevBlockRendererDefinitionControl(blockDisplayProperties, Collections.<EJDevItemRendererDefinitionControl> emptyList());
     }
 
-    private EJRWTTableRendererDefinitionControl addTable(EJDevBlockDisplayProperties blockDisplayProperties, Composite client, FormToolkit toolkit)
-    {
-        Map<String, Integer> columnPositions = new HashMap<String, Integer>();
-
-        final ScrolledForm sc = toolkit.createScrolledForm(client);
-
-        GridData scgd = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-        scgd.grabExcessHorizontalSpace = true;
-        scgd.grabExcessVerticalSpace = true;
-        sc.setLayoutData(scgd);
-        GridLayout gl = new GridLayout();
-        gl.marginHeight = gl.marginWidth = 0;
-        sc.getBody().setLayout(gl);
-        toolkit.adapt(sc);
-
-        sc.getBody().setLayout(new FillLayout());
-        Composite tablePanel = sc.getBody();
-        EJDevItemGroupDisplayProperties displayProperties = null;
-        if (blockDisplayProperties.getMainScreenItemGroupDisplayContainer().getAllItemGroupDisplayProperties().size() > 0)
-        {
-            displayProperties = blockDisplayProperties.getMainScreenItemGroupDisplayContainer().getAllItemGroupDisplayProperties().iterator().next();
-            if (displayProperties.dispayGroupFrame())
-            {
-                Group group = new Group(tablePanel, SWT.NONE);
-                group.setLayout(new FillLayout());
-                if (displayProperties.getFrameTitle() != null && displayProperties.getFrameTitle().length() > 0)
-                    group.setText(displayProperties.getFrameTitle());
-                tablePanel = group;
-            }
-        }
-
-        Table table = new Table(tablePanel, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
-
-        table.setHeaderVisible(true);
-        table.setLinesVisible(true);
-
-        TableLayout tableLayout = new TableLayout();
-
-        // There is only one item group for a flow layout
-
-        int itemCount = 0;
-        if (displayProperties != null)
-            for (EJDevScreenItemDisplayProperties screenItem : displayProperties.getAllItemDisplayProperties())
-            {
-                if (!screenItem.isSpacerItem())
-                {
-                    int width = ((EJDevMainScreenItemDisplayProperties) screenItem).getBlockRendererRequiredProperties().getIntProperty(
-                            EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY, 0);
-
-                    TableColumn masterColumn = new TableColumn(table, SWT.NONE);
-                    masterColumn.setData("SCREEN_ITEM", screenItem);
-                    masterColumn.setText(screenItem.getLabel());
-                    masterColumn.setWidth(width);
-                    String alignment = ((EJDevMainScreenItemDisplayProperties) screenItem).getBlockRendererRequiredProperties().getStringProperty(
-                            EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALIGNMENT);
-
-                    if (EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT.equals(alignment))
-                    {
-                        masterColumn.setAlignment(SWT.RIGHT);
-                    }
-                    else if (EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER.equals(alignment))
-                    {
-                        masterColumn.setAlignment(SWT.CENTER);
-                    }
-                    ColumnWeightData colData = new ColumnWeightData(5, 50, true);
-                    tableLayout.addColumnData(colData);
-                    columnPositions.put(screenItem.getReferencedItemName(), itemCount);
-                    itemCount++;
-                }
-            }
-
-        table.setLayout(tableLayout);
-
-        return new EJRWTTableRendererDefinitionControl(blockDisplayProperties, table, columnPositions);
-    }
+    
 
     @Override
     public EJDevItemRendererDefinitionControl getSpacerItemControl(EJDevScreenItemDisplayProperties itemProperties, Composite parent, FormToolkit toolkit)

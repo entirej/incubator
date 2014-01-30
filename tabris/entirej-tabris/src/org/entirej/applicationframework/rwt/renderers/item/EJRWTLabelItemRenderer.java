@@ -23,6 +23,9 @@ import java.io.Serializable;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -38,6 +41,7 @@ import org.eclipse.swt.widgets.Label;
 import org.entirej.applicationframework.rwt.application.EJRWTImageRetriever;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppItemRenderer;
 import org.entirej.applicationframework.rwt.renderers.item.definition.interfaces.EJRWTLabelItemRendererDefinitionProperties;
+import org.entirej.applicationframework.rwt.renderers.item.definition.interfaces.EJRWTTextItemRendererDefinitionProperties;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractTableSorter;
 import org.entirej.applicationframework.rwt.utils.EJRWTItemRendererVisualContext;
 import org.entirej.applicationframework.rwt.utils.EJRWTVisualAttributeUtils;
@@ -641,5 +645,13 @@ public class EJRWTLabelItemRenderer implements EJRWTAppItemRenderer, FocusListen
     public boolean isReadOnly()
     {
         return true;
+    }
+    
+    @Override
+    public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
+    {
+        TextCell textCell = new TextCell(template);
+        textCell.setWrap(_rendererProps.getBooleanProperty(EJRWTLabelItemRendererDefinitionProperties.PROPERTY_TEXT_WRAP, false));
+        return textCell;
     }
 }

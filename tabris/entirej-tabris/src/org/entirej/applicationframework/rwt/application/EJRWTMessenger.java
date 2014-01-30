@@ -18,6 +18,7 @@
  ******************************************************************************/
 package org.entirej.applicationframework.rwt.application;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.eclipse.core.runtime.IStatus;
@@ -202,6 +203,7 @@ public class EJRWTMessenger implements EJMessenger
         {
             Status status = new Status(IStatus.ERROR, "rwt.ej", exception.getMessage());
             ErrorDialog.openError(manager.getShell(), "Error", "Internal Error", status);
+            exception.printStackTrace();
         }
     }
 
@@ -211,7 +213,7 @@ public class EJRWTMessenger implements EJMessenger
         handleException(exception, true);
     }
 
-    private static class MessagingContex
+    private static class MessagingContex implements Serializable
     {
 
         public static final String APP_MESSAGING                 = "APP_MESSAGING";

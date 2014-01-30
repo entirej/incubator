@@ -18,24 +18,13 @@
  ******************************************************************************/
 package org.entirej.applicationframework.rwt.renderers.lov.definition;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Collections;
 
-import org.eclipse.jface.viewers.ColumnWeightData;
-import org.eclipse.jface.viewers.TableLayout;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.ControlAdapter;
-import org.eclipse.swt.events.ControlEvent;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Table;
-import org.eclipse.swt.widgets.TableColumn;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
-import org.eclipse.ui.forms.widgets.ScrolledForm;
 import org.entirej.applicationframework.rwt.renderers.block.definition.interfaces.EJRWTMultiRecordBlockDefinitionProperties;
 import org.entirej.applicationframework.rwt.renderers.screen.definition.EJRWTQueryScreenRendererDefinition;
 import org.entirej.framework.core.properties.definitions.EJPropertyDefinitionType;
@@ -45,12 +34,11 @@ import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDe
 import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDefinitionListener;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinition;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinitionGroup;
-import org.entirej.framework.dev.properties.interfaces.EJDevItemGroupDisplayProperties;
 import org.entirej.framework.dev.properties.interfaces.EJDevLovDefinitionDisplayProperties;
-import org.entirej.framework.dev.properties.interfaces.EJDevScreenItemDisplayProperties;
+import org.entirej.framework.dev.renderer.definition.EJDevItemRendererDefinitionControl;
+import org.entirej.framework.dev.renderer.definition.EJDevLovRendererDefinitionControl;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevLovRendererDefinition;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevQueryScreenRendererDefinition;
-
 
 public class EJRWTLookupFormLovRendererDefinition implements EJDevLovRendererDefinition
 {
@@ -75,18 +63,19 @@ public class EJRWTLookupFormLovRendererDefinition implements EJDevLovRendererDef
         showTableBorder.setDescription("If selected, the renderer will hide the lov's standard border");
         showTableBorder.setDefaultValue("false");
 
-       
+        EJDevPropertyDefinition rowSelaction = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION,
+                EJPropertyDefinitionType.BOOLEAN);
+        rowSelaction.setLabel("Row Selection");
+        rowSelaction.setDescription("If selected, the renderer will support row selection");
+        rowSelaction.setDefaultValue("false");
 
-        
-        
         EJDevPropertyDefinition rowHeight = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, EJPropertyDefinitionType.INTEGER);
         rowHeight.setLabel("Custom Row Height");
         rowHeight.setDescription("If provided, the renderer will use custom row height");
 
-      
-
         mainGroup.addPropertyDefinition(showTableBorder);
         mainGroup.addPropertyDefinition(rowHeight);
+        mainGroup.addPropertyDefinition(rowSelaction);
 
         return mainGroup;
     }
@@ -105,27 +94,70 @@ public class EJRWTLookupFormLovRendererDefinition implements EJDevLovRendererDef
     public EJPropertyDefinitionGroup getItemPropertiesDefinitionGroup()
     {
         EJDevPropertyDefinitionGroup mainGroup = new EJDevPropertyDefinitionGroup("Lov Renderer: Required Item Properties");
-        
 
-        EJDevPropertyDefinition displayWidth = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY,
+        // cell width & height
+        EJDevPropertyDefinition height = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY,
                 EJPropertyDefinitionType.INTEGER);
-        displayWidth.setLabel("Display Width");
-        displayWidth.setDescription("The width (in characters) of this item within the lov");
-
-        EJDevPropertyDefinition headerAlignment = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALIGNMENT,
-                EJPropertyDefinitionType.STRING);
-        headerAlignment.setLabel("Column Alignment");
-        headerAlignment.setDescription("Indicates the alignment of data within the column");
-        headerAlignment.setDefaultValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT);
-
-        headerAlignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT, "Left");
-        headerAlignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT, "Right");
-        headerAlignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
-
+        height.setLabel("Height");
+        height.setDescription("The height  of this items column within the cell.");
         
 
-        mainGroup.addPropertyDefinition(displayWidth);
-        mainGroup.addPropertyDefinition(headerAlignment);
+        EJDevPropertyDefinition width = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.WIDTH_PROPERTY, EJPropertyDefinitionType.INTEGER);
+        width.setLabel("Width");
+        width.setDescription("The width of this items column within the cell.");
+        
+
+        EJDevPropertyDefinition top = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_TOP, EJPropertyDefinitionType.INTEGER);
+        top.setLabel("Top");
+        top.setDescription("Sets the top offset of the cell, i.e. the distance from the top edge of the template.");
+        EJDevPropertyDefinition bottom = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_BOTTOM, EJPropertyDefinitionType.INTEGER);
+        bottom.setLabel("Bottom");
+        bottom.setDescription("Sets the bottom offset of the cell, i.e. the distance from the bottom edge of the template.");
+        EJDevPropertyDefinition left = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_LEFT, EJPropertyDefinitionType.INTEGER);
+        left.setLabel("Left");
+        left.setDescription("Sets the left offset of the cell, i.e. the distance from the left edge of the template.");
+        EJDevPropertyDefinition right = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_RIGHT, EJPropertyDefinitionType.INTEGER);
+        right.setLabel("Right");
+        right.setDescription("Sets the right offset of the cell, i.e. the distance from the right edge of the template.");
+
+        EJDevPropertyDefinition vAllignment = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT,
+                EJPropertyDefinitionType.STRING);
+        vAllignment.setLabel("Vertical Alignment");
+        vAllignment.setDescription("Indicates the alignment of the contents within this cell.");
+        vAllignment.setDefaultValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE);
+
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE, "None");
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_TOP, "Top");
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
+        vAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM, "Bottom");
+
+        EJDevPropertyDefinition hAllignment = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT,
+                EJPropertyDefinitionType.STRING);
+        hAllignment.setLabel("Horizontal Alignment");
+        hAllignment.setDescription("Indicates the alignment of the contents within this cell.");
+        hAllignment.setDefaultValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE);
+
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_NONE, "None");
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT, "Left");
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER, "Center");
+        hAllignment.addValidValue(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT, "Right");
+
+        EJDevPropertyDefinition visualAttribute = new EJDevPropertyDefinition(EJRWTMultiRecordBlockDefinitionProperties.VISUAL_ATTRIBUTE_PROPERTY,
+                EJPropertyDefinitionType.VISUAL_ATTRIBUTE);
+        visualAttribute.setLabel("Visual Attribute");
+        visualAttribute.setDescription("The column will be displayed using the properties from the chosen visual attribute");
+        visualAttribute.setMandatory(false);
+
+        mainGroup.addPropertyDefinition(width);
+        mainGroup.addPropertyDefinition(height);
+        mainGroup.addPropertyDefinition(hAllignment);
+        mainGroup.addPropertyDefinition(vAllignment);
+        mainGroup.addPropertyDefinition(top);
+        mainGroup.addPropertyDefinition(left);
+        mainGroup.addPropertyDefinition(right);
+        mainGroup.addPropertyDefinition(bottom);
+
+        mainGroup.addPropertyDefinition(visualAttribute);
 
         return mainGroup;
     }
@@ -156,166 +188,18 @@ public class EJRWTLookupFormLovRendererDefinition implements EJDevLovRendererDef
         return false;
     }
 
-    public EJRWTTableRendererDefinitionControl addLovControlToCanvas(EJDevLovDefinitionDisplayProperties displayProperties, Composite parent,
+    public EJDevLovRendererDefinitionControl addLovControlToCanvas(EJDevLovDefinitionDisplayProperties lovDisplayProperties, Composite parent,
             FormToolkit toolkit)
     {
-        EJRWTTableRendererDefinitionControl control = addTable(displayProperties, parent, toolkit);
+        Composite layoutBody = new Composite(parent, SWT.NONE);
 
-        toolkit.paintBordersFor(parent);
+        layoutBody.setLayout(new GridLayout(1, false));
 
-        return control;
+        Label browser = new Label(layoutBody, SWT.NONE);
 
-        //
-        // Composite client = toolkit.createComposite(parent);
-        // GridData gd = new GridData(GridData.FILL_HORIZONTAL |
-        // GridData.VERTICAL_ALIGN_FILL);
-        // gd.grabExcessHorizontalSpace = true;
-        // gd.grabExcessVerticalSpace = true;
-        // client.setLayoutData(gd);
-        //
-        // GridLayout glayout = new GridLayout();
-        // glayout.marginWidth = 0;
-        // glayout.marginHeight = 0;
-        // glayout.numColumns = 1;
-        // glayout.makeColumnsEqualWidth = false;
-        // glayout.horizontalSpacing = 0;
-        // client.setLayout(glayout);
-        //
-        // TableRendererDefinitionControl control = addTable(displayProperties,
-        // client, toolkit);
-        //
-        // toolkit.paintBordersFor(client);
-        //
-        // return control;
-    }
+        browser.setText("LOV RENDERER-TABRIS-ROW-TEMPLATE");
+        return new EJDevLovRendererDefinitionControl(lovDisplayProperties, Collections.<EJDevItemRendererDefinitionControl> emptyList());
 
-    private EJRWTTableRendererDefinitionControl addTable(EJDevLovDefinitionDisplayProperties lovDisplayProperties, Composite client, FormToolkit toolkit)
-    {
-        Map<String, Integer> columnPositions = new HashMap<String, Integer>();
-
-        final ScrolledForm sc = toolkit.createScrolledForm(client);
-
-        GridData scgd = new GridData(SWT.FILL, SWT.FILL, true, true, 1, 1);
-        scgd.grabExcessHorizontalSpace = true;
-        scgd.grabExcessVerticalSpace = true;
-        sc.setLayoutData(scgd);
-        GridLayout gl = new GridLayout();
-        gl.marginHeight = gl.marginWidth = 0;
-        sc.getBody().setLayout(gl);
-        toolkit.adapt(sc);
-
-        GridLayout glayout = new GridLayout();
-        glayout.marginWidth = glayout.marginHeight = 0;
-        glayout.numColumns = 1;
-
-        sc.getBody().setLayout(glayout);
-        Composite tablePanel = sc.getBody();
-
-        Table table = new Table(tablePanel, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL | SWT.BORDER | SWT.FULL_SELECTION);
-
-        GridData gd = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_FILL);
-        gd.grabExcessHorizontalSpace = true;
-        gd.grabExcessVerticalSpace = true;
-        // gd.widthHint = 300;
-        // gd.heightHint = 100;
-        gd.verticalSpan = 6;
-        gd.horizontalSpan = 2;
-        table.setLayoutData(gd);
-
-        table.setHeaderVisible(true);
-        table.setLinesVisible(true);
-
-        TableLayout tableLayout = new TableLayout();
-
-        // There is only one item group for a flow layout
-        Iterator<EJDevItemGroupDisplayProperties> itemGroups = lovDisplayProperties.getMainScreenItemGroupDisplayContainer().getAllItemGroupDisplayProperties()
-                .iterator();
-        if (itemGroups.hasNext())
-        {
-            EJDevItemGroupDisplayProperties displayProperties = itemGroups.next();
-
-            int itemCount = 0;
-            for (EJDevScreenItemDisplayProperties screenItem : displayProperties.getAllItemDisplayProperties())
-            {
-                int width = 0;
-                TableColumn masterColumn = new TableColumn(table, SWT.NONE);
-                masterColumn.setData("SCREEN_ITEM", screenItem);
-                masterColumn.setText(screenItem.getLabel());
-                masterColumn.setWidth(width);
-                ColumnWeightData colData = new ColumnWeightData(5, 50, true);
-                tableLayout.addColumnData(colData);
-                columnPositions.put(screenItem.getReferencedItemName(), itemCount);
-                itemCount++;
-            }
-        }
-
-        table.setLayout(tableLayout);
-        setColumnResizeHook(table, tablePanel);
-
-        return new EJRWTTableRendererDefinitionControl(lovDisplayProperties, table, columnPositions);
-    }
-
-    private void setColumnResizeHook(final Table table, final Composite client)
-    {
-        table.addControlListener(new ControlAdapter()
-        {
-            public void controlResized(ControlEvent e)
-            {
-                Rectangle area = client.getClientArea();
-                // table.setLayoutDeferred(true);
-                Point preferredSize = table.computeSize(SWT.DEFAULT, SWT.DEFAULT);
-                int width = area.width - 20 * table.getBorderWidth();
-                if (preferredSize.y > area.height + table.getHeaderHeight())
-                {
-                    // Subtract the scrollbar width from the total column width
-                    // if a vertical scrollbar will be required
-                    Point vBarSize = table.getVerticalBar().getSize();
-                    width -= vBarSize.x;
-                }
-                Point oldSize = table.getSize();
-                boolean shrink = oldSize.x > area.width;
-                if (!shrink)
-                {
-                    // table is getting bigger so make the table
-                    // bigger first and then make the columns wider
-                    // to match the client area width
-                    table.setSize(area.width, area.height);
-                }
-                int sumColumnWidth = 0;
-                TableColumn[] tableColumns = table.getColumns();
-                for (TableColumn tableColumn : tableColumns)
-                {
-                    int columnWidth = tableColumn.getWidth();
-                    sumColumnWidth += columnWidth;
-                }
-
-                double scale = (double) width / (double) sumColumnWidth;
-
-                sumColumnWidth = 0;
-                int newColumnWidth = 0;
-
-                for (int i = 0; i < table.getColumnCount() - 1; i++)
-                {
-                    if (table.getColumn(i) != null)
-                    {
-                        newColumnWidth = (int) Math.round(scale * (double) table.getColumn(i).getWidth());
-                        table.getColumn(i).setWidth(newColumnWidth);
-                        sumColumnWidth += newColumnWidth;
-                    }
-                }
-
-                if (table.getColumnCount() > 0)
-                {
-                    table.getColumn(table.getColumnCount() - 1).setWidth(width - sumColumnWidth);
-                }
-
-                if (shrink)
-                {
-                    table.setSize(area.width, area.height);
-                }
-                // table.setLayoutDeferred(false);
-            }
-        });
     }
 
     @Override

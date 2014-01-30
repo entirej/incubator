@@ -321,7 +321,7 @@ public class EJRWTTreeRecordBlockRenderer implements EJRWTAppBlockRenderer, KeyL
         {
             _tableViewer.setInput(new Object());
         }
-        selectRow(0);
+        //selectRow(0);
     }
 
     public void pageRetrieved()
@@ -330,7 +330,7 @@ public class EJRWTTreeRecordBlockRenderer implements EJRWTAppBlockRenderer, KeyL
         {
             _tableViewer.refresh();
         }
-        selectRow(0);
+        //selectRow(0);
     }
 
     @Override
@@ -1107,7 +1107,7 @@ public class EJRWTTreeRecordBlockRenderer implements EJRWTAppBlockRenderer, KeyL
             }
         });
         _tableViewer.setInput(new Object());
-        selectRow(0);
+       // selectRow(0);
 
         // add double click action
         final String doubleClickActionCommand = rendererProp.getStringProperty(EJRWTTreeBlockDefinitionProperties.DOUBLE_CLICK_ACTION_COMMAND);

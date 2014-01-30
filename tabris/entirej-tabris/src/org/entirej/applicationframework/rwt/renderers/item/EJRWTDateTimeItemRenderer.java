@@ -34,6 +34,9 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -52,6 +55,7 @@ import org.entirej.applicationframework.rwt.application.EJRWTImageRetriever;
 import org.entirej.applicationframework.rwt.application.components.EJRWTAbstractActionDateTime;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppItemRenderer;
 import org.entirej.applicationframework.rwt.renderers.item.definition.interfaces.EJRWTDateTimeItemRendererDefinitionProperties;
+import org.entirej.applicationframework.rwt.renderers.item.definition.interfaces.EJRWTLabelItemRendererDefinitionProperties;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractTableSorter;
 import org.entirej.applicationframework.rwt.utils.EJRWTItemRendererVisualContext;
 import org.entirej.applicationframework.rwt.utils.EJRWTVisualAttributeUtils;
@@ -1003,5 +1007,10 @@ public class EJRWTDateTimeItemRenderer implements EJRWTAppItemRenderer, FocusLis
             _actionControl.setActionVisible(isLovActivated() && editAllowed);
         }
     }
-
+    @Override
+    public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
+    {
+        TextCell textCell = new TextCell(template);
+        return textCell;
+    }
 }

@@ -30,6 +30,9 @@ import java.util.Map;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -46,6 +49,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppItemRenderer;
+import org.entirej.applicationframework.rwt.renderers.item.definition.interfaces.EJRWTLabelItemRendererDefinitionProperties;
 import org.entirej.applicationframework.rwt.renderers.item.definition.interfaces.EJRWTRadioButtonItemRendererDefinitionProperties;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractTableSorter;
 import org.entirej.applicationframework.rwt.utils.EJRWTItemRendererVisualContext;
@@ -814,5 +818,13 @@ public class EJRWTRadioGroupItemRenderer implements EJRWTAppItemRenderer, FocusL
     public boolean isReadOnly()
     {
         return false;
+    }
+    
+    
+    @Override
+    public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
+    {
+        TextCell textCell = new TextCell(template);
+        return textCell;
     }
 }

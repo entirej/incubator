@@ -28,6 +28,9 @@ import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
@@ -1102,5 +1105,13 @@ public class EJRWTTextItemRenderer implements EJRWTAppItemRenderer, FocusListene
         {
             textDecorator.useUrlKeyboard();
         }
+    }
+
+    @Override
+    public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
+    {
+        TextCell textCell = new TextCell(template);
+        textCell.setWrap(_rendererProps.getBooleanProperty(EJRWTTextItemRendererDefinitionProperties.PROPERTY_WRAP, false));
+        return textCell;
     }
 }

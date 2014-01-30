@@ -21,7 +21,6 @@
  */
 package org.entirej.applicationframework.rwt.renderers.application;
 
-import org.entirej.applicationframework.rwt.renderers.block.definition.interfaces.EJRWTSingleRecordBlockDefinitionProperties;
 import org.entirej.framework.core.application.definition.interfaces.EJApplicationDefinition;
 import org.entirej.framework.core.properties.definitions.EJPropertyDefinitionType;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;

@@ -35,6 +35,8 @@ import org.eclipse.jface.viewers.TableViewer;
 import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.Template;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.GridData;
@@ -51,8 +53,6 @@ import org.entirej.applicationframework.rwt.renderer.interfaces.EJRWTAppItemRend
 import org.entirej.applicationframework.rwt.renderers.blocks.definition.interfaces.EJRWTMultiRecordBlockDefinitionProperties;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractFilteredTable;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractFilteredTable.FilteredContentProvider;
-import org.entirej.applicationframework.rwt.table.EJRWTAbstractTableSorter;
-import org.entirej.applicationframework.rwt.table.EJRWTTableSortSelectionListener;
 import org.entirej.applicationframework.rwt.table.EJRWTTableViewerColumnFactory;
 import org.entirej.framework.core.EJFrameworkManager;
 import org.entirej.framework.core.data.EJDataRecord;
@@ -65,6 +65,8 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.interfaces.EJScreenItemController;
 import org.entirej.framework.core.internal.EJInternalBlock;
 import org.entirej.framework.core.properties.EJCoreMainScreenItemProperties;
+import org.entirej.framework.core.properties.EJCoreProperties;
+import org.entirej.framework.core.properties.EJCoreVisualAttributeProperties;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
 import org.entirej.framework.core.properties.interfaces.EJItemGroupProperties;
 import org.entirej.framework.core.properties.interfaces.EJScreenItemProperties;
@@ -195,8 +197,18 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
                 layout.marginBottom = 0;
                 layout.marginTop = 0;
                 parent.setLayout(layout);
-                int style = SWT.VIRTUAL | SWT.FULL_SELECTION;
                 EJFrameworkExtensionProperties rendererProp = _lovController.getDefinitionProperties().getLovRendererProperties();
+                int style = SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL ;
+                
+                if(rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION, true))
+                {
+                    style = style| SWT.FULL_SELECTION;
+                }
+                if(!rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER, false))
+                {
+                    style = style| SWT.BORDER;
+                }
+                
 
                 final EJRWTAbstractFilteredTable filterTree;
                 Table table;
@@ -234,30 +246,38 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
                 table.setLinesVisible(false);
                 table.setHeaderVisible(false);
 
-                int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, 0);
-                if(rowheight>0)
-                {
-                   table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
-                }
+                
                 
                 EJRWTTableViewerColumnFactory factory = new EJRWTTableViewerColumnFactory(_tableViewer);
                 ColumnViewerToolTipSupport.enableFor(_tableViewer);
                 Collection<EJItemGroupProperties> allItemGroupProperties = _block.getProperties().getScreenItemGroupContainer(EJScreenType.MAIN)
                         .getAllItemGroupProperties();
                 final List<ColumnLabelProvider> nodeTextProviders = new ArrayList<ColumnLabelProvider>();
+
+                Template template = new  Template();
+                
+                int colIndex = 0;
                 for (EJItemGroupProperties groupProperties : allItemGroupProperties)
                 {
                     Collection<EJScreenItemProperties> itemProperties = groupProperties.getAllItemProperties();
                     for (EJScreenItemProperties screenItemProperties : itemProperties)
                     {
                         EJCoreMainScreenItemProperties mainScreenItemProperties = (EJCoreMainScreenItemProperties) screenItemProperties;
-                        ColumnLabelProvider screenItem = createScreenItem(factory, mainScreenItemProperties);
+                        ColumnLabelProvider screenItem = createScreenItem(factory, mainScreenItemProperties,template,colIndex);
                         if (screenItem != null)
                         {
                             nodeTextProviders.add(screenItem);
+                            colIndex++;
                         }
                     }
                 }
+                
+                int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, Math.max((colIndex+1)*20, 60));
+                if(rowheight>0)
+                {
+                   table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
+                }
+                table.setData(RWT.ROW_TEMPLATE,template);
 
                 final EJBlockController blockController = _block.getBlockController();
                 // _mainPane.addControlListener(new
@@ -519,7 +539,7 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
         }
 
         _tableViewer.setInput(new Object());
-        selectRow(0);
+        //selectRow(0);
     }
 
     @Override
@@ -634,7 +654,7 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
                 _tableViewer.setInput(new Object());
 
             }
-            selectRow(0);
+            //selectRow(0);
 
         }
         finally
@@ -643,7 +663,7 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
         }
     }
 
-    public ColumnLabelProvider createScreenItem(EJRWTTableViewerColumnFactory factory, EJCoreMainScreenItemProperties itemProps)
+    public ColumnLabelProvider createScreenItem(EJRWTTableViewerColumnFactory factory, EJCoreMainScreenItemProperties itemProps,Template template,int col)
     {
         if (itemProps.isSpacerItem())
         {
@@ -661,47 +681,93 @@ public class EJRWTStandardLovRenderer implements EJLovRenderer
             if (labelProvider != null)
             {
 
-                int _widthHint = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY, 0);
-                // if no width define in block properties use item renderer pref
-                // width
-                if (_widthHint == 0)
+                Cell<? extends Cell<?>> columnCell = itemRenderer.createColumnCell(itemProps, item, template);
+                if(columnCell==null)
                 {
-                    if (itemProps.getLabel() != null)
-                    {
-                        _widthHint = itemProps.getLabel().length() + 2;// offset
-                    }
-                    else
-                    {
-                        _widthHint = 5;
-                    }
+                    return null;
                 }
-
-                String alignmentProperty = blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALIGNMENT);
-
-                TableViewerColumn viewerColumn = factory.createColumn(itemProps.getLabel(), _widthHint, labelProvider, getComponentStyle(alignmentProperty));
-                TableColumn column = viewerColumn.getColumn();
-                column.setToolTipText(itemProps.getHint());
+                columnCell.setBindingIndex(col);
+                
+                int width = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.WIDTH_PROPERTY, 0);
+                int height = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY, 0);
+                int top = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_TOP, -1);
+                int left = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_LEFT, -1);
+                int right = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_RIGHT, -1);
+                int bottom = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_BOTTOM, -1);
 
                
 
-                // ensure that the width property of the table column is in
-                // Characters
-                Font font = labelProvider.getFont(new Object());
-                if (font == null)
+                String visualAttribute = blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.VISUAL_ATTRIBUTE_PROPERTY);
+
+                if (visualAttribute != null)
                 {
-                    font = _tableViewer.getTable().getFont();
-                }
-                if (font != null)
-                {
-                    float avgCharWidth = EJRWTImageRetriever.getAvgCharWidth(font);
-                    if (avgCharWidth > 0)
+                    EJCoreVisualAttributeProperties va = EJCoreProperties.getInstance().getVisualAttributesContainer()
+                            .getVisualAttributeProperties(visualAttribute);
+                    if (va != null)
                     {
-                        column.setWidth((int) ((column.getWidth() + 1) * avgCharWidth));// add
-                                                                                        // +1
-                                                                                        // padding
+                        itemRenderer.setInitialVisualAttribute(va);
                     }
                 }
-                return labelProvider;
+                //create dummy column
+                TableViewerColumn viewerColumn = factory.createColumn(itemProps.getLabel(), 5, labelProvider, SWT.LEFT);
+                TableColumn column = viewerColumn.getColumn();
+                column.setData("KEY", itemProps.getReferencedItemName());
+                column.setToolTipText(itemProps.getHint());
+
+               
+                
+                
+                if (top > -1)
+                {
+                    columnCell.setTop(top);
+                }
+                if (left > -1)
+                {
+                    columnCell.setLeft(left);
+                }
+                if (right > -1)
+                {
+                    columnCell.setRight(right);
+                }
+                if (bottom > -1)
+                {
+                    columnCell.setBottom(bottom);
+                }
+               
+                if(left<=-1 || right <=-1)
+                {
+                    if (width != 0)
+                    {
+                        columnCell.setWidth(width);
+                    }
+                    else
+                    {
+                        columnCell.setWidth(SWT.DEFAULT);
+                    }
+                }
+                
+                if(top<=-1 || bottom <=-1)
+                {
+                    if (height != 0)
+                    {
+                        columnCell.setHeight(height);
+                    }
+                    else
+                    {
+                        columnCell.setHeight(SWT.DEFAULT);
+                    }
+                }
+               columnCell.setHorizontalAlignment(getComponentStyle(blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT)));
+               columnCell.setVerticalAlignment(getComponentStyle(blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT)));
+               
+                
+                final String action = blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_ACTION_COMMAND);
+                if(action!=null && action.length()>0)
+                {
+                     columnCell.setName(action);
+                     columnCell.setSelectable(true);
+                }
+                
 
             }
         }

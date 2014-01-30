@@ -45,6 +45,8 @@ import org.eclipse.swt.events.KeyEvent;
 import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
@@ -64,9 +66,6 @@ import org.entirej.applicationframework.rwt.renderers.screen.EJRWTQueryScreenRen
 import org.entirej.applicationframework.rwt.renderers.screen.EJRWTUpdateScreenRenderer;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractFilteredTable;
 import org.entirej.applicationframework.rwt.table.EJRWTAbstractFilteredTable.FilteredContentProvider;
-import org.entirej.applicationframework.rwt.table.EJRWTAbstractTableSorter;
-import org.entirej.applicationframework.rwt.table.EJRWTTableAutoResizeAdapter;
-import org.entirej.applicationframework.rwt.table.EJRWTTableSortSelectionListener;
 import org.entirej.applicationframework.rwt.table.EJRWTTableViewerColumnFactory;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
@@ -309,7 +308,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             clearFilter();
             _tableViewer.setInput(new Object());
         }
-        selectRow(0);
+        //selectRow(0);
 
     }
 
@@ -320,7 +319,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             clearFilter();
             _tableViewer.setInput(new Object());
         }
-        selectRow(0);
+        //selectRow(0);
     }
 
     @Override
@@ -575,7 +574,17 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             }
         
 
-        int style = SWT.VIRTUAL  | SWT.FULL_SELECTION;
+            int style = SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL  ;
+            
+            
+            if(rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_SELECTION, true))
+            {
+                style = style| SWT.FULL_SELECTION;
+            }
+            if(!rendererProp.getBooleanProperty(EJRWTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER, false))
+            {
+                style = style| SWT.BORDER;
+            }
         
         
         
@@ -608,10 +617,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                             {
                                 _filteredContentProvider.setFilter(filter);
                                 getViewer().setInput(filter);
-                                if(getFocusedRecord()==null)
-                                {
-                                    selectRow(0);
-                                }
+                                
                                 notifyStatus();
                             }
                         }
@@ -619,7 +625,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                         @Override
                         protected TableViewer doCreateTableViewer(Composite parent, int style)
                         {
-                            return _tableViewer = new TableViewer(parent);
+                            return _tableViewer = new TableViewer(parent,style);
                         }
                     };
                 }
@@ -636,10 +642,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                             {
                                 _filteredContentProvider.setFilter(filter);
                                 getViewer().setInput(filter);
-                                if(getFocusedRecord()==null)
-                                {
-                                    selectRow(0);
-                                }
+                                
                                 notifyStatus();
                             }
                         }
@@ -647,7 +650,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                         @Override
                         protected TableViewer doCreateTableViewer(Composite parent, int style)
                         {
-                            return _tableViewer = new TableViewer(parent);
+                            return _tableViewer = new TableViewer(parent,style);
                         }
                     };
                     filterTree.setLayoutData(new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL));
@@ -665,10 +668,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                         {
                             _filteredContentProvider.setFilter(filter);
                             getViewer().setInput(filter);
-                            if(getFocusedRecord()==null)
-                            {
-                                selectRow(0);
-                            }
+                           
                             notifyStatus();
                         }
                     }
@@ -676,7 +676,7 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                     @Override
                     protected TableViewer doCreateTableViewer(Composite parent, int style)
                     {
-                        return _tableViewer = new TableViewer(parent);
+                        return _tableViewer = new TableViewer(parent,style);
                     }
                 };
 
@@ -719,7 +719,6 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
         
         
         table.setLinesVisible(true);
-        table.setHeaderVisible(false);
       
 
         EJRWTTableViewerColumnFactory factory = new EJRWTTableViewerColumnFactory(_tableViewer);
@@ -738,32 +737,37 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             for (EJScreenItemProperties screenItemProperties : itemProperties)
             {
                 EJCoreMainScreenItemProperties mainScreenItemProperties = (EJCoreMainScreenItemProperties) screenItemProperties;
-                ColumnLabelProvider screenItem = createScreenItem(factory, mainScreenItemProperties);
+                ColumnLabelProvider screenItem = createScreenItem(factory, mainScreenItemProperties,template,colIndex);
                 if (screenItem != null)
                 {
                     nodeTextProviders.add(screenItem);
-                    TextCell textCell = new TextCell(template);
-                    textCell.setBindingIndex(colIndex);
-                    textCell.setHorizontalAlignment( SWT.LEFT );
-                    textCell.setVerticalAlignment( SWT.TOP );
-                    textCell.setTop((colIndex* 25)+5);//TODO 
-                    textCell.setWidth( 180 );
-                    textCell.setHeight( 25 );
+                    
                     colIndex++;
-                    textCell.setLeft( 5 ); 
+                    
 
                 }
                 
             }
         }
         
-        int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, Math.max((colIndex+1)*25, 60));
+        int rowheight = rendererProp.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, Math.max((colIndex+1)*20, 60));
         if(rowheight>0)
         {
            table.setData( RWT.CUSTOM_ITEM_HEIGHT,rowheight);
         }
         table.setData(RWT.ROW_TEMPLATE,template);
     
+        table.addSelectionListener(new SelectionAdapter()
+        {
+            @Override
+            public void widgetSelected(SelectionEvent e)
+            {
+                if(e.text!=null)
+                {
+                    _block.executeActionCommand(e.text, EJScreenType.MAIN);
+                }
+            }
+        });
 
         table.addFocusListener(new FocusListener()
         {
@@ -859,22 +863,22 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             }
         });
         _tableViewer.setInput(new Object());
-        selectRow(0);
+        //selectRow(0);
 
-        // add double click action
-        final String doubleClickActionCommand = rendererProp.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.DOUBLE_CLICK_ACTION_COMMAND);
-        if (doubleClickActionCommand != null)
-        {
-            _tableViewer.addDoubleClickListener(new IDoubleClickListener()
-            {
-
-                @Override
-                public void doubleClick(DoubleClickEvent arg0)
-                {
-                    _block.executeActionCommand(doubleClickActionCommand, EJScreenType.MAIN);
-                }
-            });
-        }
+//        // add double click action
+//        final String doubleClickActionCommand = rendererProp.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.DOUBLE_CLICK_ACTION_COMMAND);
+//        if (doubleClickActionCommand != null)
+//        {
+//            _tableViewer.addDoubleClickListener(new IDoubleClickListener()
+//            {
+//
+//                @Override
+//                public void doubleClick(DoubleClickEvent arg0)
+//                {
+//                    _block.executeActionCommand(doubleClickActionCommand, EJScreenType.MAIN);
+//                }
+//            });
+//        }
         _tableViewer.addSelectionChangedListener(new ISelectionChangedListener()
         {
 
@@ -894,8 +898,10 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
     }
 
     
+    
+    
 
-    public ColumnLabelProvider createScreenItem(EJRWTTableViewerColumnFactory factory, EJCoreMainScreenItemProperties itemProps)
+    public ColumnLabelProvider createScreenItem(EJRWTTableViewerColumnFactory factory, EJCoreMainScreenItemProperties itemProps,Template template,int col)
     {
         if (itemProps.isSpacerItem())
         {
@@ -908,26 +914,24 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
             EJFrameworkExtensionProperties blockProperties = itemProps.getBlockRendererRequiredProperties();
             EJRWTAppItemRenderer itemRenderer = (EJRWTAppItemRenderer) renderer.getUnmanagedRenderer();
             ColumnLabelProvider labelProvider = itemRenderer.createColumnLabelProvider(itemProps, item);
+            
             if (labelProvider != null)
             {
-                String labelOrientation = blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALIGNMENT);
-
-                int displayedWidth = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.DISPLAY_WIDTH_PROPERTY, 0);
-
-                // if no width define in block properties use item renderer pref
-                // width
-                if (displayedWidth == 0)
+                Cell<? extends Cell<?>> columnCell = itemRenderer.createColumnCell(itemProps, item, template);
+                if(columnCell==null)
                 {
-                    if (itemProps.getLabel() != null)
-                    {
-                        // add offset
-                        displayedWidth = itemProps.getLabel().length() + 2;
-                    }
-                    else
-                    {
-                        displayedWidth = 5;
-                    }
+                    return null;
                 }
+                columnCell.setBindingIndex(col);
+                
+                int width = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.WIDTH_PROPERTY, 0);
+                int height = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY, 0);
+                int top = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_TOP, -1);
+                int left = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_LEFT, -1);
+                int right = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_RIGHT, -1);
+                int bottom = blockProperties.getIntProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_BOTTOM, -1);
+
+               
 
                 String visualAttribute = blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.VISUAL_ATTRIBUTE_PROPERTY);
 
@@ -940,30 +944,68 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
                         itemRenderer.setInitialVisualAttribute(va);
                     }
                 }
-
-                TableViewerColumn viewerColumn = factory.createColumn(itemProps.getLabel(), displayedWidth, labelProvider, getComponentStyle(labelOrientation));
+                //create dummy column
+                TableViewerColumn viewerColumn = factory.createColumn(itemProps.getLabel(), 5, labelProvider, SWT.LEFT);
                 TableColumn column = viewerColumn.getColumn();
                 column.setData("KEY", itemProps.getReferencedItemName());
                 column.setToolTipText(itemProps.getHint());
 
                
-                // ensure that the width property of the table column is in
-                // Characters
-                Font font = labelProvider.getFont(new Object());
-                if (font == null)
+                
+                
+                if (top > -1)
                 {
-                    font = _tableViewer.getTable().getFont();
+                    columnCell.setTop(top);
                 }
-
-                if (font != null)
+                if (left > -1)
                 {
-                    float avgCharWidth = EJRWTImageRetriever.getAvgCharWidth(font);
-                    if (avgCharWidth > 0)
+                    columnCell.setLeft(left);
+                }
+                if (right > -1)
+                {
+                    columnCell.setRight(right);
+                }
+                if (bottom > -1)
+                {
+                    columnCell.setBottom(bottom);
+                }
+                
+                if(left<=-1 || right <=-1)
+                {
+                    if (width != 0)
                     {
-                        // add + 1 padding
-                        column.setWidth((int) ((column.getWidth() + 1) * avgCharWidth));
+                        columnCell.setWidth(width);
+                    }
+                    else
+                    {
+                        columnCell.setWidth(SWT.DEFAULT);
                     }
                 }
+                
+                if(top<=-1 || bottom <=-1)
+                {
+                    if (height != 0)
+                    {
+                        columnCell.setHeight(height);
+                    }
+                    else
+                    {
+                        columnCell.setHeight(SWT.DEFAULT);
+                    }
+                }
+               columnCell.setHorizontalAlignment(getComponentStyle(blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT)));
+               columnCell.setVerticalAlignment(getComponentStyle(blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT)));
+               
+                
+                
+                final String action = blockProperties.getStringProperty(EJRWTMultiRecordBlockDefinitionProperties.CELL_ACTION_COMMAND);
+                if(action!=null && action.length()>0)
+                {
+                     columnCell.setName(action);
+                     columnCell.setSelectable(true);
+                }
+                
+                
                 return labelProvider;
             }
         }
@@ -988,16 +1030,29 @@ public class EJRWTMultiRecordBlockRenderer implements EJRWTAppBlockRenderer, Key
     {
         if (alignmentProperty != null && alignmentProperty.trim().length() > 0)
         {
+            
+            if (alignmentProperty.equals(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT))
+            {
+                return SWT.LEFT;
+            }
             if (alignmentProperty.equals(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT))
             {
                 return SWT.RIGHT;
             }
-            else if (alignmentProperty.equals(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER))
+            if (alignmentProperty.equals(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER))
             {
                 return SWT.CENTER;
             }
+            if (alignmentProperty.equals(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_TOP))
+            {
+                return SWT.TOP;
+            }
+            if (alignmentProperty.equals(EJRWTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM))
+            {
+                return SWT.BOTTOM;
+            }
         }
-        return SWT.LEFT;
+        return SWT.NONE;
     }
 
     @Override
