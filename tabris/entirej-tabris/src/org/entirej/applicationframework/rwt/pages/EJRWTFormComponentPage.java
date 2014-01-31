@@ -37,9 +37,9 @@ public abstract class EJRWTFormComponentPage extends AbstractPage
     private static final long serialVersionUID = -4020410894639262478L;
    
     private  String formId = null;
-    public EJRWTFormComponentPage(String menuId)
+    public EJRWTFormComponentPage(String formid)
     {
-       this.formId = menuId;
+       this.formId = formid;
     }
     
     

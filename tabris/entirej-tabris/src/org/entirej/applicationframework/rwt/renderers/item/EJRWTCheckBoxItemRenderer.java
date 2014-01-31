@@ -26,6 +26,9 @@ import java.math.BigDecimal;
 import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
+import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.ImageCell;
+import org.eclipse.rap.rwt.template.Template;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Font;
@@ -530,5 +533,12 @@ public class EJRWTCheckBoxItemRenderer extends EJRWTButtonItemRenderer
     public boolean isReadOnly()
     {
         return false;
+    }
+    
+    @Override
+    public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
+    {
+        ImageCell imageCell = new ImageCell(template);
+        return imageCell;
     }
 }

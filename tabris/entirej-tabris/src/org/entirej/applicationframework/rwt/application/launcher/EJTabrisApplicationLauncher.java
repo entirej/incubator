@@ -312,7 +312,7 @@ public abstract class EJTabrisApplicationLauncher implements ApplicationConfigur
     
     public static class DefaultMenuPage extends EJRWTMenuComponentPage
     {
-        static final String ID = "EJRWTDMP";
+        public static final String ID = "EJRWTDMP";
 
         
         public DefaultMenuPage()
