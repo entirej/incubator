@@ -62,7 +62,7 @@
 					<javadocVersion>1.6</javadocVersion>
 					<source>1.6</source>
 					<show>public</show>
-					<doctitle>Entirej RWT API</doctitle>
+					<doctitle>Entirej TMT API</doctitle>
 					<title>Entirej Development API</title>
 					<excludePackageNames>org.entirej.framework.core.properties.reader.*</excludePackageNames>
 				</configuration>
