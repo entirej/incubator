@@ -100,7 +100,7 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
     {
         StringBuilder b = new StringBuilder();
         b.append("<div id=\"splash\" style=\"width:100%;  position: absolute;  top: 50%;   text-align: center;\">");
-        b.append("<img src=\"./tmt-resources/");
+        b.append("<img src=\"./rwt-resources/");
         b.append(getLoadingImage());
         b.append("\"  style=\"margin: 10px 15px 0\" />");
         b.append("<div style=\"margin: 5px 15px 10px;  font: 12px Verdana, 'Lucida Sans', sans-serif\">");
