@@ -25,6 +25,7 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.entirej.applicationframework.tmt.notifications.EJTMTNotifierDialog;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJMessage;
@@ -40,81 +41,37 @@ import org.slf4j.LoggerFactory;
 public class EJTMTMessenger implements EJMessenger
 {
     private final EJTMTApplicationManager manager;
-    private final MessagingContex         contex;
     final Logger                          logger = LoggerFactory.getLogger(EJTMTMessenger.class);
 
     public EJTMTMessenger(EJTMTApplicationManager manager)
     {
         this.manager = manager;
-        contex = new MessagingContex();
     }
 
     @Override
     public void handleMessage(EJMessage message)
     {
+        Shell shell = manager.getShell();
         switch (message.getLevel())
         {
             case DEBUG:
                 logger.debug(message.getMessage());
                 break;
             case HINT:
-                EJTMTNotifierDialog.notify("Hint", message.getMessage(), EJTMTImageRetriever.get(EJTMTImageRetriever.IMG_INFO), contex.hintWidth,
-                        contex.hintHeight, contex.hintNotificationAutoHide);
+                MessageDialog.openInformation(shell, "Hint", message.getMessage());
+                break;
+               
             case MESSAGE:
 
-                switch (contex.infoType)
-                {
-                    case BOTH:
-                        MessageDialog.openInformation(manager.getShell(), "Message", message.getMessage());
-                        EJTMTNotifierDialog.notify("Message", message.getMessage(), EJTMTImageRetriever.get(EJTMTImageRetriever.IMG_INFO), contex.infoWidth,
-                                contex.infoHeight, contex.infoNotificationAutoHide);
-                        break;
-                    case DIALOG:
-                        MessageDialog.openInformation(manager.getShell(), "Message", message.getMessage());
-                        break;
-                    case NOTFICATION:
-                        EJTMTNotifierDialog.notify("Message", message.getMessage(), EJTMTImageRetriever.get(EJTMTImageRetriever.IMG_INFO), contex.infoWidth,
-                                contex.infoHeight, contex.infoNotificationAutoHide);
-                        break;
-                }
+                MessageDialog.openInformation(shell, "Message", message.getMessage());
                 break;
             case WARNING:
 
-                switch (contex.warningType)
-                {
-                    case BOTH:
-                        MessageDialog.openWarning(manager.getShell(), "Warning", message.getMessage());
-                        EJTMTNotifierDialog.notify("Warning", message.getMessage(), EJTMTImageRetriever.get(EJTMTImageRetriever.IMG_WARNING), contex.warnWidth,
-                                contex.warnHeight, contex.warnNotificationAutoHide);
-                        break;
-                    case DIALOG:
-                        MessageDialog.openWarning(manager.getShell(), "Warning", message.getMessage());
-                        break;
-                    case NOTFICATION:
-                        EJTMTNotifierDialog.notify("Warning", message.getMessage(), EJTMTImageRetriever.get(EJTMTImageRetriever.IMG_WARNING), contex.warnWidth,
-                                contex.warnHeight, contex.warnNotificationAutoHide);
-                        break;
-
-                }
+                MessageDialog.openWarning(shell, "Warning", message.getMessage());
 
                 break;
             case ERROR:
-                switch (contex.errorType)
-                {
-                    case BOTH:
-                        MessageDialog.openWarning(manager.getShell(), "Error", message.getMessage());
-                        EJTMTNotifierDialog.notify("Error", message.getMessage(), EJTMTImageRetriever.get(EJTMTImageRetriever.IMG_ERROR), contex.errorWidth,
-                                contex.errorHeight, contex.errorNotificationAutoHide);
-                        break;
-                    case DIALOG:
-                        MessageDialog.openWarning(manager.getShell(), "Error", message.getMessage());
-                        break;
-                    case NOTFICATION:
-                        EJTMTNotifierDialog.notify("Error", message.getMessage(), EJTMTImageRetriever.get(EJTMTImageRetriever.IMG_ERROR), contex.errorWidth,
-                                contex.errorHeight, contex.errorNotificationAutoHide);
-                        break;
-
-                }
+                MessageDialog.openWarning(shell, "Error", message.getMessage());
 
                 break;
             default:
@@ -213,140 +170,5 @@ public class EJTMTMessenger implements EJMessenger
         handleException(exception, true);
     }
 
-    private static class MessagingContex implements Serializable
-    {
-
-        public static final String APP_MESSAGING                 = "APP_MESSAGING";
-        public static final String APP_MSG_ERROR                 = "APP_MSG_ERROR";
-        public static final String APP_MSG_HINT                  = "APP_MSG_HINT";
-        public static final String APP_MSG_INFO                  = "APP_MSG_INFO";
-        public static final String APP_MSG_WARNING               = "APP_MSG_WARNING";
-
-        public static final String APP_MSG_TYPE                  = "APP_MSG_TYPE";
-        public static final String APP_MSG_TYPE_DIALOG           = "DIALOG";
-        public static final String APP_MSG_TYPE_NOTIFICATION     = "NOTIFICATION";
-        public static final String APP_MSG_TYPE_BOTH             = "BOTH";
-
-        public static final String APP_MSG_WIDTH                 = "WIDTH";
-        public static final String APP_MSG_HEIGHT                = "HEIGHT";
-
-        public static final String APP_MSG_NOTIFICATION_AUTOHIDE = "APP_MSG_NOTIFICATION_AUTOHIDE";
-
-        enum TYPE
-        {
-            DIALOG, NOTFICATION, BOTH
-        };
-
-        TYPE    errorType                 = TYPE.DIALOG;
-        TYPE    infoType                  = TYPE.NOTFICATION;
-        TYPE    warningType               = TYPE.DIALOG;
-
-        int     errorWidth                = 400;
-        int     errorHeight               = 100;
-
-        int     infoWidth                 = 400;
-        int     infoHeight                = 100;
-
-        int     warnWidth                 = 400;
-        int     warnHeight                = 100;
-
-        int     hintWidth                 = 400;
-        int     hintHeight                = 100;
-
-        boolean errorNotificationAutoHide = false;
-        boolean warnNotificationAutoHide  = false;
-        boolean infoNotificationAutoHide  = true;
-        boolean hintNotificationAutoHide  = true;
-
-        public MessagingContex()
-        {
-            EJFrameworkExtensionProperties definedProperties = EJCoreProperties.getInstance().getApplicationDefinedProperties();
-
-            if (definedProperties != null)
-            {
-                EJFrameworkExtensionProperties settings = definedProperties.getPropertyGroup(APP_MESSAGING);
-                if (settings != null)
-                {
-                    EJFrameworkExtensionProperties errorGroup = settings.getPropertyGroup(APP_MSG_ERROR);
-                    if (errorGroup != null)
-                    {
-                        String type = errorGroup.getStringProperty(APP_MSG_TYPE);
-                        if (type != null && APP_MSG_TYPE_DIALOG.equals(type))
-                        {
-                            errorType = TYPE.DIALOG;
-                        }
-                        else if (type != null && APP_MSG_TYPE_NOTIFICATION.equals(type))
-                        {
-                            errorType = TYPE.NOTFICATION;
-                        }
-                        else if (type != null && APP_MSG_TYPE_BOTH.equals(type))
-                        {
-                            errorType = TYPE.BOTH;
-                        }
-
-                        errorNotificationAutoHide = errorGroup.getBooleanProperty(APP_MSG_NOTIFICATION_AUTOHIDE, errorNotificationAutoHide);
-
-                        errorWidth = errorGroup.getIntProperty(APP_MSG_WIDTH, errorWidth);
-                        errorHeight = errorGroup.getIntProperty(APP_MSG_HEIGHT, errorHeight);
-                    }
-
-                    EJFrameworkExtensionProperties warnGroup = settings.getPropertyGroup(APP_MSG_WARNING);
-                    if (warnGroup != null)
-                    {
-                        String type = warnGroup.getStringProperty(APP_MSG_TYPE);
-                        if (type != null && APP_MSG_TYPE_DIALOG.equals(type))
-                        {
-                            warningType = TYPE.DIALOG;
-                        }
-                        else if (type != null && APP_MSG_TYPE_NOTIFICATION.equals(type))
-                        {
-                            warningType = TYPE.NOTFICATION;
-                        }
-                        else if (type != null && APP_MSG_TYPE_BOTH.equals(type))
-                        {
-                            warningType = TYPE.BOTH;
-                        }
-
-                        warnNotificationAutoHide = warnGroup.getBooleanProperty(APP_MSG_NOTIFICATION_AUTOHIDE, warnNotificationAutoHide);
-
-                        warnWidth = warnGroup.getIntProperty(APP_MSG_WIDTH, warnWidth);
-                        warnHeight = warnGroup.getIntProperty(APP_MSG_HEIGHT, warnHeight);
-                    }
-
-                    EJFrameworkExtensionProperties infoGroup = settings.getPropertyGroup(APP_MSG_INFO);
-                    if (infoGroup != null)
-                    {
-                        String type = infoGroup.getStringProperty(APP_MSG_TYPE);
-                        if (type != null && APP_MSG_TYPE_DIALOG.equals(type))
-                        {
-                            infoType = TYPE.DIALOG;
-                        }
-                        else if (type != null && APP_MSG_TYPE_NOTIFICATION.equals(type))
-                        {
-                            infoType = TYPE.NOTFICATION;
-                        }
-                        else if (type != null && APP_MSG_TYPE_BOTH.equals(type))
-                        {
-                            infoType = TYPE.BOTH;
-                        }
-
-                        infoNotificationAutoHide = infoGroup.getBooleanProperty(APP_MSG_NOTIFICATION_AUTOHIDE, infoNotificationAutoHide);
-
-                        infoWidth = infoGroup.getIntProperty(APP_MSG_WIDTH, infoWidth);
-                        infoHeight = infoGroup.getIntProperty(APP_MSG_HEIGHT, infoHeight);
-                    }
-
-                    EJFrameworkExtensionProperties hintGroup = settings.getPropertyGroup(APP_MSG_HINT);
-                    if (hintGroup != null)
-                    {
-
-                        hintNotificationAutoHide = hintGroup.getBooleanProperty(APP_MSG_NOTIFICATION_AUTOHIDE, hintNotificationAutoHide);
-
-                        hintWidth = hintGroup.getIntProperty(APP_MSG_WIDTH, hintWidth);
-                        hintHeight = hintGroup.getIntProperty(APP_MSG_HEIGHT, hintHeight);
-                    }
-                }
-            }
-        }
-    }
+   
 }
