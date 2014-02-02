@@ -57,12 +57,7 @@ public class EJTMTStandardLovRendererDefinition implements EJDevLovRendererDefin
     {
         EJDevPropertyDefinitionGroup mainGroup = new EJDevPropertyDefinitionGroup("Lov Renderer Properties");
 
-        EJDevPropertyDefinition showTableBorder = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER,
-                EJPropertyDefinitionType.BOOLEAN);
-        showTableBorder.setLabel("Hide Border");
-        showTableBorder.setDescription("If selected, the renderer will hide the lov's standard border");
-        showTableBorder.setDefaultValue("false");
-
+       
         EJDevPropertyDefinition rowSelaction = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.ROW_SELECTION,
                 EJPropertyDefinitionType.BOOLEAN);
         rowSelaction.setLabel("Row Selection");
@@ -76,7 +71,6 @@ public class EJTMTStandardLovRendererDefinition implements EJDevLovRendererDefin
 
         
 
-        mainGroup.addPropertyDefinition(showTableBorder);
         mainGroup.addPropertyDefinition(rowHeight);
         mainGroup.addPropertyDefinition(rowSelaction);
 

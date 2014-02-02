@@ -57,11 +57,7 @@ public class EJTMTLookupFormLovRendererDefinition implements EJDevLovRendererDef
     {
         EJDevPropertyDefinitionGroup mainGroup = new EJDevPropertyDefinitionGroup("Lov Renderer Properties");
 
-        EJDevPropertyDefinition showTableBorder = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER,
-                EJPropertyDefinitionType.BOOLEAN);
-        showTableBorder.setLabel("Hide Border");
-        showTableBorder.setDescription("If selected, the renderer will hide the lov's standard border");
-        showTableBorder.setDefaultValue("false");
+        
 
         EJDevPropertyDefinition rowSelaction = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.ROW_SELECTION,
                 EJPropertyDefinitionType.BOOLEAN);
@@ -73,7 +69,6 @@ public class EJTMTLookupFormLovRendererDefinition implements EJDevLovRendererDef
         rowHeight.setLabel("Custom Row Height");
         rowHeight.setDescription("If provided, the renderer will use custom row height");
 
-        mainGroup.addPropertyDefinition(showTableBorder);
         mainGroup.addPropertyDefinition(rowHeight);
         mainGroup.addPropertyDefinition(rowSelaction);
 
