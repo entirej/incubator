@@ -927,6 +927,34 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                     columnCell.setBottom(bottom);
                 }
 
+                if (left <= -1 && right <= -1)
+                {
+                    if(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM.equals(blockProperties
+                            .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT)))
+                    {
+                        columnCell.setBottom(0);
+                    }
+                    else
+                    {
+                        columnCell.setTop(0);
+                    }
+                    
+                }
+                
+                if (top <= -1 && bottom <= -1)
+                {
+                    if(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT.equals(blockProperties
+                            .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT)))
+                    {
+                        columnCell.setRight(0);
+                    }
+                    else
+                    {
+                        columnCell.setLeft(0);
+                    }
+                   
+                }
+                
                 if (left <= -1 || right <= -1)
                 {
                     if (width != 0)
