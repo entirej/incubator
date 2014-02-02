@@ -201,10 +201,7 @@ public class EJTMTStandardLovRenderer implements EJLovRenderer
                 {
                     style = style | SWT.FULL_SELECTION;
                 }
-                if (!rendererProp.getBooleanProperty(EJTMTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER, false))
-                {
-                    style = style | SWT.BORDER;
-                }
+              
 
                 final EJTMTAbstractFilteredTable filterTree;
                 Table table;
