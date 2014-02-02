@@ -21,7 +21,6 @@ package org.entirej.applicationframework.tmt.renderers.blocks.definition.interfa
 public interface EJTMTMultiRecordBlockDefinitionProperties
 {
 
-    public static final String HIDE_TABLE_BORDER           = "HIDE_TABLE_BORDER";
 
     public static final String ROW_HEIGHT                  = "ROW_HEIGHT";
     public static final String ROW_SELECTION               = "ROW_SELECTION";

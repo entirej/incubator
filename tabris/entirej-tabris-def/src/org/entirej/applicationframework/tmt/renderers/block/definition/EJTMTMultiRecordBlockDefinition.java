@@ -123,12 +123,7 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         rowSelaction.setDescription("If selected, the renderer will support row selection");
         rowSelaction.setDefaultValue("true");
 
-        EJDevPropertyDefinition showTableBorder = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER,
-                EJPropertyDefinitionType.BOOLEAN);
-        showTableBorder.setLabel("Hide Table Border");
-        showTableBorder.setDescription("If selected, the renderer will hide the blocks standard border");
-        showTableBorder.setDefaultValue("false");
-
+ 
         EJDevPropertyDefinition rowHeight = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, EJPropertyDefinitionType.INTEGER);
         rowHeight.setLabel("Custom Row Height");
         rowHeight.setDescription("If provided, the renderer will use custom row height");
@@ -138,7 +133,6 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         filter.setDescription("If selected, the renderer will display a filter field above the blocks data. This filter can then be used by users to filter the blocks displayed data");
         filter.setDefaultValue("false");
 
-        mainGroup.addPropertyDefinition(showTableBorder);
         mainGroup.addPropertyDefinition(filter);
         mainGroup.addPropertyDefinition(rowHeight);
         mainGroup.addPropertyDefinition(rowSelaction);

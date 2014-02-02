@@ -572,10 +572,7 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
         {
             style = style | SWT.FULL_SELECTION;
         }
-        if (!rendererProp.getBooleanProperty(EJTMTMultiRecordBlockDefinitionProperties.HIDE_TABLE_BORDER, false))
-        {
-            style = style | SWT.BORDER;
-        }
+        
 
         Collection<EJItemGroupProperties> allItemGroupProperties = _block.getProperties().getScreenItemGroupContainer(EJScreenType.MAIN)
                 .getAllItemGroupProperties();
