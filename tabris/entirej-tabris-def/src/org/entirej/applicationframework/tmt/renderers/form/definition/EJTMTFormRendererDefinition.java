@@ -18,15 +18,24 @@
  ******************************************************************************/
 package org.entirej.applicationframework.tmt.renderers.form.definition;
 
+import org.entirej.framework.core.properties.definitions.EJPropertyDefinitionType;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
 import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDefinition;
 import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDefinitionGroup;
 import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDefinitionListener;
+import org.entirej.framework.dev.properties.EJDevPropertyDefinition;
+import org.entirej.framework.dev.properties.EJDevPropertyDefinitionGroup;
+import org.entirej.framework.dev.properties.EJDevPropertyDefinitionList;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevFormRendererDefinition;
-
 
 public class EJTMTFormRendererDefinition implements EJDevFormRendererDefinition
 {
+
+    public final static String PAGE_ACTIONS         = "PAGE_ACTIONS";
+    public final static String PAGE_ACTION_ID       = "ACTION_ID";
+    public final static String PAGE_ACTION_IMAGE    = "ACTION_IMAGE";
+    public final static String PAGE_ACTION_PRIORITY = "ACTION_PRIORITY";
+    public final static String PAGE_ACTION_NAME     = "ACTION_NAME";
 
     public String getRendererClassName()
     {
@@ -45,7 +54,38 @@ public class EJTMTFormRendererDefinition implements EJDevFormRendererDefinition
 
     public EJPropertyDefinitionGroup getFormPropertyDefinitionGroup()
     {
-        return null;
+        EJDevPropertyDefinitionGroup sectionGroup = new EJDevPropertyDefinitionGroup("Form Renderer");
+
+        EJDevPropertyDefinitionList list = new EJDevPropertyDefinitionList(PAGE_ACTIONS, "Page Actions");
+        EJDevPropertyDefinition actionID = new EJDevPropertyDefinition(PAGE_ACTION_ID,
+                EJPropertyDefinitionType.ACTION_COMMAND);
+        actionID.setLabel("Action Command");
+        actionID.setDescription("The action command to be used when this action is selected");
+        actionID.setMandatory(true);
+
+        EJDevPropertyDefinition actionImage = new EJDevPropertyDefinition(PAGE_ACTION_IMAGE,
+                EJPropertyDefinitionType.PROJECT_FILE);
+        actionImage.setLabel("Action Image");
+        actionImage.setDescription("The image to display in the title bar for this action");
+        actionImage.setMandatory(true);
+
+        EJDevPropertyDefinition actionName = new EJDevPropertyDefinition(PAGE_ACTION_NAME,
+                EJPropertyDefinitionType.STRING);
+        actionName.setLabel("Action Name");
+        actionName.setDescription("The name of this action");
+
+        EJDevPropertyDefinition priority = new EJDevPropertyDefinition(PAGE_ACTION_PRIORITY,
+                EJPropertyDefinitionType.BOOLEAN);
+        priority.setLabel("Action Priority");
+        priority.setDescription("Priority means that the element should be placed at a significant position in the UI");
+
+        list.addPropertyDefinition(actionID);
+        list.addPropertyDefinition(actionImage);
+        list.addPropertyDefinition(actionName);
+        list.addPropertyDefinition(priority);
+        
+        sectionGroup.addPropertyDefinitionList(list);
+        return sectionGroup;
     }
 
 }

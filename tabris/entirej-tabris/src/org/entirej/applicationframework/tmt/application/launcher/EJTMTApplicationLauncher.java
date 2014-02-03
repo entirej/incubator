@@ -46,6 +46,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationContainer;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
+import org.entirej.applicationframework.tmt.pages.EJTMTFormComponentPage;
 import org.entirej.applicationframework.tmt.pages.EJTMTMenuComponentPage;
 import org.entirej.framework.core.EJFrameworkHelper;
 import org.entirej.framework.core.EJFrameworkInitialiser;
@@ -319,6 +320,9 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
         if (image != null)
             pageConfig.setImage(image);
         pageConfig.setTopLevel(true);
+        
+       
+        
         configuration.addPageConfiguration(pageConfig);
         return pageConfig;
     }
@@ -326,6 +330,25 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
     protected PageConfiguration addRootPageConfiguration(UIConfiguration configuration, String id, Class<? extends Page> page, String title)
     {
         return addRootPageConfiguration(configuration, id, page, title, null);
+    }
+    
+    protected PageConfiguration addRootFormComponentPage(UIConfiguration configuration, String id, String formId, Class<? extends EJTMTFormComponentPage> page, String title, InputStream image)
+    {
+        PageConfiguration pageConfig = new PageConfiguration(id, page);
+        pageConfig.setTitle(title);
+        if (image != null)
+            pageConfig.setImage(image);
+        pageConfig.setTopLevel(true);
+        
+        EJTMTFormComponentPage.addFormRendererActions(pageConfig, formId);
+        
+        configuration.addPageConfiguration(pageConfig);
+        return pageConfig;
+    }
+    
+    protected PageConfiguration addRootFormComponentPage(UIConfiguration configuration, String id, String formId, Class<? extends EJTMTFormComponentPage> page, String title)
+    {
+        return addRootFormComponentPage(configuration, id,formId, page, title, null);
     }
 
     protected ActionConfiguration addRootActionConfiguration(UIConfiguration configuration, String id, Class<? extends Action> action,

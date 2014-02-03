@@ -26,6 +26,7 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.entirej.applicationframework.tmt.renderers.block.definition.interfaces.EJTMTSingleRecordBlockDefinitionProperties;
+import org.entirej.applicationframework.tmt.renderers.form.definition.EJTMTFormRendererDefinition;
 import org.entirej.applicationframework.tmt.renderers.screen.definition.interfaces.EJTMTScreenRendererDefinitionProperties;
 import org.entirej.framework.core.properties.definitions.EJPropertyDefinitionType;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
@@ -35,6 +36,7 @@ import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDe
 import org.entirej.framework.core.renderers.definitions.interfaces.EJRendererDefinition;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinition;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinitionGroup;
+import org.entirej.framework.dev.properties.EJDevPropertyDefinitionList;
 import org.entirej.framework.dev.properties.interfaces.EJDevScreenItemDisplayProperties;
 import org.entirej.framework.dev.renderer.definition.EJDevItemRendererDefinitionControl;
 
@@ -42,6 +44,9 @@ import org.entirej.framework.dev.renderer.definition.EJDevItemRendererDefinition
 public abstract class EJTMTScreenRendererDefinition implements EJRendererDefinition
 {
 
+    
+    
+    
     @Override
     public void loadValidValuesForProperty(EJFrameworkExtensionProperties arg0, EJPropertyDefinition arg1)
     {
@@ -102,6 +107,37 @@ public abstract class EJTMTScreenRendererDefinition implements EJRendererDefinit
         mainGroup.addPropertyDefinition(numCols);
         mainGroup.addPropertyDefinition(saveButtonLabel);
         mainGroup.addPropertyDefinition(cancelButtonLabel);
+        
+        
+        EJDevPropertyDefinitionList list = new EJDevPropertyDefinitionList(EJTMTFormRendererDefinition.PAGE_ACTIONS, "Page Actions");
+        EJDevPropertyDefinition actionID = new EJDevPropertyDefinition(EJTMTFormRendererDefinition.PAGE_ACTION_ID,
+                EJPropertyDefinitionType.ACTION_COMMAND);
+        actionID.setLabel("Action Command");
+        actionID.setDescription("The action command to be used when this action is selected");
+        actionID.setMandatory(true);
+
+        EJDevPropertyDefinition actionImage = new EJDevPropertyDefinition(EJTMTFormRendererDefinition.PAGE_ACTION_IMAGE,
+                EJPropertyDefinitionType.PROJECT_FILE);
+        actionImage.setLabel("Action Image");
+        actionImage.setDescription("The image to display in the title bar for this action");
+        actionImage.setMandatory(true);
+
+        EJDevPropertyDefinition actionName = new EJDevPropertyDefinition(EJTMTFormRendererDefinition.PAGE_ACTION_NAME,
+                EJPropertyDefinitionType.STRING);
+        actionName.setLabel("Action Name");
+        actionName.setDescription("The name of this action");
+
+        EJDevPropertyDefinition priority = new EJDevPropertyDefinition(EJTMTFormRendererDefinition.PAGE_ACTION_PRIORITY,
+                EJPropertyDefinitionType.BOOLEAN);
+        priority.setLabel("Action Priority");
+        priority.setDescription("Priority means that the element should be placed at a significant position in the UI");
+
+        list.addPropertyDefinition(actionID);
+        list.addPropertyDefinition(actionImage);
+        list.addPropertyDefinition(actionName);
+        list.addPropertyDefinition(priority);
+        
+        mainGroup.addPropertyDefinitionList(list);
 
         return mainGroup;
     }

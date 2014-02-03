@@ -26,9 +26,12 @@ import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
+import org.entirej.applicationframework.tmt.application.EJTMTImageRetriever;
 import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.applicationframework.tmt.layout.EJTMTEntireJGridPane;
+import org.entirej.applicationframework.tmt.pages.EJTMTFormPage;
 import org.entirej.applicationframework.tmt.pages.EJTMTScreenPage;
+import org.entirej.applicationframework.tmt.pages.EJTMTFormPage.FormActionConfiguration;
 import org.entirej.applicationframework.tmt.renderers.item.EJTMTItemTextChangeNotifier;
 import org.entirej.applicationframework.tmt.renderers.item.EJTMTItemTextChangeNotifier.ChangeListener;
 import org.entirej.applicationframework.tmt.renderers.screen.definition.interfaces.EJTMTScreenRendererDefinitionProperties;
@@ -36,6 +39,7 @@ import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJFrameworkManager;
 import org.entirej.framework.core.EJLovBlock;
 import org.entirej.framework.core.EJQueryBlock;
+import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.data.EJDataItem;
 import org.entirej.framework.core.data.EJDataRecord;
@@ -44,10 +48,12 @@ import org.entirej.framework.core.data.controllers.EJLovController;
 import org.entirej.framework.core.enumerations.EJManagedScreenProperty;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
+import org.entirej.framework.core.extensions.properties.EJCoreFrameworkExtensionPropertyList;
 import org.entirej.framework.core.interfaces.EJScreenItemController;
 import org.entirej.framework.core.internal.EJInternalBlock;
 import org.entirej.framework.core.properties.EJCoreQueryScreenItemProperties;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
+import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionPropertyListEntry;
 import org.entirej.framework.core.properties.interfaces.EJBlockProperties;
 import org.entirej.framework.core.properties.interfaces.EJScreenItemProperties;
 import org.entirej.framework.core.renderers.EJManagedItemRendererWrapper;
@@ -61,9 +67,11 @@ import org.entirej.framework.core.service.EJRestrictions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.eclipsesource.tabris.ui.Action;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 import com.eclipsesource.tabris.ui.PageData;
 import com.eclipsesource.tabris.ui.PageStyle;
+import com.eclipsesource.tabris.ui.PlacementPriority;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 
@@ -164,6 +172,60 @@ public class EJTMTQueryScreenRenderer extends EJTMTAbstractScreenRenderer implem
         {
             PageConfiguration pageConfiguration = new PageConfiguration(pageID, EJTMTScreenPage.class).setTitle(title != null ? title : "");
             pageConfiguration.setStyle(PageStyle.DEFAULT);
+            
+            EJFrameworkExtensionProperties formRendererProperties = _block.getProperties().getQueryScreenRendererProperties();
+            if(formRendererProperties!=null)
+            {
+                EJCoreFrameworkExtensionPropertyList actions = formRendererProperties.getPropertyList(EJTMTFormPage.PAGE_ACTIONS);
+                if(actions != null)
+                {
+                    for (EJFrameworkExtensionPropertyListEntry entry : actions.getAllListEntries())
+                    {
+                        final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
+                        if(action!=null && action.length() >0)
+                        {
+                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(action, new Action()
+                            {
+                                
+                                @Override
+                                public void execute(UI ui)
+                                {
+                                    
+                                    EJRecord record = null;
+                                    if( _block.getFocusedRecord()!=null)
+                                    {
+                                        record = new EJRecord(_block.getFocusedRecord());
+                                    }
+                                    _block.executeActionCommand(action, EJScreenType.QUERY);
+                                    
+                                    
+                                }
+                            });
+                            
+                            String image = entry.getProperty(EJTMTFormPage.PAGE_ACTION_IMAGE);
+                            if(image!=null && image.length()>0)
+                            {
+                                try
+                                {
+                                    actionConfiguration.setImage(EJTMTImageRetriever.class.getClassLoader().getResourceAsStream(image));
+                                }
+                                catch(Exception ex)
+                                {
+                                    _block.getForm().getMessenger().handleException(ex);
+                                }
+                            }
+                            actionConfiguration.setTitle(entry.getProperty(EJTMTFormPage.PAGE_ACTION_NAME));
+                            
+                            if(Boolean.valueOf(entry.getProperty(EJTMTFormPage.PAGE_ACTION_PRIORITY)))
+                            {
+                                actionConfiguration.setPlacementPriority(PlacementPriority.HIGH);
+                            }
+                            pageConfiguration.addActionConfiguration(actionConfiguration);
+                        }
+                    }
+                }
+                
+            }
             configuration.addPageConfiguration(pageConfiguration);
 
         }

@@ -32,15 +32,24 @@ import org.entirej.applicationframework.tmt.application.interfaces.EJTMTFormOpen
 import org.entirej.applicationframework.tmt.application.interfaces.EJTMTFormSelectedListener;
 import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.applicationframework.tmt.pages.EJTMTFormPage;
+import org.entirej.applicationframework.tmt.pages.EJTMTFormPage.FormActionConfiguration;
+import org.entirej.framework.core.EJRecord;
+import org.entirej.framework.core.data.controllers.EJFormController;
 import org.entirej.framework.core.data.controllers.EJPopupFormController;
+import org.entirej.framework.core.enumerations.EJScreenType;
+import org.entirej.framework.core.extensions.properties.EJCoreFrameworkExtensionPropertyList;
 import org.entirej.framework.core.internal.EJInternalForm;
 import org.entirej.framework.core.properties.EJCoreFormProperties;
+import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
+import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionPropertyListEntry;
 import org.entirej.framework.core.renderers.interfaces.EJApplicationComponentRenderer;
 
+import com.eclipsesource.tabris.ui.Action;
 import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 import com.eclipsesource.tabris.ui.PageData;
 import com.eclipsesource.tabris.ui.PageStyle;
+import com.eclipsesource.tabris.ui.PlacementPriority;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 
@@ -163,7 +172,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                 }
 
                 @Override
-                public EJInternalForm addForm(EJInternalForm form)
+                public EJInternalForm addForm(final EJInternalForm form)
                 {
                     final EJCoreFormProperties formProp = form.getProperties();
                     String pageID = toFormPageIDe(formProp.getName());
@@ -171,8 +180,64 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                     {
                         PageConfiguration pageConfiguration = new PageConfiguration(pageID, EJTMTFormPage.class).setTitle(formProp.getTitle());
                         pageConfiguration.setStyle(PageStyle.DEFAULT);
+                        
+                        
+                        //create page actions
+                        EJFrameworkExtensionProperties formRendererProperties = formProp.getFormRendererProperties();
+                        if(formRendererProperties!=null)
+                        {
+                            EJCoreFrameworkExtensionPropertyList actions = formRendererProperties.getPropertyList(EJTMTFormPage.PAGE_ACTIONS);
+                            if(actions != null)
+                            {
+                                for (EJFrameworkExtensionPropertyListEntry entry : actions.getAllListEntries())
+                                {
+                                    final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
+                                    if(action!=null && action.length() >0)
+                                    {
+                                        FormActionConfiguration actionConfiguration = new FormActionConfiguration(action, new Action()
+                                        {
+                                            
+                                            @Override
+                                            public void execute(UI ui)
+                                            {
+                                                EJFormController formController = form.getFormController();
+                                                EJRecord record = null;
+                                                if(form.getFocusedBlock()!=null && form.getFocusedBlock().getBlockController().getFocusedRecord()!=null)
+                                                {
+                                                    record = new EJRecord(form.getFocusedBlock().getBlockController().getFocusedRecord());
+                                                }
+                                                formController.getManagedActionController().executeActionCommand(formController.getEJForm(), record, action, EJScreenType.MAIN);
+                                                
+                                            }
+                                        });
+                                        
+                                        String image = entry.getProperty(EJTMTFormPage.PAGE_ACTION_IMAGE);
+                                        if(image!=null && image.length()>0)
+                                        {
+                                            try
+                                            {
+                                                actionConfiguration.setImage(EJTMTImageRetriever.class.getClassLoader().getResourceAsStream(image));
+                                            }
+                                            catch(Exception ex)
+                                            {
+                                                form.getMessenger().handleException(ex);
+                                            }
+                                        }
+                                        actionConfiguration.setTitle(entry.getProperty(EJTMTFormPage.PAGE_ACTION_NAME));
+                                        
+                                        if(Boolean.valueOf(entry.getProperty(EJTMTFormPage.PAGE_ACTION_PRIORITY)))
+                                        {
+                                            actionConfiguration.setPlacementPriority(PlacementPriority.HIGH);
+                                        }
+                                        pageConfiguration.addActionConfiguration(actionConfiguration);
+                                    }
+                                }
+                            }
+                            
+                        }
                         configuration.addPageConfiguration(pageConfiguration);
-
+                        
+                        
                     }
 
                     PageData pageData = EJTMTFormPage.createPageData(form);
