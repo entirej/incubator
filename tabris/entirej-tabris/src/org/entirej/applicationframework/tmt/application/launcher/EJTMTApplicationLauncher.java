@@ -59,8 +59,11 @@ import com.eclipsesource.tabris.internal.ui.Controller;
 import com.eclipsesource.tabris.internal.ui.UIDescriptor;
 import com.eclipsesource.tabris.internal.ui.UIImpl;
 import com.eclipsesource.tabris.internal.ui.rendering.UIRenderer;
+import com.eclipsesource.tabris.ui.Action;
+import com.eclipsesource.tabris.ui.ActionConfiguration;
 import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
+import com.eclipsesource.tabris.ui.PlacementPriority;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 
 public abstract class EJTMTApplicationLauncher implements ApplicationConfiguration
@@ -309,7 +312,7 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
 
     }
 
-    protected void addRootPageConfiguration(UIConfiguration configuration, String id, Class<? extends Page> page, String title, InputStream image)
+    protected PageConfiguration addRootPageConfiguration(UIConfiguration configuration, String id, Class<? extends Page> page, String title, InputStream image)
     {
         PageConfiguration pageConfig = new PageConfiguration(id, page);
         pageConfig.setTitle(title);
@@ -317,11 +320,46 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
             pageConfig.setImage(image);
         pageConfig.setTopLevel(true);
         configuration.addPageConfiguration(pageConfig);
+        return pageConfig;
     }
 
-    protected void addRootPageConfiguration(UIConfiguration configuration, String id, Class<? extends Page> page, String title)
+    protected PageConfiguration addRootPageConfiguration(UIConfiguration configuration, String id, Class<? extends Page> page, String title)
     {
-        addRootPageConfiguration(configuration, id, page, title, null);
+        return addRootPageConfiguration(configuration, id, page, title, null);
+    }
+
+    protected ActionConfiguration addRootActionConfiguration(UIConfiguration configuration, String id, Class<? extends Action> action,
+            PlacementPriority priority, String title, InputStream image)
+    {
+        ActionConfiguration sctionConfig = new ActionConfiguration(id, action);
+        sctionConfig.setTitle(title);
+        if (image != null)
+            sctionConfig.setImage(image);
+        configuration.addActionConfiguration(sctionConfig);
+        return sctionConfig;
+    }
+
+    protected ActionConfiguration addPageActionConfiguration(PageConfiguration configuration, String id, Class<? extends Action> action,
+            PlacementPriority priority, String title, InputStream image)
+    {
+        ActionConfiguration sctionConfig = new ActionConfiguration(id, action);
+        sctionConfig.setTitle(title);
+        if (image != null)
+            sctionConfig.setImage(image);
+        configuration.addActionConfiguration(sctionConfig);
+        return sctionConfig;
+    }
+
+    protected ActionConfiguration addRootActionConfiguration(UIConfiguration configuration, String id, Class<? extends Action> action,
+            PlacementPriority priority, String title)
+    {
+        return addRootActionConfiguration(configuration, id, action, priority, title, null);
+    }
+
+    protected ActionConfiguration addPageActionConfiguration(PageConfiguration configuration, String id, Class<? extends Action> action,
+            PlacementPriority priority, String title)
+    {
+        return addPageActionConfiguration(configuration, id, action, priority, title, null);
     }
 
     public static int openShell(Display display, Shell shell)
