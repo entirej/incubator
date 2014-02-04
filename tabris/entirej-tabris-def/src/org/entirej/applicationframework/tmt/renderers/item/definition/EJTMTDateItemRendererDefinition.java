@@ -105,8 +105,19 @@ public class EJTMTDateItemRendererDefinition implements EJDevItemRendererDefinit
         selectOnFocus.setLabel("Select on focus");
         selectOnFocus.setDescription("Indicates if this item should select text on focus");
         selectOnFocus.setDefaultValue("false");
+        
+        
+     // tabris keyboard layout options
+        EJDevPropertyDefinition keyborad = new EJDevPropertyDefinition(EJTMTTextItemRendererDefinition.PROPERTY_KEYBOARD, EJPropertyDefinitionType.STRING);
+        keyborad.setLabel("Keyboard");
+        keyborad.setDescription("The keybord layout when enter values.");
+        keyborad.setDefaultValue(EJTMTTextItemRendererDefinition.PROPERTY_KEYBOARD_ASCII);
+        keyborad.addValidValue(EJTMTTextItemRendererDefinition.PROPERTY_KEYBOARD_ASCII, "ASCII");
+        keyborad.addValidValue(EJTMTTextItemRendererDefinition.PROPERTY_KEYBOARD_NUMBERS, "Numbers");
+        keyborad.addValidValue(EJTMTTextItemRendererDefinition.PROPERTY_KEYBOARD_NUMBERS_AND_PUNCTUATION, "Numbers and Punctuation");
 
         mainGroup.addPropertyDefinition(textAllignment);
+        mainGroup.addPropertyDefinition(keyborad);
         mainGroup.addPropertyDefinition(format);
         mainGroup.addPropertyDefinition(selectOnFocus);
         mainGroup.addPropertyDefinition(displayValueAsLabel);

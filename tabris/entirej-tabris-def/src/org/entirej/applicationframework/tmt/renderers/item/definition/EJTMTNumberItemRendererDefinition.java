@@ -105,6 +105,7 @@ public class EJTMTNumberItemRendererDefinition implements EJDevItemRendererDefin
 
         mainGroup.addPropertyDefinition(format);
         mainGroup.addPropertyDefinition(textAlignment);
+        mainGroup.addPropertyDefinition(keyborad);
         mainGroup.addPropertyDefinition(selectOnFocus);
         mainGroup.addPropertyDefinition(displayValueAsLabel);
 
