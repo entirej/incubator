@@ -149,7 +149,7 @@ public class EJTMTUpdateScreenRenderer extends EJTMTAbstractScreenRenderer imple
     {
         _itemRegister.resetRegister();
         setupUpdateScreen();
-        String pageID = toPageID(_block.getProperties().getName());
+        String pageID = EJTMTScreenPage.toPageID(_block.getForm().getProperties().getName(),_block.getProperties().getName(),EJScreenType.UPDATE);
         final UI ui = EJTMTContext.getTabrisUI();
         final UIConfiguration configuration = EJTMTContext.getUiConfiguration();
 
@@ -168,7 +168,7 @@ public class EJTMTUpdateScreenRenderer extends EJTMTAbstractScreenRenderer imple
                         final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
                         if(action!=null && action.length() >0)
                         {
-                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(action, new Action()
+                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(FormActionConfiguration.toActionId(pageID, action), new Action()
                             {
                                 
                                 @Override
@@ -263,10 +263,6 @@ public class EJTMTUpdateScreenRenderer extends EJTMTAbstractScreenRenderer imple
         return ((EJCoreUpdateScreenItemProperties) item).getUpdateScreenRendererProperties();
     }
 
-    private String toPageID(String name)
-    {
-        return String.format("EJFU_%s", name);
-    }
 
     private void setupUpdateScreen()
     {
@@ -393,7 +389,7 @@ public class EJTMTUpdateScreenRenderer extends EJTMTAbstractScreenRenderer imple
                 _block.setRendererFocus(true);
                 final UIConfiguration configuration = EJTMTContext.getUiConfiguration();
                 final UI ui = EJTMTContext.getTabrisUI();
-                String pageID = toPageID(_block.getProperties().getName());
+                String pageID = EJTMTScreenPage.toPageID(_block.getForm().getProperties().getName(),_block.getProperties().getName(),EJScreenType.UPDATE);
                 if (pageID.equals(ui.getPageOperator().getCurrentPageId()))
                 {
                     ui.getPageOperator().closeCurrentPage();

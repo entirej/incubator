@@ -149,7 +149,7 @@ public class EJTMTInsertScreenRenderer extends EJTMTAbstractScreenRenderer imple
         _itemRegister.resetRegister();
         setupInsertScreen();
 
-        String pageID = toPageID(_block.getProperties().getName());
+        final String pageID = EJTMTScreenPage.toPageID(_block.getForm().getProperties().getName(),_block.getProperties().getName(),EJScreenType.INSERT);
         final UI ui = EJTMTContext.getTabrisUI();
         final UIConfiguration configuration = EJTMTContext.getUiConfiguration();
 
@@ -169,7 +169,7 @@ public class EJTMTInsertScreenRenderer extends EJTMTAbstractScreenRenderer imple
                         final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
                         if(action!=null && action.length() >0)
                         {
-                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(action, new Action()
+                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(FormActionConfiguration.toActionId(pageID, action), new Action()
                             {
                                 
                                 @Override
@@ -377,7 +377,7 @@ public class EJTMTInsertScreenRenderer extends EJTMTAbstractScreenRenderer imple
 
                 final UIConfiguration configuration = EJTMTContext.getUiConfiguration();
                 final UI ui = EJTMTContext.getTabrisUI();
-                String pageID = toPageID(_block.getProperties().getName());
+                String pageID = EJTMTScreenPage.toPageID(_block.getForm().getProperties().getName(),_block.getProperties().getName(),EJScreenType.INSERT);
                 if (pageID.equals(ui.getPageOperator().getCurrentPageId()))
                 {
                     ui.getPageOperator().closeCurrentPage();
@@ -475,10 +475,7 @@ public class EJTMTInsertScreenRenderer extends EJTMTAbstractScreenRenderer imple
 
     }
 
-    private String toPageID(String name)
-    {
-        return String.format("EJFI_%s", name);
-    }
+    
 
     @Override
     protected EJInternalEditableBlock getBlock()

@@ -340,7 +340,7 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
             pageConfig.setImage(image);
         pageConfig.setTopLevel(true);
         
-        EJTMTFormComponentPage.addFormRendererActions(pageConfig, formId);
+        EJTMTFormComponentPage.addFormRendererActions(id,pageConfig, formId);
         
         configuration.addPageConfiguration(pageConfig);
         return pageConfig;

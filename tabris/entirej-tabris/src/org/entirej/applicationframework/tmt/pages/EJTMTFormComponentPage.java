@@ -83,13 +83,13 @@ public abstract class EJTMTFormComponentPage extends AbstractPage
 
     }
 
-    public static void addFormRendererActions( PageConfiguration pageConfig, String formId)
+    public static void addFormRendererActions(String pageid, PageConfiguration pageConfig, String formId)
     {
         EJTMTApplicationManager manager = EJTMTContext.getEJTMTApplicationManager();
-        addFormRendererActions(pageConfig, manager.getFrameworkManager().createInternalForm(formId, null));
+        addFormRendererActions(pageid,pageConfig, manager.getFrameworkManager().createInternalForm(formId, null));
     }
 
-    public static void addFormRendererActions( PageConfiguration pageConfig, EJInternalForm form)
+    public static void addFormRendererActions(String pageid, PageConfiguration pageConfig, EJInternalForm form)
     {
 
         final EJCoreFormProperties formProp = form.getProperties();
@@ -109,7 +109,7 @@ public abstract class EJTMTFormComponentPage extends AbstractPage
                         final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
                         if (action != null && action.length() > 0)
                         {
-                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(action, new Action()
+                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(FormActionConfiguration.toActionId(pageid, action), new Action()
                             {
 
                                 @Override

@@ -113,7 +113,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                     EJInternalForm form = popupController.getPopupForm();
 
                     final EJCoreFormProperties formProp = form.getProperties();
-                    String pageID = toFormPageIDe(formProp.getName());
+                    String pageID = EJTMTFormPage.toFormPageID(formProp.getName());
                     if (configuration.getPageConfiguration(pageID) == null)
                     {
                         PageConfiguration pageConfiguration = new PageConfiguration(pageID, EJTMTFormPage.class).setTitle(formProp.getTitle());
@@ -151,7 +151,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                 public void closeForm(EJInternalForm form)
                 {
 
-                    String pageId = toFormPageIDe(form.getProperties().getName());
+                    String pageId = EJTMTFormPage.toFormPageID(form.getProperties().getName());
                     if (pageId.equals(ui.getPageOperator().getCurrentPageId()))
                     {
                         ui.getPageOperator().closeCurrentPage();
@@ -175,7 +175,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                 public EJInternalForm addForm(final EJInternalForm form)
                 {
                     final EJCoreFormProperties formProp = form.getProperties();
-                    String pageID = toFormPageIDe(formProp.getName());
+                    final String pageID = EJTMTFormPage.toFormPageID(formProp.getName());
                     if (configuration.getPageConfiguration(pageID) == null)
                     {
                         PageConfiguration pageConfiguration = new PageConfiguration(pageID, EJTMTFormPage.class).setTitle(formProp.getTitle());
@@ -194,7 +194,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                                     final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
                                     if(action!=null && action.length() >0)
                                     {
-                                        FormActionConfiguration actionConfiguration = new FormActionConfiguration(action, new Action()
+                                        FormActionConfiguration actionConfiguration = new FormActionConfiguration(FormActionConfiguration.toActionId(pageID, action), new Action()
                                         {
                                             
                                             @Override
@@ -246,10 +246,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                     return form;
                 }
 
-                private String toFormPageIDe(String name)
-                {
-                    return String.format("EJTF_%s", name);
-                }
+                
             };
         }
 

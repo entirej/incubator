@@ -164,7 +164,7 @@ public class EJTMTQueryScreenRenderer extends EJTMTAbstractScreenRenderer implem
         _itemRegister.resetRegister();
         setupQueryScreen();
 
-        String pageID = toPageID(_block.getProperties().getName());
+        String pageID = EJTMTScreenPage.toPageID(_block.getForm().getProperties().getName(),_block.getProperties().getName(),EJScreenType.QUERY);
         final UI ui = EJTMTContext.getTabrisUI();
         final UIConfiguration configuration = EJTMTContext.getUiConfiguration();
 
@@ -184,7 +184,7 @@ public class EJTMTQueryScreenRenderer extends EJTMTAbstractScreenRenderer implem
                         final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
                         if(action!=null && action.length() >0)
                         {
-                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(action, new Action()
+                            FormActionConfiguration actionConfiguration = new FormActionConfiguration(FormActionConfiguration.toActionId(pageID, action), new Action()
                             {
                                 
                                 @Override
@@ -242,11 +242,7 @@ public class EJTMTQueryScreenRenderer extends EJTMTAbstractScreenRenderer implem
         _queryDialog = null;
     }
 
-    private String toPageID(String name)
-    {
-        return String.format("EJFQ_%s", name);
-    }
-
+  
     @Override
     public EJDataRecord getQueryRecord()
     {
@@ -364,7 +360,7 @@ public class EJTMTQueryScreenRenderer extends EJTMTAbstractScreenRenderer implem
                 _block.setRendererFocus(true);
                 final UIConfiguration configuration = EJTMTContext.getUiConfiguration();
                 final UI ui = EJTMTContext.getTabrisUI();
-                String pageID = toPageID(_block.getProperties().getName());
+                String pageID = EJTMTScreenPage.toPageID(_block.getForm().getProperties().getName(),_block.getProperties().getName(),EJScreenType.QUERY);
                 if (pageID.equals(ui.getPageOperator().getCurrentPageId()))
                 {
                     ui.getPageOperator().closeCurrentPage();

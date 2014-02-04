@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.entirej.framework.core.enumerations.EJScreenType;
 
 import com.eclipsesource.tabris.ui.AbstractPage;
 import com.eclipsesource.tabris.ui.PageData;
@@ -70,6 +71,25 @@ public class EJTMTScreenPage extends AbstractPage
     public void setButtonEnable(final int buttonId, boolean enabled)
     {
         getButton(buttonId).setEnabled(enabled);
+    }
+    
+    
+    public static String toPageID(String formName,String name,EJScreenType type)
+    {
+        switch (type)
+        {
+            case INSERT:
+                return String.format("EJF_%s_I_%s",formName, name);
+            case QUERY:
+                return String.format("EJF_%s_Q_%s",formName, name);
+            case UPDATE:
+                return String.format("EJF_%s_U_%s",formName, name);
+                
+
+            default:
+                break;
+        }
+        return String.format("EJF_%s__%s",formName, name);
     }
 
     public void validate()

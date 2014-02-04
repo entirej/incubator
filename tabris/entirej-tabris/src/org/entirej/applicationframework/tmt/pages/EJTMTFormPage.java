@@ -72,6 +72,12 @@ public class EJTMTFormPage extends AbstractPage
             scrollComposite.setMinSize(width, height);
         }
     }
+    
+    
+    public static String toFormPageID(String name)
+    {
+        return String.format("EJTF_%s", name);
+    }
 
     public EJInternalForm getForm()
     {
@@ -104,6 +110,12 @@ public class EJTMTFormPage extends AbstractPage
             this.title = "";
             this.enabled = true;
             this.visible = true;
+        }
+        
+        
+        public static String toActionId(String pageid,String actionId)
+        {
+            return String.format("%s_%s", pageid,actionId);
         }
 
         @Override
