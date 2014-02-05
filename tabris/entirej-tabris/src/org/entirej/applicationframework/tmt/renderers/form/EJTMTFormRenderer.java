@@ -288,6 +288,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
             _blocks.put(canvasName, block);
         }
         _mainPane = new EJTMTEntireJGridPane(parent, formProperties.getNumCols());
+        _mainPane.cleanLayout();
         for (EJCanvasProperties canvasProperties : formProperties.getCanvasContainer().getAllCanvasProperties())
         {
             createCanvas(_mainPane, canvasProperties, canvasController);
