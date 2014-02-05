@@ -28,6 +28,7 @@ import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.applicationframework.tmt.layout.EJTMTEntireJGridPane;
 import org.entirej.applicationframework.tmt.pages.EJTMTFormPage.FormActionConfiguration;
 import org.entirej.applicationframework.tmt.renderers.form.EJTMTFormRenderer;
+import org.entirej.framework.core.EJParameterList;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.data.controllers.EJFormController;
 import org.entirej.framework.core.enumerations.EJScreenType;
@@ -55,6 +56,12 @@ public abstract class EJTMTFormComponentPage extends AbstractPage
 
         EJTMTApplicationManager manager = EJTMTContext.getEJTMTApplicationManager();
         this.form = manager.getFrameworkManager().createInternalForm(formId, null);
+    }
+    public EJTMTFormComponentPage(String formId,EJParameterList list)
+    {
+        
+        EJTMTApplicationManager manager = EJTMTContext.getEJTMTApplicationManager();
+        this.form = manager.getFrameworkManager().createInternalForm(formId, list);
     }
 
     public EJTMTFormComponentPage(EJInternalForm form, String pageid)
