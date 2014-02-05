@@ -29,6 +29,7 @@ import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.rap.rwt.template.Cell;
 import org.eclipse.rap.rwt.template.ImageCell;
 import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.ImageCell.ScaleMode;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -504,7 +505,14 @@ public class EJTMTImageItemRenderer implements EJTMTAppItemRenderer, FocusListen
 
                     if (value != null)
                     {
-
+                        if (value instanceof URL)
+                        {
+                            return ImageDescriptor.createFromURL((URL) value).createImage();
+                        }
+                        else if (value instanceof byte[])
+                        {
+                            return new Image(Display.getDefault(), new ByteArrayInputStream((byte[]) value));
+                        }
                     }
                 }
                 return _defaultImage;
@@ -542,6 +550,7 @@ public class EJTMTImageItemRenderer implements EJTMTAppItemRenderer, FocusListen
     public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
     {
         ImageCell imageCell = new ImageCell(template);
+        imageCell.setScaleMode(ScaleMode.FILL);
         return imageCell;
     }
     
