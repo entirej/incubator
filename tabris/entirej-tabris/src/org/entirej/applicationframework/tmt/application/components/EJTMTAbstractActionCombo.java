@@ -80,7 +80,6 @@ public abstract class EJTMTAbstractActionCombo extends Composite implements Seri
         actionWidthHint = gridData.widthHint;
         gridData.horizontalIndent = 2;
         labelButton.setLayoutData(gridData);
-        labelButton.setBackground(parent.getBackground());
 
         return labelButton;
     }

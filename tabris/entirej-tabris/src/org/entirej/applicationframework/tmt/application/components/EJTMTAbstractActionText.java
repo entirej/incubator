@@ -95,7 +95,6 @@ public abstract class EJTMTAbstractActionText extends Composite implements Seria
         actionWidthHint = gridData.widthHint;
         gridData.horizontalIndent = 2;
         labelButton.setLayoutData(gridData);
-        labelButton.setBackground(parent.getBackground());
 
         return labelButton;
     }
@@ -110,7 +109,6 @@ public abstract class EJTMTAbstractActionText extends Composite implements Seria
 
             gridData.horizontalIndent = 2;
             labelButton.setLayoutData(gridData);
-            labelButton.setBackground(parent.getBackground());
         }
         return labelButton;
     }

@@ -351,8 +351,11 @@ public class EJTMTLabelItemRenderer implements EJTMTAppItemRenderer, FocusListen
     private void refreshBackground()
     {
         Color background = EJTMTVisualAttributeUtils.INSTANCE.getBackground(_visualAttributeProperties);
-
-        _labelField.getControl().setBackground(background != null ? background : _visualContext.getBackgroundColor());
+        Color color = background != null ? background : (_visualContext!=null ? _visualContext.getBackgroundColor() :null);
+        if(color==null || !color.equals( _labelField.getControl().getBackground()))
+        {
+            _labelField.getControl().setBackground(color);
+        }
     }
 
     private void refreshForeground()

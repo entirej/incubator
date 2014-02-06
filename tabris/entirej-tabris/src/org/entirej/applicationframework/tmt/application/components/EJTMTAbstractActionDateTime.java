@@ -94,7 +94,6 @@ public abstract class EJTMTAbstractActionDateTime extends Composite implements S
         actionWidthHint = gridData.widthHint;
         gridData.horizontalIndent = 2;
         labelButton.setLayoutData(gridData);
-        labelButton.setBackground(parent.getBackground());
 
         return labelButton;
     }
@@ -107,7 +106,6 @@ public abstract class EJTMTAbstractActionDateTime extends Composite implements S
             GridData gridData = new GridData(SWT.BEGINNING, SWT.CENTER, false, false);
             gridData.horizontalIndent = 2;
             labelButton.setLayoutData(gridData);
-            labelButton.setBackground(parent.getBackground());
         }
         return labelButton;
     }

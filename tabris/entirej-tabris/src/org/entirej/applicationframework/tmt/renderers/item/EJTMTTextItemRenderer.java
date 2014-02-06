@@ -596,18 +596,25 @@ public class EJTMTTextItemRenderer implements EJTMTAppItemRenderer, FocusListene
     {
 
         Color background = EJTMTVisualAttributeUtils.INSTANCE.getBackground(_visualAttributeProperties);
+        Color color = background != null ? background : (_visualContext!=null ? _visualContext.getBackgroundColor() :null);
         if (_displayValueAsLabel)
         {
             if (controlState(_valueLabel))
             {
-                _valueLabel.setBackground(background != null ? background : _visualContext.getBackgroundColor());
+                if(color==null || !color.equals(_valueLabel.getBackground()))
+                {
+                    _valueLabel.setBackground(color);
+                }
             }
         }
         else
         {
             if (controlState(_textField))
             {
-                _textField.setBackground(background != null ? background : _visualContext.getBackgroundColor());
+                if(color==null || !color.equals(_textField.getBackground()))
+                {
+                    _textField.setBackground(color);
+                }
             }
         }
     }
