@@ -563,8 +563,9 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
         {
             _mainPane = new EJTMTEntireJGridPane(blockCanvas, 1);
             _mainPane.setLayoutData(gridData);
-            _mainPane.cleanLayoutHorizontal();
+            
         }
+        _mainPane.cleanLayout();
 
         int style = SWT.VIRTUAL | SWT.H_SCROLL | SWT.V_SCROLL;
 
