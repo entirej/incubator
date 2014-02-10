@@ -858,9 +858,28 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                 {
                     _block.newRecordInstance(focusedRecord);
                 }
+                
+                
                 notifyStatus();
             }
         });
+
+        final String selectionAction = rendererProp.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.ROW_SELECTION_ACTION);
+        if(selectionAction!=null && selectionAction.trim().length()>0)
+        {
+            _tableViewer.getTable().addMouseListener(new MouseAdapter()
+            {
+                @Override
+                public void mouseUp(MouseEvent e)
+                {
+                    EJDataRecord rec = getFocusedRecord();
+                    if(rec!=null)
+                    {
+                        _block.executeActionCommand(selectionAction, EJScreenType.MAIN);
+                    }
+                }
+            });
+        }
 
     }
 
