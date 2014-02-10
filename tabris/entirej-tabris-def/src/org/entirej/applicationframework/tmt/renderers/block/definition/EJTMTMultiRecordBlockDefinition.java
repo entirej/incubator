@@ -147,8 +147,8 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         // cell action to support selection
         EJDevPropertyDefinition cellActionCommand = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.CELL_ACTION_COMMAND,
                 EJPropertyDefinitionType.ACTION_COMMAND);
-        cellActionCommand.setLabel("Action Command");
-        cellActionCommand.setDescription("Add an action command that will be sent to the action processor when a user click on this cell");
+        cellActionCommand.setLabel("Cell Action Command");
+        cellActionCommand.setDescription("An event is fired each time the user selects a cell with this command set. The command is then sent to the forms action processors <b>executeActionCommand</b> method for execution.");
 
         // cell width & height
         EJDevPropertyDefinition height = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY,
