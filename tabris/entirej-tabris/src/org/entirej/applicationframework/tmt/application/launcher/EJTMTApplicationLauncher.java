@@ -29,23 +29,40 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.eclipse.jface.fieldassist.ControlDecoration;
+import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.application.Application;
 import org.eclipse.rap.rwt.application.Application.OperationMode;
 import org.eclipse.rap.rwt.application.ApplicationConfiguration;
 import org.eclipse.rap.rwt.application.EntryPoint;
 import org.eclipse.rap.rwt.application.EntryPointFactory;
 import org.eclipse.rap.rwt.client.WebClient;
+import org.eclipse.rap.rwt.client.service.UrlLauncher;
 import org.eclipse.rap.rwt.internal.lifecycle.RWTLifeCycle;
 import org.eclipse.rap.rwt.service.ResourceLoader;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.RGB;
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Link;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.swt.widgets.Text;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationContainer;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
+import org.entirej.applicationframework.tmt.application.EJTMTImageRetriever;
 import org.entirej.applicationframework.tmt.pages.EJTMTFormComponentPage;
 import org.entirej.applicationframework.tmt.pages.EJTMTMenuComponentPage;
 import org.entirej.framework.core.EJFrameworkHelper;
@@ -53,6 +70,8 @@ import org.entirej.framework.core.EJFrameworkInitialiser;
 import org.entirej.framework.core.properties.EJCoreLayoutContainer;
 import org.entirej.framework.core.properties.EJCoreMenuProperties;
 import org.entirej.framework.core.properties.EJCoreProperties;
+import org.entirej.framework.core.properties.EJCoreVisualAttributeContainer;
+import org.entirej.framework.core.properties.EJCoreVisualAttributeProperties;
 
 import com.eclipsesource.tabris.TabrisClientInstaller;
 import com.eclipsesource.tabris.internal.ZIndexStackLayout;
@@ -178,7 +197,11 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
                         }
 
                         getContext().getUISession().setAttribute("ej.applicationManager", applicationManager);
-
+                        EJTMTAuthenticateProvider authenticateProvider = getAuthenticateProvider(applicationManager);
+                        if (authenticateProvider != null)
+                        {
+                            authenticateProvider.authenticate(applicationManager);
+                        }
                         Display display = Display.getDefault();
                         if (display.isDisposed())
                             display = new Display();
@@ -320,9 +343,7 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
         if (image != null)
             pageConfig.setImage(image);
         pageConfig.setTopLevel(true);
-        
-       
-        
+
         configuration.addPageConfiguration(pageConfig);
         return pageConfig;
     }
@@ -331,24 +352,26 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
     {
         return addRootPageConfiguration(configuration, id, page, title, null);
     }
-    
-    protected PageConfiguration addRootFormComponentPage(UIConfiguration configuration, String id, String formId, Class<? extends EJTMTFormComponentPage> page, String title, InputStream image)
+
+    protected PageConfiguration addRootFormComponentPage(UIConfiguration configuration, String id, String formId, Class<? extends EJTMTFormComponentPage> page,
+            String title, InputStream image)
     {
         PageConfiguration pageConfig = new PageConfiguration(id, page);
         pageConfig.setTitle(title);
         if (image != null)
             pageConfig.setImage(image);
         pageConfig.setTopLevel(true);
-        
-        EJTMTFormComponentPage.addFormRendererActions(id,pageConfig, formId);
-        
+
+        EJTMTFormComponentPage.addFormRendererActions(id, pageConfig, formId);
+
         configuration.addPageConfiguration(pageConfig);
         return pageConfig;
     }
-    
-    protected PageConfiguration addRootFormComponentPage(UIConfiguration configuration, String id, String formId, Class<? extends EJTMTFormComponentPage> page, String title)
+
+    protected PageConfiguration addRootFormComponentPage(UIConfiguration configuration, String id, String formId, Class<? extends EJTMTFormComponentPage> page,
+            String title)
     {
-        return addRootFormComponentPage(configuration, id,formId, page, title, null);
+        return addRootFormComponentPage(configuration, id, formId, page, title, null);
     }
 
     protected ActionConfiguration addRootActionConfiguration(UIConfiguration configuration, String id, Class<? extends Action> action,
@@ -409,8 +432,142 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
     {
     }
 
+    public EJTMTAuthenticateProvider getAuthenticateProvider(EJFrameworkHelper frameworkHelper)
+    {
+        return null;
+    }
+
     public void registerServiceHandlers()
     {
+
+    }
+
+    public abstract class EJTMTDefaultAuthenticateProvider implements EJTMTAuthenticateProvider
+    {
+        public final void authenticate(EJFrameworkHelper frameworkHelper)
+        {
+            create(frameworkHelper);
+
+        }
+
+        public void create(final EJFrameworkHelper frameworkHelper)
+        {
+
+            Display display = Display.getDefault();
+            Shell _shell = new Shell(display, SWT.NO_TRIM | SWT.APPLICATION_MODAL);
+
+            _shell.setLayout(new FillLayout());
+
+            createLoginBody(frameworkHelper, display, _shell);
+            _shell.layout();
+            _shell.setMaximized(true);
+            openShell(_shell.getDisplay(), _shell);
+        }
+
+        protected void createLoginBody(final EJFrameworkHelper frameworkHelper, Display display, Composite parentBody)
+        {
+            final Group _body = new Group(parentBody, SWT.NONE);
+
+            EJCoreLayoutContainer layoutContainer = EJCoreProperties.getInstance().getLayoutContainer();
+            _body.setText(layoutContainer.getTitle());
+
+            GridLayout loginGroupLayout = new GridLayout(1, false);
+            _body.setLayout(loginGroupLayout);
+
+            final GridData gdError = new GridData(SWT.FILL, SWT.TOP, true, true);
+
+            final Text txtUsername = new Text(_body, SWT.BORDER);
+            txtUsername.setToolTipText("Username");
+            GridData gdUsername = new GridData(SWT.FILL, SWT.CENTER, true, false);
+            txtUsername.setMessage("Username");
+            txtUsername.setLayoutData(gdUsername);
+
+            final Text txtPwd = new Text(_body, SWT.BORDER | SWT.PASSWORD);
+            txtPwd.setToolTipText("Password");
+            txtPwd.setMessage("Password");
+            txtPwd.setLayoutData(new GridData(SWT.FILL, SWT.CENTER, true, false));
+
+            new Label(_body, SWT.NONE);
+            final Button btnLogin = new Button(_body, SWT.PUSH);
+            parentBody.getShell().setDefaultButton(btnLogin);
+            btnLogin.setText("Sign in");
+
+            final Label lblError = new Label(_body, SWT.WRAP);
+            ;
+            lblError.setLayoutData(gdError);
+
+            btnLogin.addSelectionListener(new SelectionAdapter()
+            {
+
+                private static final long serialVersionUID = 1L;
+
+                @Override
+                public void widgetSelected(SelectionEvent e)
+                {
+
+                    lblError.setText("");
+                    try
+                    {
+                        txtUsername.setEnabled(false);
+                        txtPwd.setEnabled(false);
+                        btnLogin.setEnabled(false);
+                        String usernameStr = txtUsername.getText();
+                        String passwordStr = txtPwd.getText();
+
+                        performLogin(frameworkHelper, lblError, usernameStr, passwordStr);
+                    }
+                    finally
+                    {
+                        if (!_body.isDisposed() && (!txtUsername.isDisposed() && !txtPwd.isDisposed() && !btnLogin.isDisposed()))
+                        {
+                            txtUsername.setEnabled(true);
+                            txtPwd.setEnabled(true);
+                            btnLogin.setEnabled(true);
+                        }
+                    }
+                }
+            });
+
+        }
+
+        protected void performLogin(final EJFrameworkHelper frameworkHelper, final Label lblError, String usernameStr, String passwordStr)
+        {
+            if (usernameStr == null || usernameStr.length() == 0)
+            {
+                lblError.setText("Enter your username.");
+                return;
+            }
+
+            if (passwordStr == null || passwordStr.length() == 0)
+            {
+                lblError.setText("Enter your password.");
+                return;
+            }
+            try
+            {
+                String authenticateError = authenticate(frameworkHelper, usernameStr, passwordStr);
+                if (authenticateError != null)
+                {
+                    lblError.setText(authenticateError);
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                frameworkHelper.handleException(e);
+                lblError.setText("Internal Error occured on Authentication.");
+                return;
+            }
+            lblError.getShell().dispose();
+        }
+
+        public abstract String authenticate(EJFrameworkHelper frameworkHelper, String user, String password);
+    }
+
+    public static interface EJTMTAuthenticateProvider
+    {
+
+        void authenticate(EJFrameworkHelper frameworkHelper);
 
     }
 
