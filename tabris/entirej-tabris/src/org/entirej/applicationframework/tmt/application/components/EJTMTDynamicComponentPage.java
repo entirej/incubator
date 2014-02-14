@@ -16,28 +16,24 @@
  * Contributors:
  *     Mojave Innovations GmbH - initial API and implementation
  ******************************************************************************/
-package org.entirej.applicationframework.tmt.pages;
+package org.entirej.applicationframework.tmt.application.components;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import org.eclipse.swt.widgets.Composite;
-import org.entirej.applicationframework.tmt.application.components.menu.EJTMTDefaultMenuBuilder;
+import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
+import org.entirej.applicationframework.tmt.application.interfaces.EJTMTAppComponentRenderer;
 import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 
 import com.eclipsesource.tabris.ui.AbstractPage;
 import com.eclipsesource.tabris.ui.PageData;
 
-public abstract class EJTMTMenuComponentPage extends AbstractPage
+public class EJTMTDynamicComponentPage extends AbstractPage
 {
-    private AtomicBoolean init = new AtomicBoolean(true);
-    private String menuId = null;
 
-    private Composite parent;
-    
-    public EJTMTMenuComponentPage(String menuId)
-    {
-        this.menuId = menuId;
-    }
+    private Composite     parent;
+
+    private AtomicBoolean init = new AtomicBoolean(true);
 
     @Override
     public void createContent(Composite parent, PageData data)
@@ -45,15 +41,19 @@ public abstract class EJTMTMenuComponentPage extends AbstractPage
         this.parent = parent;
         init.set(true);
     }
-    
+
     @Override
     public void activate()
     {
-        if(init.getAndSet(false))
+        if (init.getAndSet(false))
         {
-           System.err.println( getUI().getPageOperator().getCurrentPageId());
-            EJTMTDefaultMenuBuilder _menuBuilder = new EJTMTDefaultMenuBuilder(EJTMTContext.getEJTMTApplicationManager(), parent);
-            _menuBuilder.createTreeComponent(menuId);
+            String pageId = getUI().getPageOperator().getCurrentPageId();
+            EJTMTApplicationManager manager = EJTMTContext.getEJTMTApplicationManager();
+            EJTMTAppComponentRenderer componentByPage = manager.getApplicationContainer().getComponentByPage(pageId);
+            if (componentByPage != null)
+            {
+                componentByPage.createContainer(manager, parent);
+            }
 
         }
     }

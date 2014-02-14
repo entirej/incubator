@@ -27,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jface.fieldassist.ControlDecoration;
@@ -63,6 +64,7 @@ import org.eclipse.swt.widgets.Text;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationContainer;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
 import org.entirej.applicationframework.tmt.application.EJTMTImageRetriever;
+import org.entirej.applicationframework.tmt.application.interfaces.EJTMTAppComponentRenderer;
 import org.entirej.applicationframework.tmt.pages.EJTMTFormComponentPage;
 import org.entirej.applicationframework.tmt.pages.EJTMTMenuComponentPage;
 import org.entirej.framework.core.EJFrameworkHelper;
@@ -212,14 +214,26 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
                         uiConfiguration.setImage(EJTMTApplicationLauncher.class.getClassLoader().getResourceAsStream(getApplicationIcon()));
                         getContext().getUISession().setAttribute("ej.tabrisUIConfiguration", uiConfiguration);
 
-                        initRootPageConfiguration(uiConfiguration);
+                        
 
                         Shell shell = new Shell(display, SWT.NO_TRIM);
                         // Now build the application container
                         EJTMTApplicationContainer appContainer = new EJTMTApplicationContainer();
-
+                        applicationManager.setApplicationContainer(appContainer);
+                        appContainer.buildComponents();
+                        List<EJTMTAppComponentRenderer> components = appContainer.getComponents();
+                        for (EJTMTAppComponentRenderer renderer : components)
+                        {
+                            String pageId = renderer.getPageId();
+                            if(pageId!=null && pageId.length()>0)
+                            {
+                                uiConfiguration.addPageConfiguration(renderer.createPageConfiguration());
+                            }
+                        }
+                        
+                        initRootPageConfiguration(uiConfiguration);
                         create(shell, uiConfiguration);
-                        applicationManager.buildApplication(appContainer, shell);
+                        applicationManager.buildApplication( shell);
                         postApplicationBuild(applicationManager);
                         shell.layout();
                         shell.setMaximized(true);
@@ -300,10 +314,7 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
 
     protected void initRootPageConfiguration(UIConfiguration configuration)
     {
-        // by default add menu page
-
-        addRootPageConfiguration(configuration, DefaultMenuPage.ID, DefaultMenuPage.class, "Menu");
-
+           
     }
 
     static String getDefaultMenuID()

@@ -19,16 +19,19 @@
 /**
  * 
  */
-package org.entirej.applicationframework.tmt.application.components.menu;
+package org.entirej.applicationframework.tmt.application.components;
 
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
+import org.entirej.applicationframework.tmt.application.components.menu.EJTMTDefaultMenuBuilder;
 import org.entirej.applicationframework.tmt.application.interfaces.EJTMTAppComponentRenderer;
 import org.entirej.applicationframework.tmt.application.interfaces.EJTMTApplicationComponent;
 import org.entirej.applicationframework.tmt.application.interfaces.EJTMTFormChosenListener;
 import org.entirej.framework.core.internal.EJInternalForm;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
+
+import com.eclipsesource.tabris.ui.PageConfiguration;
 
 public class EJTMTMenuTreeComponent implements EJTMTApplicationComponent, EJTMTAppComponentRenderer
 {
@@ -36,7 +39,14 @@ public class EJTMTMenuTreeComponent implements EJTMTApplicationComponent, EJTMTA
     private EJTMTDefaultMenuBuilder _menuBuilder;
     private Control                 menuControl;
     private String                  menuId     = null;
+    private String                  pageId     = null;
+    private String                  pageImage  = null;
+    private String                  pageTitle  = null;
     public static final String      MENU_GROUP = "MENU_GROUP";
+
+    public final static String      PAGE_ID    = "PAGE_ID";
+    public final static String      PAGE_IMAGE = "PAGE_IMAGE";
+    public final static String      PAGE_TITLE = "PAGE_TITLE";
 
     @Override
     public void fireFormOpened(EJInternalForm openedForm)
@@ -83,13 +93,39 @@ public class EJTMTMenuTreeComponent implements EJTMTApplicationComponent, EJTMTA
     }
 
     @Override
-    public void createContainer(EJTMTApplicationManager manager, Composite parent, EJFrameworkExtensionProperties rendererprop)
+    public void init(EJFrameworkExtensionProperties rendererprop)
     {
-        _appManager = manager;
         if (rendererprop != null)
         {
             menuId = rendererprop.getStringProperty(MENU_GROUP);
+            pageId = rendererprop.getStringProperty(PAGE_ID);
+            pageImage = rendererprop.getStringProperty(PAGE_IMAGE);
+            pageTitle = rendererprop.getStringProperty(PAGE_TITLE);
         }
+    }
+
+    @Override
+    public void createContainer(EJTMTApplicationManager manager, Composite parent)
+    {
+        _appManager = manager;
+
         createComponent(parent);
+    }
+
+    @Override
+    public String getPageId()
+    {
+        return pageId;
+    }
+
+    @Override
+    public PageConfiguration createPageConfiguration()
+    {
+        PageConfiguration pageConfig = new PageConfiguration(pageId, EJTMTDynamicComponentPage.class);
+        pageConfig.setTitle(pageTitle);
+        if (pageImage != null && pageImage.length()>0)
+            pageConfig.setImage(this.getClass().getClassLoader().getResourceAsStream(pageImage));
+        pageConfig.setTopLevel(true);
+        return pageConfig;
     }
 }
