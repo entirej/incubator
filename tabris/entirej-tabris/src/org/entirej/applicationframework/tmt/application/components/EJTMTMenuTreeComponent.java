@@ -31,6 +31,7 @@ import org.entirej.applicationframework.tmt.application.interfaces.EJTMTFormChos
 import org.entirej.framework.core.internal.EJInternalForm;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
 
+import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 
 public class EJTMTMenuTreeComponent implements EJTMTApplicationComponent, EJTMTAppComponentRenderer
@@ -105,7 +106,7 @@ public class EJTMTMenuTreeComponent implements EJTMTApplicationComponent, EJTMTA
     }
 
     @Override
-    public void createContainer(EJTMTApplicationManager manager, Composite parent)
+    public void createContainer(EJTMTApplicationManager manager,Page page, Composite parent)
     {
         _appManager = manager;
 

@@ -52,7 +52,7 @@ public class EJTMTDynamicComponentPage extends AbstractPage
             EJTMTAppComponentRenderer componentByPage = manager.getApplicationContainer().getComponentByPage(pageId);
             if (componentByPage != null)
             {
-                componentByPage.createContainer(manager, parent);
+                componentByPage.createContainer(manager,this, parent);
             }
 
         }

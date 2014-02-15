@@ -24,6 +24,7 @@ import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
 import org.entirej.framework.core.renderers.interfaces.EJApplicationComponentRenderer;
 
+import com.eclipsesource.tabris.ui.Page;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 
 public interface EJTMTAppComponentRenderer extends EJApplicationComponentRenderer
@@ -33,7 +34,7 @@ public interface EJTMTAppComponentRenderer extends EJApplicationComponentRendere
     
     public void init( EJFrameworkExtensionProperties rendererprop);
 
-    public void createContainer(EJTMTApplicationManager manager, Composite parent);
+    public void createContainer(EJTMTApplicationManager manager,Page page, Composite parent);
     
     
     public String getPageId();

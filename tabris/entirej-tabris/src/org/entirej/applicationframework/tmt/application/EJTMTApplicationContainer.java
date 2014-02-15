@@ -306,7 +306,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                     }
                     catch (Exception e)
                     {
-                        _applicationManager.getApplicationMessenger().handleException(e, true);
+                        throw new RuntimeException(e);
                     }
                 }
                     break;

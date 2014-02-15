@@ -47,7 +47,7 @@ import com.eclipsesource.tabris.ui.PlacementPriority;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
 
-public abstract class EJTMTFormComponentPage extends AbstractPage
+public abstract class EJTMTFormComponentPage extends AbstractPage  implements EJTMTFormAwarePage
 {
     private EJInternalForm form = null;
 
@@ -69,6 +69,12 @@ public abstract class EJTMTFormComponentPage extends AbstractPage
         this.form = form;
     }
 
+    @Override
+    public EJInternalForm getForm()
+    {
+        return form;
+    }
+    
     @Override
     public void createContent(Composite parent, PageData data)
     {
@@ -123,9 +129,9 @@ public abstract class EJTMTFormComponentPage extends AbstractPage
                                 public void execute(UI ui)
                                 {
                                     Page currentPage = ui.getPageOperator().getCurrentPage();
-                                    if (currentPage instanceof EJTMTFormComponentPage)
+                                    if (currentPage instanceof EJTMTFormAwarePage)
                                     {
-                                        EJInternalForm form = ((EJTMTFormComponentPage) currentPage).form;
+                                        EJInternalForm form = ((EJTMTFormAwarePage) currentPage).getForm();
                                         EJFormController formController = form.getFormController();
                                         EJRecord record = null;
                                         if (form.getFocusedBlock() != null && form.getFocusedBlock().getBlockController().getFocusedRecord() != null)
@@ -166,5 +172,8 @@ public abstract class EJTMTFormComponentPage extends AbstractPage
             }
         }
     }
+    
+    
+   
 
 }
