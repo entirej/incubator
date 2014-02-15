@@ -22,6 +22,7 @@
 package org.entirej.applicationframework.tmt.renderers.application;
 
 import org.entirej.framework.core.application.definition.interfaces.EJApplicationDefinition;
+import org.entirej.framework.core.properties.EJCoreLayoutItem.TYPE;
 import org.entirej.framework.core.properties.definitions.EJPropertyDefinitionType;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
 import org.entirej.framework.core.properties.definitions.interfaces.EJPropertyDefinition;
@@ -76,4 +77,10 @@ public class EJTMTApplicationDefinition implements EJApplicationDefinition
 
     }
 
+    @Override
+    public TYPE[] getSupportedLayoutTypes()
+    {
+        return new TYPE[]{TYPE.COMPONENT};
+    }
+    
 }

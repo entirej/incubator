@@ -25,6 +25,8 @@ public interface EJTMTMultiRecordBlockDefinitionProperties
     public static final String ROW_HEIGHT                  = "ROW_HEIGHT";
     public static final String ROW_SELECTION               = "ROW_SELECTION";
 
+    public static final String ROW_SELECTION_ACTION      = "ROW_SELECTION_ACTION";
+    
     public static final String CELL_ACTION_COMMAND         = "ACTION_COMMAND";
 
     public static final String CELL_V_ALIGNMENT            = "V_ALLIGN";

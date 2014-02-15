@@ -123,6 +123,12 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         rowSelaction.setDescription("If selected, the renderer will support row selection");
         rowSelaction.setDefaultValue("true");
 
+        
+        EJDevPropertyDefinition selectionActionCommand = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.ROW_SELECTION_ACTION,
+                EJPropertyDefinitionType.ACTION_COMMAND);
+        selectionActionCommand.setLabel("Selection Action Command");
+        selectionActionCommand.setDescription("Add an action command that will be sent to the action processor when a user select a row");
+
  
         EJDevPropertyDefinition rowHeight = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, EJPropertyDefinitionType.INTEGER);
         rowHeight.setLabel("Custom Row Height (pixels)");
@@ -136,6 +142,7 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         mainGroup.addPropertyDefinition(filter);
         mainGroup.addPropertyDefinition(rowHeight);
         mainGroup.addPropertyDefinition(rowSelaction);
+        mainGroup.addPropertyDefinition(selectionActionCommand);
 
         return mainGroup;
     }
@@ -147,8 +154,8 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         // cell action to support selection
         EJDevPropertyDefinition cellActionCommand = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.CELL_ACTION_COMMAND,
                 EJPropertyDefinitionType.ACTION_COMMAND);
-        cellActionCommand.setLabel("Action Command");
-        cellActionCommand.setDescription("Add an action command that will be sent to the action processor when a user click on this cell");
+        cellActionCommand.setLabel("Cell Action Command");
+        cellActionCommand.setDescription("An event is fired each time the user selects a cell with this command set. The command is then sent to the forms action processors <b>executeActionCommand</b> method for execution.");
 
         // cell width & height
         EJDevPropertyDefinition height = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY,

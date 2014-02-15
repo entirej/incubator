@@ -72,6 +72,11 @@ public class EJTMTApplicationManager implements EJApplicationManager, Serializab
         return _applicationContainer.getFormContainer();
     }
 
+    public EJTMTApplicationContainer getApplicationContainer()
+    {
+        return _applicationContainer;
+    }
+    
     @Override
     public void setFrameworkManager(EJFrameworkManager manager)
     {
@@ -83,15 +88,20 @@ public class EJTMTApplicationManager implements EJApplicationManager, Serializab
     {
         return messenger;
     }
-
-    public void buildApplication(EJTMTApplicationContainer container, Shell shell)
+    
+    public void setApplicationContainer(EJTMTApplicationContainer container)
     {
         if (container == null)
         {
             throw new NullPointerException("The ApplicationContainer cannot bu null");
         }
+        this._applicationContainer = container;
+    }
+
+    public void buildApplication( Shell shell)
+    {
+       
         this.shell = shell;
-        _applicationContainer = container;
         _applicationContainer.buildApplication(this);
     }
 

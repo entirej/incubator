@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
 import org.eclipse.swt.custom.ScrolledComposite;
@@ -33,6 +34,7 @@ import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
@@ -61,21 +63,28 @@ import org.entirej.framework.core.properties.interfaces.EJFormProperties;
 import org.entirej.framework.core.properties.interfaces.EJStackedPageProperties;
 import org.entirej.framework.core.properties.interfaces.EJTabPageProperties;
 
+import com.eclipsesource.tabris.device.ClientDevice;
+import com.eclipsesource.tabris.device.ClientDevice.Platform;
 import com.eclipsesource.tabris.ui.PageConfiguration;
 import com.eclipsesource.tabris.ui.PageData;
 import com.eclipsesource.tabris.ui.PageStyle;
 import com.eclipsesource.tabris.ui.UI;
 import com.eclipsesource.tabris.ui.UIConfiguration;
+import com.eclipsesource.tabris.widgets.swipe.Swipe;
+import com.eclipsesource.tabris.widgets.swipe.SwipeContext;
+import com.eclipsesource.tabris.widgets.swipe.SwipeItem;
+import com.eclipsesource.tabris.widgets.swipe.SwipeItemProvider;
 
 public class EJTMTFormRenderer implements EJTMTAppFormRenderer
 {
     private EJInternalForm                       _form;
     private EJTMTEntireJGridPane                 _mainPane;
-    private LinkedList<String>                   _canvasesIds  = new LinkedList<String>();
-    private Map<String, CanvasHandler>           _canvases     = new HashMap<String, CanvasHandler>();
-    private Map<String, EJInternalBlock>         _blocks       = new HashMap<String, EJInternalBlock>();
-    private Map<String, EJTabFolder>             _tabFolders   = new HashMap<String, EJTabFolder>();
-    private Map<String, EJTMTEntireJStackedPane> _stackedPanes = new HashMap<String, EJTMTEntireJStackedPane>();
+    private LinkedList<String>                   _canvasesIds     = new LinkedList<String>();
+    private Map<String, CanvasHandler>           _canvases        = new HashMap<String, CanvasHandler>();
+    private Map<String, Control>                 _canvassControls = new HashMap<String, Control>();
+    private Map<String, EJInternalBlock>         _blocks          = new HashMap<String, EJInternalBlock>();
+    private Map<String, EJTabFolder>             _tabFolders      = new HashMap<String, EJTabFolder>();
+    private Map<String, EJTMTEntireJStackedPane> _stackedPanes    = new HashMap<String, EJTMTEntireJStackedPane>();
 
     @Override
     public void formCleared()
@@ -325,6 +334,8 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
         stackedPane.setLayoutData(createCanvasGridData(canvasProperties));
         _stackedPanes.put(name, stackedPane);
 
+        _canvassControls.put(canvasProperties.getName(), stackedPane);
+
         for (EJStackedPageProperties page : canvasProperties.getStackedPageContainer().getAllStackedPageProperties())
         {
             EJTMTEntireJGridPane pagePane = new EJTMTEntireJGridPane(stackedPane, page.getNumCols());
@@ -375,6 +386,8 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
         }
         final String name = canvasProperties.getName();
         final TabFolder folder = new TabFolder(parent, style);
+
+        _canvassControls.put(canvasProperties.getName(), folder);
         EJTabFolder tabFolder = new EJTabFolder(folder);
         folder.addSelectionListener(new SelectionAdapter()
         {
@@ -459,6 +472,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                 group.setText(frameTitle);
             }
             parent = group;
+            _canvassControls.put(canvasProperties.getName(), group);
         }
         final EJTMTEntireJGridPane groupPane = new EJTMTEntireJGridPane(parent, canvasProperties.getNumCols());
         if (canvasProperties.getDisplayGroupFrame())
@@ -468,6 +482,8 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
         else
         {
             groupPane.cleanLayout();
+
+            _canvassControls.put(canvasProperties.getName(), groupPane);
         }
 
         groupPane.setPaneName(canvasProperties.getName());
@@ -531,18 +547,63 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
         }
     }
 
-    private void createSplitCanvas(Composite parent, EJCanvasProperties canvasProperties, EJCanvasController canvasController)
+    private void createSplitCanvas(Composite parent, EJCanvasProperties canvasProperties, final EJCanvasController canvasController)
     {
-        SashForm layoutBody = new SashForm(parent, canvasProperties.getSplitOrientation() == EJCanvasSplitOrientation.HORIZONTAL ? SWT.HORIZONTAL
-                : SWT.VERTICAL);
-        layoutBody.setLayoutData(createCanvasGridData(canvasProperties));
 
         if (canvasProperties.getType() == EJCanvasType.SPLIT)
         {
+            ClientDevice service = RWT.getClient().getService(ClientDevice.class);
+            if (service == null || service.getPlatform() == Platform.WEB)
+            {
+                SashForm layoutBody = new SashForm(parent, canvasProperties.getSplitOrientation() == EJCanvasSplitOrientation.HORIZONTAL ? SWT.HORIZONTAL
+                        : SWT.VERTICAL);
+                layoutBody.setLayoutData(createCanvasGridData(canvasProperties));
+
+                List<EJCanvasProperties> items = new ArrayList<EJCanvasProperties>(canvasProperties.getSplitCanvasContainer().getAllCanvasProperties());
+                int[] weights = new int[items.size()];
+
+                for (EJCanvasProperties containedCanvas : items)
+                {
+                    if (containedCanvas.getType() == EJCanvasType.BLOCK && containedCanvas.getBlockProperties() != null
+                            && containedCanvas.getBlockProperties().getMainScreenProperties() != null)
+                    {
+                        weights[items.indexOf(containedCanvas)] = containedCanvas.getBlockProperties().getMainScreenProperties().getWidth() + 1;
+                    }
+                    else
+                    {
+                        weights[items.indexOf(containedCanvas)] = containedCanvas.getWidth() + 1;
+                    }
+
+                    switch (containedCanvas.getType())
+                    {
+                        case BLOCK:
+                        case GROUP:
+                            createGroupCanvas(layoutBody, containedCanvas, canvasController);
+                            break;
+                        case SPLIT:
+                            createSplitCanvas(layoutBody, containedCanvas, canvasController);
+                            break;
+                        case STACKED:
+                            createStackedCanvas(layoutBody, containedCanvas, canvasController);
+                            break;
+                        case TAB:
+                            createTabCanvas(layoutBody, containedCanvas, canvasController);
+                            break;
+                        case POPUP:
+                            throw new AssertionError();
+
+                    }
+                }
+                layoutBody.setWeights(weights);
+
+                return;
+            }
+
             List<EJCanvasProperties> items = new ArrayList<EJCanvasProperties>(canvasProperties.getSplitCanvasContainer().getAllCanvasProperties());
             int[] weights = new int[items.size()];
 
-            for (EJCanvasProperties containedCanvas : items)
+            final List<SwipeItem> swipeItems = new ArrayList<SwipeItem>();
+            for (final EJCanvasProperties containedCanvas : items)
             {
                 if (containedCanvas.getType() == EJCanvasType.BLOCK && containedCanvas.getBlockProperties() != null
                         && containedCanvas.getBlockProperties().getMainScreenProperties() != null)
@@ -553,28 +614,74 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                 {
                     weights[items.indexOf(containedCanvas)] = containedCanvas.getWidth() + 1;
                 }
-
-                switch (containedCanvas.getType())
+                SwipeItem item = new SwipeItem()
                 {
-                    case BLOCK:
-                    case GROUP:
-                        createGroupCanvas(layoutBody, containedCanvas, canvasController);
-                        break;
-                    case SPLIT:
-                        createSplitCanvas(layoutBody, containedCanvas, canvasController);
-                        break;
-                    case STACKED:
-                        createStackedCanvas(layoutBody, containedCanvas, canvasController);
-                        break;
-                    case TAB:
-                        createTabCanvas(layoutBody, containedCanvas, canvasController);
-                        break;
-                    case POPUP:
-                        throw new AssertionError();
 
-                }
+                    @Override
+                    public Control load(Composite parent)
+                    {
+                        switch (containedCanvas.getType())
+                        {
+                            case BLOCK:
+                            case GROUP:
+                                createGroupCanvas(parent, containedCanvas, canvasController);
+                                break;
+                            case SPLIT:
+                                createSplitCanvas(parent, containedCanvas, canvasController);
+                                break;
+                            case STACKED:
+                                createStackedCanvas(parent, containedCanvas, canvasController);
+                                break;
+                            case TAB:
+                                createTabCanvas(parent, containedCanvas, canvasController);
+                                break;
+                            case POPUP:
+                                throw new AssertionError();
+
+                        }
+                        return _canvassControls.get(containedCanvas.getName());
+                    }
+
+                    @Override
+                    public boolean isPreloadable()
+                    {
+                        return true;
+                    }
+
+                    @Override
+                    public void deactivate(SwipeContext context)
+                    {
+                        // ignore
+
+                    }
+
+                    @Override
+                    public void activate(SwipeContext context)
+                    {
+                        // ignore
+
+                    }
+                };
+                swipeItems.add(item);
             }
-            layoutBody.setWeights(weights);
+            Swipe swipe = new Swipe(parent, new SwipeItemProvider()
+            {
+
+                @Override
+                public int getItemCount()
+                {
+                    return swipeItems.size();
+                }
+
+                @Override
+                public SwipeItem getItem(int index)
+                {
+                    return swipeItems.get(index);
+                }
+            });
+            swipe.getControl().setLayoutData(createCanvasGridData(canvasProperties));
+
+            _canvassControls.put(canvasProperties.getName(), swipe.getControl());
         }
     }
 

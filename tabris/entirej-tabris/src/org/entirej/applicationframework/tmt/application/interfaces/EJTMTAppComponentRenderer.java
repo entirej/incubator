@@ -24,10 +24,21 @@ import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
 import org.entirej.framework.core.properties.definitions.interfaces.EJFrameworkExtensionProperties;
 import org.entirej.framework.core.renderers.interfaces.EJApplicationComponentRenderer;
 
+import com.eclipsesource.tabris.ui.PageConfiguration;
+
 public interface EJTMTAppComponentRenderer extends EJApplicationComponentRenderer
 {
     @Override
     public Control getGuiComponent();
+    
+    public void init( EJFrameworkExtensionProperties rendererprop);
 
-    public void createContainer(EJTMTApplicationManager manager, Composite parent, EJFrameworkExtensionProperties rendererprop);
+    public void createContainer(EJTMTApplicationManager manager, Composite parent);
+    
+    
+    public String getPageId();
+    
+    
+    public PageConfiguration createPageConfiguration();
+    
 }
