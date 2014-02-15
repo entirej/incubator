@@ -131,8 +131,8 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
 
  
         EJDevPropertyDefinition rowHeight = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, EJPropertyDefinitionType.INTEGER);
-        rowHeight.setLabel("Custom Row Height");
-        rowHeight.setDescription("If provided, the renderer will use custom row height");
+        rowHeight.setLabel("Custom Row Height (pixels)");
+        rowHeight.setDescription("If provided, the renderer will display each row in the table to the height specified. The height is specified in units of <b>pixels</b>");
 
         EJDevPropertyDefinition filter = new EJDevPropertyDefinition(EJTMTMultiRecordBlockDefinitionProperties.FILTER, EJPropertyDefinitionType.BOOLEAN);
         filter.setLabel("Add Filter");
