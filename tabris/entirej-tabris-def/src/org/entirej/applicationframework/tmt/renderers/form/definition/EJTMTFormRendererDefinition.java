@@ -60,24 +60,24 @@ public class EJTMTFormRendererDefinition implements EJDevFormRendererDefinition
         EJDevPropertyDefinition actionID = new EJDevPropertyDefinition(PAGE_ACTION_ID,
                 EJPropertyDefinitionType.ACTION_COMMAND);
         actionID.setLabel("Action Command");
-        actionID.setDescription("The action command to be used when this action is selected");
+        actionID.setDescription("The action command to be used when this action is selected. The action command will be sent to your forms <b>executeActionCommand</a> action processor method for execution");
         actionID.setMandatory(true);
 
         EJDevPropertyDefinition actionImage = new EJDevPropertyDefinition(PAGE_ACTION_IMAGE,
                 EJPropertyDefinitionType.PROJECT_FILE);
         actionImage.setLabel("Action Image");
-        actionImage.setDescription("The image to display in the title bar for this action");
+        actionImage.setDescription("The image that is displayed to represent this action");
         actionImage.setMandatory(true);
 
         EJDevPropertyDefinition actionName = new EJDevPropertyDefinition(PAGE_ACTION_NAME,
                 EJPropertyDefinitionType.STRING);
         actionName.setLabel("Action Name");
-        actionName.setDescription("The name of this action");
+        actionName.setDescription("The unique name to identify this action");
 
         EJDevPropertyDefinition priority = new EJDevPropertyDefinition(PAGE_ACTION_PRIORITY,
                 EJPropertyDefinitionType.BOOLEAN);
-        priority.setLabel("Action Priority");
-        priority.setDescription("Priority means that the element should be placed at a significant position in the UI");
+        priority.setLabel("Prioritised Action");
+        priority.setDescription("Prioritised actions will be placed in a significant position within the UI. The position is difference depending on the device being used. Read <a href=\"http://docs.entirej.com/display/EJ1/Mobile+Actions\">here</a> for more information on actions");
 
         list.addPropertyDefinition(actionID);
         list.addPropertyDefinition(actionImage);
