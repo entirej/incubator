@@ -724,7 +724,6 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                 if (screenItem != null)
                 {
                     nodeTextProviders.add(screenItem);
-
                     colIndex++;
 
                 }
@@ -732,7 +731,9 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             }
         }
 
-        int rowheight = rendererProp.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, Math.max((colIndex + 1) * 20, 60));
+       
+        
+        int rowheight = rendererProp.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.ROW_HEIGHT,  60);
         if (rowheight > 0)
         {
             table.setData(RWT.CUSTOM_ITEM_HEIGHT, rowheight);

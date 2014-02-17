@@ -120,6 +120,12 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
     {
         return "ej";
     }
+    
+    
+    protected int getSessionTimeout()
+    {
+        return 60*10;
+    }
 
     protected String getBodyHtml()
     {
@@ -198,6 +204,10 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
                             throw new RuntimeException("application.ejprop not found");
                         }
 
+                        //set timeout
+                        int sessionTimeout = getSessionTimeout();
+                        RWT.getUISession().getHttpSession().setMaxInactiveInterval(sessionTimeout);
+                        
                         getContext().getUISession().setAttribute("ej.applicationManager", applicationManager);
                         EJTMTAuthenticateProvider authenticateProvider = getAuthenticateProvider(applicationManager);
                         if (authenticateProvider != null)
@@ -506,7 +516,7 @@ public abstract class EJTMTApplicationLauncher implements ApplicationConfigurati
             final Label lblError = new Label(_body, SWT.WRAP);
             ;
             lblError.setLayoutData(gdError);
-
+            txtUsername.setFocus();
             btnLogin.addSelectionListener(new SelectionAdapter()
             {
 
