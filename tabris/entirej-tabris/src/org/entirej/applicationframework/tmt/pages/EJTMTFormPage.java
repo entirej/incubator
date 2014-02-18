@@ -26,6 +26,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.applicationframework.tmt.renderers.form.EJTMTFormRenderer;
 import org.entirej.framework.core.internal.EJInternalForm;
 
@@ -55,6 +56,7 @@ public class EJTMTFormPage extends AbstractPage
     @Override
     public void createContent(Composite parent, PageData data)
     {
+        EJTMTContext.updateTabrisUIRef(getUI());
         form = data.get(FORM_ID_KEY, EJInternalForm.class);
         if (form != null)
         {

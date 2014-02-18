@@ -51,4 +51,12 @@ public class EJTMTContext
     {
         return (UI) getContext().getUISession().getAttribute("ej.tabrisUI");
     }
+    
+    public static void updateTabrisUIRef(UI ui)
+    {
+        if(getTabrisUI()==null)
+        {
+            getContext().getUISession().setAttribute("ej.tabrisUI", ui);
+        }
+    }
 }

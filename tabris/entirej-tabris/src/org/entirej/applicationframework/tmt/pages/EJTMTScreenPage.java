@@ -33,6 +33,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Shell;
+import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
 import com.eclipsesource.tabris.ui.AbstractPage;
@@ -111,6 +112,7 @@ public class EJTMTScreenPage extends AbstractPage
     @Override
     public void createContent(Composite parent, PageData data)
     {
+        EJTMTContext.updateTabrisUIRef(getUI());
         context = data.get(CONTEXT_ID_KEY, Context.class);
         if (context != null)
         {

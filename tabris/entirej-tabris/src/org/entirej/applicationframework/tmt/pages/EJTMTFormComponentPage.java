@@ -75,9 +75,12 @@ public abstract class EJTMTFormComponentPage extends AbstractPage  implements EJ
         return form;
     }
     
+    
+    
     @Override
     public void createContent(Composite parent, PageData data)
     {
+        EJTMTContext.updateTabrisUIRef(getUI());
         if (form != null)
         {
 

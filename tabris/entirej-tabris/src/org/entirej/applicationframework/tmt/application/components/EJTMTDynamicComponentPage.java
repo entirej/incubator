@@ -38,6 +38,7 @@ public class EJTMTDynamicComponentPage extends AbstractPage
     @Override
     public void createContent(Composite parent, PageData data)
     {
+        EJTMTContext.updateTabrisUIRef(getUI());
         this.parent = parent;
         init.set(true);
     }
