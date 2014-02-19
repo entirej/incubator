@@ -950,20 +950,6 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
 
                 if (left <= -1 && right <= -1)
                 {
-                    if(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM.equals(blockProperties
-                            .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT)))
-                    {
-                        columnCell.setBottom(0);
-                    }
-                    else
-                    {
-                        columnCell.setTop(0);
-                    }
-                    
-                }
-                
-                if (top <= -1 && bottom <= -1)
-                {
                     if(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT.equals(blockProperties
                             .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT)))
                     {
@@ -972,6 +958,21 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                     else
                     {
                         columnCell.setLeft(0);
+                    }
+                    
+                    
+                }
+                
+                if (top <= -1 && bottom <= -1)
+                {
+                    if(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM.equals(blockProperties
+                            .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT)))
+                    {
+                        columnCell.setBottom(0);
+                    }
+                    else
+                    {
+                        columnCell.setTop(0);
                     }
                    
                 }
@@ -984,7 +985,7 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                     }
                     else
                     {
-                        columnCell.setWidth(SWT.DEFAULT);
+                        columnCell.setWidth(20);
                     }
                 }
 
@@ -996,9 +997,10 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                     }
                     else
                     {
-                        columnCell.setHeight(SWT.DEFAULT);
+                        columnCell.setHeight(20);
                     }
                 }
+               
                 columnCell.setHorizontalAlignment(getComponentStyle(blockProperties
                         .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT)));
                 columnCell

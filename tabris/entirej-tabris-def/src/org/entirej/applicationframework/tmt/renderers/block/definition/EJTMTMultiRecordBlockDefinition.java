@@ -18,13 +18,21 @@
  ******************************************************************************/
 package org.entirej.applicationframework.tmt.renderers.block.definition;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.forms.widgets.FormToolkit;
 import org.entirej.applicationframework.tmt.renderers.block.definition.interfaces.EJTMTMultiRecordBlockDefinitionProperties;
 import org.entirej.applicationframework.tmt.renderers.screen.definition.EJTMTInsertScreenRendererDefinition;
@@ -39,11 +47,16 @@ import org.entirej.framework.core.properties.interfaces.EJMainScreenProperties;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinition;
 import org.entirej.framework.dev.properties.EJDevPropertyDefinitionGroup;
 import org.entirej.framework.dev.properties.interfaces.EJDevBlockDisplayProperties;
+import org.entirej.framework.dev.properties.interfaces.EJDevBlockItemDisplayProperties;
+import org.entirej.framework.dev.properties.interfaces.EJDevItemGroupDisplayProperties;
+import org.entirej.framework.dev.properties.interfaces.EJDevMainScreenItemDisplayProperties;
 import org.entirej.framework.dev.properties.interfaces.EJDevScreenItemDisplayProperties;
 import org.entirej.framework.dev.renderer.definition.EJDevBlockRendererDefinitionControl;
 import org.entirej.framework.dev.renderer.definition.EJDevItemRendererDefinitionControl;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevBlockRendererDefinition;
+import org.entirej.framework.dev.renderer.definition.interfaces.EJDevBlockWidgetChosenListener;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevInsertScreenRendererDefinition;
+import org.entirej.framework.dev.renderer.definition.interfaces.EJDevItemWidgetChosenListener;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevQueryScreenRendererDefinition;
 import org.entirej.framework.dev.renderer.definition.interfaces.EJDevUpdateScreenRendererDefinition;
 
@@ -253,11 +266,112 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
 
         layoutBody.setLayout(new GridLayout(mainScreenProperties.getNumCols(), false));
 
-        Label browser = new Label(layoutBody, SWT.NONE);
-        browser.setText("TABLE RENDERER-TABRIS-ROW-TEMPLATE");
-        return new EJDevBlockRendererDefinitionControl(blockDisplayProperties, Collections.<EJDevItemRendererDefinitionControl> emptyList());
+        
+        Composite preview = new Composite(layoutBody, SWT.BORDER);
+        
+        GridData gridData = new GridData(GridData.FILL_HORIZONTAL);
+        gridData.grabExcessHorizontalSpace = true;
+        gridData.minimumHeight = rendererProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, 60);
+        gridData.heightHint = rendererProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.ROW_HEIGHT, 60);
+        preview.setLayoutData(gridData);
+        preview.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
+        preview.setLayout(new EJTMTRowTemplateLayout());
+        
+        final List<EJDevItemWidgetChosenListener> _itemWidgetListenerList = new ArrayList<EJDevItemWidgetChosenListener>();
+        
+        for (EJDevItemGroupDisplayProperties itemGroupProperties : blockDisplayProperties.getMainScreenItemGroupDisplayContainer()
+                .getAllItemGroupDisplayProperties())
+        {
+            Collection<EJDevScreenItemDisplayProperties> allItemDisplayProperties = itemGroupProperties.getAllItemDisplayProperties();
+            for (final EJDevScreenItemDisplayProperties item : allItemDisplayProperties)
+            {
+                Label label = new Label(preview, SWT.BORDER);
+                label.setText(item.getReferencedItemName());
+                label.addMouseListener(new MouseAdapter()
+                {
+                    @Override
+                    public void mouseUp(MouseEvent e)
+                    {
+                        for (EJDevItemWidgetChosenListener listener : _itemWidgetListenerList)
+                        {
+                            listener.fireRendererChosen(item);
+                        }
+                    }
+                });
+                
+                EJFrameworkExtensionProperties blockRequiredItemProperties = ((EJDevMainScreenItemDisplayProperties)item).getBlockRendererRequiredProperties();
+
+                EJTMTRowTemplateLayout.RowTemplateData data = new EJTMTRowTemplateLayout.RowTemplateData();
+                
+                data.top = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_TOP, -1);
+                data.bottom = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_BOTTOM, -1);
+                data.left = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_LEFT, -1);
+                data.right = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_RIGHT, -1);
+                data.width = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.WIDTH_PROPERTY, 20);
+                data.height = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY, 20);
+                data.verticalAlignment = getComponentStyle(blockRequiredItemProperties.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT));
+                data.horizontalAlignment = getComponentStyle(blockRequiredItemProperties.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT));
+                label.setLayoutData(data);
+                label.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_GRAY));
+            }
+        }
+        
+        
+        
+        return new EJDevBlockRendererDefinitionControl(blockDisplayProperties, Collections.<EJDevItemRendererDefinitionControl> emptyList())
+        {
+            
+            @Override
+            public void addItemWidgetChosenListener(EJDevItemWidgetChosenListener listener)
+            {
+                if (listener != null)
+                {
+                    _itemWidgetListenerList.add(listener);
+                }
+            }
+
+            @Override
+            public void removeItemWidgetChosenListener(EJDevItemWidgetChosenListener listener)
+            {
+                if (listener != null)
+                {
+                    _itemWidgetListenerList.remove(listener);
+                }
+            }
+        };
     }
 
+    
+    protected int getComponentStyle(String alignmentProperty)
+    {
+        if (alignmentProperty != null && alignmentProperty.trim().length() > 0)
+        {
+
+            if (alignmentProperty.equals(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_LEFT))
+            {
+                return SWT.LEFT;
+            }
+            if (alignmentProperty.equals(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT))
+            {
+                return SWT.RIGHT;
+            }
+            if (alignmentProperty.equals(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_CENTER))
+            {
+                return SWT.CENTER;
+            }
+            if (alignmentProperty.equals(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_TOP))
+            {
+                return SWT.TOP;
+            }
+            if (alignmentProperty.equals(EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM))
+            {
+                return SWT.BOTTOM;
+            }
+        }
+        return SWT.NONE;
+    }
+   
+    
     @Override
     public EJDevItemRendererDefinitionControl getSpacerItemControl(EJDevScreenItemDisplayProperties itemProperties, Composite parent, FormToolkit toolkit)
     {
