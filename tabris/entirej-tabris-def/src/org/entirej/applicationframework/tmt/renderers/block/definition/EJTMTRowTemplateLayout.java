@@ -67,6 +67,8 @@ public class EJTMTRowTemplateLayout extends Layout
         int width = rect.width;
         int height = rect.height;
 
+        int zindex = 0;
+        Control pre = null;
         for (Control control : children)
         {
             Object layoutData = control.getLayoutData();
@@ -83,43 +85,100 @@ public class EJTMTRowTemplateLayout extends Layout
                 int w = 20, h = 20;
                 w = Math.max(w, row.width);
                 h = Math.max(h, row.height);
-                if (row.left >= 0)
+                
+                
+                
+                int left = row.left;
+                int top = row.top;
+                int right = row.right;
+                int bottom = row.bottom;
+                
+                if(row.width>0)
                 {
-                    x = row.left;
+                    if((left==-1 && right!=-1) || row.horizontalAlignment == SWT.RIGHT)
+                    {
+                        left = -1;
+                        if(right==-1)
+                        {
+                            right =0;
+                        }
+                    }
+                    else
+                    {
+                        right = -1;
+                        if(left==-1)
+                        {
+                            left =0;
+                        }
+                    }
+                }
+                if(row.height>0)
+                {
+                    if((top==-1 && bottom!=-1) || row.verticalAlignment == SWT.BOTTOM)
+                    {
+                        top = -1;
+                        if(bottom==-1)
+                        {
+                            bottom =0;
+                        }
+                    }
+                    else
+                    {
+                        bottom = -1;
+                        if(top==-1)
+                        {
+                            top =0;
+                        }
+                    }
+                }
+                
+                if (left >= 0)
+                {
+                    x = left;
                 }
 
-                if (row.top >= 0)
+                
+                if (top >= 0)
                 {
-                    y = row.top;
+                    y = top;
                 }
 
-                if (row.left < 0 && row.right >= 0)
+                
+                if (left < 0 && right >= 0)
                 {
-                    x = Math.max(x, width - (row.right + w));
+                    x = Math.max(x, width - (right + w));
                 }
 
-                if (row.top < 0 && row.bottom >= 0)
+                
+                if (top < 0 && bottom >= 0)
                 {
-                    y = Math.max(y, height - (row.bottom + h));
+                    y = Math.max(y, height - (bottom + h));
                 }
 
-                if (row.left >= 0 && row.right >= 0)
+                if (left >= 0 && right >= 0)
                 {
-                    w = width - (row.left + row.right);
+                    w = width - (left + right);
                 }
 
-                if (row.top >= 0 && row.bottom >= 0)
+                if (top >= 0 && bottom >= 0)
                 {
-                    h = height - (row.top + row.bottom);
+                    h = height - (top + bottom);
                 }
 
+                
                 control.setBounds(x, y, w, h);
+                
             }
             else
             {
                 // defaults
                 control.setBounds(0, 0, 20, 20);
             }
+            if(control!=null)
+            {
+                control.moveAbove(pre);
+            }
+            pre = control;
         }
 
     }

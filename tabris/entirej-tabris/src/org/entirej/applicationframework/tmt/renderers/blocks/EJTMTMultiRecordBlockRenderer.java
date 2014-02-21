@@ -931,6 +931,47 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                 column.setData("KEY", itemProps.getReferencedItemName());
                 column.setToolTipText(itemProps.getHint());
 
+                if(width>0)
+                {
+                    if((left==-1 && right!=-1) || EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT.equals(blockProperties
+                            .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT)))
+                    {
+                        left = -1;
+                        if(right==-1)
+                        {
+                            right =0;
+                        }
+                    }
+                    else
+                    {
+                        right = -1;
+                        if(left==-1)
+                        {
+                            left =0;
+                        }
+                    }
+                }
+                if(height>0)
+                {
+                    if((top==-1 && bottom!=-1) || EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_BOTTOM.equals(blockProperties
+                            .getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT)))
+                    {
+                        top = -1;
+                        if(bottom==-1)
+                        {
+                            bottom =0;
+                        }
+                    }
+                    else
+                    {
+                        bottom = -1;
+                        if(top==-1)
+                        {
+                            top =0;
+                        }
+                    }
+                }
+                
                 if (top > -1)
                 {
                     columnCell.setTop(top);

@@ -26,6 +26,7 @@ import java.util.List;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -277,6 +278,9 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
         preview.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_WHITE));
         preview.setLayout(new EJTMTRowTemplateLayout());
         
+
+        Color systemColor = Display.getDefault().getSystemColor(SWT.COLOR_GRAY);
+        
         final List<EJDevItemWidgetChosenListener> _itemWidgetListenerList = new ArrayList<EJDevItemWidgetChosenListener>();
         
         for (EJDevItemGroupDisplayProperties itemGroupProperties : blockDisplayProperties.getMainScreenItemGroupDisplayContainer()
@@ -286,7 +290,16 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
             for (final EJDevScreenItemDisplayProperties item : allItemDisplayProperties)
             {
                 Label label = new Label(preview, SWT.BORDER);
-                label.setText(item.getReferencedItemName());
+                if(item.getLabel()!=null && item.getLabel().trim().length()>0)
+                {
+
+                    label.setText(item.getLabel());
+                }
+                else
+                {
+
+                    label.setText(item.getReferencedItemName());
+                }
                 label.addMouseListener(new MouseAdapter()
                 {
                     @Override
@@ -312,7 +325,7 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
                 data.verticalAlignment = getComponentStyle(blockRequiredItemProperties.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT));
                 data.horizontalAlignment = getComponentStyle(blockRequiredItemProperties.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT));
                 label.setLayoutData(data);
-                label.setBackground(Display.getDefault().getSystemColor(SWT.COLOR_GRAY));
+                label.setBackground(systemColor);
             }
         }
         
