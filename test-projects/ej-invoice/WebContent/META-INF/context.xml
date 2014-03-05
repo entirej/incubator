@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context cookies="false">
+    <!-- Specify a JDBC datasource -->
+     <Resource name="jdbc/ejinvoice" auth="Container"
+        type="javax.sql.DataSource"
+        username="ejinvoice" password="ejinvoice"
+        driverClassName="com.mysql.jdbc.Driver"
+        url="jdbc:mysql://localhost:3306/ej-invoice"
+        maxActive="100" maxIdle="20"  minIdle="10" testWhileIdle="true"
+        timeBetweenEvictionRunsMillis="60000" validationQuery="SELECT 1" />
+</Context>
