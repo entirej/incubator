@@ -169,7 +169,7 @@ public class EJTMTLabelItemRenderer implements EJTMTAppItemRenderer, FocusListen
         if (_labelField != null && controlState(_labelField.getControl()))
         {
 
-            _labelField.setText("");
+            _labelField.setText(_item.getForm().translateText(_screenItemProperties.getLabel()));
         }
     }
 
