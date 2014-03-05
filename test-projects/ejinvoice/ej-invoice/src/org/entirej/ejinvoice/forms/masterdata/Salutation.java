@@ -25,6 +25,7 @@ public class Salutation
 {
     private EJPojoProperty<String>  _value;
     private EJPojoProperty<Integer> _id;
+    private EJPojoProperty<Integer> _userId;
 
     @EJFieldName("VALUE")
     public String getValue()
@@ -62,10 +63,29 @@ public class Salutation
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
 
+    @EJFieldName("USER_ID")
+    public Integer getUserId()
+    {
+        return EJPojoProperty.getPropertyValue(_userId);
+    }
+
+    @EJFieldName("USER_ID")
+    public void setUserId(Integer userId)
+    {
+        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+    }
+
+    @EJFieldName("USER_ID")
+    public Integer getInitialUserId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_userId);
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_value);
         EJPojoProperty.clearInitialValue(_id);
+        EJPojoProperty.clearInitialValue(_userId);
     }
 
 }

@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.forms.invoiceoverview.Invoice;
+import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -33,6 +36,9 @@ public class InvoiceOverviewOpen implements EJBlockService<Invoice>
     @Override
     public List<Invoice> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+
         return _statementExecutor.executeQuery(Invoice.class, form, _selectStatement, queryCriteria);
     }
 

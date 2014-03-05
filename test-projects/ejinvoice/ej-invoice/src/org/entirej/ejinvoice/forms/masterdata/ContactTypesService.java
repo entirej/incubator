@@ -24,8 +24,11 @@ package org.entirej.ejinvoice.forms.masterdata;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.ejinvoice.referencedlovdefs.services.pojos.ContactTypes;
+import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.interfaces.EJFrameworkConnection;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
@@ -55,21 +58,24 @@ public class ContactTypesService
      * @return <code>true</code> if there is already a type value in "CONTACT_TYPES" table with this
      *         type, otherwise <code>false</code>
      */
-    public static boolean contactTypeExists(EJFrameworkConnection con, String type, Integer id)
+    public static boolean contactTypeExists(EJForm form, String type, Integer id)
     {
         if (type == null)
         {
             throw new NullPointerException("The type passed to isContactTypeExists canot be null");
         }
 
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        
         EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
         criteria.add(EJRestrictions.equals("TYPE", type));
         if (id != null)
         {
             criteria.add(EJRestrictions.notEquals("ID", id));
         }
         EJStatementExecutor executor = new EJStatementExecutor();
-        List<EJSelectResult> results = executor.executeQuery(con, CONTACT_TYPES_EXIST_STMT, criteria);
+        List<EJSelectResult> results = executor.executeQuery(form.getConnection(), CONTACT_TYPES_EXIST_STMT, criteria);
 
         return !results.isEmpty();
     }
@@ -84,19 +90,22 @@ public class ContactTypesService
      * @return <code>ContactTypes</code>
      * 
      */
-    public static ContactTypes getMainContactType(EJFrameworkConnection con)
+    public static ContactTypes getMainContactType(EJForm form)
     {
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equalsIgnoreCase("TYPE", ContactTypesService.MAIN));
-
+        criteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        
         EJStatementExecutor executor = new EJStatementExecutor();
-        List<ContactTypes> results = executor.executeQuery(ContactTypes.class, con, MAIN_CONTACT_TYPE_STMT, criteria);
+        List<ContactTypes> results = executor.executeQuery(ContactTypes.class, form.getConnection(), MAIN_CONTACT_TYPE_STMT, criteria);
 
         // if not found create one
         if (results.isEmpty())
         {
-            createMainContactType(con);
-            results = executor.executeQuery(ContactTypes.class, con, MAIN_CONTACT_TYPE_STMT, criteria);
+            createMainContactType(form);
+            results = executor.executeQuery(ContactTypes.class, form.getConnection(), MAIN_CONTACT_TYPE_STMT, criteria);
 
         }
         return results.get(0);
@@ -108,15 +117,19 @@ public class ContactTypesService
      * @param con
      *            An EJ database connection
      */
-    private static void createMainContactType(EJFrameworkConnection con)
+    private static void createMainContactType(EJForm form)
     {
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        
         EJStatementExecutor statementExecutor = new EJStatementExecutor();
         List<EJStatementParameter> contactTypeParams = new ArrayList<EJStatementParameter>();
         contactTypeParams.clear();
-        contactTypeParams.add(new EJStatementParameter("ID", Integer.class, PKSequenceService.getPKSequence(con)));
+        
+        contactTypeParams.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
+        contactTypeParams.add(new EJStatementParameter("ID", Integer.class, PKSequenceService.getPKSequence(form.getConnection())));
         contactTypeParams.add(new EJStatementParameter("TYPE", String.class, ContactTypesService.MAIN));
         contactTypeParams.add(new EJStatementParameter("DESCRIPTION", String.class, ContactTypesService.MAIN));
 
-        statementExecutor.executeInsert(con, "CONTACT_TYPES", contactTypeParams.toArray(new EJStatementParameter[contactTypeParams.size()]));
+        statementExecutor.executeInsert(form.getConnection(), "CONTACT_TYPES", contactTypeParams.toArray(new EJStatementParameter[contactTypeParams.size()]));
     }
 }

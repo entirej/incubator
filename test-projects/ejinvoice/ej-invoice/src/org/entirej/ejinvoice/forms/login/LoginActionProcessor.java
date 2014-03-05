@@ -26,7 +26,11 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
 
             if (user != null)
             {
+                
                 form.setApplicationLevelParameter(ApplicationParameters.PARAM_USER, user);
+                form.setApplicationLevelParameter(ApplicationParameters.PARAM_EMAIL, user.getEmail());
+                form.setApplicationLevelParameter(ApplicationParameters.PARAM_NAME, user.getFirstName()+' '+user.getLastName());
+                
                 form.openForm(F_LAUNCH_PAGE.ID);
             }
             else

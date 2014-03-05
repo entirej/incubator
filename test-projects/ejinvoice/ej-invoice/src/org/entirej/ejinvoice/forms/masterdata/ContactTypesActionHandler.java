@@ -92,8 +92,6 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
     @Override
     public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        super.postDelete(form, record);
-        form.saveChanges();
         // validate the contact types toolbar state after deleting contact type
         // record
         if (F_MASTER_DATA.B_CONTACT_TYPES.ID.equals(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getName()))
@@ -125,7 +123,7 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
 
                 }
 
-                if (ContactTypesService.contactTypeExists(form.getConnection(), (String) type, (Integer) id))
+                if (ContactTypesService.contactTypeExists(form, (String) type, (Integer) id))
 
                 {
                     throw new EJActionProcessorException(String.format("Entered %s already Exist!", typeLabel));

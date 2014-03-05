@@ -27,7 +27,6 @@ import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
-import org.entirej.framework.core.service.EJRestriction;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -52,6 +51,9 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
     @Override
     public List<ContactType> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        
         return _statementExecutor.executeQuery(ContactType.class, form, _selectStatement, queryCriteria);
     }
 

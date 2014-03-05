@@ -21,7 +21,8 @@ package org.entirej.ejinvoice.forms.masterdata;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.entirej.ejinvoice.referencedlovdefs.services.pojos.Salutations;
+import org.entirej.ejinvoice.ApplicationParameters;
+import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -31,10 +32,10 @@ import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
-public class SalutationBlockService implements EJBlockService<Salutations>
+public class SalutationBlockService implements EJBlockService<Salutation>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ID,VALUE FROM SALUTATIONS";
+    private String                    _selectStatement = "SELECT USER_ID, ID,VALUE FROM SALUTATIONS";
 
     public SalutationBlockService()
     {
@@ -48,20 +49,26 @@ public class SalutationBlockService implements EJBlockService<Salutations>
     }
 
     @Override
-    public List<Salutations> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
+    public List<Salutation> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        return _statementExecutor.executeQuery(Salutations.class, form, _selectStatement, queryCriteria);
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+
+        return _statementExecutor.executeQuery(Salutation.class, form, _selectStatement, queryCriteria);
     }
 
     @Override
-    public void executeInsert(EJForm form, List<Salutations> newRecords)
+    public void executeInsert(EJForm form, List<Salutation> newRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
-        for (Salutations record : newRecords)
+        for (Salutation record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
+            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
+
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("VALUE", String.class, record.getValue()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -76,12 +83,12 @@ public class SalutationBlockService implements EJBlockService<Salutations>
     }
 
     @Override
-    public void executeUpdate(EJForm form, List<Salutations> updateRecords)
+    public void executeUpdate(EJForm form, List<Salutation> updateRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (Salutations record : updateRecords)
+        for (Salutation record : updateRecords)
         {
             parameters.clear();
 
@@ -90,6 +97,7 @@ public class SalutationBlockService implements EJBlockService<Salutations>
             parameters.add(new EJStatementParameter("VALUE", String.class, record.getValue()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
+            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));
@@ -118,17 +126,17 @@ public class SalutationBlockService implements EJBlockService<Salutations>
     }
 
     @Override
-    public void executeDelete(EJForm form, List<Salutations> recordsToDelete)
+    public void executeDelete(EJForm form, List<Salutation> recordsToDelete)
     {
         ArrayList<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (Salutations record : recordsToDelete)
+        for (Salutation record : recordsToDelete)
         {
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-
+            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));

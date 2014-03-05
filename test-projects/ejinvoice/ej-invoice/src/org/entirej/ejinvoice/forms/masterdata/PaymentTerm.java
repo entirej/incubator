@@ -24,6 +24,7 @@ import org.entirej.framework.core.service.EJPojoProperty;
 public class PaymentTerm
 {
     private EJPojoProperty<Integer> _id;
+    private EJPojoProperty<Integer> _userId;
     private EJPojoProperty<String>  _paymentTerms;
 
     @EJFieldName("ID")
@@ -42,6 +43,24 @@ public class PaymentTerm
     public Integer getInitialId()
     {
         return EJPojoProperty.getPropertyInitialValue(_id);
+    }
+    
+    @EJFieldName("USER_ID")
+    public Integer getUserId()
+    {
+        return EJPojoProperty.getPropertyValue(_userId);
+    }
+
+    @EJFieldName("USER_ID")
+    public void setUserId(Integer userId)
+    {
+        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+    }
+
+    @EJFieldName("USER_ID")
+    public Integer getInitialUserId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_userId);
     }
 
     @EJFieldName("PAYMENT_TERMS")
@@ -65,6 +84,7 @@ public class PaymentTerm
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
+        EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_paymentTerms);
     }
 

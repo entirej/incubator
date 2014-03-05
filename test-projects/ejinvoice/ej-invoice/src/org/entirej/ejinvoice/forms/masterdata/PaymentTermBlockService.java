@@ -21,6 +21,8 @@ package org.entirej.ejinvoice.forms.masterdata;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.ejinvoice.ApplicationParameters;
+import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -33,7 +35,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class PaymentTermBlockService implements EJBlockService<PaymentTerm>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ID,PAYMENT_TERMS FROM PAYMENT_INFORMATION";
+    private String                    _selectStatement = "SELECT ID, USER_ID, PAYMENT_TERMS FROM PAYMENT_INFORMATION";
 
     public PaymentTermBlockService()
     {
@@ -49,6 +51,9 @@ public class PaymentTermBlockService implements EJBlockService<PaymentTerm>
     @Override
     public List<PaymentTerm> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+
         return _statementExecutor.executeQuery(PaymentTerm.class, form, _selectStatement, queryCriteria);
     }
 
@@ -61,6 +66,8 @@ public class PaymentTermBlockService implements EJBlockService<PaymentTerm>
         {
             // Initialise the value list
             parameters.clear();
+            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("PAYMENT_TERMS", String.class, record.getPaymentTerms()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -89,6 +96,7 @@ public class PaymentTermBlockService implements EJBlockService<PaymentTerm>
             parameters.add(new EJStatementParameter("PAYMENT_TERMS", String.class, record.getPaymentTerms()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
+            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));
@@ -127,7 +135,7 @@ public class PaymentTermBlockService implements EJBlockService<PaymentTerm>
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-
+            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));
