@@ -21,6 +21,8 @@
  */
 package org.entirej.ejinvoice.forms.masterdata;
 
+import java.math.BigDecimal;
+
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
@@ -111,8 +113,8 @@ public class VatRatesActionHandler extends DefaultFormActionProcessor
                 {
                     throw new EJActionProcessorException(String.format("%s cannot be Empty!", vatRateLabel));
                 }
-                Double vatRate = (Double) rate;
-                if (vatRate <= 0)
+                BigDecimal vatRate = (BigDecimal) rate;
+                if (vatRate ==null || vatRate.doubleValue() <= 0)
                 {
                     throw new EJActionProcessorException(String.format("%s should be greater than zero!", vatRateLabel));
                 }
