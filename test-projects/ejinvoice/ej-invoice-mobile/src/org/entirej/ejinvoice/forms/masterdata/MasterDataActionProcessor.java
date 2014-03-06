@@ -1,6 +1,7 @@
 package org.entirej.ejinvoice.forms.masterdata;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -27,11 +28,25 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        System.out.println("Command: "+command+", Block: "+record.getBlockName());
-        _contactTypesActionHanlder.executeActionCommand(form, record, command, screenType);
-        _paymentTermsActionHandler.executeActionCommand(form, record, command, screenType);
-        _salutationsActionHandler.executeActionCommand(form, record, command, screenType);
-        _vatRatesActionHandler.executeActionCommand(form, record, command, screenType);
+        System.out.println("executeActionCommand: "+record.getBlockName()+" : "+command);
+        
+        if (F_MASTER_DATA.B_CONTACT_TYPES.ID.equals(record.getBlockName()))
+        {
+            _contactTypesActionHanlder.executeActionCommand(form, record, command, screenType);    
+        }
+        else if (F_MASTER_DATA.B_PAYMENT_TERMS.ID.equals(record.getBlockName()))
+        {
+            _paymentTermsActionHandler.executeActionCommand(form, record, command, screenType);    
+        }
+        else if (F_MASTER_DATA.B_VAT_RATES.ID.equals(record.getBlockName()))
+        {
+            _vatRatesActionHandler.executeActionCommand(form, record, command, screenType);    
+        }
+        else if (F_MASTER_DATA.B_SALUTATIONS.ID.equals(record.getBlockName()))
+        {
+            _salutationsActionHandler.executeActionCommand(form, record, command, screenType);
+        }
+        
     }
 
     @Override

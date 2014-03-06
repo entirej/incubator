@@ -22,6 +22,8 @@
 package org.entirej.ejinvoice.forms.masterdata;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
+import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
@@ -33,8 +35,8 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
 
 /**
- * This class is used to perform all business functionalities including data validations related to
- * CONTACT_TYPES block service.
+ * This class is used to perform all business functionalities including data
+ * validations related to CONTACT_TYPES block service.
  */
 public class ContactTypesActionHandler extends DefaultFormActionProcessor
 {
@@ -44,7 +46,8 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
         // filter the contact type grid to display only records that
         // does not include ContactTypesService.MAIN as type
         EJQueryCriteria queryCriteria = new EJQueryCriteria();
-//        queryCriteria.add(EJRestrictions.notEquals(F_CONTACT_TYPES.L_CONTACT_TYPES.I_TYPE, ContactTypesService.MAIN));
+        // queryCriteria.add(EJRestrictions.notEquals(F_CONTACT_TYPES.L_CONTACT_TYPES.I_TYPE,
+        // ContactTypesService.MAIN));
 
         form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery(queryCriteria);
     }
@@ -52,37 +55,27 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-//        if (record.getBlockName() != null
-//                && ((record.getBlockName().equals(F_MASTER_DATA.B_CONTACT_TYPES.ID)) || record.getBlockName().equals(F_MASTER_DATA.B_CONTACT_TYPES_TOOLBAR.ID)))
-//        {
-//            if (F_MASTER_DATA.AC_TOOLBAR_NEW.equals(command))
-//            {
-//                form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).enterInsert(false);
-//                return;
-//            }
-//            if (F_MASTER_DATA.AC_TOOLBAR_EDIT.equals(command))
-//            {
-//                form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).enterUpdate();
-//                return;
-//            }
-//            if (F_MASTER_DATA.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord() != null)
-//            {
-//                // before deleting the selected record from database validate
-//                // and check if the
-//                // record to be deleted has any FK constraints usage with other
-//                // table data and if so throw an exception and block physical
-//                // delete
-//                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord(),
-//                        "CONTACT_TYPES");
-//                form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this type?");
-//                return;
-//            }
-//            if (F_MASTER_DATA.AC_TOOLBAR_HOME.equals(command))
-//            {
-//                form.openForm(F_LAUNCH_PAGE.ID);
-//                return;
-//            }
-//        }
+        if (F_MASTER_DATA.AC_NEW.equals(command))
+        {
+            form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).enterInsert(false);
+            return;
+        }
+        if (F_MASTER_DATA.AC_EDIT.equals(command))
+        {
+            form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).enterUpdate();
+            return;
+        }
+        if (F_MASTER_DATA.AC_DELETE.equals(command) && form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord() != null)
+        {
+            // before deleting the selected record from database validate
+            // and check if the
+            // record to be deleted has any FK constraints usage with other
+            // table data and if so throw an exception and block physical
+            // delete
+            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord(), "CONTACT_TYPES");
+            form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this type?");
+            return;
+        }
     }
 
     @Override
@@ -92,8 +85,9 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
         // record
         if (F_MASTER_DATA.B_CONTACT_TYPES.ID.equals(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getName()))
         {
-//            validateToolbarState(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES_TOOLBAR.ID),
-//                    form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord() != null);
+            // validateToolbarState(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES_TOOLBAR.ID),
+            // form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord()
+            // != null);
         }
     }
 
@@ -106,8 +100,7 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
             Object type = record.getValue(F_MASTER_DATA.B_CONTACT_TYPES.I_TYPE);
             Object id = record.getValue(F_MASTER_DATA.B_CONTACT_TYPES.I_ID);
 
-            final EJScreenItem typeItem = form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getScreenItem(EJScreenType.MAIN,
-                    record.getItem(F_MASTER_DATA.B_CONTACT_TYPES.I_TYPE).getName());
+            final EJScreenItem typeItem = form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_MASTER_DATA.B_CONTACT_TYPES.I_TYPE).getName());
             final String typeLabel = typeItem.getLabel();
 
             if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
@@ -136,7 +129,8 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
         // entering new record to thecontact types screen
         if (record.getBlockName().equals(F_MASTER_DATA.B_CONTACT_TYPES.ID))
         {
-//            validateToolbarState(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES_TOOLBAR.ID), record != null);
+            // validateToolbarState(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES_TOOLBAR.ID),
+            // record != null);
 
         }
     }
@@ -149,8 +143,9 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
         // screen
         if (block.getName().equals(F_MASTER_DATA.B_CONTACT_TYPES.ID))
         {
-//            validateToolbarState(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES_TOOLBAR.ID),
-//                    form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord() != null);
+            // validateToolbarState(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES_TOOLBAR.ID),
+            // form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord()
+            // != null);
 
         }
     }

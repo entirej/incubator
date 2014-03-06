@@ -19,6 +19,7 @@ public class F_LOGIN
         public static final String I_SIGNUP      = "signup";
         public static final String I_FORGOT      = "forgot";
         public static final String I_EMAIL       = "email";
+        public static final String I_TEMP_LOGIN  = "tempLogin";
 
     }
 
@@ -57,6 +58,9 @@ public class F_LOGIN
     public static final String C_FORGOT         = "forgot";
 
     public static final String AC_CANCEL_SIGNUP = "CANCEL_SIGNUP";
+    public static final String AC_FORGOT        = "FORGOT";
+    public static final String AC_LOGIN         = "LOGIN";
+    public static final String AC_LOGIN_EJ      = "LOGIN_EJ";
     public static final String AC_LOGON         = "LOGON";
     public static final String AC_REGISTER      = "REGISTER";
     public static final String AC_SIGNUP        = "SIGNUP";

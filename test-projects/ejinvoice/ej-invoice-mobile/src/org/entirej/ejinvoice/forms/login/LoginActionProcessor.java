@@ -17,6 +17,29 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        if (F_LOGIN.AC_LOGIN_EJ.equals(command))
+        {
+            String username = "paul.harrison@mojave-i.com";
+            String password = "entirej";
+            
+            User user = ServiceRetriever.getUserService(form).getUser(username, password);
+
+            if (user != null)
+            {
+                
+                form.setApplicationLevelParameter(ApplicationParameters.PARAM_USER, user);
+                form.setApplicationLevelParameter(ApplicationParameters.PARAM_EMAIL, user.getEmail());
+                form.setApplicationLevelParameter(ApplicationParameters.PARAM_NAME, user.getFirstName()+' '+user.getLastName());
+                
+                form.openForm(F_LAUNCH_PAGE.ID);
+                return;
+            }
+            else
+            {
+                throw new EJActionProcessorException(new EJMessage(EJMessageLevel.ERROR, "The username or password you entered is incorrect."));
+            }
+        }
+        
         if (F_LOGIN.AC_LOGON.equals(command))
         {
             String username = (String) record.getValue(F_LOGIN.B_LOGON.I_EMAIL);
@@ -63,6 +86,11 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             
             ServiceRetriever.getUserService(form).registerUser(form, user);
             
+            form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.LOGON);
+        }
+        else if (F_LOGIN.AC_LOGIN.equals(command))
+        {
+            form.getBlock(F_LOGIN.B_LOGON.ID).clear(true);
             form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.LOGON);
         }
         else if (F_LOGIN.AC_SIGNUP.equals(command))

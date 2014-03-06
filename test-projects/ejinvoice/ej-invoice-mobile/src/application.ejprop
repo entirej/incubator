@@ -94,5 +94,37 @@
         </items>
     </applicationLayout>
     <visualAttributes>
+        <visualAttribute name="data">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="dataBold">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="description">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r128g128b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="title">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>20</fontSize>
+            <style><![CDATA[Underline]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
     </visualAttributes>
 </entirejFramework>

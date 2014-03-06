@@ -43,41 +43,34 @@ public class PaymentTermsActionHandler extends DefaultFormActionProcessor
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
         // validate the payment information toolbar state
-//        validateToolbarState(form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS_TOOLBAR.ID), false);
+        // validateToolbarState(form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS_TOOLBAR.ID),
+        // false);
         form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).executeQuery();
     }
 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-//        if (record.getBlockName() != null && ((record.getBlockName().equals(F_MASTER_DATA.B_PAYMENT_TERMS.ID)) || record.getBlockName().equals(F_MASTER_DATA.B_PAYMENT_TERMS_TOOLBAR.ID)))
-//        {
-//            if (F_MASTER_DATA.AC_TOOLBAR_NEW.equals(command))
-//            {
-//                form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).enterInsert(false);
-//                return;
-//            }
-//            if (F_MASTER_DATA.AC_TOOLBAR_EDIT.equals(command))
-//            {
-//                form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).enterUpdate();
-//                return;
-//            }
-//            if (F_MASTER_DATA.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getFocusedRecord() != null)
-//            {
-//                // before deleting the selected record from database validate
-//                // and check if the record to be deleted has any FK constraints
-//                // usage with other table data and if so throw an exception and
-//                // block physical delete
-//                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getFocusedRecord(), "PAYMENT_INFORMATION");
-//                form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this payment term?");
-//                return;
-//            }
-//            if (F_MASTER_DATA.AC_TOOLBAR_HOME.equals(command))
-//            {
-//                form.openForm(F_LAUNCH_PAGE.ID);
-//                return;
-//            }
-//        }
+        if (F_MASTER_DATA.AC_NEW.equals(command))
+        {
+            form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).enterInsert(false);
+            return;
+        }
+        if (F_MASTER_DATA.AC_EDIT.equals(command))
+        {
+            form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).enterUpdate();
+            return;
+        }
+        if (F_MASTER_DATA.AC_DELETE.equals(command) && form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getFocusedRecord() != null)
+        {
+            // before deleting the selected record from database validate
+            // and check if the record to be deleted has any FK constraints
+            // usage with other table data and if so throw an exception and
+            // block physical delete
+            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getFocusedRecord(), "PAYMENT_INFORMATION");
+            form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this payment term?");
+            return;
+        }
     }
 
     @Override
