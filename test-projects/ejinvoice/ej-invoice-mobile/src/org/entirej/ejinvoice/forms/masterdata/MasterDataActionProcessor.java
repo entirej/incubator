@@ -27,6 +27,7 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        System.out.println("Command: "+command+", Block: "+record.getBlockName());
         _contactTypesActionHanlder.executeActionCommand(form, record, command, screenType);
         _paymentTermsActionHandler.executeActionCommand(form, record, command, screenType);
         _salutationsActionHandler.executeActionCommand(form, record, command, screenType);

@@ -114,7 +114,7 @@ public class VatRatesActionHandler extends DefaultFormActionProcessor
                     throw new EJActionProcessorException(String.format("%s cannot be Empty!", vatRateLabel));
                 }
                 BigDecimal vatRate = (BigDecimal) rate;
-                if (vatRate ==null || vatRate.doubleValue() <= 0)
+                if (vatRate.signum() == -1)
                 {
                     throw new EJActionProcessorException(String.format("%s should be greater than zero!", vatRateLabel));
                 }
