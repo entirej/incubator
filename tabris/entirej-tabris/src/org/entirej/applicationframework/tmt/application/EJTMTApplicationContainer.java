@@ -200,9 +200,9 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                 }
 
                 @Override
-                public EJInternalForm addForm(final EJInternalForm form)
+                public EJInternalForm addForm( EJInternalForm form)
                 {
-                    final EJCoreFormProperties formProp = form.getProperties();
+                     EJCoreFormProperties formProp = form.getProperties();
                     final String pageID = EJTMTFormPage.toFormPageID(formProp.getName());
                     if (configuration.getPageConfiguration(pageID) == null)
                     {
@@ -228,6 +228,11 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                                             @Override
                                             public void execute(UI ui)
                                             {
+                                                EJInternalForm form = EJTMTFormPage.getFormByPageData(ui.getPageOperator().getCurrentPageData());
+                                                if(form==null)
+                                                {
+                                                    return;
+                                                }
                                                 EJFormController formController = form.getFormController();
                                                 EJRecord record = null;
                                                 if (form.getFocusedBlock() != null && form.getFocusedBlock().getBlockController().getFocusedRecord() != null)

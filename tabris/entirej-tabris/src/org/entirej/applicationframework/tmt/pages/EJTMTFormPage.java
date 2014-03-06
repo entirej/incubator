@@ -92,6 +92,16 @@ public class EJTMTFormPage extends AbstractPage
         data.set(FORM_ID_KEY, form);
         return data;
     }
+    public static EJInternalForm getFormByPageData(PageData data)
+    {
+        if(data==null)
+        {
+            return null;
+        }
+        return data.get(FORM_ID_KEY, EJInternalForm.class);
+    }
+    
+    
 
     public static class FormActionConfiguration extends ActionConfiguration
     {
