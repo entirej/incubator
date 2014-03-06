@@ -75,6 +75,7 @@ public class F_COMPANY
     }
 
     public static final String C_COMPANY_TOOLBAR  = "CompanyToolbar";
+    public static final String C_MAIN_SPLIT       = "mainSplit";
     public static final String C_COMPANIES        = "Companies";
     public static final String C_COMPANIES_DETAIL = "CompaniesDetail";
 

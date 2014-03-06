@@ -26,7 +26,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
 
         if (F_COMPANY.AC_TOOLBAR_NEW.equals(command))
         {
-            form.getBlock(F_COMPANY.B_COMPANIES.ID).enterInsert(false);
+            form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).enterInsert(false);
             return;
         }
         if (F_COMPANY.AC_TOOLBAR_EDIT.equals(command))
@@ -36,7 +36,10 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         }
         if (F_COMPANY.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getFocusedRecord() != null)
         {
-            // before deleting the selected record from database validation and check if the record to be deleted has any FK constraints usage with other table data and if so throw an exception and block physical delete
+            // before deleting the selected record from database validation and
+            // check if the record to be deleted has any FK constraints usage
+            // with other table data and if so throw an exception and block
+            // physical delete
             ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getFocusedRecord(), "COMPANY_INFORMATION");
             form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).askToDeleteCurrentRecord("Are you sure you want to delete this company?");
             return;
@@ -66,45 +69,38 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
     {
         // validate the company information screen
-        if (false && F_COMPANY.B_COMPANIES.ID.equals(record.getBlockName()))
+        if (F_COMPANY.B_COMPANIES_DETAIL.ID.equals(record.getBlockName()))
         {
-
-            Object name = record.getValue(F_COMPANY.B_COMPANIES.I_NAME);
-            Object bankName = record.getValue(F_COMPANY.B_COMPANIES.I_BANK_NAME);
-            Object iban = record.getValue(F_COMPANY.B_COMPANIES.I_IBAN);
-
-            final EJScreenItem nameItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_NAME).getName());
-
-            final EJScreenItem bankNameItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_BANK_NAME).getName());
-            final EJScreenItem ibanItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_IBAN).getName());
-
             if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
             {
+                Object name = record.getValue(F_COMPANY.B_COMPANIES.I_NAME);
+                Object bankName = record.getValue(F_COMPANY.B_COMPANIES.I_BANK_NAME);
+                Object iban = record.getValue(F_COMPANY.B_COMPANIES.I_IBAN);
 
-                String nameError = validateString(name, nameItem);
-                if (nameError != null && nameError.length() > 0)
+                final EJScreenItem nameItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_NAME).getName());
+
+                final EJScreenItem bankNameItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_BANK_NAME).getName());
+                final EJScreenItem ibanItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_IBAN).getName());
+
+                if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
                 {
-
-                    throw new EJActionProcessorException(nameError);
-
+                    String nameError = validateString(name, nameItem);
+                    if (nameError != null && nameError.length() > 0)
+                    {
+                        throw new EJActionProcessorException(nameError);
+                    }
+                    String bankNameError = validateString(bankName, bankNameItem);
+                    if (bankNameError != null && bankNameError.length() > 0)
+                    {
+                        throw new EJActionProcessorException(bankNameError);
+                    }
+                    String ibanError = validateString(iban, ibanItem);
+                    if (ibanError != null && ibanError.length() > 0)
+                    {
+                        throw new EJActionProcessorException(ibanError);
+                    }
                 }
-                String bankNameError = validateString(bankName, bankNameItem);
-                if (bankNameError != null && bankNameError.length() > 0)
-                {
-
-                    throw new EJActionProcessorException(bankNameError);
-
-                }
-                String ibanError = validateString(iban, ibanItem);
-                if (ibanError != null && ibanError.length() > 0)
-                {
-
-                    throw new EJActionProcessorException(ibanError);
-
-                }
-
             }
-
         }
     }
 
