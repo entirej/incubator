@@ -745,6 +745,7 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             @Override
             public void widgetSelected(SelectionEvent e)
             {
+                
                 if (e.text != null)
                 {
                     _block.executeActionCommand(e.text, EJScreenType.MAIN);
@@ -771,7 +772,8 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             @Override
             public void mouseDown(MouseEvent arg0)
             {
-                if (!table.isFocusControl())
+                
+                if (!_block.hasFocus())
                 {
                     setHasFocus(true);
                 }
@@ -782,7 +784,7 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             @Override
             public void mouseDown(MouseEvent arg0)
             {
-                if (!table.isFocusControl())
+                if (!_block.hasFocus())
                 {
                     setHasFocus(true);
                 }

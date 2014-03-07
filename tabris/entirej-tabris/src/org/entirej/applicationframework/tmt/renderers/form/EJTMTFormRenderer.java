@@ -33,6 +33,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -620,26 +621,35 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     @Override
                     public Control load(Composite parent)
                     {
+                        Composite body = new Composite(parent, SWT.NONE);
+                        GridLayout layout = new GridLayout(1, false);
+                        layout.marginHeight = 0;
+                        layout.marginBottom = 0;
+                        layout.marginTop = 0;
+                        layout.marginWidth = 5;
+                        layout.marginLeft = 5;
+                        layout.marginRight = 5;
+                        body.setLayout(layout);
                         switch (containedCanvas.getType())
                         {
                             case BLOCK:
                             case GROUP:
-                                createGroupCanvas(parent, containedCanvas, canvasController);
+                                createGroupCanvas(body, containedCanvas, canvasController);
                                 break;
                             case SPLIT:
-                                createSplitCanvas(parent, containedCanvas, canvasController);
+                                createSplitCanvas(body, containedCanvas, canvasController);
                                 break;
                             case STACKED:
-                                createStackedCanvas(parent, containedCanvas, canvasController);
+                                createStackedCanvas(body, containedCanvas, canvasController);
                                 break;
                             case TAB:
-                                createTabCanvas(parent, containedCanvas, canvasController);
+                                createTabCanvas(body, containedCanvas, canvasController);
                                 break;
                             case POPUP:
                                 throw new AssertionError();
 
                         }
-                        return _canvassControls.get(containedCanvas.getName());
+                        return body;
                     }
 
                     @Override
@@ -658,7 +668,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     @Override
                     public void activate(SwipeContext context)
                     {
-                        // ignore
+                        setFocus(containedCanvas);
 
                     }
                 };
