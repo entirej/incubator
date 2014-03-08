@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -622,14 +623,9 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     public Control load(Composite parent)
                     {
                         Composite body = new Composite(parent, SWT.NONE);
-                        GridLayout layout = new GridLayout(1, false);
-                        layout.marginHeight = 0;
-                        layout.marginBottom = 0;
-                        layout.marginTop = 0;
-                        layout.marginWidth = 5;
-                        layout.marginLeft = 5;
-                        layout.marginRight = 5;
-                        body.setLayout(layout);
+                        
+                        GridLayoutFactory.fillDefaults().margins( 5, 0 ).applyTo( body );
+                       
                         switch (containedCanvas.getType())
                         {
                             case BLOCK:
@@ -649,6 +645,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                                 throw new AssertionError();
 
                         }
+                        parent.layout(true, true);
                         return body;
                     }
 
@@ -743,7 +740,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                 public void createBody(Composite parent)
                 {
                     parent.setLayout(new FillLayout());
-                    final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
+                    final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL );
 
                     EJTMTEntireJGridPane _mainPane = new EJTMTEntireJGridPane(scrollComposite, numCols);
                     _mainPane.cleanLayout();
@@ -756,7 +753,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     scrollComposite.setContent(_mainPane);
                     scrollComposite.setExpandHorizontal(true);
                     scrollComposite.setExpandVertical(true);
-                    scrollComposite.setMinSize(_mainPane.computeSize(SWT.DEFAULT, SWT.DEFAULT, true));
+                    scrollComposite.setMinHeight(_mainPane.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).y);
                 }
 
                 @Override

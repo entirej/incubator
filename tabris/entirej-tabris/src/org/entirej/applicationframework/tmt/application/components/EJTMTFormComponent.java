@@ -22,6 +22,7 @@
 package org.entirej.applicationframework.tmt.application.components;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.custom.ScrolledComposite;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -97,8 +98,22 @@ public class EJTMTFormComponent implements EJTMTApplicationComponent, EJTMTAppCo
             fillLayout.marginHeight = 0;
             fillLayout.marginWidth = 0;
             composite.setLayout(fillLayout);
+            
+            
+            final int height = form.getProperties().getFormHeight();
+            //final int width = form.getProperties().getFormWidth();
             EJTMTFormRenderer renderer = ((EJTMTFormRenderer) form.getRenderer());
-            renderer.createControl(composite);
+
+            
+            final ScrolledComposite scrollComposite = new ScrolledComposite(composite, SWT.V_SCROLL );
+            renderer.createControl(scrollComposite);
+            scrollComposite.setContent(renderer.getGuiComponent());
+            
+            scrollComposite.setExpandVertical(true);
+            scrollComposite.setExpandHorizontal(true);
+            scrollComposite.setMinHeight(height);
+            
+            
             EJTMTEntireJGridPane gridPane = renderer.getGuiComponent();
             gridPane.cleanLayout();
 
