@@ -624,7 +624,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     {
                         Composite body = new Composite(parent, SWT.NONE);
                         
-                        GridLayoutFactory.fillDefaults().margins( 5, 0 ).applyTo( body );
+                        GridLayoutFactory.fillDefaults().margins( 0, 0 ).applyTo( body );
                        
                         switch (containedCanvas.getType())
                         {
