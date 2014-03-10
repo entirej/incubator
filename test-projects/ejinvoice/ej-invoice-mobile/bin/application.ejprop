@@ -120,7 +120,7 @@
         </visualAttribute>
         <visualAttribute name="title">
             <fontName><![CDATA[Unspecified]]></fontName>
-            <fontSize>20</fontSize>
+            <fontSize>30</fontSize>
             <style><![CDATA[Underline]]></style>
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
