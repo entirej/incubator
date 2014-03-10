@@ -40,6 +40,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.TabFolder;
 import org.eclipse.swt.widgets.TabItem;
+import org.entirej.applicationframework.tmt.application.EJTMTApplicationContainer;
 import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
 import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.applicationframework.tmt.layout.EJTMTEntireJGridPane;
@@ -833,6 +834,8 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
             {
                 PageConfiguration pageConfiguration = new PageConfiguration(pageID, EJTMTScreenPage.class).setTitle(pageTitle != null ? pageTitle : "");
                 pageConfiguration.setStyle(PageStyle.DEFAULT);
+                
+                EJTMTApplicationContainer.addFormActions(_form, _form.getProperties(), pageID, pageConfiguration);
                 configuration.addPageConfiguration(pageConfiguration);
 
             }

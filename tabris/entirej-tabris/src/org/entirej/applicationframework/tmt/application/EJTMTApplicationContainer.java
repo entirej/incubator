@@ -209,69 +209,7 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                         PageConfiguration pageConfiguration = new PageConfiguration(pageID, EJTMTFormPage.class).setTitle(formProp.getTitle());
                         pageConfiguration.setStyle(PageStyle.DEFAULT);
 
-                        // create page actions
-                        EJFrameworkExtensionProperties formRendererProperties = formProp.getFormRendererProperties();
-                        if (formRendererProperties != null)
-                        {
-                            EJCoreFrameworkExtensionPropertyList actions = formRendererProperties.getPropertyList(EJTMTFormPage.PAGE_ACTIONS);
-                            if (actions != null)
-                            {
-                                for (EJFrameworkExtensionPropertyListEntry entry : actions.getAllListEntries())
-                                {
-                                    final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
-                                    if (action != null && action.length() > 0)
-                                    {
-                                        FormActionConfiguration actionConfiguration = new FormActionConfiguration(FormActionConfiguration.toActionId(pageID,
-                                                action), new Action()
-                                        {
-
-                                            @Override
-                                            public void execute(UI ui)
-                                            {
-                                                
-                                                EJInternalForm form = EJTMTFormPage.getFormByPageData(ui.getPageOperator().getCurrentPageData());
-                                                if(form==null)
-                                                {
-                                                    System.err.println(ui.getPageOperator().getCurrentPageData());
-                                                    System.err.println(ui.getPageOperator().getCurrentPageId());
-                                                    return;
-                                                }
-                                                EJFormController formController = form.getFormController();
-                                                EJRecord record = null;
-                                                if (form.getFocusedBlock() != null && form.getFocusedBlock().getBlockController().getFocusedRecord() != null)
-                                                {
-                                                    record = new EJRecord(form.getFocusedBlock().getBlockController().getFocusedRecord());
-                                                }
-                                                formController.getManagedActionController().executeActionCommand(formController.getEJForm(), record, action,
-                                                        EJScreenType.MAIN);
-
-                                            }
-                                        });
-
-                                        String image = entry.getProperty(EJTMTFormPage.PAGE_ACTION_IMAGE);
-                                        if (image != null && image.length() > 0)
-                                        {
-                                            try
-                                            {
-                                                actionConfiguration.setImage(EJTMTImageRetriever.class.getClassLoader().getResourceAsStream(image));
-                                            }
-                                            catch (Exception ex)
-                                            {
-                                                form.getMessenger().handleException(ex);
-                                            }
-                                        }
-                                        actionConfiguration.setTitle(entry.getProperty(EJTMTFormPage.PAGE_ACTION_NAME));
-
-                                        if (Boolean.valueOf(entry.getProperty(EJTMTFormPage.PAGE_ACTION_PRIORITY)))
-                                        {
-                                            actionConfiguration.setPlacementPriority(PlacementPriority.HIGH);
-                                        }
-                                        pageConfiguration.addActionConfiguration(actionConfiguration);
-                                    }
-                                }
-                            }
-
-                        }
+                        addFormActions(form, formProp, pageID, pageConfiguration);
                         configuration.addPageConfiguration(pageConfiguration);
 
                     }
@@ -282,11 +220,81 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                     return form;
                 }
 
+                
+
             };
         }
 
     }
 
+    
+    public static void addFormActions(EJInternalForm form, EJCoreFormProperties formProp, final String pageID, PageConfiguration pageConfiguration)
+    {
+        // create page actions
+        EJFrameworkExtensionProperties formRendererProperties = formProp.getFormRendererProperties();
+        if (formRendererProperties != null)
+        {
+            EJCoreFrameworkExtensionPropertyList actions = formRendererProperties.getPropertyList(EJTMTFormPage.PAGE_ACTIONS);
+            if (actions != null)
+            {
+                for (EJFrameworkExtensionPropertyListEntry entry : actions.getAllListEntries())
+                {
+                    final String action = entry.getProperty(EJTMTFormPage.PAGE_ACTION_ID);
+                    if (action != null && action.length() > 0)
+                    {
+                        FormActionConfiguration actionConfiguration = new FormActionConfiguration(FormActionConfiguration.toActionId(pageID,
+                                action), new Action()
+                        {
+
+                            @Override
+                            public void execute(UI ui)
+                            {
+                                
+                                EJInternalForm form = EJTMTFormPage.getFormByPageData(ui.getPageOperator().getCurrentPageData());
+                                if(form==null)
+                                {
+                                    System.err.println(ui.getPageOperator().getCurrentPageData());
+                                    System.err.println(ui.getPageOperator().getCurrentPageId());
+                                    return;
+                                }
+                                EJFormController formController = form.getFormController();
+                                EJRecord record = null;
+                                if (form.getFocusedBlock() != null && form.getFocusedBlock().getBlockController().getFocusedRecord() != null)
+                                {
+                                    record = new EJRecord(form.getFocusedBlock().getBlockController().getFocusedRecord());
+                                }
+                                formController.getManagedActionController().executeActionCommand(formController.getEJForm(), record, action,
+                                        EJScreenType.MAIN);
+
+                            }
+                        });
+
+                        String image = entry.getProperty(EJTMTFormPage.PAGE_ACTION_IMAGE);
+                        if (image != null && image.length() > 0)
+                        {
+                            try
+                            {
+                                actionConfiguration.setImage(EJTMTImageRetriever.class.getClassLoader().getResourceAsStream(image));
+                            }
+                            catch (Exception ex)
+                            {
+                                form.getMessenger().handleException(ex);
+                            }
+                        }
+                        actionConfiguration.setTitle(entry.getProperty(EJTMTFormPage.PAGE_ACTION_NAME));
+
+                        if (Boolean.valueOf(entry.getProperty(EJTMTFormPage.PAGE_ACTION_PRIORITY)))
+                        {
+                            actionConfiguration.setPlacementPriority(PlacementPriority.HIGH);
+                        }
+                        pageConfiguration.addActionConfiguration(actionConfiguration);
+                    }
+                }
+            }
+
+        }
+    }
+    
     public void buildComponents()
     {
         // build application components
