@@ -5,7 +5,7 @@
     <applicationManagerDefinition><![CDATA[org.entirej.applicationframework.tmt.renderers.application.EJTMTApplicationDefinition]]></applicationManagerDefinition>
     <connectionFactoryClassName><![CDATA[org.entirej.ejinvoice.database.ConnectionFactory]]></connectionFactoryClassName>
     <reusableBlocksLocation><![CDATA[org/entirej/ejinvoice/referencedblocks]]></reusableBlocksLocation>
-    <reusableLovDefinitionLocation></reusableLovDefinitionLocation>
+    <reusableLovDefinitionLocation><![CDATA[org/entirej/ejinvoice/referencedlovdefs]]></reusableLovDefinitionLocation>
     <objectGroupDefinitionLocation></objectGroupDefinitionLocation>
     <translatorClassName></translatorClassName>
     <applicationLevelParameterList>
