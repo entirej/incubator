@@ -26,6 +26,14 @@ public class F_CUSTOMER
 
     }
 
+    public static class B_CUST_CONTACT_TOOLBAR
+    {
+        public static final String ID     = "custContactToolbar";
+        public static final String I_NEW  = "new";
+        public static final String I_EDIT = "edit";
+
+    }
+
     public static class B_CUSTOMER_CONTACTS
     {
         public static final String ID                 = "CustomerContacts";
@@ -66,11 +74,14 @@ public class F_CUSTOMER
 
     public static final String C_CUSTOMER                = "Customer";
     public static final String C_CUSTOMER_CONTACTS_POPUP = "CustomerContactsPopup";
+    public static final String C_CUST_CONTACT_TOOLBAR    = "custContactToolbar";
     public static final String C_CUSTOMER_CONTACTS       = "CustomerContacts";
 
     public static final String AC_DELETE                 = "DELETE";
     public static final String AC_EDIT                   = "EDIT";
+    public static final String AC_EDIT_CONTACT           = "EDIT_CONTACT";
     public static final String AC_NEW                    = "NEW";
+    public static final String AC_NEW_CONTACT            = "NEW_CONTACT";
     public static final String AC_SHOW_CONTACTS          = "SHOW_CONTACTS";
 
 }

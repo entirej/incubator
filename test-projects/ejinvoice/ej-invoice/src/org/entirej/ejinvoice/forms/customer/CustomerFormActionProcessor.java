@@ -54,11 +54,6 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (F_CUSTOMER.AC_SHOW_CANTACTS.equals(command))
-        {
-            form.showPopupCanvas(F_CUSTOMER.C_CUSTOMER_CONTACTS_POPUP);
-        }
-        
         if (F_CUSTOMER.AC_NEW.equals(command))
         {
             form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterInsert(false);

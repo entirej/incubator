@@ -35,7 +35,7 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
     public List<CustomerContact> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User user = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_USER_ID, user.getId()));
+        queryCriteria.add(EJRestrictions.equals("USER_ID", user.getId()));
         
         return _statementExecutor.executeQuery(CustomerContact.class, form, _selectStatement, queryCriteria);
     }
@@ -96,7 +96,7 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_USER_ID, user.getId()));
+            criteria.add(EJRestrictions.equals("USER_ID", user.getId()));
             if (record.getInitialContactTypesId() == null)
             {
                 criteria.add(EJRestrictions.isNull("CONTACT_TYPES_ID"));
@@ -199,7 +199,7 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_USER_ID, user.getId()));
+            criteria.add(EJRestrictions.equals("USER_ID", user.getId()));
             
             if (record.getInitialContactTypesId() == null)
             {

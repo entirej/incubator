@@ -70,9 +70,19 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
             form.showPopupCanvas(F_CUSTOMER.C_CUSTOMER_CONTACTS_POPUP);
         }
         
+        if (F_CUSTOMER.AC_NEW_CONTACT.equals(command))
+        {
+            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterInsert(false);
+            return;
+        }
+        if (F_CUSTOMER.AC_EDIT_CONTACT.equals(command))
+        {
+            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterUpdate();
+            return;
+        }
+        
         if (F_CUSTOMER.AC_NEW.equals(command))
         {
-            
             form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterInsert(false);
             return;
         }
