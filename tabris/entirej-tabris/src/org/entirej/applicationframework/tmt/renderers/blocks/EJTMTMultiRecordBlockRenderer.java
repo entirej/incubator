@@ -302,7 +302,7 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             clearFilter();
             _tableViewer.setInput(new Object());
         }
-        // selectRow(0);
+         selectRow(0);
 
     }
 
@@ -313,7 +313,7 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             clearFilter();
             _tableViewer.setInput(new Object());
         }
-        // selectRow(0);
+         selectRow(0);
     }
 
     @Override
