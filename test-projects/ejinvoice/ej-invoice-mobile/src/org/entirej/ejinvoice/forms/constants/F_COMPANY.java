@@ -33,6 +33,7 @@ public class F_COMPANY
         public static final String I_VAT_NR              = "vatNr";
         public static final String I_BANK_ADDRESS_LINE_3 = "bankAddressLine3";
         public static final String I_SHOW_BANK           = "showBank";
+        public static final String I_VAT_NR_LABEL        = "vatNrLabel";
 
     }
 
@@ -60,6 +61,7 @@ public class F_COMPANY
         public static final String I_COUNTRY             = "country";
         public static final String I_COMPANY_INFO_LABEL  = "companyInfoLabel";
         public static final String I_BANK_INFO_LABEL     = "bankInfoLabel";
+        public static final String I_VAT_NR_LABEL        = "vatNrLabel";
 
     }
 
