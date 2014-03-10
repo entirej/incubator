@@ -73,14 +73,14 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         {
             if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
             {
-                Object name = record.getValue(F_COMPANY.B_COMPANIES.I_NAME);
-                Object bankName = record.getValue(F_COMPANY.B_COMPANIES.I_BANK_NAME);
-                Object iban = record.getValue(F_COMPANY.B_COMPANIES.I_IBAN);
+                Object name = record.getValue(F_COMPANY.B_COMPANIES_DETAIL.I_NAME);
+                Object bankName = record.getValue(F_COMPANY.B_COMPANIES_DETAIL.I_BANK_NAME);
+                Object iban = record.getValue(F_COMPANY.B_COMPANIES_DETAIL.I_IBAN);
 
-                final EJScreenItem nameItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_NAME).getName());
+                final EJScreenItem nameItem = form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getScreenItem(EJScreenType.INSERT, record.getItem(F_COMPANY.B_COMPANIES_DETAIL.I_NAME).getName());
 
-                final EJScreenItem bankNameItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_BANK_NAME).getName());
-                final EJScreenItem ibanItem = form.getBlock(F_COMPANY.B_COMPANIES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_COMPANY.B_COMPANIES.I_IBAN).getName());
+                final EJScreenItem bankNameItem = form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getScreenItem(EJScreenType.INSERT, record.getItem(F_COMPANY.B_COMPANIES_DETAIL.I_BANK_NAME).getName());
+                final EJScreenItem ibanItem = form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getScreenItem(EJScreenType.INSERT, record.getItem(F_COMPANY.B_COMPANIES_DETAIL.I_IBAN).getName());
 
                 if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
                 {

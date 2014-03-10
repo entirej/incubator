@@ -1,5 +1,6 @@
 package org.entirej.ejinvoice.forms.launcher;
 
+import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -25,7 +26,7 @@ public class LauncherActionProcessor extends EJDefaultFormActionProcessor implem
         }
         else if (F_LAUNCH_PAGE.AC_OPEN_COMPANIES.equals(command))
         {
-//            form.openForm(F_COMPANY.ID);
+            form.openForm(F_COMPANY.ID);
         }
     }
 

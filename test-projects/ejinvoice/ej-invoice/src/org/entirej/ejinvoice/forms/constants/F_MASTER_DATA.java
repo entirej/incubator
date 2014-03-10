@@ -6,111 +6,101 @@ package org.entirej.ejinvoice.forms.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class F_MASTER_DATA
-{
-    public static final String ID = "MasterData";
+public class F_MASTER_DATA {
+	public static final String ID = "MasterData";
 
-    public static class B_CONTACT_TYPES_TOOLBAR
-    {
-        public static final String ID       = "ContactTypesToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+	public static class B_CONTACT_TYPES_TOOLBAR {
+		public static final String ID = "ContactTypesToolbar";
+		public static final String I_HOME = "home";
+		public static final String I_NEW = "new";
+		public static final String I_EDIT = "edit";
+		public static final String I_DELETE = "delete";
 
-    }
+	}
 
-    public static class B_CONTACT_TYPES
-    {
-        public static final String ID            = "ContactTypes";
-        public static final String I_TYPE        = "type";
-        public static final String I_ID          = "id";
-        public static final String I_DESCRIPTION = "description";
+	public static class B_CONTACT_TYPES {
+		public static final String ID = "ContactTypes";
+		public static final String I_TYPE = "type";
+		public static final String I_ID = "id";
+		public static final String I_DESCRIPTION = "description";
 
-    }
+	}
 
-    public static class B_PAYMENT_TERMS_TOOLBAR
-    {
-        public static final String ID       = "PaymentTermsToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+	public static class B_PAYMENT_TERMS_TOOLBAR {
+		public static final String ID = "PaymentTermsToolbar";
+		public static final String I_HOME = "home";
+		public static final String I_NEW = "new";
+		public static final String I_EDIT = "edit";
+		public static final String I_DELETE = "delete";
 
-    }
+	}
 
-    public static class B_PAYMENT_TERMS
-    {
-        public static final String ID              = "PaymentTerms";
-        public static final String I_ID            = "id";
-        public static final String I_USER_ID       = "userId";
-        public static final String I_PAYMENT_TERMS = "paymentTerms";
+	public static class B_PAYMENT_TERMS {
+		public static final String ID = "PaymentTerms";
+		public static final String I_ID = "id";
+		public static final String I_USER_ID = "userId";
+		public static final String I_PAYMENT_TERMS = "paymentTerms";
 
-    }
+	}
 
-    public static class B_SALUTATIONS_TOOLBAR
-    {
-        public static final String ID       = "SalutationsToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+	public static class B_SALUTATIONS_TOOLBAR {
+		public static final String ID = "SalutationsToolbar";
+		public static final String I_HOME = "home";
+		public static final String I_NEW = "new";
+		public static final String I_EDIT = "edit";
+		public static final String I_DELETE = "delete";
 
-    }
+	}
 
-    public static class B_SALUTATIONS
-    {
-        public static final String ID        = "Salutations";
-        public static final String I_VALUE   = "value";
-        public static final String I_ID      = "id";
-        public static final String I_USER_ID = "userId";
+	public static class B_SALUTATIONS {
+		public static final String ID = "Salutations";
+		public static final String I_VALUE = "value";
+		public static final String I_ID = "id";
+		public static final String I_USER_ID = "userId";
 
-    }
+	}
 
-    public static class B_VAT_RATES_TOOLBAR
-    {
-        public static final String ID       = "VatRatesToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+	public static class B_VAT_RATES_TOOLBAR {
+		public static final String ID = "VatRatesToolbar";
+		public static final String I_HOME = "home";
+		public static final String I_NEW = "new";
+		public static final String I_EDIT = "edit";
+		public static final String I_DELETE = "delete";
 
-    }
+	}
 
-    public static class B_VAT_RATES
-    {
-        public static final String ID        = "VatRates";
-        public static final String I_NOTES   = "notes";
-        public static final String I_RATE    = "rate";
-        public static final String I_NAME    = "name";
-        public static final String I_ID      = "id";
-        public static final String I_USER_ID = "userId";
+	public static class B_VAT_RATES {
+		public static final String ID = "VatRates";
+		public static final String I_NOTES = "notes";
+		public static final String I_RATE = "rate";
+		public static final String I_NAME = "name";
+		public static final String I_ID = "id";
+		public static final String I_USER_ID = "userId";
 
-    }
+	}
 
-    public static final String C_MAIN_TAB = "MainTab";
+	public static final String C_MAIN_TAB = "MainTab";
 
-    public static class C_MAIN_TAB_PAGES
-    {
-        public static final String CONTACT__TYPES = "Contact Types";
-        public static final String PAYMENT_TERMS  = "PaymentTerms";
-        public static final String SALUTATION     = "Salutation";
-        public static final String VAT_RATES      = "VatRates";
+	public static class C_MAIN_TAB_PAGES {
+		public static final String CONTACT__TYPES = "Contact Types";
+		public static final String PAYMENT_TERMS = "PaymentTerms";
+		public static final String SALUTATION = "Salutation";
+		public static final String VAT_RATES = "VatRates";
 
-    }
+	}
 
-    public static final String C_CONTACT_TYPES_TOOLBAR = "ContactTypesToolbar";
-    public static final String C_CONTACT_TYPES         = "ContactTypes";
-    public static final String C_PAYMENT_TERMS_TOOLBAR = "PaymentTermsToolbar";
-    public static final String C_PAYMENT_TERMS         = "PaymentTerms";
-    public static final String C_SALUTATION_TOOLBAR    = "SalutationToolbar";
-    public static final String C_SALUTATIONS           = "Salutations";
-    public static final String C_VAT_RATES_TOOLBAR     = "VatRatesToolbar";
-    public static final String C_VAT_RATES             = "VatRates";
+	public static final String C_CONTACT_TYPES_TOOLBAR = "ContactTypesToolbar";
+	public static final String C_CONTACT_TYPES = "ContactTypes";
+	public static final String C_PAYMENT_TERMS_TOOLBAR = "PaymentTermsToolbar";
+	public static final String C_PAYMENT_TERMS = "PaymentTerms";
+	public static final String C_SALUTATION_TOOLBAR = "SalutationToolbar";
+	public static final String C_SALUTATIONS = "Salutations";
+	public static final String C_VAT_RATES_TOOLBAR = "VatRatesToolbar";
+	public static final String C_VAT_RATES = "VatRates";
 
-    public static final String AC_TOOLBAR_DELETE       = "TOOLBAR_DELETE";
-    public static final String AC_TOOLBAR_EDIT         = "TOOLBAR_EDIT";
-    public static final String AC_TOOLBAR_HOME         = "TOOLBAR_HOME";
-    public static final String AC_TOOLBAR_NEW          = "TOOLBAR_NEW";
+	public static final String AC_TOOLBAR_DELETE = "TOOLBAR_DELETE";
+	public static final String AC_TOOLBAR_EDIT = "TOOLBAR_EDIT";
+	public static final String AC_TOOLBAR_HOME = "TOOLBAR_HOME";
+	public static final String AC_TOOLBAR_NEW = "TOOLBAR_NEW";
 
 }
