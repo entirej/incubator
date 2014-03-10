@@ -41,7 +41,7 @@
         </objGroupDefinitionList>
         <blockList>
             <block name="Companies" referenced="false" controlBlock="false">
-                <isMirrored>false</isMirrored>
+                <isMirrored>true</isMirrored>
                 <mirrorParent></mirrorParent>
                 <description></description>
                 <queryAllowed>true</queryAllowed>
