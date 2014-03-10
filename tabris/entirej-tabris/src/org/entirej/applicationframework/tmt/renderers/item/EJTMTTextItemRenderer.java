@@ -27,15 +27,12 @@ import org.eclipse.jface.fieldassist.ControlDecoration;
 import org.eclipse.jface.fieldassist.FieldDecorationRegistry;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.template.Cell;
 import org.eclipse.rap.rwt.template.Template;
 import org.eclipse.rap.rwt.template.TextCell;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
-import org.eclipse.swt.events.KeyEvent;
-import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.MouseEvent;
@@ -791,35 +788,8 @@ public class EJTMTTextItemRenderer implements EJTMTAppItemRenderer, FocusListene
 
                     final EJFrameworkExtensionProperties rendererProp = EJCoreProperties.getInstance().getApplicationDefinedProperties();
 
-                    String[] keys = new String[] { "ENTER", "RETURN", "CR" };
-                    label.setData(RWT.ACTIVE_KEYS, keys);
-                    getTextControl().setData(RWT.ACTIVE_KEYS, keys);
-                    addKeyListener(new KeyListener()
-                    {
-                        @Override
-                        public void keyReleased(KeyEvent arg0)
-                        {
-                            if ((arg0.stateMask & SWT.SHIFT) != 0 && arg0.keyCode == SWT.ARROW_DOWN)
-                            {
-                                _item.getItemLovController().displayLov(EJLovDisplayReason.LOV);
-                            }
-
-                            if (arg0.keyCode == 13 && (SWT.MULTI != (_textField.getStyle() & SWT.MULTI) || (arg0.stateMask & SWT.CONTROL) != 0))
-                            {
-                                if (_valueChanged)
-                                {
-                                    _valueChanged = false;
-                                    _item.itemValueChaged();
-                                    setMandatoryBorder(_mandatory);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void keyPressed(KeyEvent arg0)
-                        {
-                        }
-                    });
+                    
+                    
                     return label;
                 }
             };

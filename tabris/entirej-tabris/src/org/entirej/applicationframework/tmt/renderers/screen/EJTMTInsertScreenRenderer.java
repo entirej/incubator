@@ -287,7 +287,7 @@ public class EJTMTInsertScreenRenderer extends EJTMTAbstractScreenRenderer imple
             public void createBody(Composite parent)
             {
                 parent.setLayout(new FillLayout());
-                final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
+                final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL);
 
                 EJTMTEntireJGridPane _mainPane = new EJTMTEntireJGridPane(scrollComposite, numCols);
                 _mainPane.cleanLayout();
@@ -298,7 +298,7 @@ public class EJTMTInsertScreenRenderer extends EJTMTAbstractScreenRenderer imple
                 scrollComposite.setExpandHorizontal(true);
                 scrollComposite.setExpandVertical(true);
                 // remove the offset
-                scrollComposite.setMinSize(width, height - 10);
+                scrollComposite.setMinHeight(height - 10);
                 _block.addItemValueChangedListener(EJTMTInsertScreenRenderer.this);
 
                 EJTMTItemTextChangeNotifier.ChangeListener changeListener = new ChangeListener()

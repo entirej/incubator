@@ -25,6 +25,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.eclipse.jface.layout.GridLayoutFactory;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.SashForm;
@@ -33,6 +34,7 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
@@ -620,26 +622,31 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     @Override
                     public Control load(Composite parent)
                     {
+                        Composite body = new Composite(parent, SWT.NONE);
+                        
+                        GridLayoutFactory.fillDefaults().margins( 0, 0 ).applyTo( body );
+                       
                         switch (containedCanvas.getType())
                         {
                             case BLOCK:
                             case GROUP:
-                                createGroupCanvas(parent, containedCanvas, canvasController);
+                                createGroupCanvas(body, containedCanvas, canvasController);
                                 break;
                             case SPLIT:
-                                createSplitCanvas(parent, containedCanvas, canvasController);
+                                createSplitCanvas(body, containedCanvas, canvasController);
                                 break;
                             case STACKED:
-                                createStackedCanvas(parent, containedCanvas, canvasController);
+                                createStackedCanvas(body, containedCanvas, canvasController);
                                 break;
                             case TAB:
-                                createTabCanvas(parent, containedCanvas, canvasController);
+                                createTabCanvas(body, containedCanvas, canvasController);
                                 break;
                             case POPUP:
                                 throw new AssertionError();
 
                         }
-                        return _canvassControls.get(containedCanvas.getName());
+                        parent.layout(true, true);
+                        return body;
                     }
 
                     @Override
@@ -658,7 +665,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     @Override
                     public void activate(SwipeContext context)
                     {
-                        // ignore
+                        setFocus(containedCanvas);
 
                     }
                 };
@@ -733,7 +740,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                 public void createBody(Composite parent)
                 {
                     parent.setLayout(new FillLayout());
-                    final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
+                    final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL );
 
                     EJTMTEntireJGridPane _mainPane = new EJTMTEntireJGridPane(scrollComposite, numCols);
                     _mainPane.cleanLayout();
@@ -746,7 +753,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     scrollComposite.setContent(_mainPane);
                     scrollComposite.setExpandHorizontal(true);
                     scrollComposite.setExpandVertical(true);
-                    scrollComposite.setMinSize(_mainPane.computeSize(SWT.DEFAULT, SWT.DEFAULT, true));
+                    scrollComposite.setMinHeight(_mainPane.computeSize(SWT.DEFAULT, SWT.DEFAULT, true).y);
                 }
 
                 @Override

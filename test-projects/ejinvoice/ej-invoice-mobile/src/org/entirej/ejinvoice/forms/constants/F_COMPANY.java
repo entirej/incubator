@@ -9,15 +9,6 @@ package org.entirej.ejinvoice.forms.constants;
 public class F_COMPANY {
 	public static final String ID = "Company";
 
-	public static class B_COMPANY_TOOLBAR {
-		public static final String ID = "CompanyToolbar";
-		public static final String I_HOME = "home";
-		public static final String I_NEW = "new";
-		public static final String I_EDIT = "edit";
-		public static final String I_DELETE = "delete";
-
-	}
-
 	public static class B_COMPANIES {
 		public static final String ID = "Companies";
 		public static final String I_POST_CODE = "postCode";
@@ -32,15 +23,14 @@ public class F_COMPANY {
 		public static final String I_ADDRESS_LINE_3 = "addressLine3";
 		public static final String I_USER_ID = "userId";
 		public static final String I_BANK_TOWN = "bankTown";
-		public static final String I_BANK_COUNTRY = "bankCountry";
 		public static final String I_NAME = "name";
 		public static final String I_TOWN = "town";
+		public static final String I_COUNTRY = "country";
 		public static final String I_BANK_NAME = "bankName";
+		public static final String I_BANK_COUNTRY = "bankCountry";
 		public static final String I_VAT_NR = "vatNr";
 		public static final String I_BANK_ADDRESS_LINE_3 = "bankAddressLine3";
-		public static final String I_COUNTRY = "country";
-		public static final String I_COMPANY_INFO_LABEL = "companyInfoLabel";
-		public static final String I_BANK_INFO_LABEL = "bankInfoLabel";
+		public static final String I_SHOW_BANK = "showBank";
 
 	}
 
@@ -70,14 +60,10 @@ public class F_COMPANY {
 
 	}
 
-	public static final String C_COMPANY_TOOLBAR = "CompanyToolbar";
-	public static final String C_MAIN_SPLIT = "mainSplit";
 	public static final String C_COMPANIES = "Companies";
-	public static final String C_COMPANIES_DETAIL = "CompaniesDetail";
+	public static final String C_COMPANY_DETAIL_POPUP = "CompanyDetailPopup";
+	public static final String C_COMPANY_DETAIL = "CompanyDetail";
 
-	public static final String AC_TOOLBAR_DELETE = "TOOLBAR_DELETE";
-	public static final String AC_TOOLBAR_EDIT = "TOOLBAR_EDIT";
-	public static final String AC_TOOLBAR_HOME = "TOOLBAR_HOME";
-	public static final String AC_TOOLBAR_NEW = "TOOLBAR_NEW";
+	public static final String AC_SHOW_BANK_DETAILS = "SHOW_BANK_DETAILS";
 
 }

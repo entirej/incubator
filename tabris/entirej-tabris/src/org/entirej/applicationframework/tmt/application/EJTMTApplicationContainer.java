@@ -228,9 +228,12 @@ public class EJTMTApplicationContainer implements Serializable, EJTMTFormOpenedL
                                             @Override
                                             public void execute(UI ui)
                                             {
+                                                
                                                 EJInternalForm form = EJTMTFormPage.getFormByPageData(ui.getPageOperator().getCurrentPageData());
                                                 if(form==null)
                                                 {
+                                                    System.err.println(ui.getPageOperator().getCurrentPageData());
+                                                    System.err.println(ui.getPageOperator().getCurrentPageId());
                                                     return;
                                                 }
                                                 EJFormController formController = form.getFormController();

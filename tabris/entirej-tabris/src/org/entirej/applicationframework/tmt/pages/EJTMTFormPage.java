@@ -61,17 +61,20 @@ public class EJTMTFormPage extends AbstractPage
         if (form != null)
         {
             final int height = form.getProperties().getFormHeight();
-            final int width = form.getProperties().getFormWidth();
+            //final int width = form.getProperties().getFormWidth();
             EJTMTFormRenderer renderer = ((EJTMTFormRenderer) form.getRenderer());
 
             FillLayout fillLayout = new FillLayout();
             parent.setLayout(fillLayout);
-            final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL | SWT.H_SCROLL);
+            final ScrolledComposite scrollComposite = new ScrolledComposite(parent, SWT.V_SCROLL );
             renderer.createControl(scrollComposite);
             scrollComposite.setContent(renderer.getGuiComponent());
-            scrollComposite.setExpandHorizontal(true);
+            
             scrollComposite.setExpandVertical(true);
-            scrollComposite.setMinSize(width, height);
+            scrollComposite.setExpandHorizontal(true);
+            scrollComposite.setMinHeight(height);
+            
+            
         }
     }
     
