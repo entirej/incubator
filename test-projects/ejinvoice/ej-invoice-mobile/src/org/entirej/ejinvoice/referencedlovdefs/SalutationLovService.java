@@ -36,7 +36,7 @@ public class SalutationLovService implements EJBlockService<Salutation>
     public List<Salutation> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
        User user = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-       queryCriteria.add(EJRestrictions.equals(F_SALUTATIONS.L_SALUTATIONS.I_USER_ID, user.getId()));
+       queryCriteria.add(EJRestrictions.equals("USER_ID", user.getId()));
         return _statementExecutor.executeQuery(Salutation.class, form, _selectStatement, queryCriteria);
     }
 

@@ -37,7 +37,7 @@ public class ContactTypeLovService implements EJBlockService<ContactType>
     public List<ContactType> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User user = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals(F_CONTACT_TYPES.L_CONTACT_TYPES.I_USER_ID, user.getId()));
+        queryCriteria.add(EJRestrictions.equals("USER_ID", user.getId()));
         return _statementExecutor.executeQuery(ContactType.class, form, _selectStatement, queryCriteria);
     }
 
