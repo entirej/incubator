@@ -320,8 +320,8 @@ public class EJTMTMultiRecordBlockDefinition implements EJDevBlockRendererDefini
                 data.bottom = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_BOTTOM, -1);
                 data.left = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_LEFT, -1);
                 data.right = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_RIGHT, -1);
-                data.width = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.WIDTH_PROPERTY, 20);
-                data.height = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY, 20);
+                data.width = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.WIDTH_PROPERTY, 0);
+                data.height = blockRequiredItemProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.HEIGHT_PROPERTY, 0);
                 data.verticalAlignment = getComponentStyle(blockRequiredItemProperties.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_V_ALIGNMENT));
                 data.horizontalAlignment = getComponentStyle(blockRequiredItemProperties.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_H_ALIGNMENT));
                 label.setLayoutData(data);

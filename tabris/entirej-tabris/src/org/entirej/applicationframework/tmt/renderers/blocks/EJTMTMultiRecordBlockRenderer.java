@@ -361,7 +361,15 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
     {
         if (_tableViewer != null && !_tableViewer.getTable().isDisposed())
         {
-            _tableViewer.setSelection(record != null ? new StructuredSelection(record) : new StructuredSelection(), true);
+            if(record != null )
+            {
+                _tableViewer.setSelection( new StructuredSelection(record), true);
+            }
+            else
+            {
+                selectRow(0);//select default row
+            }
+           
         }
         notifyStatus();
     }
@@ -379,6 +387,10 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
         {
             showFocusedBorder(false);
             _block.focusLost();
+        }
+        if(getFocusedRecord()==null)
+        {
+            selectRow(0);
         }
         notifyStatus();
     }
