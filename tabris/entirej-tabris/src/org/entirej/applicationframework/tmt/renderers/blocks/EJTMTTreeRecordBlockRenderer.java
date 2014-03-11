@@ -461,6 +461,12 @@ public class EJTMTTreeRecordBlockRenderer implements EJTMTAppBlockRenderer, KeyL
             {
                 IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                 Object firstElement = structuredSelection.getFirstElement();
+                if(firstElement==null )
+                {
+                    selectRow(0);
+                    structuredSelection = (IStructuredSelection)_tableViewer.getSelection();
+                    firstElement = structuredSelection.getFirstElement();
+                }
                 if (firstElement instanceof EJDataRecord)
                 {
                     _focusedRecord = (EJDataRecord) firstElement;

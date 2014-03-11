@@ -388,10 +388,7 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             showFocusedBorder(false);
             _block.focusLost();
         }
-        if(getFocusedRecord()==null)
-        {
-            selectRow(0);
-        }
+        
         notifyStatus();
     }
 
@@ -440,6 +437,12 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
             {
                 IStructuredSelection structuredSelection = (IStructuredSelection) selection;
                 Object firstElement = structuredSelection.getFirstElement();
+                if(firstElement==null )
+                {
+                    selectRow(0);
+                    structuredSelection = (IStructuredSelection)_tableViewer.getSelection();
+                    firstElement = structuredSelection.getFirstElement();
+                }
                 if (firstElement instanceof EJDataRecord)
                 {
                     _focusedRecord = (EJDataRecord) firstElement;
