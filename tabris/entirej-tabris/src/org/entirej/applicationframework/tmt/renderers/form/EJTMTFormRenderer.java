@@ -45,6 +45,7 @@ import org.entirej.applicationframework.tmt.application.EJTMTApplicationManager;
 import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.applicationframework.tmt.layout.EJTMTEntireJGridPane;
 import org.entirej.applicationframework.tmt.layout.EJTMTEntireJStackedPane;
+import org.entirej.applicationframework.tmt.pages.EJTMTFormPage;
 import org.entirej.applicationframework.tmt.pages.EJTMTScreenPage;
 import org.entirej.applicationframework.tmt.renderer.interfaces.EJTMTAppBlockRenderer;
 import org.entirej.applicationframework.tmt.renderer.interfaces.EJTMTAppFormRenderer;
@@ -275,6 +276,18 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     _form.getCanvasController().tabPageChanged(canvasProperties.getName(), tabPage.getName());
                     return true;
                 }
+            }
+        }
+        else if (canvasProperties.getType() == EJCanvasType.POPUP)
+        {
+            for (EJCanvasProperties popupCanvas : canvasProperties.getPopupCanvasContainer().getAllCanvasProperties())
+            {
+                
+                if (setFocus(popupCanvas))
+                {
+                    return true;
+                }
+                
             }
         }
 
@@ -840,6 +853,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
 
             }
             PageData pageData = EJTMTScreenPage.createPageData(_popupDialog);
+            pageData.set(EJTMTFormPage.FORM_ID_KEY, _form);
             ui.getPageOperator().openPage(pageID, pageData);
             setFocus(canvasProperties);
         }
