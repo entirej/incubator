@@ -700,6 +700,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     return swipeItems.get(index);
                 }
             });
+            swipe.setCacheSize(swipeItems.size());
             swipe.getControl().setLayoutData(createCanvasGridData(canvasProperties));
 
             _canvassControls.put(canvasProperties.getName(), swipe.getControl());
