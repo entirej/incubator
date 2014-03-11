@@ -21,27 +21,18 @@
  */
 package org.entirej.ejinvoice.forms.customer;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
-import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
-import org.entirej.ejinvoice.forms.masterdata.ContactTypesService;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
-import org.entirej.framework.core.EJManagedFrameworkConnection;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
-import org.entirej.framework.core.service.EJRestrictions;
-import org.entirej.framework.core.service.EJStatementExecutor;
-import org.entirej.framework.core.service.EJStatementParameter;
 
 /**
  * This class is used to perform all business functionalities including data
@@ -63,16 +54,13 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        System.out.println("Block: "+record.getBlockName());
-        
-        if (F_CUSTOMER.AC_SHOW_CONTACTS.equals(command))
+        if (F_CUSTOMER.AC_SHOW_CANTACTS.equals(command))
         {
             form.showPopupCanvas(F_CUSTOMER.C_CUSTOMER_CONTACTS_POPUP);
         }
         
         if (F_CUSTOMER.AC_NEW.equals(command))
         {
-            
             form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterInsert(false);
             return;
         }
