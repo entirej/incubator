@@ -841,6 +841,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
             }
             PageData pageData = EJTMTScreenPage.createPageData(_popupDialog);
             ui.getPageOperator().openPage(pageID, pageData);
+            setFocus(canvasProperties);
         }
 
         private String toPageID(String name)
