@@ -24,6 +24,7 @@ package org.entirej.ejinvoice.forms.customer;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.applicationframework.tmt.pages.EJTMTFormPageActions;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
@@ -58,120 +59,60 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
         // use the focused customer record to validate the toolbar state
         EJBlock customerBlock = form.getBlock(F_CUSTOMER.B_CUSTOMER.ID);
         customerBlock.executeQuery();
+        
+        
+        EJTMTFormPageActions.setActionEnableByFormId(F_CUSTOMER.ID, F_CUSTOMER.AC_DELETE, false);
     }
 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        System.out.println("Block: "+record.getBlockName());
-        
-        if (F_CUSTOMER.AC_SHOW_CONTACTS.equals(command))
+        if (form.getFocusedBlock() == null)
         {
-            form.showPopupCanvas(F_CUSTOMER.C_CUSTOMER_CONTACTS_POPUP);
-        }
-        
-        if (F_CUSTOMER.AC_NEW_CONTACT.equals(command))
-        {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterInsert(false);
             return;
         }
-        if (F_CUSTOMER.AC_EDIT_CONTACT.equals(command))
-        {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterUpdate();
-            return;
-        }
+        
+        String blockName = form.getFocusedBlock().getName();
         
         if (F_CUSTOMER.AC_NEW.equals(command))
         {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterInsert(false);
+            if (F_CUSTOMER.B_CUSTOMER.ID.equals(blockName))
+            {
+                form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterInsert(false);
+            }
+            else if (F_CUSTOMER.B_CUSTOMER_CONTACTS.ID.equals(blockName))
+            {
+                form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterInsert(false);
+            }
             return;
         }
         if (F_CUSTOMER.AC_EDIT.equals(command))
         {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterUpdate();
+            if (F_CUSTOMER.B_CUSTOMER.ID.equals(blockName))
+            {
+                form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterUpdate();
+            }
+            else if (F_CUSTOMER.B_CUSTOMER_CONTACTS.ID.equals(blockName))
+            {
+                form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterUpdate();
+            }
             return;
         }
         if (F_CUSTOMER.AC_DELETE.equals(command) && form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).getFocusedRecord() != null)
         {
-            // before deleting the selected record from database validate
-            // and check if the record to be deleted has any FK constraints
-            // usage with other table data and if so throw an exception and
-            // block physical delete
-            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).getFocusedRecord(), "CUSTOMER");
+            if (F_CUSTOMER.B_CUSTOMER.ID.equals(blockName))
+            {
+                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).getFocusedRecord(), "CUSTOMER");
+                form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).askToDeleteCurrentRecord("Are you sure you want to delete this customer?");
+            }
+            else if (F_CUSTOMER.B_CUSTOMER_CONTACTS.ID.equals(blockName))
+            {
+                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).getFocusedRecord(), "CUSTOMER_CONTACT");
+                form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact?");
+            }
 
-            // If you are using codes for you texts, pass the code to entirej so
-            // that it can be
-            // translate by your application tanslator:
-            //
-            // String translatedText =
-            // form.translateMessageText("askToDeleteCustomer");
-            //
-            // form more information on EntireJ's translators read:
-            // http://http://docs.entirej.com/display/EJ1/EntireJ+Translator
-
-            form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).askToDeleteCurrentRecord("Are you sure you want to delete this customer?");
             return;
         }
-
-        // else if (record.getBlockName() != null
-        // &&
-        // ((record.getBlockName().equals(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID))
-        // || record.getBlockName().equals(
-        // F_MIAP001.B_CUSTOMER_CONTACT_TOOLBAR.ID)))
-        // {
-        // if (F_MIAP001.AC_TOOLBAR_NEW.equals(command))
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID).enterInsert(false);
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_EDIT.equals(command))
-        // {
-        // EJBlock contactBlock =
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID);
-        // contactBlock.enterUpdate();
-        // // validate the customer contact screen toolbar
-        // validateContactType(screenType, contactBlock);
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_DELETE.equals(command) &&
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID).getFocusedRecord()
-        // != null)
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact?");
-        // return;
-        // }
-        // }
-        // else if (record.getBlockName() != null
-        // &&
-        // ((record.getBlockName().equals(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID))
-        // || record.getBlockName().equals(
-        // F_MIAP001.B_CUSTOMER_PROJECTS_TOOLBAR.ID)))
-        // {
-        // if (F_MIAP001.AC_TOOLBAR_NEW.equals(command))
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).enterInsert(false);
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_EDIT.equals(command))
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).enterUpdate();
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_DELETE.equals(command) &&
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).getFocusedRecord()
-        // != null)
-        // {
-        // // before deleting the selected record from database validate and
-        // check if the
-        // // record to be deleted has any FK constraints usage with other table
-        // data and if so
-        // // throw an exception and block physical delete
-        // ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).getFocusedRecord(),
-        // "CUSTOMER_PROJECTS");
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).askToDeleteCurrentRecord("Are you sure you want to delete this project?");
-        // return;
-        // }
-        // }
     }
 
     /**
@@ -185,6 +126,9 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
      */
     private void validateContactType(EJScreenType screenType, EJBlock contactBlock)
     {
+        
+        
+        
         // if (screenType != null && contactBlock != null)
         // {
         // EJRecord currentUpdateRecord =

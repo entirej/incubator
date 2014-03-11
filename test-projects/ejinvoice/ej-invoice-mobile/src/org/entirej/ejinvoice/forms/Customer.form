@@ -45,7 +45,7 @@
                 <verticalSpan>1</verticalSpan>
                 <expandHorizontally>true</expandHorizontally>
                 <expandVertically>true</expandVertically>
-                <popupPageTitle></popupPageTitle>
+                <popupPageTitle><![CDATA[Contacts]]></popupPageTitle>
                 <buttonOneText></buttonOneText>
                 <buttonTwoText></buttonTwoText>
                 <buttonThreeText></buttonThreeText>
@@ -1624,7 +1624,7 @@
                 <blockRendererProperties>
                     <property name="ROW_SELECTION_ACTION" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     <property name="ROW_SELECTION" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                    <property name="ROW_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[140]]></property>
+                    <property name="ROW_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[110]]></property>
                     <property name="FILTER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                 </blockRendererProperties>
                 <queryScreenRendererProperties>
@@ -1889,6 +1889,23 @@
                             <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
                         </itemRendererProperties>
                     </item>
+                    <item name="fullName">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="KEYBOARD" multilingual="false" propertyType="STRING"><![CDATA[ASCII]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
                 </itemList>
                 <mainScreenProperties>
                     <displayFrame>false</displayFrame>
@@ -1960,8 +1977,8 @@
                                         <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
-                                <item referencedItemName="firstName" isSpacerItem="false">
-                                    <label><![CDATA[First Name]]></label>
+                                <item referencedItemName="fullName" isSpacerItem="false">
+                                    <label><![CDATA[Full Name]]></label>
                                     <hint></hint>
                                     <editAllowed>false</editAllowed>
                                     <visible>true</visible>
@@ -1972,36 +1989,13 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
-                                        <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[35]]></property>
-                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="lastName" isSpacerItem="false">
-                                    <label><![CDATA[Last Name]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
@@ -2026,7 +2020,7 @@
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="phone" isSpacerItem="false">
@@ -2045,7 +2039,7 @@
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
-                                        <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[200]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[60]]></property>
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
@@ -2065,14 +2059,14 @@
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
-                                        <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[140]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
-                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
+                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="mobile" isSpacerItem="false">
@@ -2088,18 +2082,18 @@
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
-                                        <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[90]]></property>
-                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
+                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
+                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
                                         <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="emailLabel" isSpacerItem="false">
-                                    <label><![CDATA[Email Label]]></label>
+                                    <label><![CDATA[Email:]]></label>
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
@@ -2111,14 +2105,14 @@
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[0]]></property>
-                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[105]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
+                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="email" isSpacerItem="false">
@@ -2134,13 +2128,13 @@
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
-                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[105]]></property>
+                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[60]]></property>
+                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
                                         <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -2220,19 +2214,19 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <insertScreenRendererItemProperties>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <propertyGroup name="EXTRA_BUTTONS">
                                             <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
@@ -2300,19 +2294,19 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <insertScreenRendererItemProperties>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <propertyGroup name="EXTRA_BUTTONS">
                                             <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
@@ -2422,19 +2416,19 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <insertScreenRendererItemProperties>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <propertyGroup name="EXTRA_BUTTONS">
                                             <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
@@ -2502,19 +2496,19 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <insertScreenRendererItemProperties>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <propertyGroup name="EXTRA_BUTTONS">
                                             <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
@@ -2582,19 +2576,19 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <insertScreenRendererItemProperties>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <propertyGroup name="EXTRA_BUTTONS">
                                             <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
