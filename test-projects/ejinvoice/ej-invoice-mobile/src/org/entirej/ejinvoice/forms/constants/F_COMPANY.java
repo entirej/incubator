@@ -69,6 +69,9 @@ public class F_COMPANY
     public static final String C_COMPANY_DETAIL_POPUP = "CompanyDetailPopup";
     public static final String C_COMPANY_DETAIL       = "CompanyDetail";
 
+    public static final String AC_DELETE              = "DELETE";
+    public static final String AC_EDIT                = "EDIT";
+    public static final String AC_NEW                 = "NEW";
     public static final String AC_SHOW_BANK_DETAILS   = "SHOW_BANK_DETAILS";
 
 }

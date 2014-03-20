@@ -54,7 +54,17 @@ public class F_MASTER_DATA
 
     }
 
-    public static final String C_PAGES         = "pages";
+    public static final String C_FORMS = "forms";
+
+    public static class C_FORMS_PAGES
+    {
+        public static final String CONTACT_TYPES = "ContactTypes";
+        public static final String PAYMENT_TERMS = "PaymentTerms";
+        public static final String VAT_RATES     = "VatRates";
+        public static final String SALUTATIONS   = "Salutations";
+
+    }
+
     public static final String C_CONTACT_TYPES = "ContactTypes";
     public static final String C_PAYMENT_TERMS = "PaymentTerms";
     public static final String C_VAT_RATES     = "VatRates";

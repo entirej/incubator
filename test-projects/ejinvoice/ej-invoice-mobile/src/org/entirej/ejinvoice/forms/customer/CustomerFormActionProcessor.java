@@ -65,6 +65,15 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
     }
 
     @Override
+    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_CUSTOMER.B_CUSTOMER_CONTACTS.ID.equals(record.getBlockName()))
+        {
+            record.getItem(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_FULL_NAME).setValue(record.getValue(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_FIRST_NAME) +" "+ record.getValue(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_LAST_NAME));
+        }
+    }
+
+    @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
         if (form.getFocusedBlock() == null)
@@ -73,7 +82,11 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
         }
         
         String blockName = form.getFocusedBlock().getName();
-        
+
+        if (F_CUSTOMER.AC_SHOW_CONTACTS.equals(command))
+        {
+            form.showPopupCanvas(F_CUSTOMER.C_CUSTOMER_CONTACTS_POPUP);
+        }
         if (F_CUSTOMER.AC_NEW.equals(command))
         {
             if (F_CUSTOMER.B_CUSTOMER.ID.equals(blockName))

@@ -97,6 +97,7 @@
         <visualAttribute name="data">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
@@ -105,6 +106,7 @@
         <visualAttribute name="dataBold">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
@@ -113,6 +115,7 @@
         <visualAttribute name="description">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor><![CDATA[r128g128b128]]></foregroundColor>
@@ -121,9 +124,28 @@
         <visualAttribute name="title">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>30</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Underline]]></style>
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="dataBold150">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>50</fontSize>
+            <fontSizeAsPercentage>true</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="bold">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor></foregroundColor>
             <backgroundColor></backgroundColor>
         </visualAttribute>
     </visualAttributes>
