@@ -1,4 +1,4 @@
-package org.entirej.ejinvoice.forms.masterdata;
+package org.entirej.ejinvoice.forms.blockservices.pojos;
 
 import java.math.BigDecimal;
 import org.entirej.framework.core.EJFieldName;

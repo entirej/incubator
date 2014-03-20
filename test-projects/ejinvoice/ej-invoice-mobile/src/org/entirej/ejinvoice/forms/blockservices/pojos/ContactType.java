@@ -16,16 +16,36 @@
  * Contributors:
  *     Mojave Innovations GmbH - initial API and implementation
  ******************************************************************************/
-package org.entirej.ejinvoice.forms.masterdata;
+package org.entirej.ejinvoice.forms.blockservices.pojos;
 
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
-public class PaymentTerm
+public class ContactType
 {
+    private EJPojoProperty<String>  _type;
     private EJPojoProperty<Integer> _id;
     private EJPojoProperty<Integer> _userId;
-    private EJPojoProperty<String>  _paymentTerms;
+    private EJPojoProperty<String>  _description;
+    
+
+    @EJFieldName("TYPE")
+    public String getType()
+    {
+        return EJPojoProperty.getPropertyValue(_type);
+    }
+
+    @EJFieldName("TYPE")
+    public void setType(String type)
+    {
+        _type = EJPojoProperty.setPropertyValue(_type, type);
+    }
+
+    @EJFieldName("TYPE")
+    public String getInitialType()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_type);
+    }
 
     @EJFieldName("ID")
     public Integer getId()
@@ -44,7 +64,7 @@ public class PaymentTerm
     {
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
-    
+
     @EJFieldName("USER_ID")
     public Integer getUserId()
     {
@@ -62,30 +82,31 @@ public class PaymentTerm
     {
         return EJPojoProperty.getPropertyInitialValue(_userId);
     }
-
-    @EJFieldName("PAYMENT_TERMS")
-    public String getPaymentTerms()
+    
+    @EJFieldName("DESCRIPTION")
+    public String getDescription()
     {
-        return EJPojoProperty.getPropertyValue(_paymentTerms);
+        return EJPojoProperty.getPropertyValue(_description);
     }
 
-    @EJFieldName("PAYMENT_TERMS")
-    public void setPaymentTerms(String paymentTerms)
+    @EJFieldName("DESCRIPTION")
+    public void setDescription(String description)
     {
-        _paymentTerms = EJPojoProperty.setPropertyValue(_paymentTerms, paymentTerms);
+        _description = EJPojoProperty.setPropertyValue(_description, description);
     }
 
-    @EJFieldName("PAYMENT_TERMS")
-    public String getInitialPaymentTerms()
+    @EJFieldName("DESCRIPTION")
+    public String getInitialDescription()
     {
-        return EJPojoProperty.getPropertyInitialValue(_paymentTerms);
+        return EJPojoProperty.getPropertyInitialValue(_description);
     }
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_type);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_userId);
-        EJPojoProperty.clearInitialValue(_paymentTerms);
+        EJPojoProperty.clearInitialValue(_description);
     }
 
 }

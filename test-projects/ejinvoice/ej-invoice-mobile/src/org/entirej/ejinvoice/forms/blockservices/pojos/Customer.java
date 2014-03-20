@@ -16,7 +16,7 @@
  * Contributors:
  *     Mojave Innovations GmbH - initial API and implementation
  ******************************************************************************/
-package org.entirej.ejinvoice.forms.customer;
+package org.entirej.ejinvoice.forms.blockservices.pojos;
 
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;

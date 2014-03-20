@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.blockservices.pojos.ContactType;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJQueryCriteria;

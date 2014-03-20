@@ -1,9 +1,10 @@
-package org.entirej.ejinvoice.forms.customer;
+package org.entirej.ejinvoice.forms.blockservices;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
+import org.entirej.ejinvoice.forms.blockservices.pojos.CustomerContact;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;

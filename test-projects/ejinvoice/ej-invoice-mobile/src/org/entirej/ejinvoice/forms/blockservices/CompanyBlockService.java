@@ -1,10 +1,10 @@
-package org.entirej.ejinvoice.forms.company;
+package org.entirej.ejinvoice.forms.blockservices;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
-import org.entirej.ejinvoice.forms.company.Company;
+import org.entirej.ejinvoice.forms.blockservices.pojos.Company;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;

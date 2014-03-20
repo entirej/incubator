@@ -67,7 +67,7 @@
                 <deleteAllowed>true</deleteAllowed>
                 <canvasName><![CDATA[Companies]]></canvasName>
                 <blockRendererName><![CDATA[MultiRecord]]></blockRendererName>
-                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.company.CompanyBlockService]]></serviceClassName>
+                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.blockservices.CompanyBlockService]]></serviceClassName>
                 <actionProcessorClassName></actionProcessorClassName>
                 <queryAllRows>false</queryAllRows>
                 <maxResults>0</maxResults>
@@ -75,8 +75,8 @@
                 <applicationProperties>
                 </applicationProperties>
                 <blockRendererProperties>
-                    <property name="ROW_SELECTION_ACTION" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     <property name="ROW_SELECTION" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="ROW_SELECTION_ACTION" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     <property name="ROW_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[140]]></property>
                     <property name="FILTER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                 </blockRendererProperties>
@@ -86,8 +86,8 @@
                     <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                     <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                     <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                     <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                     <propertyList name="PAGE_ACTIONS">
                     </propertyList>
                 </queryScreenRendererProperties>
@@ -97,8 +97,8 @@
                     <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                     <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                     <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                     <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                     <propertyList name="PAGE_ACTIONS">
                     </propertyList>
                     <propertyGroup name="EXTRA_BUTTONS">
@@ -107,10 +107,10 @@
                         <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     </propertyGroup>
                 </insertScreenRendererProperties>
@@ -120,8 +120,8 @@
                     <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                     <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                     <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                     <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                     <propertyList name="PAGE_ACTIONS">
                     </propertyList>
                     <propertyGroup name="EXTRA_BUTTONS">
@@ -130,10 +130,10 @@
                         <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     </propertyGroup>
                 </updateScreenRendererProperties>
@@ -450,8 +450,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
@@ -473,8 +473,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[150]]></property>
@@ -496,8 +496,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[75]]></property>
@@ -519,8 +519,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
@@ -542,8 +542,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
@@ -565,8 +565,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
@@ -588,8 +588,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
@@ -611,8 +611,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
@@ -634,8 +634,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
@@ -657,8 +657,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[SHOW_BANK_DETAILS]]></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
@@ -707,8 +707,8 @@
                 <blockRendererProperties>
                     <propertyGroup name="TITLE_BAR">
                         <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                        <property name="TITLE" multilingual="false" propertyType="STRING"></property>
                         <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE" multilingual="false" propertyType="STRING"></property>
                         <propertyList name="TITLE_BAR_ACTIONS">
                         </propertyList>
                     </propertyGroup>
@@ -720,8 +720,8 @@
                     <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                     <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                     <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                     <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                 </queryScreenRendererProperties>
                 <insertScreenRendererProperties>
                     <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
@@ -730,18 +730,18 @@
                     <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[OK]]></property>
                     <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[Cancel]]></property>
                     <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[500]]></property>
                     <property name="TITLE" multilingual="true" propertyType="STRING"><![CDATA[New Company]]></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[500]]></property>
                     <propertyGroup name="EXTRA_BUTTONS">
                         <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     </propertyGroup>
                 </insertScreenRendererProperties>
@@ -752,18 +752,18 @@
                     <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[Ok]]></property>
                     <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[Cancel]]></property>
                     <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[500]]></property>
                     <property name="TITLE" multilingual="true" propertyType="STRING"><![CDATA[Edit Company]]></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[500]]></property>
                     <propertyGroup name="EXTRA_BUTTONS">
                         <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                         <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                         <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     </propertyGroup>
                 </updateScreenRendererProperties>
@@ -913,8 +913,8 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                             <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="KEYBOARD" multilingual="false" propertyType="STRING"><![CDATA[NUMBERS]]></property>
                         </itemRendererProperties>
@@ -1105,10 +1105,10 @@
                         <defaultInsertValue></defaultInsertValue>
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
-                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
-                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
@@ -1171,12 +1171,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[title]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1195,12 +1195,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1217,10 +1217,10 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -1236,10 +1236,10 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -1257,12 +1257,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1281,12 +1281,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1305,12 +1305,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1329,12 +1329,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1353,12 +1353,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1377,12 +1377,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1399,10 +1399,10 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -1420,12 +1420,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[title]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1444,12 +1444,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1468,12 +1468,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1492,12 +1492,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1516,12 +1516,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1540,12 +1540,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1564,12 +1564,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1588,12 +1588,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1612,12 +1612,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1636,12 +1636,12 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
@@ -1692,8 +1692,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[title]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -1704,10 +1704,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -1734,8 +1734,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -1746,10 +1746,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -1765,29 +1765,29 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <insertScreenRendererItemProperties>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
                                         <propertyGroup name="EXTRA_BUTTONS">
                                             <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -1815,8 +1815,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -1827,10 +1827,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -1858,8 +1858,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -1870,10 +1870,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -1901,8 +1901,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -1913,10 +1913,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -1944,8 +1944,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -1956,10 +1956,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -1987,8 +1987,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -1999,10 +1999,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2030,8 +2030,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2042,10 +2042,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2073,8 +2073,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2085,10 +2085,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2116,8 +2116,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2128,10 +2128,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2159,8 +2159,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2171,10 +2171,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2202,8 +2202,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2214,10 +2214,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2245,8 +2245,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[title]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2257,10 +2257,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2288,8 +2288,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2300,10 +2300,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2331,8 +2331,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2343,10 +2343,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2374,8 +2374,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2386,10 +2386,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2417,8 +2417,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2429,10 +2429,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2460,8 +2460,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2472,10 +2472,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2503,8 +2503,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2515,10 +2515,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2546,8 +2546,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2558,10 +2558,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2589,8 +2589,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2601,10 +2601,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2632,8 +2632,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2644,10 +2644,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
@@ -2694,8 +2694,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[title]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2706,10 +2706,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -2737,8 +2737,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2749,10 +2749,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -2780,8 +2780,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2792,10 +2792,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -2823,8 +2823,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2835,10 +2835,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -2866,8 +2866,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2878,10 +2878,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -2909,8 +2909,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2921,10 +2921,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -2952,8 +2952,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -2964,10 +2964,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -2995,8 +2995,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3007,10 +3007,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3038,8 +3038,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3050,10 +3050,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3081,8 +3081,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3093,10 +3093,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3124,8 +3124,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3136,10 +3136,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3167,8 +3167,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[title]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3179,10 +3179,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3210,8 +3210,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3222,10 +3222,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3253,8 +3253,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3265,10 +3265,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3296,8 +3296,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3308,10 +3308,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3339,8 +3339,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3351,10 +3351,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3382,8 +3382,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3394,10 +3394,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3425,8 +3425,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3437,10 +3437,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3468,8 +3468,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3480,10 +3480,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3511,8 +3511,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3523,10 +3523,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
@@ -3554,8 +3554,8 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
                                         <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
@@ -3566,10 +3566,10 @@
                                             <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
                                             <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                             <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>

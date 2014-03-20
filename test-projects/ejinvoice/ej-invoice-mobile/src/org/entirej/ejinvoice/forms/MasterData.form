@@ -108,7 +108,7 @@
                 <deleteAllowed>true</deleteAllowed>
                 <canvasName><![CDATA[ContactTypes]]></canvasName>
                 <blockRendererName><![CDATA[MultiRecord]]></blockRendererName>
-                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.masterdata.ContactTypeBlockService]]></serviceClassName>
+                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.blockservices.ContactTypeBlockService]]></serviceClassName>
                 <actionProcessorClassName></actionProcessorClassName>
                 <queryAllRows>false</queryAllRows>
                 <maxResults>0</maxResults>
@@ -588,7 +588,7 @@
                 <deleteAllowed>true</deleteAllowed>
                 <canvasName><![CDATA[PaymentTerms]]></canvasName>
                 <blockRendererName><![CDATA[MultiRecord]]></blockRendererName>
-                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.masterdata.PaymentTermBlockService]]></serviceClassName>
+                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.blockservices.PaymentTermBlockService]]></serviceClassName>
                 <actionProcessorClassName></actionProcessorClassName>
                 <queryAllRows>false</queryAllRows>
                 <maxResults>0</maxResults>
@@ -890,7 +890,7 @@
                 <deleteAllowed>true</deleteAllowed>
                 <canvasName><![CDATA[VatRates]]></canvasName>
                 <blockRendererName><![CDATA[MultiRecord]]></blockRendererName>
-                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.masterdata.VatRateBlockService]]></serviceClassName>
+                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.blockservices.VatRateBlockService]]></serviceClassName>
                 <actionProcessorClassName></actionProcessorClassName>
                 <queryAllRows>false</queryAllRows>
                 <maxResults>0</maxResults>
@@ -1513,7 +1513,7 @@
                 <deleteAllowed>true</deleteAllowed>
                 <canvasName><![CDATA[Salutations]]></canvasName>
                 <blockRendererName><![CDATA[MultiRecord]]></blockRendererName>
-                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.masterdata.SalutationBlockService]]></serviceClassName>
+                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.blockservices.SalutationBlockService]]></serviceClassName>
                 <actionProcessorClassName></actionProcessorClassName>
                 <queryAllRows>false</queryAllRows>
                 <maxResults>0</maxResults>
