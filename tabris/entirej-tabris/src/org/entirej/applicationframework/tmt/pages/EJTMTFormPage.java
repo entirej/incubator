@@ -77,7 +77,11 @@ public class EJTMTFormPage extends AbstractPage
             
         }
     }
-    
+    @Override
+    public void activate()
+    {
+        form.getFormController().getRenderer().gainInitialFocus();
+    }
     
     public static String toFormPageID(String name)
     {

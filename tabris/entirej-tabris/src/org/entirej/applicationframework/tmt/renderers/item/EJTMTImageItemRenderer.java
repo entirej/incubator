@@ -28,20 +28,24 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ColumnLabelProvider;
 import org.eclipse.rap.rwt.template.Cell;
 import org.eclipse.rap.rwt.template.ImageCell;
-import org.eclipse.rap.rwt.template.Template;
 import org.eclipse.rap.rwt.template.ImageCell.ScaleMode;
+import org.eclipse.rap.rwt.template.Template;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.entirej.applicationframework.tmt.application.EJTMTImageRetriever;
+import org.entirej.applicationframework.tmt.layout.EJTMTEntireJGridPane;
 import org.entirej.applicationframework.tmt.renderer.interfaces.EJTMTAppItemRenderer;
 import org.entirej.applicationframework.tmt.renderers.item.definition.interfaces.EJTMTImageItemRendererDefinitionProperties;
 import org.entirej.applicationframework.tmt.table.EJTMTAbstractTableSorter;
@@ -154,7 +158,7 @@ public class EJTMTImageItemRenderer implements EJTMTAppItemRenderer, FocusListen
     @Override
     public Control getGuiComponent()
     {
-        return _labelField;
+        return _labelField.getParent();
     }
 
     @Override
@@ -385,10 +389,27 @@ public class EJTMTImageItemRenderer implements EJTMTAppItemRenderer, FocusListen
         style = getComponentStyle(alignmentProperty, style);
 
         final String label = _screenItemProperties.getLabel();
-        final Label labelField = new Label(composite, style);
-
         
-         labelField.setImage(_defaultImage );
+        EJTMTEntireJGridPane sub = new EJTMTEntireJGridPane(composite, 1);
+        sub.cleanLayout();
+        new Label(sub, SWT.NONE).setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true));
+        
+       
+        final Label labelField = new Label(sub, style);
+        labelField.setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, false));
+        new Label(sub, SWT.NONE).setLayoutData(new GridData(SWT.CENTER, SWT.CENTER, true, true));
+        
+        String pictureName = _rendererProps.getStringProperty(EJTMTImageItemRendererDefinitionProperties.PROPERTY_IMAGE);
+
+        if (pictureName != null && pictureName.length() > 0)
+        {
+            if (pictureName != null && pictureName.trim().length() > 0)
+            {
+                _defaultImage = EJTMTImageRetriever.get(pictureName);
+            }
+        }
+        
+        
         
 
         _labelField = labelField;
@@ -406,6 +427,16 @@ public class EJTMTImageItemRenderer implements EJTMTAppItemRenderer, FocusListen
         _mandatoryDecoration.setDescriptionText(_screenItemProperties.getLabel() == null || _screenItemProperties.getLabel().isEmpty() ? "Required Item"
                 : String.format("%s is required", _screenItemProperties.getLabel()));
         _errorDecoration.hide();
+        _labelField.setImage(_defaultImage = EJTMTImageRetriever.get(pictureName));
+        _labelField.addMouseListener(new MouseAdapter()
+        {
+            @Override
+            public void mouseUp(MouseEvent e)
+            {
+                _item.executeActionCommand();
+            
+            }
+        });
         _labelField.addDisposeListener(new DisposeListener()
         {
             @Override

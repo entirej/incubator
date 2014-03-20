@@ -781,6 +781,12 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     addExtraButton(parent, button1Label, ID_BUTTON_1);
                 }
 
+                @Override
+                public void open()
+                {
+                    setFocus(canvasProperties);
+                }
+                
                 private void addExtraButton(Composite parent, String label, int id)
                 {
                     if (label == null || label.length() == 0)
@@ -807,6 +813,7 @@ public class EJTMTFormRenderer implements EJTMTAppFormRenderer
                     {
                         // configuration.removePageConfiguration(pageID);
                     }
+                    
                 }
 
                 @Override
