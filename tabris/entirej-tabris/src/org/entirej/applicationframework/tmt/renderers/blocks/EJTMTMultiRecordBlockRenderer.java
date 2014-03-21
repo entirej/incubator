@@ -34,6 +34,8 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.ImageCell;
+import org.eclipse.rap.rwt.template.ImageCell.ScaleMode;
 import org.eclipse.rap.rwt.template.Template;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.FocusEvent;
@@ -948,6 +950,14 @@ public class EJTMTMultiRecordBlockRenderer implements EJTMTAppBlockRenderer, Key
                 column.setData("KEY", itemProps.getReferencedItemName());
                 column.setToolTipText(itemProps.getHint());
 
+                if(columnCell instanceof ImageCell)
+                {
+                    if(width>0 & height>0)
+                    {
+                        ((ImageCell)columnCell).setScaleMode(ScaleMode.FILL);
+                    }
+                }
+                
                 if(width>0)
                 {
                     if((left==-1 && right!=-1) || EJTMTMultiRecordBlockDefinitionProperties.COLUMN_ALLIGN_RIGHT.equals(blockProperties

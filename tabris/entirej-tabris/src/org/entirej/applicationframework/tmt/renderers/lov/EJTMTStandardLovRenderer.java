@@ -36,7 +36,9 @@ import org.eclipse.jface.viewers.TableViewerColumn;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.template.Cell;
+import org.eclipse.rap.rwt.template.ImageCell;
 import org.eclipse.rap.rwt.template.Template;
+import org.eclipse.rap.rwt.template.ImageCell.ScaleMode;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -660,6 +662,15 @@ public class EJTMTStandardLovRenderer implements EJLovRenderer
                 int right = blockProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_RIGHT, -1);
                 int bottom = blockProperties.getIntProperty(EJTMTMultiRecordBlockDefinitionProperties.CELL_BOTTOM, -1);
 
+                if(columnCell instanceof ImageCell)
+                {
+                    if(width>0 & height>0)
+                    {
+                        ((ImageCell)columnCell).setScaleMode(ScaleMode.FILL);
+                    }
+                }
+               
+                
                 String visualAttribute = blockProperties.getStringProperty(EJTMTMultiRecordBlockDefinitionProperties.VISUAL_ATTRIBUTE_PROPERTY);
 
                 if (visualAttribute != null)

@@ -581,7 +581,6 @@ public class EJTMTImageItemRenderer implements EJTMTAppItemRenderer, FocusListen
     public Cell<? extends Cell<?>> createColumnCell(EJScreenItemProperties item, EJScreenItemController controller,Template template )
     {
         ImageCell imageCell = new ImageCell(template);
-        imageCell.setScaleMode(ScaleMode.FILL);
         return imageCell;
     }
     
