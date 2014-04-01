@@ -61,8 +61,6 @@
                 </stackedPageList>
             </canvas>
         </canvasList>
-        <objGroupDefinitionList>
-        </objGroupDefinitionList>
         <blockList>
             <block name="logon" referenced="false" controlBlock="true">
                 <isMirrored>false</isMirrored>
@@ -262,6 +260,8 @@
                             <yspan>1</yspan>
                             <expandHorizontally>false</expandHorizontally>
                             <expandVertically>false</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                             <rendererProperties>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
@@ -307,6 +307,8 @@
                             <yspan>1</yspan>
                             <expandHorizontally>false</expandHorizontally>
                             <expandVertically>false</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[CENTER]]></horizontalAlignment>
                             <rendererProperties>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
@@ -779,6 +781,8 @@
                             <yspan>1</yspan>
                             <expandHorizontally>true</expandHorizontally>
                             <expandVertically>false</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                             <rendererProperties>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
@@ -824,6 +828,8 @@
                             <yspan>1</yspan>
                             <expandHorizontally>false</expandHorizontally>
                             <expandVertically>false</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                             <rendererProperties>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
@@ -1223,6 +1229,8 @@
                 </updateScreen>
             </block>
         </blockList>
+        <objGroupDefinitionList>
+        </objGroupDefinitionList>
         <relationList>
         </relationList>
         <lovDefinitionList>
