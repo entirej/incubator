@@ -18,7 +18,7 @@
  ******************************************************************************/
 package org.entirej.ejinvoice;
 
-import org.entirej.ejinvoice.referencedblocks.constants.F_STANDARD_TOOLBAR;
+import org.entirej.ejinvoice.referencedblocks.constants.RB_STANDARD_TOOLBAR;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -79,14 +79,14 @@ public class DefaultFormActionProcessor extends EJDefaultFormActionProcessor
         if (toolbarBlock != null)
         {
 
-            if (toolbarBlock.containsItem(F_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_EDIT))
+            if (toolbarBlock.containsItem(RB_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_EDIT))
             {
-                EJScreenItem editItem = toolbarBlock.getScreenItem(EJScreenType.MAIN, F_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_EDIT);
+                EJScreenItem editItem = toolbarBlock.getScreenItem(EJScreenType.MAIN, RB_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_EDIT);
                 editItem.setEditable(enable);
             }
-            if (toolbarBlock.containsItem(F_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_DELETE))
+            if (toolbarBlock.containsItem(RB_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_DELETE))
             {
-                EJScreenItem deleteItem = toolbarBlock.getScreenItem(EJScreenType.MAIN, F_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_DELETE);
+                EJScreenItem deleteItem = toolbarBlock.getScreenItem(EJScreenType.MAIN, RB_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_DELETE);
                 deleteItem.setEditable(enable);
             }
 
@@ -105,9 +105,9 @@ public class DefaultFormActionProcessor extends EJDefaultFormActionProcessor
      */
     public void validateToolbarCreateState(final EJBlock toolbarBlock, boolean enable)
     {
-        if (toolbarBlock.containsItem(F_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_NEW))
+        if (toolbarBlock.containsItem(RB_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_NEW))
         {
-            EJScreenItem newItem = toolbarBlock.getScreenItem(EJScreenType.MAIN, F_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_NEW);
+            EJScreenItem newItem = toolbarBlock.getScreenItem(EJScreenType.MAIN, RB_STANDARD_TOOLBAR.B_STANDARD_TOOLBAR.I_NEW);
             newItem.setEditable(enable);
         }
     }

@@ -25,7 +25,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
-import org.entirej.ejinvoice.referencedlovdefs.constants.F_CONTACT_TYPES;
+import org.entirej.ejinvoice.referencedlovdefs.constants.RL_CONTACT_TYPES;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -48,7 +48,7 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
         // filter the contact type grid to display only records that
         // does not include ContactTypesService.MAIN as type
         EJQueryCriteria queryCriteria = new EJQueryCriteria();
-        queryCriteria.add(EJRestrictions.notEquals(F_CONTACT_TYPES.L_CONTACT_TYPES.I_TYPE, ContactTypesService.MAIN));
+        queryCriteria.add(EJRestrictions.notEquals(RL_CONTACT_TYPES.L_CONTACT_TYPES.I_TYPE, ContactTypesService.MAIN));
 
         form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery(queryCriteria);
     }
