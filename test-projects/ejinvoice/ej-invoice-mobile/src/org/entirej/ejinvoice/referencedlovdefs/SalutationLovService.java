@@ -1,20 +1,14 @@
 package org.entirej.ejinvoice.referencedlovdefs;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.forms.login.User;
-import org.entirej.ejinvoice.referencedlovdefs.Salutation;
-import org.entirej.ejinvoice.referencedlovdefs.constants.F_SALUTATIONS;
-import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
-import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
-import org.entirej.framework.core.service.EJStatementParameter;
 
 public class SalutationLovService implements EJBlockService<Salutation>
 {
