@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entirejFramework>
-    <version><![CDATA[2.0]]></version>
+    <version><![CDATA[2.2]]></version>
     <applicationManager><![CDATA[org.entirej.applicationframework.rwt.application.EJRWTApplicationManager]]></applicationManager>
     <applicationManagerDefinition><![CDATA[org.entirej.applicationframework.rwt.renderers.application.EJRWTApplicationDefinition]]></applicationManagerDefinition>
     <connectionFactoryClassName><![CDATA[org.entirej.ejinvoice.database.ConnectionFactory]]></connectionFactoryClassName>
@@ -15,38 +15,39 @@
     </applicationLevelParameterList>
     <applicationDefinedProperties>
         <property name="DISPLAY_TAB_BORDER" multilingual="false" propertyType="BOOLEAN"></property>
+        <property name="APPLICATION_MENU" multilingual="false" propertyType="MENU_GROUP"></property>
         <propertyGroup name="APP_MESSAGING">
             <propertyGroup name="APP_MSG_WARNING">
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
-            </propertyGroup>
-            <propertyGroup name="APP_MSG_HINT">
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_INFO">
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[NOTIFICATION]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+            </propertyGroup>
+            <propertyGroup name="APP_MSG_HINT">
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_ERROR">
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup name="ACTION_GROUP">
-            <property name="KEY_QUERY" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+Q]]></property>
             <property name="KEY_DELETE" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+D]]></property>
-            <property name="KEY_UPDATE" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+U]]></property>
             <property name="KEY_LOV" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+ARROW_DOWN]]></property>
-            <property name="KEY_REFRESH" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+R]]></property>
+            <property name="KEY_UPDATE" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+U]]></property>
+            <property name="KEY_QUERY" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+Q]]></property>
             <property name="KEY_INSERT" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+I]]></property>
+            <property name="KEY_REFRESH" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+R]]></property>
         </propertyGroup>
     </applicationDefinedProperties>
     <packages>
@@ -61,6 +62,7 @@
             <renderer name="MultiRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.blocks.EJRWTMultiRecordBlockRenderer"/>
             <renderer name="TreeRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.blocks.EJRWTTreeRecordBlockRenderer"/>
             <renderer name="TreeTableRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.blocks.EJRWTTreeTableRecordBlockRenderer"/>
+            <renderer name="HTMLMultiRecord" rendererClassName="org.entirej.applicationframework.rwt.renderers.html.EJRWTHtmlTableBlockRenderer"/>
         </blockRenderers>
         <itemRenderers>
             <renderer name="TextItem" rendererClassName="org.entirej.applicationframework.rwt.renderers.item.EJRWTTextItemRenderer">
@@ -84,6 +86,8 @@
             <renderer name="CheckBoxItem" rendererClassName="org.entirej.applicationframework.rwt.renderers.item.EJRWTCheckBoxItemRenderer">
             </renderer>
             <renderer name="ImageItem" rendererClassName="org.entirej.applicationframework.rwt.renderers.item.EJRWTImageItemRenderer">
+            </renderer>
+            <renderer name="ListItem" rendererClassName="org.entirej.applicationframework.rwt.renderers.item.EJRWTListItemRenderer">
             </renderer>
         </itemRenderers>
         <lovRenderers>
@@ -149,15 +153,15 @@
                             <property name="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
                             <property name="EXPAND_X"><![CDATA[true]]></property>
                             <property name="ALIGNMENT"><![CDATA[LEFT]]></property>
-                            <property name="PARAMETER"><![CDATA[email]]></property>
                             <property name="WIDTH"><![CDATA[100]]></property>
+                            <property name="PARAMETER"><![CDATA[email]]></property>
                         </listEntry>
                         <listEntry>
                             <property name="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
                             <property name="EXPAND_X"><![CDATA[true]]></property>
                             <property name="ALIGNMENT"><![CDATA[RIGHT]]></property>
-                            <property name="PARAMETER"><![CDATA[name]]></property>
                             <property name="WIDTH"><![CDATA[100]]></property>
+                            <property name="PARAMETER"><![CDATA[name]]></property>
                         </listEntry>
                     </propertyList>
                 </rendererProperties>
@@ -168,6 +172,7 @@
         <visualAttribute name="data">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
@@ -176,6 +181,7 @@
         <visualAttribute name="dataBold">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
@@ -184,6 +190,7 @@
         <visualAttribute name="titleLarge">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>20</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
@@ -192,6 +199,7 @@
         <visualAttribute name="titleMedium">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>18</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
@@ -200,6 +208,7 @@
         <visualAttribute name="titleSmall">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>13</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
@@ -208,6 +217,7 @@
         <visualAttribute name="dataPaid">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor><![CDATA[r255g255b255]]></foregroundColor>
@@ -216,6 +226,7 @@
         <visualAttribute name="dataDraft">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor><![CDATA[r255g255b255]]></foregroundColor>
@@ -224,6 +235,7 @@
         <visualAttribute name="dataOverdue">
             <fontName><![CDATA[Unspecified]]></fontName>
             <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor><![CDATA[r255g255b255]]></foregroundColor>
