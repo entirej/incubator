@@ -3,7 +3,6 @@ package org.entirej.ejinvoice.forms.company;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
-import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;

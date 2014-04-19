@@ -43,6 +43,17 @@ public class F_LOGIN
 
     }
 
+    public static class B_LAUNCHER
+    {
+        public static final String ID           = "launcher";
+        public static final String I_INVOICES   = "invoices";
+        public static final String I_MASTERDATA = "masterdata";
+        public static final String I_CUSTOMERS  = "customers";
+        public static final String I_COMPANY    = "company";
+        public static final String I_PROJECTS   = "projects";
+
+    }
+
     public static final String C_STACKED = "stacked";
 
     public static class C_STACKED_PAGES
@@ -50,19 +61,26 @@ public class F_LOGIN
         public static final String LOGON    = "logon";
         public static final String REGISTER = "register";
         public static final String FORGOT   = "forgot";
+        public static final String LAUNCHER = "launcher";
 
     }
 
-    public static final String C_LOGON          = "logon";
-    public static final String C_REGISTER       = "register";
-    public static final String C_FORGOT         = "forgot";
+    public static final String C_LOGON                  = "logon";
+    public static final String C_REGISTER               = "register";
+    public static final String C_FORGOT                 = "forgot";
+    public static final String C_LAUNCHER               = "launcher";
 
-    public static final String AC_CANCEL_SIGNUP = "CANCEL_SIGNUP";
-    public static final String AC_FORGOT        = "FORGOT";
-    public static final String AC_LOGIN         = "LOGIN";
-    public static final String AC_LOGIN_EJ      = "LOGIN_EJ";
-    public static final String AC_LOGON         = "LOGON";
-    public static final String AC_REGISTER      = "REGISTER";
-    public static final String AC_SIGNUP        = "SIGNUP";
+    public static final String AC_FORGOT                = "FORGOT";
+    public static final String AC_LOGIN                 = "LOGIN";
+    public static final String AC_LOGIN_EJ              = "LOGIN_EJ";
+    public static final String AC_LOGON                 = "LOGON";
+    public static final String AC_LOGOUT                = "LOGOUT";
+    public static final String AC_OPEN_COMPANIES        = "OPEN_COMPANIES";
+    public static final String AC_OPEN_CUSTOMERS        = "OPEN_CUSTOMERS";
+    public static final String AC_OPEN_INVOICE_OVERVIEW = "OPEN_INVOICE_OVERVIEW";
+    public static final String AC_OPEN_MASTER_DATA      = "OPEN_MASTER_DATA";
+    public static final String AC_OPEN_PROJECTS         = "OPEN_PROJECTS";
+    public static final String AC_REGISTER              = "REGISTER";
+    public static final String AC_SIGNUP                = "SIGNUP";
 
 }

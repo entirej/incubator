@@ -23,13 +23,11 @@ package org.entirej.ejinvoice.forms.masterdata;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 

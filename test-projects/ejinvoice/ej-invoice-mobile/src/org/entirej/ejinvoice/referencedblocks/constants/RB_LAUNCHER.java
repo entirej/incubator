@@ -1,4 +1,4 @@
-package org.entirej.ejinvoice.forms.constants;
+package org.entirej.ejinvoice.referencedblocks.constants;
 
 /* AUTO-GENERATED FILE.  DO NOT MODIFY. 
  *
@@ -6,9 +6,9 @@ package org.entirej.ejinvoice.forms.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class F_LAUNCH_PAGE
+public class RB_LAUNCHER
 {
-    public static final String ID = "LaunchPage";
+    public static final String ID = "Launcher";
 
     public static class B_LAUNCHER
     {
@@ -20,8 +20,6 @@ public class F_LAUNCH_PAGE
         public static final String I_PROJECTS   = "projects";
 
     }
-
-    public static final String C_LAUNCHER               = "Launcher";
 
     public static final String AC_OPEN_COMPANIES        = "OPEN_COMPANIES";
     public static final String AC_OPEN_CUSTOMERS        = "OPEN_CUSTOMERS";
