@@ -29,14 +29,13 @@
                 <canvasName></canvasName>
                 <blockRendererName><![CDATA[SingleRecord]]></blockRendererName>
                 <serviceClassName></serviceClassName>
-                <actionProcessorClassName><![CDATA[org.entirej.ejinvoice.forms.launcher.LauncherActionProcessor]]></actionProcessorClassName>
+                <actionProcessorClassName></actionProcessorClassName>
                 <queryAllRows>false</queryAllRows>
                 <maxResults>0</maxResults>
                 <pageSize>0</pageSize>
                 <applicationProperties>
                 </applicationProperties>
                 <blockRendererProperties>
-
                 </blockRendererProperties>
                 <queryScreenRendererProperties>
                     <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>

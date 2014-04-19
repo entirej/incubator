@@ -5,7 +5,12 @@ import org.entirej.applicationframework.tmt.pages.EJTMTFormPageActions;
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.forms.constants.F_COMPANY;
+import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
+import org.entirej.ejinvoice.forms.constants.F_PROJECT;
+import org.entirej.ejinvoice.referencedblocks.constants.RB_LAUNCHER;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
@@ -20,9 +25,8 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
 
 
     @Override
-    public void newFormInstance(EJForm form) throws EJActionProcessorException
+    public void focusGained(EJForm form) throws EJActionProcessorException
     {
-        super.newFormInstance(form);
         EJApplicationLevelParameter userParameter = form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER);
         if(userParameter!=null && userParameter.getValue()!=null)
         {
@@ -32,12 +36,14 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
         {
             form.showStackedCanvasPage( F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.LOGON);
         }
-        
     }
+    
+
     
     @Override
     public void stackedPageChanged(EJForm form, String stackedCanvasName, String stackedPageName) throws EJActionProcessorException
     {
+     
         
         if(F_LOGIN.C_STACKED.equals(stackedCanvasName))
         {
@@ -83,6 +89,30 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        if(record!=null && record.getBlockName().equals(F_LOGIN.B_LAUNCHER.ID))
+        {
+            if (RB_LAUNCHER.AC_OPEN_INVOICE_OVERVIEW.equals(command))
+            {
+//                form.openForm(F_INVOICE_OVERVIEW.ID);
+            }
+            else if (RB_LAUNCHER.AC_OPEN_MASTER_DATA.equals(command))
+            {
+                form.openForm(F_MASTER_DATA.ID);
+            }
+            else if (RB_LAUNCHER.AC_OPEN_COMPANIES.equals(command))
+            {
+                form.openForm(F_COMPANY.ID);
+            }
+            else if (RB_LAUNCHER.AC_OPEN_CUSTOMERS.equals(command))
+            {
+                form.openForm(F_CUSTOMER.ID);
+            }
+            else if (RB_LAUNCHER.AC_OPEN_PROJECTS.equals(command))
+            {
+                form.openForm(F_PROJECT.ID);
+            }
+        }
+        
         if (F_LOGIN.AC_LOGIN_EJ.equals(command))
         {
             String username = "paul.harrison@mojave-i.com";
