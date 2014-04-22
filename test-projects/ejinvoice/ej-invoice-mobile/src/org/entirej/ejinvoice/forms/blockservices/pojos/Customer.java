@@ -36,7 +36,7 @@ public class Customer
     @EJFieldName("USER_ID")
     public Integer getUserId()
     {
-        return EJPojoProperty.getPropertyValue(_id);
+        return EJPojoProperty.getPropertyValue(_userId);
     }
 
     @EJFieldName("USER_ID")
