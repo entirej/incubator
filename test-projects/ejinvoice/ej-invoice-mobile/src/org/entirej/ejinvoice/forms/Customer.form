@@ -121,7 +121,7 @@
                     <property name="TITLE" multilingual="true" propertyType="STRING"><![CDATA[Edit Customer]]></property>
                     <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
                     <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[OK]]></property>
-                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                     <propertyList name="PAGE_ACTIONS">
                     </propertyList>
                     <propertyGroup name="EXTRA_BUTTONS">
@@ -330,10 +330,10 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[dataBold150]]></property>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
-                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
+                                        <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
@@ -358,7 +358,7 @@
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
                                         <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
@@ -429,7 +429,7 @@
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[105]]></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[120]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -444,7 +444,7 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
-                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[65]]></property>
+                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[130]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
@@ -452,7 +452,7 @@
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[105]]></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[150]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[120]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -467,7 +467,7 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
-                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[225]]></property>
+                                        <property name="C_LEFT" multilingual="false" propertyType="INTEGER"><![CDATA[255]]></property>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"></property>
@@ -475,7 +475,7 @@
                                         <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[105]]></property>
                                         <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[NONE]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[120]]></property>
                                         <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -495,11 +495,11 @@
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[SHOW_CONTACTS]]></property>
                                         <property name="C_RIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="H_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
-                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"><![CDATA[55]]></property>
+                                        <property name="C_TOP" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                                        <property name="C_BOTTOM" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="V_ALLIGN" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                                         <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                             </itemGroupItemList>

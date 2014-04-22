@@ -85,9 +85,9 @@
                 <VSpan>1</VSpan>
                 <renderer><![CDATA[FormPage]]></renderer>
                 <rendererProperties>
-                    <property name="PAGE_ID" multilingual="false" propertyType="STRING"><![CDATA[LOGIN]]></property>
-                    <property name="PAGE_TITLE" multilingual="false" propertyType="STRING"><![CDATA[Login]]></property>
                     <property name="PAGE_IMAGE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                    <property name="PAGE_TITLE" multilingual="false" propertyType="STRING"><![CDATA[Login]]></property>
+                    <property name="PAGE_ID" multilingual="false" propertyType="STRING"><![CDATA[LOGIN]]></property>
                     <property name="FORM_ID" multilingual="false" propertyType="FORM_ID"><![CDATA[Login]]></property>
                 </rendererProperties>
             </item>
@@ -132,7 +132,7 @@
         </visualAttribute>
         <visualAttribute name="dataBold150">
             <fontName><![CDATA[Unspecified]]></fontName>
-            <fontSize>50</fontSize>
+            <fontSize>150</fontSize>
             <fontSizeAsPercentage>true</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Bold]]></weight>
