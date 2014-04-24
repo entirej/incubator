@@ -4,7 +4,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.forms.blockservices.pojos.Project;
+import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -33,12 +35,15 @@ public class ProjectBlockService implements EJBlockService<Project>
     @Override
     public List<Project> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
         return _statementExecutor.executeQuery(Project.class, form, _selectStatement, queryCriteria);
     }
 
     @Override
     public void executeInsert(EJForm form, List<Project> newRecords)
     {
+        User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
         for (Project record : newRecords)
@@ -50,7 +55,7 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getPayRate()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
             record.clearInitialValues();

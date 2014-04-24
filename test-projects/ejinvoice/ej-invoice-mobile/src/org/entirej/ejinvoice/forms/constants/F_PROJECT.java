@@ -10,7 +10,21 @@ public class F_PROJECT
 {
     public static final String ID = "Project";
 
-    public static class B_CUSTOMERS
+    public static class B_PROJECTS
+    {
+        public static final String ID               = "Projects";
+        public static final String I_ID             = "id";
+        public static final String I_DESCRIPTION    = "description";
+        public static final String I_NAME           = "name";
+        public static final String I_PAY_RATE       = "payRate";
+        public static final String I_USER_ID        = "userId";
+        public static final String I_CUSTOMER_ID    = "customerId";
+        public static final String I_PAY_RATE_LABEL = "payRateLabel";
+        public static final String I__DETAILS       = "_details";
+
+    }
+
+    public static class L_CUSTOMERS
     {
         public static final String ID               = "Customers";
         public static final String I_USER_ID        = "userId";
@@ -22,26 +36,13 @@ public class F_PROJECT
         public static final String I_ADDRESS_LINE_3 = "addressLine3";
         public static final String I_TOWN           = "town";
         public static final String I_COUNTRY        = "country";
-        public static final String I_SHOW_PROJECTS  = "showProjects";
 
     }
 
-    public static class B_PROJECTS
-    {
-        public static final String ID               = "Projects";
-        public static final String I_ID             = "id";
-        public static final String I_DESCRIPTION    = "description";
-        public static final String I_NAME           = "name";
-        public static final String I_PAY_RATE       = "payRate";
-        public static final String I_USER_ID        = "userId";
-        public static final String I_CUSTOMER_ID    = "customerId";
-        public static final String I_PAY_RATE_LABEL = "payRateLabel";
+    public static final String C_PROJECTS = "Projects";
 
-    }
-
-    public static final String C_CUSTOMERS      = "Customers";
-    public static final String C_PROJECTS       = "Projects";
-
-    public static final String AC_SHOW_PROJECTS = "SHOW_PROJECTS";
+    public static final String AC_DELETE  = "DELETE";
+    public static final String AC_EDIT    = "EDIT";
+    public static final String AC_NEW     = "NEW";
 
 }
