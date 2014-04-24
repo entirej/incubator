@@ -42,7 +42,7 @@ public class F_CUSTOMER
         public static final String I_PHONE_LABEL      = "phoneLabel";
         public static final String I_MOBILE_LABEL     = "mobileLabel";
         public static final String I_EMAIL_LABEL      = "emailLabel";
-        public static final String I_FULL_NAME        = "fullName";
+        public static final String I__DEATILS         = "_deatils";
 
     }
 

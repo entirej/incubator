@@ -64,16 +64,19 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
         {
             askTOCreateCustomer(form);
         }
+        
     }
 
     @Override
-    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
+    public void popupCanvasOpened(EJForm form, String popupCanvasName) throws EJActionProcessorException
     {
-        if (F_CUSTOMER.B_CUSTOMER_CONTACTS.ID.equals(record.getBlockName()))
+        if(form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).getBlockRecords().isEmpty())
         {
-            record.getItem(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_FULL_NAME).setValue(record.getValue(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_FIRST_NAME) + " " + record.getValue(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_LAST_NAME));
+            askTOCreateContact(form);
         }
     }
+    
+ 
 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
@@ -151,7 +154,6 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
         {
             if (question.getAnswer() == EJQuestionButton.ONE)
             {
-                question.getForm().showPopupCanvas(F_CUSTOMER.C_CUSTOMER_CONTACTS_POPUP);
                 question.getForm().getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterInsert(false);
             }
             return;
