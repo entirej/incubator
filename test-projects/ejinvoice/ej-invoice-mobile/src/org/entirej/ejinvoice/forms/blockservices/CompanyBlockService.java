@@ -49,6 +49,7 @@ public class CompanyBlockService implements EJBlockService<Company>
         int recordsProcessed = 0;
         for (Company record : newRecords)
         {
+            record.setUserId(usr.getId());
             // Initialise the value list
             parameters.clear();
             parameters.add(new EJStatementParameter("ACCOUNT_NUMBER", String.class, record.getAccountNumber()));

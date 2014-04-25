@@ -50,6 +50,7 @@ public class ProjectBlockService implements EJBlockService<Project>
         {
             // Initialise the value list
             parameters.clear();
+            record.setUserId(usr.getId());
             parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustomerId()));
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));

@@ -46,11 +46,14 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         for (Invoice record : newRecords)
         {
+            
             // Initialise the value list
             parameters.clear();
-            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+            
+            record.setUserId(usr.getId());
             parameters.add(new EJStatementParameter("AMOUNT_EXCL_VAT", BigDecimal.class, record.getAmountExclVat()));
             parameters.add(new EJStatementParameter("AMOUNT_INCL_VAT", BigDecimal.class, record.getAmountInclVat()));
             parameters.add(new EJStatementParameter("CONF_ID", Integer.class, record.getConfId()));

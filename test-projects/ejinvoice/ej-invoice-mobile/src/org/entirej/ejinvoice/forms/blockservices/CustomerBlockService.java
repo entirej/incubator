@@ -68,7 +68,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
         {
             // Initialise the value list
             parameters.clear();
-            
+            record.setUserId(usr.getId());
             parameters.add(new EJStatementParameter("ADDRESS_LINE1", String.class, record.getAddressLine1()));
             parameters.add(new EJStatementParameter("ADDRESS_LINE2", String.class, record.getAddressLine2()));
             parameters.add(new EJStatementParameter("ADDRESS_LINE3", String.class, record.getAddressLine3()));

@@ -63,11 +63,15 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         for (ContactType record : newRecords)
         {
+            
+            
             // Initialise the value list
             parameters.clear();
-            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+           
+            record.setUserId(usr.getId());
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));

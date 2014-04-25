@@ -45,11 +45,12 @@ public class InvoicePositionsBlockService implements EJBlockService<InvoicePosit
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
+        User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         for (InvoicePositions record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
-            User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+            record.setUserId(usr.getId());
             parameters.add(new EJStatementParameter("CUPR_ID", Integer.class, record.getCuprId()));
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("HOURS_WORKED", BigDecimal.class, record.getHoursWorked()));

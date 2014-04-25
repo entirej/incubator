@@ -7,6 +7,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.ejinvoice.forms.constants.F_PROJECT;
@@ -93,7 +94,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
         {
             if (RB_LAUNCHER.AC_OPEN_INVOICE_OVERVIEW.equals(command))
             {
-//                form.openForm(F_INVOICE_OVERVIEW.ID);
+                form.openForm(F_INVOICE.ID);
             }
             else if (RB_LAUNCHER.AC_OPEN_MASTER_DATA.equals(command))
             {

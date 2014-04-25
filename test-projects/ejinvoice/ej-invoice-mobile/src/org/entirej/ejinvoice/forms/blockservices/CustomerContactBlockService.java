@@ -52,6 +52,7 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
         {
             // Initialise the value list
             parameters.clear();
+            record.setUserId(user.getId());
             parameters.add(new EJStatementParameter("CONTACT_TYPES_ID", Integer.class, record.getContactTypesId()));
             parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustomerId()));
             parameters.add(new EJStatementParameter("EMAIL", String.class, record.getEmail()));

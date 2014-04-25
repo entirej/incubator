@@ -25,6 +25,9 @@ public class F_INVOICE
         public static final String I_INVOICE_ID      = "invoiceId";
         public static final String I_CUST_ID         = "custId";
         public static final String I_PAID            = "paid";
+        public static final String I__POSITIONS      = "_positions";
+        public static final String I__PAID_LABEL     = "_paidLabel";
+        public static final String I__PRINED_LABEL   = "_prinedLabel";
 
     }
 
@@ -41,5 +44,70 @@ public class F_INVOICE
         public static final String I_VAT_ID       = "vatId";
 
     }
+
+    public static class L_CONTACT_TYPES
+    {
+        public static final String ID            = "ContactTypes";
+        public static final String I_USER_ID     = "userId";
+        public static final String I_ID          = "id";
+        public static final String I_TYPE        = "type";
+        public static final String I_DESCRIPTION = "description";
+
+    }
+
+    public static class L_CUSTOMERS
+    {
+        public static final String ID               = "Customers";
+        public static final String I_USER_ID        = "userId";
+        public static final String I_ID             = "id";
+        public static final String I_ADDRESS_LINE_1 = "addressLine1";
+        public static final String I_ADDRESS_LINE_2 = "addressLine2";
+        public static final String I_NAME           = "name";
+        public static final String I_POST_CODE      = "postCode";
+        public static final String I_ADDRESS_LINE_3 = "addressLine3";
+        public static final String I_TOWN           = "town";
+        public static final String I_COUNTRY        = "country";
+
+    }
+
+    public static class L_COMPANY
+    {
+        public static final String ID                    = "Company";
+        public static final String I_POST_CODE           = "postCode";
+        public static final String I_ADDRESS_LINE_2      = "addressLine2";
+        public static final String I_BANK_ADDRESS_LINE_2 = "bankAddressLine2";
+        public static final String I_ACCOUNT_NUMBER      = "accountNumber";
+        public static final String I_ADDRESS_LINE_1      = "addressLine1";
+        public static final String I_BANK_ADDRESS_LINE_1 = "bankAddressLine1";
+        public static final String I_BANK_POST_CODE      = "bankPostCode";
+        public static final String I_IBAN                = "iban";
+        public static final String I_ID                  = "id";
+        public static final String I_ADDRESS_LINE_3      = "addressLine3";
+        public static final String I_USER_ID             = "userId";
+        public static final String I_BANK_TOWN           = "bankTown";
+        public static final String I_NAME                = "name";
+        public static final String I_TOWN                = "town";
+        public static final String I_COUNTRY             = "country";
+        public static final String I_BANK_NAME           = "bankName";
+        public static final String I_BANK_COUNTRY        = "bankCountry";
+        public static final String I_VAT_NR              = "vatNr";
+        public static final String I_BANK_ADDRESS_LINE_3 = "bankAddressLine3";
+
+    }
+
+    public static class L_PAYMENT_INFO
+    {
+        public static final String ID              = "PaymentInfo";
+        public static final String I_ID            = "id";
+        public static final String I_USER_ID       = "userId";
+        public static final String I_PAYMENT_TERMS = "paymentTerms";
+
+    }
+
+    public static final String C_INVOICE = "Invoice";
+
+    public static final String AC_DELETE = "DELETE";
+    public static final String AC_EDIT   = "EDIT";
+    public static final String AC_NEW    = "NEW";
 
 }

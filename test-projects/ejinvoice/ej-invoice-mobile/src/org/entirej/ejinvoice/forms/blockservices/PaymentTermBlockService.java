@@ -62,12 +62,13 @@ public class PaymentTermBlockService implements EJBlockService<PaymentTerm>
     public void executeInsert(EJForm form, List<PaymentTerm> newRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
-        int recordsProcessed = 0;
+        int recordsProcessed = 0;  
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         for (PaymentTerm record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
-            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+            record.setUserId(usr.getId());
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("PAYMENT_TERMS", String.class, record.getPaymentTerms()));

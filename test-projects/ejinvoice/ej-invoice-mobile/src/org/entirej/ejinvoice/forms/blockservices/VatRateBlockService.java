@@ -63,11 +63,12 @@ public class VatRateBlockService implements EJBlockService<VatRate>
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
+            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         for (VatRate record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
-            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+            record.setUserId(usr.getId());
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
             
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
