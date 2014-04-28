@@ -42,6 +42,8 @@ public class F_INVOICE
         public static final String I_ID           = "id";
         public static final String I_INV_ID       = "invId";
         public static final String I_VAT_ID       = "vatId";
+        public static final String I__DETAILS     = "_details";
+        public static final String I__HOURS_LABEL = "_hoursLabel";
 
     }
 
@@ -104,10 +106,36 @@ public class F_INVOICE
 
     }
 
-    public static final String C_INVOICE = "Invoice";
+    public static class L_PROJECTS
+    {
+        public static final String ID            = "Projects";
+        public static final String I_ID          = "id";
+        public static final String I_DESCRIPTION = "description";
+        public static final String I_NAME        = "name";
+        public static final String I_PAY_RATE    = "payRate";
+        public static final String I_USER_ID     = "userId";
+        public static final String I_CUSTOMER_ID = "customerId";
 
-    public static final String AC_DELETE = "DELETE";
-    public static final String AC_EDIT   = "EDIT";
-    public static final String AC_NEW    = "NEW";
+    }
+
+    public static class L_VAT_RATE
+    {
+        public static final String ID        = "VatRate";
+        public static final String I_USER_ID = "userId";
+        public static final String I_RATE    = "rate";
+        public static final String I_ID      = "id";
+        public static final String I_NOTES   = "notes";
+        public static final String I_NAME    = "name";
+
+    }
+
+    public static final String C_INVOICE         = "Invoice";
+    public static final String C_POSITIONS_POPUP = "PositionsPopup";
+    public static final String C_POSITIONS       = "Positions";
+
+    public static final String AC_DELETE         = "DELETE";
+    public static final String AC_EDIT           = "EDIT";
+    public static final String AC_NEW            = "NEW";
+    public static final String AC_SHOW_POSITIONS = "SHOW_POSITIONS";
 
 }

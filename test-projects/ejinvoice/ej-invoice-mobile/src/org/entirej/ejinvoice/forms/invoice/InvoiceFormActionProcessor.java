@@ -79,10 +79,10 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
 
         String blockName = form.getFocusedBlock().getName();
 
-        // if (F_INVOICE.AC_SHOW_CONTACTS.equals(command))
-        // {
-        // form.showPopupCanvas(F_INVOICE.C_CUSTOMER_CONTACTS_POPUP);
-        // }
+        if (F_INVOICE.AC_SHOW_POSITIONS.equals(command))
+        {
+            form.showPopupCanvas(F_INVOICE.C_POSITIONS_POPUP);
+        }
         if (F_INVOICE.AC_NEW.equals(command))
         {
             if (F_INVOICE.B_INVOICE.ID.equals(blockName))
