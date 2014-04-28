@@ -59,7 +59,7 @@
                 </applicationProperties>
                 <blockRendererProperties>
                     <property name="ROW_SELECTION" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                    <property name="FILTER" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="FILTER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                     <property name="ROW_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[120]]></property>
                     <property name="ROW_SELECTION_ACTION" multilingual="false" propertyType="ACTION_COMMAND"></property>
                 </blockRendererProperties>
