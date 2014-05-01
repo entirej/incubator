@@ -107,12 +107,23 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (form.getFocusedBlock() == null)
+        
+        String blockName = null;
+        if (record !=null )
+        {
+             blockName = record.getBlockName();
+        }
+        if (blockName ==null && form.getFocusedBlock() != null)
+        {
+            blockName = form.getFocusedBlock().getName();
+        }
+
+       
+        
+        if (blockName == null)
         {
             return;
         }
-
-        String blockName = form.getFocusedBlock().getName();
 
         if (F_INVOICE.AC_SHOW_POSITIONS.equals(command))
         {
@@ -120,7 +131,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
         }
         if (F_INVOICE.AC_NEW.equals(command))
         {
-            if (F_INVOICE.B_INVOICE.ID.equals(blockName))
+            if (F_INVOICE.B_INVOICE.ID.equals(blockName) || F_INVOICE.B_INVOICE_FILTER.ID.equals(blockName))
             {
                 form.getBlock(F_INVOICE.B_INVOICE.ID).enterInsert(false);
             }
@@ -132,7 +143,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
         }
         if (F_INVOICE.AC_EDIT.equals(command))
         {
-            if (F_INVOICE.B_INVOICE.ID.equals(blockName))
+            if (F_INVOICE.B_INVOICE.ID.equals(blockName)|| F_INVOICE.B_INVOICE_FILTER.ID.equals(blockName))
             {
                 form.getBlock(F_INVOICE.B_INVOICE.ID).enterUpdate();
             }
@@ -144,7 +155,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
         }
         if (F_INVOICE.AC_DELETE.equals(command) && form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord() != null)
         {
-            if (F_INVOICE.B_INVOICE.ID.equals(blockName))
+            if (F_INVOICE.B_INVOICE.ID.equals(blockName)|| F_INVOICE.B_INVOICE_FILTER.ID.equals(blockName))
             {
                 ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord(), "CUSTOMER");
                 form.getBlock(F_INVOICE.B_INVOICE.ID).askToDeleteCurrentRecord("Are you sure you want to delete this Invoice?");
