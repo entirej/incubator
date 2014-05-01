@@ -10,6 +10,13 @@ public class F_INVOICE
 {
     public static final String ID = "Invoice";
 
+    public static class B_INVOICE_FILTER
+    {
+        public static final String ID          = "InvoiceFilter";
+        public static final String I__CUSTOMER = "_customer";
+
+    }
+
     public static class B_INVOICE
     {
         public static final String ID                = "Invoice";
@@ -129,6 +136,7 @@ public class F_INVOICE
 
     }
 
+    public static final String C_INVOICE_FILTER  = "InvoiceFilter";
     public static final String C_INVOICE         = "Invoice";
     public static final String C_POSITIONS_POPUP = "PositionsPopup";
     public static final String C_POSITIONS       = "Positions";

@@ -29,16 +29,51 @@ import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
+import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJQuestionButton;
+import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
+import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJRestrictions;
 
 public class InvoiceFormActionProcessor extends DefaultFormActionProcessor implements EJFormActionProcessor
 {
 
     public static final String QUESTION_ASK_CREATE_INVOICE  = "CREATE_INVOICE";
     public static final String QUESTION_ASK_CREATE_POSITION = "CREATE_INVOICE_POSITION";
+    
+    
+    @Override
+    public void preQuery(EJForm form, EJQueryCriteria queryCriteria) throws EJActionProcessorException
+    {
+        if(F_INVOICE.B_INVOICE.ID.equals(queryCriteria.getBlockName()))
+        {
+            EJBlock filterBlock = form.getBlock(F_INVOICE.B_INVOICE_FILTER.ID);
+            EJScreenItem customerFIlter = filterBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE.B_INVOICE_FILTER.I__CUSTOMER);
+            if(customerFIlter.getValue()!=null)
+            {
+                queryCriteria.add(EJRestrictions.equals(F_INVOICE.B_INVOICE.I_CUST_ID, customerFIlter.getValue()));
+            }
+        }
+    }
+    
+    
+   
+    
+    @Override
+    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
+    {
+       if(F_INVOICE.B_INVOICE_FILTER.I__CUSTOMER.equals(itemName))
+       {
+           form.getBlock(F_INVOICE.B_INVOICE.ID).executeQuery();
+           if(form.getBlock(F_INVOICE.B_INVOICE.ID).getBlockRecords().isEmpty())
+           {
+               askTOCreateCustomerInvoice(form);
+           }
+       }
+    }
 
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
@@ -53,11 +88,11 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     @Override
     public void focusGained(EJForm form) throws EJActionProcessorException
     {
-        if (form.getBlock(F_INVOICE.B_INVOICE.ID).getBlockRecords().isEmpty())
+        if(form.getBlock(F_INVOICE.B_INVOICE.ID).getBlockRecords().isEmpty())
         {
-            askTOCreateCustomer(form);
+            askTOCreateCustomerInvoice(form);
         }
-
+        
     }
 
     @Override
@@ -130,9 +165,18 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
         form.askQuestion(question);
     }
 
-    private void askTOCreateCustomer(EJForm form)
+    private void askTOCreateCustomerInvoice(EJForm form)
     {
-        EJQuestion question = new EJQuestion(form, QUESTION_ASK_CREATE_INVOICE, "Question", new EJMessage("No Invoices Found, Do you want to create an Invoice?"), "Yes", "No");
+        
+        String message = "No Invoices Found, Do you want to create an Invoice?";
+        EJBlock filterBlock = form.getBlock(F_INVOICE.B_INVOICE_FILTER.ID);
+        EJScreenItem customerFIlter = filterBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE.B_INVOICE_FILTER.I__CUSTOMER);
+        if(customerFIlter.getValue()!=null)
+        {
+             message = "No Invoices Found for Selected Customer, Do you want to create an Invoice ?";
+        }
+        
+        EJQuestion question = new EJQuestion(form, QUESTION_ASK_CREATE_INVOICE, "Question", new EJMessage(message), "Yes", "No");
         form.askQuestion(question);
     }
 
@@ -154,6 +198,20 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
                 question.getForm().getBlock(F_INVOICE.B_INVOICE.ID).enterInsert(false);
             }
             return;
+        }
+    }
+    
+    @Override
+    public void initialiseRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
+    {
+        if(recordType==EJRecordType.INSERT && F_INVOICE.B_INVOICE.ID.equals(record.getBlockName()))
+        {
+            EJBlock filterBlock = form.getBlock(F_INVOICE.B_INVOICE_FILTER.ID);
+            EJScreenItem customerFIlter = filterBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE.B_INVOICE_FILTER.I__CUSTOMER);
+            if(customerFIlter.getValue()!=null)
+            {
+                record.setValue(F_INVOICE.B_INVOICE.I_CUST_ID, customerFIlter.getValue());
+            }
         }
     }
 
