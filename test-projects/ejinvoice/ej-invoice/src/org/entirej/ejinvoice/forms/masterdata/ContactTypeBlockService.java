@@ -25,6 +25,7 @@ import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.interfaces.EJFrameworkConnection;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
@@ -55,6 +56,36 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
         queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
         
         return _statementExecutor.executeQuery(ContactType.class, form, _selectStatement, queryCriteria);
+    }
+   
+    public List<ContactType> getContactTypes( EJFrameworkConnection fwkConnection, EJQueryCriteria queryCriteria)
+    {
+        return _statementExecutor.executeQuery(ContactType.class, fwkConnection, _selectStatement, queryCriteria);
+    }
+    
+    
+    
+    public void insertContactTypes( EJFrameworkConnection fwkConnection, List<ContactType> newRecords)
+    {
+        List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
+        int recordsProcessed = 0;
+        for (ContactType record : newRecords)
+        {
+            // Initialise the value list
+            parameters.clear();
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
+            parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("TYPE", String.class, record.getType()));
+            EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+            recordsProcessed += _statementExecutor.executeInsert(fwkConnection, "CONTACT_TYPES", parameters.toArray(paramArray));
+            record.clearInitialValues();
+        }
+        if (recordsProcessed != newRecords.size())
+        {
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
+                    + recordsProcessed);
+        }
     }
 
     @Override

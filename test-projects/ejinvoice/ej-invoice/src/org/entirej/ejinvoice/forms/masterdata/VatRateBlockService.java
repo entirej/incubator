@@ -25,6 +25,7 @@ import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.interfaces.EJFrameworkConnection;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
@@ -56,6 +57,14 @@ public class VatRateBlockService implements EJBlockService<VatRate>
 
         return _statementExecutor.executeQuery(VatRate.class, form, _selectStatement, queryCriteria);
     }
+    
+    
+    public List<VatRate> getVatRates(EJFrameworkConnection fwkConnection, EJQueryCriteria queryCriteria)
+    {
+
+        
+        return _statementExecutor.executeQuery(VatRate.class, fwkConnection, _selectStatement, queryCriteria);
+    }
 
     @Override
     public void executeInsert(EJForm form, List<VatRate> newRecords)
@@ -75,6 +84,31 @@ public class VatRateBlockService implements EJBlockService<VatRate>
             parameters.add(new EJStatementParameter("RATE", Double.class, record.getRate()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "VAT_RATES", parameters.toArray(paramArray));
+            record.clearInitialValues();
+        }
+        if (recordsProcessed != newRecords.size())
+        {
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
+                    + recordsProcessed);
+        }
+    }
+    
+    public void insertVatRates(EJFrameworkConnection fwkConnection, List<VatRate> newRecords)
+    {
+        List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
+        int recordsProcessed = 0;
+        for (VatRate record : newRecords)
+        {
+            // Initialise the value list
+            parameters.clear();
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            
+            parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
+            parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
+            parameters.add(new EJStatementParameter("RATE", Double.class, record.getRate()));
+            EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+            recordsProcessed += _statementExecutor.executeInsert(fwkConnection, "VAT_RATES", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != newRecords.size())

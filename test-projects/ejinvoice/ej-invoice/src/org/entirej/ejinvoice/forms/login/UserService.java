@@ -7,6 +7,14 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.entirej.ejinvoice.EJContextProvider;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
+import org.entirej.ejinvoice.forms.masterdata.ContactType;
+import org.entirej.ejinvoice.forms.masterdata.ContactTypeBlockService;
+import org.entirej.ejinvoice.forms.masterdata.PaymentTerm;
+import org.entirej.ejinvoice.forms.masterdata.PaymentTermBlockService;
+import org.entirej.ejinvoice.forms.masterdata.Salutation;
+import org.entirej.ejinvoice.forms.masterdata.SalutationBlockService;
+import org.entirej.ejinvoice.forms.masterdata.VatRate;
+import org.entirej.ejinvoice.forms.masterdata.VatRateBlockService;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
@@ -51,7 +59,7 @@ public class UserService
             throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "The email address you have entered is not a valid email address."));
         }
     }
-    
+
     public boolean doesEmailExist(String email)
     {
         final String stmt = "SELECT EMAIL FROM USER ";
@@ -79,20 +87,36 @@ public class UserService
         return null;
     }
 
+    public User getUser(String email)
+    {
+        final String stmt = "SELECT EMAIL,FIRST_NAME,ID,LAST_NAME,NOTES,PASSWORD FROM user";
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("email", email));
+
+        List<User> list = new EJStatementExecutor().executeQuery(User.class, contextProvider.getConnection(), stmt, criteria);
+        if (!list.isEmpty())
+        {
+            return list.get(0);
+        }
+        return null;
+    }
+
     public void registerUser(EJForm form, User user)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
-        
+
         // Initialise the value list
         parameters.clear();
-        parameters.add(new EJStatementParameter("ID", Integer.class, PKSequenceService.getPKSequence(form.getConnection())));
+        int pkSequence = PKSequenceService.getPKSequence(form.getConnection());
+        parameters.add(new EJStatementParameter("ID", Integer.class, pkSequence));
         parameters.add(new EJStatementParameter("EMAIL", String.class, user.getEmail()));
         parameters.add(new EJStatementParameter("FIRST_NAME", String.class, user.getFirstName()));
         parameters.add(new EJStatementParameter("LAST_NAME", String.class, user.getLastName()));
         parameters.add(new EJStatementParameter("NOTES", String.class, user.getNotes()));
         parameters.add(new EJStatementParameter("PASSWORD", String.class, user.getPassword()));
-        
+
         EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
         recordsProcessed += new EJStatementExecutor().executeInsert(form, "user", parameters.toArray(paramArray));
         user.clearInitialValues();
@@ -103,9 +127,90 @@ public class UserService
         }
         else
         {
+            setupDefaultDate(pkSequence);
             form.getBlock(F_LOGIN.B_LOGON.ID).clear(true);
             form.showMessage(new EJMessage(EJMessageLevel.MESSAGE, "Registration Successful, please log in..."));
         }
+    }
+
+    public void setupDefaultDate(int userId)
+    {
+        // Default Data User
+        User user = getUser("template@ej.org");
+        if (user == null)
+            return;
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("USER_ID", user.getId()));
+
+        {// create Contact Types
+
+            ContactTypeBlockService blockService = new ContactTypeBlockService();
+
+            List<ContactType> contactTypes = blockService.getContactTypes(contextProvider.getConnection(), criteria);
+            for (ContactType contactType : contactTypes)
+            {
+                contactType.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                contactType.setUserId(userId);
+            }
+            if (contactTypes.size() > 0)
+            {
+                blockService.insertContactTypes(contextProvider.getConnection(), contactTypes);
+            }
+
+        }
+        {// create Payment Term
+
+            PaymentTermBlockService blockService = new PaymentTermBlockService();
+
+            List<PaymentTerm> paymentTerms = blockService.getPaymentTerms(contextProvider.getConnection(), criteria);
+            for (PaymentTerm paymentTerm : paymentTerms)
+            {
+                paymentTerm.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                paymentTerm.setUserId(userId);
+            }
+            if (paymentTerms.size() > 0)
+            {
+                blockService.insertPaymentTerms(contextProvider.getConnection(), paymentTerms);
+            }
+
+        }
+        {// create Salutation
+
+            SalutationBlockService blockService = new SalutationBlockService();
+
+            List<Salutation> salutations = blockService.getSalutations(contextProvider.getConnection(), criteria);
+            for (Salutation salutation : salutations)
+            {
+                salutation.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                salutation.setUserId(userId);
+            }
+
+            if (salutations.size() > 0)
+            {
+                blockService.insertSalutations(contextProvider.getConnection(), salutations);
+            }
+
+        }
+
+        {// create VAT rates
+
+            VatRateBlockService blockService = new VatRateBlockService();
+
+            List<VatRate> vatRates = blockService.getVatRates(contextProvider.getConnection(), criteria);
+            for (VatRate rate : vatRates)
+            {
+                rate.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                rate.setUserId(userId);
+            }
+
+            if (vatRates.size() > 0)
+            {
+                blockService.insertVatRates(contextProvider.getConnection(), vatRates);
+            }
+
+        }
+
     }
 
 }
