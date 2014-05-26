@@ -26,6 +26,7 @@ import org.entirej.ejinvoice.forms.blockservices.pojos.Salutation;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.interfaces.EJFrameworkConnection;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
@@ -162,6 +163,38 @@ public class SalutationBlockService implements EJBlockService<Salutation>
         if (recordsProcessed != recordsToDelete.size())
         {
             throw new EJApplicationException("Unexpected amount of records processed in delete. Expected: " + recordsToDelete.size() + ". Deleted: "
+                    + recordsProcessed);
+        }
+    }
+    
+    
+    public List<Salutation> getSalutations(EJFrameworkConnection fwkConnection, EJQueryCriteria queryCriteria)
+    {
+        
+        return _statementExecutor.executeQuery(Salutation.class, fwkConnection, _selectStatement, queryCriteria);
+    }
+
+
+    
+    public void insertSalutations(EJFrameworkConnection fwkConnection, List<Salutation> newRecords)
+    {
+        List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
+        int recordsProcessed = 0;
+        for (Salutation record : newRecords)
+        {
+            // Initialise the value list
+            parameters.clear();
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            
+            parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("VALUE", String.class, record.getValue()));
+            EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+            recordsProcessed += _statementExecutor.executeInsert(fwkConnection, "SALUTATIONS", parameters.toArray(paramArray));
+            record.clearInitialValues();
+        }
+        if (recordsProcessed != newRecords.size())
+        {
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
                     + recordsProcessed);
         }
     }

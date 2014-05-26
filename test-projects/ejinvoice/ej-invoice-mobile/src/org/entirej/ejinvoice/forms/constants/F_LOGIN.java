@@ -72,7 +72,6 @@ public class F_LOGIN
 
     public static final String AC_FORGOT                = "FORGOT";
     public static final String AC_LOGIN                 = "LOGIN";
-    public static final String AC_LOGIN_EJ              = "LOGIN_EJ";
     public static final String AC_LOGON                 = "LOGON";
     public static final String AC_LOGOUT                = "LOGOUT";
     public static final String AC_OPEN_COMPANIES        = "OPEN_COMPANIES";

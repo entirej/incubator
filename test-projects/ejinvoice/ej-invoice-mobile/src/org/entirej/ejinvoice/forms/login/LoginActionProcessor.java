@@ -1,5 +1,8 @@
 package org.entirej.ejinvoice.forms.login;
 
+import java.io.IOException;
+
+import org.eclipse.rap.rwt.RWT;
 import org.entirej.applicationframework.tmt.application.launcher.EJTMTContext;
 import org.entirej.applicationframework.tmt.pages.EJTMTFormPageActions;
 import org.entirej.ejinvoice.ApplicationParameters;
@@ -19,6 +22,8 @@ import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.data.controllers.EJApplicationLevelParameter;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJScreenType;
+
+import com.eclipsesource.tabris.ClientStore;
 
 public class LoginActionProcessor extends DefaultFormActionProcessor
 {
@@ -70,6 +75,23 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             else if(F_LOGIN.C_STACKED_PAGES.LOGON.equals(stackedPageName)) 
             {
                 actionLogin = false;
+                
+                ClientStore service = RWT.getClient().getService( ClientStore.class );
+                if(service !=null)
+                {
+                    String email = service.get(ApplicationParameters.PARAM_EMAIL);
+                    if(email!=null)
+                    {
+                        form.getBlock(F_LOGIN.B_LOGON.ID).getScreenItem(EJScreenType.MAIN, F_LOGIN.B_LOGON.I_EMAIL).setValue(email);
+                    }
+                }else
+                {
+                    String email = RWT.getSettingStore().getAttribute(ApplicationParameters.PARAM_EMAIL);
+                    if(email!=null)
+                    {
+                        form.getBlock(F_LOGIN.B_LOGON.ID).getScreenItem(EJScreenType.MAIN, F_LOGIN.B_LOGON.I_EMAIL).setValue(email);
+                    }
+                }
             }
             else if(F_LOGIN.C_STACKED_PAGES.REGISTER.equals(stackedPageName)) 
             {
@@ -114,28 +136,6 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             }
         }
         
-        if (F_LOGIN.AC_LOGIN_EJ.equals(command))
-        {
-            String username = "paul.harrison@mojave-i.com";
-            String password = "entirej";
-            
-            User user = ServiceRetriever.getUserService(form).getUser(username, password);
-
-            if (user != null)
-            {
-                
-                form.setApplicationLevelParameter(ApplicationParameters.PARAM_USER, user);
-                form.setApplicationLevelParameter(ApplicationParameters.PARAM_EMAIL, user.getEmail());
-                form.setApplicationLevelParameter(ApplicationParameters.PARAM_NAME, user.getFirstName()+' '+user.getLastName());
-              
-                form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.LAUNCHER);
-                return;
-            }
-            else
-            {
-                throw new EJActionProcessorException(new EJMessage(EJMessageLevel.ERROR, "The username or password you entered is incorrect."));
-            }
-        }
         
         if (F_LOGIN.AC_LOGON.equals(command))
         {
@@ -146,6 +146,22 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
 
             if (user != null)
             {
+                
+                ClientStore service = RWT.getClient().getService( ClientStore.class );
+                if(service !=null)
+                {
+                    service.add(ApplicationParameters.PARAM_EMAIL, username);
+                }else
+                {
+                    try
+                    {
+                        RWT.getSettingStore().setAttribute(ApplicationParameters.PARAM_EMAIL, username);
+                    }
+                    catch (IOException e)
+                    {
+                        e.printStackTrace();
+                    }
+                }
                 
                 form.setApplicationLevelParameter(ApplicationParameters.PARAM_USER, user);
                 form.setApplicationLevelParameter(ApplicationParameters.PARAM_EMAIL, user.getEmail());
@@ -180,7 +196,11 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPassword(hashPassword);
-            
+            ClientStore service = RWT.getClient().getService( ClientStore.class );
+            if(service !=null)
+            {
+                service.add(ApplicationParameters.PARAM_EMAIL, email);
+            }
             ServiceRetriever.getUserService(form).registerUser(form, user);
             
             form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.LOGON);

@@ -127,13 +127,13 @@ public class UserService
         }
         else
         {
-            setupDefaultDate(pkSequence);
+            setupDefaultData(pkSequence);
             form.getBlock(F_LOGIN.B_LOGON.ID).clear(true);
             form.showMessage(new EJMessage(EJMessageLevel.MESSAGE, "Registration Successful, please log in..."));
         }
     }
 
-    public void setupDefaultDate(int userId)
+    public void setupDefaultData(int userId)
     {
         // Default Data User
         User user = getUser("template@ej.org");
