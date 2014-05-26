@@ -112,7 +112,7 @@ public class UserService
         }
         else
         {
-            setupDefaultData(userID);
+            setupDefaultData(form,userID);
             form.getBlock(F_LOGIN.B_LOGON.ID).clear(true);
             form.showMessage(new EJMessage(EJMessageLevel.MESSAGE, "Registration Successful, please log in..."));
         }
@@ -135,7 +135,7 @@ public class UserService
     }
     
     
-    public void setupDefaultData(int userId)
+    public void setupDefaultData(EJForm form,int userId)
     {
         // Default Data User
         User user = getUser("template@ej.org");
@@ -149,15 +149,15 @@ public class UserService
 
             ContactTypeBlockService blockService = new ContactTypeBlockService();
 
-            List<ContactType> contactTypes = blockService.getContactTypes(contextProvider.getConnection(), criteria);
+            List<ContactType> contactTypes = blockService.getContactTypes(form.getConnection(), criteria);
             for (ContactType contactType : contactTypes)
             {
-                contactType.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                contactType.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 contactType.setUserId(userId);
             }
             if (contactTypes.size() > 0)
             {
-                blockService.insertContactTypes(contextProvider.getConnection(), contactTypes);
+                blockService.insertContactTypes(form.getConnection(), contactTypes);
             }
 
         }
@@ -165,15 +165,15 @@ public class UserService
 
             PaymentTermBlockService blockService = new PaymentTermBlockService();
 
-            List<PaymentTerm> paymentTerms = blockService.getPaymentTerms(contextProvider.getConnection(), criteria);
+            List<PaymentTerm> paymentTerms = blockService.getPaymentTerms(form.getConnection(), criteria);
             for (PaymentTerm paymentTerm : paymentTerms)
             {
-                paymentTerm.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                paymentTerm.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 paymentTerm.setUserId(userId);
             }
             if (paymentTerms.size() > 0)
             {
-                blockService.insertPaymentTerms(contextProvider.getConnection(), paymentTerms);
+                blockService.insertPaymentTerms(form.getConnection(), paymentTerms);
             }
 
         }
@@ -181,16 +181,16 @@ public class UserService
 
             SalutationBlockService blockService = new SalutationBlockService();
 
-            List<Salutation> salutations = blockService.getSalutations(contextProvider.getConnection(), criteria);
+            List<Salutation> salutations = blockService.getSalutations(form.getConnection(), criteria);
             for (Salutation salutation : salutations)
             {
-                salutation.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                salutation.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 salutation.setUserId(userId);
             }
 
             if (salutations.size() > 0)
             {
-                blockService.insertSalutations(contextProvider.getConnection(), salutations);
+                blockService.insertSalutations(form.getConnection(), salutations);
             }
 
         }
@@ -199,16 +199,16 @@ public class UserService
 
             VatRateBlockService blockService = new VatRateBlockService();
 
-            List<VatRate> vatRates = blockService.getVatRates(contextProvider.getConnection(), criteria);
+            List<VatRate> vatRates = blockService.getVatRates(form.getConnection(), criteria);
             for (VatRate rate : vatRates)
             {
-                rate.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                rate.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 rate.setUserId(userId);
             }
 
             if (vatRates.size() > 0)
             {
-                blockService.insertVatRates(contextProvider.getConnection(), vatRates);
+                blockService.insertVatRates(form.getConnection(), vatRates);
             }
 
         }
