@@ -712,7 +712,7 @@
                         <defaultInsertValue></defaultInsertValue>
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
                             <property name="HIDE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                         </itemRendererProperties>

@@ -35,22 +35,26 @@ public class F_INVOICE
         public static final String I__POSITIONS      = "_positions";
         public static final String I__PAID_LABEL     = "_paidLabel";
         public static final String I__PRINED_LABEL   = "_prinedLabel";
+        public static final String I__VAT_LABEL      = "_vatLabel";
 
     }
 
     public static class B_INVOICE_POSITIONS
     {
-        public static final String ID             = "InvoicePositions";
-        public static final String I_HOURS_WORKED = "hoursWorked";
-        public static final String I_USER_ID      = "userId";
-        public static final String I_POSITION     = "position";
-        public static final String I_DESCRIPTION  = "description";
-        public static final String I_CUPR_ID      = "cuprId";
-        public static final String I_ID           = "id";
-        public static final String I_INV_ID       = "invId";
-        public static final String I_VAT_ID       = "vatId";
-        public static final String I__DETAILS     = "_details";
-        public static final String I__HOURS_LABEL = "_hoursLabel";
+        public static final String ID                   = "InvoicePositions";
+        public static final String I_HOURS_WORKED       = "hoursWorked";
+        public static final String I_USER_ID            = "userId";
+        public static final String I_POSITION           = "position";
+        public static final String I_DESCRIPTION        = "description";
+        public static final String I_CUPR_ID            = "cuprId";
+        public static final String I_ID                 = "id";
+        public static final String I_INV_ID             = "invId";
+        public static final String I_VAT_ID             = "vatId";
+        public static final String I__DETAILS           = "_details";
+        public static final String I__HOURS_LABEL       = "_hoursLabel";
+        public static final String I_AMOUNT             = "amount";
+        public static final String I_VAT_RATE           = "vatRate";
+        public static final String I_CUST_PROJ_PAY_RATE = "custProjPayRate";
 
     }
 

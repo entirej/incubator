@@ -1723,7 +1723,7 @@
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
-                                    <mandatory>false</mandatory>
+                                    <mandatory>true</mandatory>
                                     <enableLovNotification>false</enableLovNotification>
                                     <lovMappingName></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
@@ -2276,7 +2276,7 @@
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
-                                    <mandatory>false</mandatory>
+                                    <mandatory>true</mandatory>
                                     <enableLovNotification>false</enableLovNotification>
                                     <lovMappingName></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
@@ -2362,7 +2362,7 @@
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
-                                    <mandatory>false</mandatory>
+                                    <mandatory>true</mandatory>
                                     <enableLovNotification>false</enableLovNotification>
                                     <lovMappingName></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
@@ -3200,7 +3200,7 @@
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
-                                    <mandatory>false</mandatory>
+                                    <mandatory>true</mandatory>
                                     <enableLovNotification>false</enableLovNotification>
                                     <lovMappingName></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
@@ -3286,7 +3286,7 @@
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
-                                    <mandatory>false</mandatory>
+                                    <mandatory>true</mandatory>
                                     <enableLovNotification>false</enableLovNotification>
                                     <lovMappingName></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
