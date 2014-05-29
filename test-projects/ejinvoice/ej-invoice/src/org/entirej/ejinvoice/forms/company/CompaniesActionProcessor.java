@@ -58,7 +58,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         form.saveChanges();
         // validate the company information toolbar state after deleting company
         // information record
-        if (F_COMPANY.B_COMPANIES.ID.equals(record.getBlockName()))
+        if (F_COMPANY.B_COMPANIES.ID.equals(record.getBlockName()) || record.getBlockName().equals(F_COMPANY.B_COMPANIES_DETAIL.ID))
         {
             validateToolbarState(form.getBlock(F_COMPANY.B_COMPANY_TOOLBAR.ID), form.getBlock(F_COMPANY.B_COMPANIES.ID).getFocusedRecord() != null);
         }
@@ -66,61 +66,12 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
+    public void postInsert(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        // validate the company information screen
-        if (F_COMPANY.B_COMPANIES_DETAIL.ID.equals(record.getBlockName()))
+        if (F_COMPANY.B_COMPANIES.ID.equals(record.getBlockName()) || record.getBlockName().equals(F_COMPANY.B_COMPANIES_DETAIL.ID))
         {
-            if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
-            {
-                Object name = record.getValue(F_COMPANY.B_COMPANIES_DETAIL.I_NAME);
-                Object bankName = record.getValue(F_COMPANY.B_COMPANIES_DETAIL.I_BANK_NAME);
-                Object iban = record.getValue(F_COMPANY.B_COMPANIES_DETAIL.I_IBAN);
-
-                final EJScreenItem nameItem = form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getScreenItem(EJScreenType.INSERT, record.getItem(F_COMPANY.B_COMPANIES_DETAIL.I_NAME).getName());
-
-                final EJScreenItem bankNameItem = form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getScreenItem(EJScreenType.INSERT, record.getItem(F_COMPANY.B_COMPANIES_DETAIL.I_BANK_NAME).getName());
-                final EJScreenItem ibanItem = form.getBlock(F_COMPANY.B_COMPANIES_DETAIL.ID).getScreenItem(EJScreenType.INSERT, record.getItem(F_COMPANY.B_COMPANIES_DETAIL.I_IBAN).getName());
-
-                if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
-                {
-                    String nameError = validateString(name, nameItem);
-                    if (nameError != null && nameError.length() > 0)
-                    {
-                        throw new EJActionProcessorException(nameError);
-                    }
-                    String bankNameError = validateString(bankName, bankNameItem);
-                    if (bankNameError != null && bankNameError.length() > 0)
-                    {
-                        throw new EJActionProcessorException(bankNameError);
-                    }
-                    String ibanError = validateString(iban, ibanItem);
-                    if (ibanError != null && ibanError.length() > 0)
-                    {
-                        throw new EJActionProcessorException(ibanError);
-                    }
-                }
-            }
+            validateToolbarState(form.getBlock(F_COMPANY.B_COMPANY_TOOLBAR.ID), form.getBlock(F_COMPANY.B_COMPANIES.ID).getFocusedRecord() != null);
         }
-    }
-
-    private String validateString(final Object value, final EJScreenItem screenItem) throws EJActionProcessorException
-    {
-
-        if (screenItem == null)
-        {
-            throw new EJActionProcessorException(String.format("screenItem cannot be null !"));
-        }
-
-        final String label = screenItem.getLabel();
-
-        if (value == null || ((String) value).trim().length() == 0)
-        {
-            return String.format("%s cannot be Empty!", label);
-
-        }
-
-        return null;
     }
 
     @Override
@@ -128,7 +79,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     {
         // validate the toolbar states when
         // entering new record to the company information form
-        if (record.getBlockName().equals(F_COMPANY.B_COMPANIES.ID))
+        if (record.getBlockName().equals(F_COMPANY.B_COMPANIES.ID) || record.getBlockName().equals(F_COMPANY.B_COMPANIES_DETAIL.ID))
         {
             validateToolbarState(form.getBlock(F_COMPANY.B_COMPANY_TOOLBAR.ID), record != null);
 
@@ -141,10 +92,11 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         // validate the toolbar states after
         // a record is updated, deleted or newly added to the company
         // information screen
-        if (block.getName().equals(F_COMPANY.B_COMPANIES.ID))
+        if (block.getName().equals(F_COMPANY.B_COMPANIES.ID) || block.getName().equals(F_COMPANY.B_COMPANIES_DETAIL.ID))
         {
             validateToolbarState(form.getBlock(F_COMPANY.B_COMPANY_TOOLBAR.ID), form.getBlock(F_COMPANY.B_COMPANIES.ID).getFocusedRecord() != null);
 
         }
     }
+
 }

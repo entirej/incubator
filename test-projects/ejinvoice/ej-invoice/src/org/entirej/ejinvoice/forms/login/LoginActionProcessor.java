@@ -1,5 +1,8 @@
 package org.entirej.ejinvoice.forms.login;
 
+import java.io.IOException;
+
+import org.eclipse.rap.rwt.RWT;
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
@@ -14,6 +17,19 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 
 public class LoginActionProcessor extends DefaultFormActionProcessor
 {
+    
+    
+    @Override
+    public void newFormInstance(EJForm form) throws EJActionProcessorException
+    {
+        super.newFormInstance(form);
+        
+        String email = RWT.getSettingStore().getAttribute(ApplicationParameters.PARAM_EMAIL);
+        if(email!=null)
+        {
+            form.getBlock(F_LOGIN.B_LOGON.ID).getScreenItem(EJScreenType.MAIN, F_LOGIN.B_LOGON.I_EMAIL).setValue(email);
+        }
+    }
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
@@ -21,7 +37,14 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
         {
             String username = (String) record.getValue(F_LOGIN.B_LOGON.I_EMAIL);
             String password = (String) record.getValue(F_LOGIN.B_LOGON.I_PASSWORD);
-
+            try
+            {
+                RWT.getSettingStore().setAttribute(ApplicationParameters.PARAM_EMAIL, username);
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+            }
             User user = ServiceRetriever.getUserService(form).getUser(username, password);
 
             if (user != null)
