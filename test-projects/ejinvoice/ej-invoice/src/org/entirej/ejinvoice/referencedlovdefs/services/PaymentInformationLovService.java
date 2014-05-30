@@ -21,6 +21,8 @@ package org.entirej.ejinvoice.referencedlovdefs.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.ejinvoice.ApplicationParameters;
+import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.ejinvoice.referencedlovdefs.services.pojos.PaymentInformation;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
@@ -50,6 +52,8 @@ public class PaymentInformationLovService implements EJBlockService<PaymentInfor
     @Override
     public List<PaymentInformation> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
         return _statementExecutor.executeQuery(PaymentInformation.class, form, _selectStatement, queryCriteria);
     }
 

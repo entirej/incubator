@@ -23,7 +23,10 @@ package org.entirej.ejinvoice.forms.customer;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
+import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
+import org.entirej.ejinvoice.referencedblocks.constants.RB_STANDARD_TOOLBAR;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -54,17 +57,23 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (F_CUSTOMER.AC_NEW.equals(command))
+        
+        if (F_CUSTOMER.AC_TOOLBAR_HOME.equals(command))
+        {
+            form.openForm(F_LAUNCH_PAGE.ID);
+            return;
+        }
+        if (F_CUSTOMER.AC_TOOLBAR_NEW.equals(command))
         {
             form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterInsert(false);
             return;
         }
-        if (F_CUSTOMER.AC_EDIT.equals(command))
+        if (F_CUSTOMER.AC_TOOLBAR_EDIT.equals(command))
         {
             form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterUpdate();
             return;
         }
-        if (F_CUSTOMER.AC_DELETE.equals(command) && form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).getFocusedRecord() != null)
+        if (F_CUSTOMER.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).getFocusedRecord() != null)
         {
             // before deleting the selected record from database validate
             // and check if the record to be deleted has any FK constraints
@@ -86,65 +95,28 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
             return;
         }
 
-        // else if (record.getBlockName() != null
-        // &&
-        // ((record.getBlockName().equals(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID))
-        // || record.getBlockName().equals(
-        // F_MIAP001.B_CUSTOMER_CONTACT_TOOLBAR.ID)))
-        // {
-        // if (F_MIAP001.AC_TOOLBAR_NEW.equals(command))
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID).enterInsert(false);
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_EDIT.equals(command))
-        // {
-        // EJBlock contactBlock =
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID);
-        // contactBlock.enterUpdate();
-        // // validate the customer contact screen toolbar
-        // validateContactType(screenType, contactBlock);
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_DELETE.equals(command) &&
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID).getFocusedRecord()
-        // != null)
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_CONTACT_BLOCK.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact?");
-        // return;
-        // }
-        // }
-        // else if (record.getBlockName() != null
-        // &&
-        // ((record.getBlockName().equals(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID))
-        // || record.getBlockName().equals(
-        // F_MIAP001.B_CUSTOMER_PROJECTS_TOOLBAR.ID)))
-        // {
-        // if (F_MIAP001.AC_TOOLBAR_NEW.equals(command))
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).enterInsert(false);
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_EDIT.equals(command))
-        // {
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).enterUpdate();
-        // return;
-        // }
-        // if (F_MIAP001.AC_TOOLBAR_DELETE.equals(command) &&
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).getFocusedRecord()
-        // != null)
-        // {
-        // // before deleting the selected record from database validate and
-        // check if the
-        // // record to be deleted has any FK constraints usage with other table
-        // data and if so
-        // // throw an exception and block physical delete
-        // ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).getFocusedRecord(),
-        // "CUSTOMER_PROJECTS");
-        // form.getBlock(F_MIAP001.B_CUSTOMER_PROJECTS_BLOCK.ID).askToDeleteCurrentRecord("Are you sure you want to delete this project?");
-        // return;
-        // }
-        // }
+        else if (record.getBlockName() != null && ((record.getBlockName().equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID)) || record.getBlockName().equals(F_CUSTOMER.B_CUST_CONTACT_TOOLBAR.ID)))
+        {
+            if (F_CUSTOMER.AC_NEW_CONTACT.equals(command))
+            {
+                form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterInsert(false);
+                return;
+            }
+            if (F_CUSTOMER.AC_EDIT_CONTACT.equals(command))
+            {
+                EJBlock contactBlock = form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID);
+                contactBlock.enterUpdate();
+                // validate the customer contact screen toolbar
+                validateContactType(screenType, contactBlock);
+                return;
+            }
+            if (F_CUSTOMER.AC_DELETE_CONTACT.equals(command) && form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).getFocusedRecord() != null)
+            {
+                form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact?");
+                return;
+            }
+        }
+
     }
 
     /**

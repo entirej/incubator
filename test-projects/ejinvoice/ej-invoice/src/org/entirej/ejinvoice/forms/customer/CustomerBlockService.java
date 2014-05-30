@@ -110,30 +110,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             criteria.add(EJRestrictions.equals("USER_ID", record.getUserId()));
-            if (record.getInitialAddressLine1() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE1"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE1", record.getInitialAddressLine1()));
-            }
-            if (record.getInitialAddressLine2() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE2"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE2", record.getInitialAddressLine2()));
-            }
-            if (record.getInitialAddressLine3() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE3"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE3", record.getInitialAddressLine3()));
-            }
+            
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));
@@ -142,38 +119,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
             {
                 criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
             }
-            if (record.getInitialName() == null)
-            {
-                criteria.add(EJRestrictions.isNull("NAME"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
-            }
-            if (record.getInitialPostCode() == null)
-            {
-                criteria.add(EJRestrictions.isNull("POST_CODE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("POST_CODE", record.getInitialPostCode()));
-            }
-            if (record.getInitialTown() == null)
-            {
-                criteria.add(EJRestrictions.isNull("TOWN"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("TOWN", record.getInitialTown()));
-            }
-            if (record.getInitialCountry() == null)
-            {
-                criteria.add(EJRestrictions.isNull("COUNTRY"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("COUNTRY", record.getInitialCountry()));
-            }
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "CUSTOMER", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
