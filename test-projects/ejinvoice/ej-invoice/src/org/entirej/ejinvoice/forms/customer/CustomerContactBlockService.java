@@ -199,7 +199,6 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_USER_ID, user.getId()));
             
             if (record.getInitialContactTypesId() == null)
             {
