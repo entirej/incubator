@@ -18,13 +18,15 @@
  ******************************************************************************/
 package org.entirej.ejinvoice.referencedlovdefs.services.pojos;
 
+import java.math.BigDecimal;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
 public class VatRates
 {
     private EJPojoProperty<String>  _notes;
-    private EJPojoProperty<Double>  _rate;
+    private EJPojoProperty<BigDecimal>  _rate;
     private EJPojoProperty<String>  _name;
     private EJPojoProperty<Integer> _id;
 
@@ -47,19 +49,19 @@ public class VatRates
     }
 
     @EJFieldName("RATE")
-    public Double getRate()
+    public BigDecimal getRate()
     {
         return EJPojoProperty.getPropertyValue(_rate);
     }
 
     @EJFieldName("RATE")
-    public void setRate(Double rate)
+    public void setRate(BigDecimal rate)
     {
         _rate = EJPojoProperty.setPropertyValue(_rate, rate);
     }
 
     @EJFieldName("RATE")
-    public Double getInitialRate()
+    public BigDecimal getInitialRate()
     {
         return EJPojoProperty.getPropertyInitialValue(_rate);
     }

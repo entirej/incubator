@@ -18,6 +18,8 @@
         </canvasList>
         <blockList>
         </blockList>
+        <objGroupDefinitionList>
+        </objGroupDefinitionList>
         <relationList>
         </relationList>
         <lovDefinitionList>
@@ -27,10 +29,10 @@
                 <actionProcessorClassName></actionProcessorClassName>
                 <lovRendererProperties>
                     <property name="ROW_SELECTION" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                    <property name="SHOW_HORIZONTAL_LINES" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                    <property name="DISPLAY_FOCUS_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                    <property name="SHOW_HEADING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                     <property name="HIDE_TABLE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="SHOW_HORIZONTAL_LINES" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="SHOW_HEADING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="DISPLAY_FOCUS_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                 </lovRendererProperties>
                 <block name="VatRates" referenced="false" controlBlock="false">
                     <isMirrored>false</isMirrored>
@@ -74,14 +76,15 @@
                         <item name="rate">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
-                            <dataTypeClassName><![CDATA[java.lang.Double]]></dataTypeClassName>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
                             <itemRendererName><![CDATA[NumberItem]]></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
                             <itemRendererProperties>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                                 <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
                         <item name="name">
@@ -92,10 +95,11 @@
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
                             <itemRendererProperties>
-                                <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
-                                <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                                <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                                <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
@@ -133,6 +137,8 @@
                                 <yspan>1</yspan>
                                 <expandHorizontally>true</expandHorizontally>
                                 <expandVertically>true</expandVertically>
+                                <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                                <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                                 <itemGroupItemList>
                                     <item referencedItemName="rate" isSpacerItem="false">
                                         <label><![CDATA[Vat Rate]]></label>
@@ -145,12 +151,12 @@
                                         <validateFromLov>true</validateFromLov>
                                         <actionCommand></actionCommand>
                                         <lovRendererRequiredProperties>
-                                            <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                            <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                     <item referencedItemName="name" isSpacerItem="false">
@@ -164,12 +170,12 @@
                                         <validateFromLov>true</validateFromLov>
                                         <actionCommand></actionCommand>
                                         <lovRendererRequiredProperties>
-                                            <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[20]]></property>
+                                            <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[20]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                 </itemGroupItemList>

@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerProjectsLovService implements EJBlockService<CustomerProjects>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUST_ID,DESCRIPTION,ID,NAME,PAY_RATE FROM CUSTOMER_PROJECTS";
+    private String                    _selectStatement = "SELECT CUSTOMER_ID,DESCRIPTION,ID,NAME,PAY_RATE FROM CUSTOMER_PROJECTS";
 
     public CustomerProjectsLovService()
     {
@@ -66,7 +66,7 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
         {
             // Initialise the value list
             parameters.clear();
-            parameters.add(new EJStatementParameter("CUST_ID", Integer.class, record.getCustId()));
+            parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustId()));
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
@@ -93,7 +93,7 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
             parameters.clear();
 
             // First add the new values
-            parameters.add(new EJStatementParameter("CUST_ID", Integer.class, record.getCustId()));
+            parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustId()));
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
@@ -165,11 +165,11 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
 
             if (record.getInitialCustId() == null)
             {
-                criteria.add(EJRestrictions.isNull("CUST_ID"));
+                criteria.add(EJRestrictions.isNull("CUSTOMER_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("CUST_ID", record.getInitialCustId()));
+                criteria.add(EJRestrictions.equals("CUSTOMER_ID", record.getInitialCustId()));
             }
             if (record.getInitialDescription() == null)
             {

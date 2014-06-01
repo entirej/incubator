@@ -18,6 +18,8 @@
  ******************************************************************************/
 package org.entirej.ejinvoice.referencedlovdefs.services.pojos;
 
+import java.math.BigDecimal;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
@@ -25,7 +27,7 @@ public class CustomerProjects
 {
     private EJPojoProperty<String>  _name;
     private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<Double>  _payRate;
+    private EJPojoProperty<BigDecimal>  _payRate;
     private EJPojoProperty<Integer> _custId;
     private EJPojoProperty<String>  _description;
 
@@ -66,36 +68,36 @@ public class CustomerProjects
     }
 
     @EJFieldName("PAY_RATE")
-    public Double getPayRate()
+    public BigDecimal getPayRate()
     {
         return EJPojoProperty.getPropertyValue(_payRate);
     }
 
     @EJFieldName("PAY_RATE")
-    public void setPayRate(Double payRate)
+    public void setPayRate(BigDecimal payRate)
     {
         _payRate = EJPojoProperty.setPropertyValue(_payRate, payRate);
     }
 
     @EJFieldName("PAY_RATE")
-    public Double getInitialPayRate()
+    public BigDecimal getInitialPayRate()
     {
         return EJPojoProperty.getPropertyInitialValue(_payRate);
     }
 
-    @EJFieldName("CUST_ID")
+    @EJFieldName("CUSTOMER_ID")
     public Integer getCustId()
     {
         return EJPojoProperty.getPropertyValue(_custId);
     }
 
-    @EJFieldName("CUST_ID")
+    @EJFieldName("CUSTOMER_ID")
     public void setCustId(Integer custId)
     {
         _custId = EJPojoProperty.setPropertyValue(_custId, custId);
     }
 
-    @EJFieldName("CUST_ID")
+    @EJFieldName("CUSTOMER_ID")
     public Integer getInitialCustId()
     {
         return EJPojoProperty.getPropertyInitialValue(_custId);
