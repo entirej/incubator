@@ -2,7 +2,7 @@ package org.entirej.ejinvoice.forms.projects;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_PROJECT;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
@@ -47,7 +47,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         }
         if (F_PROJECT.AC_TOOLBAR_HOME.equals(command))
         {
-            form.openForm(F_LAUNCH_PAGE.ID);
+            form.openForm(F_TIME_ENTRY.ID);
             return;
         }
     }

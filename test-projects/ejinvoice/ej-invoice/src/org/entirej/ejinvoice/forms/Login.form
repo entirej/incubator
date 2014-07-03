@@ -270,7 +270,7 @@
                             </rendererProperties>
                             <itemGroupItemList>
                                 <item referencedItemName="loginLabel" isSpacerItem="false">
-                                    <label><![CDATA[Login Label]]></label>
+                                    <label><![CDATA[Login]]></label>
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>

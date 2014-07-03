@@ -1,0 +1,88 @@
+Group {
+	
+	background-color: #ffffff;
+}
+
+Group-Label {
+	background-color: #ffffff;
+	border: none;
+	color: #4a4a4a;
+	margin: 0px 0px 0px 5px;
+	text-shadow: none;
+}
+
+Group-Frame {
+	margin: 10px 0px 0px 0px;
+	padding: 2px 2px 2px 2px;
+	border: 1px solid #bdbdbd;
+	border-radius: 2px;
+}
+
+/**change  application layout backagound **/
+Composite.applayout {
+	background-color: #F5F5F5;
+}
+
+
+CTabFolder {
+	border-color: #bdbdbd;
+	border-radius: 1px;
+}
+
+
+CTabItem {
+	color: #4a4a4a;
+	padding: 6px 15px;
+	spacing: 10px;
+	text-shadow: none;
+}
+
+CTabItem:selected {
+	color: #4a4a4a;
+	background-color: #ffffff;
+	background-image: none;
+	text-shadow: 0 1px 0 #f0f0f0;
+}
+
+ExpandBar.menurenderer {
+	color: #ffffff;
+    
+}
+
+ExpandItem-Header.MenuHeaderTest {
+	
+	background-image: gradient(linear, left top, left bottom, from(#9984B6),
+		to(#9984B6) );
+}
+ExpandItem-Header.MenuHeaderDev {
+	
+	background-image: gradient(linear, left top, left bottom, from(#D07876),
+		to(#D07876) );
+}
+ExpandItem-Header.MenuHeaderProd {
+	
+	background-image: gradient(linear, left top, left bottom, from(#4D70B8),
+		to(#4D70B8) );
+}
+
+ExpandItem-Header.MenuHeaderSim {
+    
+    background-image: gradient(linear, left top, left bottom, from(#76933C),
+        to(#76933C) );
+}
+
+ExpandItem-Button {
+ background-image:none
+}
+
+ExpandItem-Button:hover {
+ background-image:none
+}
+
+ExpandItem-Button:expanded {
+ background-image:none
+}
+
+ExpandItem-Button:expanded:hover {
+ background-image:none
+}

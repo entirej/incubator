@@ -44,44 +44,18 @@ public class F_COMPANY
         public static final String I_COUNTRY             = "country";
         public static final String I_COMPANY_INFO_LABEL  = "companyInfoLabel";
         public static final String I_BANK_INFO_LABEL     = "bankInfoLabel";
+        public static final String I_LOGO                = "logo";
+        public static final String I_ADD_LOGO            = "addLogo";
 
     }
 
-    public static class B_COMPANIES_DETAIL
-    {
-        public static final String ID                    = "CompaniesDetail";
-        public static final String I_POST_CODE           = "postCode";
-        public static final String I_ADDRESS_LINE_2      = "addressLine2";
-        public static final String I_BANK_ADDRESS_LINE_2 = "bankAddressLine2";
-        public static final String I_ACCOUNT_NUMBER      = "accountNumber";
-        public static final String I_ADDRESS_LINE_1      = "addressLine1";
-        public static final String I_BANK_ADDRESS_LINE_1 = "bankAddressLine1";
-        public static final String I_BANK_POST_CODE      = "bankPostCode";
-        public static final String I_IBAN                = "iban";
-        public static final String I_ID                  = "id";
-        public static final String I_ADDRESS_LINE_3      = "addressLine3";
-        public static final String I_USER_ID             = "userId";
-        public static final String I_BANK_TOWN           = "bankTown";
-        public static final String I_BANK_COUNTRY        = "bankCountry";
-        public static final String I_NAME                = "name";
-        public static final String I_TOWN                = "town";
-        public static final String I_BANK_NAME           = "bankName";
-        public static final String I_VAT_NR              = "vatNr";
-        public static final String I_BANK_ADDRESS_LINE_3 = "bankAddressLine3";
-        public static final String I_COUNTRY             = "country";
-        public static final String I_COMPANY_INFO_LABEL  = "companyInfoLabel";
-        public static final String I_BANK_INFO_LABEL     = "bankInfoLabel";
+    public static final String C_COMPANY_TOOLBAR = "CompanyToolbar";
+    public static final String C_COMPANIES       = "Companies";
 
-    }
-
-    public static final String C_COMPANY_TOOLBAR  = "CompanyToolbar";
-    public static final String C_MAIN_SPLIT       = "mainSplit";
-    public static final String C_COMPANIES        = "Companies";
-    public static final String C_COMPANIES_DETAIL = "CompaniesDetail";
-
-    public static final String AC_TOOLBAR_DELETE  = "TOOLBAR_DELETE";
-    public static final String AC_TOOLBAR_EDIT    = "TOOLBAR_EDIT";
-    public static final String AC_TOOLBAR_HOME    = "TOOLBAR_HOME";
-    public static final String AC_TOOLBAR_NEW     = "TOOLBAR_NEW";
+    public static final String AC_ADD_LOGO       = "ADD_LOGO";
+    public static final String AC_TOOLBAR_DELETE = "TOOLBAR_DELETE";
+    public static final String AC_TOOLBAR_EDIT   = "TOOLBAR_EDIT";
+    public static final String AC_TOOLBAR_HOME   = "TOOLBAR_HOME";
+    public static final String AC_TOOLBAR_NEW    = "TOOLBAR_NEW";
 
 }

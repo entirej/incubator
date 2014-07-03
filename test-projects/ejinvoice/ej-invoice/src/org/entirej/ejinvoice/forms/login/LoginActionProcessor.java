@@ -6,7 +6,7 @@ import org.eclipse.rap.rwt.RWT;
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_LAUNCH_PAGE;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
@@ -54,7 +54,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
                 form.setApplicationLevelParameter(ApplicationParameters.PARAM_EMAIL, user.getEmail());
                 form.setApplicationLevelParameter(ApplicationParameters.PARAM_NAME, user.getFirstName()+' '+user.getLastName());
                 
-                form.openForm(F_LAUNCH_PAGE.ID);
+                form.openForm(F_TIME_ENTRY.ID);
             }
             else
             {

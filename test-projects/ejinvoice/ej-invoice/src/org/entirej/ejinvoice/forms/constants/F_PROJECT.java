@@ -19,6 +19,10 @@ public class F_PROJECT
         public static final String I_PAY_RATE    = "payRate";
         public static final String I_USER_ID     = "userId";
         public static final String I_CUSTOMER_ID = "customerId";
+        public static final String I_END_DATE    = "endDate";
+        public static final String I_START_DATE  = "startDate";
+        public static final String I_STATUS      = "status";
+        public static final String I_NOTES       = "notes";
 
     }
 

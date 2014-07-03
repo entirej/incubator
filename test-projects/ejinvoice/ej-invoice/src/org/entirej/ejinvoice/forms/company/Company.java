@@ -8,6 +8,7 @@ public class Company
     private EJPojoProperty<String>  _postCode;
     private EJPojoProperty<String>  _addressLine2;
     private EJPojoProperty<String>  _bankAddressLine2;
+    private EJPojoProperty<Object>  _logo;
     private EJPojoProperty<String>  _accountNumber;
     private EJPojoProperty<String>  _addressLine1;
     private EJPojoProperty<String>  _bankAddressLine1;
@@ -370,6 +371,24 @@ public class Company
         return EJPojoProperty.getPropertyInitialValue(_bankAddressLine3);
     }
 
+    @EJFieldName("LOGO")
+    public Object getLogo()
+    {
+        return EJPojoProperty.getPropertyValue(_logo);
+    }
+
+    @EJFieldName("LOGO")
+    public void setLogo(Object logo)
+    {
+        _logo = EJPojoProperty.setPropertyValue(_logo, logo);
+    }
+
+    @EJFieldName("LOGO")
+    public Object getInitialLogo()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_logo);
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_postCode);
@@ -391,6 +410,7 @@ public class Company
         EJPojoProperty.clearInitialValue(_bankCountry);
         EJPojoProperty.clearInitialValue(_vatNr);
         EJPojoProperty.clearInitialValue(_bankAddressLine3);
+        EJPojoProperty.clearInitialValue(_logo);
     }
 
 }

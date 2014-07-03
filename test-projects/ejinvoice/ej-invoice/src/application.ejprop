@@ -9,45 +9,45 @@
     <objectGroupDefinitionLocation><![CDATA[org/entirej/ejinvoice]]></objectGroupDefinitionLocation>
     <translatorClassName></translatorClassName>
     <applicationLevelParameterList>
-        <appicationLevelParameter name="USER" dataType="org.entirej.ejinvoice.forms.login.User"></appicationLevelParameter>
-        <appicationLevelParameter name="email" dataType="java.lang.String"></appicationLevelParameter>
-        <appicationLevelParameter name="name" dataType="java.lang.String"></appicationLevelParameter>
+        <appicationLevelParameter name="USER" dataType="org.entirej.ejinvoice.forms.login.User" defaultValue=""></appicationLevelParameter>
+        <appicationLevelParameter name="email" dataType="java.lang.String" defaultValue=""></appicationLevelParameter>
+        <appicationLevelParameter name="name" dataType="java.lang.String" defaultValue=""></appicationLevelParameter>
     </applicationLevelParameterList>
     <applicationDefinedProperties>
-        <property name="DISPLAY_TAB_BORDER" multilingual="false" propertyType="BOOLEAN"></property>
+        <property name="DISPLAY_TAB_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
         <property name="APPLICATION_MENU" multilingual="false" propertyType="MENU_GROUP"></property>
         <propertyGroup name="APP_MESSAGING">
             <propertyGroup name="APP_MSG_WARNING">
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-            </propertyGroup>
-            <propertyGroup name="APP_MSG_INFO">
-                <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[NOTIFICATION]]></property>
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_HINT">
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
+            </propertyGroup>
+            <propertyGroup name="APP_MSG_INFO">
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[NOTIFICATION]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_ERROR">
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup name="ACTION_GROUP">
-            <property name="KEY_DELETE" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+D]]></property>
-            <property name="KEY_LOV" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+ARROW_DOWN]]></property>
-            <property name="KEY_UPDATE" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+U]]></property>
             <property name="KEY_QUERY" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+Q]]></property>
-            <property name="KEY_INSERT" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+I]]></property>
+            <property name="KEY_DELETE" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+D]]></property>
+            <property name="KEY_UPDATE" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+U]]></property>
+            <property name="KEY_LOV" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+ARROW_DOWN]]></property>
             <property name="KEY_REFRESH" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+R]]></property>
+            <property name="KEY_INSERT" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+I]]></property>
         </propertyGroup>
     </applicationDefinedProperties>
     <packages>
@@ -153,15 +153,15 @@
                             <property name="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
                             <property name="EXPAND_X"><![CDATA[true]]></property>
                             <property name="ALIGNMENT"><![CDATA[LEFT]]></property>
-                            <property name="WIDTH"><![CDATA[100]]></property>
                             <property name="PARAMETER"><![CDATA[email]]></property>
+                            <property name="WIDTH"><![CDATA[100]]></property>
                         </listEntry>
                         <listEntry>
                             <property name="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
                             <property name="EXPAND_X"><![CDATA[true]]></property>
                             <property name="ALIGNMENT"><![CDATA[RIGHT]]></property>
-                            <property name="WIDTH"><![CDATA[100]]></property>
                             <property name="PARAMETER"><![CDATA[name]]></property>
+                            <property name="WIDTH"><![CDATA[100]]></property>
                         </listEntry>
                     </propertyList>
                 </rendererProperties>
@@ -240,6 +240,42 @@
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor><![CDATA[r255g255b255]]></foregroundColor>
             <backgroundColor><![CDATA[r255g0b0]]></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="dataOdd">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor><![CDATA[r197g217b241]]></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="tableHeader">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor><![CDATA[r255g255b255]]></foregroundColor>
+            <backgroundColor><![CDATA[r77g112b184]]></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="dataSmall">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>7</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="dataSmallBold">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>7</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
         </visualAttribute>
     </visualAttributes>
 </entirejFramework>

@@ -1,6 +1,8 @@
 package org.entirej.ejinvoice.forms.projects;
 
 import java.math.BigDecimal;
+import java.sql.Date;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
@@ -9,9 +11,12 @@ public class Project
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<String>     _description;
     private EJPojoProperty<String>     _name;
-    private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<Integer>    _userId;
     private EJPojoProperty<Integer>    _customerId;
+    private EJPojoProperty<Date>       _startDate;
+    private EJPojoProperty<Date>       _endDate;
+    private EJPojoProperty<String>     _status;
+    private EJPojoProperty<String>     _notes;
 
     @EJFieldName("ID")
     public Integer getId()
@@ -67,22 +72,22 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_name);
     }
 
-    @EJFieldName("PAY_RATE")
-    public BigDecimal getPayRate()
+    @EJFieldName("STATUS")
+    public String getStatus()
     {
-        return EJPojoProperty.getPropertyValue(_payRate);
+        return EJPojoProperty.getPropertyValue(_status);
     }
 
-    @EJFieldName("PAY_RATE")
-    public void setPayRate(BigDecimal payRate)
+    @EJFieldName("STATUS")
+    public void setStatus(String status)
     {
-        _payRate = EJPojoProperty.setPropertyValue(_payRate, payRate);
+        _status = EJPojoProperty.setPropertyValue(_status, status);
     }
 
-    @EJFieldName("PAY_RATE")
-    public BigDecimal getInitialPayRate()
+    @EJFieldName("STATUS")
+    public String getInitialStatus()
     {
-        return EJPojoProperty.getPropertyInitialValue(_payRate);
+        return EJPojoProperty.getPropertyInitialValue(_status);
     }
 
     @EJFieldName("USER_ID")
@@ -121,14 +126,71 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_customerId);
     }
 
+    @EJFieldName("START_DATE")
+    public Date getStartDate()
+    {
+        return EJPojoProperty.getPropertyValue(_startDate);
+    }
+
+    @EJFieldName("START_DATE")
+    public void setStartDate(Date startDate)
+    {
+        _startDate = EJPojoProperty.setPropertyValue(_startDate, startDate);
+    }
+
+    @EJFieldName("START_DATE")
+    public Date getInitialStartDate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_startDate);
+    }
+    
+    @EJFieldName("END_DATE")
+    public Date getEndDate()
+    {
+        return EJPojoProperty.getPropertyValue(_endDate);
+    }
+
+    @EJFieldName("END_DATE")
+    public void setEndDate(Date endDate)
+    {
+        _endDate = EJPojoProperty.setPropertyValue(_endDate, endDate);
+    }
+
+    @EJFieldName("END_DATE")
+    public Date getInitialEndDate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_endDate);
+    }
+    
+    @EJFieldName("NOTES")
+    public String getNotes()
+    {
+        return EJPojoProperty.getPropertyValue(_notes);
+    }
+
+    @EJFieldName("NOTES")
+    public void setNotes(String notes)
+    {
+        _notes = EJPojoProperty.setPropertyValue(_notes, notes);
+    }
+
+    @EJFieldName("NOTES")
+    public String getInitialNotes()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_notes);
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_description);
         EJPojoProperty.clearInitialValue(_name);
-        EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_customerId);
+        EJPojoProperty.clearInitialValue(_startDate);
+        EJPojoProperty.clearInitialValue(_endDate);
+        EJPojoProperty.clearInitialValue(_status);
+        EJPojoProperty.clearInitialValue(_notes);
     }
 
 }

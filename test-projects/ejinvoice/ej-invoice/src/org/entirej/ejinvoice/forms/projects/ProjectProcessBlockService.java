@@ -1,10 +1,9 @@
 package org.entirej.ejinvoice.forms.projects;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.entirej.ejinvoice.ApplicationParameters;
-import org.entirej.ejinvoice.forms.login.User;
+import org.entirej.ejinvoice.forms.projects.ProjectProcess;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -14,12 +13,12 @@ import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
-public class ProjectBlockService implements EJBlockService<Project>
+public class ProjectProcessBlockService implements EJBlockService<ProjectProcess>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUSTOMER_ID,DESCRIPTION,ID,NAME,USER_ID FROM customer_projects";
+    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,USER_ID,VAT_ID FROM customer_project_process";
 
-    public ProjectBlockService()
+    public ProjectProcessBlockService()
     {
         _statementExecutor = new EJStatementExecutor();
     }
@@ -31,31 +30,29 @@ public class ProjectBlockService implements EJBlockService<Project>
     }
 
     @Override
-    public List<Project> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
+    public List<ProjectProcess> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
-        return _statementExecutor.executeQuery(Project.class, form, _selectStatement, queryCriteria);
+        return _statementExecutor.executeQuery(ProjectProcess.class, form, _selectStatement, queryCriteria);
     }
 
     @Override
-    public void executeInsert(EJForm form, List<Project> newRecords)
+    public void executeInsert(EJForm form, List<ProjectProcess> newRecords)
     {
-        User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
-        for (Project record : newRecords)
+        for (ProjectProcess record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
-            record.setUserId(usr.getId());
-            parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustomerId()));
-            parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
+            parameters.add(new EJStatementParameter("CPR_ID", Integer.class, record.getCprId()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
+            parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
+            parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getPayRate()));
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
-            recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
+            recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_process", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != newRecords.size())
@@ -65,38 +62,32 @@ public class ProjectBlockService implements EJBlockService<Project>
     }
 
     @Override
-    public void executeUpdate(EJForm form, List<Project> updateRecords)
+    public void executeUpdate(EJForm form, List<ProjectProcess> updateRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (Project record : updateRecords)
+        for (ProjectProcess record : updateRecords)
         {
             parameters.clear();
 
             // First add the new values
-            parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustomerId()));
-            parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
+            parameters.add(new EJStatementParameter("CPR_ID", Integer.class, record.getCprId()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
+            parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
+            parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getPayRate()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            if (record.getInitialCustomerId() == null)
+            if (record.getInitialCprId() == null)
             {
-                criteria.add(EJRestrictions.isNull("CUSTOMER_ID"));
+                criteria.add(EJRestrictions.isNull("CPR_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("CUSTOMER_ID", record.getInitialCustomerId()));
-            }
-            if (record.getInitialDescription() == null)
-            {
-                criteria.add(EJRestrictions.isNull("DESCRIPTION"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("DESCRIPTION", record.getInitialDescription()));
+                criteria.add(EJRestrictions.equals("CPR_ID", record.getInitialCprId()));
             }
             if (record.getInitialId() == null)
             {
@@ -114,6 +105,22 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
             }
+            if (record.getInitialNotes() == null)
+            {
+                criteria.add(EJRestrictions.isNull("NOTES"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("NOTES", record.getInitialNotes()));
+            }
+            if (record.getInitialPayRate() == null)
+            {
+                criteria.add(EJRestrictions.isNull("PAY_RATE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("PAY_RATE", record.getInitialPayRate()));
+            }
             if (record.getInitialUserId() == null)
             {
                 criteria.add(EJRestrictions.isNull("USER_ID"));
@@ -122,8 +129,16 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
+            if (record.getInitialVatId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("VAT_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
+            }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
-            recordsProcessed += _statementExecutor.executeUpdate(form, "customer_projects", criteria, parameters.toArray(paramArray));
+            recordsProcessed += _statementExecutor.executeUpdate(form, "customer_project_process", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != updateRecords.size())
@@ -133,32 +148,24 @@ public class ProjectBlockService implements EJBlockService<Project>
     }
 
     @Override
-    public void executeDelete(EJForm form, List<Project> recordsToDelete)
+    public void executeDelete(EJForm form, List<ProjectProcess> recordsToDelete)
     {
         ArrayList<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (Project record : recordsToDelete)
+        for (ProjectProcess record : recordsToDelete)
         {
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
 
-            if (record.getInitialCustomerId() == null)
+            if (record.getInitialCprId() == null)
             {
-                criteria.add(EJRestrictions.isNull("CUSTOMER_ID"));
+                criteria.add(EJRestrictions.isNull("CPR_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("CUSTOMER_ID", record.getInitialCustomerId()));
-            }
-            if (record.getInitialDescription() == null)
-            {
-                criteria.add(EJRestrictions.isNull("DESCRIPTION"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("DESCRIPTION", record.getInitialDescription()));
+                criteria.add(EJRestrictions.equals("CPR_ID", record.getInitialCprId()));
             }
             if (record.getInitialId() == null)
             {
@@ -176,6 +183,22 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
             }
+            if (record.getInitialNotes() == null)
+            {
+                criteria.add(EJRestrictions.isNull("NOTES"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("NOTES", record.getInitialNotes()));
+            }
+            if (record.getInitialPayRate() == null)
+            {
+                criteria.add(EJRestrictions.isNull("PAY_RATE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("PAY_RATE", record.getInitialPayRate()));
+            }
             if (record.getInitialUserId() == null)
             {
                 criteria.add(EJRestrictions.isNull("USER_ID"));
@@ -184,8 +207,16 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
+            if (record.getInitialVatId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("VAT_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
+            }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
-            recordsProcessed += _statementExecutor.executeDelete(form, "customer_projects", criteria, parameters.toArray(paramArray));
+            recordsProcessed += _statementExecutor.executeDelete(form, "customer_project_process", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != recordsToDelete.size())
