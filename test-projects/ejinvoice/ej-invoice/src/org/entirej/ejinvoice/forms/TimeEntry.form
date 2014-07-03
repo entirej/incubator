@@ -2781,7 +2781,7 @@
                                         <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                         <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                         <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[6]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[8]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="notes" isSpacerItem="false">
