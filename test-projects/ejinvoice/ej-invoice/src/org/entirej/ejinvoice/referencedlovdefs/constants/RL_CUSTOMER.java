@@ -20,6 +20,7 @@ public class RL_CUSTOMER
         public static final String I_POST_CODE      = "postCode";
         public static final String I_ADDRESS_LINE_3 = "addressLine3";
         public static final String I_TOWN           = "town";
+        public static final String I_COUNTRY        = "country";
 
     }
 

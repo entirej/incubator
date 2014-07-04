@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerLovService implements EJBlockService<Customer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ADDRESS_LINE1,ADDRESS_LINE2,ADDRESS_LINE3,ID,NAME,POST_CODE,TOWN FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT ADDRESS_LINE1,ADDRESS_LINE2,ADDRESS_LINE3,ID,NAME,POST_CODE,TOWN, COUNTRY FROM CUSTOMER";
 
     public CustomerLovService()
     {
@@ -73,6 +73,7 @@ public class CustomerLovService implements EJBlockService<Customer>
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
+            parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "CUSTOMER", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -102,6 +103,7 @@ public class CustomerLovService implements EJBlockService<Customer>
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
+            parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialAddressLine1() == null)
@@ -159,6 +161,14 @@ public class CustomerLovService implements EJBlockService<Customer>
             else
             {
                 criteria.add(EJRestrictions.equals("TOWN", record.getInitialTown()));
+            }
+            if (record.getInitialCountry() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COUNTRY"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COUNTRY", record.getInitialCountry()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "CUSTOMER", criteria, parameters.toArray(paramArray));
@@ -238,6 +248,14 @@ public class CustomerLovService implements EJBlockService<Customer>
             else
             {
                 criteria.add(EJRestrictions.equals("TOWN", record.getInitialTown()));
+            }
+            if (record.getInitialCountry() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COUNTRY"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COUNTRY", record.getInitialCountry()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "CUSTOMER", criteria, parameters.toArray(paramArray));

@@ -101,6 +101,29 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class B_PROJECTS_DETAIL
+    {
+        public static final String ID                        = "ProjectsDetail";
+        public static final String I_BACK                    = "back";
+        public static final String I_ID                      = "id";
+        public static final String I_DESCRIPTION             = "description";
+        public static final String I_NAME                    = "name";
+        public static final String I_STATUS                  = "status";
+        public static final String I_USER_ID                 = "userId";
+        public static final String I_CUSTOMER_ID             = "customerId";
+        public static final String I_START_DATE              = "startDate";
+        public static final String I_END_DATE                = "endDate";
+        public static final String I_NOTES                   = "notes";
+        public static final String I_CUSTOMER_NAME           = "customerName";
+        public static final String I_CUSTOMER_ADDRESS_LINE_1 = "customerAddressLine1";
+        public static final String I_CUSTOMER_ADDRESS_LINE_2 = "customerAddressLine2";
+        public static final String I_CUSTOMER_ADDRESS_LINE_3 = "customerAddressLine3";
+        public static final String I_CUSTOMER_POST_CODE      = "customerPostCode";
+        public static final String I_CUSTOMER_TOWN           = "customerTown";
+        public static final String I_CUSTOMER_COUNTRY        = "customerCountry";
+
+    }
+
     public static class B_PROJECT_PROCESS
     {
         public static final String ID         = "ProjectProcess";
@@ -126,6 +149,20 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class L_CUSTOMER
+    {
+        public static final String ID               = "Customer";
+        public static final String I_ID             = "id";
+        public static final String I_ADDRESS_LINE_1 = "addressLine1";
+        public static final String I_ADDRESS_LINE_2 = "addressLine2";
+        public static final String I_NAME           = "name";
+        public static final String I_POST_CODE      = "postCode";
+        public static final String I_ADDRESS_LINE_3 = "addressLine3";
+        public static final String I_TOWN           = "town";
+        public static final String I_COUNTRY        = "country";
+
+    }
+
     public static final String C_COMPANY = "Company";
     public static final String C_MAIN    = "Main";
 
@@ -146,12 +183,24 @@ public class F_TIME_ENTRY
 
     }
 
-    public static final String C_TIME_ENTRY                = "TimeEntry";
-    public static final String C_TIME_ENTRY_PAID           = "TimeEntryPaid";
+    public static final String C_TIME_ENTRY      = "TimeEntry";
+    public static final String C_TIME_ENTRY_PAID = "TimeEntryPaid";
+    public static final String C_PROJECTS_STACK  = "ProjectsStack";
+
+    public static class C_PROJECTS_STACK_PAGES
+    {
+        public static final String PROJECTS = "Projects";
+        public static final String PROCESS  = "Process";
+
+    }
+
     public static final String C_PROJECTS                  = "Projects";
+    public static final String C_PROJECTS_DETAIL           = "ProjectsDetail";
     public static final String C_PROJECT_PROCESS           = "ProjectProcess";
 
     public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";
+    public static final String AC_BACK_TO_PROJECT_OVERVIEW = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_EDIT_COMPANY_INFORMATION = "EDIT_COMPANY_INFORMATION";
+    public static final String AC_PROJECT_DETAILS          = "PROJECT_DETAILS";
 
 }

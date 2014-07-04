@@ -30,6 +30,7 @@ public class Customer
     private EJPojoProperty<String>  _postCode;
     private EJPojoProperty<String>  _addressLine3;
     private EJPojoProperty<String>  _town;
+    private EJPojoProperty<String>  _country;
 
     @EJFieldName("ID")
     public Integer getId()
@@ -156,6 +157,24 @@ public class Customer
     {
         return EJPojoProperty.getPropertyInitialValue(_town);
     }
+    
+    @EJFieldName("COUNTRY")
+    public String getCountry()
+    {
+        return EJPojoProperty.getPropertyValue(_country);
+    }
+
+    @EJFieldName("COUNTRY")
+    public void setCountry(String country)
+    {
+        _country = EJPojoProperty.setPropertyValue(_country, country);
+    }
+
+    @EJFieldName("COUNTRY")
+    public String getInitialCountry()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_country);
+    }
 
     public void clearInitialValues()
     {
@@ -166,6 +185,7 @@ public class Customer
         EJPojoProperty.clearInitialValue(_postCode);
         EJPojoProperty.clearInitialValue(_addressLine3);
         EJPojoProperty.clearInitialValue(_town);
+        EJPojoProperty.clearInitialValue(_country);
     }
 
 }

@@ -35,7 +35,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         {
             try
             {
-                String filePath = EJRWTFileUpload.propmptFileUpload("Logo");
+                String filePath = EJRWTFileUpload.promptFileUpload("Logo");
 
                 //File image = new File(filePath);
 

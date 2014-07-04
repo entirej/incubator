@@ -9,6 +9,8 @@ import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
 import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.enumerations.EJScreenType;
+import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJRestrictions;
 
 public class TimeEntryActionProcessor extends EJDefaultFormActionProcessor implements EJFormActionProcessor
 {
@@ -27,6 +29,22 @@ public class TimeEntryActionProcessor extends EJDefaultFormActionProcessor imple
         {
             form.openForm(F_COMPANY.ID);
         }
+        else if (F_TIME_ENTRY.AC_PROJECT_DETAILS.equals(command))
+        {
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
+            
+            Integer projectId = (Integer)record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
+            
+            EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
+            criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
+            
+            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
+        }
+        else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
+        {
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
+            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).clear(true);
+        }
 
     }
 
@@ -38,6 +56,7 @@ public class TimeEntryActionProcessor extends EJDefaultFormActionProcessor imple
         {
             if (F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS.equals(tabPageName))
             {
+                form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).executeQuery();
             }
         }
