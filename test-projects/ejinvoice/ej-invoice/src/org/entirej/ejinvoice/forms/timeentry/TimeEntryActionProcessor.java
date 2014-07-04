@@ -16,7 +16,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
     {
-        System.err.println("item: "+itemName);
+        System.err.println("item: " + itemName);
+        if (screenType == EJScreenType.MAIN && F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT.equals(itemName))
+        {
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).refreshItemRenderer();
+        }
     }
 
     @Override
@@ -36,12 +40,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.AC_PROJECT_DETAILS.equals(command))
         {
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
-            
-            Integer projectId = (Integer)record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
-            
+
+            Integer projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
+
             EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
             criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
-            
+
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
         }
         else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
@@ -53,10 +57,28 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).enterInsert(false);
         }
+        else if (F_TIME_ENTRY.AC_CREATE_NEW_PROJECT.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterInsert(false);
+        }
 
     }
 
- 
+    @Override
+    public void postInsert(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_TIME_ENTRY.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            Integer projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
+
+            EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
+            criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
+
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
+            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
+        }
+    }
+
     @Override
     public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
     {
