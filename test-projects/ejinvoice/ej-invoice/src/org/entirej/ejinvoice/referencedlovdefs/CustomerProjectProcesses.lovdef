@@ -23,18 +23,17 @@
         <relationList>
         </relationList>
         <lovDefinitionList>
-            <lovDefinition name="CustomerProjects" isReferenced="false" rendererName="Standard" allowUserQuery="false" automaticQuery="true">
-                <width>200</width>
-                <height>300</height>
+            <lovDefinition name="CustomerProjectProcesses" isReferenced="false" rendererName="Standard" allowUserQuery="false" automaticQuery="true">
+                <width>400</width>
+                <height>500</height>
                 <actionProcessorClassName></actionProcessorClassName>
                 <lovRendererProperties>
                     <property name="ROW_SELECTION" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                     <property name="SHOW_HORIZONTAL_LINES" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                    <property name="DISPLAY_FOCUS_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                     <property name="SHOW_HEADING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                     <property name="HIDE_TABLE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                 </lovRendererProperties>
-                <block name="CustomerProjects" referenced="false" controlBlock="false">
+                <block name="CustomerProjectProcesses" referenced="false" controlBlock="false">
                     <isMirrored>false</isMirrored>
                     <mirrorParent></mirrorParent>
                     <description></description>
@@ -45,7 +44,7 @@
                     <deleteAllowed>true</deleteAllowed>
                     <canvasName></canvasName>
                     <blockRendererName></blockRendererName>
-                    <serviceClassName><![CDATA[org.entirej.ejinvoice.referencedlovdefs.services.CustomerProjectsLovService]]></serviceClassName>
+                    <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.projects.ProjectProcessBlockService]]></serviceClassName>
                     <actionProcessorClassName></actionProcessorClassName>
                     <queryAllRows>false</queryAllRows>
                     <maxResults>0</maxResults>
@@ -63,6 +62,42 @@
                     <lovMappingList>
                     </lovMappingList>
                     <itemList>
+                        <item name="id">
+                            <blockServiceItem>true</blockServiceItem>
+                            <mandatoryItem>false</mandatoryItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <itemRendererName></itemRendererName>
+                            <defaultInsertValue></defaultInsertValue>
+                            <defaultQueryValue></defaultQueryValue>
+                            <itemRendererProperties>
+                            </itemRendererProperties>
+                        </item>
+                        <item name="cprId">
+                            <blockServiceItem>true</blockServiceItem>
+                            <mandatoryItem>false</mandatoryItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <itemRendererName></itemRendererName>
+                            <defaultInsertValue></defaultInsertValue>
+                            <defaultQueryValue></defaultQueryValue>
+                            <itemRendererProperties>
+                            </itemRendererProperties>
+                        </item>
+                        <item name="notes">
+                            <blockServiceItem>true</blockServiceItem>
+                            <mandatoryItem>false</mandatoryItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <itemRendererName><![CDATA[TextItem]]></itemRendererName>
+                            <defaultInsertValue></defaultInsertValue>
+                            <defaultQueryValue></defaultQueryValue>
+                            <itemRendererProperties>
+                                <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                                <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                                <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                            </itemRendererProperties>
+                        </item>
                         <item name="name">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
@@ -79,7 +114,21 @@
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
-                        <item name="id">
+                        <item name="payRate">
+                            <blockServiceItem>true</blockServiceItem>
+                            <mandatoryItem>false</mandatoryItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <itemRendererName><![CDATA[NumberItem]]></itemRendererName>
+                            <defaultInsertValue></defaultInsertValue>
+                            <defaultQueryValue></defaultQueryValue>
+                            <itemRendererProperties>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            </itemRendererProperties>
+                        </item>
+                        <item name="userId">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
@@ -89,20 +138,10 @@
                             <itemRendererProperties>
                             </itemRendererProperties>
                         </item>
-                        <item name="custId">
+                        <item name="vatId">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
-                            <defaultInsertValue></defaultInsertValue>
-                            <defaultQueryValue></defaultQueryValue>
-                            <itemRendererProperties>
-                            </itemRendererProperties>
-                        </item>
-                        <item name="description">
-                            <blockServiceItem>true</blockServiceItem>
-                            <mandatoryItem>false</mandatoryItem>
-                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
                             <itemRendererName></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
@@ -112,7 +151,7 @@
                     </itemList>
                     <mainScreenProperties>
                         <displayFrame>false</displayFrame>
-                        <frameTitle><![CDATA[Customer Projects]]></frameTitle>
+                        <frameTitle></frameTitle>
                         <numCols>1</numCols>
                         <height>0</height>
                         <width>0</width>
@@ -123,7 +162,7 @@
                     </mainScreenProperties>
                     <mainScreen>
                         <itemGroupList>
-                            <itemGroup name="list">
+                            <itemGroup name="main">
                                 <displayFrame>false</displayFrame>
                                 <frameTitle></frameTitle>
                                 <numCols>1</numCols>
@@ -147,12 +186,47 @@
                                         <validateFromLov>true</validateFromLov>
                                         <actionCommand></actionCommand>
                                         <lovRendererRequiredProperties>
-                                            <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
+                                        </lovRendererRequiredProperties>
+                                    </item>
+                                    <item referencedItemName="payRate" isSpacerItem="false">
+                                        <label><![CDATA[Pay Rate]]></label>
+                                        <hint></hint>
+                                        <editAllowed>false</editAllowed>
+                                        <visible>true</visible>
+                                        <mandatory>false</mandatory>
+                                        <enableLovNotification>false</enableLovNotification>
+                                        <lovMappingName></lovMappingName>
+                                        <validateFromLov>true</validateFromLov>
+                                        <actionCommand></actionCommand>
+                                        <lovRendererRequiredProperties>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        </lovRendererRequiredProperties>
+                                    </item>
+                                    <item referencedItemName="notes" isSpacerItem="false">
+                                        <label><![CDATA[Notes]]></label>
+                                        <hint></hint>
+                                        <editAllowed>false</editAllowed>
+                                        <visible>true</visible>
+                                        <mandatory>false</mandatory>
+                                        <enableLovNotification>false</enableLovNotification>
+                                        <lovMappingName></lovMappingName>
+                                        <validateFromLov>true</validateFromLov>
+                                        <actionCommand></actionCommand>
+                                        <lovRendererRequiredProperties>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                 </itemGroupItemList>

@@ -14,6 +14,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
 
     @Override
+    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
+    {
+        System.err.println("item: "+itemName);
+    }
+
+    @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();

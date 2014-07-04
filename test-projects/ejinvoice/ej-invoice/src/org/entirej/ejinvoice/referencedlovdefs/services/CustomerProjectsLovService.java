@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerProjectsLovService implements EJBlockService<CustomerProjects>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUSTOMER_ID,DESCRIPTION,ID,NAME,PAY_RATE FROM CUSTOMER_PROJECTS";
+    private String                    _selectStatement = "SELECT CUSTOMER_ID,DESCRIPTION,ID,NAME FROM CUSTOMER_PROJECTS";
 
     public CustomerProjectsLovService()
     {
@@ -70,7 +70,6 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
-            parameters.add(new EJStatementParameter("PAY_RATE", Double.class, record.getPayRate()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "CUSTOMER_PROJECTS", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -97,7 +96,6 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
-            parameters.add(new EJStatementParameter("PAY_RATE", Double.class, record.getPayRate()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustId() == null)
@@ -131,14 +129,6 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
             else
             {
                 criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
-            }
-            if (record.getInitialPayRate() == null)
-            {
-                criteria.add(EJRestrictions.isNull("PAY_RATE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("PAY_RATE", record.getInitialPayRate()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "CUSTOMER_PROJECTS", criteria, parameters.toArray(paramArray));
@@ -194,14 +184,6 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
             else
             {
                 criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
-            }
-            if (record.getInitialPayRate() == null)
-            {
-                criteria.add(EJRestrictions.isNull("PAY_RATE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("PAY_RATE", record.getInitialPayRate()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "CUSTOMER_PROJECTS", criteria, parameters.toArray(paramArray));

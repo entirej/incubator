@@ -86,18 +86,32 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class B_PROJECTS_TOOLBAR
+    {
+        public static final String ID                   = "ProjectsToolbar";
+        public static final String I_CREATE_NEW_PROJECT = "createNewProject";
+
+    }
+
     public static class B_PROJECTS
     {
-        public static final String ID            = "Projects";
-        public static final String I_ID          = "id";
-        public static final String I_DESCRIPTION = "description";
-        public static final String I_NAME        = "name";
-        public static final String I_STATUS      = "status";
-        public static final String I_USER_ID     = "userId";
-        public static final String I_CUSTOMER_ID = "customerId";
-        public static final String I_START_DATE  = "startDate";
-        public static final String I_END_DATE    = "endDate";
-        public static final String I_NOTES       = "notes";
+        public static final String ID                   = "Projects";
+        public static final String I_ID                 = "id";
+        public static final String I_DESCRIPTION        = "description";
+        public static final String I_NAME               = "name";
+        public static final String I_STATUS             = "status";
+        public static final String I_USER_ID            = "userId";
+        public static final String I_CUSTOMER_ID        = "customerId";
+        public static final String I_START_DATE         = "startDate";
+        public static final String I_END_DATE           = "endDate";
+        public static final String I_NOTES              = "notes";
+        public static final String I_CUSTOMER_NAME      = "customerName";
+        public static final String I_CUSTOMER_ADDRESS_1 = "customerAddress1";
+        public static final String I_CUSTOMER_ADDRESS_2 = "customerAddress2";
+        public static final String I_CUSTOMER_ADDRESS_3 = "customerAddress3";
+        public static final String I_CUSTOMER_POST_CODE = "customerPostCode";
+        public static final String I_CUSTOMER_TOWN      = "customerTown";
+        public static final String I_CUSTOMER_COUNTRY   = "customerCountry";
 
     }
 
@@ -164,6 +178,29 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class L_CUSTOMER_PROJECTS
+    {
+        public static final String ID            = "CustomerProjects";
+        public static final String I_NAME        = "name";
+        public static final String I_ID          = "id";
+        public static final String I_CUST_ID     = "custId";
+        public static final String I_DESCRIPTION = "description";
+
+    }
+
+    public static class L_CUSTOMER_PROJECT_PROCESSES
+    {
+        public static final String ID         = "CustomerProjectProcesses";
+        public static final String I_ID       = "id";
+        public static final String I_CPR_ID   = "cprId";
+        public static final String I_NOTES    = "notes";
+        public static final String I_NAME     = "name";
+        public static final String I_PAY_RATE = "payRate";
+        public static final String I_USER_ID  = "userId";
+        public static final String I_VAT_ID   = "vatId";
+
+    }
+
     public static final String C_COMPANY = "Company";
     public static final String C_MAIN    = "Main";
 
@@ -195,6 +232,7 @@ public class F_TIME_ENTRY
 
     }
 
+    public static final String C_PROJECTS_TOOLBAR          = "ProjectsToolbar";
     public static final String C_PROJECTS                  = "Projects";
     public static final String C_PROJECTS_DETAIL           = "ProjectsDetail";
     public static final String C_PROJECT_PROCESS           = "ProjectProcess";
@@ -202,6 +240,7 @@ public class F_TIME_ENTRY
     public static final String AC_ADD_NEW_PROCESS          = "ADD_NEW_PROCESS";
     public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";
     public static final String AC_BACK_TO_PROJECT_OVERVIEW = "BACK_TO_PROJECT_OVERVIEW";
+    public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_EDIT_COMPANY_INFORMATION = "EDIT_COMPANY_INFORMATION";
     public static final String AC_PROJECT_DETAILS          = "PROJECT_DETAILS";
 
