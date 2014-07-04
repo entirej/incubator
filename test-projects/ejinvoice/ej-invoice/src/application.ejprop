@@ -12,32 +12,33 @@
         <appicationLevelParameter name="USER" dataType="org.entirej.ejinvoice.forms.login.User" defaultValue=""></appicationLevelParameter>
         <appicationLevelParameter name="email" dataType="java.lang.String" defaultValue=""></appicationLevelParameter>
         <appicationLevelParameter name="name" dataType="java.lang.String" defaultValue=""></appicationLevelParameter>
+        <appicationLevelParameter name="USER_ID" dataType="java.lang.Integer" defaultValue=""></appicationLevelParameter>
     </applicationLevelParameterList>
     <applicationDefinedProperties>
         <property name="DISPLAY_TAB_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
         <property name="APPLICATION_MENU" multilingual="false" propertyType="MENU_GROUP"></property>
         <propertyGroup name="APP_MESSAGING">
             <propertyGroup name="APP_MSG_WARNING">
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_HINT">
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_INFO">
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[NOTIFICATION]]></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_ERROR">
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
         </propertyGroup>

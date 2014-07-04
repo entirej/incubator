@@ -1,18 +1,16 @@
 package org.entirej.ejinvoice.forms.timeentry;
 
+import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
-import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
-import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
 
-public class TimeEntryActionProcessor extends EJDefaultFormActionProcessor implements EJFormActionProcessor
+public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
 
     @Override
@@ -44,6 +42,10 @@ public class TimeEntryActionProcessor extends EJDefaultFormActionProcessor imple
         {
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).clear(true);
+        }
+        else if (F_TIME_ENTRY.AC_ADD_NEW_PROCESS.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).enterInsert(false);
         }
 
     }

@@ -121,6 +121,7 @@ public class F_TIME_ENTRY
         public static final String I_CUSTOMER_POST_CODE      = "customerPostCode";
         public static final String I_CUSTOMER_TOWN           = "customerTown";
         public static final String I_CUSTOMER_COUNTRY        = "customerCountry";
+        public static final String I_ADD_NEW_PROCESS         = "addNewProcess";
 
     }
 
@@ -198,6 +199,7 @@ public class F_TIME_ENTRY
     public static final String C_PROJECTS_DETAIL           = "ProjectsDetail";
     public static final String C_PROJECT_PROCESS           = "ProjectProcess";
 
+    public static final String AC_ADD_NEW_PROCESS          = "ADD_NEW_PROCESS";
     public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";
     public static final String AC_BACK_TO_PROJECT_OVERVIEW = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_EDIT_COMPANY_INFORMATION = "EDIT_COMPANY_INFORMATION";
