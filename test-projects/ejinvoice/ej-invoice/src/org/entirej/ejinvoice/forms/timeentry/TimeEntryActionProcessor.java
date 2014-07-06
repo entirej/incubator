@@ -5,13 +5,18 @@ import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
+import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
 
 public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
+
+    private boolean timeEntryInserted = false;
+    private Integer projectId         = null;
 
     @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
@@ -69,13 +74,27 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         if (F_TIME_ENTRY.B_PROJECTS.ID.equals(record.getBlockName()))
         {
-            Integer projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
+            timeEntryInserted = true;
+            projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
+        }
+    }
+
+    @Override
+    public void postFormSave(EJForm form) throws EJActionProcessorException
+    {
+        if (timeEntryInserted)
+        {
+            timeEntryInserted = false;
 
             EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
             criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
 
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
+            
+            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project process. Please enter one here before continuing.");
+            
+            form.showMessage(message);
         }
     }
 
