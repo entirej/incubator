@@ -2,11 +2,14 @@ package org.entirej.ejinvoice.forms.timeentry;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
+import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
+import org.entirej.framework.core.EJParameterList;
 import org.entirej.framework.core.EJRecord;
+import org.entirej.framework.core.data.controllers.EJFormParameter;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
@@ -66,6 +69,16 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterInsert(false);
         }
+        else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
+        {
+            EJParameterList paramList = new EJParameterList();
+            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
+            cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
+            paramList.addParameter(cstParam);
+            
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
+            form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
+        }
 
     }
 
@@ -108,7 +121,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).executeQuery();
             }
-            
+            else if (F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS.equals(tabPageName))
+            {
+                form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+            }
         }
     }
 
