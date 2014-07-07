@@ -88,8 +88,9 @@ public class F_TIME_ENTRY
 
     public static class B_PROJECTS_TOOLBAR
     {
-        public static final String ID                   = "ProjectsToolbar";
-        public static final String I_CREATE_NEW_PROJECT = "createNewProject";
+        public static final String ID                     = "ProjectsToolbar";
+        public static final String I_CREATE_NEW_PROJECT   = "createNewProject";
+        public static final String I_EDIT_CURRENT_PROJECT = "editCurrentProject";
 
     }
 
@@ -154,6 +155,37 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class B_CUSTOMERS
+    {
+        public static final String ID               = "Customers";
+        public static final String I_USER_ID        = "userId";
+        public static final String I_ID             = "id";
+        public static final String I_ADDRESS_LINE_1 = "addressLine1";
+        public static final String I_ADDRESS_LINE_2 = "addressLine2";
+        public static final String I_NAME           = "name";
+        public static final String I_POST_CODE      = "postCode";
+        public static final String I_ADDRESS_LINE_3 = "addressLine3";
+        public static final String I_TOWN           = "town";
+        public static final String I_COUNTRY        = "country";
+
+    }
+
+    public static class B_CUSTOMER_CONTACTS
+    {
+        public static final String ID                 = "CustomerContacts";
+        public static final String I_EMAIL            = "email";
+        public static final String I_PHONE            = "phone";
+        public static final String I_USER_ID          = "userId";
+        public static final String I_CONTACT_TYPES_ID = "contactTypesId";
+        public static final String I_CUSTOMER_ID      = "customerId";
+        public static final String I_ID               = "id";
+        public static final String I_FIRST_NAME       = "firstName";
+        public static final String I_SALUTATIONS_ID   = "salutationsId";
+        public static final String I_LAST_NAME        = "lastName";
+        public static final String I_MOBILE           = "mobile";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID      = "VatRate";
@@ -208,6 +240,7 @@ public class F_TIME_ENTRY
     {
         public static final String TIME__ENTRY = "Time Entry";
         public static final String PROJECTS    = "Projects";
+        public static final String CUSTOMERS   = "Customers";
 
     }
 
@@ -236,13 +269,14 @@ public class F_TIME_ENTRY
     public static final String C_PROJECTS                  = "Projects";
     public static final String C_PROJECTS_DETAIL           = "ProjectsDetail";
     public static final String C_PROJECT_PROCESS           = "ProjectProcess";
+    public static final String C_CUSTOMER                  = "Customer";
+    public static final String C_CUSTOMER_CONTACTS         = "CustomerContacts";
 
     public static final String AC_ADD_NEW_PROCESS          = "ADD_NEW_PROCESS";
     public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";
     public static final String AC_BACK_TO_PROJECT_OVERVIEW = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_EDIT_COMPANY_INFORMATION = "EDIT_COMPANY_INFORMATION";
-    public static final String AC_INSERT_NEW_PROJECT       = "INSERT_NEW_PROJECT";
     public static final String AC_PROJECT_DETAILS          = "PROJECT_DETAILS";
 
 }

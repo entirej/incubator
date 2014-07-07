@@ -108,6 +108,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).executeQuery();
             }
+            
         }
     }
 
