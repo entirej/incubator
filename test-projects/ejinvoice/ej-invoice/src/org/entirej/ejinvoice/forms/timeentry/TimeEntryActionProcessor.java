@@ -19,7 +19,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
 
     private boolean timeEntryInserted = false;
+    private boolean customerInserted  = false;
     private Integer projectId         = null;
+    private Integer customerId        = null;
 
     @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
@@ -65,9 +67,17 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).enterInsert(false);
         }
+        else if (F_TIME_ENTRY.AC_MODIFY_PROJECT.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterUpdate();
+        }
         else if (F_TIME_ENTRY.AC_CREATE_NEW_PROJECT.equals(command))
         {
             form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterInsert(false);
+        }
+        else if (F_TIME_ENTRY.AC_CREATE_NEW_CUSTOMER.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterInsert(false);
         }
         else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
         {
@@ -75,7 +85,18 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
             cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
             paramList.addParameter(cstParam);
-            
+
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
+            form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
+        }
+        else if (F_TIME_ENTRY.AC_OPEN_CUSTOMER.equals(command))
+        {
+            EJParameterList paramList = new EJParameterList();
+            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
+            cstParam.setValue(record.getValue(F_TIME_ENTRY.B_PROJECTS.I_CUSTOMER_ID));
+            paramList.addParameter(cstParam);
+
+            form.showTabCanvasPage(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS);
             form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
             form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
         }
@@ -89,6 +110,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             timeEntryInserted = true;
             projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
+        }
+        else if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(record.getBlockName()))
+        {
+            customerInserted = true;
+            customerId = (Integer) record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID);
         }
     }
 
@@ -104,10 +130,21 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
-            
+
             EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project process. Please enter one here before continuing.");
-            
+
             form.showMessage(message);
+        }
+        else if (customerInserted)
+        {
+            EJParameterList paramList = new EJParameterList();
+            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
+            cstParam.setValue(customerId);
+            paramList.addParameter(cstParam);
+
+            form.showTabCanvasPage(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS);
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
+            form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
         }
     }
 
@@ -123,6 +160,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             }
             else if (F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS.equals(tabPageName))
             {
+                form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
+                // form.closeEmbeddedForm(F_CUSTOMER.ID,
+                // F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM);
                 form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
             }
         }

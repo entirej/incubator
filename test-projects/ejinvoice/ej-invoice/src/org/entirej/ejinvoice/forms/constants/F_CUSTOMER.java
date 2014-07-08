@@ -12,19 +12,25 @@ public class F_CUSTOMER
 
     public static class B_CUSTOMER
     {
-        public static final String ID                = "Customer";
-        public static final String I_USER_ID         = "userId";
-        public static final String I_ID              = "id";
-        public static final String I_ADDRESS_LINE_1  = "addressLine1";
-        public static final String I_ADDRESS_LINE_2  = "addressLine2";
-        public static final String I_NAME            = "name";
-        public static final String I_POST_CODE       = "postCode";
-        public static final String I_ADDRESS_LINE_3  = "addressLine3";
-        public static final String I_TOWN            = "town";
-        public static final String I_COUNTRY         = "country";
-        public static final String I_MODIFY_CUSTOMER = "modifyCustomer";
+        public static final String ID                      = "Customer";
+        public static final String I_USER_ID               = "userId";
+        public static final String I_ID                    = "id";
+        public static final String I_ADDRESS_LINE_1        = "addressLine1";
+        public static final String I_ADDRESS_LINE_2        = "addressLine2";
+        public static final String I_NAME                  = "name";
+        public static final String I_POST_CODE             = "postCode";
+        public static final String I_ADDRESS_LINE_3        = "addressLine3";
+        public static final String I_TOWN                  = "town";
+        public static final String I_COUNTRY               = "country";
+        public static final String I_MODIFY_CUSTOMER       = "modifyCustomer";
+        public static final String I_BACK_TO_CUSTOMER_LIST = "backToCustomerList";
+
+    }
+
+    public static class B_CUSTOMER_CONTACTS_TOOLBAR
+    {
+        public static final String ID                = "CustomerContactsToolbar";
         public static final String I_ADD_NEW_CONTACT = "addNewContact";
-        public static final String I_MODIFY_CONTACT  = "modifyContact";
 
     }
 
@@ -61,14 +67,17 @@ public class F_CUSTOMER
 
     }
 
-    public static final String C_CUSTOMER          = "Customer";
-    public static final String C_CUSTOMER_CONTACTS = "CustomerContacts";
+    public static final String C_CUSTOMER                  = "Customer";
+    public static final String C_CUSTOMER_CONTACTS_TOOLBAR = "CustomerContactsToolbar";
+    public static final String C_CUSTOMER_CONTACTS         = "CustomerContacts";
 
-    public static final String AC_ADD_NEW_CONTACT  = "ADD_NEW_CONTACT";
-    public static final String AC_MODIFY_CONTACT   = "MODIFY_CONTACT";
-    public static final String AC_MODIFY_CUSTOMER  = "MODIFY_CUSTOMER";
-    public static final String AC_OPEN_EMAIL       = "OPEN_EMAIL";
+    public static final String AC_ADD_NEW_CONTACT          = "ADD_NEW_CONTACT";
+    public static final String AC_BACK_TO_CUSTOMER_LIST    = "BACK_TO_CUSTOMER_LIST";
+    public static final String AC_DELETE_CUSTOMER_CONTACT  = "DELETE_CUSTOMER_CONTACT";
+    public static final String AC_EDIT_CONTACT             = "EDIT_CONTACT";
+    public static final String AC_MODIFY_CUSTOMER          = "MODIFY_CUSTOMER";
+    public static final String AC_OPEN_EMAIL               = "OPEN_EMAIL";
 
-    public static final String P_CST_ID            = "cstId";
+    public static final String P_CST_ID                    = "cstId";
 
 }
