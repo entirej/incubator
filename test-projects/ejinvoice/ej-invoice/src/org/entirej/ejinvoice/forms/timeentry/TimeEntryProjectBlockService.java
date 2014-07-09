@@ -62,7 +62,7 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             // Initialise the value list
             Integer processId = PKSequenceService.getPKSequence(form.getConnection());
             parameters.clear();
-            parameters.add(new EJStatementParameter("CPR_ID", Integer.class, record.getProcessCprId()));
+            parameters.add(new EJStatementParameter("CPR_ID", Integer.class,  record.getId()));
             parameters.add(new EJStatementParameter("ID", Integer.class, processId));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getProcessName()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getProcessNotes()));
@@ -74,7 +74,7 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             record.clearInitialValues();
         }
         
-        if (recordsProcessed != newRecords.size())
+        if (recordsProcessed != (newRecords.size()*2))
         {
             throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
                     + recordsProcessed);

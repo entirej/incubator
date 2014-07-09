@@ -67,6 +67,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).enterInsert(false);
         }
+        else if (F_TIME_ENTRY.AC_MODIFY_PROCESS.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).enterUpdate();
+        }
+        else if (F_TIME_ENTRY.AC_DELETE_PROCESS.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
+        }
         else if (F_TIME_ENTRY.AC_MODIFY_PROJECT.equals(command))
         {
             form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterUpdate();
@@ -116,6 +124,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             customerInserted = true;
             customerId = (Integer) record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID);
         }
+    }
+    
+    @Override
+    public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        form.saveChanges();
     }
 
     @Override
