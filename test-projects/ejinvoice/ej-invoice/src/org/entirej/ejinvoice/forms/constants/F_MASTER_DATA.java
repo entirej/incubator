@@ -12,11 +12,8 @@ public class F_MASTER_DATA
 
     public static class B_CONTACT_TYPES_TOOLBAR
     {
-        public static final String ID       = "ContactTypesToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+        public static final String ID                     = "ContactTypesToolbar";
+        public static final String I_ADD_NEW_CONTACT_TYPE = "addNewContactType";
 
     }
 
@@ -26,16 +23,14 @@ public class F_MASTER_DATA
         public static final String I_TYPE        = "type";
         public static final String I_ID          = "id";
         public static final String I_DESCRIPTION = "description";
+        public static final String I_USER_ID     = "userId";
 
     }
 
     public static class B_PAYMENT_TERMS_TOOLBAR
     {
-        public static final String ID       = "PaymentTermsToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+        public static final String ID                     = "PaymentTermsToolbar";
+        public static final String I_ADD_NEW_PAYMENT_TERM = "addNewPaymentTerm";
 
     }
 
@@ -50,11 +45,8 @@ public class F_MASTER_DATA
 
     public static class B_SALUTATIONS_TOOLBAR
     {
-        public static final String ID       = "SalutationsToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+        public static final String ID                        = "SalutationsToolbar";
+        public static final String I_ADD_NEW_SALUTATION_TYPE = "addNewSalutationType";
 
     }
 
@@ -69,11 +61,8 @@ public class F_MASTER_DATA
 
     public static class B_VAT_RATES_TOOLBAR
     {
-        public static final String ID       = "VatRatesToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+        public static final String ID                 = "VatRatesToolbar";
+        public static final String I_ADD_NEW_VAT_RATE = "addNewVatRate";
 
     }
 
@@ -108,9 +97,17 @@ public class F_MASTER_DATA
     public static final String C_VAT_RATES_TOOLBAR     = "VatRatesToolbar";
     public static final String C_VAT_RATES             = "VatRates";
 
-    public static final String AC_TOOLBAR_DELETE       = "TOOLBAR_DELETE";
-    public static final String AC_TOOLBAR_EDIT         = "TOOLBAR_EDIT";
-    public static final String AC_TOOLBAR_HOME         = "TOOLBAR_HOME";
-    public static final String AC_TOOLBAR_NEW          = "TOOLBAR_NEW";
+    public static final String AC_CREATE_CONTACT_TYPE  = "CREATE_CONTACT_TYPE";
+    public static final String AC_CREATE_PAYMENT_TERM  = "CREATE_PAYMENT_TERM";
+    public static final String AC_CREATE_SALUTATION    = "CREATE_SALUTATION";
+    public static final String AC_CREATE_VAT_RATE      = "CREATE_VAT_RATE";
+    public static final String AC_DELETE_CONTACT_TYPE  = "DELETE_CONTACT_TYPE";
+    public static final String AC_DELETE_PAYMENT_TERM  = "DELETE_PAYMENT_TERM";
+    public static final String AC_DELETE_SALUTATION    = "DELETE_SALUTATION";
+    public static final String AC_DELETE_VAT_RATE      = "DELETE_VAT_RATE";
+    public static final String AC_MODIFY_CONTACT       = "MODIFY_CONTACT";
+    public static final String AC_MODIFY_PAYMENT_TERM  = "MODIFY_PAYMENT_TERM";
+    public static final String AC_MODIFY_SALUTATION    = "MODIFY_SALUTATION";
+    public static final String AC_MODIFY_VAT_RATE      = "MODIFY_VAT_RATE";
 
 }

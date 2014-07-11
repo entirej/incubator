@@ -263,9 +263,10 @@ public class F_TIME_ENTRY
 
     public static class C_MAIN_PAGES
     {
-        public static final String TIME__ENTRY = "Time Entry";
-        public static final String PROJECTS    = "Projects";
-        public static final String CUSTOMERS   = "Customers";
+        public static final String TIME__ENTRY  = "Time Entry";
+        public static final String PROJECTS     = "Projects";
+        public static final String CUSTOMERS    = "Customers";
+        public static final String MASTER__DATA = "Master Data";
 
     }
 
@@ -306,6 +307,7 @@ public class F_TIME_ENTRY
     public static final String C_CUSTOMERS_TOOLBAR         = "CustomersToolbar";
     public static final String C_CUSTOMER                  = "Customer";
     public static final String C_CUSTOMER_DETAILS_FORM     = "CustomerDetailsForm";
+    public static final String C_MASTER_DATA_CANVAS        = "masterDataCanvas";
 
     public static final String AC_ADD_NEW_PROCESS          = "ADD_NEW_PROCESS";
     public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";

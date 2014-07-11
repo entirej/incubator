@@ -3,6 +3,7 @@ package org.entirej.ejinvoice.forms.timeentry;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
@@ -24,21 +25,22 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     private Integer customerId        = null;
 
     @Override
+    public void newFormInstance(EJForm form) throws EJActionProcessorException
+    {
+        form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
+        
+        form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
+    }
+
+    @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
     {
-        System.err.println("item: " + itemName);
         if (screenType == EJScreenType.MAIN && F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT.equals(itemName))
         {
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).refreshItemRenderer();
         }
     }
-
-    @Override
-    public void newFormInstance(EJForm form) throws EJActionProcessorException
-    {
-        form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
-    }
-
+ 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {

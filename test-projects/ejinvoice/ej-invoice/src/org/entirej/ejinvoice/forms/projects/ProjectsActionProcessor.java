@@ -57,47 +57,6 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
     {
         super.postDelete(form, record);
         form.saveChanges();
-        // validate the company information toolbar state after deleting company
-        // information record
-        if (F_PROJECT.B_PROJECTS.ID.equals(record.getBlockName()))
-        {
-            validateToolbarState(form.getBlock(F_PROJECT.B_PROJECT_TOOL_BAR.ID), form.getBlock(F_PROJECT.B_PROJECTS.ID).getFocusedRecord() != null);
-        }
-
-    }
-
-    @Override
-    public void postInsert(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        if (F_PROJECT.B_PROJECTS.ID.equals(record.getBlockName()))
-        {
-            validateToolbarState(form.getBlock(F_PROJECT.B_PROJECT_TOOL_BAR.ID), form.getBlock(F_PROJECT.B_PROJECTS.ID).getFocusedRecord() != null);
-        }
-    }
-
-    @Override
-    public void newRecordInstance(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        // validate the toolbar states when
-        // entering new record to the company information form
-        if (record.getBlockName().equals(F_PROJECT.B_PROJECTS.ID))
-        {
-            validateToolbarState(form.getBlock(F_PROJECT.B_PROJECT_TOOL_BAR.ID), record != null);
-
-        }
-    }
-
-    @Override
-    public void postBlockQuery(EJForm form, EJBlock block) throws EJActionProcessorException
-    {
-        // validate the toolbar states after
-        // a record is updated, deleted or newly added to the company
-        // information screen
-        if (block.getName().equals(F_PROJECT.B_PROJECTS.ID))
-        {
-            validateToolbarState(form.getBlock(F_PROJECT.B_PROJECT_TOOL_BAR.ID), form.getBlock(F_PROJECT.B_PROJECTS.ID).getFocusedRecord() != null);
-
-        }
     }
     
     @Override

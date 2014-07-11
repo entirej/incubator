@@ -28,6 +28,7 @@ import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.interfaces.EJFrameworkConnection;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJQuerySort;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -55,6 +56,8 @@ public class VatRateBlockService implements EJBlockService<VatRate>
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
 
+        queryCriteria.add(EJQuerySort.ASC("NAME"));
+        
         return _statementExecutor.executeQuery(VatRate.class, form, _selectStatement, queryCriteria);
     }
     

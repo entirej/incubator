@@ -25,10 +25,8 @@ import java.math.BigDecimal;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.framework.core.EJActionProcessorException;
-import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.EJScreenItem;
@@ -50,44 +48,24 @@ public class VatRatesActionHandler extends DefaultFormActionProcessor
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (record.getBlockName() != null && ((record.getBlockName().equals(F_MASTER_DATA.B_VAT_RATES.ID)) || record.getBlockName().equals(F_MASTER_DATA.B_VAT_RATES_TOOLBAR.ID)))
+        if (F_MASTER_DATA.AC_CREATE_VAT_RATE.equals(command))
         {
-            if (F_MASTER_DATA.AC_TOOLBAR_NEW.equals(command))
-            {
-                form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).enterInsert(false);
-                return;
-            }
-            if (F_MASTER_DATA.AC_TOOLBAR_EDIT.equals(command))
-            {
-                form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).enterUpdate();
-                return;
-            }
-            if (F_MASTER_DATA.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getFocusedRecord() != null)
-            {
-                // before deleting the selected record from database validate
-                // and check if the
-                // record to be deleted has any FK constraints usage with other
-                // table data and if so
-                // throw an exception and block physical delete
-                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getFocusedRecord(), "VAT_RATES");
-                form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this rate?");
-                return;
-            }
-            if (F_MASTER_DATA.AC_TOOLBAR_HOME.equals(command))
-            {
-                form.openForm(F_TIME_ENTRY.ID);
-                return;
-            }
+            form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).enterInsert(false);
+            return;
         }
-    }
-
-    @Override
-    public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        // validate the vat rates toolbar state after deleting vat rate record
-        if (F_MASTER_DATA.B_VAT_RATES.ID.equals(record.getBlockName()))
+        else if (F_MASTER_DATA.AC_MODIFY_VAT_RATE.equals(command))
         {
-            validateToolbarState(form.getBlock(F_MASTER_DATA.B_VAT_RATES_TOOLBAR.ID), form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getFocusedRecord() != null);
+            form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).enterUpdate();
+            return;
+        }
+        else if (F_MASTER_DATA.AC_DELETE_VAT_RATE.equals(command))
+        {
+            // before deleting the selected record from database validate and
+            // check if the record to be deleted has any FK constraints usage
+            // with other table data and if so throw an exception and block
+            // physical delete
+            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getFocusedRecord(), "VAT_RATES");
+            form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this rate?");
         }
     }
 
@@ -130,29 +108,4 @@ public class VatRatesActionHandler extends DefaultFormActionProcessor
             }
         }
     }
-
-    @Override
-    public void newRecordInstance(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        // validate the toolbar states when
-        // entering new record to the vat rates screen
-        if (record.getBlockName().equals(F_MASTER_DATA.B_VAT_RATES.ID))
-        {
-            validateToolbarState(form.getBlock(F_MASTER_DATA.B_VAT_RATES_TOOLBAR.ID), record != null);
-
-        }
-    }
-
-    @Override
-    public void postBlockQuery(EJForm form, EJBlock block) throws EJActionProcessorException
-    {
-        // validate the toolbar states after
-        // a record is updated, deleted or newly added to the vat rates screen
-        if (block.getName().equals(F_MASTER_DATA.B_VAT_RATES.ID))
-        {
-            validateToolbarState(form.getBlock(F_MASTER_DATA.B_VAT_RATES_TOOLBAR.ID), form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getFocusedRecord() != null);
-
-        }
-    }
-
 }

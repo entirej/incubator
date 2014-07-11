@@ -38,19 +38,11 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     {
         super.postDelete(form, record);
         form.saveChanges();
-
-        // validate the contact types toolbar state after deleting contact type
-        // record
-        _contactTypesActionHanlder.postDelete(form, record);
-        _paymentTermsActionHandler.postDelete(form, record);
-        _salutationsActionHandler.postDelete(form, record);
-        _vatRatesActionHandler.postDelete(form, record);
     }
 
     @Override
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
     {
-        // validate the contact types screen
         _contactTypesActionHanlder.validateRecord(form, record, recordType);
         _paymentTermsActionHandler.validateRecord(form, record, recordType);
         _salutationsActionHandler.validateRecord(form, record, recordType);
@@ -60,8 +52,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newRecordInstance(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        // validate the toolbar states when entering new record to thecontact
-        // types screen
         _contactTypesActionHanlder.newRecordInstance(form, record);
         _paymentTermsActionHandler.newRecordInstance(form, record);
         _salutationsActionHandler.newRecordInstance(form, record);
@@ -71,8 +61,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     @Override
     public void postBlockQuery(EJForm form, EJBlock block) throws EJActionProcessorException
     {
-        // validate the toolbar states after a record is updated, deleted or
-        // newly added to the contact types screen
         _contactTypesActionHanlder.postBlockQuery(form, block);
         _paymentTermsActionHandler.postBlockQuery(form, block);
         _salutationsActionHandler.postBlockQuery(form, block);

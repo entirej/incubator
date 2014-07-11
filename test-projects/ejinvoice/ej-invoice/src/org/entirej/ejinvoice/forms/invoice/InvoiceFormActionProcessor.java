@@ -119,11 +119,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     {
         // all open changes within the form should be saved
         form.saveChanges();
-        if (F_INVOICE.B_INVOICE.ID.equals(record.getBlockName()))
-        {
-            validateToolbarState(form.getBlock(F_INVOICE.B_INVOICE_TOOL_BAR.ID), form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord() != null);
-        }
-        else if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
+        if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
         {
             updateInvPositionsToolbar(form);
         }
@@ -151,11 +147,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     {
         super.postDelete(form, record);
         form.saveChanges();
-        if (F_INVOICE.B_INVOICE.ID.equals(record.getBlockName()))
-        {
-            validateToolbarState(form.getBlock(F_INVOICE.B_INVOICE_TOOL_BAR.ID), form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord() != null);
-        }
-        else if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
+        if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
         {
             updateInvPositionsToolbar(form);
         }
@@ -169,11 +161,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     @Override
     public void newRecordInstance(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        if (F_INVOICE.B_INVOICE.ID.equals(record.getBlockName()))
-        {
-            validateToolbarState(form.getBlock(F_INVOICE.B_INVOICE_TOOL_BAR.ID), form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord() != null);
-        }
-        else if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
+        if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
         {
             updateInvPositionsToolbar(form);
         }
@@ -185,7 +173,6 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     {
         if (F_INVOICE.B_INVOICE.ID.equals(block.getName()))
         {
-            validateToolbarState(form.getBlock(F_INVOICE.B_INVOICE_TOOL_BAR.ID), form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord() != null);
             updateInvPositionsToolbar(form);
         }
         else if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(block.getName()))

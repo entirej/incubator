@@ -28,6 +28,7 @@ import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.interfaces.EJFrameworkConnection;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJQuerySort;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -55,6 +56,7 @@ public class SalutationBlockService implements EJBlockService<Salutation>
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
 
+        queryCriteria.add(EJQuerySort.ASC("VALUE"));
         return _statementExecutor.executeQuery(Salutation.class, form, _selectStatement, queryCriteria);
     }
     public List<Salutation> getSalutations(EJFrameworkConnection fwkConnection, EJQueryCriteria queryCriteria)
