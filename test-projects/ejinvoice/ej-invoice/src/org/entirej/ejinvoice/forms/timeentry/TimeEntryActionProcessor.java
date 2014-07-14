@@ -30,6 +30,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
         
         form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
+        form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_EDIT_SCREEN, null);
     }
 
     @Override

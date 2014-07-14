@@ -10,13 +10,10 @@ public class F_COMPANY
 {
     public static final String ID = "Company";
 
-    public static class B_COMPANY_TOOLBAR
+    public static class B_COMPANIES_TOOLBAR
     {
-        public static final String ID       = "CompanyToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+        public static final String ID             = "CompaniesToolbar";
+        public static final String I_EDIT_COMPANY = "editCompany";
 
     }
 
@@ -42,20 +39,15 @@ public class F_COMPANY
         public static final String I_VAT_NR              = "vatNr";
         public static final String I_BANK_ADDRESS_LINE_3 = "bankAddressLine3";
         public static final String I_COUNTRY             = "country";
-        public static final String I_COMPANY_INFO_LABEL  = "companyInfoLabel";
-        public static final String I_BANK_INFO_LABEL     = "bankInfoLabel";
         public static final String I_LOGO                = "logo";
         public static final String I_ADD_LOGO            = "addLogo";
 
     }
 
-    public static final String C_COMPANY_TOOLBAR = "CompanyToolbar";
-    public static final String C_COMPANIES       = "Companies";
+    public static final String C_COMPANY_TOOLBAR       = "CompanyToolbar";
+    public static final String C_COMPANIES             = "Companies";
 
-    public static final String AC_ADD_LOGO       = "ADD_LOGO";
-    public static final String AC_TOOLBAR_DELETE = "TOOLBAR_DELETE";
-    public static final String AC_TOOLBAR_EDIT   = "TOOLBAR_EDIT";
-    public static final String AC_TOOLBAR_HOME   = "TOOLBAR_HOME";
-    public static final String AC_TOOLBAR_NEW    = "TOOLBAR_NEW";
+    public static final String AC_ADD_LOGO             = "ADD_LOGO";
+    public static final String AC_EDIT_COMPANY_DETAILS = "EDIT_COMPANY_DETAILS";
 
 }
