@@ -1,5 +1,7 @@
 package org.entirej.ejinvoice.forms.timeentry;
 
+import java.sql.Timestamp;
+
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
@@ -10,6 +12,7 @@ import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJParameterList;
 import org.entirej.framework.core.EJRecord;
+import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.data.controllers.EJFormParameter;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJScreenType;
@@ -29,6 +32,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
         
+        EJScreenItem item = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
+       
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        item.setValue(timestamp);
+        
         form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_EDIT_SCREEN, null);
     }
@@ -45,12 +53,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-
-        if (F_TIME_ENTRY.AC_EDIT_COMPANY_INFORMATION.equals(command))
-        {
-            form.openForm(F_COMPANY.ID);
-        }
-        else if (F_TIME_ENTRY.AC_PROJECT_DETAILS.equals(command))
+        if (F_TIME_ENTRY.AC_PROJECT_DETAILS.equals(command))
         {
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
 

@@ -317,7 +317,6 @@ public class F_TIME_ENTRY
     public static final String AC_CREATE_NEW_CUSTOMER      = "CREATE_NEW_CUSTOMER";
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_DELETE_PROCESS           = "DELETE_PROCESS";
-    public static final String AC_EDIT_COMPANY_INFORMATION = "EDIT_COMPANY_INFORMATION";
     public static final String AC_MODIFY_PROCESS           = "MODIFY_PROCESS";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER            = "OPEN_CUSTOMER";

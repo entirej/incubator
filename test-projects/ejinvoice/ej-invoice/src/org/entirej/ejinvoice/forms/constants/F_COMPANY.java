@@ -40,7 +40,6 @@ public class F_COMPANY
         public static final String I_BANK_ADDRESS_LINE_3 = "bankAddressLine3";
         public static final String I_COUNTRY             = "country";
         public static final String I_LOGO                = "logo";
-        public static final String I_ADD_LOGO            = "addLogo";
 
     }
 
