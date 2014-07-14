@@ -67,7 +67,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         long diff = end.getTime() - start.getTime();
         long diffHours = diff / (60 * 60 * 1000);
-        long diffMinutes = diff / (60 * 1000);
+        long diffMinutes = (diff / (60 * 1000))- (diffHours*60);
         
         form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(diffHours+":"+diffMinutes);
     }
