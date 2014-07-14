@@ -53,15 +53,17 @@ public class F_TIME_ENTRY
         public static final String I_NOTES                    = "notes";
         public static final String I_ADD__ENTRY               = "Add Entry";
         public static final String I_EDIT_COMPANY_INFORMATION = "editCompanyInformation";
+        public static final String I_PROJECT_LABEL            = "projectLabel";
+        public static final String I_PROCESS_LABEL            = "processLabel";
 
     }
 
     public static class B_TIME_ENTRY
     {
         public static final String ID                 = "TimeEntry";
-        public static final String I_END_TIME         = "endTime";
         public static final String I_ID               = "id";
         public static final String I_START_TIME       = "startTime";
+        public static final String I_END_TIME         = "endTime";
         public static final String I_WORK_DESCRIPTION = "workDescription";
         public static final String I_CUPP_ID          = "cuppId";
         public static final String I_USER_ID          = "userId";

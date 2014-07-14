@@ -4,11 +4,14 @@ import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.entirej.ejinvoice.forms.timeentry.TimeEntry;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.EJManagedFrameworkConnection;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJQuerySort;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -33,6 +36,8 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
     @Override
     public List<TimeEntry> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        queryCriteria.add(EJQuerySort.ASC("WORK_DATE"));
+        queryCriteria.add(EJQuerySort.ASC("START_TIME"));
         return _statementExecutor.executeQuery(TimeEntry.class, form, _selectStatement, queryCriteria);
     }
 
@@ -60,6 +65,39 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         {
             throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: " + recordsProcessed);
         }
+    }
+
+    public void enterTimeEntry(EJForm form, TimeEntry record)
+    {
+        EJManagedFrameworkConnection connection = form.getConnection();
+
+        try
+        {
+            List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
+
+            // Initialise the value list
+            parameters.clear();
+            parameters.add(new EJStatementParameter("CUPP_ID", Integer.class, record.getCuppId()));
+            parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
+            parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
+            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("WORK_DATE", Date.class, record.getWorkDate()));
+            parameters.add(new EJStatementParameter("WORK_DESCRIPTION", String.class, record.getWorkDescription()));
+            EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+            _statementExecutor.executeInsert(connection, "customer_project_timeentry", parameters.toArray(paramArray));
+
+            connection.commit();
+        }
+        catch (Exception e) 
+        {
+            connection.rollback();
+        }
+        finally
+        {
+            connection.close();
+        }
+
     }
 
     @Override
