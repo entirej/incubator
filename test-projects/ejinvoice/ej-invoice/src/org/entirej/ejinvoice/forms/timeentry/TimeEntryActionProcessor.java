@@ -32,14 +32,20 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
         
-        EJScreenItem item = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
-       
+        EJScreenItem startTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
+        EJScreenItem endTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME);
+        
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-        item.setValue(timestamp);
+        startTime.setValue(timestamp);
+        endTime.setValue(timestamp);
+        
+        recalcluateWorkingHours(form, timestamp, timestamp);
         
         form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_EDIT_SCREEN, null);
     }
+    
+    
 
     @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
@@ -48,6 +54,22 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).refreshItemRenderer();
         }
+        else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME.equals(itemName))
+        {
+            Timestamp start = (Timestamp)form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
+            Timestamp end  = (Timestamp)form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
+            
+            recalcluateWorkingHours(form, start, end);
+        }
+    }
+    
+    private void recalcluateWorkingHours(EJForm form, Timestamp start, Timestamp end)
+    {
+        long diff = end.getTime() - start.getTime();
+        long diffHours = diff / (60 * 60 * 1000);
+        long diffMinutes = diff / (60 * 1000);
+        
+        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(diffHours+":"+diffMinutes);
     }
  
     @Override
