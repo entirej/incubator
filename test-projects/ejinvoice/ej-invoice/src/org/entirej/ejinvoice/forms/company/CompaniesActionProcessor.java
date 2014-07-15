@@ -31,6 +31,8 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             {
                 String filePath = EJRWTFileUpload.promptFileUpload("Logo");
 
+                if(filePath==null || filePath.length()==0)
+                    return;
                 //File image = new File(filePath);
 
                 Path path = Paths.get(filePath);
