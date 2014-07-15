@@ -278,8 +278,8 @@ public class F_TIME_ENTRY
 
     public static class C_ENTRIES_PAGES
     {
-        public static final String PAID   = "Paid";
         public static final String UNPAID = "Unpaid";
+        public static final String PAID   = "Paid";
 
     }
 
