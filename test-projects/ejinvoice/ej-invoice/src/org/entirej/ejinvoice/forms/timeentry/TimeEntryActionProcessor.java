@@ -56,6 +56,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).refreshItemRenderer();
         }
+        else if (screenType == EJScreenType.MAIN && F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID.equals(itemName))
+        {
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPP_ID).refreshItemRenderer();
+        }
         else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME.equals(itemName))
         {
             Timestamp start = (Timestamp)form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
@@ -116,6 +120,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.AC_DELETE_PROCESS.equals(command))
         {
             form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
+        }
+        else if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).askToDeleteCurrentRecord("Are you sure you want to delete this entry?");
         }
         else if (F_TIME_ENTRY.AC_MODIFY_PROJECT.equals(command))
         {

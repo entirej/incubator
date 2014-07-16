@@ -12,6 +12,7 @@ public class TimeEntry
     private EJPojoProperty<Time>    _startTime;
     private EJPojoProperty<String>  _workDescription;
     private EJPojoProperty<Integer> _cuppId;
+    private EJPojoProperty<Integer> _cuprId;
     private EJPojoProperty<Integer> _userId;
     private EJPojoProperty<Date>    _workDate;
     private EJPojoProperty<String>  _hoursWorked;
@@ -106,6 +107,24 @@ public class TimeEntry
         return EJPojoProperty.getPropertyInitialValue(_cuppId);
     }
 
+    @EJFieldName("CUPR_ID")
+    public Integer getCuprId()
+    {
+        return EJPojoProperty.getPropertyValue(_cuprId);
+    }
+
+    @EJFieldName("CUPR_ID")
+    public void setCuprId(Integer cuprId)
+    {
+        _cuprId = EJPojoProperty.setPropertyValue(_cuprId, cuprId);
+    }
+
+    @EJFieldName("CUPR_ID")
+    public Integer getInitialCuprId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_cuprId);
+    }
+
     @EJFieldName("USER_ID")
     public Integer getUserId()
     {
@@ -159,7 +178,7 @@ public class TimeEntry
     {
         return EJPojoProperty.getPropertyInitialValue(_hoursWorked);
     }
-    
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_endTime);
@@ -167,6 +186,7 @@ public class TimeEntry
         EJPojoProperty.clearInitialValue(_startTime);
         EJPojoProperty.clearInitialValue(_workDescription);
         EJPojoProperty.clearInitialValue(_cuppId);
+        EJPojoProperty.clearInitialValue(_cuprId);
         EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_workDate);
         EJPojoProperty.clearInitialValue(_hoursWorked);

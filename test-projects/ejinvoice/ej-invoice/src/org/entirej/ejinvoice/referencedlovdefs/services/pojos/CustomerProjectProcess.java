@@ -9,6 +9,7 @@ public class CustomerProjectProcess
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<Integer>    _cprId;
     private EJPojoProperty<String>     _notes;
+    private EJPojoProperty<String>     _projectDescription;
     private EJPojoProperty<String>     _projectName;
     private EJPojoProperty<String>     _processName;
     private EJPojoProperty<BigDecimal> _payRate;
@@ -70,6 +71,24 @@ public class CustomerProjectProcess
         return EJPojoProperty.getPropertyInitialValue(_notes);
     }
 
+    @EJFieldName("PROJECT_DESCRIPTION")
+    public String getProjectDescription()
+    {
+        return EJPojoProperty.getPropertyValue(_projectDescription);
+    }
+
+    @EJFieldName("PROJECT_DESCRIPTION")
+    public void setProjectDescription(String projectDescription)
+    {
+        _projectDescription = EJPojoProperty.setPropertyValue(_projectDescription, projectDescription);
+    }
+
+    @EJFieldName("PROJECT_DESCRIPTION")
+    public String getInitialProjectDescription()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_projectDescription);
+    }
+
     @EJFieldName("PROJECT_NAME")
     public String getProjectName()
     {
@@ -105,7 +124,7 @@ public class CustomerProjectProcess
     {
         return EJPojoProperty.getPropertyInitialValue(_processName);
     }
-    
+
     @EJFieldName("PAY_RATE")
     public BigDecimal getPayRate()
     {
@@ -159,7 +178,7 @@ public class CustomerProjectProcess
     {
         return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
-    
+
     @EJFieldName("VAT_RATE")
     public BigDecimal getVatRate()
     {
@@ -177,7 +196,6 @@ public class CustomerProjectProcess
     {
         return EJPojoProperty.getPropertyInitialValue(_vatRate);
     }
-    
 
     public void clearInitialValues()
     {
