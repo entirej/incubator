@@ -68,8 +68,9 @@ public class F_TIME_ENTRY
         public static final String I_CUPP_ID          = "cuppId";
         public static final String I_USER_ID          = "userId";
         public static final String I_WORK_DATE        = "workDate";
-        public static final String I_HOURS            = "hours";
+        public static final String I_HOURS_WORKED     = "hoursWorked";
         public static final String I_PROJECT          = "project";
+        public static final String I_PROCESS          = "process";
 
     }
 
@@ -232,14 +233,16 @@ public class F_TIME_ENTRY
 
     public static class L_CUSTOMER_PROJECT_PROCESSES
     {
-        public static final String ID         = "CustomerProjectProcesses";
-        public static final String I_ID       = "id";
-        public static final String I_CPR_ID   = "cprId";
-        public static final String I_NOTES    = "notes";
-        public static final String I_NAME     = "name";
-        public static final String I_PAY_RATE = "payRate";
-        public static final String I_USER_ID  = "userId";
-        public static final String I_VAT_ID   = "vatId";
+        public static final String ID             = "CustomerProjectProcesses";
+        public static final String I_ID           = "id";
+        public static final String I_CPR_ID       = "cprId";
+        public static final String I_NOTES        = "notes";
+        public static final String I_PROJECT_NAME = "projectName";
+        public static final String I_PROCESS_NAME = "processName";
+        public static final String I_PAY_RATE     = "payRate";
+        public static final String I_USER_ID      = "userId";
+        public static final String I_VAT_ID       = "vatId";
+        public static final String I_VAT_RATE     = "vatRate";
 
     }
 
@@ -319,6 +322,7 @@ public class F_TIME_ENTRY
     public static final String AC_CREATE_NEW_CUSTOMER      = "CREATE_NEW_CUSTOMER";
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_DELETE_PROCESS           = "DELETE_PROCESS";
+    public static final String AC_DELETE_TIME_ENTRY        = "DELETE_TIME_ENTRY";
     public static final String AC_EDIT_TIME_ENTRY          = "EDIT_TIME_ENTRY";
     public static final String AC_MODIFY_PROCESS           = "MODIFY_PROCESS";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";

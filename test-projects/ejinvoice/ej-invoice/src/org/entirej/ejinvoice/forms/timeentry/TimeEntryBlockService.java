@@ -2,6 +2,7 @@ package org.entirej.ejinvoice.forms.timeentry;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,12 +34,29 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         return false;
     }
 
+    private String getDiffMinutesString( Time start, Time end)
+    {
+        long diff = end.getTime() - start.getTime();
+        long diffHours = diff / (60 * 60 * 1000);
+        long diffMinutes = (diff / (60 * 1000))- (diffHours*60);
+        
+        String diffMinutesString = String.format("%02d", diffMinutes);
+        
+        return diffHours+":"+diffMinutesString;
+    }
+
     @Override
     public List<TimeEntry> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         queryCriteria.add(EJQuerySort.ASC("WORK_DATE"));
         queryCriteria.add(EJQuerySort.ASC("START_TIME"));
-        return _statementExecutor.executeQuery(TimeEntry.class, form, _selectStatement, queryCriteria);
+        List<TimeEntry> timeEntries =  _statementExecutor.executeQuery(TimeEntry.class, form, _selectStatement, queryCriteria);
+        for (TimeEntry entry : timeEntries)
+        {
+            entry.setHoursWorked(getDiffMinutesString(entry.getStartTime(), entry.getEndTime()));
+        }
+        
+        return timeEntries;
     }
 
     @Override

@@ -25,7 +25,6 @@ import org.entirej.framework.core.service.EJRestrictions;
 
 public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
-
     private boolean timeEntryInserted = false;
     private boolean customerInserted  = false;
     private Integer projectId         = null;
@@ -50,8 +49,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_EDIT_SCREEN, null);
     }
     
-    
-
     @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
     {
@@ -68,30 +65,40 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
     }
     
-    private void recalcluateWorkingHours(EJForm form, Timestamp start, Timestamp end)
+    private String getDiffMinutesString( Timestamp start, Timestamp end)
     {
         long diff = end.getTime() - start.getTime();
         long diffHours = diff / (60 * 60 * 1000);
         long diffMinutes = (diff / (60 * 1000))- (diffHours*60);
         
         String diffMinutesString = String.format("%02d", diffMinutes);
-        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(diffHours+":"+diffMinutesString);
+        
+        return diffHours+":"+diffMinutesString;
+    }
+    
+    private void recalcluateWorkingHours(EJForm form, Timestamp start, Timestamp end)
+    {
+        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(start, end));
     }
  
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
-    {
+    {   
         
         if (F_TIME_ENTRY.AC_PROJECT_DETAILS.equals(command))
         {
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
-
+         
             Integer projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
-
+            
             EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
             criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
-
+            
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
+        }
+        else if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).enterUpdate();
         }
         else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
         {
@@ -154,6 +161,27 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             
             int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
             
+            if (start.after(end))
+            {
+                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please enter an End Time later than the given Start Time");
+                form.showMessage(message);
+                return;
+            }
+            
+            if (workDescription == null || workDescription.trim().length() == 0)
+            {
+                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please enter a work description");
+                form.showMessage(message);
+                return;
+            }
+            
+            if (cuppId == null)
+            {
+                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please choose a project and a project process");
+                form.showMessage(message);
+                return;
+            }
+            
             TimeEntry timeEntry = new TimeEntry();
 
             timeEntry.setId(idSeqNextval);
@@ -169,8 +197,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery();
             
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).setValue(end);
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).setValue(null);
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).gainFocus();
+            
+            recalcluateWorkingHours(form, end, end);
         }
-
     }
 
     @Override

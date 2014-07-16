@@ -24,7 +24,7 @@
         </relationList>
         <lovDefinitionList>
             <lovDefinition name="CustomerProjectProcesses" isReferenced="false" rendererName="Standard" allowUserQuery="false" automaticQuery="true">
-                <width>400</width>
+                <width>500</width>
                 <height>500</height>
                 <actionProcessorClassName></actionProcessorClassName>
                 <lovRendererProperties>
@@ -44,7 +44,7 @@
                     <deleteAllowed>true</deleteAllowed>
                     <canvasName></canvasName>
                     <blockRendererName></blockRendererName>
-                    <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.projects.ProjectProcessBlockService]]></serviceClassName>
+                    <serviceClassName><![CDATA[org.entirej.ejinvoice.referencedlovdefs.services.CustomerProjectProcessBlockService]]></serviceClassName>
                     <actionProcessorClassName></actionProcessorClassName>
                     <queryAllRows>false</queryAllRows>
                     <maxResults>0</maxResults>
@@ -86,6 +86,16 @@
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <itemRendererName></itemRendererName>
+                            <defaultInsertValue></defaultInsertValue>
+                            <defaultQueryValue></defaultQueryValue>
+                            <itemRendererProperties>
+                            </itemRendererProperties>
+                        </item>
+                        <item name="projectName">
+                            <blockServiceItem>true</blockServiceItem>
+                            <mandatoryItem>false</mandatoryItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
                             <itemRendererName><![CDATA[TextItem]]></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
@@ -98,7 +108,7 @@
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
-                        <item name="name">
+                        <item name="processName">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
@@ -148,6 +158,20 @@
                             <itemRendererProperties>
                             </itemRendererProperties>
                         </item>
+                        <item name="vatRate">
+                            <blockServiceItem>true</blockServiceItem>
+                            <mandatoryItem>false</mandatoryItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <itemRendererName><![CDATA[NumberItem]]></itemRendererName>
+                            <defaultInsertValue></defaultInsertValue>
+                            <defaultQueryValue></defaultQueryValue>
+                            <itemRendererProperties>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            </itemRendererProperties>
+                        </item>
                     </itemList>
                     <mainScreenProperties>
                         <displayFrame>false</displayFrame>
@@ -175,8 +199,8 @@
                                 <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
                                 <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                                 <itemGroupItemList>
-                                    <item referencedItemName="name" isSpacerItem="false">
-                                        <label><![CDATA[Name]]></label>
+                                    <item referencedItemName="projectName" isSpacerItem="false">
+                                        <label><![CDATA[Project Name]]></label>
                                         <hint></hint>
                                         <editAllowed>false</editAllowed>
                                         <visible>true</visible>
@@ -190,7 +214,25 @@
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
+                                        </lovRendererRequiredProperties>
+                                    </item>
+                                    <item referencedItemName="processName" isSpacerItem="false">
+                                        <label><![CDATA[Process Name]]></label>
+                                        <hint></hint>
+                                        <editAllowed>false</editAllowed>
+                                        <visible>true</visible>
+                                        <mandatory>false</mandatory>
+                                        <enableLovNotification>false</enableLovNotification>
+                                        <lovMappingName></lovMappingName>
+                                        <validateFromLov>true</validateFromLov>
+                                        <actionCommand></actionCommand>
+                                        <lovRendererRequiredProperties>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                     <item referencedItemName="payRate" isSpacerItem="false">
@@ -211,8 +253,8 @@
                                             <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
-                                    <item referencedItemName="notes" isSpacerItem="false">
-                                        <label><![CDATA[Notes]]></label>
+                                    <item referencedItemName="vatRate" isSpacerItem="false">
+                                        <label><![CDATA[Vat Rate]]></label>
                                         <hint></hint>
                                         <editAllowed>false</editAllowed>
                                         <visible>true</visible>
@@ -226,7 +268,7 @@
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                 </itemGroupItemList>
