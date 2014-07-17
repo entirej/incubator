@@ -138,6 +138,13 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
         {
             form.showPopupCanvas(F_INVOICE.C_POSITIONS_POPUP);
         }
+        if (F_INVOICE.AC_INV_REFRESH.equals(command))
+        {
+            if (F_INVOICE.B_INVOICE.ID.equals(blockName) || F_INVOICE.B_INVOICE_FILTER.ID.equals(blockName))
+            {
+                form.getBlock(F_INVOICE.B_INVOICE.ID).executeLastQuery();
+            }
+        }
         if (F_INVOICE.AC_NEW.equals(command))
         {
             if (F_INVOICE.B_INVOICE.ID.equals(blockName) || F_INVOICE.B_INVOICE_FILTER.ID.equals(blockName))
