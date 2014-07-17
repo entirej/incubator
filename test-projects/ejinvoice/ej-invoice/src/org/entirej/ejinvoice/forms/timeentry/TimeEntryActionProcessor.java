@@ -52,13 +52,13 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (screenType == EJScreenType.MAIN && F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT.equals(itemName))
+        if ( F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT.equals(itemName))
         {
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).refreshItemRenderer();
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).refreshItemRenderer();
         }
-        else if (screenType == EJScreenType.MAIN && F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID.equals(itemName))
+        else if ( F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID.equals(itemName))
         {
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPP_ID).refreshItemRenderer();
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPP_ID).refreshItemRenderer();
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME.equals(itemName))
         {
@@ -326,6 +326,16 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             record.setValue(F_TIME_ENTRY.B_COMPANY.I_ADDRESS, str.toString());
         }
+    }
+    
+    @Override
+    public void newRecordInstance(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if(record!=null && F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
+        {
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPP_ID).refreshItemRenderer();
+        }
+        super.newRecordInstance(form, record);
     }
 
 }
