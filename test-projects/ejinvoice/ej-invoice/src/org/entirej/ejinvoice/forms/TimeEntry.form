@@ -2704,7 +2704,7 @@
                     <lovMapping name="CustomerProjectProcess" lovDefinitionName="CustomerProjectProcess" executeAfterQuery="true">
                         <displayName></displayName>
                         <lovItemMappingList>
-                            <itemMap lovDefinitionItem="id" blockItemName="cuppId">
+                            <itemMap lovDefinitionItem="id" blockItemName="updateCuppId">
                             </itemMap>
                             <itemMap lovDefinitionItem="projectName" blockItemName="project">
                             </itemMap>
@@ -2767,8 +2767,8 @@
                             <property name="CASE" multilingual="false" propertyType="STRING"></property>
                         </itemRendererProperties>
                     </item>
-                    <item name="cuppId">
-                        <blockServiceItem>true</blockServiceItem>
+                    <item name="updateCuppId">
+                        <blockServiceItem>false</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
                         <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
                         <itemRendererName><![CDATA[ComboItem]]></itemRendererName>
@@ -2794,8 +2794,8 @@
                             </propertyList>
                         </itemRendererProperties>
                     </item>
-                    <item name="cuprId">
-                        <blockServiceItem>true</blockServiceItem>
+                    <item name="updateCuprId">
+                        <blockServiceItem>false</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
                         <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
                         <itemRendererName><![CDATA[ComboItem]]></itemRendererName>
@@ -2819,6 +2819,26 @@
                                     <property name="COLUMN"><![CDATA[notes]]></property>
                                 </listEntry>
                             </propertyList>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="cuppId">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="cuprId">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
                     <item name="userId">
@@ -3777,7 +3797,7 @@
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
                                 </item>
-                                <item referencedItemName="cuprId" isSpacerItem="false">
+                                <item referencedItemName="updateCuprId" isSpacerItem="false">
                                     <label></label>
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
@@ -3863,7 +3883,7 @@
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
                                 </item>
-                                <item referencedItemName="cuppId" isSpacerItem="false">
+                                <item referencedItemName="updateCuppId" isSpacerItem="false">
                                     <label></label>
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
@@ -11148,7 +11168,7 @@
             <lovDefinition name="UpdateCustomerProjectProcess" isReferenced="true" referencedLovDefinitionName="CustomerProjectProcesses">
                 <itemList>
                     <item name="cprId">
-                        <defaultQueryValue><![CDATA[BLOCK_ITEM:TimeEntry.cuprId]]></defaultQueryValue>
+                        <defaultQueryValue><![CDATA[BLOCK_ITEM:TimeEntry.updateCuprId]]></defaultQueryValue>
                     </item>
                 </itemList>
             </lovDefinition>

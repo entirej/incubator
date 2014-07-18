@@ -65,6 +65,8 @@ public class F_TIME_ENTRY
         public static final String I_START_TIME       = "startTime";
         public static final String I_END_TIME         = "endTime";
         public static final String I_WORK_DESCRIPTION = "workDescription";
+        public static final String I_UPDATE_CUPP_ID   = "updateCuppId";
+        public static final String I_UPDATE_CUPR_ID   = "updateCuprId";
         public static final String I_CUPP_ID          = "cuppId";
         public static final String I_CUPR_ID          = "cuprId";
         public static final String I_USER_ID          = "userId";
