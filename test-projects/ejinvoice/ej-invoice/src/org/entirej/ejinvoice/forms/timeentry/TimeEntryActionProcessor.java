@@ -334,8 +334,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         if (screenType.equals(EJScreenType.UPDATE) && F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(block.getName()))
         {
-            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID).refreshItemRenderer();
-            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).refreshItemRenderer();
+            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID).setValue(record.getValue(F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID));
+            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).setValue(record.getValue(F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID));
+            
+            
+//            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID).refreshItemRenderer();
+//            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).refreshItemRenderer();
         }
     }
 

@@ -2701,10 +2701,10 @@
                     </propertyGroup>
                 </updateScreenRendererProperties>
                 <lovMappingList>
-                    <lovMapping name="CustomerProjectProcess" lovDefinitionName="CustomerProjectTasks" executeAfterQuery="true">
+                    <lovMapping name="CustomerProjectTask" lovDefinitionName="CustomerProjectTasks" executeAfterQuery="true">
                         <displayName></displayName>
                         <lovItemMappingList>
-                            <itemMap lovDefinitionItem="id" blockItemName="updateCuptId">
+                            <itemMap lovDefinitionItem="id" blockItemName="cuptId">
                             </itemMap>
                             <itemMap lovDefinitionItem="projectName" blockItemName="project">
                             </itemMap>
@@ -2791,6 +2791,12 @@
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
                                     <property name="COLUMN"><![CDATA[notes]]></property>
                                 </listEntry>
+                                <listEntry>
+                                    <property name="RETURN_ITEM"><![CDATA[cuptId]]></property>
+                                    <property name="FORMAT"></property>
+                                    <property name="DISPLAYED"><![CDATA[true]]></property>
+                                    <property name="COLUMN"><![CDATA[id]]></property>
+                                </listEntry>
                             </propertyList>
                         </itemRendererProperties>
                     </item>
@@ -2817,6 +2823,12 @@
                                     <property name="FORMAT"></property>
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
                                     <property name="COLUMN"><![CDATA[notes]]></property>
+                                </listEntry>
+                                <listEntry>
+                                    <property name="RETURN_ITEM"><![CDATA[cuprId]]></property>
+                                    <property name="FORMAT"></property>
+                                    <property name="DISPLAYED"><![CDATA[true]]></property>
+                                    <property name="COLUMN"><![CDATA[cprId]]></property>
                                 </listEntry>
                             </propertyList>
                         </itemRendererProperties>
@@ -11167,6 +11179,9 @@
             </lovDefinition>
             <lovDefinition name="UpdateCustomerProjectTasks" isReferenced="true" referencedLovDefinitionName="CustomerProjectTasks">
                 <itemList>
+                    <item name="cprId">
+                        <defaultQueryValue><![CDATA[BLOCK_ITEM:TimeEntry.cuprId]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="CustomerProjectTasks" isReferenced="true" referencedLovDefinitionName="CustomerProjectTasks">
