@@ -21,7 +21,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUPP_ID,END_TIME,ID,START_TIME,USER_ID,WORK_DATE,WORK_DESCRIPTION, (SELECT CPR_ID FROM CUSTOMER_PROJECT_PROCESS WHERE ID = CUPP_ID) CUPR_ID FROM customer_project_timeentry";
+    private String                    _selectStatement = "SELECT CUPT_ID,END_TIME,ID,START_TIME,USER_ID,WORK_DATE,WORK_DESCRIPTION, (SELECT CPR_ID FROM CUSTOMER_PROJECT_TASKS WHERE ID = CUPT_ID) CUPR_ID FROM customer_project_timeentry";
 
     public TimeEntryBlockService()
     {
@@ -68,7 +68,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         {
             // Initialise the value list
             parameters.clear();
-            parameters.add(new EJStatementParameter("CUPP_ID", Integer.class, record.getCuppId()));
+            parameters.add(new EJStatementParameter("CUPT_ID", Integer.class, record.getCuptId()));
             parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
@@ -95,7 +95,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 
             // Initialise the value list
             parameters.clear();
-            parameters.add(new EJStatementParameter("CUPP_ID", Integer.class, record.getCuppId()));
+            parameters.add(new EJStatementParameter("CUPT_ID", Integer.class, record.getCuptId()));
             parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
@@ -129,7 +129,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             parameters.clear();
 
             // First add the new values
-            parameters.add(new EJStatementParameter("CUPP_ID", Integer.class, record.getCuppId()));
+            parameters.add(new EJStatementParameter("CUPT_ID", Integer.class, record.getCuptId()));
             parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
@@ -138,13 +138,13 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             parameters.add(new EJStatementParameter("WORK_DESCRIPTION", String.class, record.getWorkDescription()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            if (record.getInitialCuppId() == null)
+            if (record.getInitialCuptId() == null)
             {
-                criteria.add(EJRestrictions.isNull("CUPP_ID"));
+                criteria.add(EJRestrictions.isNull("CUPt_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("CUPP_ID", record.getInitialCuppId()));
+                criteria.add(EJRestrictions.equals("CUPt_ID", record.getInitialCuptId()));
             }
             if (record.getInitialEndTime() == null)
             {
@@ -216,13 +216,13 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 
             EJStatementCriteria criteria = new EJStatementCriteria();
 
-            if (record.getInitialCuppId() == null)
+            if (record.getInitialCuptId() == null)
             {
-                criteria.add(EJRestrictions.isNull("CUPP_ID"));
+                criteria.add(EJRestrictions.isNull("CUPT_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("CUPP_ID", record.getInitialCuppId()));
+                criteria.add(EJRestrictions.equals("CUPT_ID", record.getInitialCuptId()));
             }
             if (record.getInitialEndTime() == null)
             {

@@ -3,7 +3,7 @@ package org.entirej.ejinvoice.forms.projects;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import org.entirej.ejinvoice.forms.projects.ProjectProcess;
+import org.entirej.ejinvoice.forms.projects.ProjectTasks;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -13,12 +13,12 @@ import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
-public class ProjectProcessBlockService implements EJBlockService<ProjectProcess>
+public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,USER_ID,VAT_ID FROM customer_project_process";
+    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,USER_ID,VAT_ID FROM customer_project_tasks";
 
-    public ProjectProcessBlockService()
+    public ProjectTasksBlockService()
     {
         _statementExecutor = new EJStatementExecutor();
     }
@@ -30,17 +30,17 @@ public class ProjectProcessBlockService implements EJBlockService<ProjectProcess
     }
 
     @Override
-    public List<ProjectProcess> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
+    public List<ProjectTasks> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        return _statementExecutor.executeQuery(ProjectProcess.class, form, _selectStatement, queryCriteria);
+        return _statementExecutor.executeQuery(ProjectTasks.class, form, _selectStatement, queryCriteria);
     }
 
     @Override
-    public void executeInsert(EJForm form, List<ProjectProcess> newRecords)
+    public void executeInsert(EJForm form, List<ProjectTasks> newRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
-        for (ProjectProcess record : newRecords)
+        for (ProjectTasks record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
@@ -52,7 +52,7 @@ public class ProjectProcessBlockService implements EJBlockService<ProjectProcess
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
-            recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_process", parameters.toArray(paramArray));
+            recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_tasks", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != newRecords.size())
@@ -62,12 +62,12 @@ public class ProjectProcessBlockService implements EJBlockService<ProjectProcess
     }
 
     @Override
-    public void executeUpdate(EJForm form, List<ProjectProcess> updateRecords)
+    public void executeUpdate(EJForm form, List<ProjectTasks> updateRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (ProjectProcess record : updateRecords)
+        for (ProjectTasks record : updateRecords)
         {
             parameters.clear();
 
@@ -138,7 +138,7 @@ public class ProjectProcessBlockService implements EJBlockService<ProjectProcess
                 criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
-            recordsProcessed += _statementExecutor.executeUpdate(form, "customer_project_process", criteria, parameters.toArray(paramArray));
+            recordsProcessed += _statementExecutor.executeUpdate(form, "customer_project_tasks", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != updateRecords.size())
@@ -148,12 +148,12 @@ public class ProjectProcessBlockService implements EJBlockService<ProjectProcess
     }
 
     @Override
-    public void executeDelete(EJForm form, List<ProjectProcess> recordsToDelete)
+    public void executeDelete(EJForm form, List<ProjectTasks> recordsToDelete)
     {
         ArrayList<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (ProjectProcess record : recordsToDelete)
+        for (ProjectTasks record : recordsToDelete)
         {
             parameters.clear();
 
@@ -216,7 +216,7 @@ public class ProjectProcessBlockService implements EJBlockService<ProjectProcess
                 criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
-            recordsProcessed += _statementExecutor.executeDelete(form, "customer_project_process", criteria, parameters.toArray(paramArray));
+            recordsProcessed += _statementExecutor.executeDelete(form, "customer_project_tasks", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != recordsToDelete.size())

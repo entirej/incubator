@@ -55,11 +55,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT.equals(itemName))
         {
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).refreshItemRenderer();
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).refreshItemRenderer();
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID.equals(itemName))
         {
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPP_ID).refreshItemRenderer();
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).refreshItemRenderer();
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME.equals(itemName))
         {
@@ -92,7 +92,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
         if (F_TIME_ENTRY.AC_PROJECT_DETAILS.equals(command))
         {
-            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.TASKS);
 
             Integer projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
 
@@ -112,15 +112,15 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_ADD_NEW_PROCESS.equals(command))
         {
-            form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).enterInsert(false);
+            form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterInsert(false);
         }
         else if (F_TIME_ENTRY.AC_MODIFY_PROCESS.equals(command))
         {
-            form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).enterUpdate();
+            form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterUpdate();
         }
         else if (F_TIME_ENTRY.AC_DELETE_PROCESS.equals(command))
         {
-            form.getBlock(F_TIME_ENTRY.B_PROJECT_PROCESS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
+            form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
         }
         else if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
         {
@@ -166,7 +166,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
             Date workDay = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
             String workDescription = (String) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
-            Integer cuppId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROCESS).getValue();
+            Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
 
             int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
 
@@ -184,9 +184,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 return;
             }
 
-            if (cuppId == null)
+            if (cuptId == null)
             {
-                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please choose a project and a project process");
+                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please choose a project and a project task");
                 form.showMessage(message);
                 return;
             }
@@ -195,7 +195,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             timeEntry.setId(idSeqNextval);
             timeEntry.setUserId(userId);
-            timeEntry.setCuppId(cuppId);
+            timeEntry.setCuptId(cuptId);
             timeEntry.setEndTime(new Time(end.getTime()));
             timeEntry.setStartTime(new Time(start.getTime()));
             timeEntry.setWorkDescription(workDescription);
@@ -245,7 +245,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
             criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
 
-            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROCESS);
+            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.TASKS);
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
 
             EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project process. Please enter one here before continuing.");
@@ -335,21 +335,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         if (screenType.equals(EJScreenType.UPDATE) && F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(block.getName()))
         {
             block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID).refreshItemRenderer();
-            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPP_ID).refreshItemRenderer();
+            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).refreshItemRenderer();
         }
     }
 
-    // @Override
-    // public void newRecordInstance(EJForm form, EJRecord record) throws
-    // EJActionProcessorException
-    // {
-    // if(record!=null &&
-    // F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
-    // {
-    // form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE,
-    // F_TIME_ENTRY.B_TIME_ENTRY.I_CUPP_ID).refreshItemRenderer();
-    // }
-    // super.newRecordInstance(form, record);
-    // }
 
 }

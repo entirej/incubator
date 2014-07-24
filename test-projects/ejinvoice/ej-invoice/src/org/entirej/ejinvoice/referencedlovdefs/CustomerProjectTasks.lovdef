@@ -23,7 +23,7 @@
         <relationList>
         </relationList>
         <lovDefinitionList>
-            <lovDefinition name="CustomerProjectProcesses" isReferenced="false" rendererName="Standard" allowUserQuery="false" automaticQuery="true">
+            <lovDefinition name="CustomerProjectTasks" isReferenced="false" rendererName="Standard" allowUserQuery="false" automaticQuery="true">
                 <width>500</width>
                 <height>500</height>
                 <actionProcessorClassName></actionProcessorClassName>
@@ -33,7 +33,7 @@
                     <property name="SHOW_HEADING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                     <property name="HIDE_TABLE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                 </lovRendererProperties>
-                <block name="CustomerProjectProcesses" referenced="false" controlBlock="false">
+                <block name="CustomerProjectTasks" referenced="false" controlBlock="false">
                     <isMirrored>false</isMirrored>
                     <mirrorParent></mirrorParent>
                     <description></description>

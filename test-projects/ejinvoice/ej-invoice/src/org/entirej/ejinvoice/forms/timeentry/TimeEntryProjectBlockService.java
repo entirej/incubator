@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.PKSequenceService;
-import org.entirej.ejinvoice.forms.projects.ProjectProcess;
+import org.entirej.ejinvoice.forms.projects.ProjectTasks;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;

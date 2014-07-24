@@ -11,7 +11,7 @@ import org.entirej.framework.core.service.EJStatementExecutor;
 public class CustomerProjectProcessBlockService implements EJBlockService<CustomerProjectProcess>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CPP.CPR_ID, CPP.ID, CPP.NAME PROCESS_NAME, CPP.NOTES, CPP.PAY_RATE, CPP.USER_ID, CPP.VAT_ID, CPR.NAME PROJECT_NAME, cpr.DESCRIPTION PROJECT_DESCRIPTION FROM customer_projects cpr, customer_project_process cpp WHERE cpp.CPR_ID = cpr.ID";
+    private String                    _selectStatement = "SELECT CPT.CPR_ID, CPT.ID, CPT.NAME PROCESS_NAME, CPT.NOTES, CPT.PAY_RATE, CPT.USER_ID, CPT.VAT_ID, CPR.NAME PROJECT_NAME, CPR.DESCRIPTION PROJECT_DESCRIPTION FROM CUSTOMER_PROJECTS CPR, CUSTOMER_PROJECT_TASKS CPT WHERE CPT.CPR_ID = CPR.ID";
 
     public CustomerProjectProcessBlockService()
     {
@@ -27,7 +27,7 @@ public class CustomerProjectProcessBlockService implements EJBlockService<Custom
     @Override
     public List<CustomerProjectProcess> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        queryCriteria.setRestrictionAlias("ID", "CPP.ID");
+        queryCriteria.setRestrictionAlias("ID", "CPT.ID");
         queryCriteria.setRestrictionAlias("CPR_ID", "CPR.ID");
         
         return _statementExecutor.executeQuery(CustomerProjectProcess.class, form, _selectStatement, queryCriteria);

@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
-public class ProjectProcess
+public class ProjectTasks
 {
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<Integer>    _cprId;

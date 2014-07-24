@@ -44,7 +44,7 @@ public class F_TIME_ENTRY
         public static final String I_START_TIME               = "startTime";
         public static final String I_END_TIME                 = "endTime";
         public static final String I_PROJECT                  = "project";
-        public static final String I_PROCESS                  = "process";
+        public static final String I_TASK                     = "task";
         public static final String I_HOURS                    = "hours";
         public static final String I_START_LABEL              = "startLabel";
         public static final String I_END_LABEL                = "endLabel";
@@ -65,15 +65,15 @@ public class F_TIME_ENTRY
         public static final String I_START_TIME       = "startTime";
         public static final String I_END_TIME         = "endTime";
         public static final String I_WORK_DESCRIPTION = "workDescription";
-        public static final String I_UPDATE_CUPP_ID   = "updateCuppId";
+        public static final String I_UPDATE_CUPT_ID   = "updateCuptId";
         public static final String I_UPDATE_CUPR_ID   = "updateCuprId";
-        public static final String I_CUPP_ID          = "cuppId";
+        public static final String I_CUPT_ID          = "cuptId";
         public static final String I_CUPR_ID          = "cuprId";
         public static final String I_USER_ID          = "userId";
         public static final String I_WORK_DATE        = "workDate";
         public static final String I_HOURS_WORKED     = "hoursWorked";
         public static final String I_PROJECT          = "project";
-        public static final String I_PROCESS          = "process";
+        public static final String I_TASK             = "task";
         public static final String I_START_LABEL      = "startLabel";
         public static final String I_END_LABEL        = "endLabel";
         public static final String I_HOURS_LABEL      = "hoursLabel";
@@ -90,7 +90,7 @@ public class F_TIME_ENTRY
         public static final String I_ID               = "id";
         public static final String I_START_TIME       = "startTime";
         public static final String I_WORK_DESCRIPTION = "workDescription";
-        public static final String I_CUPP_ID          = "cuppId";
+        public static final String I_CUPT_ID          = "cuptId";
         public static final String I_USER_ID          = "userId";
         public static final String I_WORK_DATE        = "workDate";
         public static final String I_HOURS            = "hours";
@@ -161,9 +161,9 @@ public class F_TIME_ENTRY
 
     }
 
-    public static class B_PROJECT_PROCESS
+    public static class B_PROJECT_TASKS
     {
-        public static final String ID         = "ProjectProcess";
+        public static final String ID         = "ProjectTasks";
         public static final String I_ID       = "id";
         public static final String I_CPR_ID   = "cprId";
         public static final String I_NOTES    = "notes";
@@ -273,9 +273,9 @@ public class F_TIME_ENTRY
 
     }
 
-    public static class L_UPDATE_CUSTOMER_PROJECT_PROCESS
+    public static class L_UPDATE_CUSTOMER_PROJECT_TASKS
     {
-        public static final String ID                    = "UpdateCustomerProjectProcess";
+        public static final String ID                    = "UpdateCustomerProjectTasks";
         public static final String I_ID                  = "id";
         public static final String I_CPR_ID              = "cprId";
         public static final String I_NOTES               = "notes";
@@ -289,9 +289,9 @@ public class F_TIME_ENTRY
 
     }
 
-    public static class L_CUSTOMER_PROJECT_PROCESS
+    public static class L_CUSTOMER_PROJECT_TASKS
     {
-        public static final String ID                    = "CustomerProjectProcess";
+        public static final String ID                    = "CustomerProjectTasks";
         public static final String I_ID                  = "id";
         public static final String I_CPR_ID              = "cprId";
         public static final String I_NOTES               = "notes";
@@ -335,14 +335,14 @@ public class F_TIME_ENTRY
     public static class C_PROJECTS_STACK_PAGES
     {
         public static final String PROJECTS = "Projects";
-        public static final String PROCESS  = "Process";
+        public static final String TASKS    = "Tasks";
 
     }
 
     public static final String C_PROJECTS_TOOLBAR = "ProjectsToolbar";
     public static final String C_PROJECTS         = "Projects";
     public static final String C_PROJECTS_DETAIL  = "ProjectsDetail";
-    public static final String C_PROJECT_PROCESS  = "ProjectProcess";
+    public static final String C_PROJECT_TASKS    = "ProjectTasks";
     public static final String C_CUSTOMER_STACK   = "CustomerStack";
 
     public static class C_CUSTOMER_STACK_PAGES
