@@ -52,10 +52,18 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         c.set(Calendar.WEEK_OF_YEAR, week);
         int dayOfWeek = c.get(Calendar.DAY_OF_WEEK) - c.getFirstDayOfWeek();
         c.add(Calendar.DAY_OF_MONTH, -dayOfWeek);
-
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
         java.util.Date weekStart = c.getTime();
+      
         // we do not need the same day a week after, that's why use 6, not 7
-        c.add(Calendar.DAY_OF_MONTH, 6); 
+        c.add(Calendar.DAY_OF_MONTH, 6);
+        c.set(Calendar.HOUR_OF_DAY, 23);
+        c.set(Calendar.MINUTE, 59);
+        c.set(Calendar.SECOND, 59);
+        c.set(Calendar.MILLISECOND, 999);
         java.util.Date weekEnd = c.getTime();
         
         criteria.add(EJRestrictions.between("WORK_DATE", weekStart, weekEnd));
