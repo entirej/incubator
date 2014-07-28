@@ -9,6 +9,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_OVERVIEW;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -50,6 +51,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
         form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_EDIT_SCREEN, null);
+        form.openEmbeddedForm(F_INVOICE_OVERVIEW.ID, F_TIME_ENTRY.C_INVOICE, null);
     }
 
     @Override
@@ -106,11 +108,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else
         {
             EJBlock timeEntryBlock = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID);
-            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
-            {
-                timeEntryBlock.enterUpdate();
-            }
-            else if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
+//            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
+//            {
+//                timeEntryBlock.enterUpdate();
+//            }
+            if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
             {
                 timeEntryBlock.askToDeleteCurrentRecord();
             }
