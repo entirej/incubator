@@ -19,7 +19,8 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
     @Override
     public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        if ((Integer) record.getValue(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_HEADER_ROW) == 1)
+        Object value = record.getValue(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_HEADER_ROW);
+        if (value!=null && (Integer) value == 1)
         {
             record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
             record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
