@@ -86,3 +86,27 @@ ExpandItem-Button:expanded {
 ExpandItem-Button:expanded:hover {
  background-image:none
 }
+
+
+
+
+Composite.workview {
+	background-color: #c4c4c4;
+}
+Link.workview {
+	background-color: #c4c4c4;
+}
+Link.activeweek {
+	background-color: #efefef;
+}
+Button[PUSH].workview {
+	background-image: gradient(linear, left top, left bottom, from(#e4e4e4),
+		to(#e4e4e4) );
+}
+
+.WORKWEEK_DAY
+{
+	font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+	color: #4a4a4a;
+}
+

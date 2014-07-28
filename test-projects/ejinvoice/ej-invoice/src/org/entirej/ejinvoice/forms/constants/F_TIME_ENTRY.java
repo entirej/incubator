@@ -80,6 +80,8 @@ public class F_TIME_ENTRY
         public static final String I_EQUALS_LABEL     = "equalsLabel";
         public static final String I_PROJECT_LABEL    = "projectLabel";
         public static final String I_WORK_DATE_ENTRY  = "workDateEntry";
+        public static final String I__EDIT            = "_edit";
+        public static final String I__DELETE          = "_delete";
 
     }
 

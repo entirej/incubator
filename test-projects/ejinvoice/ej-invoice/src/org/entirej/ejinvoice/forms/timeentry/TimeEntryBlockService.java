@@ -2,12 +2,12 @@ package org.entirej.ejinvoice.forms.timeentry;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-import org.entirej.ejinvoice.forms.timeentry.TimeEntry;
 import org.entirej.framework.core.EJApplicationException;
+import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJManagedFrameworkConnection;
 import org.entirej.framework.core.service.EJBlockService;
@@ -34,6 +34,39 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         return false;
     }
 
+    
+    public static int getCurrentWeek()
+    {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new java.util.Date());
+        
+        return c.get(Calendar.WEEK_OF_YEAR);
+    }
+    
+    
+    public static EJQueryCriteria getWeeKQueryCriteria(EJQueryCriteria criteria,int week)
+    {
+       
+        Calendar c = Calendar.getInstance();
+        c.setTime(new java.util.Date());
+        c.set(Calendar.WEEK_OF_YEAR, week);
+        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK) - c.getFirstDayOfWeek();
+        c.add(Calendar.DAY_OF_MONTH, -dayOfWeek);
+
+        java.util.Date weekStart = c.getTime();
+        // we do not need the same day a week after, that's why use 6, not 7
+        c.add(Calendar.DAY_OF_MONTH, 6); 
+        java.util.Date weekEnd = c.getTime();
+        
+        criteria.add(EJRestrictions.between("WORK_DATE", weekStart, weekEnd));
+        
+        return criteria;
+    }
+    
+    
+    
+    
+    
     private String getDiffMinutesString( Time start, Time end)
     {
         long diff = end.getTime() - start.getTime();

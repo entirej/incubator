@@ -35,7 +35,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
-        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery();
+        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(
+                TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)),
+                        TimeEntryBlockService.getCurrentWeek()));
 
         EJScreenItem startTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
         EJScreenItem endTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME);
@@ -101,116 +103,129 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
         }
-        else if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
+        else
         {
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).enterUpdate();
-        }
-        else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
-        {
-            form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
-            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).clear(true);
-        }
-        else if (F_TIME_ENTRY.AC_ADD_NEW_PROCESS.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterInsert(false);
-        }
-        else if (F_TIME_ENTRY.AC_MODIFY_PROCESS.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterUpdate();
-        }
-        else if (F_TIME_ENTRY.AC_DELETE_PROCESS.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
-        }
-        else if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).askToDeleteCurrentRecord("Are you sure you want to delete this entry?");
-        }
-        else if (F_TIME_ENTRY.AC_MODIFY_PROJECT.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterUpdate();
-        }
-        else if (F_TIME_ENTRY.AC_CREATE_NEW_PROJECT.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterInsert(false);
-        }
-        else if (F_TIME_ENTRY.AC_CREATE_NEW_CUSTOMER.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterInsert(false);
-        }
-        else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
-        {
-            EJParameterList paramList = new EJParameterList();
-            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
-            cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
-            paramList.addParameter(cstParam);
-
-            form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
-            form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
-        }
-        else if (F_TIME_ENTRY.AC_OPEN_CUSTOMER.equals(command))
-        {
-            EJParameterList paramList = new EJParameterList();
-            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
-            cstParam.setValue(record.getValue(F_TIME_ENTRY.B_PROJECTS.I_CUSTOMER_ID));
-            paramList.addParameter(cstParam);
-
-            form.showTabCanvasPage(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS);
-            form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
-            form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
-        }
-        else if (F_TIME_ENTRY.AC_ADD_TIME_ENTRY.equals(command))
-        {
-            Integer userId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID).getValue();
-            Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
-            Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
-            Date workDay = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
-            String workDescription = (String) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
-            Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
-
-            int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
-
-            if (start.after(end))
+            EJBlock timeEntryBlock = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID);
+            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
             {
-                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please enter an End Time later than the given Start Time");
-                form.showMessage(message);
-                return;
+                timeEntryBlock.enterUpdate();
             }
-
-            if (workDescription == null || workDescription.trim().length() == 0)
+            else if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
             {
-                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please enter a work description");
-                form.showMessage(message);
-                return;
+                timeEntryBlock.askToDeleteCurrentRecord();
             }
-
-            if (cuptId == null)
+            else if ((command.startsWith("WORKWEEK")))
             {
-                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please choose a project and a project task");
-                form.showMessage(message);
-                return;
+               int week = Integer.parseInt(command.substring(command.indexOf(":")+1,command.length()));
+                timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria( timeEntryBlock), week));
             }
+            else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
+            {
+                form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
+                form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).clear(true);
+            }
+            else if (F_TIME_ENTRY.AC_ADD_NEW_PROCESS.equals(command))
+            {
+                form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterInsert(false);
+            }
+            else if (F_TIME_ENTRY.AC_MODIFY_PROCESS.equals(command))
+            {
+                form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterUpdate();
+            }
+            else if (F_TIME_ENTRY.AC_DELETE_PROCESS.equals(command))
+            {
+                form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
+            }
+            else if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
+            {
+                timeEntryBlock.askToDeleteCurrentRecord("Are you sure you want to delete this entry?");
+            }
+            else if (F_TIME_ENTRY.AC_MODIFY_PROJECT.equals(command))
+            {
+                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterUpdate();
+            }
+            else if (F_TIME_ENTRY.AC_CREATE_NEW_PROJECT.equals(command))
+            {
+                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterInsert(false);
+            }
+            else if (F_TIME_ENTRY.AC_CREATE_NEW_CUSTOMER.equals(command))
+            {
+                form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterInsert(false);
+            }
+            else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
+            {
+                EJParameterList paramList = new EJParameterList();
+                EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
+                cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
+                paramList.addParameter(cstParam);
 
-            TimeEntry timeEntry = new TimeEntry();
+                form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
+                form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
+            }
+            else if (F_TIME_ENTRY.AC_OPEN_CUSTOMER.equals(command))
+            {
+                EJParameterList paramList = new EJParameterList();
+                EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
+                cstParam.setValue(record.getValue(F_TIME_ENTRY.B_PROJECTS.I_CUSTOMER_ID));
+                paramList.addParameter(cstParam);
 
-            timeEntry.setId(idSeqNextval);
-            timeEntry.setUserId(userId);
-            timeEntry.setCuptId(cuptId);
-            timeEntry.setEndTime(new Time(end.getTime()));
-            timeEntry.setStartTime(new Time(start.getTime()));
-            timeEntry.setWorkDescription(workDescription);
-            timeEntry.setWorkDate(workDay);
+                form.showTabCanvasPage(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS);
+                form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
+                form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
+            }
+            else if (F_TIME_ENTRY.AC_ADD_TIME_ENTRY.equals(command))
+            {
+                Integer userId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID).getValue();
+                Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
+                Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
+                Date workDay = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
+                String workDescription = (String) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
+                Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
 
-            TimeEntryBlockService service = new TimeEntryBlockService();
-            service.enterTimeEntry(form, timeEntry);
+                int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
 
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery();
+                if (start.after(end))
+                {
+                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please enter an End Time later than the given Start Time");
+                    form.showMessage(message);
+                    return;
+                }
 
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).setValue(end);
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).setValue(null);
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).gainFocus();
+                if (workDescription == null || workDescription.trim().length() == 0)
+                {
+                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please enter a work description");
+                    form.showMessage(message);
+                    return;
+                }
 
-            recalcluateWorkingHours(form, end, end);
+                if (cuptId == null)
+                {
+                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please choose a project and a project task");
+                    form.showMessage(message);
+                    return;
+                }
+
+                TimeEntry timeEntry = new TimeEntry();
+
+                timeEntry.setId(idSeqNextval);
+                timeEntry.setUserId(userId);
+                timeEntry.setCuptId(cuptId);
+                timeEntry.setEndTime(new Time(end.getTime()));
+                timeEntry.setStartTime(new Time(start.getTime()));
+                timeEntry.setWorkDescription(workDescription);
+                timeEntry.setWorkDate(workDay);
+
+                TimeEntryBlockService service = new TimeEntryBlockService();
+                service.enterTimeEntry(form, timeEntry);
+
+                timeEntryBlock.executeQuery();
+
+                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).setValue(end);
+                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).setValue(null);
+                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).gainFocus();
+
+                recalcluateWorkingHours(form, end, end);
+            }
         }
     }
 
