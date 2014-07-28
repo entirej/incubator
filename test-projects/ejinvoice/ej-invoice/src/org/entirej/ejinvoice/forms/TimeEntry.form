@@ -2886,7 +2886,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
