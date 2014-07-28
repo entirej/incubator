@@ -1260,6 +1260,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                                         }
                                     }
 
+                                    builder.append(String.format(" width=%s ", width));
                                 }
                                 if (alignment == null)
                                 {
@@ -1280,8 +1281,11 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                                 builder.append(String.format(" font style=\'%s\'", caseProperty));
 
                                 builder.append(">");
+                                
+                                
+                                String text = columnLabelProvider.getText(record);
 
-                                if (actionDef != null)
+                                if (actionDef != null && text!=null && text.length()>0)
                                 {
                                     builder.append(String.format("<ejl><u %s class=\"%s %s\"  ", "style=\"line-height: 100%\"", ("default_all".equals(computeStyleClass) ? "default_link_fg" : "default_link"), computeStyleClass));
                                     builder.append(actionDef).append(">");
@@ -1305,19 +1309,15 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                                         builder.append("<ejl><img src=\"");
                                         builder.append(ImageFactory.getImagePath(image));
                                         builder.append("\"");
-                                        builder.append(String.format(" class=\"%s %s\" %s  > </ejl>", ("default_all".equals(computeStyleClass) ? "default_link_fg" : "default_link"), computeStyleClass, actionDef));
+                                        builder.append(String.format("style=\"cursor: hand;\" class=\"%s \" %s  > </ejl>",  computeStyleClass, actionDef));
                                     }
                                 }
                                 // builder.append(String.format("<p class=\"default %s\">",
                                 // styleClass));
 
-                                String text = columnLabelProvider.getText(record);
-
-                                if (width > 0)
-                                    builder.append(String.format("<div style = 'overflow: hidden; width: %dpx; '>", (int) width));
+                               
+                                
                                 builder.append(text);
-                                if (width > 0)
-                                    builder.append("</div>");
                                 builder.append("</td>");
                             }
 

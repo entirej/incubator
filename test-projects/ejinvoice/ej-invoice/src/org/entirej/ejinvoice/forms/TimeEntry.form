@@ -2905,7 +2905,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
@@ -3104,7 +3104,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[EDIT_TIME_ENTRY]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="_delete" isSpacerItem="false">
@@ -3119,7 +3119,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[DELETE_TIME_ENTRY]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="startTime" isSpacerItem="false">
@@ -3134,7 +3134,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="endTime" isSpacerItem="false">
@@ -3149,7 +3149,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="hoursWorked" isSpacerItem="false">
@@ -3164,7 +3164,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="project" isSpacerItem="false">
@@ -3179,7 +3179,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[12]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="task" isSpacerItem="false">
@@ -3194,7 +3194,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="workDescription" isSpacerItem="false">
@@ -3209,7 +3209,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                             </itemGroupItemList>
