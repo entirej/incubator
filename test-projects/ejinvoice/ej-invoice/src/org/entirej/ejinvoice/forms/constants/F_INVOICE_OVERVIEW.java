@@ -10,26 +10,24 @@ public class F_INVOICE_OVERVIEW
 {
     public static final String ID = "InvoiceOverview";
 
-    public static class B_OPEN_INVOICES
+    public static class B_PROJECT_TIME
     {
-        public static final String ID                = "OpenInvoices";
-        public static final String I_NR              = "nr";
-        public static final String I_PAYINF_ID       = "payinfId";
-        public static final String I_PAID            = "paid";
-        public static final String I_USER_ID         = "userId";
-        public static final String I_AMOUNT_EXCL_VAT = "amountExclVat";
-        public static final String I_INV_DATE        = "invDate";
-        public static final String I_CONF_ID         = "confId";
-        public static final String I_PRINTED         = "printed";
-        public static final String I_ID              = "id";
-        public static final String I_INVOICE_ID      = "invoiceId";
-        public static final String I_SUBJECT         = "subject";
-        public static final String I_CUST_ID         = "custId";
-        public static final String I_STATUS          = "status";
-        public static final String I_AMOUNT_INCL_VAT = "amountInclVat";
+        public static final String ID                = "ProjectTime";
+        public static final String I_PROJECT_NAME    = "projectName";
+        public static final String I_PROJECT_STATUS  = "projectStatus";
+        public static final String I_PROJECT_USER_ID = "projectUserId";
+        public static final String I_CUSTOMER_ID     = "customerId";
+        public static final String I_TASK_ID         = "taskId";
+        public static final String I_TASK_NAME       = "taskName";
+        public static final String I_TASK_VAT_ID     = "taskVatId";
+        public static final String I_VAT_RATE        = "vatRate";
+        public static final String I_VAT_NAME        = "vatName";
+        public static final String I_TASK_PAY_RATE   = "taskPayRate";
+        public static final String I_WORK_HOURS      = "workHours";
 
     }
 
     public static final String C_OPEN_INVOICES = "OpenInvoices";
+    public static final String C_PROJECT_TIME  = "ProjectTime";
 
 }

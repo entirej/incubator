@@ -25,7 +25,7 @@ import java.math.BigDecimal;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_INVOICE;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_OLD;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
@@ -46,7 +46,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     {
         super.newFormInstance(form);
 
-        EJBlock customerBlock = form.getBlock(F_INVOICE.B_INVOICE.ID);
+        EJBlock customerBlock = form.getBlock(F_INVOICE_OLD.B_INVOICE.ID);
         customerBlock.executeQuery();
 
     }
@@ -55,28 +55,28 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
 
-        if (F_INVOICE.AC_TOOLBAR_HOME.equals(command))
+        if (F_INVOICE_OLD.AC_TOOLBAR_HOME.equals(command))
         {
             form.openForm(F_TIME_ENTRY.ID);
             return;
         }
-        if (F_INVOICE.AC_TOOLBAR_NEW.equals(command))
+        if (F_INVOICE_OLD.AC_TOOLBAR_NEW.equals(command))
         {
-            form.getBlock(F_INVOICE.B_INVOICE.ID).enterInsert(false);
+            form.getBlock(F_INVOICE_OLD.B_INVOICE.ID).enterInsert(false);
             return;
         }
-        if (F_INVOICE.AC_TOOLBAR_EDIT.equals(command))
+        if (F_INVOICE_OLD.AC_TOOLBAR_EDIT.equals(command))
         {
-            form.getBlock(F_INVOICE.B_INVOICE.ID).enterUpdate();
+            form.getBlock(F_INVOICE_OLD.B_INVOICE.ID).enterUpdate();
             return;
         }
-        if (F_INVOICE.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord() != null)
+        if (F_INVOICE_OLD.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_INVOICE_OLD.B_INVOICE.ID).getFocusedRecord() != null)
         {
             // before deleting the selected record from database validate
             // and check if the record to be deleted has any FK constraints
             // usage with other table data and if so throw an exception and
             // block physical delete
-            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord(), "INVOICE");
+            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_INVOICE_OLD.B_INVOICE.ID).getFocusedRecord(), "INVOICE");
 
             // If you are using codes for you texts, pass the code to entirej so
             // that it can be
@@ -88,26 +88,26 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
             // form more information on EntireJ's translators read:
             // http://http://docs.entirej.com/display/EJ1/EntireJ+Translator
 
-            form.getBlock(F_INVOICE.B_INVOICE.ID).askToDeleteCurrentRecord("Are you sure you want to delete this invoice?");
+            form.getBlock(F_INVOICE_OLD.B_INVOICE.ID).askToDeleteCurrentRecord("Are you sure you want to delete this invoice?");
             return;
         }
 
-        else if (record.getBlockName() != null && ((record.getBlockName().equals(F_INVOICE.B_INVOICE_POSITIONS.ID)) || record.getBlockName().equals(F_INVOICE.B_INVOICE_POSITION_TOOL_BAR.ID)))
+        else if (record.getBlockName() != null && ((record.getBlockName().equals(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID)) || record.getBlockName().equals(F_INVOICE_OLD.B_INVOICE_POSITION_TOOL_BAR.ID)))
         {
-            if (F_INVOICE.AC_NEW_POSITION.equals(command))
+            if (F_INVOICE_OLD.AC_NEW_POSITION.equals(command))
             {
-                form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID).enterInsert(false);
+                form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID).enterInsert(false);
                 return;
             }
-            if (F_INVOICE.AC_EDIT_POSITION.equals(command))
+            if (F_INVOICE_OLD.AC_EDIT_POSITION.equals(command))
             {
-                EJBlock contactBlock = form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID);
+                EJBlock contactBlock = form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID);
                 contactBlock.enterUpdate();
                 return;
             }
-            if (F_INVOICE.AC_DELETE_POSITION.equals(command) && form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID).getFocusedRecord() != null)
+            if (F_INVOICE_OLD.AC_DELETE_POSITION.equals(command) && form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID).getFocusedRecord() != null)
             {
-                form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this position?");
+                form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this position?");
                 return;
             }
         }
@@ -119,7 +119,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     {
         // all open changes within the form should be saved
         form.saveChanges();
-        if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
+        if (F_INVOICE_OLD.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
         {
             updateInvPositionsToolbar(form);
         }
@@ -147,7 +147,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     {
         super.postDelete(form, record);
         form.saveChanges();
-        if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
+        if (F_INVOICE_OLD.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
         {
             updateInvPositionsToolbar(form);
         }
@@ -161,7 +161,7 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     @Override
     public void newRecordInstance(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
+        if (F_INVOICE_OLD.B_INVOICE_POSITIONS.ID.equals(record.getBlockName()))
         {
             updateInvPositionsToolbar(form);
         }
@@ -171,11 +171,11 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     @Override
     public void postBlockQuery(EJForm form, EJBlock block) throws EJActionProcessorException
     {
-        if (F_INVOICE.B_INVOICE.ID.equals(block.getName()))
+        if (F_INVOICE_OLD.B_INVOICE.ID.equals(block.getName()))
         {
             updateInvPositionsToolbar(form);
         }
-        else if (F_INVOICE.B_INVOICE_POSITIONS.ID.equals(block.getName()))
+        else if (F_INVOICE_OLD.B_INVOICE_POSITIONS.ID.equals(block.getName()))
         {
             updateInvPositionsToolbar(form);
         }
@@ -185,17 +185,17 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
     private void updateInvPositionsToolbar(EJForm form)
     {
 
-        if (form.getBlock(F_INVOICE.B_INVOICE_POSITION_TOOL_BAR.ID) != null)
+        if (form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITION_TOOL_BAR.ID) != null)
         {
-            EJBlock customerContactBlock = form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID);
+            EJBlock customerContactBlock = form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID);
             final EJRecord contactRecord = customerContactBlock.getFocusedRecord();
 
            
 
-            EJBlock toolbarBlock = form.getBlock(F_INVOICE.B_INVOICE_POSITION_TOOL_BAR.ID);
-            toolbarBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE.B_INVOICE_POSITION_TOOL_BAR.I_NEW).setEditable(form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord()!=null);
-            toolbarBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE.B_INVOICE_POSITION_TOOL_BAR.I_DELETE).setEditable(contactRecord != null);
-            toolbarBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE.B_INVOICE_POSITION_TOOL_BAR.I_EDIT).setEditable(contactRecord != null);
+            EJBlock toolbarBlock = form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITION_TOOL_BAR.ID);
+            toolbarBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE_OLD.B_INVOICE_POSITION_TOOL_BAR.I_NEW).setEditable(form.getBlock(F_INVOICE_OLD.B_INVOICE.ID).getFocusedRecord()!=null);
+            toolbarBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE_OLD.B_INVOICE_POSITION_TOOL_BAR.I_DELETE).setEditable(contactRecord != null);
+            toolbarBlock.getScreenItem(EJScreenType.MAIN, F_INVOICE_OLD.B_INVOICE_POSITION_TOOL_BAR.I_EDIT).setEditable(contactRecord != null);
         }
 
     }
@@ -220,12 +220,12 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
      */
     private void refreshInvPosTotals(EJForm form, EJRecord record)
     {
-        if (record.getBlockName() != null && record.getBlockName().equals(F_INVOICE.B_INVOICE_POSITIONS.ID))
+        if (record.getBlockName() != null && record.getBlockName().equals(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID))
         {
 
-            for (EJRecord invPosRec : form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID).getBlockRecords())
+            for (EJRecord invPosRec : form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID).getBlockRecords())
             {
-                invPosRec.setValue(F_INVOICE.B_INVOICE_POSITIONS.I_AMOUNT, calculateInvPosAmount(invPosRec));
+                invPosRec.setValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_AMOUNT, calculateInvPosAmount(invPosRec));
 
             }
         }
@@ -248,12 +248,12 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
             return amount;
         }
 
-        java.math.BigDecimal hrsWorked = (java.math.BigDecimal) invPosRec.getValue(F_INVOICE.B_INVOICE_POSITIONS.I_HOURS_WORKED);
+        java.math.BigDecimal hrsWorked = (java.math.BigDecimal) invPosRec.getValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_HOURS_WORKED);
 
         if (hrsWorked != null && hrsWorked.doubleValue() > 0)
         {
 
-            final java.math.BigDecimal payRate = (java.math.BigDecimal) invPosRec.getValue(F_INVOICE.B_INVOICE_POSITIONS.I_CUST_PROJ_PAY_RATE);
+            final java.math.BigDecimal payRate = (java.math.BigDecimal) invPosRec.getValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_CUST_PROJ_PAY_RATE);
 
             if (payRate == null)
             {
@@ -278,19 +278,19 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
      */
     private void updateInvoiceAmounts(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        if (record.getBlockName() != null && record.getBlockName().equals(F_INVOICE.B_INVOICE_POSITIONS.ID))
+        if (record.getBlockName() != null && record.getBlockName().equals(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID))
         {
 
             // get the selected invoice record
-            EJRecord invRec = form.getBlock(F_INVOICE.B_INVOICE.ID).getFocusedRecord();
+            EJRecord invRec = form.getBlock(F_INVOICE_OLD.B_INVOICE.ID).getFocusedRecord();
             if (invRec == null)
             {
                 return;
             }
 
-            for (EJRecord invPosRec : form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID).getBlockRecords())
+            for (EJRecord invPosRec : form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID).getBlockRecords())
             {
-                invPosRec.setValue(F_INVOICE.B_INVOICE_POSITIONS.I_AMOUNT, calculateInvPosAmount(invPosRec));
+                invPosRec.setValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_AMOUNT, calculateInvPosAmount(invPosRec));
 
             }
             Double amount = 0.00;
@@ -300,30 +300,30 @@ public class InvoiceFormActionProcessor extends DefaultFormActionProcessor imple
             {
 
                 // calculate the amount and amount including vat
-                for (EJRecord invPosRec : form.getBlock(F_INVOICE.B_INVOICE_POSITIONS.ID).getBlockRecords())
+                for (EJRecord invPosRec : form.getBlock(F_INVOICE_OLD.B_INVOICE_POSITIONS.ID).getBlockRecords())
                 {
-                    Double recAmount = (Double) invPosRec.getValue(F_INVOICE.B_INVOICE_POSITIONS.I_AMOUNT);
+                    Double recAmount = (Double) invPosRec.getValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_AMOUNT);
                     if (recAmount == null)
                         continue;
                     amount += recAmount;
                     double vatAmount = 0;
-                    if (recAmount != null && invPosRec.getValue(F_INVOICE.B_INVOICE_POSITIONS.I_VAT_RATE) != null)
-                        vatAmount = ((Double) invPosRec.getValue(F_INVOICE.B_INVOICE_POSITIONS.I_AMOUNT) * ((java.math.BigDecimal) invPosRec.getValue(F_INVOICE.B_INVOICE_POSITIONS.I_VAT_RATE)).doubleValue()) / 100;
-                    amtWithVAT += (Double) invPosRec.getValue(F_INVOICE.B_INVOICE_POSITIONS.I_AMOUNT) + vatAmount;
+                    if (recAmount != null && invPosRec.getValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_VAT_RATE) != null)
+                        vatAmount = ((Double) invPosRec.getValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_AMOUNT) * ((java.math.BigDecimal) invPosRec.getValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_VAT_RATE)).doubleValue()) / 100;
+                    amtWithVAT += (Double) invPosRec.getValue(F_INVOICE_OLD.B_INVOICE_POSITIONS.I_AMOUNT) + vatAmount;
                 }
 
                 // query the database and get the matching invoice record and
                 // update it's amount values
                 EJStatementExecutor statementExecutor = new EJStatementExecutor();
                 EJQueryCriteria criteria = new EJQueryCriteria();
-                criteria.add(EJRestrictions.equals("ID", invRec.getValue(F_INVOICE.B_INVOICE.I_ID)));
+                criteria.add(EJRestrictions.equals("ID", invRec.getValue(F_INVOICE_OLD.B_INVOICE.I_ID)));
                 statementExecutor.executeUpdate(form, "INVOICE", criteria, new EJStatementParameter[] { new EJStatementParameter("AMOUNT_EXCL_VAT", Double.class, amount), new EJStatementParameter("AMOUNT_INCL_VAT", Double.class, amtWithVAT) });
 
                 // commit the database transaction
                 connection.commit();
 
-                invRec.setValue(F_INVOICE.B_INVOICE.I_AMOUNT_INCL_VAT, new BigDecimal(amtWithVAT));
-                invRec.setValue(F_INVOICE.B_INVOICE.I_AMOUNT_EXCL_VAT, new BigDecimal(amount));
+                invRec.setValue(F_INVOICE_OLD.B_INVOICE.I_AMOUNT_INCL_VAT, new BigDecimal(amtWithVAT));
+                invRec.setValue(F_INVOICE_OLD.B_INVOICE.I_AMOUNT_EXCL_VAT, new BigDecimal(amount));
             }
             catch (Exception e)
             {
