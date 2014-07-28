@@ -108,18 +108,21 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else
         {
             EJBlock timeEntryBlock = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID);
-//            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
-//            {
-//                timeEntryBlock.enterUpdate();
-//            }
+            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
+            {
+                timeEntryBlock.enterUpdate();
+                return;
+            }
             if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
             {
                 timeEntryBlock.askToDeleteCurrentRecord();
+                return;
             }
             else if ((command.startsWith("WORKWEEK")))
             {
                int week = Integer.parseInt(command.substring(command.indexOf(":")+1,command.length()));
                 timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria( timeEntryBlock), week));
+                return;
             }
             else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
             {
@@ -138,10 +141,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             {
                 form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
             }
-            else if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
-            {
-                timeEntryBlock.askToDeleteCurrentRecord("Are you sure you want to delete this entry?");
-            }
+           
             else if (F_TIME_ENTRY.AC_MODIFY_PROJECT.equals(command))
             {
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).enterUpdate();
@@ -220,7 +220,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 TimeEntryBlockService service = new TimeEntryBlockService();
                 service.enterTimeEntry(form, timeEntry);
 
-                timeEntryBlock.executeQuery();
+                timeEntryBlock.executeLastQuery();
 
                 form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).setValue(end);
                 form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).setValue(null);
