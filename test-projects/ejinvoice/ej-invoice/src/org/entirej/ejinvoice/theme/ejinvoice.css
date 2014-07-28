@@ -89,15 +89,15 @@ ExpandItem-Button:expanded:hover {
 
 
 
-
+   
 Composite.workview {
-	background-color: #c4c4c4;
+	background-color: #ffffff;
 }
 Link.workview {
-	background-color: #c4c4c4;
+	background-color: #ffffff;
 }
 Link.activeweek {
-	background-color: #efefef;
+	background-color: #c4c4c4;
 }
 Button[PUSH].workview {
 	background-image: gradient(linear, left top, left bottom, from(#e4e4e4),

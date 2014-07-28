@@ -71,10 +71,6 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         return criteria;
     }
     
-    
-    
-    
-    
     private String getDiffMinutesString( Time start, Time end)
     {
         long diff = end.getTime() - start.getTime();

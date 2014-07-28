@@ -299,6 +299,15 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 // F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM);
                 form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
             }
+            else if (F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_OVERVIEW.equals(tabPageName))
+            {
+                EJForm invoiceForm = form.getEmbeddedForm(F_INVOICE_OVERVIEW.ID, F_TIME_ENTRY.C_INVOICE);
+                
+                if (invoiceForm != null)
+                {
+                    invoiceForm.getBlock(F_INVOICE_OVERVIEW.B_PROJECT_TIME.ID).executeQuery();
+                }
+            }
         }
     }
 
