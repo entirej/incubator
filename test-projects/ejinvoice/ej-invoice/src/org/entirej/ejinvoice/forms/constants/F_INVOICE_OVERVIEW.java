@@ -13,7 +13,8 @@ public class F_INVOICE_OVERVIEW
     public static class B_PROJECT_TIME
     {
         public static final String ID                = "ProjectTime";
-        public static final String I_PROJECT_NAME    = "projectName";
+        public static final String I_HEADER_ROW      = "headerRow";
+        public static final String I_DESCRIPTION     = "description";
         public static final String I_PROJECT_STATUS  = "projectStatus";
         public static final String I_PROJECT_USER_ID = "projectUserId";
         public static final String I_CUSTOMER_ID     = "customerId";
@@ -24,10 +25,11 @@ public class F_INVOICE_OVERVIEW
         public static final String I_VAT_NAME        = "vatName";
         public static final String I_TASK_PAY_RATE   = "taskPayRate";
         public static final String I_WORK_HOURS      = "workHours";
+        public static final String I_TOTAL_EXCL_VAT  = "totalExclVat";
+        public static final String I_TOTAL_INCL_VAT  = "totalInclVat";
 
     }
 
-    public static final String C_OPEN_INVOICES = "OpenInvoices";
-    public static final String C_PROJECT_TIME  = "ProjectTime";
+    public static final String C_PROJECT_TIME = "ProjectTime";
 
 }

@@ -1,16 +1,15 @@
 package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
 public class ProjectTime
 {
+    private EJPojoProperty<Integer>    _headerRow;
     private EJPojoProperty<Integer>    _projectId;
-    private EJPojoProperty<String>     _projectDescription;
-    private EJPojoProperty<String>     _projectName;
+    private EJPojoProperty<String>     _description;
     private EJPojoProperty<String>     _projectStatus;
     private EJPojoProperty<Integer>    _projectUserId;
     private EJPojoProperty<Integer>    _customerId;
@@ -21,6 +20,26 @@ public class ProjectTime
     private EJPojoProperty<String>     _vatName;
     private EJPojoProperty<BigDecimal> _taskPayRate;
     private EJPojoProperty<BigDecimal> _workHours;
+    private EJPojoProperty<BigDecimal> _totalExclVat;
+    private EJPojoProperty<BigDecimal> _totalInclVat;
+
+    @EJFieldName("HEADER_ROW")
+    public Integer getHeaderRow()
+    {
+        return EJPojoProperty.getPropertyValue(_headerRow);
+    }
+
+    @EJFieldName("HEADER_ROW")
+    public void setHeaderRow(Integer headerRow)
+    {
+        _headerRow = EJPojoProperty.setPropertyValue(_headerRow, headerRow);
+    }
+
+    @EJFieldName("HEADER_ROW")
+    public Integer getInitialHeaderRow()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_headerRow);
+    }
 
     @EJFieldName("PROJECT_ID")
     public Integer getProjectId()
@@ -40,40 +59,22 @@ public class ProjectTime
         return EJPojoProperty.getPropertyInitialValue(_projectId);
     }
 
-    @EJFieldName("PROJECT_DESCRIPTION")
-    public String getProjectDescription()
+    @EJFieldName("DESCRIPTION")
+    public String getDescription()
     {
-        return EJPojoProperty.getPropertyValue(_projectDescription);
+        return EJPojoProperty.getPropertyValue(_description);
     }
 
-    @EJFieldName("PROJECT_DESCRIPTION")
-    public void setDescription(String projectDescription)
+    @EJFieldName("DESCRIPTION")
+    public void setDescription(String description)
     {
-        _projectDescription = EJPojoProperty.setPropertyValue(_projectDescription, projectDescription);
+        _description = EJPojoProperty.setPropertyValue(_description, description);
     }
 
-    @EJFieldName("PROJECT_DESCRIPTION")
-    public String getInitialProjectDescription()
+    @EJFieldName("DESCRIPTION")
+    public String getInitialDescription()
     {
-        return EJPojoProperty.getPropertyInitialValue(_projectDescription);
-    }
-
-    @EJFieldName("PROJECT_NAME")
-    public String getProjectName()
-    {
-        return EJPojoProperty.getPropertyValue(_projectName);
-    }
-
-    @EJFieldName("PROJECT_NAME")
-    public void setProjectName(String projectName)
-    {
-        _projectName = EJPojoProperty.setPropertyValue(_projectName, projectName);
-    }
-
-    @EJFieldName("PROJECT_NAME")
-    public String getInitialProjectName()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_projectName);
+        return EJPojoProperty.getPropertyInitialValue(_description);
     }
 
     @EJFieldName("PROJECT_STATUS")
@@ -129,7 +130,7 @@ public class ProjectTime
     {
         return EJPojoProperty.getPropertyInitialValue(_customerId);
     }
-    
+
     @EJFieldName("TASK_ID")
     public Integer getTaskId()
     {
@@ -183,7 +184,7 @@ public class ProjectTime
     {
         return EJPojoProperty.getPropertyInitialValue(_taskVatId);
     }
-    
+
     @EJFieldName("VAT_RATE")
     public BigDecimal getVatRate()
     {
@@ -219,7 +220,7 @@ public class ProjectTime
     {
         return EJPojoProperty.getPropertyInitialValue(_vatName);
     }
-    
+
     @EJFieldName("TASK_PAY_RATE")
     public BigDecimal getTaskPayRate()
     {
@@ -237,7 +238,7 @@ public class ProjectTime
     {
         return EJPojoProperty.getPropertyInitialValue(_taskPayRate);
     }
-    
+
     @EJFieldName("WORK_HOURS")
     public BigDecimal getWorkHours()
     {
@@ -255,12 +256,48 @@ public class ProjectTime
     {
         return EJPojoProperty.getPropertyInitialValue(_workHours);
     }
-    
+
+    @EJFieldName("TOTAL_EXCL_VAT")
+    public BigDecimal getTotalExclVat()
+    {
+        return EJPojoProperty.getPropertyValue(_totalExclVat);
+    }
+
+    @EJFieldName("TOTAL_EXCL_VAT")
+    public void setTotalExclVat(BigDecimal totalExclVat)
+    {
+        _totalExclVat = EJPojoProperty.setPropertyValue(_totalExclVat, totalExclVat);
+    }
+
+    @EJFieldName("TOTAL_EXCL_VAT")
+    public BigDecimal getInitialTotalExclVat()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_totalExclVat);
+    }
+
+    @EJFieldName("TOTAL_INCL_VAT")
+    public BigDecimal getTotalInclVat()
+    {
+        return EJPojoProperty.getPropertyValue(_totalInclVat);
+    }
+
+    @EJFieldName("TOTAL_INCL_VAT")
+    public void setTotalInclVat(BigDecimal totalInclVat)
+    {
+        _totalInclVat = EJPojoProperty.setPropertyValue(_totalInclVat, totalInclVat);
+    }
+
+    @EJFieldName("TOTAL_INCL_VAT")
+    public BigDecimal getInitialTotalInclVat()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_totalInclVat);
+    }
+
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_headerRow);
         EJPojoProperty.clearInitialValue(_projectId);
-        EJPojoProperty.clearInitialValue(_projectDescription);
-        EJPojoProperty.clearInitialValue(_projectName);
+        EJPojoProperty.clearInitialValue(_description);
         EJPojoProperty.clearInitialValue(_projectUserId);
         EJPojoProperty.clearInitialValue(_customerId);
         EJPojoProperty.clearInitialValue(_taskId);
@@ -270,6 +307,8 @@ public class ProjectTime
         EJPojoProperty.clearInitialValue(_vatName);
         EJPojoProperty.clearInitialValue(_taskPayRate);
         EJPojoProperty.clearInitialValue(_workHours);
+        EJPojoProperty.clearInitialValue(_totalExclVat);
+        EJPojoProperty.clearInitialValue(_totalInclVat);
     }
 
 }
