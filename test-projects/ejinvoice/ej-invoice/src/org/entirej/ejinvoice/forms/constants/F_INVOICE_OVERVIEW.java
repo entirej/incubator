@@ -10,6 +10,30 @@ public class F_INVOICE_OVERVIEW
 {
     public static final String ID = "InvoiceOverview";
 
+    public static class B_INVOICE_CUSTOMERS_CTRL
+    {
+        public static final String ID                = "InvoiceCustomersCtrl";
+        public static final String I_CUSTOMER_CHOICE = "CustomerChoice";
+
+    }
+
+    public static class B_INVOICE_CUSTOMERS
+    {
+        public static final String ID                = "InvoiceCustomers";
+        public static final String I_CUSTOMER_CHOICE = "CustomerChoice";
+        public static final String I_INDICATOR       = "indicator";
+        public static final String I_ADDRESS_LINE_1  = "addressLine1";
+        public static final String I_TOWN            = "town";
+        public static final String I_POST_CODE       = "postCode";
+        public static final String I_ADDRESS_LINE_2  = "addressLine2";
+        public static final String I_ADDRESS_LINE_3  = "addressLine3";
+        public static final String I_NAME            = "name";
+        public static final String I_COUNTRY         = "country";
+        public static final String I_ID              = "id";
+        public static final String I_USER_ID         = "userId";
+
+    }
+
     public static class B_PROJECT_TIME
     {
         public static final String ID                = "ProjectTime";
@@ -30,6 +54,31 @@ public class F_INVOICE_OVERVIEW
 
     }
 
-    public static final String C_PROJECT_TIME = "ProjectTime";
+    public static class B_CHOSEN_CUSTOMER
+    {
+        public static final String ID                     = "ChosenCustomer";
+        public static final String I_CUSTOMER_INFORMATION = "customerInformation";
+
+    }
+
+    public static final String C_INVOICE_OVERVIEW_SPLIT = "invoiceOverviewSplit";
+    public static final String C_CUSTOMERS              = "Customers";
+    public static final String C_INVOICE_CUSTOMERS_CTRL = "InvoiceCustomersCtrl";
+    public static final String C_OPEN_INV_CUST          = "OpenInvCust";
+    public static final String C_OVERVIEW               = "overview";
+    public static final String C_CUSTOMER_HEADER        = "CustomerHeader";
+    public static final String C_INVOICE_TAB            = "InvoiceTab";
+
+    public static class C_INVOICE_TAB_PAGES
+    {
+        public static final String NON__INVOICED__ENTRIES = "Non Invoiced Entries";
+        public static final String INVOICES               = "Invoices";
+
+    }
+
+    public static final String C_PROJECT_TIME            = "ProjectTime";
+
+    public static final String AC_REQUERY_CUSTOMERS      = "REQUERY_CUSTOMERS";
+    public static final String AC_REQUERY_OPEN_POSITIONS = "REQUERY_OPEN_POSITIONS";
 
 }

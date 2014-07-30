@@ -177,7 +177,7 @@
             <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
-            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <foregroundColor><![CDATA[r0g0b0]]></foregroundColor>
             <backgroundColor></backgroundColor>
         </visualAttribute>
         <visualAttribute name="dataBold">
@@ -186,7 +186,7 @@
             <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Bold]]></weight>
-            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
+            <foregroundColor><![CDATA[r0g0b0]]></foregroundColor>
             <backgroundColor></backgroundColor>
         </visualAttribute>
         <visualAttribute name="titleLarge">
@@ -249,8 +249,8 @@
             <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
-            <foregroundColor><![CDATA[r0g64b128]]></foregroundColor>
-            <backgroundColor><![CDATA[r197g217b241]]></backgroundColor>
+            <foregroundColor><![CDATA[r0g0b0]]></foregroundColor>
+            <backgroundColor><![CDATA[r246g245b247]]></backgroundColor>
         </visualAttribute>
         <visualAttribute name="tableHeader">
             <fontName><![CDATA[Unspecified]]></fontName>
@@ -296,6 +296,15 @@
             <weight><![CDATA[Unspecified]]></weight>
             <foregroundColor></foregroundColor>
             <backgroundColor><![CDATA[r246g245b247]]></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="dataEven">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r0g0b0]]></foregroundColor>
+            <backgroundColor></backgroundColor>
         </visualAttribute>
     </visualAttributes>
 </entirejFramework>

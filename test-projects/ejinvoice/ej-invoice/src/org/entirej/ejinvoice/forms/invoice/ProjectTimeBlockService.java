@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_OVERVIEW;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -41,6 +42,8 @@ public class ProjectTimeBlockService implements EJBlockService<ProjectTime>
         _selectStatement.append("WHERE PROJ.ID      = PROT.CPR_ID ");
         _selectStatement.append("AND   PROT.VAT_ID  = VAT.ID ");
         _selectStatement.append("AND   PROJ.USER_ID = ? ");
+        _selectStatement.append("AND   PROJ.CUSTOMER_ID = ? ");
+        _selectStatement.append("AND   EXISTS (SELECT ID FROM CUSTOMER_PROJECT_TIMEENTRY WHERE INVP_ID IS NULL AND CUPT_ID = PROT.ID) ");
         _selectStatement.append("ORDER BY PROJ.NAME, PROT.NAME ");
     }
 
@@ -63,11 +66,16 @@ public class ProjectTimeBlockService implements EJBlockService<ProjectTime>
         
         String projectName = "";
         
+        Integer customerId = (Integer)queryCriteria.getRestriction(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_CUSTOMER_ID).getValue();
+        
         User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         
-        EJStatementParameter parameter = new EJStatementParameter(EJParameterType.IN);
-        parameter.setValue(usr.getId());
-        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), parameter);
+        EJStatementParameter userIdParameter = new EJStatementParameter(EJParameterType.IN);
+        userIdParameter.setValue(usr.getId());
+        EJStatementParameter custIdParameter = new EJStatementParameter(EJParameterType.IN);
+        custIdParameter.setValue(customerId);
+        
+        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), userIdParameter, custIdParameter);
         
         for (EJSelectResult result : results)
         {

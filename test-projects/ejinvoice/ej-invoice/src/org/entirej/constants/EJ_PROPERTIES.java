@@ -29,5 +29,6 @@ public class EJ_PROPERTIES
     public static final String VA_DATA_SMALL_BOLD    = "dataSmallBold";
     public static final String VA_WORKWEEK_HEADER_VA = "WORKWEEK_HEADER_VA";
     public static final String VA_WORKWEEK_DATA_ODD  = "WORKWEEK_DATA_ODD";
+    public static final String VA_DATA_EVEN          = "dataEven";
 
 }
