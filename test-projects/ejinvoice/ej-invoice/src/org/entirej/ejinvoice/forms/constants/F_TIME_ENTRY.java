@@ -65,8 +65,6 @@ public class F_TIME_ENTRY
         public static final String I_START_TIME       = "startTime";
         public static final String I_END_TIME         = "endTime";
         public static final String I_WORK_DESCRIPTION = "workDescription";
-        public static final String I_UPDATE_CUPT_ID   = "updateCuptId";
-        public static final String I_UPDATE_CUPR_ID   = "updateCuprId";
         public static final String I_CUPT_ID          = "cuptId";
         public static final String I_CUPR_ID          = "cuprId";
         public static final String I_USER_ID          = "userId";
@@ -78,7 +76,6 @@ public class F_TIME_ENTRY
         public static final String I_END_LABEL        = "endLabel";
         public static final String I_HOURS_LABEL      = "hoursLabel";
         public static final String I_EQUALS_LABEL     = "equalsLabel";
-        public static final String I_PROJECT_LABEL    = "projectLabel";
         public static final String I_WORK_DATE_ENTRY  = "workDateEntry";
         public static final String I__EDIT            = "_edit";
         public static final String I__DELETE          = "_delete";
@@ -256,22 +253,6 @@ public class F_TIME_ENTRY
         public static final String ID      = "Salutations";
         public static final String I_VALUE = "value";
         public static final String I_ID    = "id";
-
-    }
-
-    public static class L_UPDATE_CUSTOMER_PROJECT
-    {
-        public static final String ID                    = "UpdateCustomerProject";
-        public static final String I_ID                  = "id";
-        public static final String I_CPR_ID              = "cprId";
-        public static final String I_NOTES               = "notes";
-        public static final String I_PROJECT_DESCRIPTION = "projectDescription";
-        public static final String I_PROJECT_NAME        = "projectName";
-        public static final String I_PROCESS_NAME        = "processName";
-        public static final String I_PAY_RATE            = "payRate";
-        public static final String I_USER_ID             = "userId";
-        public static final String I_VAT_ID              = "vatId";
-        public static final String I_VAT_RATE            = "vatRate";
 
     }
 

@@ -61,9 +61,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).refreshItemRenderer();
         }
-        else if (F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID.equals(itemName))
+        else if (F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID.equals(itemName))
         {
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).refreshItemRenderer();
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID).refreshItemRenderer();
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME.equals(itemName))
         {
@@ -360,12 +360,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         if (screenType.equals(EJScreenType.UPDATE) && F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(block.getName()))
         {
-            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID).setValue(record.getValue(F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID));
-            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).setValue(record.getValue(F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID));
             
             
-//            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPR_ID).refreshItemRenderer();
-//            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_UPDATE_CUPT_ID).refreshItemRenderer();
+            //block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID).refreshItemRenderer();
+            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID).refreshItemRenderer();
         }
     }
 
