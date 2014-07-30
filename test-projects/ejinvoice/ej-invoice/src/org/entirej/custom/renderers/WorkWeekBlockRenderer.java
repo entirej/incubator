@@ -1106,7 +1106,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                     cellStyleTOP = String.format("border-top: %dpx  solid  #9e9e9e; ", cellSpacing);
                     cellStyleLEFT = String.format(" border-left: %dpx  solid  #9e9e9e;", cellSpacing);
                 }
-                builder.append("<table cellspacing=").append(0).append(" width=\"100%\" style='border-bottom: 1px  solid  #9e9e9e;'>");
+                builder.append("<table cellspacing=").append(0).append(" width=\"100%\" style='border-bottom: 1px  solid  #9e9e9e;border-right: 1px  solid  #9e9e9e;'>");
                 {
                     builder.append("<link rel=\"stylesheet\" type=\"text/css\" href=\"");
                     builder.append(createVACSSUrl());
