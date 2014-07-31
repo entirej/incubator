@@ -73,6 +73,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             recalcluateWorkingHours(form, start, end);
         }
+        else if(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE.equals(itemName))
+        {
+            Date workDate = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
+
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(
+                    TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)),
+                            TimeEntryBlockService.getWeek(workDate)));
+        }
     }
 
     private String getDiffMinutesString(Timestamp start, Timestamp end)

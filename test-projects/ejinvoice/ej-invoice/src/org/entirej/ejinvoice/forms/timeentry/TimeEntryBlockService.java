@@ -42,6 +42,13 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         
         return c.get(Calendar.WEEK_OF_YEAR);
     }
+    public static int getWeek(Date date)
+    {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new java.util.Date(date.getTime()));
+        
+        return c.get(Calendar.WEEK_OF_YEAR);
+    }
     
     
     public static EJQueryCriteria getWeeKQueryCriteria(EJQueryCriteria criteria,int week)
