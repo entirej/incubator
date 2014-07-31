@@ -5,6 +5,7 @@ import java.sql.Time;
 import java.sql.Timestamp;
 
 import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
@@ -118,10 +119,21 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 timeEntryBlock.askToDeleteCurrentRecord();
                 return;
             }
-            else if ((command.startsWith("WORKWEEK")))
+            else if (WorkWeekBlockRenderer.isWeekSelectionAction(command))
             {
-               int week = Integer.parseInt(command.substring(command.indexOf(":")+1,command.length()));
-                timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria( timeEntryBlock), week));
+
+                timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(timeEntryBlock), WorkWeekBlockRenderer.getWeekSelection(command)));
+                return;
+            }
+            else if (WorkWeekBlockRenderer.isDaySelectionAction(command))
+            {
+
+                java.util.Date daySelection = WorkWeekBlockRenderer.getDaySelection(command);
+                if(daySelection!=null)
+                {
+                   form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).setValue(new Date(daySelection.getTime()));
+                 
+                }
                 return;
             }
             else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))

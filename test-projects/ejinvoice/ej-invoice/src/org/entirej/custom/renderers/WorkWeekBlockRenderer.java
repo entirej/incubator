@@ -19,6 +19,7 @@
 package org.entirej.custom.renderers;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -150,7 +151,8 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
     private Map<KeyInfo, String>                  _actionInfoMap             = new HashMap<EJRWTKeysUtil.KeyInfo, String>();
 
     private Calendar                              weekCalendar               = Calendar.getInstance();
-    private DateFormat                            format                     = new SimpleDateFormat("dd.M");
+    private static DateFormat                      DAY_FORMAT                      = new SimpleDateFormat("dd.M");
+    private static DateFormat                      DATE_FORMAT                     = new SimpleDateFormat("dd.MM.yyyy");
 
     // workview config
     private Link[]                                workweeks                  = new Link[0];
@@ -1003,7 +1005,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                             @Override
                             public void run()
                             {
-                                _block.executeActionCommand(String.format("WORKWEEK:%d", activeWeek), EJScreenType.MAIN);
+                                _block.executeActionCommand(String.format("WORKWEEK_WEEK:%d", activeWeek), EJScreenType.MAIN);
                             }
                         });
                     }
@@ -1088,6 +1090,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
 
         StringBuilder builder = new StringBuilder();
         {
+            
             builder.append("<div id=\"table\" style=\"float:left;width:100%;height:100%; overflow:auto\">");
             {
                 EJCoreBlockProperties blockProperties = _block.getProperties();
@@ -1387,16 +1390,17 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
         weekCalendar.set(Calendar.WEEK_OF_YEAR, activeWeek);
         weekCalendar.set(Calendar.DAY_OF_WEEK, DAY);
         Date time = weekCalendar.getTime();
-
-        String dayStr = format.format(time);
-        if (dayStr.equals(format.format(new Date())))// today
+        String  actionDef = String.format("em='eaction' earg='WORKWEEK_DAY:%s , %s' ", DATE_FORMAT.format(time) , String.valueOf(getDisplayedRecordNumber(currentRec)));
+       
+        String dayStr = DAY_FORMAT.format(time);
+        if (dayStr.equals(DAY_FORMAT.format(new Date())))// today
         {
 
             builder.append("<div style='float:left;background-color:#F75D59;width:3px;height:80%;'></div>");
-
+ 
         }
-
-        builder.append(String.format("<strong style=\"color: #4a4a4a; font-size: 14px;\">%s</strong><br />%s", text, dayStr));
+        builder.append("<ejl>");
+        builder.append(String.format("<strong style=\"cursor: hand;color: #4a4a4a; font-size: 14px;\" %s >%s</strong></ejl><br />%s",actionDef, text, dayStr));
 
         builder.append("</td>");
     }
@@ -1702,6 +1706,42 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
     private String createImageUrl(String string)
     {
         return ImageFactory.getImagePath(EJRWTImageRetriever.get(string));
+    }
+    
+    
+    public static boolean isWeekSelectionAction(String command)
+    {
+        
+        
+        return command!=null && command.startsWith("WORKWEEK_WEEK:");
+    }
+    
+    public static int getWeekSelection(String command)
+    {
+        
+        
+        return  Integer.parseInt(command.substring(command.indexOf(":")+1,command.length()));
+    }
+    
+    public static boolean isDaySelectionAction(String command)
+    {
+        
+        
+         return command!=null && command.startsWith("WORKWEEK_DAY:");
+    }
+    public static Date getDaySelection(String command)
+    {
+        
+        
+        try
+        {
+            return DATE_FORMAT.parse(command.substring(command.indexOf(":")+1,command.length()));
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
