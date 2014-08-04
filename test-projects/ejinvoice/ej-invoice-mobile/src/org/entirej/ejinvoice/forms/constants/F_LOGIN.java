@@ -6,80 +6,74 @@ package org.entirej.ejinvoice.forms.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class F_LOGIN
-{
-    public static final String ID = "Login";
+public class F_LOGIN {
+	public static final String ID = "Login";
 
-    public static class B_LOGON
-    {
-        public static final String ID            = "logon";
-        public static final String I_LOGIN_LABEL = "loginLabel";
-        public static final String I_PASSWORD    = "password";
-        public static final String I_LOGIN       = "login";
-        public static final String I_SIGNUP      = "signup";
-        public static final String I_FORGOT      = "forgot";
-        public static final String I_EMAIL       = "email";
-        public static final String I_TEMP_LOGIN  = "tempLogin";
+	public static class B_LOGON {
+		public static final String ID = "logon";
+		public static final String I_LOGIN_LABEL = "loginLabel";
+		public static final String I_PASSWORD = "password";
+		public static final String I_LOGIN = "login";
+		public static final String I_SIGNUP = "signup";
+		public static final String I_FORGOT = "forgot";
+		public static final String I_EMAIL = "email";
+		public static final String I_TEMP_LOGIN = "tempLogin";
 
-    }
+	}
 
-    public static class B_REGISTER
-    {
-        public static final String ID                = "register";
-        public static final String I_REGISTER_LABEL  = "registerLabel";
-        public static final String I_PASSWORD        = "password";
-        public static final String I_PASSWORD_RETYPE = "passwordRetype";
-        public static final String I_REGISTER        = "register";
-        public static final String I_EMAIL           = "email";
-        public static final String I_FIRST_NAME      = "firstName";
-        public static final String I_LAST_NAME       = "lastName";
-        public static final String I_CANCEL          = "cancel";
+	public static class B_REGISTER {
+		public static final String ID = "register";
+		public static final String I_REGISTER_LABEL = "registerLabel";
+		public static final String I_PASSWORD = "password";
+		public static final String I_PASSWORD_RETYPE = "passwordRetype";
+		public static final String I_REGISTER = "register";
+		public static final String I_EMAIL = "email";
+		public static final String I_FIRST_NAME = "firstName";
+		public static final String I_LAST_NAME = "lastName";
+		public static final String I_CANCEL = "cancel";
 
-    }
+	}
 
-    public static class B_FORGOT
-    {
-        public static final String ID = "forgot";
+	public static class B_FORGOT {
+		public static final String ID = "forgot";
 
-    }
+	}
 
-    public static class B_LAUNCHER
-    {
-        public static final String ID           = "launcher";
-        public static final String I_INVOICES   = "invoices";
-        public static final String I_MASTERDATA = "masterdata";
-        public static final String I_CUSTOMERS  = "customers";
-        public static final String I_COMPANY    = "company";
-        public static final String I_PROJECTS   = "projects";
+	public static class B_LAUNCHER {
+		public static final String ID = "launcher";
+		public static final String I_INVOICES = "invoices";
+		public static final String I_MASTERDATA = "masterdata";
+		public static final String I_CUSTOMERS = "customers";
+		public static final String I_COMPANY = "company";
+		public static final String I_PROJECTS = "projects";
 
-    }
+	}
 
-    public static final String C_STACKED = "stacked";
+	public static final String C_STACKED = "stacked";
 
-    public static class C_STACKED_PAGES
-    {
-        public static final String LOGON    = "logon";
-        public static final String REGISTER = "register";
-        public static final String FORGOT   = "forgot";
-        public static final String LAUNCHER = "launcher";
+	public static class C_STACKED_PAGES {
+		public static final String LOGON = "logon";
+		public static final String REGISTER = "register";
+		public static final String FORGOT = "forgot";
+		public static final String LAUNCHER = "launcher";
 
-    }
+	}
 
-    public static final String C_LOGON                  = "logon";
-    public static final String C_REGISTER               = "register";
-    public static final String C_FORGOT                 = "forgot";
-    public static final String C_LAUNCHER               = "launcher";
+	public static final String C_LOGON = "logon";
+	public static final String C_REGISTER = "register";
+	public static final String C_FORGOT = "forgot";
+	public static final String C_LAUNCHER = "launcher";
 
-    public static final String AC_FORGOT                = "FORGOT";
-    public static final String AC_LOGIN                 = "LOGIN";
-    public static final String AC_LOGON                 = "LOGON";
-    public static final String AC_LOGOUT                = "LOGOUT";
-    public static final String AC_OPEN_COMPANIES        = "OPEN_COMPANIES";
-    public static final String AC_OPEN_CUSTOMERS        = "OPEN_CUSTOMERS";
-    public static final String AC_OPEN_INVOICE_OVERVIEW = "OPEN_INVOICE_OVERVIEW";
-    public static final String AC_OPEN_MASTER_DATA      = "OPEN_MASTER_DATA";
-    public static final String AC_OPEN_PROJECTS         = "OPEN_PROJECTS";
-    public static final String AC_REGISTER              = "REGISTER";
-    public static final String AC_SIGNUP                = "SIGNUP";
+	public static final String AC_FORGOT = "FORGOT";
+	public static final String AC_LOGIN = "LOGIN";
+	public static final String AC_LOGON = "LOGON";
+	public static final String AC_LOGOUT = "LOGOUT";
+	public static final String AC_OPEN_COMPANIES = "OPEN_COMPANIES";
+	public static final String AC_OPEN_CUSTOMERS = "OPEN_CUSTOMERS";
+	public static final String AC_OPEN_INVOICE_OVERVIEW = "OPEN_INVOICE_OVERVIEW";
+	public static final String AC_OPEN_MASTER_DATA = "OPEN_MASTER_DATA";
+	public static final String AC_OPEN_PROJECTS = "OPEN_PROJECTS";
+	public static final String AC_REGISTER = "REGISTER";
+	public static final String AC_SIGNUP = "SIGNUP";
 
 }

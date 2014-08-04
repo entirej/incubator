@@ -28,6 +28,7 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
         else if (F_INVOICE_OVERVIEW.AC_REQUERY_OPEN_POSITIONS.equals(command))
         {
             form.getBlock(F_INVOICE_OVERVIEW.B_PROJECT_TIME.ID).executeQuery();
+            form.getBlock(F_INVOICE_OVERVIEW.B_WORKING_HOURS.ID).executeQuery();
             
             String name = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_NAME);
             String address1 = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_ADDRESS_LINE_1);
@@ -79,6 +80,37 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
                 record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TASK_PAY_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
                 record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TOTAL_EXCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
                 record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TOTAL_INCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+            }
+            else if (value != null && (Integer) value == 2)
+            {
+                record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_VAT_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TASK_PAY_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TOTAL_EXCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TOTAL_INCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+            }
+        }
+        else if (F_INVOICE_OVERVIEW.B_WORKING_HOURS.ID.equals(record.getBlockName()))
+        {
+            Object value = record.getValue(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_HEADER_ROW);
+            if (value != null && (Integer) value == 1)
+            {
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_WORK_DATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_START_TIME).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_END_TIME).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_WORK_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+            }
+            else if (value != null && (Integer) value == 2)
+            {
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_WORK_DATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_START_TIME).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_END_TIME).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+//                record.getItem(F_INVOICE_OVERVIEW.B_WORKING_HOURS.I_WORK_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
             }
         }
     }

@@ -117,11 +117,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else
         {
             EJBlock timeEntryBlock = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID);
-            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
-            {
-                timeEntryBlock.enterUpdate();
-                return;
-            }
+//            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
+//            {
+//                timeEntryBlock.enterUpdate();
+//                return;
+//            }
             if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
             {
                 timeEntryBlock.askToDeleteCurrentRecord();

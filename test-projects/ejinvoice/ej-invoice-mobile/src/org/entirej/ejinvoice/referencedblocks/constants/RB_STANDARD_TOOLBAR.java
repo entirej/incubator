@@ -6,23 +6,21 @@ package org.entirej.ejinvoice.referencedblocks.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class RB_STANDARD_TOOLBAR
-{
-    public static final String ID = "StandardToolbar";
+public class RB_STANDARD_TOOLBAR {
+	public static final String ID = "StandardToolbar";
 
-    public static class B_STANDARD_TOOLBAR
-    {
-        public static final String ID       = "StandardToolbar";
-        public static final String I_HOME   = "home";
-        public static final String I_NEW    = "new";
-        public static final String I_EDIT   = "edit";
-        public static final String I_DELETE = "delete";
+	public static class B_STANDARD_TOOLBAR {
+		public static final String ID = "StandardToolbar";
+		public static final String I_HOME = "home";
+		public static final String I_NEW = "new";
+		public static final String I_EDIT = "edit";
+		public static final String I_DELETE = "delete";
 
-    }
+	}
 
-    public static final String AC_TOOLBAR_DELETE = "TOOLBAR_DELETE";
-    public static final String AC_TOOLBAR_EDIT   = "TOOLBAR_EDIT";
-    public static final String AC_TOOLBAR_HOME   = "TOOLBAR_HOME";
-    public static final String AC_TOOLBAR_NEW    = "TOOLBAR_NEW";
+	public static final String AC_TOOLBAR_DELETE = "TOOLBAR_DELETE";
+	public static final String AC_TOOLBAR_EDIT = "TOOLBAR_EDIT";
+	public static final String AC_TOOLBAR_HOME = "TOOLBAR_HOME";
+	public static final String AC_TOOLBAR_NEW = "TOOLBAR_NEW";
 
 }
