@@ -21,7 +21,7 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.openEmbeddedForm(F_MASTER_DATA.ID, F_MASTER_DATA.C_COMPANY, null);
+        form.openEmbeddedForm(F_COMPANY.ID, F_MASTER_DATA.C_COMPANY, null);
         
         _contactTypesActionHanlder.newFormInstance(form);
         _paymentTermsActionHandler.newFormInstance(form);
