@@ -1,6 +1,9 @@
 package org.entirej.ejinvoice.forms.masterdata;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
+import org.entirej.ejinvoice.forms.constants.F_COMPANY;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -18,6 +21,8 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
+        form.openEmbeddedForm(F_MASTER_DATA.ID, F_MASTER_DATA.C_COMPANY, null);
+        
         _contactTypesActionHanlder.newFormInstance(form);
         _paymentTermsActionHandler.newFormInstance(form);
         _salutationsActionHandler.newFormInstance(form);

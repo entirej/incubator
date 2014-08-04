@@ -81,10 +81,11 @@ public class F_MASTER_DATA
 
     public static class C_MAIN_TAB_PAGES
     {
-        public static final String CONTACT__TYPES = "Contact Types";
-        public static final String PAYMENT_TERMS  = "PaymentTerms";
-        public static final String SALUTATION     = "Salutation";
-        public static final String VAT_RATES      = "VatRates";
+        public static final String CONTACT__TYPES      = "Contact Types";
+        public static final String PAYMENT_TERMS       = "PaymentTerms";
+        public static final String SALUTATION          = "Salutation";
+        public static final String VAT_RATES           = "VatRates";
+        public static final String COMPANY_INFORMATION = "CompanyInformation";
 
     }
 
@@ -96,6 +97,7 @@ public class F_MASTER_DATA
     public static final String C_SALUTATIONS           = "Salutations";
     public static final String C_VAT_RATES_TOOLBAR     = "VatRatesToolbar";
     public static final String C_VAT_RATES             = "VatRates";
+    public static final String C_COMPANY               = "Company";
 
     public static final String AC_CREATE_CONTACT_TYPE  = "CREATE_CONTACT_TYPE";
     public static final String AC_CREATE_PAYMENT_TERM  = "CREATE_PAYMENT_TERM";

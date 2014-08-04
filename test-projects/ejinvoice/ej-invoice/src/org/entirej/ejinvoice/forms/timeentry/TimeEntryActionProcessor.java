@@ -51,7 +51,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         recalcluateWorkingHours(form, timestamp, timestamp);
 
         form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
-        form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_EDIT_SCREEN, null);
         form.openEmbeddedForm(F_INVOICE_OVERVIEW.ID, F_TIME_ENTRY.C_INVOICE, null);
     }
 

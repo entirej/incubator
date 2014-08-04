@@ -293,12 +293,11 @@ public class F_TIME_ENTRY
 
     public static class C_MAIN_PAGES
     {
-        public static final String TIME__ENTRY          = "Time Entry";
-        public static final String PROJECTS             = "Projects";
-        public static final String CUSTOMERS            = "Customers";
-        public static final String MASTER__DATA         = "Master Data";
-        public static final String COMPANY__INFORMATION = "Company Information";
-        public static final String INVOICE_OVERVIEW     = "InvoiceOverview";
+        public static final String TIME__ENTRY      = "Time Entry";
+        public static final String PROJECTS         = "Projects";
+        public static final String CUSTOMERS        = "Customers";
+        public static final String MASTER__DATA     = "Master Data";
+        public static final String INVOICE_OVERVIEW = "InvoiceOverview";
 
     }
 
@@ -340,7 +339,6 @@ public class F_TIME_ENTRY
     public static final String C_CUSTOMER                  = "Customer";
     public static final String C_CUSTOMER_DETAILS_FORM     = "CustomerDetailsForm";
     public static final String C_MASTER_DATA_CANVAS        = "masterDataCanvas";
-    public static final String C_COMPANY_EDIT_SCREEN       = "CompanyEditScreen";
     public static final String C_INVOICE                   = "Invoice";
 
     public static final String AC_ADD_NEW_PROCESS          = "ADD_NEW_PROCESS";
@@ -350,6 +348,7 @@ public class F_TIME_ENTRY
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_DELETE_PROCESS           = "DELETE_PROCESS";
     public static final String AC_DELETE_TIME_ENTRY        = "DELETE_TIME_ENTRY";
+    public static final String AC_EDIT_TIME_ENTRY          = "EDIT_TIME_ENTRY";
     public static final String AC_MODIFY_PROCESS           = "MODIFY_PROCESS";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER            = "OPEN_CUSTOMER";
