@@ -64,6 +64,11 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
 
             form.getBlock(F_INVOICE_OVERVIEW.B_CHOSEN_CUSTOMER.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_OVERVIEW.B_CHOSEN_CUSTOMER.I_CUSTOMER_INFORMATION).setValue(str.toString());
         }
+        else if (F_INVOICE_OVERVIEW.AC_CREATE_INVOICE.equals(command))
+        {
+            form.showPopupCanvas(F_INVOICE_OVERVIEW.C_INVOICE_CREATION_POPUP);
+            form.getBlock(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.ID).executeQuery();
+        }
     }
 
     @Override
@@ -88,6 +93,30 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
                 record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_VAT_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
                 record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TASK_PAY_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
                 record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TOTAL_EXCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TOTAL_INCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+            }
+        }
+        else if (F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.ID.equals(record.getBlockName()))
+        {
+            Object value = record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_HEADER_ROW);
+            if (value != null && (Integer) value == 1)
+            {
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_REMOVE_FROM_INVOICE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_VAT_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_TASK_PAY_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_TOTAL_EXCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_TOTAL_INCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+            }
+            else if (value != null && (Integer) value == 2)
+            {
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_REMOVE_FROM_INVOICE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_VAT_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_TASK_PAY_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_TOTAL_EXCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
                 record.getItem(F_INVOICE_OVERVIEW.B_PROJECT_TIME.I_TOTAL_INCL_VAT).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
             }
         }

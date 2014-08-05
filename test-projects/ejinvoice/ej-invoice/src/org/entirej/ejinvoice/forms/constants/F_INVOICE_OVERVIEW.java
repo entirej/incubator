@@ -54,6 +54,13 @@ public class F_INVOICE_OVERVIEW
 
     }
 
+    public static class B_PROJECT_TIME_CONTROL
+    {
+        public static final String ID                = "ProjectTimeControl";
+        public static final String I_CREATE__INVOICE = "Create Invoice";
+
+    }
+
     public static class B_CHOSEN_CUSTOMER
     {
         public static final String ID                     = "ChosenCustomer";
@@ -85,6 +92,27 @@ public class F_INVOICE_OVERVIEW
 
     }
 
+    public static class B_INVOICE_PROJECT_TIME
+    {
+        public static final String ID                    = "InvoiceProjectTime";
+        public static final String I_REMOVE_FROM_INVOICE = "removeFromInvoice";
+        public static final String I_HEADER_ROW          = "headerRow";
+        public static final String I_DESCRIPTION         = "description";
+        public static final String I_PROJECT_STATUS      = "projectStatus";
+        public static final String I_PROJECT_USER_ID     = "projectUserId";
+        public static final String I_CUSTOMER_ID         = "customerId";
+        public static final String I_TASK_ID             = "taskId";
+        public static final String I_TASK_NAME           = "taskName";
+        public static final String I_TASK_VAT_ID         = "taskVatId";
+        public static final String I_VAT_RATE            = "vatRate";
+        public static final String I_VAT_NAME            = "vatName";
+        public static final String I_TASK_PAY_RATE       = "taskPayRate";
+        public static final String I_WORK_HOURS          = "workHours";
+        public static final String I_TOTAL_EXCL_VAT      = "totalExclVat";
+        public static final String I_TOTAL_INCL_VAT      = "totalInclVat";
+
+    }
+
     public static final String C_INVOICE_OVERVIEW_SPLIT = "invoiceOverviewSplit";
     public static final String C_CUSTOMERS              = "Customers";
     public static final String C_INVOICE_CUSTOMERS_CTRL = "InvoiceCustomersCtrl";
@@ -102,7 +130,12 @@ public class F_INVOICE_OVERVIEW
 
     public static final String C_PROJECT_TIME            = "ProjectTime";
     public static final String C_WORKING_HOURS           = "WorkingHours";
+    public static final String C_INVOICE_CREATION_POPUP  = "InvoiceCreationPopup";
+    public static final String C_INVOICE_PROJECT_TIME    = "InvoiceProjectTime";
+    public static final String C_PROJECT_TIME_CONTROL    = "ProjectTimeControl";
 
+    public static final String AC_CREATE_INVOICE         = "CREATE_INVOICE";
+    public static final String AC_REMOVE_FROM_INVOICE    = "REMOVE_FROM_INVOICE";
     public static final String AC_REQUERY_CUSTOMERS      = "REQUERY_CUSTOMERS";
     public static final String AC_REQUERY_OPEN_POSITIONS = "REQUERY_OPEN_POSITIONS";
 
