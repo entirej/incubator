@@ -110,3 +110,14 @@ Button[PUSH].workview {
 	color: #4a4a4a;
 }
 
+
+DateTime-Calendar-Navbar {
+	border: none;
+	border-radius: 0;
+	background-color: #4D70B8;
+	background-image:gradient(linear, left top, left bottom, from(#4D70B8),
+		to(#4D70B8) );
+	color: white;
+	font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
+	text-shadow: none;
+}
