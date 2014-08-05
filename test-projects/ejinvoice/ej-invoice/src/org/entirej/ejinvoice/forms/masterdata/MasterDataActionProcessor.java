@@ -3,7 +3,6 @@ package org.entirej.ejinvoice.forms.masterdata;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
-import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -13,10 +12,11 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 
 public class MasterDataActionProcessor extends DefaultFormActionProcessor
 {
-    private ContactTypesActionHandler _contactTypesActionHanlder = new ContactTypesActionHandler();
-    private PaymentTermsActionHandler _paymentTermsActionHandler = new PaymentTermsActionHandler();
-    private SalutationActionHandler   _salutationsActionHandler  = new SalutationActionHandler();
-    private VatRatesActionHandler     _vatRatesActionHandler     = new VatRatesActionHandler();
+    private ContactTypesActionHandler  _contactTypesActionHanlder  = new ContactTypesActionHandler();
+    private PaymentTermsActionHandler  _paymentTermsActionHandler  = new PaymentTermsActionHandler();
+    private SalutationActionHandler    _salutationsActionHandler   = new SalutationActionHandler();
+    private VatRatesActionHandler      _vatRatesActionHandler      = new VatRatesActionHandler();
+    private ProjectStatusActionHandler _projectStatusActionHandler = new ProjectStatusActionHandler();
 
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
@@ -27,6 +27,7 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _paymentTermsActionHandler.newFormInstance(form);
         _salutationsActionHandler.newFormInstance(form);
         _vatRatesActionHandler.newFormInstance(form);
+        _projectStatusActionHandler.newFormInstance(form);
     }
 
     @Override
@@ -36,6 +37,7 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _paymentTermsActionHandler.executeActionCommand(form, record, command, screenType);
         _salutationsActionHandler.executeActionCommand(form, record, command, screenType);
         _vatRatesActionHandler.executeActionCommand(form, record, command, screenType);
+        _projectStatusActionHandler.executeActionCommand(form, record, command, screenType);
     }
 
     @Override
@@ -52,6 +54,7 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _paymentTermsActionHandler.validateRecord(form, record, recordType);
         _salutationsActionHandler.validateRecord(form, record, recordType);
         _vatRatesActionHandler.validateRecord(form, record, recordType);
+        _projectStatusActionHandler.validateRecord(form, record, recordType);
     }
 
     @Override
@@ -61,6 +64,7 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _paymentTermsActionHandler.newRecordInstance(form, record);
         _salutationsActionHandler.newRecordInstance(form, record);
         _vatRatesActionHandler.newRecordInstance(form, record);
+        _projectStatusActionHandler.newRecordInstance(form, record);
     }
 
     @Override
@@ -70,6 +74,19 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _paymentTermsActionHandler.postBlockQuery(form, block);
         _salutationsActionHandler.postBlockQuery(form, block);
         _vatRatesActionHandler.postBlockQuery(form, block);
+        _projectStatusActionHandler.postBlockQuery(form, block);
     }
+
+    @Override
+    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        _contactTypesActionHanlder.postQuery(form, record);
+        _paymentTermsActionHandler.postQuery(form, record);
+        _salutationsActionHandler.postQuery(form, record);
+        _vatRatesActionHandler.postQuery(form, record);
+        _projectStatusActionHandler.postQuery(form, record);
+    }
+    
+    
 
 }

@@ -12,28 +12,24 @@ public class F_TIME_ENTRY
 
     public static class B_COMPANY
     {
-        public static final String ID                    = "Company";
-        public static final String I_POST_CODE           = "postCode";
-        public static final String I_ADDRESS_LINE_2      = "addressLine2";
-        public static final String I_BANK_ADDRESS_LINE_2 = "bankAddressLine2";
-        public static final String I_ACCOUNT_NUMBER      = "accountNumber";
-        public static final String I_ADDRESS_LINE_1      = "addressLine1";
-        public static final String I_BANK_ADDRESS_LINE_1 = "bankAddressLine1";
-        public static final String I_BANK_POST_CODE      = "bankPostCode";
-        public static final String I_IBAN                = "iban";
-        public static final String I_ID                  = "id";
-        public static final String I_ADDRESS_LINE_3      = "addressLine3";
-        public static final String I_USER_ID             = "userId";
-        public static final String I_BANK_TOWN           = "bankTown";
-        public static final String I_NAME                = "name";
-        public static final String I_TOWN                = "town";
-        public static final String I_COUNTRY             = "country";
-        public static final String I_BANK_NAME           = "bankName";
-        public static final String I_BANK_COUNTRY        = "bankCountry";
-        public static final String I_VAT_NR              = "vatNr";
-        public static final String I_BANK_ADDRESS_LINE_3 = "bankAddressLine3";
-        public static final String I_LOGO                = "logo";
-        public static final String I_ADDRESS             = "address";
+        public static final String ID                = "Company";
+        public static final String I_POST_CODE       = "postCode";
+        public static final String I_ADDRESS         = "address";
+        public static final String I_BANK_ADDRESS    = "bankAddress";
+        public static final String I_ACCOUNT_NUMBER  = "accountNumber";
+        public static final String I_BANK_POST_CODE  = "bankPostCode";
+        public static final String I_IBAN            = "iban";
+        public static final String I_ID              = "id";
+        public static final String I_USER_ID         = "userId";
+        public static final String I_BANK_TOWN       = "bankTown";
+        public static final String I_NAME            = "name";
+        public static final String I_TOWN            = "town";
+        public static final String I_COUNTRY         = "country";
+        public static final String I_BANK_NAME       = "bankName";
+        public static final String I_BANK_COUNTRY    = "bankCountry";
+        public static final String I_VAT_NR          = "vatNr";
+        public static final String I_LOGO            = "logo";
+        public static final String I_DISPLAY_ADDRESS = "displayAddress";
 
     }
 
@@ -125,9 +121,7 @@ public class F_TIME_ENTRY
         public static final String I_VAT_NAME                    = "vatName";
         public static final String I_VAT_RATE                    = "vatRate";
         public static final String I_CUSTOMER_NAME               = "customerName";
-        public static final String I_CUSTOMER_ADDRESS_1          = "customerAddress1";
-        public static final String I_CUSTOMER_ADDRESS_2          = "customerAddress2";
-        public static final String I_CUSTOMER_ADDRESS_3          = "customerAddress3";
+        public static final String I_CUSTOMER_ADDRESS            = "customerAddress";
         public static final String I_CUSTOMER_POST_CODE          = "customerPostCode";
         public static final String I_CUSTOMER_TOWN               = "customerTown";
         public static final String I_CUSTOMER_COUNTRY            = "customerCountry";
@@ -137,26 +131,24 @@ public class F_TIME_ENTRY
 
     public static class B_PROJECTS_DETAIL
     {
-        public static final String ID                        = "ProjectsDetail";
-        public static final String I_BACK                    = "back";
-        public static final String I_EDIT                    = "edit";
-        public static final String I_ID                      = "id";
-        public static final String I_DESCRIPTION             = "description";
-        public static final String I_NAME                    = "name";
-        public static final String I_STATUS                  = "status";
-        public static final String I_USER_ID                 = "userId";
-        public static final String I_CUSTOMER_ID             = "customerId";
-        public static final String I_START_DATE              = "startDate";
-        public static final String I_END_DATE                = "endDate";
-        public static final String I_NOTES                   = "notes";
-        public static final String I_CUSTOMER_NAME           = "customerName";
-        public static final String I_CUSTOMER_ADDRESS_LINE_1 = "customerAddressLine1";
-        public static final String I_CUSTOMER_ADDRESS_LINE_2 = "customerAddressLine2";
-        public static final String I_CUSTOMER_ADDRESS_LINE_3 = "customerAddressLine3";
-        public static final String I_CUSTOMER_POST_CODE      = "customerPostCode";
-        public static final String I_CUSTOMER_TOWN           = "customerTown";
-        public static final String I_CUSTOMER_COUNTRY        = "customerCountry";
-        public static final String I_ADD_NEW_PROCESS         = "addNewProcess";
+        public static final String ID                   = "ProjectsDetail";
+        public static final String I_BACK               = "back";
+        public static final String I_EDIT               = "edit";
+        public static final String I_ID                 = "id";
+        public static final String I_DESCRIPTION        = "description";
+        public static final String I_NAME               = "name";
+        public static final String I_STATUS             = "status";
+        public static final String I_USER_ID            = "userId";
+        public static final String I_CUSTOMER_ID        = "customerId";
+        public static final String I_START_DATE         = "startDate";
+        public static final String I_END_DATE           = "endDate";
+        public static final String I_NOTES              = "notes";
+        public static final String I_CUSTOMER_NAME      = "customerName";
+        public static final String I_CUSTOMER_ADDRESS   = "customerAddress";
+        public static final String I_CUSTOMER_POST_CODE = "customerPostCode";
+        public static final String I_CUSTOMER_TOWN      = "customerTown";
+        public static final String I_CUSTOMER_COUNTRY   = "customerCountry";
+        public static final String I_ADD_NEW_TASK       = "addNewTask";
 
     }
 
@@ -187,11 +179,9 @@ public class F_TIME_ENTRY
         public static final String ID                 = "Customers";
         public static final String I_USER_ID          = "userId";
         public static final String I_ID               = "id";
-        public static final String I_ADDRESS_LINE_1   = "addressLine1";
-        public static final String I_ADDRESS_LINE_2   = "addressLine2";
+        public static final String I_ADDRESS          = "address";
         public static final String I_NAME             = "name";
         public static final String I_POST_CODE        = "postCode";
-        public static final String I_ADDRESS_LINE_3   = "addressLine3";
         public static final String I_TOWN             = "town";
         public static final String I_COUNTRY          = "country";
         public static final String I_EMAIL            = "email";
@@ -217,15 +207,13 @@ public class F_TIME_ENTRY
 
     public static class L_CUSTOMER
     {
-        public static final String ID               = "Customer";
-        public static final String I_ID             = "id";
-        public static final String I_ADDRESS_LINE_1 = "addressLine1";
-        public static final String I_ADDRESS_LINE_2 = "addressLine2";
-        public static final String I_NAME           = "name";
-        public static final String I_POST_CODE      = "postCode";
-        public static final String I_ADDRESS_LINE_3 = "addressLine3";
-        public static final String I_TOWN           = "town";
-        public static final String I_COUNTRY        = "country";
+        public static final String ID          = "Customer";
+        public static final String I_ID        = "id";
+        public static final String I_ADDRESS   = "address";
+        public static final String I_NAME      = "name";
+        public static final String I_POST_CODE = "postCode";
+        public static final String I_TOWN      = "town";
+        public static final String I_COUNTRY   = "country";
 
     }
 
@@ -341,12 +329,12 @@ public class F_TIME_ENTRY
     public static final String C_MASTER_DATA_CANVAS        = "masterDataCanvas";
     public static final String C_INVOICE                   = "Invoice";
 
-    public static final String AC_ADD_NEW_PROCESS          = "ADD_NEW_PROCESS";
+    public static final String AC_ADD_NEW_TASK             = "ADD_NEW_TASK";
     public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";
     public static final String AC_BACK_TO_PROJECT_OVERVIEW = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_CREATE_NEW_CUSTOMER      = "CREATE_NEW_CUSTOMER";
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
-    public static final String AC_DELETE_PROCESS           = "DELETE_PROCESS";
+    public static final String AC_DELETE_PROJECT_TASK      = "DELETE_PROJECT_TASK";
     public static final String AC_DELETE_TIME_ENTRY        = "DELETE_TIME_ENTRY";
     public static final String AC_EDIT_TIME_ENTRY          = "EDIT_TIME_ENTRY";
     public static final String AC_MODIFY_PROCESS           = "MODIFY_PROCESS";

@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CompanyInformationLovService implements EJBlockService<CompanyInformation>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ADDRESS_LINE1,ADDRESS_LINE2,ADDRESS_LINE3,BANK_ADDRESS_LINE1,BANK_ADDRESS_LINE2,BANK_ADDRESS_LINE3,BANK_NAME,BANK_POST_CODE,BANK_TOWN,IBAN,ID,NAME,POST_CODE,TOWN FROM COMPANY_INFORMATION";
+    private String                    _selectStatement = "SELECT ADDRESS,BANK_ADDRESS,BANK_NAME,BANK_POST_CODE,BANK_TOWN,IBAN,ID,NAME,POST_CODE,TOWN FROM COMPANY_INFORMATION";
 
     public CompanyInformationLovService()
     {
@@ -66,12 +66,8 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
         {
             // Initialise the value list
             parameters.clear();
-            parameters.add(new EJStatementParameter("ADDRESS_LINE1", String.class, record.getAddressLine1()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE2", String.class, record.getAddressLine2()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE3", String.class, record.getAddressLine3()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS_LINE1", String.class, record.getBankAddressLine1()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS_LINE2", String.class, record.getBankAddressLine2()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS_LINE3", String.class, record.getBankAddressLine3()));
+            parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
+            parameters.add(new EJStatementParameter("BANK_ADDRESS", String.class, record.getBankAddress()));
             parameters.add(new EJStatementParameter("BANK_NAME", String.class, record.getBankName()));
             parameters.add(new EJStatementParameter("BANK_POST_CODE", String.class, record.getBankPostCode()));
             parameters.add(new EJStatementParameter("BANK_TOWN", String.class, record.getBankTown()));
@@ -102,12 +98,8 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
             parameters.clear();
 
             // First add the new values
-            parameters.add(new EJStatementParameter("ADDRESS_LINE1", String.class, record.getAddressLine1()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE2", String.class, record.getAddressLine2()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE3", String.class, record.getAddressLine3()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS_LINE1", String.class, record.getBankAddressLine1()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS_LINE2", String.class, record.getBankAddressLine2()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS_LINE3", String.class, record.getBankAddressLine3()));
+            parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
+            parameters.add(new EJStatementParameter("BANK_ADDRESS", String.class, record.getBankAddress()));
             parameters.add(new EJStatementParameter("BANK_NAME", String.class, record.getBankName()));
             parameters.add(new EJStatementParameter("BANK_POST_CODE", String.class, record.getBankPostCode()));
             parameters.add(new EJStatementParameter("BANK_TOWN", String.class, record.getBankTown()));
@@ -118,53 +110,21 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            if (record.getInitialAddressLine1() == null)
+            if (record.getInitialAddress() == null)
             {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE1"));
+                criteria.add(EJRestrictions.isNull("ADDRESS_"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE1", record.getInitialAddressLine1()));
+                criteria.add(EJRestrictions.equals("ADDRESS", record.getInitialAddress()));
             }
-            if (record.getInitialAddressLine2() == null)
+            if (record.getInitialBankAddress() == null)
             {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE2"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE2", record.getInitialAddressLine2()));
-            }
-            if (record.getInitialAddressLine3() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE3"));
+                criteria.add(EJRestrictions.isNull("BANK_ADDRESS"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE3", record.getInitialAddressLine3()));
-            }
-            if (record.getInitialBankAddressLine1() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS_LINE1"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS_LINE1", record.getInitialBankAddressLine1()));
-            }
-            if (record.getInitialBankAddressLine2() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS_LINE2"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS_LINE2", record.getInitialBankAddressLine2()));
-            }
-            if (record.getInitialBankAddressLine3() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS_LINE3"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS_LINE3", record.getInitialBankAddressLine3()));
+                criteria.add(EJRestrictions.equals("BANK_ADDRESS", record.getInitialBankAddress()));
             }
             if (record.getInitialBankName() == null)
             {
@@ -253,53 +213,25 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
 
             EJStatementCriteria criteria = new EJStatementCriteria();
 
-            if (record.getInitialAddressLine1() == null)
+            if (record.getInitialAddress() == null)
             {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE1"));
+                criteria.add(EJRestrictions.isNull("ADDRESS"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE1", record.getInitialAddressLine1()));
+                criteria.add(EJRestrictions.equals("ADDRESS", record.getInitialAddress()));
             }
-            if (record.getInitialAddressLine2() == null)
+            if (record.getInitialAddress() == null)
             {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE2"));
+                criteria.add(EJRestrictions.isNull("ADDRESS"));
             }
-            else
+            if (record.getInitialBankAddress() == null)
             {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE2", record.getInitialAddressLine2()));
-            }
-            if (record.getInitialAddressLine3() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE3"));
+                criteria.add(EJRestrictions.isNull("BANK_ADDRESS"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE3", record.getInitialAddressLine3()));
-            }
-            if (record.getInitialBankAddressLine1() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS_LINE1"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS_LINE1", record.getInitialBankAddressLine1()));
-            }
-            if (record.getInitialBankAddressLine2() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS_LINE2"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS_LINE2", record.getInitialBankAddressLine2()));
-            }
-            if (record.getInitialBankAddressLine3() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS_LINE3"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS_LINE3", record.getInitialBankAddressLine3()));
+                criteria.add(EJRestrictions.equals("BANK_ADDRESS", record.getInitialBankAddress()));
             }
             if (record.getInitialBankName() == null)
             {

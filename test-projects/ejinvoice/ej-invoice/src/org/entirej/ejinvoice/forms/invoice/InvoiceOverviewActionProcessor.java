@@ -31,9 +31,7 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
             form.getBlock(F_INVOICE_OVERVIEW.B_WORKING_HOURS.ID).executeQuery();
             
             String name = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_NAME);
-            String address1 = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_ADDRESS_LINE_1);
-            String address2 = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_ADDRESS_LINE_2);
-            String address3 = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_ADDRESS_LINE_3);
+            String address = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_ADDRESS);
             String zip = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_POST_CODE);
             String town = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_TOWN);
             String country = (String) record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_CUSTOMERS.I_COUNTRY);
@@ -41,19 +39,9 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
             StringBuilder str = new StringBuilder();
             str.append(name);
             str.append("\n");
-            if (address1 != null)
+            if (address != null)
             {
-                str.append(address1);
-                str.append("\n");
-            }
-            if (address2 != null)
-            {
-                str.append(address2);
-                str.append("\n");
-            }
-            if (address3 != null)
-            {
-                str.append(address3);
+                str.append(address);
                 str.append("\n");
             }
             str.append(zip);
@@ -101,7 +89,7 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
             Object value = record.getValue(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_HEADER_ROW);
             if (value != null && (Integer) value == 1)
             {
-                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_REMOVE_FROM_INVOICE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+//                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_REMOVE_FROM_INVOICE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
                 record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
                 record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
                 record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_VAT_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
@@ -111,7 +99,7 @@ public class InvoiceOverviewActionProcessor extends EJDefaultFormActionProcessor
             }
             else if (value != null && (Integer) value == 2)
             {
-                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_REMOVE_FROM_INVOICE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
+//                record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_REMOVE_FROM_INVOICE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
                 record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
                 record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_WORK_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
                 record.getItem(F_INVOICE_OVERVIEW.B_INVOICE_PROJECT_TIME.I_VAT_RATE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);

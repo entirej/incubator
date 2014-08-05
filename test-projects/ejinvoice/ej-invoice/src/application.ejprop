@@ -19,26 +19,26 @@
         <property name="APPLICATION_MENU" multilingual="false" propertyType="MENU_GROUP"></property>
         <propertyGroup name="APP_MESSAGING">
             <propertyGroup name="APP_MSG_WARNING">
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_HINT">
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_INFO">
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[NOTIFICATION]]></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_ERROR">
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
         </propertyGroup>
@@ -284,9 +284,9 @@
             <fontSize>-1</fontSize>
             <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
-            <weight><![CDATA[Unspecified]]></weight>
-            <foregroundColor></foregroundColor>
-            <backgroundColor><![CDATA[r196g195b197]]></backgroundColor>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor><![CDATA[r255g255b255]]></foregroundColor>
+            <backgroundColor><![CDATA[r77g112b184]]></backgroundColor>
         </visualAttribute>
         <visualAttribute name="WORKWEEK_DATA_ODD">
             <fontName><![CDATA[Unspecified]]></fontName>

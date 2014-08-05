@@ -6,16 +6,13 @@ import org.entirej.framework.core.service.EJPojoProperty;
 public class Company
 {
     private EJPojoProperty<String>  _postCode;
-    private EJPojoProperty<String>  _addressLine2;
-    private EJPojoProperty<String>  _bankAddressLine2;
+    private EJPojoProperty<String>  _address;
+    private EJPojoProperty<String>  _bankAddress;
     private EJPojoProperty<Object>  _logo;
     private EJPojoProperty<String>  _accountNumber;
-    private EJPojoProperty<String>  _addressLine1;
-    private EJPojoProperty<String>  _bankAddressLine1;
     private EJPojoProperty<String>  _bankPostCode;
     private EJPojoProperty<String>  _iban;
     private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<String>  _addressLine3;
     private EJPojoProperty<Integer> _userId;
     private EJPojoProperty<String>  _bankTown;
     private EJPojoProperty<String>  _bankCountry;
@@ -24,7 +21,6 @@ public class Company
     private EJPojoProperty<String>  _country;
     private EJPojoProperty<String>  _bankName;
     private EJPojoProperty<String>  _vatNr;
-    private EJPojoProperty<String>  _bankAddressLine3;
 
     @EJFieldName("POST_CODE")
     public String getPostCode()
@@ -44,40 +40,40 @@ public class Company
         return EJPojoProperty.getPropertyInitialValue(_postCode);
     }
 
-    @EJFieldName("ADDRESS_LINE2")
-    public String getAddressLine2()
+    @EJFieldName("ADDRESS")
+    public String getAddress()
     {
-        return EJPojoProperty.getPropertyValue(_addressLine2);
+        return EJPojoProperty.getPropertyValue(_address);
     }
 
-    @EJFieldName("ADDRESS_LINE2")
-    public void setAddressLine2(String addressLine2)
+    @EJFieldName("ADDRESS")
+    public void setAddress(String address)
     {
-        _addressLine2 = EJPojoProperty.setPropertyValue(_addressLine2, addressLine2);
+        _address = EJPojoProperty.setPropertyValue(_address, address);
     }
 
-    @EJFieldName("ADDRESS_LINE2")
-    public String getInitialAddressLine2()
+    @EJFieldName("ADDRESS")
+    public String getInitialAddress()
     {
-        return EJPojoProperty.getPropertyInitialValue(_addressLine2);
+        return EJPojoProperty.getPropertyInitialValue(_address);
     }
 
-    @EJFieldName("BANK_ADDRESS_LINE2")
-    public String getBankAddressLine2()
+    @EJFieldName("BANK_ADDRESS")
+    public String getBankAddress()
     {
-        return EJPojoProperty.getPropertyValue(_bankAddressLine2);
+        return EJPojoProperty.getPropertyValue(_bankAddress);
     }
 
-    @EJFieldName("BANK_ADDRESS_LINE2")
-    public void setBankAddressLine2(String bankAddressLine2)
+    @EJFieldName("BANK_ADDRESS")
+    public void setBankAddress(String bankAddress)
     {
-        _bankAddressLine2 = EJPojoProperty.setPropertyValue(_bankAddressLine2, bankAddressLine2);
+        _bankAddress = EJPojoProperty.setPropertyValue(_bankAddress, bankAddress);
     }
 
-    @EJFieldName("BANK_ADDRESS_LINE2")
-    public String getInitialBankAddressLine2()
+    @EJFieldName("BANK_ADDRESS")
+    public String getInitialBankAddress()
     {
-        return EJPojoProperty.getPropertyInitialValue(_bankAddressLine2);
+        return EJPojoProperty.getPropertyInitialValue(_bankAddress);
     }
 
     @EJFieldName("ACCOUNT_NUMBER")
@@ -96,42 +92,6 @@ public class Company
     public String getInitialAccountNumber()
     {
         return EJPojoProperty.getPropertyInitialValue(_accountNumber);
-    }
-
-    @EJFieldName("ADDRESS_LINE1")
-    public String getAddressLine1()
-    {
-        return EJPojoProperty.getPropertyValue(_addressLine1);
-    }
-
-    @EJFieldName("ADDRESS_LINE1")
-    public void setAddressLine1(String addressLine1)
-    {
-        _addressLine1 = EJPojoProperty.setPropertyValue(_addressLine1, addressLine1);
-    }
-
-    @EJFieldName("ADDRESS_LINE1")
-    public String getInitialAddressLine1()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_addressLine1);
-    }
-
-    @EJFieldName("BANK_ADDRESS_LINE1")
-    public String getBankAddressLine1()
-    {
-        return EJPojoProperty.getPropertyValue(_bankAddressLine1);
-    }
-
-    @EJFieldName("BANK_ADDRESS_LINE1")
-    public void setBankAddressLine1(String bankAddressLine1)
-    {
-        _bankAddressLine1 = EJPojoProperty.setPropertyValue(_bankAddressLine1, bankAddressLine1);
-    }
-
-    @EJFieldName("BANK_ADDRESS_LINE1")
-    public String getInitialBankAddressLine1()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_bankAddressLine1);
     }
 
     @EJFieldName("BANK_POST_CODE")
@@ -186,24 +146,6 @@ public class Company
     public Integer getInitialId()
     {
         return EJPojoProperty.getPropertyInitialValue(_id);
-    }
-
-    @EJFieldName("ADDRESS_LINE3")
-    public String getAddressLine3()
-    {
-        return EJPojoProperty.getPropertyValue(_addressLine3);
-    }
-
-    @EJFieldName("ADDRESS_LINE3")
-    public void setAddressLine3(String addressLine3)
-    {
-        _addressLine3 = EJPojoProperty.setPropertyValue(_addressLine3, addressLine3);
-    }
-
-    @EJFieldName("ADDRESS_LINE3")
-    public String getInitialAddressLine3()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_addressLine3);
     }
 
     @EJFieldName("USER_ID")
@@ -353,24 +295,6 @@ public class Company
         return EJPojoProperty.getPropertyInitialValue(_vatNr);
     }
 
-    @EJFieldName("BANK_ADDRESS_LINE3")
-    public String getBankAddressLine3()
-    {
-        return EJPojoProperty.getPropertyValue(_bankAddressLine3);
-    }
-
-    @EJFieldName("BANK_ADDRESS_LINE3")
-    public void setBankAddressLine3(String bankAddressLine3)
-    {
-        _bankAddressLine3 = EJPojoProperty.setPropertyValue(_bankAddressLine3, bankAddressLine3);
-    }
-
-    @EJFieldName("BANK_ADDRESS_LINE3")
-    public String getInitialBankAddressLine3()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_bankAddressLine3);
-    }
-
     @EJFieldName("LOGO")
     public Object getLogo()
     {
@@ -392,15 +316,11 @@ public class Company
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_postCode);
-        EJPojoProperty.clearInitialValue(_addressLine2);
-        EJPojoProperty.clearInitialValue(_bankAddressLine2);
+        EJPojoProperty.clearInitialValue(_address);
         EJPojoProperty.clearInitialValue(_accountNumber);
-        EJPojoProperty.clearInitialValue(_addressLine1);
-        EJPojoProperty.clearInitialValue(_bankAddressLine1);
         EJPojoProperty.clearInitialValue(_bankPostCode);
         EJPojoProperty.clearInitialValue(_iban);
         EJPojoProperty.clearInitialValue(_id);
-        EJPojoProperty.clearInitialValue(_addressLine3);
         EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_bankTown);
         EJPojoProperty.clearInitialValue(_name);
@@ -409,7 +329,7 @@ public class Company
         EJPojoProperty.clearInitialValue(_bankName);
         EJPojoProperty.clearInitialValue(_bankCountry);
         EJPojoProperty.clearInitialValue(_vatNr);
-        EJPojoProperty.clearInitialValue(_bankAddressLine3);
+        EJPojoProperty.clearInitialValue(_bankAddress);
         EJPojoProperty.clearInitialValue(_logo);
     }
 

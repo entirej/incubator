@@ -33,90 +33,68 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 
 /**
  * This class is used to perform all business functionalities including data
- * validations related to PAYMENT_INFORMATION block service.
+ * validations related to CONTACT_TYPES block service.
  */
-public class PaymentTermsActionHandler extends DefaultFormActionProcessor
+public class ProjectStatusActionHandler extends DefaultFormActionProcessor
 {
-    int   orderKey = 0;
     
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).executeQuery();
+        form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).executeQuery();
     }
-
-    
-    
-    @Override
-    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        if (F_MASTER_DATA.B_PROJECT_STATUS.ID.equals(record.getBlockName()))
-        {
-            if (((Integer)record.getValue(F_MASTER_DATA.B_PROJECT_STATUS.I_ORDER_KEY)) > orderKey)
-            {
-                orderKey = (Integer)record.getValue(F_MASTER_DATA.B_PROJECT_STATUS.I_ORDER_KEY);
-            }
-        }
-    }
-
-    
-
 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (F_MASTER_DATA.AC_DELETE_PAYMENT_TERM.equals(command))
+        if (F_MASTER_DATA.AC_DELETE_PROJECT_STATUS.equals(command))
         {
             // before deleting the selected record from database validate
             // and check if the record to be deleted has any FK constraints
             // usage with other table data and if so throw an exception and
             // block physical delete
-            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getFocusedRecord(), "PAYMENT_INFORMATION");
-            form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this payment term?");
-            return;
+            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).getFocusedRecord(), "PROJECT_STATUS");
+            form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this project status?");
         }
-        else if (F_MASTER_DATA.AC_MODIFY_PAYMENT_TERM.equals(command))
+        else if (F_MASTER_DATA.AC_MODIFY_PROJECT_STATUS.equals(command))
         {
-            form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).enterUpdate();
+            form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).enterUpdate();
         }
-        else if (F_MASTER_DATA.AC_CREATE_PAYMENT_TERM.equals(command))
+        else if (F_MASTER_DATA.AC_CREATE_PROJECT_STATUS.equals(command))
         {
-            form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).enterInsert(false);
+            form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).enterInsert(false);
         }
     }
 
     @Override
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
     {
+        // validate the contact types screen
         if (F_MASTER_DATA.B_PROJECT_STATUS.ID.equals(record.getBlockName()))
         {
-            orderKey += 1;
-            record.setValue(F_MASTER_DATA.B_PROJECT_STATUS.I_ORDER_KEY, orderKey);
-        }
-        
-        // validate the payment information screen
-        if (F_MASTER_DATA.B_PAYMENT_TERMS.ID.equals(record.getBlockName()))
-        {
-            Object value = record.getValue(F_MASTER_DATA.B_PAYMENT_TERMS.I_PAYMENT_TERMS);
-            final EJScreenItem screenItem = form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_MASTER_DATA.B_PAYMENT_TERMS.I_PAYMENT_TERMS).getName());
-            final String termsLabel = screenItem.getLabel();
+            Object name = record.getValue(F_MASTER_DATA.B_PROJECT_STATUS.I_NAME);
+            Object id = record.getValue(F_MASTER_DATA.B_PROJECT_STATUS.I_ID);
 
-            Object id = record.getValue(F_MASTER_DATA.B_PAYMENT_TERMS.I_ID);
+            final EJScreenItem nameItem = form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_MASTER_DATA.B_PROJECT_STATUS.I_NAME).getName());
+            final String nameLabel = nameItem.getLabel();
 
             if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
             {
-                if (value == null || ((String) value).trim().length() == 0)
+
+                if (name == null || ((String) name).trim().length() == 0)
                 {
-                    throw new EJActionProcessorException(String.format("%s cannot be Empty!", termsLabel));
+                    throw new EJActionProcessorException(String.format("%s cannot be Empty!", nameLabel));
+
                 }
 
-                String term = (String) value;
+                if (ProjectStatusBlockService.statusExists(form, (String) name, (Integer) id))
 
-                if (PaymentTermsService.paymentTermExists(form, term, (Integer) id))
                 {
-                    throw new EJActionProcessorException(String.format("Entered %s already Exist!", termsLabel));
+                    throw new EJActionProcessorException(String.format("Entered %s already Exist!", nameLabel));
                 }
             }
         }
+
     }
+
 }

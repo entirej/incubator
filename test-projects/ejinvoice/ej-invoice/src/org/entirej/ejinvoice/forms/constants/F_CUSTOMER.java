@@ -15,11 +15,9 @@ public class F_CUSTOMER
         public static final String ID                      = "Customer";
         public static final String I_USER_ID               = "userId";
         public static final String I_ID                    = "id";
-        public static final String I_ADDRESS_LINE_1        = "addressLine1";
-        public static final String I_ADDRESS_LINE_2        = "addressLine2";
+        public static final String I_ADDRESS               = "address";
         public static final String I_NAME                  = "name";
         public static final String I_POST_CODE             = "postCode";
-        public static final String I_ADDRESS_LINE_3        = "addressLine3";
         public static final String I_TOWN                  = "town";
         public static final String I_COUNTRY               = "country";
         public static final String I_MODIFY_CUSTOMER       = "modifyCustomer";

@@ -5,32 +5,30 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class OpenInvCust
 {
-    private EJPojoProperty<String>  _addressLine1;
+    private EJPojoProperty<String>  _address;
     private EJPojoProperty<String>  _town;
     private EJPojoProperty<String>  _postCode;
-    private EJPojoProperty<String>  _addressLine2;
-    private EJPojoProperty<String>  _addressLine3;
     private EJPojoProperty<String>  _name;
     private EJPojoProperty<String>  _country;
     private EJPojoProperty<Integer> _id;
     private EJPojoProperty<Integer> _userId;
 
-    @EJFieldName("ADDRESS_LINE1")
-    public String getAddressLine1()
+    @EJFieldName("ADDRESS")
+    public String getAddress()
     {
-        return EJPojoProperty.getPropertyValue(_addressLine1);
+        return EJPojoProperty.getPropertyValue(_address);
     }
 
-    @EJFieldName("ADDRESS_LINE1")
-    public void setAddressLine1(String addressLine1)
+    @EJFieldName("ADDRESS")
+    public void setAddress(String address)
     {
-        _addressLine1 = EJPojoProperty.setPropertyValue(_addressLine1, addressLine1);
+        _address = EJPojoProperty.setPropertyValue(_address, address);
     }
 
-    @EJFieldName("ADDRESS_LINE1")
-    public String getInitialAddressLine1()
+    @EJFieldName("ADDRESS")
+    public String getInitialAddress()
     {
-        return EJPojoProperty.getPropertyInitialValue(_addressLine1);
+        return EJPojoProperty.getPropertyInitialValue(_address);
     }
 
     @EJFieldName("TOWN")
@@ -67,42 +65,6 @@ public class OpenInvCust
     public String getInitialPostCode()
     {
         return EJPojoProperty.getPropertyInitialValue(_postCode);
-    }
-
-    @EJFieldName("ADDRESS_LINE2")
-    public String getAddressLine2()
-    {
-        return EJPojoProperty.getPropertyValue(_addressLine2);
-    }
-
-    @EJFieldName("ADDRESS_LINE2")
-    public void setAddressLine2(String addressLine2)
-    {
-        _addressLine2 = EJPojoProperty.setPropertyValue(_addressLine2, addressLine2);
-    }
-
-    @EJFieldName("ADDRESS_LINE2")
-    public String getInitialAddressLine2()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_addressLine2);
-    }
-
-    @EJFieldName("ADDRESS_LINE3")
-    public String getAddressLine3()
-    {
-        return EJPojoProperty.getPropertyValue(_addressLine3);
-    }
-
-    @EJFieldName("ADDRESS_LINE3")
-    public void setAddressLine3(String addressLine3)
-    {
-        _addressLine3 = EJPojoProperty.setPropertyValue(_addressLine3, addressLine3);
-    }
-
-    @EJFieldName("ADDRESS_LINE3")
-    public String getInitialAddressLine3()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_addressLine3);
     }
 
     @EJFieldName("NAME")
@@ -179,11 +141,9 @@ public class OpenInvCust
 
     public void clearInitialValues()
     {
-        EJPojoProperty.clearInitialValue(_addressLine1);
+        EJPojoProperty.clearInitialValue(_address);
         EJPojoProperty.clearInitialValue(_town);
         EJPojoProperty.clearInitialValue(_postCode);
-        EJPojoProperty.clearInitialValue(_addressLine2);
-        EJPojoProperty.clearInitialValue(_addressLine3);
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_country);
         EJPojoProperty.clearInitialValue(_id);

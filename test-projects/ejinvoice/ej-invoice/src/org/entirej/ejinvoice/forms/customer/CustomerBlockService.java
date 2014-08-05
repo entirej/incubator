@@ -35,7 +35,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerBlockService implements EJBlockService<Customer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT USER_ID, ADDRESS_LINE1,ADDRESS_LINE2,ADDRESS_LINE3,ID,NAME,POST_CODE,TOWN, COUNTRY FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT USER_ID, ADDRESS, ID,NAME,POST_CODE,TOWN, COUNTRY FROM CUSTOMER";
 
     public CustomerBlockService()
     {
@@ -68,9 +68,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
             // Initialise the value list
             parameters.clear();
             
-            parameters.add(new EJStatementParameter("ADDRESS_LINE1", String.class, record.getAddressLine1()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE2", String.class, record.getAddressLine2()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE3", String.class, record.getAddressLine3()));
+            parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
@@ -99,9 +97,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
             parameters.clear();
 
             // First add the new values
-            parameters.add(new EJStatementParameter("ADDRESS_LINE1", String.class, record.getAddressLine1()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE2", String.class, record.getAddressLine2()));
-            parameters.add(new EJStatementParameter("ADDRESS_LINE3", String.class, record.getAddressLine3()));
+            parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
@@ -143,29 +139,13 @@ public class CustomerBlockService implements EJBlockService<Customer>
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             criteria.add(EJRestrictions.equals("USER_ID", record.getUserId()));
-            if (record.getInitialAddressLine1() == null)
+            if (record.getInitialAddress() == null)
             {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE1"));
+                criteria.add(EJRestrictions.isNull("ADDRESS"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE1", record.getInitialAddressLine1()));
-            }
-            if (record.getInitialAddressLine2() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE2"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE2", record.getInitialAddressLine2()));
-            }
-            if (record.getInitialAddressLine3() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS_LINE3"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ADDRESS_LINE3", record.getInitialAddressLine3()));
+                criteria.add(EJRestrictions.equals("ADDRESS", record.getInitialAddress()));
             }
             if (record.getInitialId() == null)
             {

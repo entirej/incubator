@@ -77,10 +77,30 @@ public class F_MASTER_DATA
 
     }
 
+    public static class B_PROJECT_STATUS_TOOLBAR
+    {
+        public static final String ID                       = "ProjectStatusToolbar";
+        public static final String I_ADD_NEW_PROJECT_STATUS = "addNewProjectStatus";
+
+    }
+
+    public static class B_PROJECT_STATUS
+    {
+        public static final String ID            = "ProjectStatus";
+        public static final String I_NAME        = "name";
+        public static final String I_ORDER_KEY   = "orderKey";
+        public static final String I_DESCRIPTION = "description";
+        public static final String I_ID          = "id";
+        public static final String I_USER_ID     = "userId";
+
+    }
+
     public static final String C_MAIN_TAB = "MainTab";
 
     public static class C_MAIN_TAB_PAGES
     {
+        public static final String PROJECT_STATUS      = "ProjectStatus";
+        public static final String TASK_STATUS         = "TaskStatus";
         public static final String CONTACT__TYPES      = "Contact Types";
         public static final String PAYMENT_TERMS       = "PaymentTerms";
         public static final String SALUTATION          = "Salutation";
@@ -89,27 +109,32 @@ public class F_MASTER_DATA
 
     }
 
-    public static final String C_CONTACT_TYPES_TOOLBAR = "ContactTypesToolbar";
-    public static final String C_CONTACT_TYPES         = "ContactTypes";
-    public static final String C_PAYMENT_TERMS_TOOLBAR = "PaymentTermsToolbar";
-    public static final String C_PAYMENT_TERMS         = "PaymentTerms";
-    public static final String C_SALUTATION_TOOLBAR    = "SalutationToolbar";
-    public static final String C_SALUTATIONS           = "Salutations";
-    public static final String C_VAT_RATES_TOOLBAR     = "VatRatesToolbar";
-    public static final String C_VAT_RATES             = "VatRates";
-    public static final String C_COMPANY               = "Company";
+    public static final String C_PROJECT_STATUS_TOOLBAR = "ProjectStatusToolbar";
+    public static final String C_PROJECT_STATUS         = "ProjectStatus";
+    public static final String C_CONTACT_TYPES_TOOLBAR  = "ContactTypesToolbar";
+    public static final String C_CONTACT_TYPES          = "ContactTypes";
+    public static final String C_PAYMENT_TERMS_TOOLBAR  = "PaymentTermsToolbar";
+    public static final String C_PAYMENT_TERMS          = "PaymentTerms";
+    public static final String C_SALUTATION_TOOLBAR     = "SalutationToolbar";
+    public static final String C_SALUTATIONS            = "Salutations";
+    public static final String C_VAT_RATES_TOOLBAR      = "VatRatesToolbar";
+    public static final String C_VAT_RATES              = "VatRates";
+    public static final String C_COMPANY                = "Company";
 
-    public static final String AC_CREATE_CONTACT_TYPE  = "CREATE_CONTACT_TYPE";
-    public static final String AC_CREATE_PAYMENT_TERM  = "CREATE_PAYMENT_TERM";
-    public static final String AC_CREATE_SALUTATION    = "CREATE_SALUTATION";
-    public static final String AC_CREATE_VAT_RATE      = "CREATE_VAT_RATE";
-    public static final String AC_DELETE_CONTACT_TYPE  = "DELETE_CONTACT_TYPE";
-    public static final String AC_DELETE_PAYMENT_TERM  = "DELETE_PAYMENT_TERM";
-    public static final String AC_DELETE_SALUTATION    = "DELETE_SALUTATION";
-    public static final String AC_DELETE_VAT_RATE      = "DELETE_VAT_RATE";
-    public static final String AC_MODIFY_CONTACT       = "MODIFY_CONTACT";
-    public static final String AC_MODIFY_PAYMENT_TERM  = "MODIFY_PAYMENT_TERM";
-    public static final String AC_MODIFY_SALUTATION    = "MODIFY_SALUTATION";
-    public static final String AC_MODIFY_VAT_RATE      = "MODIFY_VAT_RATE";
+    public static final String AC_CREATE_CONTACT_TYPE   = "CREATE_CONTACT_TYPE";
+    public static final String AC_CREATE_PAYMENT_TERM   = "CREATE_PAYMENT_TERM";
+    public static final String AC_CREATE_PROJECT_STATUS = "CREATE_PROJECT_STATUS";
+    public static final String AC_CREATE_SALUTATION     = "CREATE_SALUTATION";
+    public static final String AC_CREATE_VAT_RATE       = "CREATE_VAT_RATE";
+    public static final String AC_DELETE_CONTACT_TYPE   = "DELETE_CONTACT_TYPE";
+    public static final String AC_DELETE_PAYMENT_TERM   = "DELETE_PAYMENT_TERM";
+    public static final String AC_DELETE_PROJECT_STATUS = "DELETE_PROJECT_STATUS";
+    public static final String AC_DELETE_SALUTATION     = "DELETE_SALUTATION";
+    public static final String AC_DELETE_VAT_RATE       = "DELETE_VAT_RATE";
+    public static final String AC_MODIFY_CONTACT        = "MODIFY_CONTACT";
+    public static final String AC_MODIFY_PAYMENT_TERM   = "MODIFY_PAYMENT_TERM";
+    public static final String AC_MODIFY_PROJECT_STATUS = "MODIFY_PROJECT_STATUS";
+    public static final String AC_MODIFY_SALUTATION     = "MODIFY_SALUTATION";
+    public static final String AC_MODIFY_VAT_RATE       = "MODIFY_VAT_RATE";
 
 }

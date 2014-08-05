@@ -8,7 +8,6 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
-import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
 import org.entirej.ejinvoice.forms.constants.F_INVOICE_OVERVIEW;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
@@ -148,7 +147,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).clear(true);
             }
-            else if (F_TIME_ENTRY.AC_ADD_NEW_PROCESS.equals(command))
+            else if (F_TIME_ENTRY.AC_ADD_NEW_TASK.equals(command))
             {
                 form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterInsert(false);
             }
@@ -156,9 +155,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             {
                 form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).enterUpdate();
             }
-            else if (F_TIME_ENTRY.AC_DELETE_PROCESS.equals(command))
+            else if (F_TIME_ENTRY.AC_DELETE_PROJECT_TASK.equals(command))
             {
-                form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this process?");
+                form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this task?");
             }
            
             else if (F_TIME_ENTRY.AC_MODIFY_PROJECT.equals(command))
@@ -336,9 +335,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         if (F_TIME_ENTRY.B_COMPANY.ID.equals(record.getBlockName()))
         {
             String name = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_NAME);
-            String address1 = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_ADDRESS_LINE_1);
-            String address2 = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_ADDRESS_LINE_2);
-            String address3 = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_ADDRESS_LINE_3);
+            String address = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_ADDRESS);
             String zip = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_POST_CODE);
             String town = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_TOWN);
             String country = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_COUNTRY);
@@ -347,19 +344,9 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             StringBuilder str = new StringBuilder();
             str.append(name);
             str.append("\n");
-            if (address1 != null)
+            if (address != null)
             {
-                str.append(address1);
-                str.append("\n");
-            }
-            if (address2 != null)
-            {
-                str.append(address2);
-                str.append("\n");
-            }
-            if (address3 != null)
-            {
-                str.append(address3);
+                str.append(address);
                 str.append("\n");
             }
             str.append(zip);
@@ -370,7 +357,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             str.append("\n");
             str.append(vatNr);
 
-            record.setValue(F_TIME_ENTRY.B_COMPANY.I_ADDRESS, str.toString());
+            record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, str.toString());
         }
     }
 

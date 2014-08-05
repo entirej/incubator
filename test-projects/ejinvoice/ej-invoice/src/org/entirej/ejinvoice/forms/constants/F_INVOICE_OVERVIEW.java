@@ -22,11 +22,9 @@ public class F_INVOICE_OVERVIEW
         public static final String ID                = "InvoiceCustomers";
         public static final String I_CUSTOMER_CHOICE = "CustomerChoice";
         public static final String I_INDICATOR       = "indicator";
-        public static final String I_ADDRESS_LINE_1  = "addressLine1";
+        public static final String I_ADDRESS         = "address";
         public static final String I_TOWN            = "town";
         public static final String I_POST_CODE       = "postCode";
-        public static final String I_ADDRESS_LINE_2  = "addressLine2";
-        public static final String I_ADDRESS_LINE_3  = "addressLine3";
         public static final String I_NAME            = "name";
         public static final String I_COUNTRY         = "country";
         public static final String I_ID              = "id";
@@ -54,17 +52,11 @@ public class F_INVOICE_OVERVIEW
 
     }
 
-    public static class B_PROJECT_TIME_CONTROL
-    {
-        public static final String ID                = "ProjectTimeControl";
-        public static final String I_CREATE__INVOICE = "Create Invoice";
-
-    }
-
     public static class B_CHOSEN_CUSTOMER
     {
         public static final String ID                     = "ChosenCustomer";
         public static final String I_CUSTOMER_INFORMATION = "customerInformation";
+        public static final String I_CREATE_INVOICE       = "createInvoice";
 
     }
 
@@ -132,7 +124,6 @@ public class F_INVOICE_OVERVIEW
     public static final String C_WORKING_HOURS           = "WorkingHours";
     public static final String C_INVOICE_CREATION_POPUP  = "InvoiceCreationPopup";
     public static final String C_INVOICE_PROJECT_TIME    = "InvoiceProjectTime";
-    public static final String C_PROJECT_TIME_CONTROL    = "ProjectTimeControl";
 
     public static final String AC_CREATE_INVOICE         = "CREATE_INVOICE";
     public static final String AC_REMOVE_FROM_INVOICE    = "REMOVE_FROM_INVOICE";
