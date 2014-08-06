@@ -13,6 +13,9 @@ public class ProjectTasks
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<Integer>    _userId;
     private EJPojoProperty<Integer>    _vatId;
+    private EJPojoProperty<BigDecimal> _fixPrice;
+    private EJPojoProperty<String>     _invoiceable;
+    private EJPojoProperty<Integer>    _status;
 
     @EJFieldName("ID")
     public Integer getId()
@@ -140,6 +143,61 @@ public class ProjectTasks
         return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
 
+    
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getFixPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public void setFixPrice(BigDecimal fixPrice)
+    {
+        _fixPrice = EJPojoProperty.setPropertyValue(_fixPrice, fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getInitialFixPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_fixPrice);
+    }
+    
+    @EJFieldName("INVOICEABLE")
+    public String getInvoiceable()
+    {
+        return EJPojoProperty.getPropertyValue(_invoiceable);
+    }
+
+    @EJFieldName("INVOICEABLE")
+    public void setInvoiceable(String invoiceable)
+    {
+        _invoiceable =  EJPojoProperty.setPropertyValue(_invoiceable, invoiceable);
+    }
+
+    @EJFieldName("INVOICEABLE")
+    public String getInitialInvoiceable()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_invoiceable);
+    }
+    
+    @EJFieldName("STATUS")
+    public Integer getStatus()
+    {
+        return EJPojoProperty.getPropertyValue(_status);
+    }
+
+    @EJFieldName("STATUS")
+    public void setStatus(Integer status)
+    {
+        _status = EJPojoProperty.setPropertyValue(_status, status);
+    }
+
+    @EJFieldName("STATUS")
+    public Integer getInitialStatus()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_status);
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
@@ -149,6 +207,9 @@ public class ProjectTasks
         EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_vatId);
+        EJPojoProperty.clearInitialValue(_fixPrice);
+        EJPojoProperty.clearInitialValue(_invoiceable);
+        EJPojoProperty.clearInitialValue(_status);
     }
 
 }

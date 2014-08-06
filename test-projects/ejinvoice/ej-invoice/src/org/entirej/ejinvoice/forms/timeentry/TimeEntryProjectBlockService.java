@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.PKSequenceService;
-import org.entirej.ejinvoice.forms.projects.ProjectTasks;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -19,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryProject>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUSTOMER_ID,DESCRIPTION,END_DATE,ID,NAME,NOTES,START_DATE,STATUS,USER_ID FROM customer_projects";
+    private String                    _selectStatement = "SELECT CUSTOMER_ID,DESCRIPTION,END_DATE,ID,NAME,NOTES,START_DATE,STATUS,USER_ID, INVOICEABLE, FIX_PRICE, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) CCY_CODE FROM customer_projects";
 
     public TimeEntryProjectBlockService()
     {
@@ -56,21 +55,32 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             parameters.add(new EJStatementParameter("START_DATE", Date.class, record.getStartDate()));
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
+            parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
+            
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
         
             // Initialise the value list
-            Integer processId = PKSequenceService.getPKSequence(form.getConnection());
+            Integer taskId = PKSequenceService.getPKSequence(form.getConnection());
             parameters.clear();
             parameters.add(new EJStatementParameter("CPR_ID", Integer.class,  record.getId()));
-            parameters.add(new EJStatementParameter("ID", Integer.class, processId));
-            parameters.add(new EJStatementParameter("NAME", String.class, record.getProcessName()));
-            parameters.add(new EJStatementParameter("NOTES", String.class, record.getProcessNotes()));
-            parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getProcessPayRate()));
+            parameters.add(new EJStatementParameter("ID", Integer.class, taskId));
+            parameters.add(new EJStatementParameter("NAME", String.class, record.getTaskName()));
+            parameters.add(new EJStatementParameter("NOTES", String.class, record.getTaskNotes()));
+            parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getTaskPayRate()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getProcessVatId()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getTaskVatId()));
+            
+            parameters.add(new EJStatementParameter("FIX_PRICE", Integer.class, record.getTaskFixPrice()));
+            parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getTaskStatus()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getTaskInvoiceable()));
+            
             paramArray = new EJStatementParameter[parameters.size()];
-            recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_process", parameters.toArray(paramArray));
+            recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_tasks", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         
@@ -101,6 +111,11 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             parameters.add(new EJStatementParameter("START_DATE", Date.class, record.getStartDate()));
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            
+            parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
+            parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustomerId() == null)
@@ -175,6 +190,40 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
+            if (record.getInitialInvoiceable() == null)
+            {
+                criteria.add(EJRestrictions.isNull("INVOICEABLE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("INVOICABLE", record.getInitialInvoiceable()));
+            }
+            if (record.getInitialFixPrice() == null)
+            {
+                criteria.add(EJRestrictions.isNull("FIX_PRICE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
+            }
+            if (record.getInitialCcyId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("CCY_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
+            }
+            if (record.getInitialCcyCode() == null)
+            {
+                criteria.add(EJRestrictions.isNull("CCY_CODE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("CCY_CODE", record.getInitialCcyCode()));
+            }
+            
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "customer_projects", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -270,6 +319,41 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
+            if (record.getInitialInvoiceable() == null)
+            {
+                criteria.add(EJRestrictions.isNull("INVOICEABLE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("INVOICABLE", record.getInitialInvoiceable()));
+            }
+            if (record.getInitialFixPrice() == null)
+            {
+                criteria.add(EJRestrictions.isNull("FIX_PRICE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
+            }
+            if (record.getInitialCcyId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("CCY_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
+            }
+            if (record.getInitialCcyCode() == null)
+            {
+                criteria.add(EJRestrictions.isNull("CCY_CODE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("CCY_CODE", record.getInitialCcyCode()));
+            }
+
+            
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_projects", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();

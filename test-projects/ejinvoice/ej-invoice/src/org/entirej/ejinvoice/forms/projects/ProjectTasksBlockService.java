@@ -16,7 +16,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,USER_ID,VAT_ID FROM customer_project_tasks";
+    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,USER_ID,VAT_ID, FIX_PRICE, STATUS, INVOICEABLE FROM customer_project_tasks";
 
     public ProjectTasksBlockService()
     {
@@ -51,6 +51,9 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getPayRate()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+            parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
+            parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getStatus()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_tasks", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -79,6 +82,10 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getPayRate()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+            parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
+            parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getStatus()));
+
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCprId() == null)
@@ -137,6 +144,32 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             {
                 criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
             }
+            
+            if (record.getInitialFixPrice() == null)
+            {
+                criteria.add(EJRestrictions.isNull("FIX_PRICE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
+            }
+            if (record.getInitialInvoiceable() == null)
+            {
+                criteria.add(EJRestrictions.isNull("INVOICEABLE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("INVOICEABLE", record.getInitialInvoiceable()));
+            }
+            if (record.getInitialStatus() == null)
+            {
+                criteria.add(EJRestrictions.isNull("STATUS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("STATUS", record.getInitialStatus()));
+            }
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "customer_project_tasks", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -214,6 +247,30 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             else
             {
                 criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
+            }
+            if (record.getInitialFixPrice() == null)
+            {
+                criteria.add(EJRestrictions.isNull("FIX_PRICE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
+            }
+            if (record.getInitialInvoiceable() == null)
+            {
+                criteria.add(EJRestrictions.isNull("INVOICEABLE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("INVOICEABLE", record.getInitialInvoiceable()));
+            }
+            if (record.getInitialStatus() == null)
+            {
+                criteria.add(EJRestrictions.isNull("STATUS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("STATUS", record.getInitialStatus()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_project_tasks", criteria, parameters.toArray(paramArray));

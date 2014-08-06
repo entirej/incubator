@@ -112,12 +112,20 @@ public class F_TIME_ENTRY
         public static final String I_START_DATE                  = "startDate";
         public static final String I_END_DATE                    = "endDate";
         public static final String I_NOTES                       = "notes";
-        public static final String I_PROCESS_CPR_ID              = "processCprId";
-        public static final String I_PROCESS_NOTES               = "processNotes";
-        public static final String I_PROCESS_NAME                = "processName";
-        public static final String I_PROCESS_PAY_RATE            = "processPayRate";
-        public static final String I_PROCESS_USER_ID             = "processUserId";
-        public static final String I_PROCESS_VAT_ID              = "processVatId";
+        public static final String I_TASK_CPR_ID                 = "taskCprId";
+        public static final String I_TASK_NOTES                  = "taskNotes";
+        public static final String I_TASK_NAME                   = "taskName";
+        public static final String I_TASK_PAY_RATE               = "taskPayRate";
+        public static final String I_TASK_USER_ID                = "taskUserId";
+        public static final String I_TASK_VAT_ID                 = "taskVatId";
+        public static final String I_TASK_FIX_PRICE              = "taskFixPrice";
+        public static final String I_TASK_STATUS                 = "taskStatus";
+        public static final String I_TASK_INVOICEABLE            = "taskInvoiceable";
+        public static final String I_INVOICEABLE                 = "invoiceable";
+        public static final String I_INVOICEABLE_ICON            = "invoiceableIcon";
+        public static final String I_FIX_PRICE                   = "fixPrice";
+        public static final String I_CCY_ID                      = "ccyId";
+        public static final String I_CCY_CODE                    = "ccyCode";
         public static final String I_VAT_NAME                    = "vatName";
         public static final String I_VAT_RATE                    = "vatRate";
         public static final String I_CUSTOMER_NAME               = "customerName";
@@ -154,16 +162,19 @@ public class F_TIME_ENTRY
 
     public static class B_PROJECT_TASKS
     {
-        public static final String ID         = "ProjectTasks";
-        public static final String I_ID       = "id";
-        public static final String I_CPR_ID   = "cprId";
-        public static final String I_NOTES    = "notes";
-        public static final String I_NAME     = "name";
-        public static final String I_PAY_RATE = "payRate";
-        public static final String I_USER_ID  = "userId";
-        public static final String I_VAT_ID   = "vatId";
-        public static final String I_VAT_NAME = "vatName";
-        public static final String I_VAT_RATE = "vatRate";
+        public static final String ID            = "ProjectTasks";
+        public static final String I_ID          = "id";
+        public static final String I_CPR_ID      = "cprId";
+        public static final String I_NOTES       = "notes";
+        public static final String I_NAME        = "name";
+        public static final String I_PAY_RATE    = "payRate";
+        public static final String I_INVOICEABLE = "invoiceable";
+        public static final String I_FIX_PRICE   = "fixPrice";
+        public static final String I_USER_ID     = "userId";
+        public static final String I_VAT_ID      = "vatId";
+        public static final String I_VAT_NAME    = "vatName";
+        public static final String I_VAT_RATE    = "vatRate";
+        public static final String I_STATUS      = "status";
 
     }
 
@@ -273,6 +284,40 @@ public class F_TIME_ENTRY
         public static final String I_USER_ID             = "userId";
         public static final String I_VAT_ID              = "vatId";
         public static final String I_VAT_RATE            = "vatRate";
+
+    }
+
+    public static class L_CURRENCIES
+    {
+        public static final String ID        = "Currencies";
+        public static final String I_CODE    = "code";
+        public static final String I_USER_ID = "userId";
+        public static final String I_NAME    = "name";
+        public static final String I_ID      = "id";
+
+    }
+
+    public static class L_PROJECT_STATUS
+    {
+        public static final String ID            = "ProjectStatus";
+        public static final String I_ORDER_KEY   = "orderKey";
+        public static final String I_DESCRIPTION = "description";
+        public static final String I_USER_ID     = "userId";
+        public static final String I_ID          = "id";
+        public static final String I_NAME        = "name";
+
+    }
+
+    public static class L_TASK_STATUS
+    {
+        public static final String ID                     = "TaskStatus";
+        public static final String I_ORDER_KEY            = "orderKey";
+        public static final String I_USER_ID              = "userId";
+        public static final String I_DESCRIPTION          = "description";
+        public static final String I_ID                   = "id";
+        public static final String I_INVOICEABLE          = "invoiceable";
+        public static final String I_NAME                 = "name";
+        public static final String I_ASSIGN_AFTER_INVOICE = "assignAfterInvoice";
 
     }
 

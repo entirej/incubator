@@ -115,11 +115,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else
         {
             EJBlock timeEntryBlock = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID);
-//            if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
-//            {
-//                timeEntryBlock.enterUpdate();
-//                return;
-//            }
             if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
             {
                 timeEntryBlock.askToDeleteCurrentRecord();
@@ -313,19 +308,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             else if (F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS.equals(tabPageName))
             {
                 form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
-                // form.closeEmbeddedForm(F_CUSTOMER.ID,
-                // F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM);
                 form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
             }
-//            else if (F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_OVERVIEW.equals(tabPageName))
-//            {
-//                EJForm invoiceForm = form.getEmbeddedForm(F_INVOICE_OVERVIEW.ID, F_TIME_ENTRY.C_INVOICE);
-//                
-//                if (invoiceForm != null)
-//                {
-//                    invoiceForm.getBlock(F_INVOICE_OVERVIEW.B_PROJECT_TIME.ID).executeQuery();
-//                }
-//            }
         }
     }
 
@@ -358,6 +342,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             str.append(vatNr);
 
             record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, str.toString());
+        }
+        else if (F_TIME_ENTRY.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            record.setValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE_ICON, "/icons/coins.png");
         }
     }
 
