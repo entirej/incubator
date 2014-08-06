@@ -39,15 +39,13 @@ public class F_PROJECT
 
     public static class L_CUSTOMER_LOV
     {
-        public static final String ID               = "CustomerLov";
-        public static final String I_ID             = "id";
-        public static final String I_ADDRESS_LINE_1 = "addressLine1";
-        public static final String I_ADDRESS_LINE_2 = "addressLine2";
-        public static final String I_NAME           = "name";
-        public static final String I_POST_CODE      = "postCode";
-        public static final String I_ADDRESS_LINE_3 = "addressLine3";
-        public static final String I_TOWN           = "town";
-        public static final String I_COUNTRY        = "country";
+        public static final String ID          = "CustomerLov";
+        public static final String I_ID        = "id";
+        public static final String I_ADDRESS   = "address";
+        public static final String I_NAME      = "name";
+        public static final String I_POST_CODE = "postCode";
+        public static final String I_TOWN      = "town";
+        public static final String I_COUNTRY   = "country";
 
     }
 
