@@ -11,7 +11,7 @@ import org.entirej.framework.core.service.EJStatementExecutor;
 public class CustomerProjectProcessBlockService implements EJBlockService<CustomerProjectProcess>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CPT.CPR_ID, CPT.ID, CPT.NAME PROCESS_NAME, CPT.NOTES, CPT.PAY_RATE, CPT.USER_ID, CPT.VAT_ID, CPR.NAME PROJECT_NAME, CPR.DESCRIPTION PROJECT_DESCRIPTION FROM CUSTOMER_PROJECTS CPR, CUSTOMER_PROJECT_TASKS CPT WHERE CPT.CPR_ID = CPR.ID";
+    private String                    _selectStatement = "SELECT CPT.CPR_ID, CPT.ID, CPT.NAME PROCESS_NAME, CPT.NOTES, CPT.PAY_RATE, CPT.USER_ID, CPR.VAT_ID, CPR.NAME PROJECT_NAME, CPR.DESCRIPTION PROJECT_DESCRIPTION FROM CUSTOMER_PROJECTS CPR, CUSTOMER_PROJECT_TASKS CPT WHERE CPT.CPR_ID = CPR.ID";
 
     public CustomerProjectProcessBlockService()
     {

@@ -12,7 +12,6 @@ public class ProjectTasks
     private EJPojoProperty<String>     _name;
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<Integer>    _userId;
-    private EJPojoProperty<Integer>    _vatId;
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _invoiceable;
     private EJPojoProperty<Integer>    _status;
@@ -125,25 +124,6 @@ public class ProjectTasks
         return EJPojoProperty.getPropertyInitialValue(_userId);
     }
 
-    @EJFieldName("VAT_ID")
-    public Integer getVatId()
-    {
-        return EJPojoProperty.getPropertyValue(_vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public void setVatId(Integer vatId)
-    {
-        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public Integer getInitialVatId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_vatId);
-    }
-
-    
     @EJFieldName("FIX_PRICE")
     public BigDecimal getFixPrice()
     {
@@ -206,7 +186,6 @@ public class ProjectTasks
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_userId);
-        EJPojoProperty.clearInitialValue(_vatId);
         EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_status);

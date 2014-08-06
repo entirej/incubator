@@ -117,13 +117,13 @@ public class F_TIME_ENTRY
         public static final String I_TASK_NAME                   = "taskName";
         public static final String I_TASK_PAY_RATE               = "taskPayRate";
         public static final String I_TASK_USER_ID                = "taskUserId";
-        public static final String I_TASK_VAT_ID                 = "taskVatId";
         public static final String I_TASK_FIX_PRICE              = "taskFixPrice";
         public static final String I_TASK_STATUS                 = "taskStatus";
         public static final String I_TASK_INVOICEABLE            = "taskInvoiceable";
         public static final String I_INVOICEABLE                 = "invoiceable";
         public static final String I_INVOICEABLE_ICON            = "invoiceableIcon";
         public static final String I_FIX_PRICE                   = "fixPrice";
+        public static final String I_VAT_ID                      = "vatId";
         public static final String I_CCY_ID                      = "ccyId";
         public static final String I_CCY_CODE                    = "ccyCode";
         public static final String I_VAT_NAME                    = "vatName";
@@ -146,11 +146,19 @@ public class F_TIME_ENTRY
         public static final String I_DESCRIPTION        = "description";
         public static final String I_NAME               = "name";
         public static final String I_STATUS             = "status";
+        public static final String I_STATUS_NAME        = "statusName";
         public static final String I_USER_ID            = "userId";
         public static final String I_CUSTOMER_ID        = "customerId";
         public static final String I_START_DATE         = "startDate";
         public static final String I_END_DATE           = "endDate";
+        public static final String I_NOTES_LABEL        = "notesLabel";
         public static final String I_NOTES              = "notes";
+        public static final String I_FIX_PRICE          = "fixPrice";
+        public static final String I_INVOICEABLE        = "invoiceable";
+        public static final String I_CCY_ID             = "ccyId";
+        public static final String I_CCY_CODE           = "ccyCode";
+        public static final String I_VAT_ID             = "vatId";
+        public static final String I_VAT_RATE           = "vatRate";
         public static final String I_CUSTOMER_NAME      = "customerName";
         public static final String I_CUSTOMER_ADDRESS   = "customerAddress";
         public static final String I_CUSTOMER_POST_CODE = "customerPostCode";
@@ -162,19 +170,17 @@ public class F_TIME_ENTRY
 
     public static class B_PROJECT_TASKS
     {
-        public static final String ID            = "ProjectTasks";
-        public static final String I_ID          = "id";
-        public static final String I_CPR_ID      = "cprId";
-        public static final String I_NOTES       = "notes";
-        public static final String I_NAME        = "name";
-        public static final String I_PAY_RATE    = "payRate";
-        public static final String I_INVOICEABLE = "invoiceable";
-        public static final String I_FIX_PRICE   = "fixPrice";
-        public static final String I_USER_ID     = "userId";
-        public static final String I_VAT_ID      = "vatId";
-        public static final String I_VAT_NAME    = "vatName";
-        public static final String I_VAT_RATE    = "vatRate";
-        public static final String I_STATUS      = "status";
+        public static final String ID                  = "ProjectTasks";
+        public static final String I_ID                = "id";
+        public static final String I_CPR_ID            = "cprId";
+        public static final String I_NOTES             = "notes";
+        public static final String I_NAME              = "name";
+        public static final String I_PAY_RATE          = "payRate";
+        public static final String I_INVOICEABLE       = "invoiceable";
+        public static final String I_INVOICEABLE_IMAGE = "invoiceableImage";
+        public static final String I_FIX_PRICE         = "fixPrice";
+        public static final String I_USER_ID           = "userId";
+        public static final String I_STATUS            = "status";
 
     }
 
@@ -382,6 +388,7 @@ public class F_TIME_ENTRY
     public static final String AC_DELETE_PROJECT_TASK      = "DELETE_PROJECT_TASK";
     public static final String AC_DELETE_TIME_ENTRY        = "DELETE_TIME_ENTRY";
     public static final String AC_EDIT_TIME_ENTRY          = "EDIT_TIME_ENTRY";
+    public static final String AC_INVOICEABLE              = "INVOICEABLE";
     public static final String AC_MODIFY_PROCESS           = "MODIFY_PROCESS";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER            = "OPEN_CUSTOMER";

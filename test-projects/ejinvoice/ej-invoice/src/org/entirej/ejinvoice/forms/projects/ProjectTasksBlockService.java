@@ -16,7 +16,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,USER_ID,VAT_ID, FIX_PRICE, STATUS, INVOICEABLE FROM customer_project_tasks";
+    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,USER_ID, FIX_PRICE, STATUS, INVOICEABLE FROM customer_project_tasks";
 
     public ProjectTasksBlockService()
     {
@@ -50,7 +50,6 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getPayRate()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getStatus()));
@@ -81,7 +80,6 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getPayRate()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getStatus()));
@@ -136,15 +134,6 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
-            if (record.getInitialVatId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("VAT_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
-            }
-            
             if (record.getInitialFixPrice() == null)
             {
                 criteria.add(EJRestrictions.isNull("FIX_PRICE"));
@@ -239,14 +228,6 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             else
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
-            }
-            if (record.getInitialVatId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("VAT_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
             }
             if (record.getInitialFixPrice() == null)
             {

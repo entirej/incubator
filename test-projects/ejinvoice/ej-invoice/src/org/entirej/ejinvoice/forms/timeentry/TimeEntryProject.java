@@ -15,20 +15,20 @@ public class TimeEntryProject
     private EJPojoProperty<Integer>    _customerId;
     private EJPojoProperty<Date>       _startDate;
     private EJPojoProperty<Date>       _endDate;
-    private EJPojoProperty<String>     _status;
+    private EJPojoProperty<Integer>     _status;
     private EJPojoProperty<String>     _notes;
 
     private EJPojoProperty<String>     _invoiceable;
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<Integer>    _ccyId;
     private EJPojoProperty<String>     _ccyCode;
-
+    private EJPojoProperty<Integer>    _vatId;
+    
     private EJPojoProperty<Integer>    _taskCprId;
     private EJPojoProperty<String>     _taskNotes;
     private EJPojoProperty<String>     _taskName;
     private EJPojoProperty<BigDecimal> _taskPayRate;
     private EJPojoProperty<Integer>    _taskUserId;
-    private EJPojoProperty<Integer>    _taskVatId;
     private EJPojoProperty<BigDecimal> _taskFixPrice;
     private EJPojoProperty<Integer>    _taskStatus;
     private EJPojoProperty<String>     _taskInvoiceable;
@@ -88,19 +88,19 @@ public class TimeEntryProject
     }
 
     @EJFieldName("STATUS")
-    public String getStatus()
+    public Integer getStatus()
     {
         return EJPojoProperty.getPropertyValue(_status);
     }
 
     @EJFieldName("STATUS")
-    public void setStatus(String status)
+    public void setStatus(Integer status)
     {
         _status = EJPojoProperty.setPropertyValue(_status, status);
     }
 
     @EJFieldName("STATUS")
-    public String getInitialStatus()
+    public Integer getInitialStatus()
     {
         return EJPojoProperty.getPropertyInitialValue(_status);
     }
@@ -285,22 +285,22 @@ public class TimeEntryProject
         return EJPojoProperty.getPropertyInitialValue(_taskUserId);
     }
 
-    @EJFieldName("TASK_VAT_ID")
-    public Integer getTaskVatId()
+    @EJFieldName("VAT_ID")
+    public Integer getVatId()
     {
-        return EJPojoProperty.getPropertyValue(_taskVatId);
+        return EJPojoProperty.getPropertyValue(_vatId);
     }
 
-    @EJFieldName("TASK_VAT_ID")
-    public void setTaskVatId(Integer taskVatId)
+    @EJFieldName("VAT_ID")
+    public void setVatId(Integer vatId)
     {
-        _taskVatId = EJPojoProperty.setPropertyValue(_taskVatId, taskVatId);
+        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
     }
 
-    @EJFieldName("TASK_VAT_ID")
-    public Integer getInitialTaskVatId()
+    @EJFieldName("VAT_ID")
+    public Integer getInitialVatId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_taskVatId);
+        return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
 
     @EJFieldName("INVOICEABLE")
@@ -451,7 +451,7 @@ public class TimeEntryProject
         EJPojoProperty.clearInitialValue(_taskName);
         EJPojoProperty.clearInitialValue(_taskPayRate);
         EJPojoProperty.clearInitialValue(_taskUserId);
-        EJPojoProperty.clearInitialValue(_taskVatId);
+        EJPojoProperty.clearInitialValue(_vatId);
         EJPojoProperty.clearInitialValue(_taskFixPrice);
         EJPojoProperty.clearInitialValue(_taskStatus);
         EJPojoProperty.clearInitialValue(_taskInvoiceable);

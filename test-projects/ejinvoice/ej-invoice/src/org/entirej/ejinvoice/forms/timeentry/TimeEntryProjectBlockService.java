@@ -18,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryProject>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUSTOMER_ID,DESCRIPTION,END_DATE,ID,NAME,NOTES,START_DATE,STATUS,USER_ID, INVOICEABLE, FIX_PRICE, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) CCY_CODE FROM customer_projects";
+    private String                    _selectStatement = "SELECT VAT_ID, CUSTOMER_ID,DESCRIPTION,END_DATE,ID,NAME,NOTES,START_DATE,STATUS,USER_ID, INVOICEABLE, FIX_PRICE, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) CCY_CODE FROM customer_projects";
 
     public TimeEntryProjectBlockService()
     {
@@ -58,7 +58,7 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
-            parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
+            parameters.add(new EJStatementParameter("VAT_ID", String.class, record.getVatId()));
             
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -73,11 +73,10 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getTaskNotes()));
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getTaskPayRate()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getTaskVatId()));
             
             parameters.add(new EJStatementParameter("FIX_PRICE", Integer.class, record.getTaskFixPrice()));
             parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getTaskStatus()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getTaskInvoiceable()));
+            parameters.add(new EJStatementParameter("INVOICEABLE", Integer.class, record.getTaskInvoiceable()));
             
             paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_tasks", parameters.toArray(paramArray));
@@ -116,6 +115,7 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
             parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustomerId() == null)
@@ -222,7 +222,14 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             {
                 criteria.add(EJRestrictions.equals("CCY_CODE", record.getInitialCcyCode()));
             }
-            
+            if (record.getInitialVatId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("VAT_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
+            }
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "customer_projects", criteria, parameters.toArray(paramArray));
@@ -351,7 +358,14 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             {
                 criteria.add(EJRestrictions.equals("CCY_CODE", record.getInitialCcyCode()));
             }
-
+            if (record.getInitialVatId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("VAT_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
+            }
             
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
