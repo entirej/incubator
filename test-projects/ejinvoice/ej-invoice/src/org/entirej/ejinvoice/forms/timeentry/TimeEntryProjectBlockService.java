@@ -114,7 +114,6 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
-            parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
@@ -196,7 +195,7 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             }
             else
             {
-                criteria.add(EJRestrictions.equals("INVOICABLE", record.getInitialInvoiceable()));
+                criteria.add(EJRestrictions.equals("INVOICEABLE", record.getInitialInvoiceable()));
             }
             if (record.getInitialFixPrice() == null)
             {
@@ -213,14 +212,6 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             else
             {
                 criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
-            }
-            if (record.getInitialCcyCode() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CCY_CODE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CCY_CODE", record.getInitialCcyCode()));
             }
             if (record.getInitialVatId() == null)
             {
@@ -332,7 +323,7 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             }
             else
             {
-                criteria.add(EJRestrictions.equals("INVOICABLE", record.getInitialInvoiceable()));
+                criteria.add(EJRestrictions.equals("INVOICEABLE", record.getInitialInvoiceable()));
             }
             if (record.getInitialFixPrice() == null)
             {
@@ -349,14 +340,6 @@ public class TimeEntryProjectBlockService implements EJBlockService<TimeEntryPro
             else
             {
                 criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
-            }
-            if (record.getInitialCcyCode() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CCY_CODE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CCY_CODE", record.getInitialCcyCode()));
             }
             if (record.getInitialVatId() == null)
             {

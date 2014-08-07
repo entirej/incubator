@@ -196,8 +196,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             }
             else
             {
-                form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_FIX_PRICE).setValue(null);
-                form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_PAY_RATE).setValue(null);
+                record.setValue(F_TIME_ENTRY.B_PROJECT_TASKS.I_FIX_PRICE, null);
+                record.setValue(F_TIME_ENTRY.B_PROJECT_TASKS.I_PAY_RATE, null);
 
                 form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
                 form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
