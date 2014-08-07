@@ -176,10 +176,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             }
             else
             {
-                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE).setValue(null);
-                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_VAT_ID).setValue(null);
-                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_FIX_PRICE).setValue(null);
-                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_PAY_RATE).setValue(null);
+                record.setValue(F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE, null);
+                record.setValue(F_TIME_ENTRY.B_PROJECTS.I_VAT_ID, null);
+                record.setValue(F_TIME_ENTRY.B_PROJECTS.I_TASK_FIX_PRICE, null);
+                record.setValue(F_TIME_ENTRY.B_PROJECTS.I_TASK_PAY_RATE, null);
 
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE).setEditable(false);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_VAT_ID).setEditable(false);
@@ -359,8 +359,19 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             customerInserted = true;
             customerId = (Integer) record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID);
         }
+
     }
 
+
+    @Override
+    public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_TIME_ENTRY.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeLastQuery();
+        }
+    }
+    
     @Override
     public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
     {
@@ -380,7 +391,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.TASKS);
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
 
-            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project process. Please enter one here before continuing.");
+            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");
 
             form.showMessage(message);
         }
@@ -488,5 +499,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             }
         }
     }
+
+    
+    
 
 }
