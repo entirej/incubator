@@ -70,7 +70,9 @@ public class F_INVOICE_OVERVIEW
         public static final String I_CUSTOMER_ID      = "customerId";
         public static final String I_TASK_ID          = "taskId";
         public static final String I_TASK_NAME        = "taskName";
-        public static final String I_TASK_VAT_ID      = "taskVatId";
+        public static final String I_VAT_ID           = "vatId";
+        public static final String I_FIXED_PRICE      = "fixedPrice";
+        public static final String I_TASK_FIXED_PRICE = "taskFixedPrice";
         public static final String I_VAT_RATE         = "vatRate";
         public static final String I_VAT_NAME         = "vatName";
         public static final String I_TASK_PAY_RATE    = "taskPayRate";

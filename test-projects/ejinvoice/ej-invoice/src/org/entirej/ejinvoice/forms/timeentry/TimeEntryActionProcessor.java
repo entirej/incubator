@@ -38,9 +38,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
-        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)), TimeEntryBlockService.getCurrentWeek()));
+        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(
+                TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)),
+                        TimeEntryBlockService.getCurrentWeek()));
 
-        EJScreenItem startTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
+        EJScreenItem startTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN,
+                F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
         EJScreenItem endTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME);
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -67,16 +70,21 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME.equals(itemName))
         {
-            Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
-            Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
+            Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
+            Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
 
             recalcluateWorkingHours(form, start, end);
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE.equals(itemName))
         {
-            Date workDate = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
+            Date workDate = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
 
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)), TimeEntryBlockService.getWeek(workDate)));
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(
+                    TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)),
+                            TimeEntryBlockService.getWeek(workDate)));
         }
         else if (F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE.equals(itemName) && EJScreenType.INSERT.equals(screenType))
         {
@@ -107,7 +115,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             String invoiceable = (String) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE);
             Integer ccyId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_CCY_ID);
             Integer vat = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_VAT_ID);
-            
+
             if ("Y".equals(invoiceable))
             {
                 if (ccyId == null || vat == null)
@@ -116,11 +124,29 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                     throw new EJActionProcessorException(message);
                 }
             }
-            
+
+            if (record.getValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE).equals("Y"))
+            {
+                if (record.getValue(F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE) != null)
+                {
+                    record.setValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE_ICON, "/icons/fixedPrice.png");
+                }
+                else
+                {
+                    record.setValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE_ICON, "/icons/coins.png");
+                }
+            }
+            else
+            {
+                record.setValue(F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
+            }
+
         }
-        else if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType)) && F_TIME_ENTRY.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
+        else if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType))
+                && F_TIME_ENTRY.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
         {
-            BigDecimal projectFixPrice = (BigDecimal) form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getFocusedRecord().getValue(F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE);
+            BigDecimal projectFixPrice = (BigDecimal) form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getFocusedRecord()
+                    .getValue(F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE);
             String taskInvoiceable = (String) record.getValue(F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE);
             BigDecimal taskFixPrice = (BigDecimal) record.getValue(F_TIME_ENTRY.B_PROJECT_TASKS.I_FIX_PRICE);
             BigDecimal taskRate = (BigDecimal) record.getValue(F_TIME_ENTRY.B_PROJECT_TASKS.I_PAY_RATE);
@@ -158,7 +184,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
     private void recalcluateWorkingHours(EJForm form, Timestamp start, Timestamp end)
     {
-        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(start, end));
+        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS)
+                .setValue(getDiffMinutesString(start, end));
     }
 
     @Override
@@ -173,6 +200,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_VAT_ID).setEditable(true);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(true);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_PAY_RATE).setEditable(true);
+                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(true);
             }
             else
             {
@@ -180,11 +208,13 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 record.setValue(F_TIME_ENTRY.B_PROJECTS.I_VAT_ID, null);
                 record.setValue(F_TIME_ENTRY.B_PROJECTS.I_TASK_FIX_PRICE, null);
                 record.setValue(F_TIME_ENTRY.B_PROJECTS.I_TASK_PAY_RATE, null);
+                record.setValue(F_TIME_ENTRY.B_PROJECTS.I_TASK_INVOICEABLE, "N");
 
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE).setEditable(false);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_VAT_ID).setEditable(false);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(false);
                 form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_PAY_RATE).setEditable(false);
+                form.getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(false);
             }
         }
         else if (F_TIME_ENTRY.B_PROJECT_TASKS.ID.equals(record.getBlockName()) && F_TIME_ENTRY.AC_INVOICEABLE_TASK.equals(command))
@@ -206,13 +236,17 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.AC_PROJECT_DETAILS.equals(command))
         {
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.TASKS);
+            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).gainFocus();
 
-            Integer projectId = (Integer) record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
+            // Integer projectId = (Integer)
+            // record.getValue(F_TIME_ENTRY.B_PROJECTS.I_ID);
 
-            EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
-            criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
+            // EJQueryCriteria criteria =
+            // form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
+            // criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID,
+            // projectId));
 
-            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
+            // form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
         }
         else
         {
@@ -225,7 +259,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             else if (WorkWeekBlockRenderer.isWeekSelectionAction(command))
             {
 
-                timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(timeEntryBlock), WorkWeekBlockRenderer.getWeekSelection(command)));
+                timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(timeEntryBlock),
+                        WorkWeekBlockRenderer.getWeekSelection(command)));
                 return;
             }
             else if (WorkWeekBlockRenderer.isDaySelectionAction(command))
@@ -234,7 +269,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 java.util.Date daySelection = WorkWeekBlockRenderer.getDaySelection(command);
                 if (daySelection != null)
                 {
-                    form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).setValue(new Date(daySelection.getTime()));
+                    form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE)
+                            .setValue(new Date(daySelection.getTime()));
 
                 }
                 return;
@@ -242,7 +278,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             else if (F_TIME_ENTRY.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
             {
                 form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.PROJECTS);
-                form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).clear(true);
             }
             else if (F_TIME_ENTRY.AC_ADD_NEW_TASK.equals(command))
             {
@@ -293,11 +328,16 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             else if (F_TIME_ENTRY.AC_ADD_TIME_ENTRY.equals(command))
             {
                 Integer userId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID).getValue();
-                Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
-                Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
-                Date workDay = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
-                String workDescription = (String) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
-                Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
+                Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
+                Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
+                Date workDay = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
+                String workDescription = (String) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
+                Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
 
                 int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
 
@@ -362,7 +402,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
     }
 
-
     @Override
     public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
     {
@@ -371,7 +410,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeLastQuery();
         }
     }
-    
+
     @Override
     public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
     {
@@ -385,13 +424,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             timeEntryInserted = false;
 
-            EJQueryCriteria criteria = form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).createQueryCriteria();
-            criteria.add(EJRestrictions.equals(F_TIME_ENTRY.B_PROJECTS_DETAIL.I_ID, projectId));
-
             form.showStackedCanvasPage(F_TIME_ENTRY.C_PROJECTS_STACK, F_TIME_ENTRY.C_PROJECTS_STACK_PAGES.TASKS);
-            form.getBlock(F_TIME_ENTRY.B_PROJECTS_DETAIL.ID).executeQuery(criteria);
+            form.getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).executeQuery();
 
-            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");
+            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE,
+                    "Before you can book time against your project you need a project task. Please enter one here before continuing.");
 
             form.showMessage(message);
         }
@@ -460,7 +497,18 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             if (record.getValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE).equals("Y"))
             {
-                record.setValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE_ICON, "/icons/coins.png");
+                if (record.getValue(F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE) != null)
+                {
+                    record.setValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE_ICON, "/icons/fixedPrice.png");
+                }
+                else
+                {
+                    record.setValue(F_TIME_ENTRY.B_PROJECTS.I_INVOICEABLE_ICON, "/icons/coins.png");
+                }
+            }
+            else
+            {
+                record.setValue(F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
             }
         }
         else if (F_TIME_ENTRY.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
@@ -487,20 +535,20 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             if (block.getForm().getBlock(F_TIME_ENTRY.B_PROJECTS.ID).getFocusedRecord().getValue(F_TIME_ENTRY.B_PROJECTS.I_FIX_PRICE) != null)
             {
                 block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE).setValue("Y");
-                block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(false);
-                block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
+                block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE)
+                        .setEditable(false);
+                block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_FIX_PRICE)
+                        .setEditable(false);
                 block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
             }
             else
             {
-                block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(true);
+                block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_INVOICEABLE)
+                        .setEditable(true);
                 block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
                 block.getForm().getBlock(F_TIME_ENTRY.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_TIME_ENTRY.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
             }
         }
     }
-
-    
-    
 
 }

@@ -17,7 +17,9 @@ public class ProjectTimeOverview
     private EJPojoProperty<Integer>    _customerId;
     private EJPojoProperty<Integer>    _taskId;
     private EJPojoProperty<String>     _taskName;
-    private EJPojoProperty<Integer>    _taskVatId;
+    private EJPojoProperty<Integer>    _vatId;
+    private EJPojoProperty<BigDecimal> _fixedPrice;
+    private EJPojoProperty<BigDecimal> _taskFixedPrice;
     private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<String>     _vatName;
     private EJPojoProperty<BigDecimal> _taskPayRate;
@@ -173,22 +175,22 @@ public class ProjectTimeOverview
         return EJPojoProperty.getPropertyInitialValue(_taskName);
     }
 
-    @EJFieldName("TASK_VAT_ID")
-    public Integer getTaskVatId()
+    @EJFieldName("VAT_ID")
+    public Integer getVatId()
     {
-        return EJPojoProperty.getPropertyValue(_taskVatId);
+        return EJPojoProperty.getPropertyValue(_taskId);
     }
 
-    @EJFieldName("TASK_VAT_ID")
-    public void setTaskVatId(Integer taskVatId)
+    @EJFieldName("TASK_ID")
+    public void setVatId(Integer vatId)
     {
-        _taskVatId = EJPojoProperty.setPropertyValue(_taskVatId, taskVatId);
+        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
     }
 
-    @EJFieldName("TASK_VAT_ID")
-    public Integer getInitialTaskVatId()
+    @EJFieldName("VAT_ID")
+    public Integer getInitialVatId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_taskVatId);
+        return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
 
     @EJFieldName("VAT_RATE")
@@ -371,6 +373,49 @@ public class ProjectTimeOverview
         return EJPojoProperty.getPropertyInitialValue(_workDescription);
     }
     
+    
+    
+    
+
+    @EJFieldName("FIXED_PRICE")
+    public BigDecimal getFixedPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_fixedPrice);
+    }
+
+    @EJFieldName("FIXED_PRICE")
+    public void setFixedPrice(BigDecimal fixedPrice)
+    {
+        _fixedPrice = EJPojoProperty.setPropertyValue(_fixedPrice, fixedPrice);
+    }
+
+    @EJFieldName("FIXED_PRICE")
+    public BigDecimal getInitialFixedPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_fixedPrice);
+    }
+    
+    
+    @EJFieldName("TASK_FIXED_PRICE")
+    public BigDecimal getTaskFixedPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_taskFixedPrice);
+    }
+
+    @EJFieldName("TASK_FIXED_PRICE")
+    public void setTaskFixedPrice(BigDecimal taskFixedPrice)
+    {
+        _taskFixedPrice = EJPojoProperty.setPropertyValue(_taskFixedPrice, taskFixedPrice);
+    }
+
+    @EJFieldName("TASK_FIXED_PRICE")
+    public BigDecimal getInitialTaskFixedPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_taskFixedPrice);
+    }
+
+    
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_headerRow);
@@ -380,7 +425,7 @@ public class ProjectTimeOverview
         EJPojoProperty.clearInitialValue(_customerId);
         EJPojoProperty.clearInitialValue(_taskId);
         EJPojoProperty.clearInitialValue(_taskName);
-        EJPojoProperty.clearInitialValue(_taskVatId);
+        EJPojoProperty.clearInitialValue(_vatId);
         EJPojoProperty.clearInitialValue(_vatRate);
         EJPojoProperty.clearInitialValue(_vatName);
         EJPojoProperty.clearInitialValue(_taskPayRate);
@@ -391,6 +436,8 @@ public class ProjectTimeOverview
         EJPojoProperty.clearInitialValue(_startTime);
         EJPojoProperty.clearInitialValue(_endTime);
         EJPojoProperty.clearInitialValue(_workDescription);
+        EJPojoProperty.clearInitialValue(_taskFixedPrice);
+        EJPojoProperty.clearInitialValue(_fixedPrice);
     }
 
 }

@@ -32,7 +32,8 @@ public class ProjectTimeOverviewBlockService implements EJBlockService<ProjectTi
         _selectStatement.append(",      PROJ.ID          AS PROJECT_ID ");
         _selectStatement.append(",      PROT.ID          AS TASK_ID ");
         _selectStatement.append(",      PROT.NAME        AS TASK_NAME ");
-        _selectStatement.append(",      PROT.VAT_ID      AS TASK_VAT_ID ");
+        _selectStatement.append(",      PROJ.VAT_ID      AS VAT_ID ");
+        _selectStatement.append(",      PROJ.FIXED_PRICE AS FIXED_PRICE ");
         _selectStatement.append(",      VAT.RATE         AS VAT_RATE ");
         _selectStatement.append(",      VAT.NAME         AS VAT_NAME ");
         _selectStatement.append(",      PROT.PAY_RATE    AS TASK_PAY_RATE ");
@@ -52,6 +53,8 @@ public class ProjectTimeOverviewBlockService implements EJBlockService<ProjectTi
         _selectStatement.append("AND   PROJ.USER_ID = ? ");
         _selectStatement.append("AND   PROJ.CUSTOMER_ID = ? ");
         _selectStatement.append("AND   EXISTS (SELECT ID FROM CUSTOMER_PROJECT_TIMEENTRY WHERE INVP_ID IS NULL AND CUPT_ID = PROT.ID) ");
+        _selectStatement.append("AND   PROJ.INVOICEABLE = \"Y\" ");
+        _selectStatement.append("AND   PROT.INVOICEABLE = \"Y\" ");
         _selectStatement.append("ORDER BY PROJ.NAME, PROT.NAME, CUTI.WORK_DATE, CUTI.START_TIME ");
     }
 

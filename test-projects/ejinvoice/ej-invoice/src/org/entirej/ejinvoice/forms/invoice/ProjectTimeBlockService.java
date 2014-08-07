@@ -29,21 +29,24 @@ public class ProjectTimeBlockService implements EJBlockService<ProjectTime>
         _selectStatement.append(",      PROJ.DESCRIPTION AS PROJECT_DESCRIPTION ");
         _selectStatement.append(",      PROJ.STATUS      AS PROJECT_STATUS ");
         _selectStatement.append(",      PROJ.ID          AS PROJECT_ID ");
-        _selectStatement.append(",      PROT.ID          AS TASK_ID ");
-        _selectStatement.append(",      PROT.NAME        AS TASK_NAME ");
-        _selectStatement.append(",      PROT.VAT_ID      AS TASK_VAT_ID ");
+        _selectStatement.append(",      PROJ.VAT_ID      AS VAT_ID ");
         _selectStatement.append(",      VAT.RATE         AS VAT_RATE ");
         _selectStatement.append(",      VAT.NAME         AS VAT_NAME ");
+        _selectStatement.append(",      PROJ.FIX_PRICE   AS FIX_PRICE ");
+        _selectStatement.append(",      PROT.ID          AS TASK_ID ");
+        _selectStatement.append(",      PROT.NAME        AS TASK_NAME ");
         _selectStatement.append(",      PROT.PAY_RATE    AS TASK_PAY_RATE ");
         _selectStatement.append(",      (SELECT ((SUM(TIME_TO_SEC(TIMEDIFF(END_TIME,START_TIME))) / 60) / 60) FROM CUSTOMER_PROJECT_TIMEENTRY WHERE CUPT_ID = PROT.ID) WORK_HOURS ");
         _selectStatement.append("FROM CUSTOMER_PROJECTS PROJ ");
         _selectStatement.append(",    CUSTOMER_PROJECT_TASKS PROT ");
         _selectStatement.append(",    VAT_RATES  VAT ");
         _selectStatement.append("WHERE PROJ.ID      = PROT.CPR_ID ");
-        _selectStatement.append("AND   PROT.VAT_ID  = VAT.ID ");
+        _selectStatement.append("AND   PROJ.VAT_ID  = VAT.ID ");
         _selectStatement.append("AND   PROJ.USER_ID = ? ");
         _selectStatement.append("AND   PROJ.CUSTOMER_ID = ? ");
         _selectStatement.append("AND   EXISTS (SELECT ID FROM CUSTOMER_PROJECT_TIMEENTRY WHERE INVP_ID IS NULL AND CUPT_ID = PROT.ID) ");
+        _selectStatement.append("AND   PROJ.INVOICEABLE = \"Y\" ");
+        _selectStatement.append("AND   PROT.INVOICEABLE = \"Y\" ");
         _selectStatement.append("ORDER BY PROJ.NAME, PROT.NAME ");
     }
 
