@@ -181,6 +181,7 @@ public class F_TIME_ENTRY
         public static final String I_FIX_PRICE         = "fixPrice";
         public static final String I_USER_ID           = "userId";
         public static final String I_STATUS            = "status";
+        public static final String I_MESSAGE_LABEL     = "messageLabel";
 
     }
 
@@ -389,6 +390,7 @@ public class F_TIME_ENTRY
     public static final String AC_DELETE_TIME_ENTRY        = "DELETE_TIME_ENTRY";
     public static final String AC_EDIT_TIME_ENTRY          = "EDIT_TIME_ENTRY";
     public static final String AC_INVOICEABLE              = "INVOICEABLE";
+    public static final String AC_INVOICEABLE_TASK         = "INVOICEABLE_TASK";
     public static final String AC_MODIFY_PROCESS           = "MODIFY_PROCESS";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER            = "OPEN_CUSTOMER";
