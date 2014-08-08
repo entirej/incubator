@@ -527,7 +527,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
         header = new Composite(blockCanvas, SWT.NONE);
 
         header.setLayoutData(gridData);
-        GridLayout headerLayout = new GridLayout(20, false);
+        GridLayout headerLayout = new GridLayout(22, false);
         header.setLayout(headerLayout);
 
         initActiveWeek();
@@ -956,6 +956,14 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
         return hours;
     }
 
+    public static int getCurrentWeek()
+    {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new java.util.Date());
+        
+        return c.get(Calendar.WEEK_OF_YEAR);
+    }
+    
     private void createHeaderUI()
     {
         header.setData(RWT.CUSTOM_VARIANT, "workview");
@@ -967,6 +975,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
 
         GridData bt = new GridData();
         bt.heightHint = 21;
+        
         Button pWeeks = new Button(header, SWT.PUSH);
         pWeeks.setText("<");
         pWeeks.setLayoutData(bt);
@@ -1030,6 +1039,29 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                     activeWeeksSlot++;
                     updateWeekSelectionUI();
                 }
+            }
+        });
+        new Label(header, SWT.NONE);
+        Link cWeeks = new Link(header, SWT.NONE);
+        cWeeks.setText("<a>Current Week</a>");
+        cWeeks.setFont(blodFont);
+        cWeeks.setData(RWT.CUSTOM_VARIANT, "workview");
+        cWeeks.addSelectionListener(new SelectionAdapter()
+        {
+            @Override
+            public void widgetSelected(SelectionEvent e)
+            {
+                
+                setActiveWeek(getCurrentWeek());
+                Display.getDefault().asyncExec(new Runnable()
+                {
+
+                    @Override
+                    public void run()
+                    {
+                        _block.executeActionCommand(String.format("WORKWEEK_WEEK:%d", activeWeek), EJScreenType.MAIN);
+                    }
+                });
             }
         });
         // space//
