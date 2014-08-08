@@ -535,7 +535,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
 
         scrollComposite = new ScrolledComposite(header, SWT.V_SCROLL | SWT.H_SCROLL);
         GridData data = new GridData(GridData.FILL_BOTH | GridData.GRAB_HORIZONTAL | GridData.GRAB_VERTICAL);
-        data.horizontalSpan = 20;
+        data.horizontalSpan = headerLayout.numColumns;
         scrollComposite.setLayoutData(data);
         scrollComposite.setExpandHorizontal(true);
         scrollComposite.setExpandVertical(true);
