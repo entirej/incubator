@@ -25,7 +25,19 @@ public class ConnectionFactory implements EJConnectionFactory
     @Override
     public EJFrameworkConnection createConnection(EJFrameworkManager fwkManager)
     {
+        
+        
+        return new FrameworkConnection(this);
+    }
+    
+    
+    Connection createConnection()
+    {
         Connection conn = null;
+       // long startTime = System.currentTimeMillis();
+        try
+        {
+        
         try
         {
             if (dataSource == null)
@@ -52,7 +64,17 @@ public class ConnectionFactory implements EJConnectionFactory
         {
             e.printStackTrace();
         }
+        
+       
 
-        return new FrameworkConnection(conn);
+        
+        }
+        finally
+        {
+            //long endTime = System.currentTimeMillis();
+            //System.err.println("EJFrameworkConnection.createConnection() : " + (endTime - startTime) + " milliseconds");
+        }
+        return conn;
     }
+    
 }
