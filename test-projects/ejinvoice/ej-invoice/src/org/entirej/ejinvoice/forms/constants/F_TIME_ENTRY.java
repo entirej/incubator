@@ -280,7 +280,6 @@ public class F_TIME_ENTRY
     public static final String AC_ADD_TIME_ENTRY        = "ADD_TIME_ENTRY";
     public static final String AC_CREATE_NEW_CUSTOMER   = "CREATE_NEW_CUSTOMER";
     public static final String AC_DELETE_TIME_ENTRY     = "DELETE_TIME_ENTRY";
-    public static final String AC_EDIT_TIME_ENTRY       = "EDIT_TIME_ENTRY";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
 
 }

@@ -17,6 +17,7 @@ public class OpenProjectItem
     private EJPojoProperty<Date>       _teLastDay;
     private EJPojoProperty<Date>       _teFirstDay;
     private EJPojoProperty<BigDecimal> _workHours;
+    private EJPojoProperty<String>     _createInvoicePosition;
 
     @EJFieldName("PROJECT_ID")
     public Integer getProjectId()
@@ -180,6 +181,24 @@ public class OpenProjectItem
         return EJPojoProperty.getPropertyInitialValue(_workHours);
     }
 
+    @EJFieldName("CREATE_INVOICE_POSITION")
+    public String getCreateInvoicePosition()
+    {
+        return EJPojoProperty.getPropertyValue(_createInvoicePosition);
+    }
+
+    @EJFieldName("CREATE_INVOICE_POSITION")
+    public void setCreateInvoicePosition(String createInvoicePosition)
+    {
+        _createInvoicePosition = EJPojoProperty.setPropertyValue(_createInvoicePosition, createInvoicePosition);
+    }
+
+    @EJFieldName("CREATE_INVOICE_POSITION")
+    public String getInitialCreateInvoicePosition()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_createInvoicePosition);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_projectId);
@@ -191,6 +210,7 @@ public class OpenProjectItem
         EJPojoProperty.clearInitialValue(_teFirstDay);
         EJPojoProperty.clearInitialValue(_teLastDay);
         EJPojoProperty.clearInitialValue(_workHours);
+        EJPojoProperty.clearInitialValue(_createInvoicePosition);
     }
 
 }

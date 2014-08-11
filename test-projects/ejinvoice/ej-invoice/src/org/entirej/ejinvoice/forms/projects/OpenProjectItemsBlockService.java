@@ -1,5 +1,6 @@
 package org.entirej.ejinvoice.forms.projects;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     @Override
     public List<OpenProjectItem> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        ArrayList<OpenProjectItem> projecItems = new ArrayList<OpenProjectItem>();
+        ArrayList<OpenProjectItem> projectItems = new ArrayList<OpenProjectItem>();
         
         Integer projectId = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_OPEN_POJECT_ITEMS.I_PROJECT_ID).getValue();
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
@@ -62,18 +63,21 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         for (EJSelectResult result : results)
         {
             OpenProjectItem item = new OpenProjectItem();
-            item.setProjectId((Integer)result.getItemValue("PRJECT_ID"));
-            item.setProjectName((String)result.getItemValue("PRJECT_NAME"));
+            item.setProjectId((Integer)result.getItemValue("PROJECT_ID"));
+            item.setProjectName((String)result.getItemValue("PROJECT_NAME"));
             item.setTaskId((Integer)result.getItemValue("TASK_ID"));
             item.setTaskName((String)result.getItemValue("TASK_NAME"));
             item.setTeMonth((Integer)result.getItemValue("TE_MONTH"));
             item.setTeYear((Integer)result.getItemValue("TE_YEAR"));
             item.setTeLastDay((Date)result.getItemValue("TE_LAST_DAY"));
             item.setTeFirstDay((Date)result.getItemValue("TE_FIRST_DAY"));
+            item.setWorkHours((BigDecimal)result.getItemValue("WORK_HOURS"));
+            item.setCreateInvoicePosition("Create Invoice Position");
             
+            projectItems.add(item);
         }
         
-        return _statementExecutor.executeQuery(OpenProjectItem.class, form, _selectStatement.toString(), queryCriteria);
+        return projectItems;
     }
 
     @Override
