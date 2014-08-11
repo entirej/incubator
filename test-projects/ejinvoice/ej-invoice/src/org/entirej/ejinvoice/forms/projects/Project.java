@@ -15,15 +15,23 @@ public class Project
     private EJPojoProperty<Integer>    _customerId;
     private EJPojoProperty<Date>       _startDate;
     private EJPojoProperty<Date>       _endDate;
-    private EJPojoProperty<Integer>    _status;
+    private EJPojoProperty<Integer>     _status;
     private EJPojoProperty<String>     _notes;
 
-    private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _invoiceable;
+    private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<Integer>    _ccyId;
     private EJPojoProperty<String>     _ccyCode;
     private EJPojoProperty<Integer>    _vatId;
-    private EJPojoProperty<BigDecimal> _vatRate;
+    
+    private EJPojoProperty<Integer>    _taskCprId;
+    private EJPojoProperty<String>     _taskNotes;
+    private EJPojoProperty<String>     _taskName;
+    private EJPojoProperty<BigDecimal> _taskPayRate;
+    private EJPojoProperty<Integer>    _taskUserId;
+    private EJPojoProperty<BigDecimal> _taskFixPrice;
+    private EJPojoProperty<Integer>    _taskStatus;
+    private EJPojoProperty<String>     _taskInvoiceable;
 
     @EJFieldName("ID")
     public Integer getId()
@@ -187,78 +195,96 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_notes);
     }
 
-    @EJFieldName("FIX_PRICE")
-    public BigDecimal getFixPrice()
+    @EJFieldName("TASK_CPR_ID")
+    public Integer getTaskCprId()
     {
-        return EJPojoProperty.getPropertyValue(_fixPrice);
+        return EJPojoProperty.getPropertyValue(_taskCprId);
     }
 
-    @EJFieldName("FIX_PRICE")
-    public void setFixPrice(BigDecimal fixPrice)
+    @EJFieldName("TASK_CPR_ID")
+    public void setTaskCprId(Integer taskCprId)
     {
-        _fixPrice = EJPojoProperty.setPropertyValue(_fixPrice, fixPrice);
+        _taskCprId = EJPojoProperty.setPropertyValue(_taskCprId, taskCprId);
     }
 
-    @EJFieldName("FIX_PRICE")
-    public BigDecimal getInitialFixPrice()
+    @EJFieldName("TASK_CPR_ID")
+    public Integer getInitialTaskCprId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_fixPrice);
-    }
-    
-    @EJFieldName("INVOICEABLE")
-    public String getInvoiceable()
-    {
-        return EJPojoProperty.getPropertyValue(_invoiceable);
+        return EJPojoProperty.getPropertyInitialValue(_taskCprId);
     }
 
-    @EJFieldName("INVOICEABLE")
-    public void setInvoiceable(String invoiceable)
+    @EJFieldName("TASK_NOTES")
+    public String getTaskNotes()
     {
-        _invoiceable = EJPojoProperty.setPropertyValue(_invoiceable, invoiceable);
+        return EJPojoProperty.getPropertyValue(_taskNotes);
     }
 
-    @EJFieldName("INVOICEABLE")
-    public String getInitialInvoiceable()
+    @EJFieldName("TASK_NOTES")
+    public void setTaskNotes(String taskNotes)
     {
-        return EJPojoProperty.getPropertyInitialValue(_invoiceable);
-    }
-    
-    @EJFieldName("CCY_ID")
-    public Integer getCcyId()
-    {
-        return EJPojoProperty.getPropertyValue(_ccyId);
+        _taskNotes = EJPojoProperty.setPropertyValue(_taskNotes, taskNotes);
     }
 
-    @EJFieldName("CCY_ID")
-    public void setCcyId(Integer ccyId)
+    @EJFieldName("TASK_NOTES")
+    public String getInitialTaskNotes()
     {
-        _ccyId = EJPojoProperty.setPropertyValue(_ccyId, ccyId);
+        return EJPojoProperty.getPropertyInitialValue(_taskNotes);
     }
 
-    @EJFieldName("CCY_ID")
-    public Integer getInitialCcyId()
+    @EJFieldName("TASK_NAME")
+    public String getTaskName()
     {
-        return EJPojoProperty.getPropertyInitialValue(_ccyId);
-    }
-    
-    @EJFieldName("CCY_CODE")
-    public String getCcyCode()
-    {
-        return EJPojoProperty.getPropertyValue(_ccyCode);
+        return EJPojoProperty.getPropertyValue(_taskName);
     }
 
-    @EJFieldName("CCY_CODE")
-    public void setCcyCode(String ccyCode)
+    @EJFieldName("TASK_NAME")
+    public void setTaskName(String taskName)
     {
-        _ccyCode = EJPojoProperty.setPropertyValue(_ccyCode, ccyCode);
+        _taskName = EJPojoProperty.setPropertyValue(_taskName, taskName);
     }
 
-    @EJFieldName("CCY_CODE")
-    public String getInitialCcyCode()
+    @EJFieldName("TASK_NAME")
+    public String getInitialTaskName()
     {
-        return EJPojoProperty.getPropertyInitialValue(_ccyCode);
+        return EJPojoProperty.getPropertyInitialValue(_taskName);
     }
-    
+
+    @EJFieldName("TASK_PAY_RATE")
+    public BigDecimal getTaskPayRate()
+    {
+        return EJPojoProperty.getPropertyValue(_taskPayRate);
+    }
+
+    @EJFieldName("TASK_PAY_RATE")
+    public void setTaskPayRate(BigDecimal taskPayRate)
+    {
+        _taskPayRate = EJPojoProperty.setPropertyValue(_taskPayRate, taskPayRate);
+    }
+
+    @EJFieldName("TASK_PAY_RATE")
+    public BigDecimal getInitialTaskPayRate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_taskPayRate);
+    }
+
+    @EJFieldName("TASK_USER_ID")
+    public Integer getTaskUserId()
+    {
+        return EJPojoProperty.getPropertyValue(_taskUserId);
+    }
+
+    @EJFieldName("TASK_USER_ID")
+    public void setTaskUserId(Integer taskUserId)
+    {
+        _taskUserId = EJPojoProperty.setPropertyValue(_taskUserId, taskUserId);
+    }
+
+    @EJFieldName("TASK_USER_ID")
+    public Integer getInitialTaskUserId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_taskUserId);
+    }
+
     @EJFieldName("VAT_ID")
     public Integer getVatId()
     {
@@ -276,25 +302,133 @@ public class Project
     {
         return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
-    
-    @EJFieldName("VAT_RATE")
-    public BigDecimal getVatRate()
+
+    @EJFieldName("INVOICEABLE")
+    public String getInvoiceable()
     {
-        return EJPojoProperty.getPropertyValue(_vatRate);
+        return EJPojoProperty.getPropertyValue(_invoiceable);
     }
 
-    @EJFieldName("VAT_RATE")
-    public void setVatRate(BigDecimal vatRate)
+    @EJFieldName("INVOICEABLE")
+    public void setInvoiceable(String invoiceable)
     {
-        _vatRate = EJPojoProperty.setPropertyValue(_vatRate, vatRate);
+        _invoiceable = EJPojoProperty.setPropertyValue(_invoiceable, invoiceable);
     }
 
-    @EJFieldName("VAT_RATE")
-    public BigDecimal getInitialVatRate()
+    @EJFieldName("INVOICEABLE")
+    public String getInitialInvoiceable()
     {
-        return EJPojoProperty.getPropertyInitialValue(_vatRate);
+        return EJPojoProperty.getPropertyInitialValue(_invoiceable);
     }
-    
+
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getFixPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public void setFixPrice(BigDecimal fixPrice)
+    {
+        _fixPrice = EJPojoProperty.setPropertyValue(_fixPrice, fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getInitialFixPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_fixPrice);
+    }
+
+    @EJFieldName("CCY_ID")
+    public Integer getCcyId()
+    {
+        return EJPojoProperty.getPropertyValue(_ccyId);
+    }
+
+    @EJFieldName("CCY_ID")
+    public void setCcyId(Integer ccyId)
+    {
+        _ccyId = EJPojoProperty.setPropertyValue(_ccyId, ccyId);
+    }
+
+    @EJFieldName("CCY_ID")
+    public Integer getInitialCcyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_ccyId);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public String getCcyCode()
+    {
+        return EJPojoProperty.getPropertyValue(_ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public void setCcyCode(String ccyCode)
+    {
+        _ccyCode = EJPojoProperty.setPropertyValue(_ccyCode, ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public String getInitialCcyCode()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_ccyCode);
+    }
+
+    @EJFieldName("TASK_FIX_PRICE")
+    public BigDecimal getTaskFixPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_taskFixPrice);
+    }
+
+    @EJFieldName("TASK_FIX_PRICE")
+    public void setTaskFixPrice(BigDecimal taskFixPrice)
+    {
+        _taskFixPrice = EJPojoProperty.setPropertyValue(_taskFixPrice, taskFixPrice);
+    }
+
+    @EJFieldName("TASK_FIX_PRICE")
+    public BigDecimal getInitialTaskFixPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_taskFixPrice);
+    }
+
+    @EJFieldName("TASK_STATUS")
+    public Integer getTaskStatus()
+    {
+        return EJPojoProperty.getPropertyValue(_taskStatus);
+    }
+
+    @EJFieldName("TASK_STATUS")
+    public void setTaskStatus(Integer taskStatus)
+    {
+        _taskStatus = EJPojoProperty.setPropertyValue(_taskStatus, taskStatus);
+    }
+
+    @EJFieldName("TASK_STATUS")
+    public Integer getInitialTaskStatus()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_taskStatus);
+    }
+
+    @EJFieldName("TASK_INVOICEABLE")
+    public String getTaskInvoiceable()
+    {
+        return EJPojoProperty.getPropertyValue(_taskInvoiceable);
+    }
+
+    @EJFieldName("TASK_INVOICEABLE")
+    public void setTaskInvoiceable(String taskInvoiceable)
+    {
+        _taskInvoiceable = EJPojoProperty.setPropertyValue(_taskInvoiceable, taskInvoiceable);
+    }
+
+    @EJFieldName("TASK_INVOICEABLE")
+    public String getInitialTaskInvoiceable()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_taskInvoiceable);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
@@ -306,12 +440,21 @@ public class Project
         EJPojoProperty.clearInitialValue(_endDate);
         EJPojoProperty.clearInitialValue(_status);
         EJPojoProperty.clearInitialValue(_notes);
-        EJPojoProperty.clearInitialValue(_fixPrice);
+ 
         EJPojoProperty.clearInitialValue(_invoiceable);
+        EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_ccyId);
         EJPojoProperty.clearInitialValue(_ccyCode);
+
+        EJPojoProperty.clearInitialValue(_taskCprId);
+        EJPojoProperty.clearInitialValue(_taskNotes);
+        EJPojoProperty.clearInitialValue(_taskName);
+        EJPojoProperty.clearInitialValue(_taskPayRate);
+        EJPojoProperty.clearInitialValue(_taskUserId);
         EJPojoProperty.clearInitialValue(_vatId);
-        EJPojoProperty.clearInitialValue(_vatRate);
+        EJPojoProperty.clearInitialValue(_taskFixPrice);
+        EJPojoProperty.clearInitialValue(_taskStatus);
+        EJPojoProperty.clearInitialValue(_taskInvoiceable);
     }
 
 }

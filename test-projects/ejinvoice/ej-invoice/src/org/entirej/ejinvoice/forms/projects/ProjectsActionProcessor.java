@@ -1,85 +1,273 @@
 package org.entirej.ejinvoice.forms.projects;
 
-import org.entirej.ejinvoice.DefaultFormActionProcessor;
-import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
-import org.entirej.ejinvoice.forms.constants.F_PROJECT;
+import java.math.BigDecimal;
+
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.EJScreenItem;
+import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
+import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
+import org.entirej.framework.core.enumerations.EJMessageLevel;
+import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
-import org.entirej.framework.core.service.EJQueryCriteria;
-import org.entirej.framework.core.service.EJRestrictions;
 
-public class ProjectsActionProcessor extends DefaultFormActionProcessor
+public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implements EJFormActionProcessor
 {
+    private boolean timeEntryInserted = false;
+    
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.getBlock(F_PROJECT.B_PROJECTS.ID).executeQuery();
-    }
-
-    @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
-    {
-
-        if (F_PROJECT.AC_TOOLBAR_NEW.equals(command))
-        {
-            form.getBlock(F_PROJECT.B_PROJECTS.ID).enterInsert(false);
-            return;
-        }
-        if (F_PROJECT.AC_TOOLBAR_EDIT.equals(command))
-        {
-            form.getBlock(F_PROJECT.B_PROJECTS.ID).enterUpdate();
-            return;
-        }
-        if (F_PROJECT.AC_TOOLBAR_DELETE.equals(command) && form.getBlock(F_PROJECT.B_PROJECTS.ID).getFocusedRecord() != null)
-        {
-            // before deleting the selected record from database validation and
-            // check if the record to be deleted has any FK constraints usage
-            // with other table data and if so throw an exception and block
-            // physical delete
-            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_PROJECT.B_PROJECTS.ID).getFocusedRecord(), "PROJECT_INFOMATION");
-            form.getBlock(F_PROJECT.B_PROJECTS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this project?");
-            return;
-        }
-        if (F_PROJECT.AC_TOOLBAR_HOME.equals(command))
-        {
-            form.openForm(F_TIME_ENTRY.ID);
-            return;
-        }
-    }
-
-    @Override
-    public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        super.postDelete(form, record);
-        form.saveChanges();
-    }
-    
-    @Override
-    public void preQuery(EJForm form, EJQueryCriteria queryCriteria) throws EJActionProcessorException
-    {
-        if (F_PROJECT.B_PROJECTS.ID.equals(queryCriteria.getBlockName()))
-        {
-            EJBlock filterBlock = form.getBlock(F_PROJECT.B_PROJECT_TOOL_BAR.ID);
-            Object customerFIlter = filterBlock.getFocusedRecord().getValue(F_PROJECT.B_PROJECT_TOOL_BAR.I_CUSTOMERID);
-            if (customerFIlter != null)
-            {
-                queryCriteria.add(EJRestrictions.equals( F_PROJECT.B_PROJECTS.I_CUSTOMER_ID, customerFIlter));
-            }
-        }
+        form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
     }
 
     @Override
     public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (record.getBlockName().equals(F_PROJECT.B_PROJECT_TOOL_BAR.ID) && F_PROJECT.B_PROJECT_TOOL_BAR.I_CUSTOMER.equals(itemName))
+
+        if (F_PROJECTS.B_PROJECTS.I_FIX_PRICE.equals(itemName) && EJScreenType.INSERT.equals(screenType))
         {
-            form.getBlock(F_PROJECT.B_PROJECTS.ID).executeQuery();
+            BigDecimal fixPrice = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE);
+            if (fixPrice == null)
+            {
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setEditable(true);
+            }
+            else
+            {
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setValue(null);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setValue(null);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setValue("Y");
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setEditable(false);
+            }
         }
     }
+    
+    @Override
+    public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
+    {
+
+        if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType)) && F_PROJECTS.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            String invoiceable = (String) record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE);
+            Integer ccyId = (Integer) record.getValue(F_PROJECTS.B_PROJECTS.I_CCY_ID);
+            Integer vat = (Integer) record.getValue(F_PROJECTS.B_PROJECTS.I_VAT_ID);
+
+            if ("Y".equals(invoiceable))
+            {
+                if (ccyId == null || vat == null)
+                {
+                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "If a project is invoiceable then a Currency and a VAT % must be entered");
+                    throw new EJActionProcessorException(message);
+                }
+            }
+
+            if (record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE).equals("Y"))
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
+            }
+
+        }
+        else if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType))
+                && F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
+        {
+            BigDecimal projectFixPrice = (BigDecimal) form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord()
+                    .getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE);
+            String taskInvoiceable = (String) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE);
+            BigDecimal taskFixPrice = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE);
+            BigDecimal taskRate = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE);
+
+            if (projectFixPrice == null)
+            {
+                if (taskInvoiceable.equals("Y") && (taskFixPrice == null && taskRate == null))
+                {
+                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Either a Fix Price or an Hourly Rate must be entered for this invoicable task");
+                    throw new EJActionProcessorException(message);
+                }
+            }
+
+            if (record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
+            }
+        }
+    }
+    
+    @Override
+    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    {
+
+        if (F_PROJECTS.AC_INVOICEABLE.equals(command) && EJScreenType.INSERT.equals(screenType))
+        {
+            if (record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE).equals("Y"))
+            {
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_FIX_PRICE).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_VAT_ID).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(true);
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE, null);
+                record.setValue(F_PROJECTS.B_PROJECTS.I_VAT_ID, null);
+                record.setValue(F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE, null);
+                record.setValue(F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE, null);
+                record.setValue(F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE, "N");
+
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_FIX_PRICE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_VAT_ID).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(false);
+            }
+        }
+        else if (F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()) && F_PROJECTS.AC_INVOICEABLE_TASK.equals(command))
+        {
+            if (record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
+            {
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE, null);
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE, null);
+
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
+            }
+        }
+        else if (F_PROJECTS.AC_PROJECT_DETAILS.equals(command))
+        {
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.DETAILS);
+            form.getBlock(F_PROJECTS.B_PROJECTS_DETAIL.ID).gainFocus();
+        }
+        else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
+        {
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.PROJECTS);
+        }
+        else if (F_PROJECTS.AC_ADD_NEW_TASK.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).enterInsert(false);
+        }
+        else if (F_PROJECTS.AC_MODIFY_PROCESS.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).enterUpdate();
+        }
+        else if (F_PROJECTS.AC_DELETE_PROJECT_TASK.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this task?");
+        }
+
+        else if (F_PROJECTS.AC_MODIFY_PROJECT.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).enterUpdate();
+        }
+        else if (F_PROJECTS.AC_CREATE_NEW_PROJECT.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).enterInsert(false);
+        }
+    }
+    
+    @Override
+    public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_PROJECTS.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            form.getBlock(F_PROJECTS.B_PROJECTS_DETAIL.ID).executeLastQuery();
+        }
+    }
+
+    @Override
+    public void postFormSave(EJForm form) throws EJActionProcessorException
+    {
+        if (timeEntryInserted)
+        {
+            timeEntryInserted = false;
+
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.DETAILS);
+            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
+
+            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE,
+                    "Before you can book time against your project you need a project task. Please enter one here before continuing.");
+
+            form.showMessage(message);
+        }
+    }
+    
+    @Override
+    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_PROJECTS.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            if (record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE).equals("Y"))
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
+            }
+        }
+        else if (F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
+        {
+            if (record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
+            }
+        }
+    }
+
+    @Override
+    public void preOpenScreen(EJBlock block, EJRecord record, EJScreenType screenType) throws EJActionProcessorException
+    {
+        if ((screenType.equals(EJScreenType.INSERT) || screenType.equals(EJScreenType.UPDATE)) && F_PROJECTS.B_PROJECT_TASKS.ID.equals(block.getName()))
+        {
+            String message = "Each invoicable task requires either an Hourly Rate or a Fixed price, If the project is already a fixed price project then no price can be set on the project tasks";
+            record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_MESSAGE_LABEL, message);
+
+            if (block.getForm().getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE) != null)
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE, "Y");
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE)
+                        .setEditable(false);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE)
+                        .setEditable(false);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
+            }
+            else
+            {
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE)
+                        .setEditable(true);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
+            }
+        }
+    }
+
+    @Override
+    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
+    {
+        if (F_PROJECTS.C_DETAILS_TAB_PAGES.OPEN_ITEMS.equals(tabPageName))
+        {
+            form.getBlock(F_PROJECTS.B_OPEN_POJECT_ITEMS.ID).executeQuery();
+        }
+    }
+    
+    
 
 }

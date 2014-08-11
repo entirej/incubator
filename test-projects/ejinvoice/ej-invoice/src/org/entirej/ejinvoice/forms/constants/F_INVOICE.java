@@ -6,16 +6,8 @@ package org.entirej.ejinvoice.forms.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class F_TEST
+public class F_INVOICE
 {
-    public static final String ID = "test";
-
-    public static class B_TEST
-    {
-        public static final String ID = "test";
-
-    }
-
-    public static final String C_TEST = "test";
+    public static final String ID = "Invoice";
 
 }
