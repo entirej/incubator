@@ -4,9 +4,6 @@ import java.sql.Date;
 
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.framework.core.EJForm;
-import org.entirej.framework.core.service.EJParameterType;
-import org.entirej.framework.core.service.EJRestrictions;
-import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
@@ -17,7 +14,7 @@ public class ProjectService
         PLANNED, RELEASED, INVOICED
     }
 
-    public void planInvoice(EJForm form, InvoicePosition position)
+    public void planInvoicePosition(EJForm form, InvoicePosition position)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
 
@@ -26,7 +23,7 @@ public class ProjectService
         EJStatementParameter cuprIdParam = new EJStatementParameter("CUPR_ID", Integer.class);
         cuprIdParam.setValue(position.getCuprId());
         EJStatementParameter cuptIdParam = new EJStatementParameter("CUPT_ID", Integer.class);
-        cuprIdParam.setValue(position.getCuptId());
+        cuptIdParam.setValue(position.getCuptId());
         EJStatementParameter userIdParam = new EJStatementParameter("USER_ID", Integer.class);
         userIdParam.setValue(position.getUserId());
         EJStatementParameter textParam = new EJStatementParameter("TEXT", String.class);
@@ -40,13 +37,18 @@ public class ProjectService
 
         executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, userIdParam, textParam, periodFromParam, periodToParam, statusParam);
 
-        EJStatementParameter invpIdParam = new EJStatementParameter(EJParameterType.IN);
-        invpIdParam.setValue(position.getId());
-
-        EJStatementCriteria criteria = new EJStatementCriteria();
-        criteria.add(EJRestrictions.between("WORK_DATE", position.getPeriodFrom(), position.getPeriodTo()));
-        criteria.add(EJRestrictions.isNull("INVP_ID"));
-
-        executor.executeUpdate(form, "CUSTOMER_PROJECT_TIMEENTRY", criteria, invpIdParam);
+//        EJStatementParameter invpIdParam = new EJStatementParameter("INVP_ID", Integer.class);
+//        invpIdParam.setValue(position.getId());
+//
+//        EJStatementCriteria criteria = new EJStatementCriteria();
+//        criteria.add(EJRestrictions.between("WORK_DATE", position.getPeriodFrom(), position.getPeriodTo()));
+//        criteria.add(EJRestrictions.isNull("INVP_ID"));
+//
+//        executor.executeUpdate(form, "CUSTOMER_PROJECT_TIMEENTRY", criteria, invpIdParam);
+    }
+    
+    public void approveInvoicePosition(EJForm form, InvoicePosition position)
+    {
+        
     }
 }

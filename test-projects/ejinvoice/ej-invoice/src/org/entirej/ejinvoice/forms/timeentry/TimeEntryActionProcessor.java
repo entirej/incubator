@@ -110,6 +110,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             timeEntryBlock.askToDeleteCurrentRecord();
             return;
         }
+        else if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
+        {
+            timeEntryBlock.enterUpdate();
+            return;
+        }
         else if (WorkWeekBlockRenderer.isWeekSelectionAction(command))
         {
 

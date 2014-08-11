@@ -123,9 +123,9 @@ public class F_PROJECTS
 
     }
 
-    public static class B_OPEN_POJECT_ITEMS
+    public static class B_OPEN_PROJECT_ITEMS
     {
-        public static final String ID                        = "OpenPojectItems";
+        public static final String ID                        = "OpenProjectItems";
         public static final String I_PROJECT_ID              = "projectId";
         public static final String I_TASK_ID                 = "taskId";
         public static final String I_PROJECT_NAME            = "projectName";
@@ -155,6 +155,22 @@ public class F_PROJECTS
         public static final String I_STATUS_LABEL = "statusLabel";
         public static final String I_STATUS       = "status";
         public static final String I_TEXT         = "text";
+
+    }
+
+    public static class B_PLANNED_PROJECT_ITEMS
+    {
+        public static final String ID                        = "PlannedProjectItems";
+        public static final String I_PROJECT_ID              = "projectId";
+        public static final String I_TASK_ID                 = "taskId";
+        public static final String I_PROJECT_NAME            = "projectName";
+        public static final String I_TASK_NAME               = "taskName";
+        public static final String I_TE_MONTH                = "teMonth";
+        public static final String I_TE_YEAR                 = "teYear";
+        public static final String I_TE_LAST_DAY             = "teLastDay";
+        public static final String I_TE_FIRST_DAY            = "teFirstDay";
+        public static final String I_WORK_HOURS              = "workHours";
+        public static final String I_CREATE_INVOICE_POSITION = "createInvoicePosition";
 
     }
 
@@ -238,13 +254,15 @@ public class F_PROJECTS
 
     public static class C_DETAILS_TAB_PAGES
     {
-        public static final String OPEN_ITEMS    = "OpenItems";
-        public static final String PROJECT_TASKS = "ProjectTasks";
+        public static final String OPEN_ITEMS            = "OpenItems";
+        public static final String PLANNED_PROJECT_ITEMS = "PlannedProjectItems";
+        public static final String PROJECT_TASKS         = "ProjectTasks";
 
     }
 
     public static final String C_OPEN_PROJECT_ITEMS         = "OpenProjectItems";
     public static final String C_OPEN_PROJECT_ITEMS_CONTROL = "OpenProjectItemsControl";
+    public static final String C_PLANNED_PROJECT_ITEMS      = "PlannedProjectItems";
     public static final String C_PROJECT_TASKS_TOOLBAR      = "ProjectTasksToolbar";
     public static final String C_PROJECT_TASKS              = "ProjectTasks";
     public static final String C_NEW_INVOICE_ITEM_POPUP     = "NewInvoiceItemPopup";
@@ -252,6 +270,7 @@ public class F_PROJECTS
 
     public static final String AC_ADD_NEW_TASK              = "ADD_NEW_TASK";
     public static final String AC_ADD_TO_INV_POS            = "ADD_TO_INV_POS";
+    public static final String AC_APPROVE_INV_POS           = "APPROVE_INV_POS";
     public static final String AC_BACK_TO_PROJECT_OVERVIEW  = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_CREATE_INVOICE_POSITION   = "CREATE_INVOICE_POSITION";
     public static final String AC_CREATE_NEW_PROJECT        = "CREATE_NEW_PROJECT";

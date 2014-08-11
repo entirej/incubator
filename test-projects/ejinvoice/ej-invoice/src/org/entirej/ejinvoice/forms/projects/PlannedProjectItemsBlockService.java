@@ -14,12 +14,12 @@ import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
-public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectItem>
+public class PlannedProjectItemsBlockService implements EJBlockService<OpenProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
     private StringBuilder             _selectStatement = new StringBuilder();
 
-    public OpenProjectItemsBlockService()
+    public PlannedProjectItemsBlockService()
     {
         _statementExecutor = new EJStatementExecutor();
         
@@ -41,7 +41,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("AND   CUPT.INVP_ID IS NULL ");
         _selectStatement.append("AND   CPR.INVP_ID  IS NULL ");
         _selectStatement.append("AND   CPR.ID       = ? ");
-        _selectStatement.append("AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO) ");
+        _selectStatement.append("AND EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO) ");
         _selectStatement.append("GROUP BY TE_MONTH, TE_YEAR ");
     }
 
@@ -73,7 +73,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             item.setTeLastDay((Date)result.getItemValue("TE_LAST_DAY"));
             item.setTeFirstDay((Date)result.getItemValue("TE_FIRST_DAY"));
             item.setWorkHours((BigDecimal)result.getItemValue("WORK_HOURS"));
-            item.setCreateInvoicePosition("Create Invoice Position");
+            item.setCreateInvoicePosition("Approve");
             
             projectItems.add(item);
         }
