@@ -1,6 +1,7 @@
 package org.entirej.ejinvoice.forms.projects;
 
-import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
@@ -8,6 +9,7 @@ import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJParameterType;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
@@ -50,11 +52,26 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     @Override
     public List<OpenProjectItem> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        ArrayList<OpenProjectItem> projecItems = new ArrayList<OpenProjectItem>();
+        
         Integer projectId = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_OPEN_POJECT_ITEMS.I_PROJECT_ID).getValue();
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
         projectIdParam.setValue(projectId);
         
-        _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam);
+        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam);
+        for (EJSelectResult result : results)
+        {
+            OpenProjectItem item = new OpenProjectItem();
+            item.setProjectId((Integer)result.getItemValue("PRJECT_ID"));
+            item.setProjectName((String)result.getItemValue("PRJECT_NAME"));
+            item.setTaskId((Integer)result.getItemValue("TASK_ID"));
+            item.setTaskName((String)result.getItemValue("TASK_NAME"));
+            item.setTeMonth((Integer)result.getItemValue("TE_MONTH"));
+            item.setTeYear((Integer)result.getItemValue("TE_YEAR"));
+            item.setTeLastDay((Date)result.getItemValue("TE_LAST_DAY"));
+            item.setTeFirstDay((Date)result.getItemValue("TE_FIRST_DAY"));
+            
+        }
         
         return _statementExecutor.executeQuery(OpenProjectItem.class, form, _selectStatement.toString(), queryCriteria);
     }
