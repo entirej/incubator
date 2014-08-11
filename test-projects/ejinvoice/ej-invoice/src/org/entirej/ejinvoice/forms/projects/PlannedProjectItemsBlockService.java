@@ -32,16 +32,19 @@ public class PlannedProjectItemsBlockService implements EJBlockService<OpenProje
         _selectStatement.append(",      LAST_DAY(CPTE.WORK_DATE)  AS TE_LAST_DAY ");
         _selectStatement.append(",      DATE(CONCAT(YEAR(CPTE.WORK_DATE), '.', MONTH(CPTE.WORK_DATE), '.01')) AS TE_FIRST_DAY ");
         _selectStatement.append(",      ((SUM(TIME_TO_SEC(TIMEDIFF(CPTE.END_TIME,CPTE.START_TIME))) / 60) / 60) WORK_HOURS  ");
+        _selectStatement.append(",      INVP.ID INVP_ID ");
         _selectStatement.append("FROM customer_project_timeentry AS CPTE ");
         _selectStatement.append(",    customer_project_tasks AS CUPT ");
         _selectStatement.append(",    customer_projects AS CPR ");
+        _selectStatement.append(",    invoice_positions AS INVP ");
         _selectStatement.append("WHERE CUPT.CPR_ID  = CPR.ID ");
         _selectStatement.append("AND   CPTE.CUPT_ID = CUPT.ID ");
         _selectStatement.append("AND   CPTE.INVP_ID IS NULL ");
         _selectStatement.append("AND   CUPT.INVP_ID IS NULL ");
         _selectStatement.append("AND   CPR.INVP_ID  IS NULL ");
         _selectStatement.append("AND   CPR.ID       = ? ");
-        _selectStatement.append("AND EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO) ");
+        _selectStatement.append("AND   CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO ");
+        _selectStatement.append("AND   INVP.STATUS = 'PLANNED' ");
         _selectStatement.append("GROUP BY TE_MONTH, TE_YEAR ");
     }
 
@@ -64,6 +67,7 @@ public class PlannedProjectItemsBlockService implements EJBlockService<OpenProje
         for (EJSelectResult result : results)
         {
             OpenProjectItem item = new OpenProjectItem();
+            item.setInvpId((Integer)result.getItemValue("INVP_ID"));
             item.setProjectId((Integer)result.getItemValue("PROJECT_ID"));
             item.setProjectName((String)result.getItemValue("PROJECT_NAME"));
             item.setTaskId((Integer)result.getItemValue("TASK_ID"));

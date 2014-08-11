@@ -120,6 +120,8 @@ public class F_PROJECTS
         public static final String I_USER_ID           = "userId";
         public static final String I_STATUS            = "status";
         public static final String I_MESSAGE_LABEL     = "messageLabel";
+        public static final String I_DELETE            = "delete";
+        public static final String I_EDIT              = "edit";
 
     }
 
@@ -149,6 +151,7 @@ public class F_PROJECTS
     public static class B_NEW_INVOICE_ITEM
     {
         public static final String ID             = "NewInvoiceItem";
+        public static final String I_DELETE       = "delete";
         public static final String I_PERIOD_LABEL = "periodLabel";
         public static final String I_PERIOD_FROM  = "periodFrom";
         public static final String I_PERIOD_TO    = "periodTo";
@@ -161,6 +164,7 @@ public class F_PROJECTS
     public static class B_PLANNED_PROJECT_ITEMS
     {
         public static final String ID                        = "PlannedProjectItems";
+        public static final String I_INVP_ID                 = "invpId";
         public static final String I_PROJECT_ID              = "projectId";
         public static final String I_TASK_ID                 = "taskId";
         public static final String I_PROJECT_NAME            = "projectName";
@@ -171,6 +175,7 @@ public class F_PROJECTS
         public static final String I_TE_FIRST_DAY            = "teFirstDay";
         public static final String I_WORK_HOURS              = "workHours";
         public static final String I_CREATE_INVOICE_POSITION = "createInvoicePosition";
+        public static final String I_DELETE                  = "delete";
 
     }
 
@@ -274,10 +279,11 @@ public class F_PROJECTS
     public static final String AC_BACK_TO_PROJECT_OVERVIEW  = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_CREATE_INVOICE_POSITION   = "CREATE_INVOICE_POSITION";
     public static final String AC_CREATE_NEW_PROJECT        = "CREATE_NEW_PROJECT";
+    public static final String AC_DELETE_PLANNED_ITEM       = "DELETE_PLANNED_ITEM";
     public static final String AC_DELETE_PROJECT_TASK       = "DELETE_PROJECT_TASK";
+    public static final String AC_EDIT_PROJECT_TASK         = "EDIT_PROJECT_TASK";
     public static final String AC_INVOICEABLE               = "INVOICEABLE";
     public static final String AC_INVOICEABLE_TASK          = "INVOICEABLE_TASK";
-    public static final String AC_MODIFY_PROCESS            = "MODIFY_PROCESS";
     public static final String AC_MODIFY_PROJECT            = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER             = "OPEN_CUSTOMER";
     public static final String AC_PROJECT_DETAILS           = "PROJECT_DETAILS";

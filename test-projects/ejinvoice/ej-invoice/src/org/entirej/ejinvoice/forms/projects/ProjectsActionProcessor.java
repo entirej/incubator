@@ -15,8 +15,10 @@ import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
 import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
+import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJPopupButton;
+import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
@@ -83,7 +85,8 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             }
 
         }
-        else if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType)) && F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
+        else if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType))
+                && F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
         {
             BigDecimal projectFixPrice = (BigDecimal) form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE);
             String taskInvoiceable = (String) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE);
@@ -168,7 +171,7 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         {
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).enterInsert(false);
         }
-        else if (F_PROJECTS.AC_MODIFY_PROCESS.equals(command))
+        else if (F_PROJECTS.AC_EDIT_PROJECT_TASK.equals(command))
         {
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).enterUpdate();
         }
@@ -187,6 +190,24 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         else if (F_PROJECTS.AC_CREATE_INVOICE_POSITION.equals(command))
         {
             form.showPopupCanvas(F_PROJECTS.C_NEW_INVOICE_ITEM_POPUP);
+        }
+        else if (F_PROJECTS.AC_DELETE_PLANNED_ITEM.equals(command))
+        {
+            EJQuestion question = new EJQuestion(form, "ASK_DELETE_PLANNED_POSITION");
+            question.setMessage(new EJMessage("Are you sure you want to remove this planned position?"));
+            question.setButtonText(EJQuestionButton.ONE, "Yes");
+            question.setButtonText(EJQuestionButton.TWO, "Cancel");
+            form.askQuestion(question);
+        }
+    }
+
+    @Override
+    public void questionAnswered(EJQuestion question) throws EJActionProcessorException
+    {
+        if (question.getName().equals("ASK_DELETE_PLANNED_POSITION") && question.getAnswer().equals(EJQuestionButton.ONE))
+        {
+            new ProjectService().deletePlannedPosition(question.getForm(), (OpenProjectItem) question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).getFocusedRecord().getBlockServicePojo());
+            question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
     }
 
@@ -209,7 +230,8 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.DETAILS);
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
 
-            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");
+            EJMessage message = new EJMessage(EJMessageLevel.MESSAGE,
+                    "Before you can book time against your project you need a project task. Please enter one here before continuing.");
 
             form.showMessage(message);
         }
@@ -276,8 +298,10 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             builder.append(new SimpleDateFormat("dd-MM-yyyy").format(openItem.getTeLastDay()));
 
             form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).clear(true);
-            form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).setValue(openItem.getTeFirstDay());
-            form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_TO).setValue(openItem.getTeLastDay());
+            form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM)
+                    .setValue(openItem.getTeFirstDay());
+            form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_TO)
+                    .setValue(openItem.getTeLastDay());
             form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_STATUS).setValue("PLANNED");
             form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_TEXT).setValue(builder.toString());
         }
@@ -291,12 +315,17 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             Integer userId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID).getValue();
             final int invpId = PKSequenceService.getPKSequence(form.getConnection());
 
-            Integer projectId = (Integer) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID);
+            Integer projectId = (Integer) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord()
+                    .getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID);
             Integer taskId = (Integer) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_TASK_ID);
-            Date periodFrom = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).getValue();
-            Date periodTo = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_TO).getValue();
-            String status = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_STATUS).getValue();
-            String text = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_TEXT).getValue();
+            Date periodFrom = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID)
+                    .getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).getValue();
+            Date periodTo = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_TO)
+                    .getValue();
+            String status = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_STATUS)
+                    .getValue();
+            String text = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_TEXT)
+                    .getValue();
 
             InvoicePosition position = new InvoicePosition();
 
@@ -316,8 +345,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         }
     }
 
-    
-    
     @Override
     public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
     {

@@ -4,6 +4,8 @@ import java.sql.Date;
 
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.service.EJRestrictions;
+import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
@@ -12,6 +14,17 @@ public class ProjectService
     public enum INVOICE_POSITION_STATUS
     {
         PLANNED, RELEASED, INVOICED
+    }
+
+    public void deletePlannedPosition(EJForm form, OpenProjectItem item)
+    {
+        EJStatementExecutor executor = new EJStatementExecutor();
+        
+        EJStatementCriteria criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("ID", item.getInvpId()));
+            
+        executor.executeDelete(form, "INVOICE_POSITIONS", criteria);
+        
     }
 
     public void planInvoicePosition(EJForm form, InvoicePosition position)
@@ -35,20 +48,13 @@ public class ProjectService
         EJStatementParameter statusParam = new EJStatementParameter("STATUS", String.class);
         statusParam.setValue(position.getStatus());
 
-        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, userIdParam, textParam, periodFromParam, periodToParam, statusParam);
+        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, userIdParam, textParam, periodFromParam,
+                periodToParam, statusParam);
 
-//        EJStatementParameter invpIdParam = new EJStatementParameter("INVP_ID", Integer.class);
-//        invpIdParam.setValue(position.getId());
-//
-//        EJStatementCriteria criteria = new EJStatementCriteria();
-//        criteria.add(EJRestrictions.between("WORK_DATE", position.getPeriodFrom(), position.getPeriodTo()));
-//        criteria.add(EJRestrictions.isNull("INVP_ID"));
-//
-//        executor.executeUpdate(form, "CUSTOMER_PROJECT_TIMEENTRY", criteria, invpIdParam);
     }
-    
+
     public void approveInvoicePosition(EJForm form, InvoicePosition position)
     {
-        
+
     }
 }
