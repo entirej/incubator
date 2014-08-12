@@ -789,6 +789,34 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                             }
                             alignment = getComponentAlignment(alignmentProperty);
 
+                            int width = -1;
+                            if (width == -1)
+                            {
+                                width = rendererProperties.getIntProperty(DISPLAY_WIDTH_PROPERTY, 0);
+                            }
+
+                            if (width > 0)
+                            {
+                                Font font = labelProvider.getFont(new Object());
+
+                                if (font == null)
+                                    font = _browser.getFont();
+                                if (font != null)
+                                {
+                                    float avgCharWidth = RWTUtils.getAvgCharWidth(font);
+                                    if (avgCharWidth > 0)
+                                    {
+                                        if (width != 1)
+                                        {
+                                            // add +1 padding
+                                            width = ((int) (((width + 1) * avgCharWidth)));
+                                        }
+                                    }
+                                }
+                                header.append(String.format(" width=%s ", width));
+
+                            }
+                            
                             String functionDef = null;
 
                             String valueVA = blockProperties.getBlockRendererProperties().getStringProperty(HEADER_VA);
@@ -1503,7 +1531,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                         }
                     }
                 }
-
+                builder.append(String.format(" width=%s ", width));
             }
             if (alignment == null)
             {
@@ -1595,7 +1623,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                         }
                     }
                 }
-
+                builder.append(String.format(" width=%s ", width));
             }
             if (alignment == null)
             {
