@@ -1,19 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
     <wb-module deploy-name="ej-invoice">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
-        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
-        <dependent-module archiveName="logback-core-1.0.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ej-invoice/extlibs/logback-core-1.0.7.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="commons-validator-1.4.0.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ej-invoice/extlibs/commons-validator-1.4.0.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="slf4j-api-1.7.3.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ej-invoice/extlibs/slf4j-api-1.7.3.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
-        <dependent-module archiveName="logback-classic-1.0.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ej-invoice/extlibs/logback-classic-1.0.7.jar">
-            <dependency-type>uses</dependency-type>
-        </dependent-module> <property name="context-root" value="ej-invoice"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/> <property name="context-root" value="ej-invoice"/>
         <property name="java-output-path" value="/ej-invoice/bin"/>
     </wb-module>
 </project-modules>

@@ -179,6 +179,20 @@ public class F_PROJECTS
 
     }
 
+    public static class B_OPEN_ITEMS
+    {
+        public static final String ID              = "OpenItems";
+        public static final String I_HEADER_NUMBER = "headerNumber";
+        public static final String I_CUSTOMER_NAME = "customerName";
+        public static final String I_CUSTOMER_ID   = "customerId";
+        public static final String I_PROJECT_ID    = "projectId";
+        public static final String I_TASK_ID       = "taskId";
+        public static final String I_PROJECT_NAME  = "projectName";
+        public static final String I_TASK_NAME     = "taskName";
+        public static final String I_DISPLAY_VALUE = "displayValue";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID      = "VatRate";
@@ -252,8 +266,18 @@ public class F_PROJECTS
 
     }
 
+    public static final String C_PROJECTS_TAB = "ProjectsTab";
+
+    public static class C_PROJECTS_TAB_PAGES
+    {
+        public static final String PROJECTS   = "projects";
+        public static final String OPEN_ITEMS = "openItems";
+
+    }
+
     public static final String C_PROJECTS_TOOLBAR = "ProjectsToolbar";
     public static final String C_PROJECTS         = "Projects";
+    public static final String C_OPEN_ITEMS       = "OpenItems";
     public static final String C_PROJECTS_DETAIL  = "ProjectsDetail";
     public static final String C_DETAILS_TAB      = "DetailsTab";
 
@@ -286,6 +310,7 @@ public class F_PROJECTS
     public static final String AC_INVOICEABLE_TASK          = "INVOICEABLE_TASK";
     public static final String AC_MODIFY_PROJECT            = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER             = "OPEN_CUSTOMER";
+    public static final String AC_OPEN_ITEM                 = "OPEN_ITEM";
     public static final String AC_PROJECT_DETAILS           = "PROJECT_DETAILS";
 
 }

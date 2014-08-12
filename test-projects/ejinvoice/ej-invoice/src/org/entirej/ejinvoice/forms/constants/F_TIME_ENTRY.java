@@ -78,21 +78,6 @@ public class F_TIME_ENTRY
 
     }
 
-    public static class B_TIME_ENTRY_PAID
-    {
-        public static final String ID                 = "TimeEntryPaid";
-        public static final String I_END_TIME         = "endTime";
-        public static final String I_ID               = "id";
-        public static final String I_START_TIME       = "startTime";
-        public static final String I_WORK_DESCRIPTION = "workDescription";
-        public static final String I_CUPT_ID          = "cuptId";
-        public static final String I_USER_ID          = "userId";
-        public static final String I_WORK_DATE        = "workDate";
-        public static final String I_HOURS            = "hours";
-        public static final String I_PROJECT          = "project";
-
-    }
-
     public static class B_CUSTOMERS_TOOLBAR
     {
         public static final String ID                    = "CustomersToolbar";
@@ -250,20 +235,10 @@ public class F_TIME_ENTRY
     }
 
     public static final String C_TIME_ENTRY_ENTRY = "TimeEntryEntry";
-    public static final String C_ENTRIES          = "Entries";
-
-    public static class C_ENTRIES_PAGES
-    {
-        public static final String UNPAID = "Unpaid";
-        public static final String PAID   = "Paid";
-
-    }
-
-    public static final String C_TIME_ENTRY      = "TimeEntry";
-    public static final String C_TIME_ENTRY_PAID = "TimeEntryPaid";
-    public static final String C_PROJECT_FORM    = "ProjectForm";
-    public static final String C_INVOICE         = "Invoice";
-    public static final String C_CUSTOMER_STACK  = "CustomerStack";
+    public static final String C_TIME_ENTRY       = "TimeEntry";
+    public static final String C_PROJECT_FORM     = "ProjectForm";
+    public static final String C_INVOICE          = "Invoice";
+    public static final String C_CUSTOMER_STACK   = "CustomerStack";
 
     public static class C_CUSTOMER_STACK_PAGES
     {
