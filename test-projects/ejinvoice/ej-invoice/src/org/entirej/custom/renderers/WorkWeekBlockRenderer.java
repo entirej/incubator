@@ -169,7 +169,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
             msg = "Are you sure you want to delete the current record?";
         }
         EJMessage message = new EJMessage(msg);
-        EJQuestion question = new EJQuestion(new EJForm(_block.getForm()), "DELETE_RECORD", "Delete", message, "Yes", "No", recordToDelete);
+        EJQuestion question = new EJQuestion(new EJForm(_block.getForm()), "DELETE_RECORD", "Delete", message, "Yes", "No");
         _block.getForm().getMessenger().askQuestion(question);
         if (EJQuestionButton.ONE == (question.getAnswer()))
         {
