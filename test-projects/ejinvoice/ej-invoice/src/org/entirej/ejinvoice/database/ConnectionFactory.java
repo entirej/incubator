@@ -42,8 +42,8 @@ public class ConnectionFactory implements EJConnectionFactory
         {
             if (dataSource == null)
             {
-                String dataSourceID = "jdbc/ejinvoice";
-//                String dataSourceID = "jdbc/ejinvoice-hosted";
+//                String dataSourceID = "jdbc/ejinvoice";
+                String dataSourceID = "jdbc/ejinvoice-hosted";
                 assert dataSourceID != null;
                 Context initContext = new InitialContext();
                 Context envContext = (Context) initContext.lookup("java:/comp/env");

@@ -160,12 +160,12 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         }
         else if (F_PROJECTS.AC_PROJECT_DETAILS.equals(command))
         {
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.DETAILS);
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.DETAILS);
             form.getBlock(F_PROJECTS.B_PROJECTS_DETAIL.ID).gainFocus();
         }
         else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
         {
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.PROJECTS);
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS);
         }
         else if (F_PROJECTS.AC_ADD_NEW_TASK.equals(command))
         {
@@ -218,8 +218,9 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
                     }
                 }
 
-                form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.DETAILS);
-                form.showTabCanvasPage(F_PROJECTS.C_DETAILS_TAB, F_PROJECTS.C_DETAILS_TAB_PAGES.OPEN_ITEMS);
+                form.showTabCanvasPage(F_PROJECTS.C_PROJECTS_TAB, F_PROJECTS.C_PROJECTS_TAB_PAGES.PROJECTS);
+                form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.DETAILS);
+                
                 form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
             }
         }
@@ -251,7 +252,7 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         {
             timeEntryInserted = false;
 
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECTS_STACK, F_PROJECTS.C_PROJECTS_STACK_PAGES.DETAILS);
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.DETAILS);
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
 
             EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");

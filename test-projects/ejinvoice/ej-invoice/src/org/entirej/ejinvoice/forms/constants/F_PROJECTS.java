@@ -257,15 +257,6 @@ public class F_PROJECTS
 
     }
 
-    public static final String C_PROJECTS_STACK = "ProjectsStack";
-
-    public static class C_PROJECTS_STACK_PAGES
-    {
-        public static final String PROJECTS = "Projects";
-        public static final String DETAILS  = "Details";
-
-    }
-
     public static final String C_PROJECTS_TAB = "ProjectsTab";
 
     public static class C_PROJECTS_TAB_PAGES
@@ -275,11 +266,17 @@ public class F_PROJECTS
 
     }
 
-    public static final String C_PROJECTS_TOOLBAR = "ProjectsToolbar";
-    public static final String C_PROJECTS         = "Projects";
-    public static final String C_OPEN_ITEMS       = "OpenItems";
-    public static final String C_PROJECTS_DETAIL  = "ProjectsDetail";
-    public static final String C_DETAILS_TAB      = "DetailsTab";
+    public static final String C_PROJECT_STACK = "projectStack";
+
+    public static class C_PROJECT_STACK_PAGES
+    {
+        public static final String DETAILS  = "details";
+        public static final String PROJECTS = "projects";
+
+    }
+
+    public static final String C_PROJECTS_DETAIL = "ProjectsDetail";
+    public static final String C_DETAILS_TAB     = "DetailsTab";
 
     public static class C_DETAILS_TAB_PAGES
     {
@@ -294,6 +291,9 @@ public class F_PROJECTS
     public static final String C_PLANNED_PROJECT_ITEMS      = "PlannedProjectItems";
     public static final String C_PROJECT_TASKS_TOOLBAR      = "ProjectTasksToolbar";
     public static final String C_PROJECT_TASKS              = "ProjectTasks";
+    public static final String C_PROJECTS_TOOLBAR           = "ProjectsToolbar";
+    public static final String C_PROJECTS                   = "Projects";
+    public static final String C_OPEN_ITEMS                 = "OpenItems";
     public static final String C_NEW_INVOICE_ITEM_POPUP     = "NewInvoiceItemPopup";
     public static final String C_NEW_INVOICE_ITEM           = "NewInvoiceItem";
 
