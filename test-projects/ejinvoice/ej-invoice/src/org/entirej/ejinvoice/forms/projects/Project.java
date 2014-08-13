@@ -15,15 +15,18 @@ public class Project
     private EJPojoProperty<Integer>    _customerId;
     private EJPojoProperty<Date>       _startDate;
     private EJPojoProperty<Date>       _endDate;
-    private EJPojoProperty<Integer>     _status;
+    private EJPojoProperty<Integer>    _status;
     private EJPojoProperty<String>     _notes;
+
+    private EJPojoProperty<Long>       _openItems;
+    private EJPojoProperty<Long>       _plannedItems;
 
     private EJPojoProperty<String>     _invoiceable;
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<Integer>    _ccyId;
     private EJPojoProperty<String>     _ccyCode;
     private EJPojoProperty<Integer>    _vatId;
-    
+
     private EJPojoProperty<Integer>    _taskCprId;
     private EJPojoProperty<String>     _taskNotes;
     private EJPojoProperty<String>     _taskName;
@@ -429,6 +432,42 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_taskInvoiceable);
     }
 
+    @EJFieldName("OPEN_ITEMS")
+    public Long getOpenItems()
+    {
+        return EJPojoProperty.getPropertyValue(_openItems);
+    }
+
+    @EJFieldName("OPEN_ITEMS")
+    public void setOpenItems(Long openItems)
+    {
+        _openItems = EJPojoProperty.setPropertyValue(_openItems, openItems);
+    }
+
+    @EJFieldName("OPEN_ITEMS")
+    public Long getInitialOpenItems()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_openItems);
+    }
+
+    @EJFieldName("PLANNED_ITEMS")
+    public Long getPlannedItems()
+    {
+        return EJPojoProperty.getPropertyValue(_plannedItems);
+    }
+
+    @EJFieldName("PLANNED_ITEMS")
+    public void setPlannedItems(Long plannedItems)
+    {
+        _plannedItems = EJPojoProperty.setPropertyValue(_plannedItems, plannedItems);
+    }
+
+    @EJFieldName("PANNED_ITEMS")
+    public Long getInitialPlannedItems()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_plannedItems);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
@@ -440,7 +479,9 @@ public class Project
         EJPojoProperty.clearInitialValue(_endDate);
         EJPojoProperty.clearInitialValue(_status);
         EJPojoProperty.clearInitialValue(_notes);
- 
+        EJPojoProperty.clearInitialValue(_openItems);
+        EJPojoProperty.clearInitialValue(_plannedItems);
+
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_ccyId);

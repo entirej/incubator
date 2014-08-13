@@ -24,8 +24,8 @@
         </relationList>
         <lovDefinitionList>
             <lovDefinition name="Customer" isReferenced="false" rendererName="Standard" allowUserQuery="false" automaticQuery="true">
-                <width>200</width>
-                <height>300</height>
+                <width>800</width>
+                <height>500</height>
                 <actionProcessorClassName></actionProcessorClassName>
                 <lovRendererProperties>
                     <property name="ROW_SELECTION" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
@@ -77,10 +77,16 @@
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
+                            <itemRendererName><![CDATA[TextItem]]></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
                             <itemRendererProperties>
+                                <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                                <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                                <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
                         <item name="name">
@@ -103,30 +109,48 @@
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
+                            <itemRendererName><![CDATA[TextItem]]></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
                             <itemRendererProperties>
+                                <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                                <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                                <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
                         <item name="town">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
+                            <itemRendererName><![CDATA[TextItem]]></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
                             <itemRendererProperties>
+                                <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                                <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                                <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
                         <item name="country">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
+                            <itemRendererName><![CDATA[TextItem]]></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
                             <itemRendererProperties>
+                                <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                                <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                                <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
                     </itemList>
@@ -167,12 +191,84 @@
                                         <validateFromLov>true</validateFromLov>
                                         <actionCommand></actionCommand>
                                         <lovRendererRequiredProperties>
-                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
                                             <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
+                                        </lovRendererRequiredProperties>
+                                    </item>
+                                    <item referencedItemName="address" isSpacerItem="false">
+                                        <label><![CDATA[Address]]></label>
+                                        <hint></hint>
+                                        <editAllowed>false</editAllowed>
+                                        <visible>true</visible>
+                                        <mandatory>false</mandatory>
+                                        <enableLovNotification>false</enableLovNotification>
+                                        <lovMappingName></lovMappingName>
+                                        <validateFromLov>true</validateFromLov>
+                                        <actionCommand></actionCommand>
+                                        <lovRendererRequiredProperties>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[50]]></property>
+                                        </lovRendererRequiredProperties>
+                                    </item>
+                                    <item referencedItemName="town" isSpacerItem="false">
+                                        <label><![CDATA[Town]]></label>
+                                        <hint></hint>
+                                        <editAllowed>false</editAllowed>
+                                        <visible>true</visible>
+                                        <mandatory>false</mandatory>
+                                        <enableLovNotification>false</enableLovNotification>
+                                        <lovMappingName></lovMappingName>
+                                        <validateFromLov>true</validateFromLov>
+                                        <actionCommand></actionCommand>
+                                        <lovRendererRequiredProperties>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
+                                        </lovRendererRequiredProperties>
+                                    </item>
+                                    <item referencedItemName="postCode" isSpacerItem="false">
+                                        <label><![CDATA[Post Code]]></label>
+                                        <hint></hint>
+                                        <editAllowed>false</editAllowed>
+                                        <visible>true</visible>
+                                        <mandatory>false</mandatory>
+                                        <enableLovNotification>false</enableLovNotification>
+                                        <lovMappingName></lovMappingName>
+                                        <validateFromLov>true</validateFromLov>
+                                        <actionCommand></actionCommand>
+                                        <lovRendererRequiredProperties>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                                        </lovRendererRequiredProperties>
+                                    </item>
+                                    <item referencedItemName="country" isSpacerItem="false">
+                                        <label><![CDATA[Country]]></label>
+                                        <hint></hint>
+                                        <editAllowed>false</editAllowed>
+                                        <visible>true</visible>
+                                        <mandatory>false</mandatory>
+                                        <enableLovNotification>false</enableLovNotification>
+                                        <lovMappingName></lovMappingName>
+                                        <validateFromLov>true</validateFromLov>
+                                        <actionCommand></actionCommand>
+                                        <lovRendererRequiredProperties>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                 </itemGroupItemList>

@@ -11,11 +11,6 @@ import org.entirej.framework.core.service.EJStatementParameter;
 
 public class ProjectService
 {
-    public enum INVOICE_POSITION_STATUS
-    {
-        PLANNED, RELEASED, INVOICED
-    }
-
     public void deletePlannedPosition(EJForm form, OpenProjectItem item)
     {
         EJStatementExecutor executor = new EJStatementExecutor();

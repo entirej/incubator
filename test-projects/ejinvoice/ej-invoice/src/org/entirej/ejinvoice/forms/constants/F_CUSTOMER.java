@@ -45,6 +45,8 @@ public class F_CUSTOMER
         public static final String I_SALUTATIONS_ID   = "salutationsId";
         public static final String I_LAST_NAME        = "lastName";
         public static final String I_MOBILE           = "mobile";
+        public static final String I_DELETE           = "delete";
+        public static final String I_EDIT             = "edit";
 
     }
 

@@ -24,6 +24,8 @@ public class F_MASTER_DATA
         public static final String I_ID          = "id";
         public static final String I_DESCRIPTION = "description";
         public static final String I_USER_ID     = "userId";
+        public static final String I_EDIT        = "edit";
+        public static final String I_DELETE      = "delete";
 
     }
 
@@ -40,6 +42,8 @@ public class F_MASTER_DATA
         public static final String I_ID            = "id";
         public static final String I_USER_ID       = "userId";
         public static final String I_PAYMENT_TERMS = "paymentTerms";
+        public static final String I_DELETE        = "delete";
+        public static final String I_EDIT          = "edit";
 
     }
 
@@ -56,6 +60,8 @@ public class F_MASTER_DATA
         public static final String I_VALUE   = "value";
         public static final String I_ID      = "id";
         public static final String I_USER_ID = "userId";
+        public static final String I_DELETE  = "delete";
+        public static final String I_EDIT    = "edit";
 
     }
 
@@ -74,6 +80,8 @@ public class F_MASTER_DATA
         public static final String I_NAME    = "name";
         public static final String I_ID      = "id";
         public static final String I_USER_ID = "userId";
+        public static final String I_DELETE  = "delete";
+        public static final String I_EDIT    = "edit";
 
     }
 
@@ -92,6 +100,8 @@ public class F_MASTER_DATA
         public static final String I_DESCRIPTION = "description";
         public static final String I_ID          = "id";
         public static final String I_USER_ID     = "userId";
+        public static final String I_DELETE      = "delete";
+        public static final String I_EDIT        = "edit";
 
     }
 
@@ -109,6 +119,8 @@ public class F_MASTER_DATA
         public static final String I_NAME    = "name";
         public static final String I_ID      = "id";
         public static final String I_USER_ID = "userId";
+        public static final String I_DELETE  = "delete";
+        public static final String I_EDIT    = "edit";
 
     }
 

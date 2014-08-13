@@ -3,7 +3,6 @@ package org.entirej.ejinvoice.forms.projects;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.PKSequenceService;
@@ -166,6 +165,7 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
         {
             form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS);
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeLastQuery();
         }
         else if (F_PROJECTS.AC_ADD_NEW_TASK.equals(command))
         {
@@ -199,30 +199,9 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             question.setButtonText(EJQuestionButton.TWO, "Cancel");
             form.askQuestion(question);
         }
-        else if (F_PROJECTS.AC_OPEN_ITEM.equals(command))
+        else if (F_PROJECTS.AC_REFRESH_PROJECT_LIST.equals(command))
         {
-            if (record.getItem(F_PROJECTS.B_OPEN_ITEMS.I_HEADER_NUMBER).equals(1))
-            {
-
-            }
-            else
-            {
-                Integer projectId = (Integer) record.getItem(F_PROJECTS.B_OPEN_ITEMS.I_PROJECT_ID).getValue();
-
-                Collection<EJRecord> blockRecords = form.getBlock(F_PROJECTS.B_PROJECTS.ID).getBlockRecords();
-                for (EJRecord rec : blockRecords)
-                {
-                    if (rec.getValue(F_PROJECTS.B_PROJECTS.I_ID).equals(projectId))
-                    {
-                        form.getBlock(F_PROJECTS.B_PROJECTS.ID).navigateToRecord(rec);
-                    }
-                }
-
-                form.showTabCanvasPage(F_PROJECTS.C_PROJECTS_TAB, F_PROJECTS.C_PROJECTS_TAB_PAGES.PROJECTS);
-                form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.DETAILS);
-                
-                form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
-            }
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
         }
     }
 
@@ -233,6 +212,7 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         {
             new ProjectService().deletePlannedPosition(question.getForm(), (OpenProjectItem) question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).getFocusedRecord().getBlockServicePojo());
             question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
+            question.getForm().getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
         }
     }
 
@@ -272,7 +252,25 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             }
             else
             {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
+                record.setValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE_IMAGE, null);
+            }
+
+            if (((Long) record.getValue(F_PROJECTS.B_PROJECTS.I_OPEN_ITEMS)).intValue() > 0)
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_OPEN_ITEMS_IMAGE, "/icons/openhours.png");
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_OPEN_ITEMS_IMAGE, null);
+            }
+
+            if (((Long)record.getValue(F_PROJECTS.B_PROJECTS.I_PLANNED_ITEMS)).intValue() > 0)
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_PLANNED_ITEMS_IMAGE, "/icons/plannedhours.png");
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_PLANNED_ITEMS_IMAGE, null);
             }
         }
         else if (F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
@@ -280,31 +278,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             if (record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
             {
                 record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
-            }
-        }
-        else if (F_PROJECTS.B_OPEN_ITEMS.ID.equals(record.getBlockName()))
-        {
-            if (record.getValue(F_PROJECTS.B_OPEN_ITEMS.I_HEADER_NUMBER).equals(-1))
-            {
-                // Do nothing as this is an empty row
-                return;
-            }
-            
-            if (record.getValue(F_PROJECTS.B_OPEN_ITEMS.I_HEADER_NUMBER).equals(1))
-            {
-                record.getItem(F_PROJECTS.B_OPEN_ITEMS.I_DISPLAY_VALUE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
-            }
-            else if (record.getValue(F_PROJECTS.B_OPEN_ITEMS.I_HEADER_NUMBER).equals(2))
-            {
-                record.getItem(F_PROJECTS.B_OPEN_ITEMS.I_DISPLAY_VALUE).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER_2);
-            }
-            else if (record.getValue(F_PROJECTS.B_OPEN_ITEMS.I_HEADER_NUMBER).equals(4))
-            {
-                record.getItem(F_PROJECTS.B_OPEN_ITEMS.I_DISPLAY_VALUE).setVisualAttribute(EJ_PROPERTIES.VA_DATA_EVEN);
-            }
-            else if (record.getValue(F_PROJECTS.B_OPEN_ITEMS.I_HEADER_NUMBER).equals(5))
-            {
-                record.getItem(F_PROJECTS.B_OPEN_ITEMS.I_DISPLAY_VALUE).setVisualAttribute(EJ_PROPERTIES.VA_DATA_ODD);
             }
         }
     }
@@ -383,24 +356,18 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             new ProjectService().planInvoicePosition(form, position);
 
             form.saveChanges();
-            form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeLastQuery();
+            form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
+            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
     }
 
     @Override
     public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
     {
-        if (F_PROJECTS.C_DETAILS_TAB_PAGES.OPEN_ITEMS.equals(tabPageName))
+        if (F_PROJECTS.C_DETAILS_TAB_PAGES.INVOICE.equals(tabPageName))
         {
             form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
-        }
-        else if (F_PROJECTS.C_DETAILS_TAB_PAGES.PLANNED_PROJECT_ITEMS.equals(tabPageName))
-        {
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
-        }
-        else if (F_PROJECTS.C_PROJECTS_TAB_PAGES.OPEN_ITEMS.equals(tabPageName))
-        {
-            form.getBlock(F_PROJECTS.B_OPEN_ITEMS.ID).executeQuery();
         }
     }
 

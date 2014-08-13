@@ -8,10 +8,10 @@
     </encoder>
   </appender>
   
-  <logger name="org.entirej" level="TRACE" />
-  <logger name="org.entirej.OracleStatementExecutor" level="TRACE" />
+  <logger name="org.entirej" level="WARNING" />
+  <logger name="org.entirej.OracleStatementExecutor" level="WARNING" />
   
-  <root level="TRACE">
+  <root level="WARNING">
     <appender-ref ref="STDOUT" />
   </root>
 
