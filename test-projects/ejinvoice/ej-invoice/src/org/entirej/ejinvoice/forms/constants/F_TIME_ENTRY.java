@@ -75,6 +75,7 @@ public class F_TIME_ENTRY
         public static final String I_WORK_DATE_ENTRY  = "workDateEntry";
         public static final String I__EDIT            = "_edit";
         public static final String I__DELETE          = "_delete";
+        public static final String I_INVP_ID          = "invpId";
 
     }
 

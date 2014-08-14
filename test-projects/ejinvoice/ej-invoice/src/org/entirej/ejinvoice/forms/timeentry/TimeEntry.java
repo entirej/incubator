@@ -16,7 +16,28 @@ public class TimeEntry
     private EJPojoProperty<Integer> _userId;
     private EJPojoProperty<Date>    _workDate;
     private EJPojoProperty<String>  _hoursWorked;
+    private EJPojoProperty<Integer>  _invpId;
+    
+    
+    @EJFieldName("INVP_ID")
+    public Integer getInvpId()
+    {
+        return EJPojoProperty.getPropertyValue(_invpId);
+    }
 
+    @EJFieldName("INVP_ID")
+    public void setInvpId(Integer invpId)
+    {
+        _invpId = EJPojoProperty.setPropertyValue(_invpId, invpId);
+    }
+
+    @EJFieldName("INVP_ID")
+    public Integer getInitialInvpId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_invpId);
+    }
+    
+    
     @EJFieldName("END_TIME")
     public Time getEndTime()
     {
@@ -181,6 +202,7 @@ public class TimeEntry
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_invpId);
         EJPojoProperty.clearInitialValue(_endTime);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_startTime);
