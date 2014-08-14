@@ -19,11 +19,13 @@ import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
+import org.omg.CORBA._PolicyStub;
 
 public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
     private StringBuilder             _selectStatement = new StringBuilder();
+    private StringBuilder             _selectPlanedStatement = new StringBuilder();
 
     public OpenProjectItemsBlockService()
     {
@@ -37,9 +39,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("      YEAR(CPTE.WORK_DATE)  AS TE_YEAR , ");
         _selectStatement.append("          CPTE.END_TIME as END_TIME,");
         _selectStatement.append("          CPTE.START_TIME as START_TIME,");
-        _selectStatement.append("      (((TIME_TO_SEC(TIMEDIFF(CPTE.END_TIME,CPTE.START_TIME))) / 60) / 60) WORK_HOURS, ");
-        _selectStatement.append("      (SELECT INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  as TE_PLANED_FROM ,");
-        _selectStatement.append("      (SELECT INVP.PERIOD_TO FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  as TE_PLANED_TO ");
+        _selectStatement.append("      (((TIME_TO_SEC(TIMEDIFF(CPTE.END_TIME,CPTE.START_TIME))) / 60) / 60) WORK_HOURS ");
         _selectStatement.append(" FROM ");
         _selectStatement.append("customer_project_timeentry as CPTE,");
         _selectStatement.append(" customer_project_tasks AS CUPT, ");
@@ -50,9 +50,12 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("   CPTE.INVP_ID IS NULL AND");
         _selectStatement.append("   CUPT.INVP_ID IS NULL AND");
         _selectStatement.append("   CPR.ID       = ?  ");
+        _selectStatement.append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
         _selectStatement.append("    ");
 
         _selectStatement.append(" order by TE_YEAR,TE_MONTH,TE_DAY");
+        
+        _selectPlanedStatement = new StringBuilder("SELECT INVP.PERIOD_TO ,INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = ? AND ? between YEAR(INVP.PERIOD_FROM) and YEAR(INVP.PERIOD_TO)  and ? between MONTH(INVP.PERIOD_FROM) and MONTH(INVP.PERIOD_TO) ORDER by PERIOD_FROM");
     }
 
     @Override
@@ -107,6 +110,13 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         for (GroupKey key : keySet)
         {
             
+            EJStatementParameter month = new EJStatementParameter(EJParameterType.IN);
+            month.setValue(key.month);
+            EJStatementParameter year = new EJStatementParameter(EJParameterType.IN);
+            year.setValue(key.year);
+            List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), projectIdParam,year,month);
+            
+            
             Map<Integer,List<EJSelectResult>> map = groupedResult.get(key);
             calendar.set(key.year, key.month-1, 1);
             int numberOfdays = calendar.getMaximum(Calendar.DAY_OF_MONTH);
@@ -116,7 +126,6 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
            DAYS: for (int i = 1; i <= numberOfdays; i++)
             {
                calendar.set(key.year, key.month-1, i);
-                List<EJSelectResult> list = map.get(i);
                 
                 
                 if(item!=null)
@@ -128,37 +137,47 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                     start = new Date( calendar.getTime().getTime());
                 }
                 
+                for (EJSelectResult result : planed)
+                {
+                    
+                    if(result.getItemValue("PERIOD_FROM")!=null && result.getItemValue("PERIOD_TO")!=null )
+                    {
+                       
+                        FT_CAL.setTime((Date)result.getItemValue("PERIOD_FROM"));
+                        int fday = FT_CAL.get(Calendar.DAY_OF_MONTH);
+                        int fMonth = FT_CAL.get(Calendar.MONTH)+1;
+                        FT_CAL.setTime((Date)result.getItemValue("PERIOD_TO"));
+                        int tday = FT_CAL.get(Calendar.DAY_OF_MONTH);
+                        int tMonth = FT_CAL.get(Calendar.MONTH)+1;
+                        int startRange = (fMonth==key.month)? fday:1;
+                        int endRange = (tMonth==key.month)? tday:numberOfdays;
+                        if(endRange>=i && startRange<=i)
+                        {
+                        
+                            if(item!=null)
+                            {
+                                
+                                calendar.set(Calendar.DAY_OF_MONTH, (fMonth==key.month)?(fday-1):numberOfdays);
+                                item.setTeLastDay(new Date( calendar.getTime().getTime()));
+                                
+                                i = (tMonth==key.month)? tday:numberOfdays;
+                            }
+                            item=null;
+                            start = null;
+                           
+                            continue DAYS;
+                        }
+                    }
+                }
+                
+                List<EJSelectResult> list = map.get(i);
+                
                 if(list==null)
                 {
                     
                     continue;
                 }
-                for (EJSelectResult result : list)
-                {
-                    
-                    if(result.getItemValue("TE_PLANED_FROM")!=null && result.getItemValue("TE_PLANED_TO")!=null )
-                    {
-                       
-                        FT_CAL.setTime((Date)result.getItemValue("TE_PLANED_FROM"));
-                        int fday = FT_CAL.get(Calendar.DAY_OF_MONTH);
-                        int fMonth = FT_CAL.get(Calendar.MONTH)+1;
-                        FT_CAL.setTime((Date)result.getItemValue("TE_PLANED_TO"));
-                        int tday = FT_CAL.get(Calendar.DAY_OF_MONTH);
-                        int tMonth = FT_CAL.get(Calendar.MONTH)+1;
-                        if(item!=null)
-                        {
-                            
-                            calendar.set(Calendar.DAY_OF_MONTH, (fMonth==key.month)?(fday-1):numberOfdays);
-                            item.setTeLastDay(new Date( calendar.getTime().getTime()));
-                            
-                            i = (tMonth==key.month)? tday:numberOfdays;
-                        }
-                        item=null;
-                        start = null;
-                       
-                        continue DAYS;
-                    }
-                }
+               
                
                 
                
