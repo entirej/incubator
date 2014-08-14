@@ -4,9 +4,12 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJForm;
@@ -99,8 +102,9 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             list.add(result);
             
         }
-        
-        for (GroupKey key : groupedResult.keySet())
+        List<GroupKey> keySet = new ArrayList<GroupKey>(groupedResult.keySet());
+        Collections.sort(keySet);
+        for (GroupKey key : keySet)
         {
             
             Map<Integer,List<EJSelectResult>> map = groupedResult.get(key);
@@ -211,7 +215,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     }
 
     
-    private static class GroupKey
+    private static class GroupKey implements Comparable<GroupKey>
     {
        final  int month ;
         final int year;
@@ -244,6 +248,16 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             if (year != other.year)
                 return false;
             return true;
+        }
+        @Override
+        public int compareTo(GroupKey o)
+        {
+            int i = Integer.compare(year, o.year);
+           if(i==0)
+           {
+                i = Integer.compare(month, o.month);
+           }
+            return i;
         }
        
         
