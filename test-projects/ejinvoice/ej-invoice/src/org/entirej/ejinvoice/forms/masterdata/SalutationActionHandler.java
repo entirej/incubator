@@ -40,7 +40,7 @@ public class SalutationActionHandler extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).executeQuery();
+//        form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).executeQuery();
     }
 
     @Override

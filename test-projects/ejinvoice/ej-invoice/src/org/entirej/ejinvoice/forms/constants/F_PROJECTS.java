@@ -181,11 +181,13 @@ public class F_PROJECTS
         public static final String I_TASK_NAME               = "taskName";
         public static final String I_TE_MONTH                = "teMonth";
         public static final String I_TE_YEAR                 = "teYear";
-        public static final String I_TE_LAST_DAY             = "teLastDay";
-        public static final String I_TE_FIRST_DAY            = "teFirstDay";
+        public static final String I_PERIOD_TO               = "periodTo";
+        public static final String I_PERIOD_FROM             = "periodFrom";
         public static final String I_WORK_HOURS              = "workHours";
         public static final String I_CREATE_INVOICE_POSITION = "createInvoicePosition";
         public static final String I_DELETE                  = "delete";
+        public static final String I_INVP_TEXT               = "invpText";
+        public static final String I_EDIT                    = "edit";
 
     }
 
@@ -267,8 +269,9 @@ public class F_PROJECTS
 
     public static class C_DETAILS_TAB_PAGES
     {
-        public static final String INVOICE       = "Invoice";
-        public static final String PROJECT_TASKS = "ProjectTasks";
+        public static final String INVOICE_PLANNING = "InvoicePlanning";
+        public static final String INVOICE_CREATION = "InvoiceCreation";
+        public static final String PROJECT_TASKS    = "ProjectTasks";
 
     }
 
@@ -290,6 +293,7 @@ public class F_PROJECTS
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_DELETE_PLANNED_ITEM      = "DELETE_PLANNED_ITEM";
     public static final String AC_DELETE_PROJECT_TASK      = "DELETE_PROJECT_TASK";
+    public static final String AC_EDIT_PLANNED_ITEM        = "EDIT_PLANNED_ITEM";
     public static final String AC_EDIT_PROJECT_TASK        = "EDIT_PROJECT_TASK";
     public static final String AC_INVOICEABLE              = "INVOICEABLE";
     public static final String AC_INVOICEABLE_TASK         = "INVOICEABLE_TASK";

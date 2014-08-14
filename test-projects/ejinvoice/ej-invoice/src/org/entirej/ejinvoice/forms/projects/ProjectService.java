@@ -11,7 +11,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 
 public class ProjectService
 {
-    public void deletePlannedPosition(EJForm form, OpenProjectItem item)
+    public void deletePlannedPosition(EJForm form, PlannedProjectItem item)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
         
@@ -42,9 +42,13 @@ public class ProjectService
         periodToParam.setValue(position.getPeriodTo());
         EJStatementParameter statusParam = new EJStatementParameter("STATUS", String.class);
         statusParam.setValue(position.getStatus());
+        EJStatementParameter projectNameParam = new EJStatementParameter("PROJECT_NAME", String.class);
+        statusParam.setValue(position.getProjectName());
+        EJStatementParameter taskNameParam = new EJStatementParameter("TASK_NAME", String.class);
+        statusParam.setValue(position.getTaskName());
 
         executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, userIdParam, textParam, periodFromParam,
-                periodToParam, statusParam);
+                periodToParam, statusParam, projectNameParam, taskNameParam);
 
     }
 

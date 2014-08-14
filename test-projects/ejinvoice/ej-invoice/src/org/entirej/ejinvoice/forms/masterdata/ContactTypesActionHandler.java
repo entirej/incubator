@@ -45,7 +45,7 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
+//        form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
     }
 
     @Override

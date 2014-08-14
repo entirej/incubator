@@ -9,7 +9,6 @@ import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
-import org.entirej.ejinvoice.forms.constants.F_INVOICE;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
@@ -50,7 +49,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 .setValue(getDiffMinutesString(timestamp.getTime(), timestamp.getTime()));
 
         form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
-        form.openEmbeddedForm(F_INVOICE.ID, F_TIME_ENTRY.C_INVOICE, null);
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
     }
 
@@ -123,6 +121,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
         {
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID).refreshItemRenderer();
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID).refreshItemRenderer();
             timeEntryBlock.enterUpdate();
             return;
         }
@@ -147,6 +147,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_CREATE_NEW_CUSTOMER.equals(command))
         {
+            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_CUSTOMERS.I_SALUTATIONS_ID).refreshItemRenderer();
+            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
             form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterInsert(false);
         }
         else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
@@ -263,6 +265,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             {
                 form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
                 form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+            }
+            else if (F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS.equals(tabPageName))
+            {
+                EJForm projectForm = form.getEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM);
+                projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
             }
         }
     }

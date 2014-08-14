@@ -29,7 +29,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
     }
 
     @Override
@@ -161,6 +160,9 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         {
             form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.DETAILS);
             form.getBlock(F_PROJECTS.B_PROJECTS_DETAIL.ID).gainFocus();
+            form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
+            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
+            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
         }
         else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
         {
@@ -185,6 +187,11 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         }
         else if (F_PROJECTS.AC_CREATE_NEW_PROJECT.equals(command))
         {
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_STATUS).refreshItemRenderer();
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_STATUS).refreshItemRenderer();
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_VAT_ID).refreshItemRenderer();
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_CCY_ID).refreshItemRenderer();
+            
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).enterInsert(false);
         }
         else if (F_PROJECTS.AC_CREATE_INVOICE_POSITION.equals(command))
@@ -199,6 +206,10 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             question.setButtonText(EJQuestionButton.TWO, "Cancel");
             form.askQuestion(question);
         }
+        else if (F_PROJECTS.AC_EDIT_PLANNED_ITEM.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).enterUpdate();
+        }
         else if (F_PROJECTS.AC_REFRESH_PROJECT_LIST.equals(command))
         {
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
@@ -210,7 +221,7 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
     {
         if (question.getName().equals("ASK_DELETE_PLANNED_POSITION") && question.getAnswer().equals(EJQuestionButton.ONE))
         {
-            new ProjectService().deletePlannedPosition(question.getForm(), (OpenProjectItem) question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).getFocusedRecord().getBlockServicePojo());
+            new ProjectService().deletePlannedPosition(question.getForm(), (PlannedProjectItem) question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).getFocusedRecord().getBlockServicePojo());
             question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
             question.getForm().getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
         }
@@ -361,14 +372,14 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         }
     }
 
-    @Override
-    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
-    {
-        if (F_PROJECTS.C_DETAILS_TAB_PAGES.INVOICE.equals(tabPageName))
-        {
-            form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
-            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
-        }
-    }
+//    @Override
+//    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
+//    {
+//        if (F_PROJECTS.C_DETAILS_TAB_PAGES.INVOICE_PLANNING.equals(tabPageName))
+//        {
+//            form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
+//            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
+//        }
+//    }
 
 }

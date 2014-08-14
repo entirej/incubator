@@ -31,6 +31,59 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _projectStatusActionHandler.newFormInstance(form);
         _currencyActionHandler.newFormInstance(form);
     }
+    
+    @Override
+    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
+    {
+        if (F_MASTER_DATA.C_MAIN_TAB_PAGES.CONTACT__TYPES.equals(tabPageName))
+        {
+            if (form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getBlockRecords().size() <= 0)
+            {
+                form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
+            }
+        }
+        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.CURRENCIES.equals(tabPageName))
+        {
+            if (form.getBlock(F_MASTER_DATA.B_CURRENCIES.ID).getBlockRecords().size() <= 0)
+            {
+                form.getBlock(F_MASTER_DATA.B_CURRENCIES.ID).executeQuery();
+            }
+        }
+        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.PAYMENT_TERMS.equals(tabPageName))
+        {
+            if (form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getBlockRecords().size() <= 0)
+            {
+                form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).executeQuery();
+            }
+        }
+        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.PROJECT_STATUS.equals(tabPageName))
+        {
+            if (form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).getBlockRecords().size() <= 0)
+            {
+                form.getBlock(F_MASTER_DATA.B_PROJECT_STATUS.ID).executeQuery();
+            }
+        }
+        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.SALUTATION.equals(tabPageName))
+        {
+            if (form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).getBlockRecords().size() <= 0)
+            {
+                form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).executeQuery();
+            }
+        }
+        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.TASK_STATUS.equals(tabPageName))
+        {
+        }
+        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.VAT_RATES.equals(tabPageName))
+        {
+            if (form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getBlockRecords().size() <= 0)
+            {
+                form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).executeQuery();
+            }            
+        }
+    }
+
+
+
 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException

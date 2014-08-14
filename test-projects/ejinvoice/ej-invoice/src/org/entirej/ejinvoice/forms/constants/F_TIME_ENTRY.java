@@ -227,18 +227,16 @@ public class F_TIME_ENTRY
 
     public static class C_MAIN_PAGES
     {
-        public static final String TIME__ENTRY      = "Time Entry";
-        public static final String PROJECTS         = "Projects";
-        public static final String INVOICE_OVERVIEW = "InvoiceOverview";
-        public static final String CUSTOMERS        = "Customers";
-        public static final String MASTER__DATA     = "Master Data";
+        public static final String TIME__ENTRY  = "Time Entry";
+        public static final String PROJECTS     = "Projects";
+        public static final String CUSTOMERS    = "Customers";
+        public static final String MASTER__DATA = "Master Data";
 
     }
 
     public static final String C_TIME_ENTRY_ENTRY = "TimeEntryEntry";
     public static final String C_TIME_ENTRY       = "TimeEntry";
     public static final String C_PROJECT_FORM     = "ProjectForm";
-    public static final String C_INVOICE          = "Invoice";
     public static final String C_CUSTOMER_STACK   = "CustomerStack";
 
     public static class C_CUSTOMER_STACK_PAGES

@@ -42,7 +42,7 @@ public class VatRatesActionHandler extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).executeQuery();
+//        form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).executeQuery();
     }
 
     @Override
