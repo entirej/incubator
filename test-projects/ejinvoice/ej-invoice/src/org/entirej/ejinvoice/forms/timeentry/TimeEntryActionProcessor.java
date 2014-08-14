@@ -297,6 +297,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, str.toString());
         }
+        if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
+        {
+            if (record.getValue(F_TIME_ENTRY.B_TIME_ENTRY.I_INVP_ID) == null)
+            {
+                record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__EDIT, "/icons/edit10.gif");
+                record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__DELETE, "/icons/delete10.png");
+            }
+        }
     }
 
     @Override

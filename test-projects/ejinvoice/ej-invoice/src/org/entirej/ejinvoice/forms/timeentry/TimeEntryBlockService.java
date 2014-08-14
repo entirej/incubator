@@ -21,7 +21,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUPT_ID,END_TIME,ID,START_TIME,USER_ID,WORK_DATE,WORK_DESCRIPTION, (SELECT CPR_ID FROM CUSTOMER_PROJECT_TASKS WHERE ID = CUPT_ID) CUPR_ID FROM customer_project_timeentry";
+    private String                    _selectStatement = "SELECT INVP_ID, CUPT_ID,END_TIME,ID,START_TIME,USER_ID,WORK_DATE,WORK_DESCRIPTION, (SELECT CPR_ID FROM CUSTOMER_PROJECT_TASKS WHERE ID = CUPT_ID) CUPR_ID FROM customer_project_timeentry";
 
     public TimeEntryBlockService()
     {
