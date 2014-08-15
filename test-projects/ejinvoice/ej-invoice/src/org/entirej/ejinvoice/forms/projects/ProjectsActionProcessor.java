@@ -109,6 +109,15 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
                 record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
             }
         }
+        else if (F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID.equals(record.getBlockName()) && EJRecordType.UPDATE.equals(recordType))
+        {
+            Integer projectId = (Integer)record.getValue(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_PROJECT_ID);
+            Integer invpId = (Integer)record.getValue(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_INVP_ID);
+            Date periodFrom = (Date)record.getValue(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_PERIOD_FROM);
+            Date periodTo = (Date)record.getValue(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_PERIOD_TO);
+            
+            ProjectService.validateInvoicePeriod(form, projectId, invpId, periodFrom, periodTo);
+        }
     }
 
     @Override
@@ -213,6 +222,14 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         else if (F_PROJECTS.AC_REFRESH_PROJECT_LIST.equals(command))
         {
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
+        }
+        else if (F_PROJECTS.AC_APPROVE_INV_POS.equals(command))
+        {
+            PlannedProjectItem projectItem = (PlannedProjectItem)record.getBlockServicePojo();
+            
+            ProjectService.approveInvoicePosition(form, projectItem);
+            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
+            
         }
     }
 
@@ -338,6 +355,9 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         }
     }
 
+    
+    
+    
     @Override
     public void popupCanvasClosing(EJForm form, String popupCanvasName, EJPopupButton button) throws EJActionProcessorException
     {
@@ -347,12 +367,16 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             final int invpId = PKSequenceService.getPKSequence(form.getConnection());
 
             Integer projectId = (Integer) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID);
+            String projectName = (String) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_NAME);
             Integer taskId = (Integer) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_TASK_ID);
+            String taskName = (String) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_TASK_NAME);
             Date periodFrom = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).getValue();
             Date periodTo = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_TO).getValue();
             String status = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_STATUS).getValue();
             String text = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_TEXT).getValue();
 
+            ProjectService.validateInvoicePeriod(form, projectId, periodFrom, periodTo);
+            
             InvoicePosition position = new InvoicePosition();
 
             position.setCuprId(projectId);
@@ -363,23 +387,14 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             position.setPeriodTo(periodTo);
             position.setStatus(status);
             position.setText(text);
+            position.setProjectName(projectName);
+            position.setTaskName(taskName);
 
-            new ProjectService().planInvoicePosition(form, position);
+            ProjectService.planInvoicePosition(form, position);
 
             form.saveChanges();
             form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
     }
-
-//    @Override
-//    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
-//    {
-//        if (F_PROJECTS.C_DETAILS_TAB_PAGES.INVOICE_PLANNING.equals(tabPageName))
-//        {
-//            form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
-//            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
-//        }
-//    }
-
 }
