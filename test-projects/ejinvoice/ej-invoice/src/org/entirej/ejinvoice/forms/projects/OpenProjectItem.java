@@ -8,7 +8,7 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class OpenProjectItem
 {
-    private EJPojoProperty<Integer>    _invpId; 
+    private EJPojoProperty<Integer>    _invpId;
     private EJPojoProperty<Integer>    _projectId;
     private EJPojoProperty<Integer>    _taskId;
     private EJPojoProperty<String>     _projectName;
@@ -18,6 +18,9 @@ public class OpenProjectItem
     private EJPojoProperty<Date>       _teLastDay;
     private EJPojoProperty<Date>       _teFirstDay;
     private EJPojoProperty<BigDecimal> _workHours;
+    private EJPojoProperty<BigDecimal> _payRate;
+    private EJPojoProperty<Integer>    _vatId;
+    private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<String>     _createInvoicePosition;
 
     @EJFieldName("INVP_ID")
@@ -37,7 +40,7 @@ public class OpenProjectItem
     {
         return EJPojoProperty.getPropertyInitialValue(_invpId);
     }
-    
+
     @EJFieldName("PROJECT_ID")
     public Integer getProjectId()
     {
@@ -182,7 +185,7 @@ public class OpenProjectItem
         return EJPojoProperty.getPropertyInitialValue(_teFirstDay);
     }
 
-    @EJFieldName("WORK_HORS")
+    @EJFieldName("WORK_HOURS")
     public BigDecimal getWorkHours()
     {
         return EJPojoProperty.getPropertyValue(_workHours);
@@ -198,6 +201,60 @@ public class OpenProjectItem
     public BigDecimal getInitialWorkHours()
     {
         return EJPojoProperty.getPropertyInitialValue(_workHours);
+    }
+
+    @EJFieldName("PAY_RATE")
+    public BigDecimal getPayRate()
+    {
+        return EJPojoProperty.getPropertyValue(_payRate);
+    }
+
+    @EJFieldName("PAY_RATE")
+    public void setPayRate(BigDecimal payRate)
+    {
+        _payRate = EJPojoProperty.setPropertyValue(_payRate, payRate);
+    }
+
+    @EJFieldName("PAY_RATE")
+    public BigDecimal getInitialPayRate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_payRate);
+    }
+
+    @EJFieldName("VAT_RATE")
+    public BigDecimal getVatRate()
+    {
+        return EJPojoProperty.getPropertyValue(_vatRate);
+    }
+
+    @EJFieldName("VAT_RATE")
+    public void setVatRate(BigDecimal vatRate)
+    {
+        _vatRate = EJPojoProperty.setPropertyValue(_vatRate, vatRate);
+    }
+
+    @EJFieldName("VAT_RATE")
+    public BigDecimal getInitialVatRate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_vatRate);
+    }
+
+    @EJFieldName("VAT_ID")
+    public Integer getVatId()
+    {
+        return EJPojoProperty.getPropertyValue(_vatId);
+    }
+
+    @EJFieldName("VAT_ID")
+    public void setVatId(Integer vatId)
+    {
+        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
+    }
+
+    @EJFieldName("VAT_ID")
+    public Integer getInitialVatId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
 
     @EJFieldName("CREATE_INVOICE_POSITION")
@@ -221,6 +278,7 @@ public class OpenProjectItem
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_invpId);
+        EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_projectId);
         EJPojoProperty.clearInitialValue(_taskId);
         EJPojoProperty.clearInitialValue(_projectName);
@@ -231,6 +289,8 @@ public class OpenProjectItem
         EJPojoProperty.clearInitialValue(_teLastDay);
         EJPojoProperty.clearInitialValue(_workHours);
         EJPojoProperty.clearInitialValue(_createInvoicePosition);
+        EJPojoProperty.clearInitialValue(_vatId);
+        EJPojoProperty.clearInitialValue(_vatRate);
     }
 
 }

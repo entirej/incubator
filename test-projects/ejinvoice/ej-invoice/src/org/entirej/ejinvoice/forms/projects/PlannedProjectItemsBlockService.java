@@ -26,31 +26,24 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
     {
         _statementExecutor = new EJStatementExecutor();
         
-        _selectStatement.append("SELECT  CPR.NAME AS PROJECT_NAME ");
-        _selectStatement.append(",       CUPT.ID AS TASK_ID ");
-        _selectStatement.append(",       CUPT.CPR_ID AS PROJECT_ID ");
-        _selectStatement.append(",       CUPT.NAME AS TASK_NAME ");
-        _selectStatement.append(",       INVP.TEXT AS INVP_TEXT ");
-        _selectStatement.append(",       MONTH(CPTE.WORK_DATE) AS TE_MONTH ");
-        _selectStatement.append(",      YEAR(CPTE.WORK_DATE)  AS TE_YEAR ");
-        _selectStatement.append(",      INVP.PERIOD_TO  AS PERIOD_TO");
-        _selectStatement.append(",      INVP.PERIOD_FROM AS PERIOD_FROM ");
-        _selectStatement.append(",      ((SUM(TIME_TO_SEC(TIMEDIFF(CPTE.END_TIME,CPTE.START_TIME))) / 60) / 60) WORK_HOURS  ");
-        _selectStatement.append(",      INVP.ID INVP_ID ");
-        _selectStatement.append("FROM customer_project_timeentry AS CPTE ");
-        _selectStatement.append(",    customer_project_tasks AS CUPT ");
-        _selectStatement.append(",    customer_projects AS CPR ");
-        _selectStatement.append(",    invoice_positions AS INVP ");
-        _selectStatement.append("WHERE CUPT.CPR_ID  = CPR.ID ");
-        _selectStatement.append("AND   CPTE.CUPT_ID = CUPT.ID ");
-        _selectStatement.append("AND   CPTE.INVP_ID IS NULL ");
-        _selectStatement.append("AND   CUPT.INVP_ID IS NULL ");
-        _selectStatement.append("AND   CPR.INVP_ID  IS NULL ");
-        _selectStatement.append("AND   CPR.ID       = ? ");
-        _selectStatement.append("AND   CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO ");
-        _selectStatement.append("AND   INVP.STATUS = 'PLANNED' ");
-        _selectStatement.append("AND   INVP.CUPR_ID = CPR.ID ");
-        _selectStatement.append("GROUP BY TE_MONTH, TE_YEAR ");
+        _selectStatement.append("select invp.project_name AS PROJECT_NAME");
+        _selectStatement.append(",      invp.id   as INVP_ID ");
+        _selectStatement.append(",      invp.cupt_id   as TASK_ID ");
+        _selectStatement.append(",      invp.cupr_id     as PROJECT_ID ");
+        _selectStatement.append(",      invp.task_name AS TASK_NAME ");
+        _selectStatement.append(",      invp.text AS INVP_TEXT");
+        _selectStatement.append(",      invp.period_from AS PERIOD_FROM");
+        _selectStatement.append(",      invp.period_to AS PERIOD_TO");
+        _selectStatement.append(",     (select vat_id from customer_projects where id = invp.cupr_id) AS VAT_ID");
+        _selectStatement.append(",     (select pay_rate from customer_project_tasks where id = invp.cupt_id) AS PAY_RATE");
+        _selectStatement.append(",     (select (SUM(TIME_TO_SEC(TIMEDIFF(cpte.end_time, cpte.start_time))) / 60) / 60 ");
+        _selectStatement.append("       from  customer_project_timeentry cpte "); 
+        _selectStatement.append("       where cpte.work_date between invp.period_from and invp.period_to ");
+        _selectStatement.append("       and   cpte.cupt_id = invp.cupt_id) AS WORK_HOURS ");
+        _selectStatement.append("from invoice_positions invp ");
+        _selectStatement.append("where invp.status = 'PLANNED' ");
+        _selectStatement.append("and   invp.cupr_id = ? ");
+        _selectStatement.append("order by invp.period_from ");
     }
 
     @Override
@@ -78,11 +71,11 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
             item.setProjectName((String)result.getItemValue("PROJECT_NAME"));
             item.setTaskId((Integer)result.getItemValue("TASK_ID"));
             item.setTaskName((String)result.getItemValue("TASK_NAME"));
-            item.setTeMonth((Integer)result.getItemValue("TE_MONTH"));
-            item.setTeYear((Integer)result.getItemValue("TE_YEAR"));
             item.setPeriodFrom((Date)result.getItemValue("PERIOD_FROM"));
             item.setPeriodTo((Date)result.getItemValue("PERIOD_TO"));
             item.setWorkHours((BigDecimal)result.getItemValue("WORK_HOURS"));
+            item.setPayRate((BigDecimal)result.getItemValue("PAY_RATE"));
+            item.setVatId((Integer)result.getItemValue("VAT_ID"));
             item.setCreateInvoicePosition("Approve");
             
             projectItems.add(item);

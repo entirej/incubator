@@ -1,12 +1,13 @@
 package org.entirej.ejinvoice.forms.projects;
 
+import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.util.List;
 
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
-import org.entirej.framework.core.EJManagedFrameworkConnection;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.service.EJParameterType;
@@ -48,7 +49,7 @@ public class ProjectService
         {
             selectStmt.append("and id != ? ");
             EJStatementParameter invpIdParam = new EJStatementParameter(EJParameterType.IN);
-            periodToParam.setValue(invpId);
+            invpIdParam.setValue(invpId);
 
             results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam, invpIdParam);
         }
@@ -56,12 +57,14 @@ public class ProjectService
         {
             results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam);
         }
-        
+
         if (results.size() > 0)
         {
+
             EJSelectResult result = results.get(0);
-            Date periodFromResult = (Date) result.getItemValue("PERIOD_FROM");
-            Date periodToResult = (Date) result.getItemValue("PERIOD_TO");
+
+            String periodFromResult = DateFormat.getDateInstance(DateFormat.LONG, form.getCurrentLocale()).format(result.getItemValue("PERIOD_FROM"));
+            String periodToResult = DateFormat.getDateInstance(DateFormat.LONG, form.getCurrentLocale()).format(result.getItemValue("PERIOD_TO"));
 
             EJMessage message = new EJMessage(EJMessageLevel.ERROR, "This period overlaps with another period rangig from: " + periodFromResult + " : " + periodToResult + ". Please change your invoice period accordingly.");
             throw new EJApplicationException(message);
@@ -80,6 +83,28 @@ public class ProjectService
 
     }
 
+    public void deleteApprovedPosition(EJForm form, ApprovedProjectItem item)
+    {
+        EJStatementExecutor executor = new EJStatementExecutor();
+
+        EJStatementCriteria criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("INVP_ID", item.getId()));
+        
+        EJStatementParameter invpIdParam = new EJStatementParameter("INVP_ID", Integer.class);
+        invpIdParam.setValue(null);
+
+        executor.executeUpdate(form, "CUSTOMER_PROJECT_TIMEENTRY", criteria, invpIdParam);
+
+        
+        criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("ID", item.getId()));
+        
+        EJStatementParameter statusParam = new EJStatementParameter("STATUS", Integer.class);
+        statusParam.setValue("PLANNED");
+        
+        executor.executeUpdate(form, "INVOICE_POSITIONS", criteria, statusParam);
+    }
+    
     public static void planInvoicePosition(EJForm form, InvoicePosition position)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
@@ -104,48 +129,46 @@ public class ProjectService
         projectNameParam.setValue(position.getProjectName());
         EJStatementParameter taskNameParam = new EJStatementParameter("TASK_NAME", String.class);
         taskNameParam.setValue(position.getTaskName());
-
+        
         executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, userIdParam, textParam, periodFromParam, periodToParam, statusParam, projectNameParam, taskNameParam);
 
     }
 
-    public static void approveInvoicePosition(EJForm form, PlannedProjectItem position)
+    public void approveInvoicePosition(EJForm form, PlannedProjectItem position)
     {
-        EJManagedFrameworkConnection con = form.getConnection();
-        try
-        {
-            EJStatementExecutor executor = new EJStatementExecutor();
 
-            // First update the custoemr_project_timeentry table so that all
-            // entries have an invp_id
-            EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals("CUPT_ID", position.getTaskId()));
-            criteria.add(EJRestrictions.between("WORK_DATE", position.getPeriodFrom(), position.getPeriodTo()));
+        EJStatementExecutor executor = new EJStatementExecutor();
 
-            EJStatementParameter idParam = new EJStatementParameter("INVP_ID", Integer.class);
-            idParam.setValue(position.getInvpId());
+        // First update the custoemr_project_timeentry table so that all
+        // entries have an invp_id
+        EJStatementCriteria criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("CUPT_ID", position.getTaskId()));
+        criteria.add(EJRestrictions.between("WORK_DATE", position.getPeriodFrom(), position.getPeriodTo()));
 
-            executor.executeUpdate(con, "customer_project_timeentry", criteria, idParam);
+        EJStatementParameter idParam = new EJStatementParameter("INVP_ID", Integer.class);
+        idParam.setValue(position.getInvpId());
 
-            // Now set the invoice positon status to APPRVED
-            criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals("ID", position.getInvpId()));
+        executor.executeUpdate(form, "customer_project_timeentry", criteria, idParam);
 
-            EJStatementParameter statusParam = new EJStatementParameter("STATUS", String.class);
-            statusParam.setValue("APPROVED");
+        // Now set the invoice positon status to APPRVED
+        criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("ID", position.getInvpId()));
 
-            executor.executeUpdate(con, "invoice_positions", criteria, statusParam);
+        EJStatementParameter statusParam = new EJStatementParameter("STATUS", String.class);
+        statusParam.setValue("APPROVED");
 
-            con.commit();
-        }
-        catch (Exception e)
-        {
-            con.rollback();
-        }
-        finally
-        {
-            con.close();
-        }
-
+        EJStatementParameter hoursParam = new EJStatementParameter("HOURS_WORKED", BigDecimal.class);
+        hoursParam.setValue(position.getWorkHours());
+        
+        EJStatementParameter payRateParam = new EJStatementParameter("PAY_RATE", BigDecimal.class);
+        payRateParam.setValue(position.getPayRate());
+        
+        EJStatementParameter vatIdParam = new EJStatementParameter("VAT_ID", Integer.class);
+        vatIdParam.setValue(position.getVatId());
+        
+        EJStatementParameter amountParam = new EJStatementParameter("AMOUNT", BigDecimal.class);
+        amountParam.setValue(position.getWorkHours().multiply(position.getPayRate()));
+        
+        executor.executeUpdate(form, "invoice_positions", criteria, statusParam, hoursParam, payRateParam, vatIdParam, amountParam);
     }
 }

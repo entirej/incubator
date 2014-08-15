@@ -57,7 +57,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_EMAIL, user.getEmail());
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_NAME, user.getFirstName()+' '+user.getLastName());
                 
-                form.changeLocale(Locale.ENGLISH);
+                form.changeLocale(new Locale("en", "GB"));
                 
                 form.openForm(F_TIME_ENTRY.ID);
             }

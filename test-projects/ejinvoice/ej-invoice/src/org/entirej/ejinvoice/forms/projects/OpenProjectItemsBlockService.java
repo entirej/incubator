@@ -39,7 +39,10 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("      YEAR(CPTE.WORK_DATE)  AS TE_YEAR , ");
         _selectStatement.append("          CPTE.END_TIME as END_TIME,");
         _selectStatement.append("          CPTE.START_TIME as START_TIME,");
-        _selectStatement.append("      (((TIME_TO_SEC(TIMEDIFF(CPTE.END_TIME,CPTE.START_TIME))) / 60) / 60) WORK_HOURS ");
+        _selectStatement.append("      (((TIME_TO_SEC(TIMEDIFF(CPTE.END_TIME,CPTE.START_TIME))) / 60) / 60) WORK_HOURS, ");
+        _selectStatement.append("      CUPT.PAY_RATE,  ");
+        _selectStatement.append("      CPR.VAT_ID , ");
+        _selectStatement.append("      (select rate from vat_rates where id = cpr.vat_id) AS VAT_RATE");
         _selectStatement.append(" FROM ");
         _selectStatement.append("customer_project_timeentry as CPTE,");
         _selectStatement.append(" customer_project_tasks AS CUPT, ");
@@ -193,6 +196,9 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                         item.setTaskName((String) result.getItemValue("TASK_NAME"));
                         item.setTeMonth((Integer) result.getItemValue("TE_MONTH"));
                         item.setTeYear((Integer) result.getItemValue("TE_YEAR"));
+                        item.setPayRate((BigDecimal) result.getItemValue("PAY_RATE"));
+                        item.setVatRate((BigDecimal) result.getItemValue("VAT_RATE"));
+                        item.setVatId((Integer) result.getItemValue("VAT_ID"));
                         item.setCreateInvoicePosition("Plan");
                         item.setTeFirstDay(start);
                         item.setTeLastDay(item.getTeFirstDay());

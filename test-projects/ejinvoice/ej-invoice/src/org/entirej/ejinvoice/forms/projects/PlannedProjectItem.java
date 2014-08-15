@@ -19,6 +19,8 @@ public class PlannedProjectItem
     private EJPojoProperty<Date>       _periodFrom;
     private EJPojoProperty<Date>       _periodTo;
     private EJPojoProperty<BigDecimal> _workHours;
+    private EJPojoProperty<Integer>    _vatId;
+    private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<String>     _createInvoicePosition;
 
     @EJFieldName("INVP_ID")
@@ -201,7 +203,7 @@ public class PlannedProjectItem
         return EJPojoProperty.getPropertyInitialValue(_periodTo);
     }
 
-    @EJFieldName("WORK_HORS")
+    @EJFieldName("WORK_HOURS")
     public BigDecimal getWorkHours()
     {
         return EJPojoProperty.getPropertyValue(_workHours);
@@ -217,6 +219,42 @@ public class PlannedProjectItem
     public BigDecimal getInitialWorkHours()
     {
         return EJPojoProperty.getPropertyInitialValue(_workHours);
+    }
+
+    @EJFieldName("PAY_RATE")
+    public BigDecimal getPayRate()
+    {
+        return EJPojoProperty.getPropertyValue(_payRate);
+    }
+
+    @EJFieldName("PAY_RATE")
+    public void setPayRate(BigDecimal payRate)
+    {
+        _payRate = EJPojoProperty.setPropertyValue(_payRate, payRate);
+    }
+
+    @EJFieldName("PAY_RATE")
+    public BigDecimal getInitialPayRate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_payRate);
+    }
+
+    @EJFieldName("VAT_ID")
+    public Integer getVatId()
+    {
+        return EJPojoProperty.getPropertyValue(_vatId);
+    }
+
+    @EJFieldName("VAT_ID")
+    public void setVatId(Integer vatId)
+    {
+        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
+    }
+
+    @EJFieldName("VAT_ID")
+    public Integer getInitialVatId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
 
     @EJFieldName("CREATE_INVOICE_POSITION")
@@ -250,6 +288,8 @@ public class PlannedProjectItem
         EJPojoProperty.clearInitialValue(_periodFrom);
         EJPojoProperty.clearInitialValue(_periodTo);
         EJPojoProperty.clearInitialValue(_workHours);
+        EJPojoProperty.clearInitialValue(_payRate);
+        EJPojoProperty.clearInitialValue(_vatId);
         EJPojoProperty.clearInitialValue(_createInvoicePosition);
     }
 
