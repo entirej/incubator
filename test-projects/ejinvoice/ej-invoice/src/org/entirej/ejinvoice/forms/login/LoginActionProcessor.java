@@ -1,6 +1,7 @@
 package org.entirej.ejinvoice.forms.login;
 
 import java.io.IOException;
+import java.util.Locale;
 
 import org.eclipse.rap.rwt.RWT;
 import org.entirej.constants.EJ_PROPERTIES;
@@ -56,6 +57,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_EMAIL, user.getEmail());
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_NAME, user.getFirstName()+' '+user.getLastName());
                 
+                form.changeLocale(Locale.ENGLISH);
                 
                 form.openForm(F_TIME_ENTRY.ID);
             }

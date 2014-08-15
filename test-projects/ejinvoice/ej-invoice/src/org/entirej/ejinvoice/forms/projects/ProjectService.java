@@ -32,11 +32,6 @@ public class ProjectService
         selectStmt.append("where (( ? >= period_from and ? <= period_to) or ( ? >= period_from and ? <= period_to)) ");
         selectStmt.append("and cupr_id = ? ");
 
-        if (invpId != null)
-        {
-            selectStmt.append("and invp_id != ? ");
-        }
-
         EJStatementExecutor executor = new EJStatementExecutor();
 
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
@@ -48,17 +43,27 @@ public class ProjectService
         EJStatementParameter periodToParam = new EJStatementParameter(EJParameterType.IN);
         periodToParam.setValue(periodTo);
 
-        List<EJSelectResult> results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam,
-                periodToParam, projectIdParam);
+        List<EJSelectResult> results;
+        if (invpId != null)
+        {
+            selectStmt.append("and id != ? ");
+            EJStatementParameter invpIdParam = new EJStatementParameter(EJParameterType.IN);
+            periodToParam.setValue(invpId);
 
+            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam, invpIdParam);
+        }
+        else
+        {
+            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam);
+        }
+        
         if (results.size() > 0)
         {
             EJSelectResult result = results.get(0);
             Date periodFromResult = (Date) result.getItemValue("PERIOD_FROM");
             Date periodToResult = (Date) result.getItemValue("PERIOD_TO");
 
-            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "This period overlaps with another period rangig from: " + periodFromResult + " : "
-                    + periodToResult + ". Please change your invoice period accordingly.");
+            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "This period overlaps with another period rangig from: " + periodFromResult + " : " + periodToResult + ". Please change your invoice period accordingly.");
             throw new EJApplicationException(message);
         }
 
@@ -100,8 +105,7 @@ public class ProjectService
         EJStatementParameter taskNameParam = new EJStatementParameter("TASK_NAME", String.class);
         taskNameParam.setValue(position.getTaskName());
 
-        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, userIdParam, textParam, periodFromParam,
-                periodToParam, statusParam, projectNameParam, taskNameParam);
+        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, userIdParam, textParam, periodFromParam, periodToParam, statusParam, projectNameParam, taskNameParam);
 
     }
 
