@@ -105,6 +105,19 @@ public class ProjectService
         executor.executeUpdate(form, "INVOICE_POSITIONS", criteria, statusParam);
     }
     
+    public void deleteMarkedForInvoicedPosition(EJForm form, MarkedForInvoiceProjectItem item)
+    {
+        EJStatementExecutor executor = new EJStatementExecutor();
+
+        EJStatementCriteria criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("ID", item.getId()));
+        
+        EJStatementParameter statusParam = new EJStatementParameter("STATUS", Integer.class);
+        statusParam.setValue("APPROVED");
+        
+        executor.executeUpdate(form, "INVOICE_POSITIONS", criteria, statusParam);
+    }
+    
     public static void planInvoicePosition(EJForm form, InvoicePosition position)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
@@ -171,4 +184,20 @@ public class ProjectService
         
         executor.executeUpdate(form, "invoice_positions", criteria, statusParam, hoursParam, payRateParam, vatIdParam, amountParam);
     }
+    
+
+    public void addPositionToInvoice(EJForm form, ApprovedProjectItem position)
+    {
+        EJStatementExecutor executor = new EJStatementExecutor();
+
+        EJStatementCriteria criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("ID", position.getId()));
+        
+        EJStatementParameter statusParam = new EJStatementParameter("STATUS", String.class);
+        statusParam.setValue("MARKED_FOR_INVOICE");
+
+        executor.executeUpdate(form, "invoice_positions", criteria, statusParam);
+    }
+    
+    
 }

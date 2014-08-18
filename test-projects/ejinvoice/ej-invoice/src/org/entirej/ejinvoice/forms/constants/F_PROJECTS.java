@@ -198,24 +198,25 @@ public class F_PROJECTS
 
     public static class B_APPROVED_PROJECT_ITEMS
     {
-        public static final String ID             = "ApprovedProjectItems";
-        public static final String I_HOURS_WORKED = "hoursWorked";
-        public static final String I_TASK_NAME    = "taskName";
-        public static final String I_VAT_ID       = "vatId";
-        public static final String I_STATUS       = "status";
-        public static final String I_CUPR_ID      = "cuprId";
-        public static final String I_PERIOD_FROM  = "periodFrom";
-        public static final String I_INV_ID       = "invId";
-        public static final String I_AMOUNT       = "amount";
-        public static final String I_ID           = "id";
-        public static final String I_PAY_RATE     = "payRate";
-        public static final String I_USER_ID      = "userId";
-        public static final String I_PROJECT_NAME = "projectName";
-        public static final String I_PERIOD_TO    = "periodTo";
-        public static final String I_CUPT_ID      = "cuptId";
-        public static final String I_FIX_PRICE    = "fixPrice";
-        public static final String I_TEXT         = "text";
-        public static final String I_DELETE       = "delete";
+        public static final String ID               = "ApprovedProjectItems";
+        public static final String I_HOURS_WORKED   = "hoursWorked";
+        public static final String I_TASK_NAME      = "taskName";
+        public static final String I_VAT_ID         = "vatId";
+        public static final String I_STATUS         = "status";
+        public static final String I_CUPR_ID        = "cuprId";
+        public static final String I_PERIOD_FROM    = "periodFrom";
+        public static final String I_INV_ID         = "invId";
+        public static final String I_AMOUNT         = "amount";
+        public static final String I_ID             = "id";
+        public static final String I_PAY_RATE       = "payRate";
+        public static final String I_USER_ID        = "userId";
+        public static final String I_PROJECT_NAME   = "projectName";
+        public static final String I_PERIOD_TO      = "periodTo";
+        public static final String I_CUPT_ID        = "cuptId";
+        public static final String I_FIX_PRICE      = "fixPrice";
+        public static final String I_TEXT           = "text";
+        public static final String I_DELETE         = "delete";
+        public static final String I_ADD_TO_INVOICE = "addToInvoice";
 
     }
 
@@ -340,12 +341,14 @@ public class F_PROJECTS
     public static final String C_NEW_INVOICE_ITEM                 = "NewInvoiceItem";
 
     public static final String AC_ADD_NEW_TASK                    = "ADD_NEW_TASK";
+    public static final String AC_ADD_TO_INVOICE                  = "ADD_TO_INVOICE";
     public static final String AC_ADD_TO_INV_POS                  = "ADD_TO_INV_POS";
     public static final String AC_APPROVE_INV_POS                 = "APPROVE_INV_POS";
     public static final String AC_BACK_TO_PROJECT_OVERVIEW        = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_CREATE_INVOICE_POSITION         = "CREATE_INVOICE_POSITION";
     public static final String AC_CREATE_NEW_PROJECT              = "CREATE_NEW_PROJECT";
     public static final String AC_DELETE_APPROVED_ITEM            = "DELETE_APPROVED_ITEM";
+    public static final String AC_DELETE_MARKED_FOR_INVOICE__ITEM = "DELETE_MARKED_FOR_INVOICE__ITEM";
     public static final String AC_DELETE_PLANNED_ITEM             = "DELETE_PLANNED_ITEM";
     public static final String AC_DELETE_PROJECT_TASK             = "DELETE_PROJECT_TASK";
     public static final String AC_EDIT_PLANNED_ITEM               = "EDIT_PLANNED_ITEM";

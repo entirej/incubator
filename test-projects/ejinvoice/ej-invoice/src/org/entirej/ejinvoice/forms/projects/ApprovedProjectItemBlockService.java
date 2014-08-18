@@ -18,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT,USER_ID,VAT_ID FROM invoice_positions";
+    private String                    _selectStatement = "SELECT AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT,USER_ID,VAT_ID, 'Add' AS ADD_TO_INVOICE FROM invoice_positions";
 
     public ApprovedProjectItemBlockService()
     {

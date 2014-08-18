@@ -223,6 +223,14 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             question.setButtonText(EJQuestionButton.TWO, "Cancel");
             form.askQuestion(question);
         }
+        else if (F_PROJECTS.AC_DELETE_MARKED_FOR_INVOICE__ITEM.equals(command))
+        {
+            EJQuestion question = new EJQuestion(form, "ASK_DELETE_MARKED_POSITION");
+            question.setMessage(new EJMessage("Are you sure you want to remove this position from the invoice?"));
+            question.setButtonText(EJQuestionButton.ONE, "Yes");
+            question.setButtonText(EJQuestionButton.TWO, "Cancel");
+            form.askQuestion(question);
+        }
         else if (F_PROJECTS.AC_EDIT_PLANNED_ITEM.equals(command))
         {
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).enterUpdate();
@@ -238,6 +246,14 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
             form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
         }
+        else if (F_PROJECTS.AC_ADD_TO_INVOICE.equals(command))
+        {
+            ApprovedProjectItem projectItem = (ApprovedProjectItem) record.getBlockServicePojo();
+            new ProjectService().addPositionToInvoice(form, projectItem);
+            form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
+            form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
+        }
+        
     }
 
     @Override
@@ -254,6 +270,13 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             new ProjectService().deleteApprovedPosition(question.getForm(), (ApprovedProjectItem) question.getForm().getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).getFocusedRecord().getBlockServicePojo());
             question.getForm().getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
             question.getForm().getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
+        }
+        else if (question.getName().equals("ASK_DELETE_MARKED_POSITION") && question.getAnswer().equals(EJQuestionButton.ONE))
+        {
+            new ProjectService().deleteMarkedForInvoicedPosition(question.getForm(), (MarkedForInvoiceProjectItem) question.getForm().getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getFocusedRecord().getBlockServicePojo());
+            question.getForm().getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
+            question.getForm().getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
+
         }
     }
 
@@ -424,9 +447,16 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
     {
         if (F_PROJECTS.C_DETAILS_TAB.equals(tabCanvasName))
         {
-            if (F_PROJECTS.C_DETAILS_TAB_PAGES.INVOICE_CREATION.equals(tabPageName) && form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).getBlockRecords().size() == 0)
+            if (F_PROJECTS.C_DETAILS_TAB_PAGES.INVOICE_CREATION.equals(tabPageName))
             {
-                form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
+                if (form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).getBlockRecords().size() == 0)
+                {
+                    form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
+                }
+                if (form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getBlockRecords().size() == 0)
+                {
+                    form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
+                }
             }
             else if (F_PROJECTS.C_DETAILS_TAB_PAGES.PROJECT_TASKS.equals(tabPageName) && form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getBlockRecords().size() == 0)
             {

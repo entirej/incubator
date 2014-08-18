@@ -2567,7 +2567,7 @@
                     </propertyGroup>
                 </updateScreenRendererProperties>
                 <lovMappingList>
-                    <lovMapping name="CustomerProjectTask" lovDefinitionName="CustomerProjectTasks" executeAfterQuery="false">
+                    <lovMapping name="CustomerProjectTask" lovDefinitionName="CustomerProjectTasks" executeAfterQuery="true">
                         <displayName></displayName>
                         <lovItemMappingList>
                             <itemMap lovDefinitionItem="id" blockItemName="cuptId">
@@ -2706,6 +2706,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="LOCALE_FORMAT" multilingual="false" propertyType="STRING"><![CDATA[DATE_MEDIUM]]></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[dd-MM-yyyy]]></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
@@ -3018,7 +3019,7 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[200]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                             </itemGroupItemList>
