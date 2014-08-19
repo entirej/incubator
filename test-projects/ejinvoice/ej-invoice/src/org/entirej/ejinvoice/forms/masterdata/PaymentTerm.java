@@ -25,7 +25,7 @@ public class PaymentTerm
 {
     private EJPojoProperty<Integer> _id;
     private EJPojoProperty<Integer> _userId;
-    private EJPojoProperty<String>  _paymentTerms;
+    private EJPojoProperty<String>  _paymentTerm;
 
     @EJFieldName("ID")
     public Integer getId()
@@ -63,29 +63,29 @@ public class PaymentTerm
         return EJPojoProperty.getPropertyInitialValue(_userId);
     }
 
-    @EJFieldName("PAYMENT_TERMS")
-    public String getPaymentTerms()
+    @EJFieldName("PAYMENT_TERM")
+    public String getPaymentTerm()
     {
-        return EJPojoProperty.getPropertyValue(_paymentTerms);
+        return EJPojoProperty.getPropertyValue(_paymentTerm);
     }
 
-    @EJFieldName("PAYMENT_TERMS")
-    public void setPaymentTerms(String paymentTerms)
+    @EJFieldName("PAYMENT_TERM")
+    public void setPaymentTerm(String paymentTerm)
     {
-        _paymentTerms = EJPojoProperty.setPropertyValue(_paymentTerms, paymentTerms);
+        _paymentTerm = EJPojoProperty.setPropertyValue(_paymentTerm, paymentTerm);
     }
 
-    @EJFieldName("PAYMENT_TERMS")
-    public String getInitialPaymentTerms()
+    @EJFieldName("PAYMENT_TERM")
+    public String getInitialPaymentTerm()
     {
-        return EJPojoProperty.getPropertyInitialValue(_paymentTerms);
+        return EJPojoProperty.getPropertyInitialValue(_paymentTerm);
     }
 
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_userId);
-        EJPojoProperty.clearInitialValue(_paymentTerms);
+        EJPojoProperty.clearInitialValue(_paymentTerm);
     }
 
 }

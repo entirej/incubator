@@ -278,7 +278,7 @@
                                 <listEntry>
                                     <property name="FORMAT"></property>
                                     <property name="COLUMN"><![CDATA[code]]></property>
-                                    <property name="RETURN_ITEM"></property>
+                                    <property name="RETURN_ITEM"><![CDATA[ccyCode]]></property>
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
                                 </listEntry>
                             </propertyList>
@@ -299,7 +299,7 @@
                                 <listEntry>
                                     <property name="FORMAT"></property>
                                     <property name="COLUMN"><![CDATA[rate]]></property>
-                                    <property name="RETURN_ITEM"></property>
+                                    <property name="RETURN_ITEM"><![CDATA[vatRate]]></property>
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
                                 </listEntry>
                                 <listEntry>
@@ -315,20 +315,30 @@
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
                         <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
+                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
                         <defaultInsertValue></defaultInsertValue>
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
+                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
                         </itemRendererProperties>
                     </item>
                     <item name="vatRate">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
                         <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
+                        <itemRendererName><![CDATA[NumberItem]]></itemRendererName>
                         <defaultInsertValue></defaultInsertValue>
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
+                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                         </itemRendererProperties>
                     </item>
                     <item name="customerNumber">
@@ -601,7 +611,7 @@
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
-                                <item referencedItemName="ccyId" isSpacerItem="false">
+                                <item referencedItemName="ccyCode" isSpacerItem="false">
                                     <label><![CDATA[Currency]]></label>
                                     <hint></hint>
                                     <editAllowed>false</editAllowed>
@@ -625,7 +635,7 @@
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
-                                <item referencedItemName="vatId" isSpacerItem="false">
+                                <item referencedItemName="vatRate" isSpacerItem="false">
                                     <label><![CDATA[VAT%]]></label>
                                     <hint></hint>
                                     <editAllowed>false</editAllowed>
@@ -645,8 +655,27 @@
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer600" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="paymentDays" isSpacerItem="false">
@@ -842,7 +871,7 @@
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="postCode" isSpacerItem="false">
-                                    <label><![CDATA[Post Code]]></label>
+                                    <label><![CDATA[ZIP]]></label>
                                     <hint></hint>
                                     <editAllowed>false</editAllowed>
                                     <visible>true</visible>

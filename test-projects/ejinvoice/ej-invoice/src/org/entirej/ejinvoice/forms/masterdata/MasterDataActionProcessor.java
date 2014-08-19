@@ -13,7 +13,6 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 public class MasterDataActionProcessor extends DefaultFormActionProcessor
 {
     private ContactTypesActionHandler  _contactTypesActionHanlder  = new ContactTypesActionHandler();
-    private PaymentTermsActionHandler  _paymentTermsActionHandler  = new PaymentTermsActionHandler();
     private SalutationActionHandler    _salutationsActionHandler   = new SalutationActionHandler();
     private VatRatesActionHandler      _vatRatesActionHandler      = new VatRatesActionHandler();
     private ProjectStatusActionHandler _projectStatusActionHandler = new ProjectStatusActionHandler();
@@ -25,7 +24,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         form.openEmbeddedForm(F_COMPANY.ID, F_MASTER_DATA.C_COMPANY, null);
         
         _contactTypesActionHanlder.newFormInstance(form);
-        _paymentTermsActionHandler.newFormInstance(form);
         _salutationsActionHandler.newFormInstance(form);
         _vatRatesActionHandler.newFormInstance(form);
         _projectStatusActionHandler.newFormInstance(form);
@@ -47,13 +45,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
             if (form.getBlock(F_MASTER_DATA.B_CURRENCIES.ID).getBlockRecords().size() <= 0)
             {
                 form.getBlock(F_MASTER_DATA.B_CURRENCIES.ID).executeQuery();
-            }
-        }
-        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.PAYMENT_TERMS.equals(tabPageName))
-        {
-            if (form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).getBlockRecords().size() <= 0)
-            {
-                form.getBlock(F_MASTER_DATA.B_PAYMENT_TERMS.ID).executeQuery();
             }
         }
         else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.PROJECT_STATUS.equals(tabPageName))
@@ -89,7 +80,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
         _contactTypesActionHanlder.executeActionCommand(form, record, command, screenType);
-        _paymentTermsActionHandler.executeActionCommand(form, record, command, screenType);
         _salutationsActionHandler.executeActionCommand(form, record, command, screenType);
         _vatRatesActionHandler.executeActionCommand(form, record, command, screenType);
         _projectStatusActionHandler.executeActionCommand(form, record, command, screenType);
@@ -107,7 +97,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
     {
         _contactTypesActionHanlder.validateRecord(form, record, recordType);
-        _paymentTermsActionHandler.validateRecord(form, record, recordType);
         _salutationsActionHandler.validateRecord(form, record, recordType);
         _vatRatesActionHandler.validateRecord(form, record, recordType);
         _projectStatusActionHandler.validateRecord(form, record, recordType);
@@ -118,7 +107,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     public void newRecordInstance(EJForm form, EJRecord record) throws EJActionProcessorException
     {
         _contactTypesActionHanlder.newRecordInstance(form, record);
-        _paymentTermsActionHandler.newRecordInstance(form, record);
         _salutationsActionHandler.newRecordInstance(form, record);
         _vatRatesActionHandler.newRecordInstance(form, record);
         _projectStatusActionHandler.newRecordInstance(form, record);
@@ -129,7 +117,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     public void postBlockQuery(EJForm form, EJBlock block) throws EJActionProcessorException
     {
         _contactTypesActionHanlder.postBlockQuery(form, block);
-        _paymentTermsActionHandler.postBlockQuery(form, block);
         _salutationsActionHandler.postBlockQuery(form, block);
         _vatRatesActionHandler.postBlockQuery(form, block);
         _projectStatusActionHandler.postBlockQuery(form, block);
@@ -140,7 +127,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
     {
         _contactTypesActionHanlder.postQuery(form, record);
-        _paymentTermsActionHandler.postQuery(form, record);
         _salutationsActionHandler.postQuery(form, record);
         _vatRatesActionHandler.postQuery(form, record);
         _projectStatusActionHandler.postQuery(form, record);

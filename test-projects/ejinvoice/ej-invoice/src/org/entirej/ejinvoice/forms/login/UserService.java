@@ -9,8 +9,6 @@ import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
 import org.entirej.ejinvoice.forms.masterdata.ContactType;
 import org.entirej.ejinvoice.forms.masterdata.ContactTypeBlockService;
-import org.entirej.ejinvoice.forms.masterdata.PaymentTerm;
-import org.entirej.ejinvoice.forms.masterdata.PaymentTermBlockService;
 import org.entirej.ejinvoice.forms.masterdata.Salutation;
 import org.entirej.ejinvoice.forms.masterdata.SalutationBlockService;
 import org.entirej.ejinvoice.forms.masterdata.VatRate;
@@ -156,22 +154,6 @@ public class UserService
             if (contactTypes.size() > 0)
             {
                 blockService.insertContactTypes(contextProvider.getConnection(), contactTypes);
-            }
-
-        }
-        {// create Payment Term
-
-            PaymentTermBlockService blockService = new PaymentTermBlockService();
-
-            List<PaymentTerm> paymentTerms = blockService.getPaymentTerms(contextProvider.getConnection(), criteria);
-            for (PaymentTerm paymentTerm : paymentTerms)
-            {
-                paymentTerm.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
-                paymentTerm.setUserId(userId);
-            }
-            if (paymentTerms.size() > 0)
-            {
-                blockService.insertPaymentTerms(contextProvider.getConnection(), paymentTerms);
             }
 
         }

@@ -20,6 +20,7 @@ public class Project
 
     private EJPojoProperty<Long>       _openItems;
     private EJPojoProperty<Long>       _plannedItems;
+    private EJPojoProperty<Long>       _approvedItems;
 
     private EJPojoProperty<String>     _invoiceable;
     private EJPojoProperty<BigDecimal> _fixPrice;
@@ -410,6 +411,24 @@ public class Project
     {
         return EJPojoProperty.getPropertyInitialValue(_plannedItems);
     }
+    
+    @EJFieldName("APPROVED_ITEMS")
+    public Long getApprovedItems()
+    {
+        return EJPojoProperty.getPropertyValue(_approvedItems);
+    }
+
+    @EJFieldName("APPROVED_ITEMS")
+    public void setApprovedItems(Long approvedItems)
+    {
+        _approvedItems = EJPojoProperty.setPropertyValue(_approvedItems, approvedItems);
+    }
+
+    @EJFieldName("APPROVED_ITEMS")
+    public Long getInitialApprovedItems()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_approvedItems);
+    }
 
     public void clearInitialValues()
     {
@@ -424,6 +443,7 @@ public class Project
         EJPojoProperty.clearInitialValue(_notes);
         EJPojoProperty.clearInitialValue(_openItems);
         EJPojoProperty.clearInitialValue(_plannedItems);
+        EJPojoProperty.clearInitialValue(_approvedItems);
 
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);

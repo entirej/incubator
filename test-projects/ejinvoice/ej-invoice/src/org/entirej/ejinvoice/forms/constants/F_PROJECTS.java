@@ -55,8 +55,10 @@ public class F_PROJECTS
         public static final String I_ADD_NEW_TASK                = "addNewTask";
         public static final String I_OPEN_ITEMS_IMAGE            = "openItemsImage";
         public static final String I_PLANNED_ITEMS_IMAGE         = "plannedItemsImage";
+        public static final String I_APPROVED_ITEMS_IMAGE        = "approvedItemsImage";
         public static final String I_OPEN_ITEMS                  = "openItems";
         public static final String I_PLANNED_ITEMS               = "plannedItems";
+        public static final String I_APPROVED_ITEMS              = "approvedItems";
 
     }
 
@@ -95,6 +97,7 @@ public class F_PROJECTS
         public static final String I_ADD_NEW_TASK                = "addNewTask";
         public static final String I_OPEN_ITEMS_IMAGE            = "openItemsImage";
         public static final String I_PLANNED_ITEMS_IMAGE         = "plannedItemsImage";
+        public static final String I_APPROVED_ITEMS_IMAGE        = "approvedItemsImage";
         public static final String I_OPEN_ITEMS                  = "openItems";
 
     }

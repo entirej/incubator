@@ -318,6 +318,16 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             {
                 record.setValue(F_PROJECTS.B_PROJECTS.I_PLANNED_ITEMS_IMAGE, null);
             }
+            
+            if (((Long) record.getValue(F_PROJECTS.B_PROJECTS.I_APPROVED_ITEMS)).intValue() > 0)
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_APPROVED_ITEMS_IMAGE, "/icons/approvedhours.png");
+            }
+            else
+            {
+                record.setValue(F_PROJECTS.B_PROJECTS.I_APPROVED_ITEMS_IMAGE, null);
+            }
+
         }
         else if (F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
         {

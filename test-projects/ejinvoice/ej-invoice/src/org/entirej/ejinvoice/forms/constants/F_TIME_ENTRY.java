@@ -111,6 +111,9 @@ public class F_TIME_ENTRY
         public static final String I_PAYMENT_DAYS     = "paymentDays";
         public static final String I_DAYS_LABEL       = "daysLabel";
         public static final String I_CUSTOMER_NUMBER  = "customerNumber";
+        public static final String I_EDIT             = "edit";
+        public static final String I_DELETE           = "delete";
+        public static final String I_CONTACTS         = "contacts";
 
     }
 
@@ -174,8 +177,6 @@ public class F_TIME_ENTRY
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
         public static final String I_USER_ID             = "userId";
-        public static final String I_VAT_ID              = "vatId";
-        public static final String I_VAT_RATE            = "vatRate";
 
     }
 
@@ -190,8 +191,6 @@ public class F_TIME_ENTRY
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
         public static final String I_USER_ID             = "userId";
-        public static final String I_VAT_ID              = "vatId";
-        public static final String I_VAT_RATE            = "vatRate";
 
     }
 
@@ -260,7 +259,9 @@ public class F_TIME_ENTRY
 
     public static final String AC_ADD_TIME_ENTRY        = "ADD_TIME_ENTRY";
     public static final String AC_CREATE_NEW_CUSTOMER   = "CREATE_NEW_CUSTOMER";
+    public static final String AC_DELETE_CUSTOMER       = "DELETE_CUSTOMER";
     public static final String AC_DELETE_TIME_ENTRY     = "DELETE_TIME_ENTRY";
+    public static final String AC_EDIT_CUSTOMER         = "EDIT_CUSTOMER";
     public static final String AC_EDIT_TIME_ENTRY       = "EDIT_TIME_ENTRY";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
 

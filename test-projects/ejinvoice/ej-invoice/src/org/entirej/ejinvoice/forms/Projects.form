@@ -1058,6 +1058,18 @@
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                         </itemRendererProperties>
                     </item>
+                    <item name="approvedItemsImage">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ImageItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="IMAGE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                        </itemRendererProperties>
+                    </item>
                     <item name="openItems">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
@@ -1069,6 +1081,16 @@
                         </itemRendererProperties>
                     </item>
                     <item name="plannedItems">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Long]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="approvedItems">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
                         <dataTypeClassName><![CDATA[java.lang.Long]]></dataTypeClassName>
@@ -1125,6 +1147,22 @@
                                     </blockRendererRequiredProperties>
                                 </item>
                                 <item referencedItemName="plannedItemsImage" isSpacerItem="false">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="approvedItemsImage" isSpacerItem="false">
                                     <label></label>
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
@@ -4235,6 +4273,18 @@
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                         </itemRendererProperties>
                     </item>
+                    <item name="approvedItemsImage">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ImageItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="IMAGE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                        </itemRendererProperties>
+                    </item>
                     <item name="openItems">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
@@ -4253,6 +4303,18 @@
                         <defaultInsertValue></defaultInsertValue>
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ImageItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="IMAGE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                         </itemRendererProperties>
                     </item>
                 </itemList>
