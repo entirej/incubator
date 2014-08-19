@@ -24,8 +24,7 @@ public class ProjectBlockService implements EJBlockService<Project>
     {
         _statementExecutor = new EJStatementExecutor();
         
-        _selectStatement.append("SELECT VAT_ID ");
-        _selectStatement.append(",      CUSTOMER_ID ");
+        _selectStatement.append("SELECT CUSTOMER_ID ");
         _selectStatement.append(",      DESCRIPTION ");
         _selectStatement.append(",      END_DATE ");
         _selectStatement.append(",      ID ");
@@ -36,8 +35,6 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append(",      USER_ID ");
         _selectStatement.append(",      INVOICEABLE ");
         _selectStatement.append(",      FIX_PRICE ");
-        _selectStatement.append(",      CCY_ID ");
-        _selectStatement.append(",      (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) CCY_CODE ");
         _selectStatement.append(",      (select count(*) ");
         _selectStatement.append("        from   customer_project_timeentry cpte ");
         _selectStatement.append("        ,      customer_project_tasks cupt ");
@@ -93,8 +90,6 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
-            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
-            parameters.add(new EJStatementParameter("VAT_ID", String.class, record.getVatId()));
             
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -149,9 +144,7 @@ public class ProjectBlockService implements EJBlockService<Project>
             
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
-            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
-
+            
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustomerId() == null)
             {
@@ -240,22 +233,6 @@ public class ProjectBlockService implements EJBlockService<Project>
             else
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
-            }
-            if (record.getInitialCcyId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CCY_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
-            }
-            if (record.getInitialVatId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("VAT_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
             }
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -368,24 +345,7 @@ public class ProjectBlockService implements EJBlockService<Project>
             else
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
-            }
-            if (record.getInitialCcyId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CCY_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
-            }
-            if (record.getInitialVatId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("VAT_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
-            }
-            
+            }            
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_projects", criteria, parameters.toArray(paramArray));

@@ -597,11 +597,11 @@
                     <lovMapping name="VatRates" lovDefinitionName="VatRate" executeAfterQuery="false">
                         <displayName></displayName>
                         <lovItemMappingList>
-                            <itemMap lovDefinitionItem="id" blockItemName="vatId">
+                            <itemMap lovDefinitionItem="id" blockItemName="">
                             </itemMap>
-                            <itemMap lovDefinitionItem="rate" blockItemName="vatRate">
+                            <itemMap lovDefinitionItem="rate" blockItemName="">
                             </itemMap>
-                            <itemMap lovDefinitionItem="name" blockItemName="vatName">
+                            <itemMap lovDefinitionItem="name" blockItemName="">
                             </itemMap>
                         </lovItemMappingList>
                     </lovMapping>
@@ -903,106 +903,6 @@
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                         </itemRendererProperties>
                     </item>
-                    <item name="vatId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[ComboItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="LOVDEFINITION" multilingual="false" propertyType="LOV_DEFINITION_WITH_ITEMS"><![CDATA[VatRate.id]]></property>
-                            <property name="VISIBLE_ITEM_COUNT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
-                            <property name="INITIALIES_LOV" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <propertyList name="DISPLAY_COLUMNS">
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[rate]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[name]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                            </propertyList>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="ccyId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[ComboItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="LOVDEFINITION" multilingual="false" propertyType="LOV_DEFINITION_WITH_ITEMS"><![CDATA[Currencies.id]]></property>
-                            <property name="VISIBLE_ITEM_COUNT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
-                            <property name="INITIALIES_LOV" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <propertyList name="DISPLAY_COLUMNS">
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[code]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[name]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                            </propertyList>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="ccyCode">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
-                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="vatName">
-                        <blockServiceItem>false</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
-                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="vatRate">
-                        <blockServiceItem>false</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[NumberItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
-                            <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                        </itemRendererProperties>
-                    </item>
                     <item name="customerName">
                         <blockServiceItem>false</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
@@ -1288,22 +1188,6 @@
                                         <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
-                                <item referencedItemName="ccyCode" isSpacerItem="false">
-                                    <label><![CDATA[CCY]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
                                 <item referencedItemName="fixPrice" isSpacerItem="false">
                                     <label><![CDATA[Fix Price]]></label>
                                     <hint></hint>
@@ -1317,22 +1201,6 @@
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                                         <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[14]]></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="vatRate" isSpacerItem="false">
-                                    <label><![CDATA[VAT %]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
                                         <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -1769,49 +1637,6 @@
                                         </propertyGroup>
                                     </insertScreenRendererItemProperties>
                                 </item>
-                                <item referencedItemName="ccyId" isSpacerItem="false">
-                                    <label><![CDATA[Currency]]></label>
-                                    <hint></hint>
-                                    <editAllowed>true</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <insertScreenRendererItemProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
-                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <propertyGroup name="EXTRA_BUTTONS">
-                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                        </propertyGroup>
-                                    </insertScreenRendererItemProperties>
-                                </item>
                                 <item referencedItemName="fixPrice" isSpacerItem="false">
                                     <label><![CDATA[Fix Price]]></label>
                                     <hint><![CDATA[Indicates if the project is priced on a Fix Price basis instead of hourly]]></hint>
@@ -1875,49 +1700,6 @@
                                         <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <propertyGroup name="EXTRA_BUTTONS">
-                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                        </propertyGroup>
-                                    </insertScreenRendererItemProperties>
-                                </item>
-                                <item referencedItemName="vatId" isSpacerItem="false">
-                                    <label><![CDATA[VAT %]]></label>
-                                    <hint></hint>
-                                    <editAllowed>true</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <insertScreenRendererItemProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
-                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
@@ -3328,49 +3110,6 @@
                                         </propertyGroup>
                                     </updateScreenRendererItemProperties>
                                 </item>
-                                <item referencedItemName="ccyId" isSpacerItem="false">
-                                    <label><![CDATA[Ccy Id]]></label>
-                                    <hint></hint>
-                                    <editAllowed>true</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <updateScreenRendererItemProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
-                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <propertyGroup name="EXTRA_BUTTONS">
-                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                        </propertyGroup>
-                                    </updateScreenRendererItemProperties>
-                                </item>
                                 <item referencedItemName="fixPrice" isSpacerItem="false">
                                     <label><![CDATA[Fix Price]]></label>
                                     <hint></hint>
@@ -3442,49 +3181,6 @@
                                         <property name="TITLE" multilingual="true" propertyType="STRING"></property>
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
-                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <propertyGroup name="EXTRA_BUTTONS">
-                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
-                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
-                                        </propertyGroup>
-                                    </updateScreenRendererItemProperties>
-                                </item>
-                                <item referencedItemName="vatId" isSpacerItem="false">
-                                    <label><![CDATA[VAT %]]></label>
-                                    <hint></hint>
-                                    <editAllowed>true</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <updateScreenRendererItemProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
-                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
-                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
                                         <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <propertyGroup name="EXTRA_BUTTONS">
                                             <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
@@ -4372,106 +4068,6 @@
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                         </itemRendererProperties>
                     </item>
-                    <item name="vatId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[ComboItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="LOVDEFINITION" multilingual="false" propertyType="LOV_DEFINITION_WITH_ITEMS"><![CDATA[VatRate.id]]></property>
-                            <property name="VISIBLE_ITEM_COUNT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
-                            <property name="INITIALIES_LOV" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                            <propertyList name="DISPLAY_COLUMNS">
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[rate]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[name]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                            </propertyList>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="ccyId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[ComboItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="LOVDEFINITION" multilingual="false" propertyType="LOV_DEFINITION_WITH_ITEMS"><![CDATA[Currencies.id]]></property>
-                            <property name="VISIBLE_ITEM_COUNT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
-                            <property name="INITIALIES_LOV" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <propertyList name="DISPLAY_COLUMNS">
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[code]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                                <listEntry>
-                                    <property name="FORMAT"></property>
-                                    <property name="COLUMN"><![CDATA[name]]></property>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                </listEntry>
-                            </propertyList>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="ccyCode">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
-                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="vatName">
-                        <blockServiceItem>false</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
-                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="vatRate">
-                        <blockServiceItem>false</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[NumberItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
-                            <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                        </itemRendererProperties>
-                    </item>
                     <item name="customerName">
                         <blockServiceItem>false</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
@@ -4952,54 +4548,6 @@
                                         <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[9]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="ccyCode" isSpacerItem="false">
-                                    <label><![CDATA[Currency]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="vatName" isSpacerItem="false">
-                                    <label><![CDATA[VAT%]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[4]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -7053,26 +6601,6 @@
                         <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
-                    <item name="vatId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="vatRate">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                        </itemRendererProperties>
-                    </item>
                 </itemList>
                 <mainScreenProperties>
                     <displayFrame>true</displayFrame>
@@ -8148,16 +7676,6 @@
                         <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
-                    <item name="vatId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                        </itemRendererProperties>
-                    </item>
                 </itemList>
                 <mainScreenProperties>
                     <displayFrame>true</displayFrame>
@@ -8752,16 +8270,6 @@
                             <property name="CASE" multilingual="false" propertyType="STRING"></property>
                         </itemRendererProperties>
                     </item>
-                    <item name="vatId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                        </itemRendererProperties>
-                    </item>
                     <item name="status">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
@@ -9254,16 +8762,6 @@
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                             <property name="CASE" multilingual="false" propertyType="STRING"></property>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="vatId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
                     <item name="status">

@@ -21,8 +21,6 @@ public class RL_CUSTOMER_PROJECT_TASKS
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
         public static final String I_USER_ID             = "userId";
-        public static final String I_VAT_ID              = "vatId";
-        public static final String I_VAT_RATE            = "vatRate";
 
     }
 

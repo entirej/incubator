@@ -104,6 +104,13 @@ public class F_TIME_ENTRY
         public static final String I_FIRST_NAME       = "firstName";
         public static final String I_LAST_NAME        = "lastName";
         public static final String I_MOBILE           = "mobile";
+        public static final String I_CCY_ID           = "ccyId";
+        public static final String I_VAT_ID           = "vatId";
+        public static final String I_CCY_CODE         = "ccyCode";
+        public static final String I_VAT_RATE         = "vatRate";
+        public static final String I_PAYMENT_DAYS     = "paymentDays";
+        public static final String I_DAYS_LABEL       = "daysLabel";
+        public static final String I_CUSTOMER_NUMBER  = "customerNumber";
 
     }
 

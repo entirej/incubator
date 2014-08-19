@@ -176,13 +176,10 @@ public class ProjectService
         EJStatementParameter payRateParam = new EJStatementParameter("PAY_RATE", BigDecimal.class);
         payRateParam.setValue(position.getPayRate());
         
-        EJStatementParameter vatIdParam = new EJStatementParameter("VAT_ID", Integer.class);
-        vatIdParam.setValue(position.getVatId());
-        
         EJStatementParameter amountParam = new EJStatementParameter("AMOUNT", BigDecimal.class);
         amountParam.setValue(position.getWorkHours().multiply(position.getPayRate()));
         
-        executor.executeUpdate(form, "invoice_positions", criteria, statusParam, hoursParam, payRateParam, vatIdParam, amountParam);
+        executor.executeUpdate(form, "invoice_positions", criteria, statusParam, hoursParam, payRateParam, amountParam);
     }
     
 

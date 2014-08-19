@@ -35,7 +35,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerBlockService implements EJBlockService<Customer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT USER_ID, ADDRESS, ID,NAME,POST_CODE,TOWN, COUNTRY FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT CUSTOMER_NUMBER, USER_ID, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE FROM CUSTOMER";
 
     public CustomerBlockService()
     {
@@ -68,6 +68,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
             // Initialise the value list
             parameters.clear();
             
+            parameters.add(new EJStatementParameter("CUSTOMER_NUMBER", String.class, record.getCustomerNumber()));
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
@@ -75,6 +76,10 @@ public class CustomerBlockService implements EJBlockService<Customer>
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
+            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
+            parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "CUSTOMER", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -97,12 +102,17 @@ public class CustomerBlockService implements EJBlockService<Customer>
             parameters.clear();
 
             // First add the new values
+            parameters.add(new EJStatementParameter("CUSTOMER_NUMBER", String.class, record.getCustomerNumber()));
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
+            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
+            parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
+
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             criteria.add(EJRestrictions.equals("USER_ID", record.getUserId()));
@@ -139,6 +149,15 @@ public class CustomerBlockService implements EJBlockService<Customer>
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             criteria.add(EJRestrictions.equals("USER_ID", record.getUserId()));
+            
+            if (record.getInitialCustomerNumber() == null)
+            {
+                criteria.add(EJRestrictions.isNull("CUSTOMER_NUMBER"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("CUSTOMER_NUMBER", record.getInitialCustomerNumber()));
+            }
             if (record.getInitialAddress() == null)
             {
                 criteria.add(EJRestrictions.isNull("ADDRESS"));
@@ -187,6 +206,31 @@ public class CustomerBlockService implements EJBlockService<Customer>
             {
                 criteria.add(EJRestrictions.equals("COUNTRY", record.getInitialCountry()));
             }
+            if (record.getInitialCcyId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("CCY_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
+            }
+            if (record.getInitialVatId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("VAT_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
+            }
+            if (record.getInitialPaymentDays() == null)
+            {
+                criteria.add(EJRestrictions.isNull("PAYMENT_DAYS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("PAYMENT_DAYS", record.getInitialPaymentDays()));
+            }
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "CUSTOMER", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();

@@ -18,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT,USER_ID,VAT_ID, 'Add' AS ADD_TO_INVOICE FROM invoice_positions";
+    private String                    _selectStatement = "SELECT AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT,USER_ID, 'Add' AS ADD_TO_INVOICE FROM invoice_positions";
 
     public ApprovedProjectItemBlockService()
     {
@@ -65,7 +65,6 @@ public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedP
             parameters.add(new EJStatementParameter("TASK_NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("TEXT", String.class, record.getText()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "invoice_positions", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -102,7 +101,6 @@ public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedP
             parameters.add(new EJStatementParameter("TASK_NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("TEXT", String.class, record.getText()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
-            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialAmount() == null)
@@ -225,14 +223,7 @@ public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedP
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
-            if (record.getInitialVatId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("VAT_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
-            }
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "invoice_positions", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -375,14 +366,7 @@ public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedP
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
-            if (record.getInitialVatId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("VAT_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
-            }
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "invoice_positions", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();

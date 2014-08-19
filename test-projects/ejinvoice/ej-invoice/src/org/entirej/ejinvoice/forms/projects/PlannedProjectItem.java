@@ -19,7 +19,6 @@ public class PlannedProjectItem
     private EJPojoProperty<Date>       _periodFrom;
     private EJPojoProperty<Date>       _periodTo;
     private EJPojoProperty<BigDecimal> _workHours;
-    private EJPojoProperty<Integer>    _vatId;
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<String>     _createInvoicePosition;
 
@@ -239,24 +238,6 @@ public class PlannedProjectItem
         return EJPojoProperty.getPropertyInitialValue(_payRate);
     }
 
-    @EJFieldName("VAT_ID")
-    public Integer getVatId()
-    {
-        return EJPojoProperty.getPropertyValue(_vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public void setVatId(Integer vatId)
-    {
-        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public Integer getInitialVatId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_vatId);
-    }
-
     @EJFieldName("CREATE_INVOICE_POSITION")
     public String getCreateInvoicePosition()
     {
@@ -289,7 +270,6 @@ public class PlannedProjectItem
         EJPojoProperty.clearInitialValue(_periodTo);
         EJPojoProperty.clearInitialValue(_workHours);
         EJPojoProperty.clearInitialValue(_payRate);
-        EJPojoProperty.clearInitialValue(_vatId);
         EJPojoProperty.clearInitialValue(_createInvoicePosition);
     }
 

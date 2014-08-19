@@ -9,7 +9,6 @@ public class MarkedForInvoiceProjectItem
 {
     private EJPojoProperty<BigDecimal> _hoursWorked;
     private EJPojoProperty<String>     _taskName;
-    private EJPojoProperty<Integer>    _vatId;
     private EJPojoProperty<String>     _status;
     private EJPojoProperty<Integer>    _cuprId;
     private EJPojoProperty<Date>       _periodFrom;
@@ -58,24 +57,6 @@ public class MarkedForInvoiceProjectItem
     public String getInitialTaskName()
     {
         return EJPojoProperty.getPropertyInitialValue(_taskName);
-    }
-
-    @EJFieldName("VAT_ID")
-    public Integer getVatId()
-    {
-        return EJPojoProperty.getPropertyValue(_vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public void setVatId(Integer vatId)
-    {
-        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public Integer getInitialVatId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_vatId);
     }
 
     @EJFieldName("STATUS")
@@ -316,7 +297,6 @@ public class MarkedForInvoiceProjectItem
     {
         EJPojoProperty.clearInitialValue(_hoursWorked);
         EJPojoProperty.clearInitialValue(_taskName);
-        EJPojoProperty.clearInitialValue(_vatId);
         EJPojoProperty.clearInitialValue(_status);
         EJPojoProperty.clearInitialValue(_cuprId);
         EJPojoProperty.clearInitialValue(_periodFrom);

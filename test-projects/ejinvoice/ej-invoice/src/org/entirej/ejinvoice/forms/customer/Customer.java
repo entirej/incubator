@@ -18,18 +18,45 @@
  ******************************************************************************/
 package org.entirej.ejinvoice.forms.customer;
 
+import java.math.BigDecimal;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
 public class Customer
 {
-    private EJPojoProperty<Integer> _userId;
-    private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<String>  _address;
-    private EJPojoProperty<String>  _name;
-    private EJPojoProperty<String>  _postCode;
-    private EJPojoProperty<String>  _town;
-    private EJPojoProperty<String>  _country;
+    private EJPojoProperty<Integer>    _userId;
+    private EJPojoProperty<Integer>    _id;
+    private EJPojoProperty<String>     _address;
+    private EJPojoProperty<String>     _name;
+    private EJPojoProperty<String>     _postCode;
+    private EJPojoProperty<String>     _town;
+    private EJPojoProperty<String>     _country;
+
+    private EJPojoProperty<String>     _customerNumber;
+    private EJPojoProperty<Integer>    _ccyId;
+    private EJPojoProperty<Integer>    _vatId;
+    private EJPojoProperty<String>     _ccyCode;
+    private EJPojoProperty<BigDecimal> _vatRate;
+    private EJPojoProperty<Integer>    _paymentDays;
+
+    @EJFieldName("CUSTOMER_NUMBER")
+    public String getCustomerNumber()
+    {
+        return EJPojoProperty.getPropertyValue(_customerNumber);
+    }
+
+    @EJFieldName("CUSTOMER_NUMBER")
+    public void setCustomerNumber(String customerNumber)
+    {
+        _customerNumber = EJPojoProperty.setPropertyValue(_customerNumber, customerNumber);
+    }
+
+    @EJFieldName("CUSTOMER_NUMBER")
+    public String getInitialCustomerNumber()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_customerNumber);
+    }
 
     @EJFieldName("USER_ID")
     public Integer getUserId()
@@ -48,7 +75,7 @@ public class Customer
     {
         return EJPojoProperty.getPropertyInitialValue(_userId);
     }
-    
+
     @EJFieldName("ID")
     public Integer getId()
     {
@@ -156,9 +183,105 @@ public class Customer
     {
         return EJPojoProperty.getPropertyInitialValue(_country);
     }
-    
+
+    @EJFieldName("CCY_ID")
+    public Integer getCcyId()
+    {
+        return EJPojoProperty.getPropertyValue(_ccyId);
+    }
+
+    @EJFieldName("CCY_ID")
+    public void setCcyId(Integer ccyId)
+    {
+        _ccyId = EJPojoProperty.setPropertyValue(_ccyId, ccyId);
+    }
+
+    @EJFieldName("CCY_ID")
+    public Integer getInitialCcyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_ccyId);
+    }
+
+    @EJFieldName("VAT_ID")
+    public Integer getVatId()
+    {
+        return EJPojoProperty.getPropertyValue(_vatId);
+    }
+
+    @EJFieldName("VAT_ID")
+    public void setVatId(Integer vatId)
+    {
+        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
+    }
+
+    @EJFieldName("VAT_ID")
+    public Integer getInitialVatId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_vatId);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public String getCcyCode()
+    {
+        return EJPojoProperty.getPropertyValue(_ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public void setCcyCode(String ccyCode)
+    {
+        _ccyCode = EJPojoProperty.setPropertyValue(_ccyCode, ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public String getInitialCcyCode()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_ccyCode);
+    }
+
+    @EJFieldName("VAT_RATE")
+    public BigDecimal getVatRate()
+    {
+        return EJPojoProperty.getPropertyValue(_vatRate);
+    }
+
+    @EJFieldName("VAT_RATE")
+    public void setVatRate(BigDecimal vatRate)
+    {
+        _vatRate = EJPojoProperty.setPropertyValue(_vatRate, vatRate);
+    }
+
+    @EJFieldName("VAT_RATE")
+    public BigDecimal getInitialVatRate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_vatRate);
+    }
+
+    @EJFieldName("PAYMENT_DAYS")
+    public Integer getPaymentDays()
+    {
+        return EJPojoProperty.getPropertyValue(_paymentDays);
+    }
+
+    @EJFieldName("PAYMENT_DAYS")
+    public void setPaymentDays(Integer paymentDays)
+    {
+        _paymentDays = EJPojoProperty.setPropertyValue(_paymentDays, paymentDays);
+    }
+
+    @EJFieldName("PAYMENT_DAYS")
+    public Integer getInitialPaymentDays()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_paymentDays);
+    }
+
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_customerNumber);
+        EJPojoProperty.clearInitialValue(_ccyId);
+        EJPojoProperty.clearInitialValue(_vatId);
+        EJPojoProperty.clearInitialValue(_ccyCode);
+        EJPojoProperty.clearInitialValue(_vatRate);
+        EJPojoProperty.clearInitialValue(_paymentDays);
         EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_address);

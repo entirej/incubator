@@ -44,11 +44,6 @@ public class F_PROJECTS
         public static final String I_INVOICEABLE                 = "invoiceable";
         public static final String I_INVOICEABLE_IMAGE           = "invoiceableImage";
         public static final String I_FIX_PRICE                   = "fixPrice";
-        public static final String I_VAT_ID                      = "vatId";
-        public static final String I_CCY_ID                      = "ccyId";
-        public static final String I_CCY_CODE                    = "ccyCode";
-        public static final String I_VAT_NAME                    = "vatName";
-        public static final String I_VAT_RATE                    = "vatRate";
         public static final String I_CUSTOMER_NAME               = "customerName";
         public static final String I_CUSTOMER_ADDRESS            = "customerAddress";
         public static final String I_CUSTOMER_POST_CODE          = "customerPostCode";
@@ -89,11 +84,6 @@ public class F_PROJECTS
         public static final String I_INVOICEABLE                 = "invoiceable";
         public static final String I_INVOICEABLE_IMAGE           = "invoiceableImage";
         public static final String I_FIX_PRICE                   = "fixPrice";
-        public static final String I_VAT_ID                      = "vatId";
-        public static final String I_CCY_ID                      = "ccyId";
-        public static final String I_CCY_CODE                    = "ccyCode";
-        public static final String I_VAT_NAME                    = "vatName";
-        public static final String I_VAT_RATE                    = "vatRate";
         public static final String I_CUSTOMER_NAME               = "customerName";
         public static final String I_CUSTOMER_ADDRESS            = "customerAddress";
         public static final String I_CUSTOMER_POST_CODE          = "customerPostCode";
@@ -149,8 +139,6 @@ public class F_PROJECTS
         public static final String I_WORK_HOURS              = "workHours";
         public static final String I_CREATE_INVOICE_POSITION = "createInvoicePosition";
         public static final String I_PAY_RATE                = "payRate";
-        public static final String I_VAT_ID                  = "vatId";
-        public static final String I_VAT_RATE                = "vatRate";
 
     }
 
@@ -192,7 +180,6 @@ public class F_PROJECTS
         public static final String I_INVP_TEXT               = "invpText";
         public static final String I_EDIT                    = "edit";
         public static final String I_PAY_RATE                = "payRate";
-        public static final String I_VAT_ID                  = "vatId";
 
     }
 
@@ -201,7 +188,6 @@ public class F_PROJECTS
         public static final String ID               = "ApprovedProjectItems";
         public static final String I_HOURS_WORKED   = "hoursWorked";
         public static final String I_TASK_NAME      = "taskName";
-        public static final String I_VAT_ID         = "vatId";
         public static final String I_STATUS         = "status";
         public static final String I_CUPR_ID        = "cuprId";
         public static final String I_PERIOD_FROM    = "periodFrom";
@@ -225,7 +211,6 @@ public class F_PROJECTS
         public static final String ID             = "MarkedForInvoiceProjectItems";
         public static final String I_HOURS_WORKED = "hoursWorked";
         public static final String I_TASK_NAME    = "taskName";
-        public static final String I_VAT_ID       = "vatId";
         public static final String I_STATUS       = "status";
         public static final String I_CUPR_ID      = "cuprId";
         public static final String I_PERIOD_FROM  = "periodFrom";

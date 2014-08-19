@@ -19,8 +19,6 @@ public class OpenProjectItem
     private EJPojoProperty<Date>       _teFirstDay;
     private EJPojoProperty<BigDecimal> _workHours;
     private EJPojoProperty<BigDecimal> _payRate;
-    private EJPojoProperty<Integer>    _vatId;
-    private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<String>     _createInvoicePosition;
 
     @EJFieldName("INVP_ID")
@@ -221,42 +219,6 @@ public class OpenProjectItem
         return EJPojoProperty.getPropertyInitialValue(_payRate);
     }
 
-    @EJFieldName("VAT_RATE")
-    public BigDecimal getVatRate()
-    {
-        return EJPojoProperty.getPropertyValue(_vatRate);
-    }
-
-    @EJFieldName("VAT_RATE")
-    public void setVatRate(BigDecimal vatRate)
-    {
-        _vatRate = EJPojoProperty.setPropertyValue(_vatRate, vatRate);
-    }
-
-    @EJFieldName("VAT_RATE")
-    public BigDecimal getInitialVatRate()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_vatRate);
-    }
-
-    @EJFieldName("VAT_ID")
-    public Integer getVatId()
-    {
-        return EJPojoProperty.getPropertyValue(_vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public void setVatId(Integer vatId)
-    {
-        _vatId = EJPojoProperty.setPropertyValue(_vatId, vatId);
-    }
-
-    @EJFieldName("VAT_ID")
-    public Integer getInitialVatId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_vatId);
-    }
-
     @EJFieldName("CREATE_INVOICE_POSITION")
     public String getCreateInvoicePosition()
     {
@@ -289,8 +251,6 @@ public class OpenProjectItem
         EJPojoProperty.clearInitialValue(_teLastDay);
         EJPojoProperty.clearInitialValue(_workHours);
         EJPojoProperty.clearInitialValue(_createInvoicePosition);
-        EJPojoProperty.clearInitialValue(_vatId);
-        EJPojoProperty.clearInitialValue(_vatRate);
     }
 
 }

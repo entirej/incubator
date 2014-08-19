@@ -22,6 +22,13 @@ public class F_CUSTOMER
         public static final String I_COUNTRY               = "country";
         public static final String I_MODIFY_CUSTOMER       = "modifyCustomer";
         public static final String I_BACK_TO_CUSTOMER_LIST = "backToCustomerList";
+        public static final String I_CCY_ID                = "ccyId";
+        public static final String I_VAT_ID                = "vatId";
+        public static final String I_CCY_CODE              = "ccyCode";
+        public static final String I_VAT_RATE              = "vatRate";
+        public static final String I_CUSTOMER_NUMBER       = "customerNumber";
+        public static final String I_PAYMENT_DAYS          = "paymentDays";
+        public static final String I_DAYS_LABEL            = "daysLabel";
 
     }
 
@@ -63,6 +70,26 @@ public class F_CUSTOMER
     {
         public static final String ID      = "Salutations";
         public static final String I_VALUE = "value";
+        public static final String I_ID    = "id";
+
+    }
+
+    public static class L_CCY
+    {
+        public static final String ID        = "Ccy";
+        public static final String I_CODE    = "code";
+        public static final String I_USER_ID = "userId";
+        public static final String I_NAME    = "name";
+        public static final String I_ID      = "id";
+
+    }
+
+    public static class L_VAT
+    {
+        public static final String ID      = "vat";
+        public static final String I_NOTES = "notes";
+        public static final String I_RATE  = "rate";
+        public static final String I_NAME  = "name";
         public static final String I_ID    = "id";
 
     }

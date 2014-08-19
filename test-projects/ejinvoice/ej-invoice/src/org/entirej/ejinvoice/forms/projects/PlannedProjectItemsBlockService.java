@@ -34,7 +34,6 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
         _selectStatement.append(",      invp.text AS INVP_TEXT");
         _selectStatement.append(",      invp.period_from AS PERIOD_FROM");
         _selectStatement.append(",      invp.period_to AS PERIOD_TO");
-        _selectStatement.append(",     (select vat_id from customer_projects where id = invp.cupr_id) AS VAT_ID");
         _selectStatement.append(",     (select pay_rate from customer_project_tasks where id = invp.cupt_id) AS PAY_RATE");
         _selectStatement.append(",     (select (SUM(TIME_TO_SEC(TIMEDIFF(cpte.end_time, cpte.start_time))) / 60) / 60 ");
         _selectStatement.append("       from  customer_project_timeentry cpte "); 
@@ -75,7 +74,6 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
             item.setPeriodTo((Date)result.getItemValue("PERIOD_TO"));
             item.setWorkHours((BigDecimal)result.getItemValue("WORK_HOURS"));
             item.setPayRate((BigDecimal)result.getItemValue("PAY_RATE"));
-            item.setVatId((Integer)result.getItemValue("VAT_ID"));
             item.setCreateInvoicePosition("Approve");
             
             projectItems.add(item);

@@ -3,7 +3,6 @@ package org.entirej.ejinvoice.forms.projects;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.PKSequenceService;
@@ -62,18 +61,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
 
         if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType)) && F_PROJECTS.B_PROJECTS.ID.equals(record.getBlockName()))
         {
-            String invoiceable = (String) record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE);
-            Integer ccyId = (Integer) record.getValue(F_PROJECTS.B_PROJECTS.I_CCY_ID);
-            Integer vat = (Integer) record.getValue(F_PROJECTS.B_PROJECTS.I_VAT_ID);
-
-            if ("Y".equals(invoiceable))
-            {
-                if (ccyId == null || vat == null)
-                {
-                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "If a project is invoiceable then a Currency and a VAT % must be entered");
-                    throw new EJActionProcessorException(message);
-                }
-            }
 
             if (record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE).equals("Y"))
             {
@@ -130,7 +117,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             if (record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE).equals("Y"))
             {
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_FIX_PRICE).setEditable(true);
-                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_VAT_ID).setEditable(true);
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(true);
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setEditable(true);
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(true);
@@ -138,13 +124,11 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             else
             {
                 record.setValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE, null);
-                record.setValue(F_PROJECTS.B_PROJECTS.I_VAT_ID, null);
                 record.setValue(F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE, null);
                 record.setValue(F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE, null);
                 record.setValue(F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE, "N");
 
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_FIX_PRICE).setEditable(false);
-                form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_VAT_ID).setEditable(false);
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(false);
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setEditable(false);
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(false);
@@ -198,8 +182,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         {
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_STATUS).refreshItemRenderer();
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_STATUS).refreshItemRenderer();
-            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_VAT_ID).refreshItemRenderer();
-            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_CCY_ID).refreshItemRenderer();
 
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).enterInsert(false);
         }
@@ -407,8 +389,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             String taskName = (String) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_TASK_NAME);
             BigDecimal workHours = (BigDecimal) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_WORK_HOURS);
             BigDecimal payRate = (BigDecimal) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PAY_RATE);
-            Integer vatId = (Integer) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_VAT_ID);
-            BigDecimal vatRate = (BigDecimal) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_VAT_RATE);
 
             Date periodFrom = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).getValue();
             Date periodTo = (Date) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_TO).getValue();
@@ -431,8 +411,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
             position.setTaskName(taskName);
             position.setHoursWorked(workHours);
             position.setPayRate(payRate);
-            position.setVatId(vatId);
-            position.setVatRate(vatRate);
 
             ProjectService.planInvoicePosition(form, position);
 
