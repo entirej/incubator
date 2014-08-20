@@ -25,10 +25,11 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class VatRates
 {
-    private EJPojoProperty<String>  _notes;
-    private EJPojoProperty<BigDecimal>  _rate;
-    private EJPojoProperty<String>  _name;
-    private EJPojoProperty<Integer> _id;
+    private EJPojoProperty<Integer>    _companyId;
+    private EJPojoProperty<String>     _notes;
+    private EJPojoProperty<BigDecimal> _rate;
+    private EJPojoProperty<String>     _name;
+    private EJPojoProperty<Integer>    _id;
 
     @EJFieldName("NOTES")
     public String getNotes()
@@ -102,12 +103,31 @@ public class VatRates
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
 
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
+    {
+        return EJPojoProperty.getPropertyValue(_companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
+    {
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_notes);
         EJPojoProperty.clearInitialValue(_rate);
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_id);
+        EJPojoProperty.clearInitialValue(_companyId);
     }
 
 }

@@ -12,9 +12,10 @@ public class RL_SALUTATIONS
 
     public static class L_SALUTATIONS
     {
-        public static final String ID      = "Salutations";
-        public static final String I_VALUE = "value";
-        public static final String I_ID    = "id";
+        public static final String ID           = "Salutations";
+        public static final String I_VALUE      = "value";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 

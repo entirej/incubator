@@ -21,7 +21,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT INVP_ID, CUPT_ID,END_TIME,ID,START_TIME,USER_ID,WORK_DATE,WORK_DESCRIPTION, (SELECT CPR_ID FROM CUSTOMER_PROJECT_TASKS WHERE ID = CUPT_ID) CUPR_ID FROM customer_project_timeentry";
+    private String                    _selectStatement = "SELECT COMPANY_ID, INVP_ID, CUPT_ID,END_TIME,ID,START_TIME,USER_ID,WORK_DATE,WORK_DESCRIPTION, (SELECT CPR_ID FROM CUSTOMER_PROJECT_TASKS WHERE ID = CUPT_ID) CUPR_ID FROM customer_project_timeentry";
 
     public TimeEntryBlockService()
     {
@@ -34,26 +34,25 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         return false;
     }
 
-    
     public static int getCurrentWeek()
     {
         Calendar c = Calendar.getInstance();
         c.setTime(new java.util.Date());
-        
+
         return c.get(Calendar.WEEK_OF_YEAR);
     }
+
     public static int getWeek(Date date)
     {
         Calendar c = Calendar.getInstance();
         c.setTime(new java.util.Date(date.getTime()));
-        
+
         return c.get(Calendar.WEEK_OF_YEAR);
     }
-    
-    
-    public static EJQueryCriteria getWeeKQueryCriteria(EJQueryCriteria criteria,int week)
+
+    public static EJQueryCriteria getWeeKQueryCriteria(EJQueryCriteria criteria, int week)
     {
-       
+
         Calendar c = Calendar.getInstance();
         c.setTime(new java.util.Date());
         c.set(Calendar.WEEK_OF_YEAR, week);
@@ -64,7 +63,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
         java.util.Date weekStart = c.getTime();
-      
+
         // we do not need the same day a week after, that's why use 6, not 7
         c.add(Calendar.DAY_OF_MONTH, 6);
         c.set(Calendar.HOUR_OF_DAY, 23);
@@ -72,21 +71,21 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
         c.set(Calendar.SECOND, 59);
         c.set(Calendar.MILLISECOND, 999);
         java.util.Date weekEnd = c.getTime();
-        
+
         criteria.add(EJRestrictions.between("WORK_DATE", weekStart, weekEnd));
-        
+
         return criteria;
     }
-    
-    private String getDiffMinutesString( Time start, Time end)
+
+    private String getDiffMinutesString(Time start, Time end)
     {
         long diff = end.getTime() - start.getTime();
         long diffHours = diff / (60 * 60 * 1000);
-        long diffMinutes = (diff / (60 * 1000))- (diffHours*60);
-        
+        long diffMinutes = (diff / (60 * 1000)) - (diffHours * 60);
+
         String diffMinutesString = String.format("%02d", diffMinutes);
-        
-        return diffHours+":"+diffMinutesString;
+
+        return diffHours + ":" + diffMinutesString;
     }
 
     @Override
@@ -94,12 +93,12 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
     {
         queryCriteria.add(EJQuerySort.ASC("WORK_DATE"));
         queryCriteria.add(EJQuerySort.ASC("START_TIME"));
-        List<TimeEntry> timeEntries =  _statementExecutor.executeQuery(TimeEntry.class, form, _selectStatement, queryCriteria);
+        List<TimeEntry> timeEntries = _statementExecutor.executeQuery(TimeEntry.class, form, _selectStatement, queryCriteria);
         for (TimeEntry entry : timeEntries)
         {
             entry.setHoursWorked(getDiffMinutesString(entry.getStartTime(), entry.getEndTime()));
         }
-        
+
         return timeEntries;
     }
 
@@ -117,6 +116,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("WORK_DATE", Date.class, record.getWorkDate()));
             parameters.add(new EJStatementParameter("WORK_DESCRIPTION", String.class, record.getWorkDescription()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -142,8 +142,9 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             parameters.add(new EJStatementParameter("CUPT_ID", Integer.class, record.getCuptId()));
             parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
+            parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
             parameters.add(new EJStatementParameter("WORK_DATE", Date.class, record.getWorkDate()));
             parameters.add(new EJStatementParameter("WORK_DESCRIPTION", String.class, record.getWorkDescription()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -151,7 +152,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 
             connection.commit();
         }
-        catch (Exception e) 
+        catch (Exception e)
         {
             connection.rollback();
         }
@@ -178,6 +179,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("WORK_DATE", Date.class, record.getWorkDate()));
             parameters.add(new EJStatementParameter("WORK_DESCRIPTION", String.class, record.getWorkDescription()));
 
@@ -221,6 +223,14 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             else
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+            }
+            if (record.getInitialCompanyId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialWorkDate() == null)
             {
@@ -299,6 +309,14 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             else
             {
                 criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+            }
+            if (record.getInitialCompanyId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialWorkDate() == null)
             {

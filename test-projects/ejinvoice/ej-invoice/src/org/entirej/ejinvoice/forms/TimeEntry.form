@@ -298,17 +298,7 @@
                         <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
                         <itemRendererName></itemRendererName>
                         <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="userId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
-                        <defaultInsertValue><![CDATA[APP_PARAMETER:USER_ID]]></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
                         <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
@@ -2590,6 +2580,16 @@
                         <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
+                    <item name="companyId">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultInsertValue>
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
                     <item name="startTime">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
@@ -2693,7 +2693,7 @@
                         <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
                         <itemRendererName></itemRendererName>
                         <defaultInsertValue><![CDATA[APP_PARAMETER:USER_ID]]></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:USER_ID]]></defaultQueryValue>
                         <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
@@ -4063,13 +4063,13 @@
                 <lovMappingList>
                 </lovMappingList>
                 <itemList>
-                    <item name="userId">
+                    <item name="companyId">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
                         <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
                         <itemRendererName></itemRendererName>
-                        <defaultInsertValue><![CDATA[APP_PARAMETER:USER_ID]]></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
+                        <defaultInsertValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultInsertValue>
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
                         <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
@@ -6440,28 +6440,46 @@
         <lovDefinitionList>
             <lovDefinition name="VatRate" isReferenced="true" referencedLovDefinitionName="VatRates">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="Customer" isReferenced="true" referencedLovDefinitionName="Customer">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="CustomerProjects" isReferenced="true" referencedLovDefinitionName="CustomerProjects">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="ContactTypes" isReferenced="true" referencedLovDefinitionName="ContactTypes">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="Salutations" isReferenced="true" referencedLovDefinitionName="Salutations">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="UpdateCustomerProjectTasks" isReferenced="true" referencedLovDefinitionName="CustomerProjectTasks">
                 <itemList>
                     <item name="cprId">
                         <defaultQueryValue><![CDATA[BLOCK_ITEM:TimeEntry.cuprId]]></defaultQueryValue>
+                    </item>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
                     </item>
                 </itemList>
             </lovDefinition>
@@ -6470,18 +6488,30 @@
                     <item name="cprId">
                         <defaultQueryValue><![CDATA[BLOCK_ITEM:TimeEntryEntry.project]]></defaultQueryValue>
                     </item>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="Currencies" isReferenced="true" referencedLovDefinitionName="Currencies">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="ProjectStatus" isReferenced="true" referencedLovDefinitionName="ProjectStatus">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
             <lovDefinition name="TaskStatus" isReferenced="true" referencedLovDefinitionName="TaskStatus">
                 <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
         </lovDefinitionList>

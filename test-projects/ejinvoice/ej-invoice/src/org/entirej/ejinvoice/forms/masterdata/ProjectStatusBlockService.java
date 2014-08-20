@@ -21,7 +21,7 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
     public final static String STATUS_EXIST_STMT = "SELECT NAME FROM PROJECT_STATUS";
     
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT DESCRIPTION,ID,USER_ID, NAME,ORDER_KEY FROM project_status";
+    private String                    _selectStatement = "SELECT DESCRIPTION,ID, COMPANY_ID, NAME,ORDER_KEY FROM project_status";
 
     public ProjectStatusBlockService()
     {
@@ -51,7 +51,7 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             parameters.clear();
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("ORDER_KEY", Integer.class, record.getOrderKey()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -77,7 +77,7 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             // First add the new values
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("ORDER_KEY", Integer.class, record.getOrderKey()));
 
@@ -98,13 +98,13 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             {
                 criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialName() == null)
             {
@@ -160,13 +160,13 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             {
                 criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialName() == null)
             {
@@ -204,7 +204,7 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         
         EJQueryCriteria criteria = new EJQueryCriteria();
-        criteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        criteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         criteria.add(EJRestrictions.equals("NAME", status));
         if (id != null)
         {

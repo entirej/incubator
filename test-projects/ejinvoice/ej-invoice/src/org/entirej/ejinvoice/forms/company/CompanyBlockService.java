@@ -2,7 +2,7 @@ package org.entirej.ejinvoice.forms.company;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.entirej.ejinvoice.forms.company.Company;
+
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -15,7 +15,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CompanyBlockService implements EJBlockService<Company>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ACCOUNT_NUMBER,ADDRESS,BANK_ADDRESS,BANK_COUNTRY,BANK_NAME,BANK_POST_CODE,BANK_TOWN,COUNTRY,IBAN,ID,LOGO,NAME,POST_CODE,TOWN,USER_ID,VAT_NR FROM company_information";
+    private String                    _selectStatement = "SELECT ACCOUNT_NUMBER,ADDRESS,BANK_ADDRESS,BANK_COUNTRY,BANK_NAME,BANK_POST_CODE,BANK_TOWN,COUNTRY,IBAN,ID,LOGO,NAME,POST_CODE,TOWN, VAT_NR FROM company_information";
 
     public CompanyBlockService()
     {
@@ -31,6 +31,10 @@ public class CompanyBlockService implements EJBlockService<Company>
     @Override
     public List<Company> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        if (queryCriteria.containsRestriction("COMPANY_ID"))
+        {
+            queryCriteria.removeRestriction("COMPANY_ID");
+        }
         return _statementExecutor.executeQuery(Company.class, form, _selectStatement, queryCriteria);
     }
 
@@ -57,7 +61,6 @@ public class CompanyBlockService implements EJBlockService<Company>
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("VAT_NR", String.class, record.getVatNr()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "company_information", parameters.toArray(paramArray));
@@ -94,7 +97,6 @@ public class CompanyBlockService implements EJBlockService<Company>
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("VAT_NR", String.class, record.getVatNr()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
@@ -209,14 +211,6 @@ public class CompanyBlockService implements EJBlockService<Company>
             else
             {
                 criteria.add(EJRestrictions.equals("TOWN", record.getInitialTown()));
-            }
-            if (record.getInitialUserId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
             if (record.getInitialVatNr() == null)
             {
@@ -359,14 +353,6 @@ public class CompanyBlockService implements EJBlockService<Company>
             else
             {
                 criteria.add(EJRestrictions.equals("TOWN", record.getInitialTown()));
-            }
-            if (record.getInitialUserId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
             if (record.getInitialVatNr() == null)
             {

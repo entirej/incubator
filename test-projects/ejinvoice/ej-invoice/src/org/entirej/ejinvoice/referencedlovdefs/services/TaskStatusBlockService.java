@@ -17,7 +17,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TaskStatusBlockService implements EJBlockService<TaskStatus>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ASSIGN_AFTER_INVOICE,DESCRIPTION,ID,INVOICEABLE,NAME,ORDER_KEY,USER_ID FROM task_status";
+    private String                    _selectStatement = "SELECT ASSIGN_AFTER_INVOICE,DESCRIPTION,ID,INVOICEABLE,NAME,ORDER_KEY,COMPANY_ID FROM task_status";
 
     public TaskStatusBlockService()
     {
@@ -52,7 +52,7 @@ public class TaskStatusBlockService implements EJBlockService<TaskStatus>
             parameters.add(new EJStatementParameter("INVOICEABLE", Integer.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("ORDER_KEY", Integer.class, record.getOrderKey()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "task_status", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -80,7 +80,7 @@ public class TaskStatusBlockService implements EJBlockService<TaskStatus>
             parameters.add(new EJStatementParameter("INVOICEABLE", Integer.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("ORDER_KEY", Integer.class, record.getOrderKey()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialAssignAfterInvoice() == null)
@@ -131,13 +131,13 @@ public class TaskStatusBlockService implements EJBlockService<TaskStatus>
             {
                 criteria.add(EJRestrictions.equals("ORDER_KEY", record.getInitialOrderKey()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "task_status", criteria, parameters.toArray(paramArray));
@@ -209,13 +209,13 @@ public class TaskStatusBlockService implements EJBlockService<TaskStatus>
             {
                 criteria.add(EJRestrictions.equals("ORDER_KEY", record.getInitialOrderKey()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "task_status", criteria, parameters.toArray(paramArray));

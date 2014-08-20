@@ -32,7 +32,7 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append(",      NOTES ");
         _selectStatement.append(",      START_DATE ");
         _selectStatement.append(",      STATUS ");
-        _selectStatement.append(",      USER_ID ");
+        _selectStatement.append(",      COMPANY_ID ");
         _selectStatement.append(",      INVOICEABLE ");
         _selectStatement.append(",      FIX_PRICE ");
         _selectStatement.append(",      (select count(*) ");
@@ -98,7 +98,7 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             parameters.add(new EJStatementParameter("START_DATE", Date.class, record.getStartDate()));
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             
@@ -114,7 +114,7 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getTaskNotes()));
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getTaskPayRate()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             
             parameters.add(new EJStatementParameter("FIX_PRICE", Integer.class, record.getTaskFixPrice()));
             parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getTaskStatus()));
@@ -151,7 +151,7 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             parameters.add(new EJStatementParameter("START_DATE", Date.class, record.getStartDate()));
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
@@ -221,13 +221,13 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("STATUS", record.getInitialStatus()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialInvoiceable() == null)
             {
@@ -333,13 +333,13 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("STATUS", record.getInitialStatus()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialInvoiceable() == null)
             {

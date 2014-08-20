@@ -28,7 +28,7 @@ public class F_PROJECTS
         public static final String I_NAME                        = "name";
         public static final String I_STATUS                      = "status";
         public static final String I_STATUS_NAME                 = "statusName";
-        public static final String I_USER_ID                     = "userId";
+        public static final String I_COMPANY_ID                  = "companyId";
         public static final String I_CUSTOMER_ID                 = "customerId";
         public static final String I_START_DATE                  = "startDate";
         public static final String I_END_DATE                    = "endDate";
@@ -100,7 +100,7 @@ public class F_PROJECTS
         public static final String I_INVOICEABLE       = "invoiceable";
         public static final String I_INVOICEABLE_IMAGE = "invoiceableImage";
         public static final String I_FIX_PRICE         = "fixPrice";
-        public static final String I_USER_ID           = "userId";
+        public static final String I_COMPANY_ID        = "companyId";
         public static final String I_STATUS            = "status";
         public static final String I_MESSAGE_LABEL     = "messageLabel";
         public static final String I_DELETE            = "delete";
@@ -122,6 +122,7 @@ public class F_PROJECTS
         public static final String I_WORK_HOURS              = "workHours";
         public static final String I_CREATE_INVOICE_POSITION = "createInvoicePosition";
         public static final String I_PAY_RATE                = "payRate";
+        public static final String I_COMPANY_ID              = "companyId";
 
     }
 
@@ -163,6 +164,7 @@ public class F_PROJECTS
         public static final String I_INVP_TEXT               = "invpText";
         public static final String I_EDIT                    = "edit";
         public static final String I_PAY_RATE                = "payRate";
+        public static final String I_COMPANY_ID              = "companyId";
 
     }
 
@@ -178,7 +180,6 @@ public class F_PROJECTS
         public static final String I_AMOUNT         = "amount";
         public static final String I_ID             = "id";
         public static final String I_PAY_RATE       = "payRate";
-        public static final String I_USER_ID        = "userId";
         public static final String I_PROJECT_NAME   = "projectName";
         public static final String I_PERIOD_TO      = "periodTo";
         public static final String I_CUPT_ID        = "cuptId";
@@ -186,6 +187,7 @@ public class F_PROJECTS
         public static final String I_TEXT           = "text";
         public static final String I_DELETE         = "delete";
         public static final String I_ADD_TO_INVOICE = "addToInvoice";
+        public static final String I_COMPANY_ID     = "companyId";
 
     }
 
@@ -201,7 +203,7 @@ public class F_PROJECTS
         public static final String I_AMOUNT       = "amount";
         public static final String I_ID           = "id";
         public static final String I_PAY_RATE     = "payRate";
-        public static final String I_USER_ID      = "userId";
+        public static final String I_COMPANY_ID   = "companyId";
         public static final String I_PROJECT_NAME = "projectName";
         public static final String I_PERIOD_TO    = "periodTo";
         public static final String I_CUPT_ID      = "cuptId";
@@ -221,41 +223,44 @@ public class F_PROJECTS
 
     public static class L_VAT_RATE
     {
-        public static final String ID      = "VatRate";
-        public static final String I_NOTES = "notes";
-        public static final String I_RATE  = "rate";
-        public static final String I_NAME  = "name";
-        public static final String I_ID    = "id";
+        public static final String ID           = "VatRate";
+        public static final String I_NOTES      = "notes";
+        public static final String I_RATE       = "rate";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 
     public static class L_CUSTOMER
     {
-        public static final String ID          = "Customer";
-        public static final String I_ID        = "id";
-        public static final String I_ADDRESS   = "address";
-        public static final String I_NAME      = "name";
-        public static final String I_POST_CODE = "postCode";
-        public static final String I_TOWN      = "town";
-        public static final String I_COUNTRY   = "country";
+        public static final String ID           = "Customer";
+        public static final String I_ID         = "id";
+        public static final String I_ADDRESS    = "address";
+        public static final String I_NAME       = "name";
+        public static final String I_POST_CODE  = "postCode";
+        public static final String I_TOWN       = "town";
+        public static final String I_COUNTRY    = "country";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 
     public static class L_SALUTATIONS
     {
-        public static final String ID      = "Salutations";
-        public static final String I_VALUE = "value";
-        public static final String I_ID    = "id";
+        public static final String ID           = "Salutations";
+        public static final String I_VALUE      = "value";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 
     public static class L_CURRENCIES
     {
-        public static final String ID        = "Currencies";
-        public static final String I_CODE    = "code";
-        public static final String I_USER_ID = "userId";
-        public static final String I_NAME    = "name";
-        public static final String I_ID      = "id";
+        public static final String ID           = "Currencies";
+        public static final String I_CODE       = "code";
+        public static final String I_COMPANY_ID = "companyId";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
 
     }
 
@@ -264,7 +269,7 @@ public class F_PROJECTS
         public static final String ID            = "ProjectStatus";
         public static final String I_ORDER_KEY   = "orderKey";
         public static final String I_DESCRIPTION = "description";
-        public static final String I_USER_ID     = "userId";
+        public static final String I_COMPANY_ID  = "companyId";
         public static final String I_ID          = "id";
         public static final String I_NAME        = "name";
 
@@ -274,7 +279,7 @@ public class F_PROJECTS
     {
         public static final String ID                     = "TaskStatus";
         public static final String I_ORDER_KEY            = "orderKey";
-        public static final String I_USER_ID              = "userId";
+        public static final String I_COMPANY_ID           = "companyId";
         public static final String I_DESCRIPTION          = "description";
         public static final String I_ID                   = "id";
         public static final String I_INVOICEABLE          = "invoiceable";

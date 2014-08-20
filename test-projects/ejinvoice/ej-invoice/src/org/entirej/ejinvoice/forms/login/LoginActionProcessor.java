@@ -54,6 +54,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
                 
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_USER, user);
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID, user.getId());
+                form.setApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID, user.getCompanyId());
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_EMAIL, user.getEmail());
                 form.setApplicationLevelParameter(EJ_PROPERTIES.P_NAME, user.getFirstName()+' '+user.getLastName());
                 

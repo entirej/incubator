@@ -2,6 +2,7 @@ package org.entirej.ejinvoice.forms.timeentry;
 
 import java.sql.Date;
 import java.sql.Time;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
@@ -13,6 +14,7 @@ public class TimeEntry
     private EJPojoProperty<String>  _workDescription;
     private EJPojoProperty<Integer> _cuptId;
     private EJPojoProperty<Integer> _cuprId;
+    private EJPojoProperty<Integer> _companyId;
     private EJPojoProperty<Integer> _userId;
     private EJPojoProperty<Date>    _workDate;
     private EJPojoProperty<String>  _hoursWorked;
@@ -164,6 +166,27 @@ public class TimeEntry
         return EJPojoProperty.getPropertyInitialValue(_userId);
     }
 
+    
+    
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
+    {
+        return EJPojoProperty.getPropertyValue(_companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
+    {
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
+    }
+    
     @EJFieldName("WORK_DATE")
     public Date getWorkDate()
     {
@@ -212,6 +235,7 @@ public class TimeEntry
         EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_workDate);
         EJPojoProperty.clearInitialValue(_hoursWorked);
+        EJPojoProperty.clearInitialValue(_companyId);
     }
 
 }

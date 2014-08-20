@@ -18,11 +18,13 @@
  ******************************************************************************/
 package org.entirej.ejinvoice;
 
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJRestrictions;
 
 /**
  * This is a custom class that extends
@@ -39,9 +41,16 @@ public class DefaultFormActionProcessor extends EJDefaultFormActionProcessor
         {
             return;
         }
-
+        
+        if (!queryCriteria.containsRestriction("COMPANY_ID"))
+        {
+            Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+            queryCriteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
+        }
     }
 
+    
+    
     @Override
     public void preInsert(EJForm form, EJRecord record) throws EJActionProcessorException
     {

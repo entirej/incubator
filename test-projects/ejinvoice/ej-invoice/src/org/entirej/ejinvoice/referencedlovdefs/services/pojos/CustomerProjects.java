@@ -25,11 +25,12 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class CustomerProjects
 {
-    private EJPojoProperty<String>  _name;
-    private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<BigDecimal>  _payRate;
-    private EJPojoProperty<Integer> _custId;
-    private EJPojoProperty<String>  _description;
+    private EJPojoProperty<String>     _name;
+    private EJPojoProperty<Integer>    _id;
+    private EJPojoProperty<Integer>    _companyId;
+    private EJPojoProperty<BigDecimal> _payRate;
+    private EJPojoProperty<Integer>    _custId;
+    private EJPojoProperty<String>     _description;
 
     @EJFieldName("NAME")
     public String getName()
@@ -67,6 +68,26 @@ public class CustomerProjects
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
 
+    
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
+    {
+        return EJPojoProperty.getPropertyValue(_companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
+    {
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
+    }
+    
+    
     @EJFieldName("PAY_RATE")
     public BigDecimal getPayRate()
     {
@@ -124,6 +145,7 @@ public class CustomerProjects
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_name);
+        EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_custId);

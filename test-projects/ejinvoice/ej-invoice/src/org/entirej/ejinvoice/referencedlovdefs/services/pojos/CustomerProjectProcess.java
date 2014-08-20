@@ -1,6 +1,7 @@
 package org.entirej.ejinvoice.referencedlovdefs.services.pojos;
 
 import java.math.BigDecimal;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
@@ -13,7 +14,7 @@ public class CustomerProjectProcess
     private EJPojoProperty<String>     _projectName;
     private EJPojoProperty<String>     _processName;
     private EJPojoProperty<BigDecimal> _payRate;
-    private EJPojoProperty<Integer>    _userId;
+    private EJPojoProperty<Integer>    _companyId;
 
     @EJFieldName("ID")
     public Integer getId()
@@ -141,22 +142,22 @@ public class CustomerProjectProcess
         return EJPojoProperty.getPropertyInitialValue(_payRate);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
     {
-        return EJPojoProperty.getPropertyValue(_userId);
+        return EJPojoProperty.getPropertyValue(_companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
     {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
 
 
@@ -168,7 +169,7 @@ public class CustomerProjectProcess
         EJPojoProperty.clearInitialValue(_processName);
         EJPojoProperty.clearInitialValue(_projectName);
         EJPojoProperty.clearInitialValue(_payRate);
-        EJPojoProperty.clearInitialValue(_userId);
+        EJPojoProperty.clearInitialValue(_companyId);
     }
 
 }

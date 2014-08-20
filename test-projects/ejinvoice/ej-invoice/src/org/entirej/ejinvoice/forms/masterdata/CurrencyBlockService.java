@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.forms.login.User;
-import org.entirej.ejinvoice.forms.masterdata.Currency;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -22,7 +21,7 @@ public class CurrencyBlockService implements EJBlockService<Currency>
     public final static String CURRENCY_EXIST_STMT = "SELECT NAME FROM CURRENCIES";
     
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CODE,ID,NAME, USER_ID FROM currencies";
+    private String                    _selectStatement = "SELECT CODE,ID,NAME, COMPANY_ID FROM currencies";
     
 
     public CurrencyBlockService()
@@ -54,7 +53,7 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             parameters.clear();
             parameters.add(new EJStatementParameter("CODE", String.class, record.getCode()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "currencies", parameters.toArray(paramArray));
@@ -80,7 +79,7 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             // First add the new values
             parameters.add(new EJStatementParameter("CODE", String.class, record.getCode()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
@@ -100,13 +99,13 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             {
                 criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialName() == null)
             {
@@ -155,13 +154,13 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             {
                 criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
 
             if (record.getInitialName() == null)
@@ -193,7 +192,7 @@ public class CurrencyBlockService implements EJBlockService<Currency>
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         
         EJQueryCriteria criteria = new EJQueryCriteria();
-        criteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        criteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         criteria.add(EJRestrictions.equals("NAME", name));
         if (id != null)
         {

@@ -37,7 +37,7 @@ import org.entirej.framework.core.enumerations.EJScreenType;
  * validations related to CUSTOMER, CUSTOMER_CONTACT & CUSTOMER_PROJECTS block
  * service.
  */
-public class CustomerFormActionProcessor extends DefaultFormActionProcessor implements EJFormActionProcessor
+public class CustomerFormActionProcessor extends DefaultFormActionProcessor
 {
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException

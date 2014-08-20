@@ -9,7 +9,7 @@ public class ProjectStatus
     private EJPojoProperty<Integer> _orderKey;
     private EJPojoProperty<String>  _description;
     private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<Integer> _userId;
+    private EJPojoProperty<Integer> _companyId;
 
     @EJFieldName("NAME")
     public String getName()
@@ -83,22 +83,22 @@ public class ProjectStatus
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
     {
-        return EJPojoProperty.getPropertyValue(_userId);
+        return EJPojoProperty.getPropertyValue(_companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
     {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
     
     public void clearInitialValues()
@@ -107,7 +107,7 @@ public class ProjectStatus
         EJPojoProperty.clearInitialValue(_orderKey);
         EJPojoProperty.clearInitialValue(_description);
         EJPojoProperty.clearInitialValue(_id);
-        EJPojoProperty.clearInitialValue(_userId);
+        EJPojoProperty.clearInitialValue(_companyId);
     }
 
 }

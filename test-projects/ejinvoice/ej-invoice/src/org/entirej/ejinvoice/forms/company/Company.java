@@ -13,7 +13,6 @@ public class Company
     private EJPojoProperty<String>  _bankPostCode;
     private EJPojoProperty<String>  _iban;
     private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<Integer> _userId;
     private EJPojoProperty<String>  _bankTown;
     private EJPojoProperty<String>  _bankCountry;
     private EJPojoProperty<String>  _name;
@@ -146,24 +145,6 @@ public class Company
     public Integer getInitialId()
     {
         return EJPojoProperty.getPropertyInitialValue(_id);
-    }
-
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
-    {
-        return EJPojoProperty.getPropertyValue(_userId);
-    }
-
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
-    {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
-    }
-
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
     }
 
     @EJFieldName("BANK_TOWN")
@@ -321,7 +302,6 @@ public class Company
         EJPojoProperty.clearInitialValue(_bankPostCode);
         EJPojoProperty.clearInitialValue(_iban);
         EJPojoProperty.clearInitialValue(_id);
-        EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_bankTown);
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_town);

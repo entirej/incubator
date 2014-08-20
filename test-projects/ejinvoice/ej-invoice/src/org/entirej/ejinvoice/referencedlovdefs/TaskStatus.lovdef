@@ -72,13 +72,13 @@
                             <itemRendererProperties>
                             </itemRendererProperties>
                         </item>
-                        <item name="userId">
+                        <item name="companyId">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
                             <itemRendererName></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
-                            <defaultQueryValue></defaultQueryValue>
+                            <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
                             <itemRendererProperties>
                             </itemRendererProperties>
                         </item>

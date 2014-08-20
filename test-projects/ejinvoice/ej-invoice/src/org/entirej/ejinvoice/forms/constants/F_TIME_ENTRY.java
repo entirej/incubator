@@ -20,7 +20,6 @@ public class F_TIME_ENTRY
         public static final String I_BANK_POST_CODE  = "bankPostCode";
         public static final String I_IBAN            = "iban";
         public static final String I_ID              = "id";
-        public static final String I_USER_ID         = "userId";
         public static final String I_BANK_TOWN       = "bankTown";
         public static final String I_NAME            = "name";
         public static final String I_TOWN            = "town";
@@ -58,6 +57,7 @@ public class F_TIME_ENTRY
     {
         public static final String ID                 = "TimeEntry";
         public static final String I_ID               = "id";
+        public static final String I_COMPANY_ID       = "companyId";
         public static final String I_START_TIME       = "startTime";
         public static final String I_END_TIME         = "endTime";
         public static final String I_WORK_DESCRIPTION = "workDescription";
@@ -89,7 +89,7 @@ public class F_TIME_ENTRY
     public static class B_CUSTOMERS
     {
         public static final String ID                 = "Customers";
-        public static final String I_USER_ID          = "userId";
+        public static final String I_COMPANY_ID       = "companyId";
         public static final String I_ID               = "id";
         public static final String I_ADDRESS          = "address";
         public static final String I_NAME             = "name";
@@ -119,23 +119,25 @@ public class F_TIME_ENTRY
 
     public static class L_VAT_RATE
     {
-        public static final String ID      = "VatRate";
-        public static final String I_NOTES = "notes";
-        public static final String I_RATE  = "rate";
-        public static final String I_NAME  = "name";
-        public static final String I_ID    = "id";
+        public static final String ID           = "VatRate";
+        public static final String I_NOTES      = "notes";
+        public static final String I_RATE       = "rate";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 
     public static class L_CUSTOMER
     {
-        public static final String ID          = "Customer";
-        public static final String I_ID        = "id";
-        public static final String I_ADDRESS   = "address";
-        public static final String I_NAME      = "name";
-        public static final String I_POST_CODE = "postCode";
-        public static final String I_TOWN      = "town";
-        public static final String I_COUNTRY   = "country";
+        public static final String ID           = "Customer";
+        public static final String I_ID         = "id";
+        public static final String I_ADDRESS    = "address";
+        public static final String I_NAME       = "name";
+        public static final String I_POST_CODE  = "postCode";
+        public static final String I_TOWN       = "town";
+        public static final String I_COUNTRY    = "country";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 
@@ -146,6 +148,7 @@ public class F_TIME_ENTRY
         public static final String I_ID          = "id";
         public static final String I_CUST_ID     = "custId";
         public static final String I_DESCRIPTION = "description";
+        public static final String I_COMPANY_ID  = "companyId";
 
     }
 
@@ -155,14 +158,16 @@ public class F_TIME_ENTRY
         public static final String I_TYPE        = "type";
         public static final String I_ID          = "id";
         public static final String I_DESCRIPTION = "description";
+        public static final String I_COMPANY_ID  = "companyId";
 
     }
 
     public static class L_SALUTATIONS
     {
-        public static final String ID      = "Salutations";
-        public static final String I_VALUE = "value";
-        public static final String I_ID    = "id";
+        public static final String ID           = "Salutations";
+        public static final String I_VALUE      = "value";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 
@@ -176,7 +181,7 @@ public class F_TIME_ENTRY
         public static final String I_PROJECT_NAME        = "projectName";
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
-        public static final String I_USER_ID             = "userId";
+        public static final String I_COMPANY_ID          = "companyId";
 
     }
 
@@ -190,17 +195,17 @@ public class F_TIME_ENTRY
         public static final String I_PROJECT_NAME        = "projectName";
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
-        public static final String I_USER_ID             = "userId";
+        public static final String I_COMPANY_ID          = "companyId";
 
     }
 
     public static class L_CURRENCIES
     {
-        public static final String ID        = "Currencies";
-        public static final String I_CODE    = "code";
-        public static final String I_USER_ID = "userId";
-        public static final String I_NAME    = "name";
-        public static final String I_ID      = "id";
+        public static final String ID           = "Currencies";
+        public static final String I_CODE       = "code";
+        public static final String I_COMPANY_ID = "companyId";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
 
     }
 
@@ -209,7 +214,7 @@ public class F_TIME_ENTRY
         public static final String ID            = "ProjectStatus";
         public static final String I_ORDER_KEY   = "orderKey";
         public static final String I_DESCRIPTION = "description";
-        public static final String I_USER_ID     = "userId";
+        public static final String I_COMPANY_ID  = "companyId";
         public static final String I_ID          = "id";
         public static final String I_NAME        = "name";
 
@@ -219,7 +224,7 @@ public class F_TIME_ENTRY
     {
         public static final String ID                     = "TaskStatus";
         public static final String I_ORDER_KEY            = "orderKey";
-        public static final String I_USER_ID              = "userId";
+        public static final String I_COMPANY_ID           = "companyId";
         public static final String I_DESCRIPTION          = "description";
         public static final String I_ID                   = "id";
         public static final String I_INVOICEABLE          = "invoiceable";

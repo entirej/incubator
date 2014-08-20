@@ -15,7 +15,7 @@ public class RL_PROJECT_STATUS
         public static final String ID            = "ProjectStatus";
         public static final String I_ORDER_KEY   = "orderKey";
         public static final String I_DESCRIPTION = "description";
-        public static final String I_USER_ID     = "userId";
+        public static final String I_COMPANY_ID  = "companyId";
         public static final String I_ID          = "id";
         public static final String I_NAME        = "name";
 

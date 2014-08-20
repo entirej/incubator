@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class SalutationsLovService implements EJBlockService<Salutations>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ID,VALUE FROM SALUTATIONS";
+    private String                    _selectStatement = "SELECT COMPANY_ID, ID,VALUE FROM SALUTATIONS";
 
     public SalutationsLovService()
     {
@@ -53,7 +53,7 @@ public class SalutationsLovService implements EJBlockService<Salutations>
     public List<Salutations> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         return _statementExecutor.executeQuery(Salutations.class, form, _selectStatement, queryCriteria);
     }
 
@@ -66,6 +66,7 @@ public class SalutationsLovService implements EJBlockService<Salutations>
         {
             // Initialise the value list
             parameters.clear();
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("VALUE", String.class, record.getValue()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -101,6 +102,14 @@ public class SalutationsLovService implements EJBlockService<Salutations>
             else
             {
                 criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
+            }
+            if (record.getInitialCompanyId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             if (record.getInitialValue() == null)
             {
@@ -148,6 +157,14 @@ public class SalutationsLovService implements EJBlockService<Salutations>
             else
             {
                 criteria.add(EJRestrictions.equals("VALUE", record.getInitialValue()));
+            }
+            if (record.getInitialCompanyId() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "SALUTATIONS", criteria, parameters.toArray(paramArray));

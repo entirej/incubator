@@ -17,7 +17,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT DESCRIPTION,ID,NAME,ORDER_KEY,USER_ID FROM project_status";
+    private String                    _selectStatement = "SELECT COMPANY_ID, DESCRIPTION,ID,NAME,ORDER_KEY FROM project_status";
 
     public ProjectStatusBlockService()
     {
@@ -50,7 +50,7 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("ORDER_KEY", Integer.class, record.getOrderKey()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "project_status", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -76,7 +76,7 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("ORDER_KEY", Integer.class, record.getOrderKey()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialDescription() == null)
@@ -111,13 +111,13 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             {
                 criteria.add(EJRestrictions.equals("ORDER_KEY", record.getInitialOrderKey()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "project_status", criteria, parameters.toArray(paramArray));
@@ -173,13 +173,13 @@ public class ProjectStatusBlockService implements EJBlockService<ProjectStatus>
             {
                 criteria.add(EJRestrictions.equals("ORDER_KEY", record.getInitialOrderKey()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "project_status", criteria, parameters.toArray(paramArray));

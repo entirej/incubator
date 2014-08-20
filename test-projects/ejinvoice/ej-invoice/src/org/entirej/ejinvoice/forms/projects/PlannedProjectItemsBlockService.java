@@ -33,7 +33,8 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
         _selectStatement.append(",      invp.task_name AS TASK_NAME ");
         _selectStatement.append(",      invp.text AS INVP_TEXT");
         _selectStatement.append(",      invp.period_from AS PERIOD_FROM");
-        _selectStatement.append(",      invp.period_to AS PERIOD_TO");
+        _selectStatement.append(",      invp.period_to AS PERIOD_TO ");
+        _selectStatement.append(",      invp.company_id AS COMPANY_ID ");
         _selectStatement.append(",     (select pay_rate from customer_project_tasks where id = invp.cupt_id) AS PAY_RATE");
         _selectStatement.append(",     (select (SUM(TIME_TO_SEC(TIMEDIFF(cpte.end_time, cpte.start_time))) / 60) / 60 ");
         _selectStatement.append("       from  customer_project_timeentry cpte "); 
@@ -42,6 +43,7 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
         _selectStatement.append("from invoice_positions invp ");
         _selectStatement.append("where invp.status = 'PLANNED' ");
         _selectStatement.append("and   invp.cupr_id = ? ");
+        _selectStatement.append("and   invp.company_id = ? ");
         _selectStatement.append("order by invp.period_from ");
     }
 
@@ -56,14 +58,20 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
     {
         ArrayList<PlannedProjectItem> projectItems = new ArrayList<PlannedProjectItem>();
         
-        Integer projectId = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID).getValue();
+        Integer projectId = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_PROJECT_ID).getValue();
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
         projectIdParam.setValue(projectId);
+
+        Integer companyId = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_COMPANY_ID).getValue();
+        EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
+        companyIdParam.setValue(companyId);
+
         
-        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam);
+        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam, companyIdParam);
         for (EJSelectResult result : results)
         {
             PlannedProjectItem item = new PlannedProjectItem();
+            item.setCompanyId((Integer)result.getItemValue("COMPANY_ID"));
             item.setInvpId((Integer)result.getItemValue("INVP_ID"));
             item.setInvpText((String)result.getItemValue("INVP_TEXT"));
             item.setProjectId((Integer)result.getItemValue("PROJECT_ID"));
@@ -98,6 +106,7 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
             parameters.clear();
 
             // First add the new values
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("PROJECT_NAME", String.class, record.getProjectName()));
             parameters.add(new EJStatementParameter("TASK_NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("PERIOD_FROM", Date.class, record.getPeriodFrom()));

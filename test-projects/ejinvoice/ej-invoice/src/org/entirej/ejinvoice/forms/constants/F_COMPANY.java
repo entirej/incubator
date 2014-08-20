@@ -27,7 +27,6 @@ public class F_COMPANY
         public static final String I_BANK_POST_CODE = "bankPostCode";
         public static final String I_IBAN           = "iban";
         public static final String I_ID             = "id";
-        public static final String I_USER_ID        = "userId";
         public static final String I_BANK_TOWN      = "bankTown";
         public static final String I_BANK_COUNTRY   = "bankCountry";
         public static final String I_NAME           = "name";

@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCustomer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CUSTOMER_NUMBER, USER_ID, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_NUMBER, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE FROM CUSTOMER";
 
     public TimeEntryCustomerBlockService()
     {
@@ -52,8 +52,6 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
     @Override
     public List<TimeEntryCustomer> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
         return _statementExecutor.executeQuery(TimeEntryCustomer.class, form, _selectStatement, queryCriteria);
     }
 
@@ -74,7 +72,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("CUSTOMER_NUMBER", String.class, record.getCustomerNumber()));
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, usr.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
@@ -99,7 +97,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("MOBILE", String.class, record.getMobile()));
             parameters.add(new EJStatementParameter("PHONE", String.class, record.getPhone()));
             parameters.add(new EJStatementParameter("SALUTATIONS_ID", Integer.class, record.getSalutationsId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
+            parameters.add(new EJStatementParameter("CONPANY_ID", Integer.class, usr.getCompanyId()));
             custContactRecordsProcessed += _statementExecutor.executeInsert(form, "customer_contact", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
@@ -125,6 +123,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("CUSTOMER_NUMBER", String.class, record.getCustomerNumber()));
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
@@ -134,7 +133,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals("USER_ID", record.getUserId()));
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getCompanyId()));
             
             if (record.getInitialId() == null)
             {
@@ -167,7 +166,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals("USER_ID", record.getUserId()));
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getCompanyId()));
             
             if (record.getInitialCustomerNumber() == null)
             {
@@ -250,7 +249,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             {
                 criteria.add(EJRestrictions.equals("PAYMENT_DAYS", record.getInitialPaymentDays()));
             }
-            
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "CUSTOMER", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();

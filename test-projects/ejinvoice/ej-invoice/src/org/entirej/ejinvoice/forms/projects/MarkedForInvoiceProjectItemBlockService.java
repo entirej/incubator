@@ -18,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<MarkedForInvoiceProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT,USER_ID FROM invoice_positions";
+    private String                    _selectStatement = "SELECT AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT,COMPANY_ID FROM invoice_positions";
 
     public MarkedForInvoiceProjectItemBlockService()
     {
@@ -64,7 +64,7 @@ public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<M
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
             parameters.add(new EJStatementParameter("TASK_NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("TEXT", String.class, record.getText()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "invoice_positions", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -100,7 +100,7 @@ public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<M
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
             parameters.add(new EJStatementParameter("TASK_NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("TEXT", String.class, record.getText()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialAmount() == null)
@@ -215,13 +215,13 @@ public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<M
             {
                 criteria.add(EJRestrictions.equals("TEXT", record.getInitialText()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -358,13 +358,13 @@ public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<M
             {
                 criteria.add(EJRestrictions.equals("TEXT", record.getInitialText()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];

@@ -37,7 +37,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class SalutationBlockService implements EJBlockService<Salutation>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT USER_ID, ID,VALUE FROM SALUTATIONS";
+    private String                    _selectStatement = "SELECT COMPANY_ID, ID,VALUE FROM SALUTATIONS";
 
     public SalutationBlockService()
     {
@@ -54,7 +54,7 @@ public class SalutationBlockService implements EJBlockService<Salutation>
     public List<Salutation> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
 
         queryCriteria.add(EJQuerySort.ASC("VALUE"));
         return _statementExecutor.executeQuery(Salutation.class, form, _selectStatement, queryCriteria);
@@ -75,7 +75,7 @@ public class SalutationBlockService implements EJBlockService<Salutation>
             // Initialise the value list
             parameters.clear();
             User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, usr.getCompanyId()));
 
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("VALUE", String.class, record.getValue()));
@@ -98,7 +98,7 @@ public class SalutationBlockService implements EJBlockService<Salutation>
         {
             // Initialise the value list
             parameters.clear();
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("VALUE", String.class, record.getValue()));
@@ -128,7 +128,7 @@ public class SalutationBlockService implements EJBlockService<Salutation>
             parameters.add(new EJStatementParameter("VALUE", String.class, record.getValue()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));
@@ -167,7 +167,7 @@ public class SalutationBlockService implements EJBlockService<Salutation>
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));

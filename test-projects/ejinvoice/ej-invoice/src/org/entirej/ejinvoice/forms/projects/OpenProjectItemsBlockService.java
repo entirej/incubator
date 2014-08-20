@@ -40,7 +40,8 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("          CPTE.END_TIME as END_TIME,");
         _selectStatement.append("          CPTE.START_TIME as START_TIME,");
         _selectStatement.append("      (((TIME_TO_SEC(TIMEDIFF(CPTE.END_TIME,CPTE.START_TIME))) / 60) / 60) WORK_HOURS, ");
-        _selectStatement.append("      CUPT.PAY_RATE  ");
+        _selectStatement.append("      CUPT.PAY_RATE , ");
+        _selectStatement.append("      CPR.COMPANY_ID  ");
         _selectStatement.append(" FROM ");
         _selectStatement.append("customer_project_timeentry as CPTE,");
         _selectStatement.append(" customer_project_tasks AS CUPT, ");
@@ -50,13 +51,14 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("   CPTE.CUPT_ID = CUPT.ID AND");
         _selectStatement.append("   CPTE.INVP_ID IS NULL AND");
         _selectStatement.append("   CUPT.INVP_ID IS NULL AND");
-        _selectStatement.append("   CPR.ID       = ?  ");
+        _selectStatement.append("   CPR.ID       = ?  AND ");
+        _selectStatement.append("   CPR.COMPANY_ID = ? ");
         _selectStatement.append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
         _selectStatement.append("    ");
 
         _selectStatement.append(" order by TE_YEAR,TE_MONTH,TE_DAY");
         
-        _selectPlanedStatement = new StringBuilder("SELECT INVP.PERIOD_TO ,INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = ? AND ? between YEAR(INVP.PERIOD_FROM) and YEAR(INVP.PERIOD_TO)  and ? between MONTH(INVP.PERIOD_FROM) and MONTH(INVP.PERIOD_TO) ORDER by PERIOD_FROM");
+        _selectPlanedStatement = new StringBuilder("SELECT INVP.PERIOD_TO ,INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = ? AND ? between YEAR(INVP.PERIOD_FROM) and YEAR(INVP.PERIOD_TO)  and ? between MONTH(INVP.PERIOD_FROM) and MONTH(INVP.PERIOD_TO) AND INVP.COMPANY_ID = ? ORDER by PERIOD_FROM");
     }
 
     @Override
@@ -74,11 +76,15 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
         projectIdParam.setValue(projectId);
         
+        Integer companyId = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_COMPANY_ID).getValue();
+        EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
+        companyIdParam.setValue(companyId);
+        
         Map<GroupKey,Map<Integer,List<EJSelectResult>>> groupedResult = new HashMap<OpenProjectItemsBlockService.GroupKey, Map<Integer,List<EJSelectResult>>>();
         
        
 
-        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam);
+        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam, companyIdParam);
         
         
         Calendar calendar = Calendar.getInstance();
@@ -115,7 +121,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             month.setValue(key.month);
             EJStatementParameter year = new EJStatementParameter(EJParameterType.IN);
             year.setValue(key.year);
-            List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), projectIdParam,year,month);
+            List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), projectIdParam,year,month, companyIdParam);
             
             
             Map<Integer,List<EJSelectResult>> map = groupedResult.get(key);
@@ -188,6 +194,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                     {
                         
                         item = new OpenProjectItem();
+                        item.setCompanyId((Integer) result.getItemValue("COMPANY_ID"));
                         item.setProjectId((Integer) result.getItemValue("PROJECT_ID"));
                         item.setProjectName((String) result.getItemValue("PROJECT_NAME"));
                         item.setTaskId((Integer) result.getItemValue("TASK_ID"));

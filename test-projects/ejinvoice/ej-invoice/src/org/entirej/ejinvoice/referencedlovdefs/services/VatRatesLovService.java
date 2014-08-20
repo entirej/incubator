@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class VatRatesLovService implements EJBlockService<VatRates>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ID,NAME,NOTES,RATE FROM VAT_RATES";
+    private String                    _selectStatement = "SELECT COMPANY_ID, ID,NAME,NOTES,RATE FROM VAT_RATES";
 
     public VatRatesLovService()
     {
@@ -53,7 +53,7 @@ public class VatRatesLovService implements EJBlockService<VatRates>
     public List<VatRates> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         return _statementExecutor.executeQuery(VatRates.class, form, _selectStatement, queryCriteria);
     }
 
@@ -67,6 +67,7 @@ public class VatRatesLovService implements EJBlockService<VatRates>
             // Initialise the value list
             parameters.clear();
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             parameters.add(new EJStatementParameter("RATE", Double.class, record.getRate()));
@@ -93,11 +94,14 @@ public class VatRatesLovService implements EJBlockService<VatRates>
 
             // First add the new values
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             parameters.add(new EJStatementParameter("RATE", Double.class, record.getRate()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
+            
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));
@@ -153,6 +157,7 @@ public class VatRatesLovService implements EJBlockService<VatRates>
 
             EJStatementCriteria criteria = new EJStatementCriteria();
 
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));

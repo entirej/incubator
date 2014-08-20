@@ -18,6 +18,8 @@
         </canvasList>
         <blockList>
         </blockList>
+        <objGroupDefinitionList>
+        </objGroupDefinitionList>
         <relationList>
         </relationList>
         <lovDefinitionList>
@@ -71,6 +73,7 @@
                             <itemRendererProperties>
                                 <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                                 <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                                <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
@@ -83,6 +86,16 @@
                             <itemRendererName></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
+                            <itemRendererProperties>
+                            </itemRendererProperties>
+                        </item>
+                        <item name="companyId">
+                            <blockServiceItem>true</blockServiceItem>
+                            <mandatoryItem>false</mandatoryItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <itemRendererName></itemRendererName>
+                            <defaultInsertValue></defaultInsertValue>
+                            <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
                             <itemRendererProperties>
                             </itemRendererProperties>
                         </item>
@@ -110,6 +123,8 @@
                                 <yspan>1</yspan>
                                 <expandHorizontally>true</expandHorizontally>
                                 <expandVertically>true</expandVertically>
+                                <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                                <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                                 <itemGroupItemList>
                                     <item referencedItemName="value" isSpacerItem="false">
                                         <label><![CDATA[Salutation]]></label>
@@ -122,8 +137,8 @@
                                         <validateFromLov>true</validateFromLov>
                                         <actionCommand></actionCommand>
                                         <lovRendererRequiredProperties>
-                                            <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
+                                            <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>

@@ -48,9 +48,10 @@ public class F_CUSTOMER
 
     public static class L_SALUTATIONS
     {
-        public static final String ID      = "Salutations";
-        public static final String I_VALUE = "value";
-        public static final String I_ID    = "id";
+        public static final String ID           = "Salutations";
+        public static final String I_VALUE      = "value";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 
@@ -66,11 +67,12 @@ public class F_CUSTOMER
 
     public static class L_VAT
     {
-        public static final String ID      = "vat";
-        public static final String I_NOTES = "notes";
-        public static final String I_RATE  = "rate";
-        public static final String I_NAME  = "name";
-        public static final String I_ID    = "id";
+        public static final String ID           = "vat";
+        public static final String I_NOTES      = "notes";
+        public static final String I_RATE       = "rate";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
 
     }
 

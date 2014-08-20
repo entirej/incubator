@@ -8,6 +8,7 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class OpenProjectItem
 {
+    private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<Integer>    _invpId;
     private EJPojoProperty<Integer>    _projectId;
     private EJPojoProperty<Integer>    _taskId;
@@ -20,6 +21,24 @@ public class OpenProjectItem
     private EJPojoProperty<BigDecimal> _workHours;
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<String>     _createInvoicePosition;
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
+    {
+        return EJPojoProperty.getPropertyValue(_companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
+    {
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
+    }
 
     @EJFieldName("INVP_ID")
     public Integer getInvpId()
@@ -239,6 +258,7 @@ public class OpenProjectItem
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_invpId);
         EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_projectId);

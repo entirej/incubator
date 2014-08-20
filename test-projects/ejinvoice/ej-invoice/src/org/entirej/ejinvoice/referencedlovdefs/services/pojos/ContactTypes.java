@@ -23,10 +23,29 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class ContactTypes
 {
+    private EJPojoProperty<Integer> _companyId;
     private EJPojoProperty<String>  _type;
     private EJPojoProperty<Integer> _id;
     private EJPojoProperty<String>  _description;
 
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
+    {
+        return EJPojoProperty.getPropertyValue(_companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
+    {
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
+    }
+    
     @EJFieldName("TYPE")
     public String getType()
     {
@@ -83,6 +102,7 @@ public class ContactTypes
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_type);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_description);

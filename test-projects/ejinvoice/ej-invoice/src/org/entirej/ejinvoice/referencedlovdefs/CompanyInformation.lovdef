@@ -207,8 +207,8 @@
                                         <validateFromLov>true</validateFromLov>
                                         <actionCommand></actionCommand>
                                         <lovRendererRequiredProperties>
-                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
                                             <property name="IS_COLUMN_FIXED" multilingual="false" propertyType="BOOLEAN"></property>
+                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>

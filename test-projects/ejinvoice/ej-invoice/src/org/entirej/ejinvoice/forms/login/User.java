@@ -11,6 +11,7 @@ public class User
     private EJPojoProperty<String>  _lastName;
     private EJPojoProperty<String>  _firstName;
     private EJPojoProperty<Integer> _id;
+    private EJPojoProperty<Integer> _companyId;
 
     @EJFieldName("PASSWORD")
     public String getPassword()
@@ -120,6 +121,24 @@ public class User
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
 
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
+    {
+        return EJPojoProperty.getPropertyValue(_companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
+    {
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_password);
@@ -128,6 +147,7 @@ public class User
         EJPojoProperty.clearInitialValue(_lastName);
         EJPojoProperty.clearInitialValue(_firstName);
         EJPojoProperty.clearInitialValue(_id);
+        EJPojoProperty.clearInitialValue(_companyId);
     }
 
 }

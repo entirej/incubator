@@ -428,23 +428,13 @@
                         <mandatoryItem>false</mandatoryItem>
                         <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
                         <itemRendererName><![CDATA[NumberItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
+                        <defaultInsertValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultInsertValue>
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                             <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="userId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <itemRendererName></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
                     <item name="bankTown">

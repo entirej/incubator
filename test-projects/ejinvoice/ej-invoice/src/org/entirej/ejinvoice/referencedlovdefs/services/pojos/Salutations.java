@@ -25,6 +25,7 @@ public class Salutations
 {
     private EJPojoProperty<String>  _value;
     private EJPojoProperty<Integer> _id;
+    private EJPojoProperty<Integer> _companyId;
 
     @EJFieldName("VALUE")
     public String getValue()
@@ -61,11 +62,32 @@ public class Salutations
     {
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
+    
+    
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
+    {
+        return EJPojoProperty.getPropertyValue(_companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
+    {
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
+    }
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
+    }
+    
 
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_value);
         EJPojoProperty.clearInitialValue(_id);
+        EJPojoProperty.clearInitialValue(_companyId);
     }
 
 }

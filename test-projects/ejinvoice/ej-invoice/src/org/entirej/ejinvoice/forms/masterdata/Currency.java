@@ -8,7 +8,7 @@ public class Currency
     private EJPojoProperty<String>  _code;
     private EJPojoProperty<String>  _name;
     private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<Integer> _userId;
+    private EJPojoProperty<Integer> _companyId;
 
     @EJFieldName("CODE")
     public String getCode()
@@ -63,34 +63,31 @@ public class Currency
     {
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
-    
-    
-    
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
+
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
     {
-        return EJPojoProperty.getPropertyValue(_userId);
+        return EJPojoProperty.getPropertyValue(_companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
     {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
-    
 
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_code);
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_id);
-        EJPojoProperty.clearInitialValue(_userId);
+        EJPojoProperty.clearInitialValue(_companyId);
     }
 
 }

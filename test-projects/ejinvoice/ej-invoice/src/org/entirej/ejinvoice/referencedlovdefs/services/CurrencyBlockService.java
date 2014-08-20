@@ -15,7 +15,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CurrencyBlockService implements EJBlockService<Currency>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CODE,ID,NAME,USER_ID FROM currencies";
+    private String                    _selectStatement = "SELECT COMPANY_ID, CODE,ID,NAME FROM currencies";
 
     public CurrencyBlockService()
     {
@@ -46,7 +46,7 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             parameters.add(new EJStatementParameter("CODE", String.class, record.getCode()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "currencies", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -71,7 +71,7 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             parameters.add(new EJStatementParameter("CODE", String.class, record.getCode()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCode() == null)
@@ -98,13 +98,13 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             {
                 criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "currencies", criteria, parameters.toArray(paramArray));
@@ -152,13 +152,13 @@ public class CurrencyBlockService implements EJBlockService<Currency>
             {
                 criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
             }
-            if (record.getInitialUserId() == null)
+            if (record.getInitialCompanyId() == null)
             {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
+                criteria.add(EJRestrictions.isNull("COMPANY_ID"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+                criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "currencies", criteria, parameters.toArray(paramArray));

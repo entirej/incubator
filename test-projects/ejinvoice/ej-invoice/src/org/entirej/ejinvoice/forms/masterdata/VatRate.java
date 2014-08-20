@@ -6,28 +6,28 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class VatRate
 {
-    private EJPojoProperty<Integer>    _userId;
+    private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<BigDecimal> _rate;
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<String>     _notes;
     private EJPojoProperty<String>     _name;
 
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
     {
-        return EJPojoProperty.getPropertyValue(_userId);
+        return EJPojoProperty.getPropertyValue(_companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
     {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
 
     @EJFieldName("RATE")
@@ -104,7 +104,7 @@ public class VatRate
 
     public void clearInitialValues()
     {
-        EJPojoProperty.clearInitialValue(_userId);
+        EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_rate);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_notes);

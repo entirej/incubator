@@ -16,6 +16,7 @@ public class RL_CONTACT_TYPES
         public static final String I_TYPE        = "type";
         public static final String I_ID          = "id";
         public static final String I_DESCRIPTION = "description";
+        public static final String I_COMPANY_ID  = "companyId";
 
     }
 

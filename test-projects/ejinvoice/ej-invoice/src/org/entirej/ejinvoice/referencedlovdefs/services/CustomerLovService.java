@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerLovService implements EJBlockService<Customer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT COMPANY_ID, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY FROM CUSTOMER";
 
     public CustomerLovService()
     {

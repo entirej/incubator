@@ -207,6 +207,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 return;
             }
 
+            Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
             TimeEntry timeEntry = new TimeEntry();
 
             timeEntry.setId(idSeqNextval);
@@ -216,6 +217,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             timeEntry.setStartTime(new Time(start.getTime()));
             timeEntry.setWorkDescription(workDescription);
             timeEntry.setWorkDate(workDay);
+            timeEntry.setCompanyId(companyId);
 
             TimeEntryBlockService service = new TimeEntryBlockService();
             service.enterTimeEntry(form, timeEntry);
@@ -278,7 +280,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             else if (F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS.equals(tabPageName))
             {
                 EJForm projectForm = form.getEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM);
-                projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
+                if (projectForm.getDisplayedStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK).equals(F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS))
+                {
+                    projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
+                }
             }
         }
     }

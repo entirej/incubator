@@ -16,7 +16,7 @@ public class ApprovedProjectItem
     private EJPojoProperty<BigDecimal> _amount;
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<BigDecimal> _payRate;
-    private EJPojoProperty<Integer>    _userId;
+    private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<String>     _projectName;
     private EJPojoProperty<Date>       _periodTo;
     private EJPojoProperty<Integer>    _cuptId;
@@ -186,22 +186,22 @@ public class ApprovedProjectItem
         return EJPojoProperty.getPropertyInitialValue(_payRate);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
     {
-        return EJPojoProperty.getPropertyValue(_userId);
+        return EJPojoProperty.getPropertyValue(_companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
     {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
 
     @EJFieldName("PROJECT_NAME")
@@ -323,7 +323,7 @@ public class ApprovedProjectItem
         EJPojoProperty.clearInitialValue(_amount);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_payRate);
-        EJPojoProperty.clearInitialValue(_userId);
+        EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_projectName);
         EJPojoProperty.clearInitialValue(_periodTo);
         EJPojoProperty.clearInitialValue(_cuptId);

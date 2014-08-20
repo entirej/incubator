@@ -23,7 +23,7 @@ public class F_MASTER_DATA
         public static final String I_TYPE        = "type";
         public static final String I_ID          = "id";
         public static final String I_DESCRIPTION = "description";
-        public static final String I_USER_ID     = "userId";
+        public static final String I_COMPANY_ID  = "companyId";
         public static final String I_EDIT        = "edit";
         public static final String I_DELETE      = "delete";
 
@@ -38,12 +38,12 @@ public class F_MASTER_DATA
 
     public static class B_SALUTATIONS
     {
-        public static final String ID        = "Salutations";
-        public static final String I_VALUE   = "value";
-        public static final String I_ID      = "id";
-        public static final String I_USER_ID = "userId";
-        public static final String I_DELETE  = "delete";
-        public static final String I_EDIT    = "edit";
+        public static final String ID           = "Salutations";
+        public static final String I_VALUE      = "value";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
+        public static final String I_DELETE     = "delete";
+        public static final String I_EDIT       = "edit";
 
     }
 
@@ -56,14 +56,14 @@ public class F_MASTER_DATA
 
     public static class B_VAT_RATES
     {
-        public static final String ID        = "VatRates";
-        public static final String I_NOTES   = "notes";
-        public static final String I_RATE    = "rate";
-        public static final String I_NAME    = "name";
-        public static final String I_ID      = "id";
-        public static final String I_USER_ID = "userId";
-        public static final String I_DELETE  = "delete";
-        public static final String I_EDIT    = "edit";
+        public static final String ID           = "VatRates";
+        public static final String I_NOTES      = "notes";
+        public static final String I_RATE       = "rate";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
+        public static final String I_DELETE     = "delete";
+        public static final String I_EDIT       = "edit";
 
     }
 
@@ -81,7 +81,7 @@ public class F_MASTER_DATA
         public static final String I_ORDER_KEY   = "orderKey";
         public static final String I_DESCRIPTION = "description";
         public static final String I_ID          = "id";
-        public static final String I_USER_ID     = "userId";
+        public static final String I_COMPANY_ID  = "companyId";
         public static final String I_DELETE      = "delete";
         public static final String I_EDIT        = "edit";
 
@@ -96,13 +96,13 @@ public class F_MASTER_DATA
 
     public static class B_CURRENCIES
     {
-        public static final String ID        = "Currencies";
-        public static final String I_CODE    = "code";
-        public static final String I_NAME    = "name";
-        public static final String I_ID      = "id";
-        public static final String I_USER_ID = "userId";
-        public static final String I_DELETE  = "delete";
-        public static final String I_EDIT    = "edit";
+        public static final String ID           = "Currencies";
+        public static final String I_CODE       = "code";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
+        public static final String I_COMPANY_ID = "companyId";
+        public static final String I_DELETE     = "delete";
+        public static final String I_EDIT       = "edit";
 
     }
 

@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 
 import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
@@ -13,8 +14,6 @@ import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
-import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJPopupButton;
@@ -22,7 +21,7 @@ import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
-public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implements EJFormActionProcessor
+public class ProjectsActionProcessor extends DefaultFormActionProcessor
 {
     private boolean timeEntryInserted = false;
 

@@ -37,7 +37,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ContactTypeBlockService implements EJBlockService<ContactType>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT DESCRIPTION, USER_ID, ID,TYPE FROM CONTACT_TYPES";
+    private String                    _selectStatement = "SELECT DESCRIPTION, COMPANY_ID, ID,TYPE FROM CONTACT_TYPES";
 
     public ContactTypeBlockService()
     {
@@ -54,7 +54,7 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
     public List<ContactType> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         
         queryCriteria.add(EJQuerySort.ASC("TYPE"));
         
@@ -76,7 +76,7 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
         {
             // Initialise the value list
             parameters.clear();
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("TYPE", String.class, record.getType()));
@@ -101,7 +101,7 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
             // Initialise the value list
             parameters.clear();
             User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, usr.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, usr.getCompanyId()));
             parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("TYPE", String.class, record.getType()));
@@ -133,7 +133,7 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             
-            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             
             if (record.getInitialDescription() == null)
             {
@@ -182,7 +182,7 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
 
             EJStatementCriteria criteria = new EJStatementCriteria();
 
-            criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
+            criteria.add(EJRestrictions.equals("COMPANY_ID", record.getInitialCompanyId()));
             
             if (record.getInitialDescription() == null)
             {

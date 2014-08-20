@@ -60,6 +60,9 @@ public class UserService
 
     public boolean doesEmailExist(String email)
     {
+        throw new EJApplicationException("Do something here!!!");
+        
+        /*
         final String stmt = "SELECT EMAIL FROM USER ";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
@@ -67,11 +70,12 @@ public class UserService
         List<EJSelectResult> results = new EJStatementExecutor().executeQuery(contextProvider.getConnection(), stmt, criteria);
 
         return !results.isEmpty();
+        */
     }
 
     public User getUser(String email, String password)
     {
-        final String stmt = "SELECT EMAIL,FIRST_NAME,ID,LAST_NAME,NOTES,PASSWORD FROM user";
+        final String stmt = "SELECT COMPANY_ID, EMAIL,FIRST_NAME,ID,LAST_NAME,NOTES,PASSWORD FROM user";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("email", email));
@@ -87,7 +91,7 @@ public class UserService
 
     public User getUser(String email)
     {
-        final String stmt = "SELECT EMAIL,FIRST_NAME,ID,LAST_NAME,NOTES,PASSWORD FROM user";
+        final String stmt = "SELECT COMPANY_ID, EMAIL,FIRST_NAME,ID,LAST_NAME,NOTES,PASSWORD FROM user";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("email", email));
@@ -109,6 +113,7 @@ public class UserService
         parameters.clear();
         int pkSequence = PKSequenceService.getPKSequence(form.getConnection());
         parameters.add(new EJStatementParameter("ID", Integer.class, pkSequence));
+        parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, pkSequence));
         parameters.add(new EJStatementParameter("EMAIL", String.class, user.getEmail()));
         parameters.add(new EJStatementParameter("FIRST_NAME", String.class, user.getFirstName()));
         parameters.add(new EJStatementParameter("LAST_NAME", String.class, user.getLastName()));
@@ -131,7 +136,7 @@ public class UserService
         }
     }
 
-    public void setupDefaultData(int userId)
+    public void setupDefaultData(int companyId)
     {
         // Default Data User
         User user = getUser("template@ej.org");
@@ -139,7 +144,7 @@ public class UserService
             return;
 
         EJQueryCriteria criteria = new EJQueryCriteria();
-        criteria.add(EJRestrictions.equals("USER_ID", user.getId()));
+        criteria.add(EJRestrictions.equals("COMPANY_ID", user.getCompanyId()));
 
         {// create Contact Types
 
@@ -149,7 +154,7 @@ public class UserService
             for (ContactType contactType : contactTypes)
             {
                 contactType.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
-                contactType.setUserId(userId);
+                contactType.setCompanyId(companyId);
             }
             if (contactTypes.size() > 0)
             {
@@ -165,7 +170,7 @@ public class UserService
             for (Salutation salutation : salutations)
             {
                 salutation.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
-                salutation.setUserId(userId);
+                salutation.setCompanyId(companyId);
             }
 
             if (salutations.size() > 0)
@@ -183,7 +188,7 @@ public class UserService
             for (VatRate rate : vatRates)
             {
                 rate.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
-                rate.setUserId(userId);
+                rate.setCompanyId(companyId);
             }
 
             if (vatRates.size() > 0)
