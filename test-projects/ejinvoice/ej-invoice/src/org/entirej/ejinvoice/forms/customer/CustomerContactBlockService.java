@@ -18,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerContactBlockService implements EJBlockService<CustomerContact>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CONTACT_TYPES_ID,CUSTOMER_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,MOBILE,PHONE,SALUTATIONS_ID,USER_ID FROM customer_contact";
+    private String                    _selectStatement = "SELECT CONTACT_TYPES_ID,CUSTOMER_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,MOBILE,PHONE,SALUTATIONS_ID FROM customer_contact";
 
     public CustomerContactBlockService()
     {
@@ -93,7 +93,6 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             parameters.add(new EJStatementParameter("MOBILE", String.class, record.getMobile()));
             parameters.add(new EJStatementParameter("PHONE", String.class, record.getPhone()));
             parameters.add(new EJStatementParameter("SALUTATIONS_ID", Integer.class, record.getSalutationsId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialContactTypesId() == null)
@@ -167,14 +166,6 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             else
             {
                 criteria.add(EJRestrictions.equals("SALUTATIONS_ID", record.getInitialSalutationsId()));
-            }
-            if (record.getInitialUserId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "customer_contact", criteria, parameters.toArray(paramArray));
@@ -270,14 +261,6 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             else
             {
                 criteria.add(EJRestrictions.equals("SALUTATIONS_ID", record.getInitialSalutationsId()));
-            }
-            if (record.getInitialUserId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("USER_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("USER_ID", record.getInitialUserId()));
             }
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_contact", criteria, parameters.toArray(paramArray));

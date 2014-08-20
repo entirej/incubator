@@ -7,7 +7,6 @@ public class CustomerContact
 {
     private EJPojoProperty<String>  _email;
     private EJPojoProperty<String>  _phone;
-    private EJPojoProperty<Integer> _userId;
     private EJPojoProperty<Integer> _contactTypesId;
     private EJPojoProperty<Integer> _customerId;
     private EJPojoProperty<Integer> _id;
@@ -50,24 +49,6 @@ public class CustomerContact
     public String getInitialPhone()
     {
         return EJPojoProperty.getPropertyInitialValue(_phone);
-    }
-
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
-    {
-        return EJPojoProperty.getPropertyValue(_userId);
-    }
-
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
-    {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
-    }
-
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
     }
 
     @EJFieldName("CONTACT_TYPES_ID")
@@ -200,7 +181,6 @@ public class CustomerContact
     {
         EJPojoProperty.clearInitialValue(_email);
         EJPojoProperty.clearInitialValue(_phone);
-        EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_contactTypesId);
         EJPojoProperty.clearInitialValue(_customerId);
         EJPojoProperty.clearInitialValue(_id);

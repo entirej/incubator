@@ -24,7 +24,6 @@ public class F_CUSTOMER
         public static final String ID                 = "CustomerContacts";
         public static final String I_EMAIL            = "email";
         public static final String I_PHONE            = "phone";
-        public static final String I_USER_ID          = "userId";
         public static final String I_CONTACT_TYPES_ID = "contactTypesId";
         public static final String I_CUSTOMER_ID      = "customerId";
         public static final String I_ID               = "id";
@@ -43,6 +42,7 @@ public class F_CUSTOMER
         public static final String I_TYPE        = "type";
         public static final String I_ID          = "id";
         public static final String I_DESCRIPTION = "description";
+        public static final String I_COMPANY_ID  = "companyId";
 
     }
 
@@ -57,11 +57,11 @@ public class F_CUSTOMER
 
     public static class L_CCY
     {
-        public static final String ID        = "Ccy";
-        public static final String I_CODE    = "code";
-        public static final String I_USER_ID = "userId";
-        public static final String I_NAME    = "name";
-        public static final String I_ID      = "id";
+        public static final String ID           = "Ccy";
+        public static final String I_CODE       = "code";
+        public static final String I_COMPANY_ID = "companyId";
+        public static final String I_NAME       = "name";
+        public static final String I_ID         = "id";
 
     }
 
