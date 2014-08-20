@@ -10,32 +10,12 @@ public class F_CUSTOMER
 {
     public static final String ID = "Customer";
 
-    public static class B_CUSTOMER
-    {
-        public static final String ID                      = "Customer";
-        public static final String I_USER_ID               = "userId";
-        public static final String I_ID                    = "id";
-        public static final String I_ADDRESS               = "address";
-        public static final String I_NAME                  = "name";
-        public static final String I_POST_CODE             = "postCode";
-        public static final String I_TOWN                  = "town";
-        public static final String I_COUNTRY               = "country";
-        public static final String I_MODIFY_CUSTOMER       = "modifyCustomer";
-        public static final String I_BACK_TO_CUSTOMER_LIST = "backToCustomerList";
-        public static final String I_CCY_ID                = "ccyId";
-        public static final String I_VAT_ID                = "vatId";
-        public static final String I_CCY_CODE              = "ccyCode";
-        public static final String I_VAT_RATE              = "vatRate";
-        public static final String I_CUSTOMER_NUMBER       = "customerNumber";
-        public static final String I_PAYMENT_DAYS          = "paymentDays";
-        public static final String I_DAYS_LABEL            = "daysLabel";
-
-    }
-
     public static class B_CUSTOMER_CONTACTS_TOOLBAR
     {
-        public static final String ID                = "CustomerContactsToolbar";
-        public static final String I_ADD_NEW_CONTACT = "addNewContact";
+        public static final String ID                      = "CustomerContactsToolbar";
+        public static final String I_ADD_NEW_CONTACT       = "addNewContact";
+        public static final String I_BACK_TO_CUSTOMER_LIST = "backToCustomerList";
+        public static final String I_CUSTOMER_INFORMATION  = "customerInformation";
 
     }
 
@@ -94,7 +74,6 @@ public class F_CUSTOMER
 
     }
 
-    public static final String C_CUSTOMER                  = "Customer";
     public static final String C_CUSTOMER_CONTACTS_TOOLBAR = "CustomerContactsToolbar";
     public static final String C_CUSTOMER_CONTACTS         = "CustomerContacts";
 
@@ -102,9 +81,9 @@ public class F_CUSTOMER
     public static final String AC_BACK_TO_CUSTOMER_LIST    = "BACK_TO_CUSTOMER_LIST";
     public static final String AC_DELETE_CUSTOMER_CONTACT  = "DELETE_CUSTOMER_CONTACT";
     public static final String AC_EDIT_CONTACT             = "EDIT_CONTACT";
-    public static final String AC_MODIFY_CUSTOMER          = "MODIFY_CUSTOMER";
     public static final String AC_OPEN_EMAIL               = "OPEN_EMAIL";
 
     public static final String P_CST_ID                    = "cstId";
+    public static final String P_CUSTOMER_INFORMATION      = "customerInformation";
 
 }

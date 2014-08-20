@@ -151,12 +151,21 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
             form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterInsert(false);
         }
+        else if (F_TIME_ENTRY.AC_EDIT_CUSTOMER.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterUpdate();
+        }
         else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
         {
             EJParameterList paramList = new EJParameterList();
             EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
             cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
+            
+            EJFormParameter cstInfoParam = new EJFormParameter(F_CUSTOMER.P_CUSTOMER_INFORMATION, String.class);
+            cstInfoParam.setValue("Customer: "+record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_CUSTOMER_NUMBER)+" ("+record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_NAME)+")");
+            
             paramList.addParameter(cstParam);
+            paramList.addParameter(cstInfoParam);
 
             form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
             form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);

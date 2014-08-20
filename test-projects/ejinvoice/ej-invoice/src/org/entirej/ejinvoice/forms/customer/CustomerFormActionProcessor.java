@@ -24,7 +24,6 @@ package org.entirej.ejinvoice.forms.customer;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.client.service.UrlLauncher;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
-import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -45,9 +44,14 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
     {
         if (form.getParameterList().getParameter(F_CUSTOMER.P_CST_ID) != null)
         {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).executeQuery();
+            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).executeQuery();
         }
 
+        if (form.getParameterList().getParameter(F_CUSTOMER.P_CUSTOMER_INFORMATION) != null)
+        {
+            String custInfo = (String)form.getParameterList().getParameter(F_CUSTOMER.P_CUSTOMER_INFORMATION).getValue();
+            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_CUSTOMER.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_INFORMATION).setValue(custInfo);
+        }
     }
 
     @Override
@@ -66,10 +70,6 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor impl
         {
             form.getForm(F_TIME_ENTRY.ID).showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
             form.getForm(F_TIME_ENTRY.ID).closeEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM);
-        }
-        else if (F_CUSTOMER.AC_MODIFY_CUSTOMER.equals(command))
-        {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER.ID).enterUpdate();
         }
         else if (F_CUSTOMER.AC_ADD_NEW_CONTACT.equals(command))
         {
