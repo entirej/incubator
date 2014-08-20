@@ -152,15 +152,26 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
         }
         else if (F_PROJECTS.AC_PROJECT_DETAILS.equals(command))
         {
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.DETAILS);
-            form.getBlock(F_PROJECTS.B_PROJECTS_DETAIL.ID).gainFocus();
+            form.getBlock(F_PROJECTS.B_INVOICE_HEADER.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_HEADER.I_PROJECT_INFORMATION).setValue("Project: "+record.getValue(F_PROJECTS.B_PROJECTS.I_NAME));
+            
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.INVOICE);
             form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
+        }
+        else if (F_PROJECTS.AC_PROJECT_TASKS.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.I_PROJECT_INFORMATION).setValue("Project: "+record.getValue(F_PROJECTS.B_PROJECTS.I_NAME));
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.TASKS);
+            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
         }
         else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
         {
             form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS);
-            form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeLastQuery();
+            
+            if (!record.getBlockName().equals(F_PROJECTS.B_PROJECT_TASKS.ID))
+            {
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeLastQuery();
+            }
         }
         else if (F_PROJECTS.AC_ADD_NEW_TASK.equals(command))
         {
@@ -263,22 +274,13 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
     }
 
     @Override
-    public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        if (F_PROJECTS.B_PROJECTS.ID.equals(record.getBlockName()))
-        {
-            form.getBlock(F_PROJECTS.B_PROJECTS_DETAIL.ID).executeLastQuery();
-        }
-    }
-
-    @Override
     public void postFormSave(EJForm form) throws EJActionProcessorException
     {
         if (timeEntryInserted)
         {
             timeEntryInserted = false;
 
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.DETAILS);
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.INVOICE);
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
 
             EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");
@@ -433,9 +435,9 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
     @Override
     public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
     {
-        if (F_PROJECTS.C_DETAILS_TAB.equals(tabCanvasName))
+        if (F_PROJECTS.C_PROJECT_INVOICE_TAB.equals(tabCanvasName))
         {
-            if (F_PROJECTS.C_DETAILS_TAB_PAGES.INVOICE_CREATION.equals(tabPageName))
+            if (F_PROJECTS.C_PROJECT_INVOICE_TAB_PAGES.INVOICE_CREATION.equals(tabPageName))
             {
                 if (form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).getBlockRecords().size() == 0)
                 {
@@ -445,10 +447,6 @@ public class ProjectsActionProcessor extends EJDefaultFormActionProcessor implem
                 {
                     form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
                 }
-            }
-            else if (F_PROJECTS.C_DETAILS_TAB_PAGES.PROJECT_TASKS.equals(tabPageName) && form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getBlockRecords().size() == 0)
-            {
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
             }
         }
     }

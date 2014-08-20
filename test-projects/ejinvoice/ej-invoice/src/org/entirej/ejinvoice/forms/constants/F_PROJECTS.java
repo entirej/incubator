@@ -59,53 +59,33 @@ public class F_PROJECTS
         public static final String I_OPEN_ITEMS                  = "openItems";
         public static final String I_PLANNED_ITEMS               = "plannedItems";
         public static final String I_APPROVED_ITEMS              = "approvedItems";
+        public static final String I_EDIT                        = "edit";
+        public static final String I_TASKS                       = "tasks";
 
     }
 
-    public static class B_PROJECTS_DETAIL
+    public static class B_PROJECT_KEY
     {
-        public static final String ID                            = "ProjectsDetail";
-        public static final String I_ID                          = "id";
-        public static final String I_DESCRIPTION                 = "description";
-        public static final String I_NAME                        = "name";
-        public static final String I_STATUS                      = "status";
-        public static final String I_STATUS_NAME                 = "statusName";
-        public static final String I_USER_ID                     = "userId";
-        public static final String I_CUSTOMER_ID                 = "customerId";
-        public static final String I_START_DATE                  = "startDate";
-        public static final String I_END_DATE                    = "endDate";
-        public static final String I_NOTES                       = "notes";
-        public static final String I_TASK_CPR_ID                 = "taskCprId";
-        public static final String I_TASK_NOTES                  = "taskNotes";
-        public static final String I_TASK_NAME                   = "taskName";
-        public static final String I_TASK_PAY_RATE               = "taskPayRate";
-        public static final String I_TASK_USER_ID                = "taskUserId";
-        public static final String I_TASK_FIX_PRICE              = "taskFixPrice";
-        public static final String I_TASK_STATUS                 = "taskStatus";
-        public static final String I_TASK_INVOICEABLE            = "taskInvoiceable";
-        public static final String I_INVOICEABLE                 = "invoiceable";
-        public static final String I_INVOICEABLE_IMAGE           = "invoiceableImage";
-        public static final String I_FIX_PRICE                   = "fixPrice";
-        public static final String I_CUSTOMER_NAME               = "customerName";
-        public static final String I_CUSTOMER_ADDRESS            = "customerAddress";
-        public static final String I_CUSTOMER_POST_CODE          = "customerPostCode";
-        public static final String I_CUSTOMER_TOWN               = "customerTown";
-        public static final String I_CUSTOMER_COUNTRY            = "customerCountry";
-        public static final String I_PROJECT_PROCESS_DESCRIPTION = "projectProcessDescription";
-        public static final String I_BACK                        = "back";
-        public static final String I_MODIFY                      = "modify";
-        public static final String I_ADD_NEW_TASK                = "addNewTask";
-        public static final String I_OPEN_ITEMS_IMAGE            = "openItemsImage";
-        public static final String I_PLANNED_ITEMS_IMAGE         = "plannedItemsImage";
-        public static final String I_APPROVED_ITEMS_IMAGE        = "approvedItemsImage";
-        public static final String I_OPEN_ITEMS                  = "openItems";
+        public static final String ID                     = "projectKey";
+        public static final String I_TASK_ICON            = "taskIcon";
+        public static final String I_TASK_ICON_LABEL      = "taskIconLabel";
+        public static final String I_TIME_ICON            = "timeIcon";
+        public static final String I_TIME_ICON_LABEL      = "timeIconLabel";
+        public static final String I_PLANNED_HOURS        = "plannedHours";
+        public static final String I_PLANNED_HOURS_LABEL  = "plannedHoursLabel";
+        public static final String I_APPROVED_HOURS       = "approvedHours";
+        public static final String I_APPROVED_HOURS_LABEL = "approvedHoursLabel";
+        public static final String I_INVOICEABLE          = "invoiceable";
+        public static final String I_INVOICEABLE_LABEL    = "invoiceableLabel";
 
     }
 
     public static class B_PROJECT_TASKS_TOOLBAR
     {
-        public static final String ID        = "ProjectTasksToolbar";
-        public static final String I_ADD_NEW = "addNew";
+        public static final String ID                    = "ProjectTasksToolbar";
+        public static final String I_ADD_NEW             = "addNew";
+        public static final String I_PROJECT_INFORMATION = "projectInformation";
+        public static final String I_BACK_TO_PROJECTS    = "backToProjects";
 
     }
 
@@ -231,6 +211,14 @@ public class F_PROJECTS
 
     }
 
+    public static class B_INVOICE_HEADER
+    {
+        public static final String ID                    = "InvoiceHeader";
+        public static final String I_BACK_TO_PROJECTS    = "backToProjects";
+        public static final String I_PROJECT_INFORMATION = "projectInformation";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID      = "VatRate";
@@ -299,19 +287,19 @@ public class F_PROJECTS
 
     public static class C_PROJECT_STACK_PAGES
     {
-        public static final String DETAILS  = "details";
+        public static final String INVOICE  = "invoice";
         public static final String PROJECTS = "projects";
+        public static final String TASKS    = "tasks";
 
     }
 
-    public static final String C_PROJECTS_DETAIL = "ProjectsDetail";
-    public static final String C_DETAILS_TAB     = "DetailsTab";
+    public static final String C_INVOICE_HEADER      = "InvoiceHeader";
+    public static final String C_PROJECT_INVOICE_TAB = "ProjectInvoiceTab";
 
-    public static class C_DETAILS_TAB_PAGES
+    public static class C_PROJECT_INVOICE_TAB_PAGES
     {
         public static final String INVOICE_PLANNING = "InvoicePlanning";
         public static final String INVOICE_CREATION = "InvoiceCreation";
-        public static final String PROJECT_TASKS    = "ProjectTasks";
 
     }
 
@@ -321,10 +309,11 @@ public class F_PROJECTS
     public static final String C_INVOICE_CREATION_SPLIT           = "InvoiceCreationSplit";
     public static final String C_APPROVED_PROJECT_ITEMS           = "ApprovedProjectItems";
     public static final String C_MARKED_FOR_INVOICE_PROJECT_ITEMS = "MarkedForInvoiceProjectItems";
-    public static final String C_PROJECT_TASKS_TOOLBAR            = "ProjectTasksToolbar";
-    public static final String C_PROJECT_TASKS                    = "ProjectTasks";
     public static final String C_PROJECTS_TOOLBAR                 = "ProjectsToolbar";
     public static final String C_PROJECTS                         = "Projects";
+    public static final String C_PROJECT_KEY                      = "projectKey";
+    public static final String C_PROJECT_TASKS_TOOLBAR            = "ProjectTasksToolbar";
+    public static final String C_PROJECT_TASKS                    = "ProjectTasks";
     public static final String C_NEW_INVOICE_ITEM_POPUP           = "NewInvoiceItemPopup";
     public static final String C_NEW_INVOICE_ITEM                 = "NewInvoiceItem";
 
@@ -346,6 +335,7 @@ public class F_PROJECTS
     public static final String AC_MODIFY_PROJECT                  = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER                   = "OPEN_CUSTOMER";
     public static final String AC_PROJECT_DETAILS                 = "PROJECT_DETAILS";
+    public static final String AC_PROJECT_TASKS                   = "PROJECT_TASKS";
     public static final String AC_REFRESH_PROJECT_LIST            = "REFRESH_PROJECT_LIST";
 
 }
