@@ -92,10 +92,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
                 record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I_HOURS_WORKED, getDiffMinutesString(start.getTime(), end.getTime()));
             }
-            else if (F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID.equals(itemName))
-            {
-                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID).refreshItemRenderer();
-            }
         }
     }
 
@@ -123,8 +119,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             
             timeEntryBlock.enterUpdate();
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPR_ID).refreshItemRenderer();
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID).refreshItemRenderer();
             return;
         }
         else if (WorkWeekBlockRenderer.isWeekSelectionAction(command))
@@ -329,13 +323,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
     }
 
-    @Override
-    public void preOpenScreen(EJBlock block, EJRecord record, EJScreenType screenType) throws EJActionProcessorException
-    {
-        if (screenType.equals(EJScreenType.UPDATE) && F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(block.getName()))
-        {
-            block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_CUPT_ID).refreshItemRenderer();
-        }
-    }
+  
 
 }
