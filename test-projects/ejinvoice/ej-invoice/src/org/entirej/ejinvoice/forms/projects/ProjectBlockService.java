@@ -42,7 +42,8 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append("        and    cupt.cpr_id = cpr1.id ");
         _selectStatement.append("        and not exists (select id "); 
         _selectStatement.append("                        from invoice_positions invp "); 
-        _selectStatement.append("                        where cupt.cpr_id = invp.cupr_id "); 
+        _selectStatement.append("                        where cupt.cpr_id = invp.cupr_id ");
+        _selectStatement.append("                        and   cupt.id = invp.cupt_id ");
         _selectStatement.append("                        and   cpte.work_date between invp.period_from and invp.period_to)) OPEN_ITEMS ");
         _selectStatement.append(",      (select count(*) ");
         _selectStatement.append("        from   customer_project_timeentry cpte ");
@@ -52,6 +53,7 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append("        and exists (select id "); 
         _selectStatement.append("                    from invoice_positions invp "); 
         _selectStatement.append("                                where cupt.cpr_id = invp.cupr_id "); 
+        _selectStatement.append("                                and   cupt.id = invp.cupt_id ");
         _selectStatement.append("                    and   cpte.work_date between invp.period_from and invp.period_to ");
         _selectStatement.append("                    and   invp.status = 'PLANNED')) PLANNED_ITEMS ");
         _selectStatement.append(",      (select count(*) ");
@@ -61,10 +63,10 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append("        and    cupt.cpr_id = cpr1.id ");
         _selectStatement.append("        and exists (select id "); 
         _selectStatement.append("                    from invoice_positions invp "); 
-        _selectStatement.append("                                where cupt.cpr_id = invp.cupr_id "); 
+        _selectStatement.append("                                where cupt.cpr_id = invp.cupr_id ");
+        _selectStatement.append("                                and   cupt.id = invp.cupt_id "); 
         _selectStatement.append("                    and   cpte.work_date between invp.period_from and invp.period_to ");
         _selectStatement.append("                    and   invp.status = 'APPROVED')) APPROVED_ITEMS ");
-
         _selectStatement.append("FROM   customer_projects cpr1 ");
         
     }

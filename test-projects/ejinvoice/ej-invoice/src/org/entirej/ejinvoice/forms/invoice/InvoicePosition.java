@@ -12,7 +12,7 @@ public class InvoicePosition
     private EJPojoProperty<Integer>    _cuptId;
     private EJPojoProperty<BigDecimal> _amount;
     private EJPojoProperty<BigDecimal> _hoursWorked;
-    private EJPojoProperty<Integer>    _userId;
+    private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<Integer>    _vatId;
     private EJPojoProperty<String>     _text;
@@ -115,22 +115,22 @@ public class InvoicePosition
         return EJPojoProperty.getPropertyInitialValue(_hoursWorked);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getCompanyId()
     {
-        return EJPojoProperty.getPropertyValue(_userId);
+        return EJPojoProperty.getPropertyValue(_companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public void setUserId(Integer userId)
+    @EJFieldName("COMPANY_ID")
+    public void setCompanyId(Integer companyId)
     {
-        _userId = EJPojoProperty.setPropertyValue(_userId, userId);
+        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
     }
 
-    @EJFieldName("USER_ID")
-    public Integer getInitialUserId()
+    @EJFieldName("COMPANY_ID")
+    public Integer getInitialCompanyId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_userId);
+        return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
 
     @EJFieldName("VAT_RATE")
@@ -338,7 +338,7 @@ public class InvoicePosition
         EJPojoProperty.clearInitialValue(_cuptId);
         EJPojoProperty.clearInitialValue(_amount);
         EJPojoProperty.clearInitialValue(_hoursWorked);
-        EJPojoProperty.clearInitialValue(_userId);
+        EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_vatId);
         EJPojoProperty.clearInitialValue(_vatRate);
         EJPojoProperty.clearInitialValue(_text);

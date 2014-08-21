@@ -21,6 +21,7 @@ public class PlannedProjectItem
     private EJPojoProperty<Date>       _periodTo;
     private EJPojoProperty<BigDecimal> _workHours;
     private EJPojoProperty<BigDecimal> _payRate;
+    private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _createInvoicePosition;
 
     @EJFieldName("COMPANY_ID")
@@ -257,6 +258,24 @@ public class PlannedProjectItem
         return EJPojoProperty.getPropertyInitialValue(_payRate);
     }
 
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getFixPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public void setFixPrice(BigDecimal fixPrice)
+    {
+        _fixPrice = EJPojoProperty.setPropertyValue(_fixPrice, fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getInitialFixPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_fixPrice);
+    }
+
     @EJFieldName("CREATE_INVOICE_POSITION")
     public String getCreateInvoicePosition()
     {
@@ -277,6 +296,7 @@ public class PlannedProjectItem
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_invpText);
         EJPojoProperty.clearInitialValue(_invpId);

@@ -34,17 +34,17 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
     @Override
     public List<CustomerContact> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User user = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_USER_ID, user.getId()));
-        
+        User user = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        queryCriteria.add(EJRestrictions.equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_COMPANY_ID, user.getCompanyId()));
+
         return _statementExecutor.executeQuery(CustomerContact.class, form, _selectStatement, queryCriteria);
     }
 
     @Override
     public void executeInsert(EJForm form, List<CustomerContact> newRecords)
     {
-        User user = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        
+        User user = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
         for (CustomerContact record : newRecords)
@@ -60,22 +60,21 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             parameters.add(new EJStatementParameter("MOBILE", String.class, record.getMobile()));
             parameters.add(new EJStatementParameter("PHONE", String.class, record.getPhone()));
             parameters.add(new EJStatementParameter("SALUTATIONS_ID", Integer.class, record.getSalutationsId()));
-            parameters.add(new EJStatementParameter("USER_ID", Integer.class, user.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, user.getCompanyId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_contact", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != newRecords.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: " + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
+                    + recordsProcessed);
         }
     }
 
     @Override
     public void executeUpdate(EJForm form, List<CustomerContact> updateRecords)
     {
-        User user = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
@@ -93,6 +92,7 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             parameters.add(new EJStatementParameter("MOBILE", String.class, record.getMobile()));
             parameters.add(new EJStatementParameter("PHONE", String.class, record.getPhone()));
             parameters.add(new EJStatementParameter("SALUTATIONS_ID", Integer.class, record.getSalutationsId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialContactTypesId() == null)
@@ -173,14 +173,14 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
         }
         if (recordsProcessed != updateRecords.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in update. Expected: " + updateRecords.size() + ". Updated: " + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in update. Expected: " + updateRecords.size() + ". Updated: "
+                    + recordsProcessed);
         }
     }
 
     @Override
     public void executeDelete(EJForm form, List<CustomerContact> recordsToDelete)
     {
-        User user = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         ArrayList<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
@@ -189,86 +189,16 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-            
-            if (record.getInitialContactTypesId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CONTACT_TYPES_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CONTACT_TYPES_ID", record.getInitialContactTypesId()));
-            }
-            if (record.getInitialCustomerId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CUSTOMER_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CUSTOMER_ID", record.getInitialCustomerId()));
-            }
-            if (record.getInitialEmail() == null)
-            {
-                criteria.add(EJRestrictions.isNull("EMAIL"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("EMAIL", record.getInitialEmail()));
-            }
-            if (record.getInitialFirstName() == null)
-            {
-                criteria.add(EJRestrictions.isNull("FIRST_NAME"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("FIRST_NAME", record.getInitialFirstName()));
-            }
-            if (record.getInitialId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
-            }
-            if (record.getInitialLastName() == null)
-            {
-                criteria.add(EJRestrictions.isNull("LAST_NAME"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("LAST_NAME", record.getInitialLastName()));
-            }
-            if (record.getInitialMobile() == null)
-            {
-                criteria.add(EJRestrictions.isNull("MOBILE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("MOBILE", record.getInitialMobile()));
-            }
-            if (record.getInitialPhone() == null)
-            {
-                criteria.add(EJRestrictions.isNull("PHONE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("PHONE", record.getInitialPhone()));
-            }
-            if (record.getInitialSalutationsId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("SALUTATIONS_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("SALUTATIONS_ID", record.getInitialSalutationsId()));
-            }
+
+            criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_contact", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != recordsToDelete.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in delete. Expected: " + recordsToDelete.size() + ". Deleted: " + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in delete. Expected: " + recordsToDelete.size() + ". Deleted: "
+                    + recordsProcessed);
         }
     }
 

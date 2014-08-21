@@ -391,7 +391,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
     {
         if (F_PROJECTS.C_NEW_INVOICE_ITEM_POPUP.equals(popupCanvasName) && button.equals(EJPopupButton.ONE))
         {
-            Integer userId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID).getValue();
+            Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
             final int invpId = PKSequenceService.getPKSequence(form.getConnection());
 
             Integer projectId = (Integer) form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).getFocusedRecord().getValue(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID);
@@ -406,14 +406,14 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             String status = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_STATUS).getValue();
             String text = (String) form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_TEXT).getValue();
 
-            ProjectService.validateInvoicePeriod(form, projectId, periodFrom, periodTo);
+            ProjectService.validateInvoicePeriod(form, projectId, taskId, periodFrom, periodTo);
 
             InvoicePosition position = new InvoicePosition();
 
             position.setCuprId(projectId);
             position.setCuptId(taskId);
             position.setId(invpId);
-            position.setUserId(userId);
+            position.setCompanyId(companyId);
             position.setPeriodFrom(periodFrom);
             position.setPeriodTo(periodTo);
             position.setStatus(status);

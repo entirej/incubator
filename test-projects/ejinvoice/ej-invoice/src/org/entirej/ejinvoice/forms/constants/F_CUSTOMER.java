@@ -33,6 +33,7 @@ public class F_CUSTOMER
         public static final String I_MOBILE           = "mobile";
         public static final String I_DELETE           = "delete";
         public static final String I_EDIT             = "edit";
+        public static final String I_COMPANY_ID       = "companyId";
 
     }
 

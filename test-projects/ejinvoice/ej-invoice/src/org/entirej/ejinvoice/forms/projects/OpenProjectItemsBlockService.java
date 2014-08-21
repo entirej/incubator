@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.eclipse.swt.internal.widgets.groupkit.GroupOperationHandler;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -24,7 +25,7 @@ import org.omg.CORBA._PolicyStub;
 public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
-    private StringBuilder             _selectStatement = new StringBuilder();
+    private StringBuilder             _selectStatement       = new StringBuilder();
     private StringBuilder             _selectPlanedStatement = new StringBuilder();
 
     public OpenProjectItemsBlockService()
@@ -53,12 +54,13 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("   CUPT.INVP_ID IS NULL AND");
         _selectStatement.append("   CPR.ID       = ?  AND ");
         _selectStatement.append("   CPR.COMPANY_ID = ? ");
-        _selectStatement.append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
+        _selectStatement
+                .append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND INVP.CUPT_ID = CUPT.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
         _selectStatement.append("    ");
-
         _selectStatement.append(" order by TE_YEAR,TE_MONTH,TE_DAY");
-        
-        _selectPlanedStatement = new StringBuilder("SELECT INVP.PERIOD_TO ,INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = ? AND ? between YEAR(INVP.PERIOD_FROM) and YEAR(INVP.PERIOD_TO)  and ? between MONTH(INVP.PERIOD_FROM) and MONTH(INVP.PERIOD_TO) AND INVP.COMPANY_ID = ? ORDER by PERIOD_FROM");
+
+        _selectPlanedStatement = new StringBuilder(
+                "SELECT INVP.PERIOD_TO ,INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = ? AND INVP.CUPT_ID = ? AND ? between YEAR(INVP.PERIOD_FROM) and YEAR(INVP.PERIOD_TO)  and ? between MONTH(INVP.PERIOD_FROM) and MONTH(INVP.PERIOD_TO) AND INVP.COMPANY_ID = ? ORDER by PERIOD_FROM");
     }
 
     @Override
@@ -75,124 +77,122 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         Integer projectId = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID).getValue();
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
         projectIdParam.setValue(projectId);
-        
+
         Integer companyId = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_COMPANY_ID).getValue();
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
-        
-        Map<GroupKey,Map<Integer,List<EJSelectResult>>> groupedResult = new HashMap<OpenProjectItemsBlockService.GroupKey, Map<Integer,List<EJSelectResult>>>();
-        
-       
+
+        Map<GroupKey, Map<Integer, List<EJSelectResult>>> groupedResult = new HashMap<OpenProjectItemsBlockService.GroupKey, Map<Integer, List<EJSelectResult>>>();
 
         List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam, companyIdParam);
-        
-        
+
         Calendar calendar = Calendar.getInstance();
         final Calendar FT_CAL = Calendar.getInstance();
         for (EJSelectResult result : results)
         {
+            Integer taskId = (Integer) result.getItemValue("TASK_ID");
             Integer month = (Integer) result.getItemValue("TE_MONTH");
             Integer year = (Integer) result.getItemValue("TE_YEAR");
-            
-            GroupKey key = new GroupKey(month, year);
-            Map<Integer,List<EJSelectResult>> map = groupedResult.get(key);
-            if(map==null)
+
+            GroupKey key = new GroupKey(taskId, month, year);
+            Map<Integer, List<EJSelectResult>> map = groupedResult.get(key);
+            if (map == null)
             {
-                map = new HashMap<Integer,List<EJSelectResult>>();
-               
+                map = new HashMap<Integer, List<EJSelectResult>>();
+
                 groupedResult.put(key, map);
             }
             Integer day = (Integer) result.getItemValue("TE_DAY");
             List<EJSelectResult> list = map.get(day);
-            if(list==null)
+            if (list == null)
             {
                 list = new ArrayList<EJSelectResult>();
                 map.put(day, list);
             }
-            list.add(result);
             
+            list.add(result);
+
         }
         List<GroupKey> keySet = new ArrayList<GroupKey>(groupedResult.keySet());
         Collections.sort(keySet);
         for (GroupKey key : keySet)
         {
-            
+
             EJStatementParameter month = new EJStatementParameter(EJParameterType.IN);
             month.setValue(key.month);
             EJStatementParameter year = new EJStatementParameter(EJParameterType.IN);
             year.setValue(key.year);
-            List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), projectIdParam,year,month, companyIdParam);
+            EJStatementParameter taskIdParam = new EJStatementParameter(EJParameterType.IN);
+            taskIdParam.setValue(key.taskId);
             
             
-            Map<Integer,List<EJSelectResult>> map = groupedResult.get(key);
-            calendar.set(key.year, key.month-1, 1);
+            List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), projectIdParam, taskIdParam, year, month, companyIdParam);
+
+            Map<Integer, List<EJSelectResult>> map = groupedResult.get(key);
+            calendar.set(key.year, key.month - 1, 1);
             int numberOfdays = calendar.getMaximum(Calendar.DAY_OF_MONTH);
-            OpenProjectItem item =null;
-            
-           Date start   = new Date( calendar.getTime().getTime());
-           DAYS: for (int i = 1; i <= numberOfdays; i++)
+            OpenProjectItem item = null;
+
+            Date start = new Date(calendar.getTime().getTime());
+            DAYS: for (int i = 1; i <= numberOfdays; i++)
             {
-               calendar.set(key.year, key.month-1, i);
-                
-                
-                if(item!=null)
+                calendar.set(key.year, key.month - 1, i);
+
+                if (item != null)
                 {
-                    item.setTeLastDay(new Date( calendar.getTime().getTime()));
+                    item.setTeLastDay(new Date(calendar.getTime().getTime()));
                 }
-                if(start==null)
+                if (start == null)
                 {
-                    start = new Date( calendar.getTime().getTime());
+                    start = new Date(calendar.getTime().getTime());
                 }
-                
+
                 for (EJSelectResult result : planed)
                 {
-                    
-                    if(result.getItemValue("PERIOD_FROM")!=null && result.getItemValue("PERIOD_TO")!=null )
+
+                    if (result.getItemValue("PERIOD_FROM") != null && result.getItemValue("PERIOD_TO") != null)
                     {
-                       
-                        FT_CAL.setTime((Date)result.getItemValue("PERIOD_FROM"));
+
+                        FT_CAL.setTime((Date) result.getItemValue("PERIOD_FROM"));
                         int fday = FT_CAL.get(Calendar.DAY_OF_MONTH);
-                        int fMonth = FT_CAL.get(Calendar.MONTH)+1;
-                        FT_CAL.setTime((Date)result.getItemValue("PERIOD_TO"));
+                        int fMonth = FT_CAL.get(Calendar.MONTH) + 1;
+                        FT_CAL.setTime((Date) result.getItemValue("PERIOD_TO"));
                         int tday = FT_CAL.get(Calendar.DAY_OF_MONTH);
-                        int tMonth = FT_CAL.get(Calendar.MONTH)+1;
-                        int startRange = (fMonth==key.month)? fday:1;
-                        int endRange = (tMonth==key.month)? tday:numberOfdays;
-                        if(endRange>=i && startRange<=i)
+                        int tMonth = FT_CAL.get(Calendar.MONTH) + 1;
+                        int startRange = (fMonth == key.month) ? fday : 1;
+                        int endRange = (tMonth == key.month) ? tday : numberOfdays;
+                        if (endRange >= i && startRange <= i)
                         {
-                        
-                            if(item!=null)
+
+                            if (item != null)
                             {
-                                
-                                calendar.set(Calendar.DAY_OF_MONTH, (fMonth==key.month)?(fday-1):numberOfdays);
-                                item.setTeLastDay(new Date( calendar.getTime().getTime()));
-                                
-                                i = (tMonth==key.month)? tday:numberOfdays;
+
+                                calendar.set(Calendar.DAY_OF_MONTH, (fMonth == key.month) ? (fday - 1) : numberOfdays);
+                                item.setTeLastDay(new Date(calendar.getTime().getTime()));
+
+                                i = (tMonth == key.month) ? tday : numberOfdays;
                             }
-                            item=null;
+                            item = null;
                             start = null;
-                           
+
                             continue DAYS;
                         }
                     }
                 }
-                
+
                 List<EJSelectResult> list = map.get(i);
-                
-                if(list==null)
+
+                if (list == null)
                 {
-                    
+
                     continue;
                 }
-               
-               
-                
-               
+
                 for (EJSelectResult result : list)
                 {
-                    if(item==null)
+                    if (item == null)
                     {
-                        
+
                         item = new OpenProjectItem();
                         item.setCompanyId((Integer) result.getItemValue("COMPANY_ID"));
                         item.setProjectId((Integer) result.getItemValue("PROJECT_ID"));
@@ -207,8 +207,8 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                         item.setTeLastDay(item.getTeFirstDay());
                         projectItems.add(item);
                     }
-                    
-                    if(item.getWorkHours()==null)
+
+                    if (item.getWorkHours() == null)
                     {
                         item.setWorkHours((BigDecimal) result.getItemValue("WORK_HOURS"));
                     }
@@ -218,11 +218,8 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                     }
                 }
             }
-            
+
         }
-        
-        
-       
 
         return projectItems;
     }
@@ -242,16 +239,19 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     {
     }
 
-    
     private static class GroupKey implements Comparable<GroupKey>
     {
-       final  int month ;
+        final int month;
         final int year;
-        public GroupKey(Integer month, Integer year)
+        final int taskId;
+
+        public GroupKey(Integer taskId, Integer month, Integer year)
         {
             this.month = month;
             this.year = year;
+            this.taskId = taskId;
         }
+
         @Override
         public int hashCode()
         {
@@ -259,8 +259,10 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             int result = 1;
             result = prime * result + month;
             result = prime * result + year;
+            result = prime * result + taskId;
             return result;
         }
+
         @Override
         public boolean equals(Object obj)
         {
@@ -275,24 +277,26 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                 return false;
             if (year != other.year)
                 return false;
+            if (taskId != other.taskId)
+                return false;            
             return true;
         }
+
         @Override
         public int compareTo(GroupKey o)
         {
-            int i = Integer.compare(year, o.year);
-           if(i==0)
-           {
+            int i = Integer.compare(year, o.year);            
+            if (i == 0)
+            {
                 i = Integer.compare(month, o.month);
-           }
+                if (i == 0)
+                {
+                    i = Integer.compare(taskId, o.taskId);
+                }
+            }
             return i;
         }
-       
-        
-        
-        
+
     }
-    
-    
-    
+
 }

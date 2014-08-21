@@ -35,7 +35,8 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
         _selectStatement.append(",      invp.period_from AS PERIOD_FROM");
         _selectStatement.append(",      invp.period_to AS PERIOD_TO ");
         _selectStatement.append(",      invp.company_id AS COMPANY_ID ");
-        _selectStatement.append(",     (select pay_rate from customer_project_tasks where id = invp.cupt_id) AS PAY_RATE");
+        _selectStatement.append(",     (select pay_rate from customer_project_tasks where id = invp.cupt_id) AS PAY_RATE ");
+        _selectStatement.append(",     (select fix_price from customer_project_tasks where id = invp.cupt_id) AS FIX_PRICE ");
         _selectStatement.append(",     (select (SUM(TIME_TO_SEC(TIMEDIFF(cpte.end_time, cpte.start_time))) / 60) / 60 ");
         _selectStatement.append("       from  customer_project_timeentry cpte "); 
         _selectStatement.append("       where cpte.work_date between invp.period_from and invp.period_to ");
@@ -82,6 +83,7 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
             item.setPeriodTo((Date)result.getItemValue("PERIOD_TO"));
             item.setWorkHours((BigDecimal)result.getItemValue("WORK_HOURS"));
             item.setPayRate((BigDecimal)result.getItemValue("PAY_RATE"));
+            item.setFixPrice((BigDecimal)result.getItemValue("FIX_PRICE"));
             item.setCreateInvoicePosition("Approve");
             
             projectItems.add(item);
