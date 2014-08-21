@@ -67,6 +67,16 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append("                                and   cupt.id = invp.cupt_id "); 
         _selectStatement.append("                    and   cpte.work_date between invp.period_from and invp.period_to ");
         _selectStatement.append("                    and   invp.status = 'APPROVED')) APPROVED_ITEMS ");
+        _selectStatement.append(",      (select count(*) ");
+        _selectStatement.append("        from   customer_project_timeentry cpte ");
+        _selectStatement.append("        ,      customer_project_tasks cupt  ");
+        _selectStatement.append("                ,      invoice_positions invp ");
+        _selectStatement.append("        where  cupt.id      = cpte.cupt_id  ");
+        _selectStatement.append("        and    invp.cupr_id = cupt.cpr_id ");
+        _selectStatement.append("        and    invp.cupt_id = cupt.id ");
+        _selectStatement.append("        and    cpte.invp_id = invp.id ");
+        _selectStatement.append("        and    cupt.cpr_id = cpr1.id ");
+        _selectStatement.append("        and   invp.status = 'MARKED_FOR_INVOICE') MARKED_FOR_INVOICE_ITEMS "); 
         _selectStatement.append("FROM   customer_projects cpr1 ");
         
     }

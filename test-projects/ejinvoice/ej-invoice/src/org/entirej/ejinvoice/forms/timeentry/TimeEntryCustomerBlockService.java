@@ -19,7 +19,9 @@
 package org.entirej.ejinvoice.forms.timeentry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale.Builder;
 
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.PKSequenceService;
@@ -36,7 +38,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCustomer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_NUMBER, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_NUMBER, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM CUSTOMER";
 
     public TimeEntryCustomerBlockService()
     {
@@ -52,23 +54,30 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
     @Override
     public List<TimeEntryCustomer> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        return _statementExecutor.executeQuery(TimeEntryCustomer.class, form, _selectStatement, queryCriteria);
+        List<TimeEntryCustomer> customers = _statementExecutor.executeQuery(TimeEntryCustomer.class, form, _selectStatement, queryCriteria);
+        for (TimeEntryCustomer customer : customers)
+        {
+            customer.setLocale(new Builder().setLanguage(customer.getLocaleLanguage()).setRegion(customer.getLocaleCountry()).build());
+        }
+        
+        return customers;
     }
 
     @Override
     public void executeInsert(EJForm form, List<TimeEntryCustomer> newRecords)
     {
-        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+        User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
 
+        Builder builder = new Builder();
+        
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
-        int custContactRecordsProcessed = 0;
-        
+
         for (TimeEntryCustomer record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
-            
+
             parameters.add(new EJStatementParameter("CUSTOMER_NUMBER", String.class, record.getCustomerNumber()));
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
@@ -80,12 +89,14 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
             parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
             parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
-            
+            parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
+            parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "CUSTOMER", parameters.toArray(paramArray));
             record.clearInitialValues();
-            
-            //now insert the default contact
+
+            // now insert the default contact
             Integer custContactId = PKSequenceService.getPKSequence(form.getConnection());
             parameters.clear();
             parameters.add(new EJStatementParameter("CONTACT_TYPES_ID", Integer.class, record.getContactTypesId()));
@@ -98,13 +109,12 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("PHONE", String.class, record.getPhone()));
             parameters.add(new EJStatementParameter("SALUTATIONS_ID", Integer.class, record.getSalutationsId()));
             parameters.add(new EJStatementParameter("CONPANY_ID", Integer.class, usr.getCompanyId()));
-            custContactRecordsProcessed += _statementExecutor.executeInsert(form, "customer_contact", parameters.toArray(paramArray));
+            _statementExecutor.executeInsert(form, "customer_contact", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != newRecords.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
-                    + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: " + recordsProcessed);
         }
 
     }
@@ -131,10 +141,12 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
             parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
             parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
+            parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
+            parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             criteria.add(EJRestrictions.equals("COMPANY_ID", record.getCompanyId()));
-            
+
             if (record.getInitialId() == null)
             {
                 criteria.add(EJRestrictions.isNull("ID"));
@@ -143,15 +155,14 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             {
                 criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
             }
-            
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "CUSTOMER", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != updateRecords.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in update. Expected: " + updateRecords.size() + ". Updated: "
-                    + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in update. Expected: " + updateRecords.size() + ". Updated: " + recordsProcessed);
         }
     }
 
@@ -167,88 +178,8 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             criteria.add(EJRestrictions.equals("COMPANY_ID", record.getCompanyId()));
-            
-            if (record.getInitialCustomerNumber() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CUSTOMER_NUMBER"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CUSTOMER_NUMBER", record.getInitialCustomerNumber()));
-            }
-            if (record.getInitialAddress() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ADDRESS"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ADDRESS", record.getInitialAddress()));
-            }
-            if (record.getInitialId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
-            }
-            if (record.getInitialName() == null)
-            {
-                criteria.add(EJRestrictions.isNull("NAME"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("NAME", record.getInitialName()));
-            }
-            if (record.getInitialPostCode() == null)
-            {
-                criteria.add(EJRestrictions.isNull("POST_CODE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("POST_CODE", record.getInitialPostCode()));
-            }
-            if (record.getInitialTown() == null)
-            {
-                criteria.add(EJRestrictions.isNull("TOWN"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("TOWN", record.getInitialTown()));
-            }
-            if (record.getInitialCountry() == null)
-            {
-                criteria.add(EJRestrictions.isNull("COUNTRY"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("COUNTRY", record.getInitialCountry()));
-            }
-            
-            if (record.getInitialCcyId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("CCY_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("CCY_ID", record.getInitialCcyId()));
-            }
-            if (record.getInitialVatId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("VAT_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("VAT_ID", record.getInitialVatId()));
-            }
-            if (record.getInitialPaymentDays() == null)
-            {
-                criteria.add(EJRestrictions.isNull("PAYMENT_DAYS"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("PAYMENT_DAYS", record.getInitialPaymentDays()));
-            }
+
+            criteria.add(EJRestrictions.equals("ID", record.getInitialId()));
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "CUSTOMER", criteria, parameters.toArray(paramArray));
@@ -256,8 +187,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
         }
         if (recordsProcessed != recordsToDelete.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in delete. Expected: " + recordsToDelete.size() + ". Deleted: "
-                    + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in delete. Expected: " + recordsToDelete.size() + ". Deleted: " + recordsProcessed);
         }
     }
 

@@ -114,6 +114,17 @@ public class F_TIME_ENTRY
         public static final String I_EDIT             = "edit";
         public static final String I_DELETE           = "delete";
         public static final String I_CONTACTS         = "contacts";
+        public static final String I_LOCALE           = "locale";
+        public static final String I_LOCALE_COUNTRY   = "localeCountry";
+        public static final String I_LOCALE_LANGUAGE  = "localeLanguage";
+
+    }
+
+    public static class B_CUSTOMERS_KEY
+    {
+        public static final String ID               = "CustomersKey";
+        public static final String I_CONTACTS       = "contacts";
+        public static final String I_CONTACTS_LABEL = "contactsLabel";
 
     }
 
@@ -233,6 +244,17 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class L_CUSTOMER_LOCALE
+    {
+        public static final String ID              = "CustomerLocale";
+        public static final String I_LANGUAGE      = "language";
+        public static final String I_COUNTRY       = "country";
+        public static final String I_LOCALE        = "locale";
+        public static final String I_LANGUAGE_DESC = "languageDesc";
+        public static final String I_COUNTRY_DESC  = "countryDesc";
+
+    }
+
     public static final String C_COMPANY = "Company";
     public static final String C_MAIN    = "Main";
 
@@ -259,6 +281,7 @@ public class F_TIME_ENTRY
 
     public static final String C_CUSTOMERS_TOOLBAR      = "CustomersToolbar";
     public static final String C_CUSTOMER               = "Customer";
+    public static final String C_CUSTOMERS_KEY          = "CustomersKey";
     public static final String C_CUSTOMER_DETAILS_FORM  = "CustomerDetailsForm";
     public static final String C_MASTER_DATA_CANVAS     = "masterDataCanvas";
 

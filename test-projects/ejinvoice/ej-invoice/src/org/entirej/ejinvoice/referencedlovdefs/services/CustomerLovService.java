@@ -53,7 +53,7 @@ public class CustomerLovService implements EJBlockService<Customer>
     public List<Customer> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         return _statementExecutor.executeQuery(Customer.class, form, _selectStatement, queryCriteria);
     }
 

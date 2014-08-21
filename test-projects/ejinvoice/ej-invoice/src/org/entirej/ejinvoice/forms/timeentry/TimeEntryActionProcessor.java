@@ -8,7 +8,7 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
-import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
+import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
@@ -37,9 +37,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)),
                         TimeEntryBlockService.getCurrentWeek()));
 
-        EJScreenItem startTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN,
-                F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
-        EJScreenItem endTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME);
+        EJScreenItem startTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
+        EJScreenItem endTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN,   F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME);
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         startTime.setValue(timestamp);
@@ -160,17 +159,17 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
         {
             EJParameterList paramList = new EJParameterList();
-            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
+            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CST_ID, Integer.class);
             cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
             
-            EJFormParameter cstInfoParam = new EJFormParameter(F_CUSTOMER.P_CUSTOMER_INFORMATION, String.class);
+            EJFormParameter cstInfoParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION, String.class);
             cstInfoParam.setValue("Customer: "+record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_CUSTOMER_NUMBER)+" ("+record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_NAME)+")");
             
             paramList.addParameter(cstParam);
             paramList.addParameter(cstInfoParam);
 
             form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
-            form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
+            form.openEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
         }
         else if (F_TIME_ENTRY.AC_ADD_TIME_ENTRY.equals(command))
         {
@@ -259,13 +258,13 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         if (customerInserted)
         {
             EJParameterList paramList = new EJParameterList();
-            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER.P_CST_ID, Integer.class);
+            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CST_ID, Integer.class);
             cstParam.setValue(customerId);
             paramList.addParameter(cstParam);
 
             form.showTabCanvasPage(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS);
             form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
-            form.openEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
+            form.openEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
         }
     }
 

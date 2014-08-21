@@ -24,7 +24,7 @@ package org.entirej.ejinvoice.forms.customer;
 import org.eclipse.rap.rwt.RWT;
 import org.eclipse.rap.rwt.client.service.UrlLauncher;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
-import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
+import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
@@ -42,46 +42,46 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        if (form.getParameterList().getParameter(F_CUSTOMER.P_CST_ID) != null)
+        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CST_ID) != null)
         {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).executeQuery();
+            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).executeQuery();
         }
 
-        if (form.getParameterList().getParameter(F_CUSTOMER.P_CUSTOMER_INFORMATION) != null)
+        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION) != null)
         {
-            String custInfo = (String)form.getParameterList().getParameter(F_CUSTOMER.P_CUSTOMER_INFORMATION).getValue();
-            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_CUSTOMER.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_INFORMATION).setValue(custInfo);
+            String custInfo = (String)form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION).getValue();
+            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_INFORMATION).setValue(custInfo);
         }
     }
 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (F_CUSTOMER.AC_OPEN_EMAIL.equals(command))
+        if (F_CUSTOMER_CONTACTS.AC_OPEN_EMAIL.equals(command))
         {
-            String email = (String) record.getValue(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_EMAIL);
+            String email = (String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_EMAIL);
             if (email != null)
             {
                 UrlLauncher launcher = RWT.getClient().getService(UrlLauncher.class);
                 launcher.openURL("mailto:" + email);
             }
         }
-        else if (F_CUSTOMER.AC_BACK_TO_CUSTOMER_LIST.equals(command))
+        else if (F_CUSTOMER_CONTACTS.AC_BACK_TO_CUSTOMER_LIST.equals(command))
         {
             form.getForm(F_TIME_ENTRY.ID).showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
-            form.getForm(F_TIME_ENTRY.ID).closeEmbeddedForm(F_CUSTOMER.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM);
+            form.getForm(F_TIME_ENTRY.ID).closeEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM);
         }
-        else if (F_CUSTOMER.AC_ADD_NEW_CONTACT.equals(command))
+        else if (F_CUSTOMER_CONTACTS.AC_ADD_NEW_CONTACT.equals(command))
         {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterInsert(false);
+            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).enterInsert(false);
         }
-        else if (F_CUSTOMER.AC_EDIT_CONTACT.equals(command))
+        else if (F_CUSTOMER_CONTACTS.AC_EDIT_CONTACT.equals(command))
         {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).enterUpdate();
+            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).enterUpdate();
         }
-        else if (F_CUSTOMER.AC_DELETE_CUSTOMER_CONTACT.equals(command))
+        else if (F_CUSTOMER_CONTACTS.AC_DELETE_CUSTOMER_CONTACT.equals(command))
         {
-            form.getBlock(F_CUSTOMER.B_CUSTOMER_CONTACTS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact?");
+            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact?");
         }
     }
 

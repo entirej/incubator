@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
-import org.entirej.ejinvoice.forms.constants.F_CUSTOMER;
+import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.login.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
@@ -35,7 +35,7 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
     public List<CustomerContact> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         User user = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals(F_CUSTOMER.B_CUSTOMER_CONTACTS.I_COMPANY_ID, user.getCompanyId()));
+        queryCriteria.add(EJRestrictions.equals(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_COMPANY_ID, user.getCompanyId()));
 
         return _statementExecutor.executeQuery(CustomerContact.class, form, _selectStatement, queryCriteria);
     }

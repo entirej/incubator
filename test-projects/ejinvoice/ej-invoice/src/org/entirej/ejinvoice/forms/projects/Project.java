@@ -21,6 +21,7 @@ public class Project
     private EJPojoProperty<Long>       _openItems;
     private EJPojoProperty<Long>       _plannedItems;
     private EJPojoProperty<Long>       _approvedItems;
+    private EJPojoProperty<Long>       _markedFormInvoiceItems;
 
     private EJPojoProperty<String>     _invoiceable;
     private EJPojoProperty<BigDecimal> _fixPrice;
@@ -411,7 +412,7 @@ public class Project
     {
         return EJPojoProperty.getPropertyInitialValue(_plannedItems);
     }
-    
+
     @EJFieldName("APPROVED_ITEMS")
     public Long getApprovedItems()
     {
@@ -430,6 +431,24 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_approvedItems);
     }
 
+    @EJFieldName("MARKED_FOR_INVOICE_ITEMS")
+    public Long getMarkedForInvoiceItems()
+    {
+        return EJPojoProperty.getPropertyValue(_markedFormInvoiceItems);
+    }
+
+    @EJFieldName("MARKED_FOR_INVOICE_ITEMS")
+    public void setMarkedForInvoiceItems(Long markedForInvoiceItems)
+    {
+        _markedFormInvoiceItems = EJPojoProperty.setPropertyValue(_markedFormInvoiceItems, markedForInvoiceItems);
+    }
+
+    @EJFieldName("MARKED_FOR_INVOICE_ITEMS")
+    public Long getInitialMarkedForInvoiceItems()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_markedFormInvoiceItems);
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
@@ -444,10 +463,11 @@ public class Project
         EJPojoProperty.clearInitialValue(_openItems);
         EJPojoProperty.clearInitialValue(_plannedItems);
         EJPojoProperty.clearInitialValue(_approvedItems);
+        EJPojoProperty.clearInitialValue(_markedFormInvoiceItems);
 
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);
- 
+
         EJPojoProperty.clearInitialValue(_taskCprId);
         EJPojoProperty.clearInitialValue(_taskNotes);
         EJPojoProperty.clearInitialValue(_taskName);

@@ -19,6 +19,7 @@
 package org.entirej.ejinvoice.forms.timeentry;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
@@ -38,6 +39,9 @@ public class TimeEntryCustomer
     private EJPojoProperty<String>     _ccyCode;
     private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<Integer>    _paymentDays;
+    private EJPojoProperty<String>     _localeCountry;
+    private EJPojoProperty<String>     _localeLanguage;
+    private EJPojoProperty<Locale>     _locale;
 
     private EJPojoProperty<String>     _email;
     private EJPojoProperty<String>     _phone;
@@ -425,7 +429,60 @@ public class TimeEntryCustomer
     {
         return EJPojoProperty.getPropertyInitialValue(_paymentDays);
     }
+    
+    @EJFieldName("LOCALE_COUNTRY")
+    public String  getLocaleCountry()
+    {
+        return EJPojoProperty.getPropertyValue(_localeCountry);
+    }
 
+    @EJFieldName("LOCALE_COUNTRY")
+    public void setLocaleCountry(String localeCountry)
+    {
+        _localeCountry = EJPojoProperty.setPropertyValue(_localeCountry, localeCountry);
+    }
+
+    @EJFieldName("LOCALE_COUNTRY")
+    public String getInitialLocaleCountry()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_localeCountry);
+    }
+    
+    @EJFieldName("LOCALE_LANGUAGE")
+    public String  getLocaleLanguage()
+    {
+        return EJPojoProperty.getPropertyValue(_localeLanguage);
+    }
+
+    @EJFieldName("LOCALE_LANGUAGE")
+    public void setLocaleLanguage(String localeLanguage)
+    {
+        _localeLanguage = EJPojoProperty.setPropertyValue(_localeLanguage, localeLanguage);
+    }
+
+    @EJFieldName("LOCALE_LANGUAGE")
+    public String getInitialLocaleLanguage()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_localeLanguage);
+    }
+
+    @EJFieldName("LOCALE")
+    public Locale getLocale()
+    {
+        return EJPojoProperty.getPropertyValue(_locale);
+    }
+
+    @EJFieldName("LOCALE")
+    public void setLocale(Locale locale)
+    {
+        _locale = EJPojoProperty.setPropertyValue(_locale, locale);
+    }
+
+    @EJFieldName("LOCALE")
+    public Locale getInitialLocale()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_locale);
+    }
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_customerNumber);
@@ -440,7 +497,10 @@ public class TimeEntryCustomer
         EJPojoProperty.clearInitialValue(_ccyCode);
         EJPojoProperty.clearInitialValue(_vatRate);
         EJPojoProperty.clearInitialValue(_paymentDays);
-
+        EJPojoProperty.clearInitialValue(_localeCountry);
+        EJPojoProperty.clearInitialValue(_localeLanguage);
+        EJPojoProperty.clearInitialValue(_locale);
+        
         EJPojoProperty.clearInitialValue(_email);
         EJPojoProperty.clearInitialValue(_phone);
         EJPojoProperty.clearInitialValue(_contactTypesId);
@@ -451,5 +511,6 @@ public class TimeEntryCustomer
         EJPojoProperty.clearInitialValue(_mobile);
 
     }
+
 
 }

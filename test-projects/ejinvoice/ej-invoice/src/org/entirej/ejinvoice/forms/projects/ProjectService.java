@@ -3,14 +3,20 @@ package org.entirej.ejinvoice.forms.projects;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.util.Collection;
 import java.util.List;
+import java.util.Locale.Builder;
 
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
+import org.entirej.ejinvoice.forms.customer.Customer;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
+import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.service.EJParameterType;
+import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementCriteria;
@@ -19,6 +25,31 @@ import org.entirej.framework.core.service.EJStatementParameter;
 
 public class ProjectService
 {
+
+    public Customer getCustomerInfo(EJForm form, Integer customerId)
+    {
+        if (customerId == null)
+        {
+            throw new EJApplicationException("No customer id passed ProjectService.getCustomerInfo");
+        }
+        EJStatementExecutor executor = new EJStatementExecutor();
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("ID", customerId));
+        List<Customer> customers = executor.executeQuery(Customer.class, form,
+                "SELECT ID, COMPANY_ID, NAME, ADDRESS, POST_CODE, TOWN, COUNTRY, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE,  CCY_ID, PAYMENT_DAYS, CUSTOMER_NUMBER, LOCALE_LANGUAGE, LOCALE_COUNTRY FROM CUSTOMER ", criteria);
+
+        if (customers.size() == 0)
+        {
+            throw new EJApplicationException("ProjectService.getCustomerInfo: Unable to find a customer with id " + customerId);
+        }
+
+        Customer cust = customers.get(0);
+
+        cust.setLocale(new Builder().setLanguage(cust.getLocaleLanguage()).setRegion(cust.getLocaleCountry()).build());
+
+        return cust;
+    }
 
     public static void validateInvoicePeriod(EJForm form, Integer projectId, Integer taskId, Date periodFrom, Date periodTo)
     {
@@ -55,13 +86,11 @@ public class ProjectService
             EJStatementParameter invpIdParam = new EJStatementParameter(EJParameterType.IN);
             invpIdParam.setValue(invpId);
 
-            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam,
-                    projectIdParam, taskIdParam, invpIdParam);
+            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam, taskIdParam, invpIdParam);
         }
         else
         {
-            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam,
-                    projectIdParam, taskIdParam);
+            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam, taskIdParam);
         }
 
         if (results.size() > 0)
@@ -72,8 +101,7 @@ public class ProjectService
             String periodFromResult = DateFormat.getDateInstance(DateFormat.LONG, form.getCurrentLocale()).format(result.getItemValue("PERIOD_FROM"));
             String periodToResult = DateFormat.getDateInstance(DateFormat.LONG, form.getCurrentLocale()).format(result.getItemValue("PERIOD_TO"));
 
-            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "This period overlaps with another period rangig from: " + periodFromResult + " : "
-                    + periodToResult + ". Please change your invoice period accordingly.");
+            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "This period overlaps with another period rangig from: " + periodFromResult + " : " + periodToResult + ". Please change your invoice period accordingly.");
             throw new EJApplicationException(message);
         }
 
@@ -149,8 +177,7 @@ public class ProjectService
         EJStatementParameter taskNameParam = new EJStatementParameter("TASK_NAME", String.class);
         taskNameParam.setValue(position.getTaskName());
 
-        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, companyIdParam, textParam, periodFromParam,
-                periodToParam, statusParam, projectNameParam, taskNameParam);
+        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, companyIdParam, textParam, periodFromParam, periodToParam, statusParam, projectNameParam, taskNameParam);
 
     }
 
@@ -212,6 +239,12 @@ public class ProjectService
         statusParam.setValue("MARKED_FOR_INVOICE");
 
         executor.executeUpdate(form, "invoice_positions", criteria, statusParam);
+    }
+
+    public void createInvoice(EJForm form)
+    {
+        Collection<EJRecord> records = form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getBlockRecords();
+        
     }
 
 }
