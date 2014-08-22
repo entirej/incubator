@@ -20,6 +20,7 @@ package org.entirej.ejinvoice.forms.timeentry;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale.Builder;
 
@@ -35,12 +36,12 @@ import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
-public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCustomer>
+public class CustomerBlockService implements EJBlockService<Customer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_NUMBER, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, CCY_ID, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_NUMBER, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM CUSTOMER";
 
-    public TimeEntryCustomerBlockService()
+    public CustomerBlockService()
     {
         _statementExecutor = new EJStatementExecutor();
     }
@@ -52,19 +53,20 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
     }
 
     @Override
-    public List<TimeEntryCustomer> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
+    public List<Customer> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        List<TimeEntryCustomer> customers = _statementExecutor.executeQuery(TimeEntryCustomer.class, form, _selectStatement, queryCriteria);
-        for (TimeEntryCustomer customer : customers)
+        List<Customer> customers = _statementExecutor.executeQuery(Customer.class, form, _selectStatement, queryCriteria);
+        for (Customer customer : customers)
         {
             customer.setLocale(new Builder().setLanguage(customer.getLocaleLanguage()).setRegion(customer.getLocaleCountry()).build());
+            customer.setCcyCode(Currency.getInstance(customer.getLocale()).getCurrencyCode());
         }
         
         return customers;
     }
 
     @Override
-    public void executeInsert(EJForm form, List<TimeEntryCustomer> newRecords)
+    public void executeInsert(EJForm form, List<Customer> newRecords)
     {
         User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
 
@@ -73,7 +75,7 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
 
-        for (TimeEntryCustomer record : newRecords)
+        for (Customer record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
@@ -87,7 +89,6 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
-            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
             parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
@@ -120,12 +121,12 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
     }
 
     @Override
-    public void executeUpdate(EJForm form, List<TimeEntryCustomer> updateRecords)
+    public void executeUpdate(EJForm form, List<Customer> updateRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (TimeEntryCustomer record : updateRecords)
+        for (Customer record : updateRecords)
         {
             parameters.clear();
 
@@ -139,7 +140,6 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
-            parameters.add(new EJStatementParameter("CCY_ID", Integer.class, record.getCcyId()));
             parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
@@ -167,12 +167,12 @@ public class TimeEntryCustomerBlockService implements EJBlockService<TimeEntryCu
     }
 
     @Override
-    public void executeDelete(EJForm form, List<TimeEntryCustomer> recordsToDelete)
+    public void executeDelete(EJForm form, List<Customer> recordsToDelete)
     {
         ArrayList<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (TimeEntryCustomer record : recordsToDelete)
+        for (Customer record : recordsToDelete)
         {
             parameters.clear();
 

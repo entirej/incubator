@@ -24,7 +24,7 @@ import java.util.Locale;
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
-public class TimeEntryCustomer
+public class Customer
 {
     private EJPojoProperty<String>     _customerNumber;
     private EJPojoProperty<Integer>    _companyId;
@@ -34,14 +34,13 @@ public class TimeEntryCustomer
     private EJPojoProperty<String>     _postCode;
     private EJPojoProperty<String>     _town;
     private EJPojoProperty<String>     _country;
-    private EJPojoProperty<Integer>    _ccyId;
     private EJPojoProperty<Integer>    _vatId;
-    private EJPojoProperty<String>     _ccyCode;
     private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<Integer>    _paymentDays;
     private EJPojoProperty<String>     _localeCountry;
     private EJPojoProperty<String>     _localeLanguage;
     private EJPojoProperty<Locale>     _locale;
+    private EJPojoProperty<String>     _ccyCode;
 
     private EJPojoProperty<String>     _email;
     private EJPojoProperty<String>     _phone;
@@ -340,24 +339,6 @@ public class TimeEntryCustomer
         return EJPojoProperty.getPropertyInitialValue(_mobile);
     }
 
-    @EJFieldName("CCY_ID")
-    public Integer getCcyId()
-    {
-        return EJPojoProperty.getPropertyValue(_ccyId);
-    }
-
-    @EJFieldName("CCY_ID")
-    public void setCcyId(Integer ccyId)
-    {
-        _ccyId = EJPojoProperty.setPropertyValue(_ccyId, ccyId);
-    }
-
-    @EJFieldName("CCY_ID")
-    public Integer getInitialCcyId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_ccyId);
-    }
-
     @EJFieldName("VAT_ID")
     public Integer getVatId()
     {
@@ -374,24 +355,6 @@ public class TimeEntryCustomer
     public Integer getInitialVatId()
     {
         return EJPojoProperty.getPropertyInitialValue(_vatId);
-    }
-
-    @EJFieldName("CCY_CODE")
-    public String getCcyCode()
-    {
-        return EJPojoProperty.getPropertyValue(_ccyCode);
-    }
-
-    @EJFieldName("CCY_CODE")
-    public void setCcyCode(String ccyCode)
-    {
-        _ccyCode = EJPojoProperty.setPropertyValue(_ccyCode, ccyCode);
-    }
-
-    @EJFieldName("CCY_CODE")
-    public String getInitialCcyCode()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_ccyCode);
     }
 
     @EJFieldName("VAT_RATE")
@@ -429,9 +392,9 @@ public class TimeEntryCustomer
     {
         return EJPojoProperty.getPropertyInitialValue(_paymentDays);
     }
-    
+
     @EJFieldName("LOCALE_COUNTRY")
-    public String  getLocaleCountry()
+    public String getLocaleCountry()
     {
         return EJPojoProperty.getPropertyValue(_localeCountry);
     }
@@ -447,9 +410,9 @@ public class TimeEntryCustomer
     {
         return EJPojoProperty.getPropertyInitialValue(_localeCountry);
     }
-    
+
     @EJFieldName("LOCALE_LANGUAGE")
-    public String  getLocaleLanguage()
+    public String getLocaleLanguage()
     {
         return EJPojoProperty.getPropertyValue(_localeLanguage);
     }
@@ -483,6 +446,29 @@ public class TimeEntryCustomer
     {
         return EJPojoProperty.getPropertyInitialValue(_locale);
     }
+
+    
+    
+    
+    @EJFieldName("CCY_CODE")
+    public String getCcyCode()
+    {
+        return EJPojoProperty.getPropertyValue(_ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public void setCcyCode(String ccyCode)
+    {
+        _ccyCode = EJPojoProperty.setPropertyValue(_ccyCode, ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public String getInitialCcyCode()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_ccyCode);
+    }
+    
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_customerNumber);
@@ -492,14 +478,13 @@ public class TimeEntryCustomer
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_postCode);
         EJPojoProperty.clearInitialValue(_town);
-        EJPojoProperty.clearInitialValue(_ccyId);
         EJPojoProperty.clearInitialValue(_vatId);
-        EJPojoProperty.clearInitialValue(_ccyCode);
         EJPojoProperty.clearInitialValue(_vatRate);
         EJPojoProperty.clearInitialValue(_paymentDays);
         EJPojoProperty.clearInitialValue(_localeCountry);
         EJPojoProperty.clearInitialValue(_localeLanguage);
         EJPojoProperty.clearInitialValue(_locale);
+        EJPojoProperty.clearInitialValue(_ccyCode);
         
         EJPojoProperty.clearInitialValue(_email);
         EJPojoProperty.clearInitialValue(_phone);
@@ -511,6 +496,5 @@ public class TimeEntryCustomer
         EJPojoProperty.clearInitialValue(_mobile);
 
     }
-
 
 }

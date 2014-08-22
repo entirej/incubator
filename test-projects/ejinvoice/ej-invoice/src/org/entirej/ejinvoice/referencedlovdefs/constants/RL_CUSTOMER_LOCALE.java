@@ -18,6 +18,7 @@ public class RL_CUSTOMER_LOCALE
         public static final String I_LOCALE        = "locale";
         public static final String I_LANGUAGE_DESC = "languageDesc";
         public static final String I_COUNTRY_DESC  = "countryDesc";
+        public static final String I_CCY_CODE      = "ccyCode";
 
     }
 

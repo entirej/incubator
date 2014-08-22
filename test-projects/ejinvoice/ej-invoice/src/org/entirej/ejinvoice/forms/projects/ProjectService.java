@@ -3,15 +3,18 @@ package org.entirej.ejinvoice.forms.projects;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale.Builder;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
-import org.entirej.ejinvoice.forms.customer.Customer;
 import org.entirej.ejinvoice.forms.invoice.Invoice;
+import org.entirej.ejinvoice.forms.invoice.InvoiceBlockService;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
+import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
@@ -39,7 +42,7 @@ public class ProjectService
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("ID", customerId));
         List<Customer> customers = executor.executeQuery(Customer.class, form,
-                "SELECT ID, COMPANY_ID, NAME, ADDRESS, POST_CODE, TOWN, COUNTRY, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, (SELECT CODE FROM CURRENCIES WHERE ID = CCY_ID) AS CCY_CODE,  CCY_ID, PAYMENT_DAYS, CUSTOMER_NUMBER, LOCALE_LANGUAGE, LOCALE_COUNTRY FROM CUSTOMER ", criteria);
+                "SELECT ID, COMPANY_ID, NAME, ADDRESS, POST_CODE, TOWN, COUNTRY, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, PAYMENT_DAYS, CUSTOMER_NUMBER, LOCALE_LANGUAGE, LOCALE_COUNTRY FROM CUSTOMER ", criteria);
 
         if (customers.size() == 0)
         {
@@ -49,6 +52,8 @@ public class ProjectService
         Customer cust = customers.get(0);
 
         cust.setLocale(new Builder().setLanguage(cust.getLocaleLanguage()).setRegion(cust.getLocaleCountry()).build());
+        cust.setCcyCode(Currency.getInstance(cust.getLocale()).getCurrencyCode());
+        
 
         return cust;
     }
@@ -270,8 +275,26 @@ public class ProjectService
 
     public void createInvoice(EJForm form, Invoice invoice)
     {
+        ArrayList<Invoice> invoices = new ArrayList<Invoice>();
+        invoices.add(invoice);
+        new InvoiceBlockService().executeInsert(form, invoices);
         
+        
+        // Now update all chosen invoice positions with the new invoice Id
         Collection<EJRecord> records = form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getBlockRecords();
+        
+        ArrayList<MarkedForInvoiceProjectItem> items = new ArrayList<MarkedForInvoiceProjectItem>();
+        for (EJRecord record : records)
+        {
+            MarkedForInvoiceProjectItem item = (MarkedForInvoiceProjectItem)record.getBlockServicePojo();
+            item.setInvId(invoice.getId());
+            item.setStatus("INVOICED");
+            items.add(item);
+        }
+        
+        new MarkedForInvoiceProjectItemBlockService().executeUpdate(form, items);
+        
+        
         
     }
 

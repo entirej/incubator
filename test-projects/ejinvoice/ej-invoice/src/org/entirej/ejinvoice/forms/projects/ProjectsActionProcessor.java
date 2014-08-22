@@ -10,9 +10,9 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
-import org.entirej.ejinvoice.forms.customer.Customer;
 import org.entirej.ejinvoice.forms.invoice.Invoice;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
+import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -564,17 +564,14 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             Date dueDate = (Date)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).getValue();
             Date invDate = (Date)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).getValue();
             String address = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).getValue();
+            String nr = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).getValue();
+            BigDecimal vatRate = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).getValue();
             
-            /*
             
-            
-            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).setValue(null);
-            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR_LABEL).setValue("Invoice No. ("+lastInvoiceNumber+")");
-            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).setValue(customer.getVatRate());
-            
+            Customer cust = new ProjectService().getCustomerInfo(form, customerId);
             
             invoice.setId(invId);
-            invoice.setCcyCode(ccyCode);
+            invoice.setCcyCode(cust.getCcyCode());
             invoice.setCompanyId(companyId);
             invoice.setCustId(customerId);
             invoice.setDueDate(dueDate);
@@ -583,12 +580,14 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             invoice.setAmountExclVat(amountExcl);
             invoice.setVatAmount(vatAmount);
             invoice.setVatRate(vatRate);
-            invoice.setInvoiceAddress(invoiceAddress);
+            invoice.setInvoiceAddress(address);
             invoice.setNr(nr);
-            invoice.setPaid(paid);
-            invoice.setSent(sent);
-            */
+            invoice.setPaid(0);
+            invoice.setSent(0);
             
+            new ProjectService().createInvoice(form, invoice);
+            
+            form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
         }
     }
 

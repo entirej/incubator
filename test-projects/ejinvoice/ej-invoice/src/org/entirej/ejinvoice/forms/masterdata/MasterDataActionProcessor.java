@@ -16,7 +16,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
     private SalutationActionHandler    _salutationsActionHandler   = new SalutationActionHandler();
     private VatRatesActionHandler      _vatRatesActionHandler      = new VatRatesActionHandler();
     private ProjectStatusActionHandler _projectStatusActionHandler = new ProjectStatusActionHandler();
-    private CurrencyActionHandler      _currencyActionHandler      = new CurrencyActionHandler();
 
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
@@ -27,7 +26,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _salutationsActionHandler.newFormInstance(form);
         _vatRatesActionHandler.newFormInstance(form);
         _projectStatusActionHandler.newFormInstance(form);
-        _currencyActionHandler.newFormInstance(form);
     }
     
     @Override
@@ -38,13 +36,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
             if (form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getBlockRecords().size() <= 0)
             {
                 form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
-            }
-        }
-        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.CURRENCIES.equals(tabPageName))
-        {
-            if (form.getBlock(F_MASTER_DATA.B_CURRENCIES.ID).getBlockRecords().size() <= 0)
-            {
-                form.getBlock(F_MASTER_DATA.B_CURRENCIES.ID).executeQuery();
             }
         }
         else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.PROJECT_STATUS.equals(tabPageName))
@@ -83,7 +74,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _salutationsActionHandler.executeActionCommand(form, record, command, screenType);
         _vatRatesActionHandler.executeActionCommand(form, record, command, screenType);
         _projectStatusActionHandler.executeActionCommand(form, record, command, screenType);
-        _currencyActionHandler.executeActionCommand(form, record, command, screenType);
     }
 
     @Override
@@ -100,7 +90,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _salutationsActionHandler.validateRecord(form, record, recordType);
         _vatRatesActionHandler.validateRecord(form, record, recordType);
         _projectStatusActionHandler.validateRecord(form, record, recordType);
-        _currencyActionHandler.validateRecord(form, record, recordType);
     }
 
     @Override
@@ -110,7 +99,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _salutationsActionHandler.newRecordInstance(form, record);
         _vatRatesActionHandler.newRecordInstance(form, record);
         _projectStatusActionHandler.newRecordInstance(form, record);
-        _currencyActionHandler.newRecordInstance(form, record);
     }
 
     @Override
@@ -120,7 +108,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _salutationsActionHandler.postBlockQuery(form, block);
         _vatRatesActionHandler.postBlockQuery(form, block);
         _projectStatusActionHandler.postBlockQuery(form, block);
-        _currencyActionHandler.postBlockQuery(form, block);
     }
 
     @Override
@@ -130,6 +117,5 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
         _salutationsActionHandler.postQuery(form, record);
         _vatRatesActionHandler.postQuery(form, record);
         _projectStatusActionHandler.postQuery(form, record);
-        _currencyActionHandler.postQuery(form, record);
     }
 }
