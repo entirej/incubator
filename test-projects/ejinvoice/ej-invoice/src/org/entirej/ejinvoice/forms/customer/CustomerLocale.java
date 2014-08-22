@@ -25,11 +25,30 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class CustomerLocale implements Comparable<CustomerLocale>
 {
+    private EJPojoProperty<String> _ccyCode;
     private EJPojoProperty<String> _language;
     private EJPojoProperty<String> _languageDesc;
     private EJPojoProperty<String> _country;
     private EJPojoProperty<String> _countryDesc;
     private EJPojoProperty<Locale> _locale;
+
+    @EJFieldName("CCY_CODE")
+    public String getCcyCode()
+    {
+        return EJPojoProperty.getPropertyValue(_ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public void setCcyCode(String ccyCode)
+    {
+        _ccyCode = EJPojoProperty.setPropertyValue(_ccyCode, ccyCode);
+    }
+
+    @EJFieldName("CCY_CODE")
+    public String getInitialCcyCode()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_ccyCode);
+    }
 
     @EJFieldName("LANGUAGE")
     public String getLanguage()
@@ -48,7 +67,7 @@ public class CustomerLocale implements Comparable<CustomerLocale>
     {
         return EJPojoProperty.getPropertyInitialValue(_language);
     }
-    
+
     @EJFieldName("LANGUAGE_DESC")
     public String getLanguageDesc()
     {
@@ -84,7 +103,7 @@ public class CustomerLocale implements Comparable<CustomerLocale>
     {
         return EJPojoProperty.getPropertyInitialValue(_country);
     }
-    
+
     @EJFieldName("COUNTRY_DESC")
     public String getCountryDesc()
     {
@@ -102,7 +121,6 @@ public class CustomerLocale implements Comparable<CustomerLocale>
     {
         return EJPojoProperty.getPropertyInitialValue(_countryDesc);
     }
-
 
     @EJFieldName("LOCALE")
     public Locale getLocale()
@@ -124,6 +142,7 @@ public class CustomerLocale implements Comparable<CustomerLocale>
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_ccyCode);
         EJPojoProperty.clearInitialValue(_country);
         EJPojoProperty.clearInitialValue(_language);
         EJPojoProperty.clearInitialValue(_countryDesc);
@@ -134,7 +153,7 @@ public class CustomerLocale implements Comparable<CustomerLocale>
     @Override
     public int compareTo(CustomerLocale o)
     {
-        return getCountry().compareTo(o.getCountry());
+        return (getCountry()+"-"+getLanguage()+"-"+getCcyCode()).compareTo((o.getCountry()+"-"+o.getLanguage()+"-"+o.getCcyCode()));
     }
 
 }

@@ -20,6 +20,7 @@ package org.entirej.ejinvoice.forms.customer;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 
@@ -54,6 +55,7 @@ public class LocaleBlockService implements EJBlockService<CustomerLocale>
                 custLocale.setLanguage(locale.getLanguage());
                 custLocale.setCountryDesc(locale.getDisplayCountry(Locale.ENGLISH));
                 custLocale.setLanguageDesc(locale.getDisplayLanguage(Locale.ENGLISH));
+                custLocale.setCcyCode(Currency.getInstance(locale).getCurrencyCode());
                 custLocale.setLocale(locale);
 
                 custLocales.add(custLocale);

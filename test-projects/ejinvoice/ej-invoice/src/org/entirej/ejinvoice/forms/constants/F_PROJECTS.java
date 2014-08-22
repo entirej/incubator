@@ -301,16 +301,6 @@ public class F_PROJECTS
 
     }
 
-    public static class L_CURRENCIES
-    {
-        public static final String ID           = "Currencies";
-        public static final String I_CODE       = "code";
-        public static final String I_COMPANY_ID = "companyId";
-        public static final String I_NAME       = "name";
-        public static final String I_ID         = "id";
-
-    }
-
     public static class L_PROJECT_STATUS
     {
         public static final String ID            = "ProjectStatus";

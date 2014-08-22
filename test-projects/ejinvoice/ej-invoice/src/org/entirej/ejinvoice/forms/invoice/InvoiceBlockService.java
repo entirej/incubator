@@ -4,8 +4,11 @@ import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale.Builder;
 
+import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -18,7 +21,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class InvoiceBlockService implements EJBlockService<Invoice>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT VAT_AMOUNT, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,CCY_CODE,COMPANY_ID,CUST_ID,DUE_DATE,ID,INV_DATE,NR,PAID,SENT,VAT_RATE, INVOICE_ADDRESS FROM invoice";
+    private String                    _selectStatement = "SELECT VAT_AMOUNT, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT, COMPANY_ID,CUST_ID,DUE_DATE,ID,INV_DATE,NR,PAID,SENT,VAT_RATE, INVOICE_ADDRESS, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM invoice";
 
     public InvoiceBlockService()
     {
@@ -34,7 +37,14 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
     @Override
     public List<Invoice> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        return _statementExecutor.executeQuery(Invoice.class, form, _selectStatement, queryCriteria);
+        List<Invoice> invoices = _statementExecutor.executeQuery(Invoice.class, form, _selectStatement, queryCriteria);
+        for (Invoice invoice : invoices)
+        {
+            invoice.setLocale(new Builder().setLanguage(invoice.getLocaleLanguage()).setRegion(invoice.getLocaleCountry()).build());
+            invoice.setCcyCode(Currency.getInstance(invoice.getLocale()).getCurrencyCode());
+        }
+        
+        return invoices;
     }
 
     @Override
@@ -49,7 +59,6 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("VAT_AMOUNT", BigDecimal.class, record.getVatAmount()));
             parameters.add(new EJStatementParameter("AMOUNT_EXCL_VAT", BigDecimal.class, record.getAmountExclVat()));
             parameters.add(new EJStatementParameter("AMOUNT_INCL_VAT", BigDecimal.class, record.getAmountInclVat()));
-            parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("CUST_ID", Integer.class, record.getCustId()));
             parameters.add(new EJStatementParameter("DUE_DATE", Timestamp.class, record.getDueDate()));
@@ -60,6 +69,9 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("SENT", Integer.class, record.getSent()));
             parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
             parameters.add(new EJStatementParameter("VAT_RATE", BigDecimal.class, record.getVatRate()));
+            parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
+            parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "invoice", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -84,7 +96,6 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("VAT_AMOUNT", BigDecimal.class, record.getVatAmount()));
             parameters.add(new EJStatementParameter("AMOUNT_EXCL_VAT", BigDecimal.class, record.getAmountExclVat()));
             parameters.add(new EJStatementParameter("AMOUNT_INCL_VAT", BigDecimal.class, record.getAmountInclVat()));
-            parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("CUST_ID", Integer.class, record.getCustId()));
             parameters.add(new EJStatementParameter("DUE_DATE", Timestamp.class, record.getDueDate()));
@@ -95,6 +106,9 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("SENT", Integer.class, record.getSent()));
             parameters.add(new EJStatementParameter("VAT_RATE", BigDecimal.class, record.getVatRate()));
             parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
+            parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
+            parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialVatAmount() == null)
@@ -208,6 +222,22 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             else
             {
                 criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
+            }
+            if (record.getInitialLocaleCountry() == null)
+            {
+                criteria.add(EJRestrictions.isNull("LOCALE_COUNTRY"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("LOCALE_COUNTRY", record.getInitialLocaleCountry()));
+            }
+            if (record.getInitialLocaleLanguage() == null)
+            {
+                criteria.add(EJRestrictions.isNull("LOCALE_LANGUAGE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("LOCALE_LANGUAGE", record.getInitialLocaleLanguage()));
             }
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -342,6 +372,22 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             else
             {
                 criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
+            }
+            if (record.getInitialLocaleCountry() == null)
+            {
+                criteria.add(EJRestrictions.isNull("LOCALE_COUNTRY"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("LOCALE_COUNTRY", record.getInitialLocaleCountry()));
+            }
+            if (record.getInitialLocaleLanguage() == null)
+            {
+                criteria.add(EJRestrictions.isNull("LOCALE_LANGUAGE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("LOCALE_LANGUAGE", record.getInitialLocaleLanguage()));
             }
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
