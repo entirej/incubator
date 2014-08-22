@@ -18,6 +18,10 @@ public class Project
     private EJPojoProperty<Integer>    _status;
     private EJPojoProperty<String>     _notes;
 
+    private EJPojoProperty<Integer>    _newNotStarted;
+    private EJPojoProperty<Integer>    _started;
+    private EJPojoProperty<Integer>    _completed;
+
     private EJPojoProperty<Long>       _openItems;
     private EJPojoProperty<Long>       _plannedItems;
     private EJPojoProperty<Long>       _approvedItems;
@@ -105,6 +109,60 @@ public class Project
     public Integer getInitialStatus()
     {
         return EJPojoProperty.getPropertyInitialValue(_status);
+    }
+
+    @EJFieldName("NEW_NOT_STARTED")
+    public Integer getNewNotStarted()
+    {
+        return EJPojoProperty.getPropertyValue(_newNotStarted);
+    }
+
+    @EJFieldName("NEW_NOT_STARTED")
+    public void setNewNotStarted(Integer newNotStarted)
+    {
+        _newNotStarted = EJPojoProperty.setPropertyValue(_newNotStarted, newNotStarted);
+    }
+
+    @EJFieldName("NEW_NOT_STARTED")
+    public Integer getInitialNewNotStarted()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_newNotStarted);
+    }
+
+    @EJFieldName("STARTED")
+    public Integer getStarted()
+    {
+        return EJPojoProperty.getPropertyValue(_started);
+    }
+
+    @EJFieldName("STARTED")
+    public void setStarted(Integer started)
+    {
+        _started = EJPojoProperty.setPropertyValue(_started, started);
+    }
+
+    @EJFieldName("STARTED")
+    public Integer getInitialStarted()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_started);
+    }
+
+    @EJFieldName("COMPLETED")
+    public Integer getCompleted()
+    {
+        return EJPojoProperty.getPropertyValue(_completed);
+    }
+
+    @EJFieldName("COMPLETED")
+    public void setCompleted(Integer completed)
+    {
+        _completed = EJPojoProperty.setPropertyValue(_completed, completed);
+    }
+
+    @EJFieldName("COMPLETED")
+    public Integer getInitialCompleted()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_completed);
     }
 
     @EJFieldName("COMPANY_ID")
@@ -448,7 +506,7 @@ public class Project
     {
         return EJPojoProperty.getPropertyInitialValue(_markedFormInvoiceItems);
     }
-    
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
@@ -467,6 +525,9 @@ public class Project
 
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);
+        EJPojoProperty.clearInitialValue(_newNotStarted);
+        EJPojoProperty.clearInitialValue(_started);
+        EJPojoProperty.clearInitialValue(_completed);
 
         EJPojoProperty.clearInitialValue(_taskCprId);
         EJPojoProperty.clearInitialValue(_taskNotes);

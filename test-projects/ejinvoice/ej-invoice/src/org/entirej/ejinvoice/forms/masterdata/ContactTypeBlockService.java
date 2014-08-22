@@ -53,8 +53,8 @@ public class ContactTypeBlockService implements EJBlockService<ContactType>
     @Override
     public List<ContactType> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
+//        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+//        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         
         queryCriteria.add(EJQuerySort.ASC("TYPE"));
         

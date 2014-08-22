@@ -11,6 +11,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.customer.Customer;
+import org.entirej.ejinvoice.forms.invoice.Invoice;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
@@ -304,7 +305,8 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_INCL_VAT).setValue(amountIncl);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_AMOUNT).setValue(vatAmount);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).setValue(dueDate);
-            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE_LABEL).setValue("Due Date (Standard: "+customer.getPaymentDays()+" days");
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE_LABEL).setValue("Due Date");
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE_INFO).setValue("(Customers standard: "+customer.getPaymentDays()+" days)");
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).setValue(invoiceDate);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).setValue(address.toString());
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).setValue(null);
@@ -545,6 +547,48 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
+        }
+        else if (F_PROJECTS.C_INVOICE_CREATION_POPUP.equals(popupCanvasName))
+        {
+            Invoice invoice = new Invoice();
+            
+            final int invId = PKSequenceService.getPKSequence(form.getConnection());
+            
+            
+            Integer companyId = (Integer)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_CREATION.I_COMPANY_ID);
+            Integer customerId = (Integer)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_CREATION.I_CUST_ID);
+            
+            BigDecimal amountExcl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_EXCL_VAT).getValue();
+            BigDecimal amountIncl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_INCL_VAT).getValue();
+            BigDecimal vatAmount  = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_AMOUNT).getValue();
+            Date dueDate = (Date)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).getValue();
+            Date invDate = (Date)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).getValue();
+            String address = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).getValue();
+            
+            /*
+            
+            
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).setValue(null);
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR_LABEL).setValue("Invoice No. ("+lastInvoiceNumber+")");
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).setValue(customer.getVatRate());
+            
+            
+            invoice.setId(invId);
+            invoice.setCcyCode(ccyCode);
+            invoice.setCompanyId(companyId);
+            invoice.setCustId(customerId);
+            invoice.setDueDate(dueDate);
+            invoice.setInvDate(invDate);
+            invoice.setAmountInclVat(amountIncl);
+            invoice.setAmountExclVat(amountExcl);
+            invoice.setVatAmount(vatAmount);
+            invoice.setVatRate(vatRate);
+            invoice.setInvoiceAddress(invoiceAddress);
+            invoice.setNr(nr);
+            invoice.setPaid(paid);
+            invoice.setSent(sent);
+            */
+            
         }
     }
 

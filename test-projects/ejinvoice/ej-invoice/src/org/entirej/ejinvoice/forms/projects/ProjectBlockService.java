@@ -6,10 +6,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJRestriction;
+import org.entirej.framework.core.service.EJRestrictionJoin;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -23,7 +26,7 @@ public class ProjectBlockService implements EJBlockService<Project>
     public ProjectBlockService()
     {
         _statementExecutor = new EJStatementExecutor();
-        
+
         _selectStatement.append("SELECT CUSTOMER_ID ");
         _selectStatement.append(",      DESCRIPTION ");
         _selectStatement.append(",      END_DATE ");
@@ -35,13 +38,16 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append(",      COMPANY_ID ");
         _selectStatement.append(",      INVOICEABLE ");
         _selectStatement.append(",      FIX_PRICE ");
+        _selectStatement.append(",      NEW_NOT_STARTED ");
+        _selectStatement.append(",      STARTED ");
+        _selectStatement.append(",      COMPLETED ");
         _selectStatement.append(",      (select count(*) ");
         _selectStatement.append("        from   customer_project_timeentry cpte ");
         _selectStatement.append("        ,      customer_project_tasks cupt ");
         _selectStatement.append("        where  cupt.id     = cpte.cupt_id ");
         _selectStatement.append("        and    cupt.cpr_id = cpr1.id ");
-        _selectStatement.append("        and not exists (select id "); 
-        _selectStatement.append("                        from invoice_positions invp "); 
+        _selectStatement.append("        and not exists (select id ");
+        _selectStatement.append("                        from invoice_positions invp ");
         _selectStatement.append("                        where cupt.cpr_id = invp.cupr_id ");
         _selectStatement.append("                        and   cupt.id = invp.cupt_id ");
         _selectStatement.append("                        and   cpte.work_date between invp.period_from and invp.period_to)) OPEN_ITEMS ");
@@ -50,9 +56,9 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append("        ,      customer_project_tasks cupt ");
         _selectStatement.append("                where  cupt.id     = cpte.cupt_id ");
         _selectStatement.append("        and    cupt.cpr_id = cpr1.id ");
-        _selectStatement.append("        and exists (select id "); 
-        _selectStatement.append("                    from invoice_positions invp "); 
-        _selectStatement.append("                                where cupt.cpr_id = invp.cupr_id "); 
+        _selectStatement.append("        and exists (select id ");
+        _selectStatement.append("                    from invoice_positions invp ");
+        _selectStatement.append("                                where cupt.cpr_id = invp.cupr_id ");
         _selectStatement.append("                                and   cupt.id = invp.cupt_id ");
         _selectStatement.append("                    and   cpte.work_date between invp.period_from and invp.period_to ");
         _selectStatement.append("                    and   invp.status = 'PLANNED')) PLANNED_ITEMS ");
@@ -61,10 +67,10 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append("        ,      customer_project_tasks cupt ");
         _selectStatement.append("                where  cupt.id     = cpte.cupt_id ");
         _selectStatement.append("        and    cupt.cpr_id = cpr1.id ");
-        _selectStatement.append("        and exists (select id "); 
-        _selectStatement.append("                    from invoice_positions invp "); 
+        _selectStatement.append("        and exists (select id ");
+        _selectStatement.append("                    from invoice_positions invp ");
         _selectStatement.append("                                where cupt.cpr_id = invp.cupr_id ");
-        _selectStatement.append("                                and   cupt.id = invp.cupt_id "); 
+        _selectStatement.append("                                and   cupt.id = invp.cupt_id ");
         _selectStatement.append("                    and   cpte.work_date between invp.period_from and invp.period_to ");
         _selectStatement.append("                    and   invp.status = 'APPROVED')) APPROVED_ITEMS ");
         _selectStatement.append(",      (select count(*) ");
@@ -76,9 +82,9 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append("        and    invp.cupt_id = cupt.id ");
         _selectStatement.append("        and    cpte.invp_id = invp.id ");
         _selectStatement.append("        and    cupt.cpr_id = cpr1.id ");
-        _selectStatement.append("        and   invp.status = 'MARKED_FOR_INVOICE') MARKED_FOR_INVOICE_ITEMS "); 
+        _selectStatement.append("        and   invp.status = 'MARKED_FOR_INVOICE') MARKED_FOR_INVOICE_ITEMS ");
         _selectStatement.append("FROM   customer_projects cpr1 ");
-        
+
     }
 
     @Override
@@ -90,6 +96,23 @@ public class ProjectBlockService implements EJBlockService<Project>
     @Override
     public List<Project> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        Integer newProjects = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_NEW_NOT_STARTED).getValue();
+        Integer startedProjects = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_STARTED).getValue();
+        Integer completedProjects = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_COMPLETED).getValue();
+        
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_NEW_NOT_STARTED));
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_STARTED));
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_COMPLETED));
+        
+        EJRestriction<Integer> newProjRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_NEW_NOT_STARTED, newProjects);
+        EJRestriction<Integer> startProjRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STARTED, startedProjects);
+        EJRestriction<Integer> completedProjRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_COMPLETED, completedProjects);
+        
+        newProjRestriction.add(EJRestrictionJoin.OR, startProjRestriction);
+        newProjRestriction.add(EJRestrictionJoin.OR, completedProjRestriction);
+
+        queryCriteria.add(newProjRestriction);
+        
         return _statementExecutor.executeQuery(Project.class, form, _selectStatement.toString(), queryCriteria);
     }
 
@@ -113,34 +136,35 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
-            
-            
+            parameters.add(new EJStatementParameter("NEW_NOT_STARTED", Integer.class, record.getNewNotStarted()));
+            parameters.add(new EJStatementParameter("STARTED", Integer.class, record.getStarted()));
+            parameters.add(new EJStatementParameter("COMPLETED", Integer.class, record.getCompleted()));
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
-        
+
             // Initialise the value list
             Integer taskId = PKSequenceService.getPKSequence(form.getConnection());
             parameters.clear();
-            parameters.add(new EJStatementParameter("CPR_ID", Integer.class,  record.getId()));
+            parameters.add(new EJStatementParameter("CPR_ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("ID", Integer.class, taskId));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getTaskNotes()));
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getTaskPayRate()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
-            
+
             parameters.add(new EJStatementParameter("FIX_PRICE", Integer.class, record.getTaskFixPrice()));
             parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getTaskStatus()));
             parameters.add(new EJStatementParameter("INVOICEABLE", Integer.class, record.getTaskInvoiceable()));
-            
+
             paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_project_tasks", parameters.toArray(paramArray));
             record.clearInitialValues();
         }
-        
-        if (recordsProcessed != (newRecords.size()*2))
+
+        if (recordsProcessed != (newRecords.size() * 2))
         {
-            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
-                    + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: " + recordsProcessed);
         }
     }
 
@@ -164,10 +188,13 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("START_DATE", Date.class, record.getStartDate()));
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
-            
+            parameters.add(new EJStatementParameter("NEW_NOT_STARTED", Integer.class, record.getNewNotStarted()));
+            parameters.add(new EJStatementParameter("STARTED", Integer.class, record.getStarted()));
+            parameters.add(new EJStatementParameter("COMPLETED", Integer.class, record.getCompleted()));
+
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
-            
+
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustomerId() == null)
             {
@@ -257,15 +284,38 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
             }
-            
+            if (record.getInitialNewNotStarted() == null)
+            {
+                criteria.add(EJRestrictions.isNull("NEW_NOT_STARTED"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("NEW_NOT_STARTED", record.getInitialNewNotStarted()));
+            }
+            if (record.getInitialStarted() == null)
+            {
+                criteria.add(EJRestrictions.isNull("STARTED"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("STARTED", record.getInitialStarted()));
+            }
+            if (record.getInitialCompleted() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COMPLETED"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COMPLETED", record.getInitialCompleted()));
+            }
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "customer_projects", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != updateRecords.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in update. Expected: " + updateRecords.size() + ". Updated: "
-                    + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in update. Expected: " + updateRecords.size() + ". Updated: " + recordsProcessed);
         }
     }
 
@@ -368,16 +418,40 @@ public class ProjectBlockService implements EJBlockService<Project>
             else
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
-            }            
-            
+            }
+            if (record.getInitialNewNotStarted() == null)
+            {
+                criteria.add(EJRestrictions.isNull("NEW_NOT_STARTED"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("NEW_NOT_STARTED", record.getInitialNewNotStarted()));
+            }
+            if (record.getInitialStarted() == null)
+            {
+                criteria.add(EJRestrictions.isNull("STARTED"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("STARTED", record.getInitialStarted()));
+            }
+            if (record.getInitialCompleted() == null)
+            {
+                criteria.add(EJRestrictions.isNull("COMPLETED"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("COMPLETED", record.getInitialCompleted()));
+            }
+
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_projects", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
         }
         if (recordsProcessed != recordsToDelete.size())
         {
-            throw new EJApplicationException("Unexpected amount of records processed in delete. Expected: " + recordsToDelete.size() + ". Deleted: "
-                    + recordsProcessed);
+            throw new EJApplicationException("Unexpected amount of records processed in delete. Expected: " + recordsToDelete.size() + ". Deleted: " + recordsProcessed);
         }
     }
 

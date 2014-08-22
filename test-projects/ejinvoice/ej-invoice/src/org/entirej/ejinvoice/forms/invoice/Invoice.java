@@ -11,7 +11,7 @@ public class Invoice
     private EJPojoProperty<String>     _ccyCode;
     private EJPojoProperty<Integer>    _paid;
     private EJPojoProperty<Integer>    _sent;
-    private EJPojoProperty<Timestamp>  _dueDate;
+    private EJPojoProperty<Date>  _dueDate;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<BigDecimal> _amountInclVat;
@@ -78,19 +78,19 @@ public class Invoice
     }
 
     @EJFieldName("DUE_DATE")
-    public Timestamp getDueDate()
+    public Date getDueDate()
     {
         return EJPojoProperty.getPropertyValue(_dueDate);
     }
 
     @EJFieldName("DUE_DATE")
-    public void setDueDate(Timestamp dueDate)
+    public void setDueDate(Date dueDate)
     {
         _dueDate = EJPojoProperty.setPropertyValue(_dueDate, dueDate);
     }
 
     @EJFieldName("DUE_DATE")
-    public Timestamp getInitialDueDate()
+    public Date getInitialDueDate()
     {
         return EJPojoProperty.getPropertyInitialValue(_dueDate);
     }

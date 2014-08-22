@@ -12,11 +12,14 @@ public class F_PROJECTS
 
     public static class B_PROJECTS_TOOLBAR
     {
-        public static final String ID                   = "ProjectsToolbar";
-        public static final String I_CREATE_NEW_PROJECT = "createNewProject";
-        public static final String I_CUSTOMER_ID        = "customerId";
-        public static final String I_CUSTOMER_NAME      = "customerName";
-        public static final String I_REFRESH            = "refresh";
+        public static final String ID                        = "ProjectsToolbar";
+        public static final String I_CREATE_NEW_PROJECT      = "createNewProject";
+        public static final String I_CUSTOMER_ID             = "customerId";
+        public static final String I_CUSTOMER_NAME           = "customerName";
+        public static final String I_REFRESH                 = "refresh";
+        public static final String I_SHOW_COMPLETED_PROJECTS = "showCompletedProjects";
+        public static final String I_SHOW_STARTED_PROJECTS   = "showStartedProjects";
+        public static final String I_SHOW_NEW_PROJECTS       = "showNewProjects";
 
     }
 
@@ -63,6 +66,9 @@ public class F_PROJECTS
         public static final String I_MARKED_FOR_INVOICE_ITEMS       = "markedForInvoiceItems";
         public static final String I_EDIT                           = "edit";
         public static final String I_TASKS                          = "tasks";
+        public static final String I_NEW_NOT_STARTED                = "newNotStarted";
+        public static final String I_STARTED                        = "started";
+        public static final String I_COMPLETED                      = "completed";
 
     }
 
@@ -253,6 +259,7 @@ public class F_PROJECTS
         public static final String I_INV_DATE        = "invDate";
         public static final String I_DUE_DATE        = "dueDate";
         public static final String I_DUE_DATE_LABEL  = "dueDateLabel";
+        public static final String I_DUE_DATE_INFO   = "dueDateInfo";
         public static final String I_AMOUNT_EXCL_VAT = "amountExclVat";
         public static final String I_VAT_AMOUNT      = "vatAmount";
         public static final String I_AMOUNT_INCL_VAT = "amountInclVat";

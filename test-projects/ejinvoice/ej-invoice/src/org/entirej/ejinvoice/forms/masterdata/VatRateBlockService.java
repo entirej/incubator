@@ -53,9 +53,6 @@ public class VatRateBlockService implements EJBlockService<VatRate>
     @Override
     public List<VatRate> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
-
         queryCriteria.add(EJQuerySort.ASC("NAME"));
         
         return _statementExecutor.executeQuery(VatRate.class, form, _selectStatement, queryCriteria);
@@ -78,9 +75,7 @@ public class VatRateBlockService implements EJBlockService<VatRate>
         {
             // Initialise the value list
             parameters.clear();
-            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, usr.getCompanyId()));
-            
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));            
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
