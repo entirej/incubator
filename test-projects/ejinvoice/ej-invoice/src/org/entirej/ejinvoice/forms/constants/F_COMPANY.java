@@ -38,10 +38,35 @@ public class F_COMPANY
 
     }
 
+    public static class B_USERS
+    {
+        public static final String ID                = "Users";
+        public static final String I_FIRST_NAME      = "firstName";
+        public static final String I_LAST_NAME       = "lastName";
+        public static final String I_LOCALE_LANGUAGE = "localeLanguage";
+        public static final String I_LOCALE_COUNTRY  = "localeCountry";
+        public static final String I_NOTES           = "notes";
+        public static final String I_ID              = "id";
+        public static final String I_TOWN            = "town";
+        public static final String I_COMPANY_ID      = "companyId";
+        public static final String I_EMAIL           = "email";
+        public static final String I_POST_CODE       = "postCode";
+        public static final String I_ADDRESS         = "address";
+        public static final String I_PASSWORD        = "password";
+        public static final String I_LOCALE          = "locale";
+        public static final String I_ROLE            = "role";
+        public static final String I_EDIT            = "edit";
+        public static final String I_DELETE          = "delete";
+
+    }
+
     public static final String C_COMPANY_TOOLBAR       = "CompanyToolbar";
     public static final String C_COMPANIES             = "Companies";
+    public static final String C_USERS                 = "Users";
 
     public static final String AC_ADD_LOGO             = "ADD_LOGO";
+    public static final String AC_DELETE_USER          = "DELETE_USER";
     public static final String AC_EDIT_COMPANY_DETAILS = "EDIT_COMPANY_DETAILS";
+    public static final String AC_EDIT_USER            = "EDIT_USER";
 
 }

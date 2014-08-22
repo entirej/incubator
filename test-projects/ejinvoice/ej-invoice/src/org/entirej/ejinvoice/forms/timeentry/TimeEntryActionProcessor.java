@@ -8,6 +8,7 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
@@ -33,22 +34,20 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
-        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(
-                TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)),
-                        TimeEntryBlockService.getCurrentWeek()));
+        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)), TimeEntryBlockService.getCurrentWeek()));
 
         EJScreenItem startTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME);
-        EJScreenItem endTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN,   F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME);
+        EJScreenItem endTime = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME);
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         startTime.setValue(timestamp);
         endTime.setValue(timestamp);
 
-        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS)
-                .setValue(getDiffMinutesString(timestamp.getTime(), timestamp.getTime()));
+        form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(timestamp.getTime(), timestamp.getTime()));
 
         form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
+        form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
     }
 
     @Override
@@ -60,35 +59,27 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             {
                 form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(screenType, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).refreshItemRenderer();
             }
-           
+
             else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME.equals(itemName))
             {
-                Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
-                Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
+                Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
+                Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
 
-                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS)
-                        .setValue(getDiffMinutesString(start.getTime(), end.getTime()));
+                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(start.getTime(), end.getTime()));
             }
             else if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE.equals(itemName))
             {
-                Date workDate = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                        .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
+                Date workDate = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
 
-                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(
-                        TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)),
-                                TimeEntryBlockService.getWeek(workDate)));
+                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)), TimeEntryBlockService.getWeek(workDate)));
             }
         }
         if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
         {
             if (F_TIME_ENTRY.B_TIME_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY.I_END_TIME.equals(itemName))
             {
-                Time start = (Time) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)
-                        .getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_START_TIME).getValue();
-                Time end = (Time) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_END_TIME)
-                        .getValue();
+                Time start = (Time) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_START_TIME).getValue();
+                Time end = (Time) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_TIME_ENTRY.I_END_TIME).getValue();
 
                 record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I_HOURS_WORKED, getDiffMinutesString(start.getTime(), end.getTime()));
             }
@@ -117,15 +108,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_EDIT_TIME_ENTRY.equals(command))
         {
-            
+
             timeEntryBlock.enterUpdate();
             return;
         }
         else if (WorkWeekBlockRenderer.isWeekSelectionAction(command))
         {
 
-            timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(timeEntryBlock),
-                    WorkWeekBlockRenderer.getWeekSelection(command)));
+            timeEntryBlock.executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(timeEntryBlock), WorkWeekBlockRenderer.getWeekSelection(command)));
             return;
         }
         else if (WorkWeekBlockRenderer.isDaySelectionAction(command))
@@ -134,8 +124,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             java.util.Date daySelection = WorkWeekBlockRenderer.getDaySelection(command);
             if (daySelection != null)
             {
-                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE)
-                        .setValue(new Date(daySelection.getTime()));
+                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).setValue(new Date(daySelection.getTime()));
 
             }
             return;
@@ -155,10 +144,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             EJParameterList paramList = new EJParameterList();
             EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CST_ID, Integer.class);
             cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
-            
+
             EJFormParameter cstInfoParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION, String.class);
-            cstInfoParam.setValue("Customer: "+record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_CUSTOMER_NUMBER)+" ("+record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_NAME)+")");
-            
+            cstInfoParam.setValue("Customer: " + record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_CUSTOMER_NUMBER) + " (" + record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_NAME) + ")");
+
             paramList.addParameter(cstParam);
             paramList.addParameter(cstInfoParam);
 
@@ -168,16 +157,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.AC_ADD_TIME_ENTRY.equals(command))
         {
             Integer userId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID).getValue();
-            Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
-            Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
-            Date workDay = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
-            String workDescription = (String) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
-            Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
-                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
+            Timestamp start = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_START_TIME).getValue();
+            Timestamp end = (Timestamp) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_END_TIME).getValue();
+            Date workDay = (Date) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_WORK_DATE).getValue();
+            String workDescription = (String) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
+            Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
 
             int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
 
@@ -202,7 +186,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 return;
             }
 
-            Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+            Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
             TimeEntry timeEntry = new TimeEntry();
 
             timeEntry.setId(idSeqNextval);
@@ -223,8 +207,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).setValue(null);
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).gainFocus();
 
-            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS)
-                    .setValue(getDiffMinutesString(end.getTime(), end.getTime()));
+            form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(end.getTime(), end.getTime()));
 
         }
     }
@@ -280,6 +263,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                     projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
                 }
             }
+            else if (F_TIME_ENTRY.C_MAIN_PAGES.COMPANY.equals(tabPageName))
+            {
+                EJForm companyForm = form.getEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM);
+                if (companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).getBlockRecords().size() <= 0)
+                {
+                    companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
+                }
+            }
         }
     }
 
@@ -322,7 +313,5 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             }
         }
     }
-
-  
 
 }
