@@ -1,21 +1,25 @@
 Group {
 	font: 12px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
-	background-color: #ffffff;
-}
-
-Group-Label {
+	color: #4a4a4a;
 	background-color: #ffffff;
 	border: none;
-	color: #4a4a4a;
-	margin: 0px 0px 0px 5px;
-	text-shadow: none;
 }
 
 Group-Frame {
-	margin: 10px 0px 0px 0px;
-	padding: 2px 2px 2px 2px;
+	margin: 20px 0px 0px 0px;
+	padding: 8px 0px 0px 0px;
 	border: 1px solid #bdbdbd;
 	border-radius: 2px;
+}
+
+Group-Label {
+	padding: 2px 5px 2px 5px;
+	background-color: #ffffff;
+	border: 1px solid #ffffff;
+	border-radius: 10px;
+	color: #4a4a4a;
+	margin: 10px 10px 10px 10px;
+	text-shadow: none;
 }
 
 /**change  application layout backagound **/
@@ -23,10 +27,12 @@ Composite.applayout {
 	background-color: #F5F5F5;
 }
 
+
 CTabFolder {
 	border-color: #bdbdbd;
 	border-radius: 1px;
 }
+
 
 CTabItem {
 	color: #4a4a4a;
@@ -44,72 +50,77 @@ CTabItem:selected {
 
 ExpandBar.menurenderer {
 	color: #ffffff;
+    
 }
 
 ExpandItem-Header.MenuHeaderTest {
+	
 	background-image: gradient(linear, left top, left bottom, from(#9984B6),
-		to(#9984B6));
+		to(#9984B6) );
 }
-
 ExpandItem-Header.MenuHeaderDev {
+	
 	background-image: gradient(linear, left top, left bottom, from(#D07876),
-		to(#D07876));
+		to(#D07876) );
 }
-
 ExpandItem-Header.MenuHeaderProd {
+	
 	background-image: gradient(linear, left top, left bottom, from(#4D70B8),
-		to(#4D70B8));
+		to(#4D70B8) );
 }
 
 ExpandItem-Header.MenuHeaderSim {
-	background-image: gradient(linear, left top, left bottom, from(#76933C),
-		to(#76933C));
+    
+    background-image: gradient(linear, left top, left bottom, from(#76933C),
+        to(#76933C) );
 }
 
 ExpandItem-Button {
-	background-image: none
+ background-image:none
 }
 
 ExpandItem-Button:hover {
-	background-image: none
+ background-image:none
 }
 
 ExpandItem-Button:expanded {
-	background-image: none
+ background-image:none
 }
 
 ExpandItem-Button:expanded:hover {
-	background-image: none
+ background-image:none
 }
 
+
+
+   
 Composite.workview {
 	background-color: #ffffff;
 }
-
 Link.workview {
 	background-color: #ffffff;
 }
-
 Link.activeweek {
 	background-color: #c4c4c4;
 }
-
 Button[PUSH].workview {
 	background-image: gradient(linear, left top, left bottom, from(#e4e4e4),
-		to(#e4e4e4));
+		to(#e4e4e4) );
 }
 
-.WORKWEEK_DAY {
+.WORKWEEK_DAY
+{
 	font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 	color: #4a4a4a;
 }
+
 
 DateTime-Calendar-Navbar {
 	border: none;
 	border-radius: 0;
 	background-color: #4D70B8;
-	background-image: gradient(linear, left top, left bottom, from(#4D70B8),
-		to(#4D70B8));
+	background-image:gradient(linear, left top, left bottom, from(#4D70B8),
+		to(#4D70B8) );
 	color: white;
 	font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 	text-shadow: none;
