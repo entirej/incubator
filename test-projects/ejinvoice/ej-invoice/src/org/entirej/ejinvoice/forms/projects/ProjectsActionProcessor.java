@@ -3,10 +3,8 @@ package org.entirej.ejinvoice.forms.projects;
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.Currency;
-import java.util.Locale;
+import java.util.Calendar;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
@@ -275,6 +273,47 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
             form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
         }
+        else if (F_PROJECTS.AC_CREATE_FINAL_INVOICE.equals(command))
+        {
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).clear(true);
+            
+            Project project = (Project)form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getBlockServicePojo();
+            
+            ProjectService projectService = new ProjectService();
+            String lastInvoiceNumber = projectService.getLastInvoicNr(form, project.getCustomerId());
+            Customer customer = projectService.getCustomerInfo(form, project.getCustomerId());
+            
+            Calendar calendar = Calendar.getInstance(form.getCurrentLocale());
+            Date invoiceDate = new Date(calendar.getTime().getTime());
+            calendar.add(Calendar.DAY_OF_MONTH, customer.getPaymentDays());
+            Date dueDate = new Date(calendar.getTime().getTime());
+            
+            StringBuilder address = new StringBuilder();
+            address.append(customer.getAddress()).append("\n");
+            address.append(customer.getPostCode()).append("  ").append(customer.getTown()).append("\n");
+            address.append(customer.getCountry());
+            
+            BigDecimal amountExcl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_EXCL);
+            BigDecimal amountIncl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_INCL);
+            BigDecimal vatAmount =  (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_VAT_AMOUNT);
+            
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_CREATION.I_COMPANY_ID, project.getCompanyId());
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_CREATION.I_CUST_ID, customer.getId());
+            
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_EXCL_VAT).setValue(amountExcl);
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_INCL_VAT).setValue(amountIncl);
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_AMOUNT).setValue(vatAmount);
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).setValue(dueDate);
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE_LABEL).setValue("Due Date (Standard: "+customer.getPaymentDays()+" days");
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).setValue(invoiceDate);
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).setValue(address.toString());
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).setValue(null);
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR_LABEL).setValue("Invoice No. ("+lastInvoiceNumber+")");
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).setValue(customer.getVatRate());
+
+            
+            form.showPopupCanvas(F_PROJECTS.C_INVOICE_CREATION_POPUP);            
+        }
 
     }
 
@@ -397,10 +436,14 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             Double taxValue = markedForInvoiceAmount.multiply(customer.getVatRate().divide(new BigDecimal(100))).doubleValue();
             Double totalValue = markedForInvoiceAmount.add(new BigDecimal(taxValue)).doubleValue();
 
+            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_EXCL, markedForInvoiceAmount);
+            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_INCL, new BigDecimal(totalValue));
+            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_TOTAL.I_VAT_AMOUNT, new BigDecimal(taxValue));
+            
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_SUBTOTAL).setValue(ccyFormat.format(markedForInvoiceAmount).toString());
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TAX_LABEL).setValue("VAT ("+customer.getVatRate() +"%)");
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TAX).setValue(ccyFormat.format(taxValue).toString());
-            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TOTAL).setValue(ccyFormat.format(totalValue).toString());
+            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TOTAL).setValue(ccyFormat.format(totalValue).toString());            
         }
     }
 

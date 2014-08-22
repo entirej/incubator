@@ -235,6 +235,29 @@ public class F_PROJECTS
         public static final String I_TAX            = "tax";
         public static final String I_TOTAL          = "total";
         public static final String I_CREATE_INVOICE = "createInvoice";
+        public static final String I_AMOUNT_EXCL    = "amountExcl";
+        public static final String I_VAT_AMOUNT     = "vatAmount";
+        public static final String I_AMOUNT_INCL    = "amountIncl";
+
+    }
+
+    public static class B_INVOICE_CREATION
+    {
+        public static final String ID                = "InvoiceCreation";
+        public static final String I_ID              = "id";
+        public static final String I_COMPANY_ID      = "companyId";
+        public static final String I_CUST_ID         = "custId";
+        public static final String I_NR_LABEL        = "nrLabel";
+        public static final String I_NR              = "nr";
+        public static final String I_INV_DATE_LABEL  = "invDateLabel";
+        public static final String I_INV_DATE        = "invDate";
+        public static final String I_DUE_DATE        = "dueDate";
+        public static final String I_DUE_DATE_LABEL  = "dueDateLabel";
+        public static final String I_AMOUNT_EXCL_VAT = "amountExclVat";
+        public static final String I_VAT_AMOUNT      = "vatAmount";
+        public static final String I_AMOUNT_INCL_VAT = "amountInclVat";
+        public static final String I_INVOICE_ADDRESS = "invoiceAddress";
+        public static final String I_VAT_RATE        = "vatRate";
 
     }
 
@@ -340,6 +363,8 @@ public class F_PROJECTS
     public static final String C_PROJECT_TASKS                    = "ProjectTasks";
     public static final String C_NEW_INVOICE_ITEM_POPUP           = "NewInvoiceItemPopup";
     public static final String C_NEW_INVOICE_ITEM                 = "NewInvoiceItem";
+    public static final String C_INVOICE_CREATION_POPUP           = "InvoiceCreationPopup";
+    public static final String C_INVOICE_CREATION                 = "InvoiceCreation";
 
     public static final String AC_ADD_NEW_TASK                    = "ADD_NEW_TASK";
     public static final String AC_ADD_TO_INVOICE                  = "ADD_TO_INVOICE";

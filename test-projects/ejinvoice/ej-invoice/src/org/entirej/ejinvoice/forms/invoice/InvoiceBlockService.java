@@ -5,7 +5,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import org.entirej.ejinvoice.forms.invoice.Invoice;
+
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
@@ -18,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class InvoiceBlockService implements EJBlockService<Invoice>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,CCY_CODE,COMPANY_ID,CUST_ID,DUE_DATE,ID,INVOICE_ID,INV_DATE,NR,PAID,PRINTED,VAT_RATE FROM invoice";
+    private String                    _selectStatement = "SELECT VAT_AMOUNT, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,CCY_CODE,COMPANY_ID,CUST_ID,DUE_DATE,ID,INV_DATE,NR,PAID,SENT,VAT_RATE, INVOICE_ADDRESS FROM invoice";
 
     public InvoiceBlockService()
     {
@@ -46,6 +46,7 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
         {
             // Initialise the value list
             parameters.clear();
+            parameters.add(new EJStatementParameter("VAT_AMOUNT", BigDecimal.class, record.getVatAmount()));
             parameters.add(new EJStatementParameter("AMOUNT_EXCL_VAT", BigDecimal.class, record.getAmountExclVat()));
             parameters.add(new EJStatementParameter("AMOUNT_INCL_VAT", BigDecimal.class, record.getAmountInclVat()));
             parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
@@ -54,10 +55,10 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("DUE_DATE", Timestamp.class, record.getDueDate()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("INV_DATE", Date.class, record.getInvDate()));
-            parameters.add(new EJStatementParameter("INVOICE_ID", Integer.class, record.getInvoiceId()));
             parameters.add(new EJStatementParameter("NR", String.class, record.getNr()));
             parameters.add(new EJStatementParameter("PAID", Integer.class, record.getPaid()));
-            parameters.add(new EJStatementParameter("PRINTED", Integer.class, record.getPrinted()));
+            parameters.add(new EJStatementParameter("SENT", Integer.class, record.getSent()));
+            parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
             parameters.add(new EJStatementParameter("VAT_RATE", BigDecimal.class, record.getVatRate()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "invoice", parameters.toArray(paramArray));
@@ -80,6 +81,7 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.clear();
 
             // First add the new values
+            parameters.add(new EJStatementParameter("VAT_AMOUNT", BigDecimal.class, record.getVatAmount()));
             parameters.add(new EJStatementParameter("AMOUNT_EXCL_VAT", BigDecimal.class, record.getAmountExclVat()));
             parameters.add(new EJStatementParameter("AMOUNT_INCL_VAT", BigDecimal.class, record.getAmountInclVat()));
             parameters.add(new EJStatementParameter("CCY_CODE", String.class, record.getCcyCode()));
@@ -88,13 +90,21 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("DUE_DATE", Timestamp.class, record.getDueDate()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("INV_DATE", Date.class, record.getInvDate()));
-            parameters.add(new EJStatementParameter("INVOICE_ID", Integer.class, record.getInvoiceId()));
             parameters.add(new EJStatementParameter("NR", String.class, record.getNr()));
             parameters.add(new EJStatementParameter("PAID", Integer.class, record.getPaid()));
-            parameters.add(new EJStatementParameter("PRINTED", Integer.class, record.getPrinted()));
+            parameters.add(new EJStatementParameter("SENT", Integer.class, record.getSent()));
             parameters.add(new EJStatementParameter("VAT_RATE", BigDecimal.class, record.getVatRate()));
+            parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
+            if (record.getInitialVatAmount() == null)
+            {
+                criteria.add(EJRestrictions.isNull("VAT_AMOUNT"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("VAT_AMOUNT", record.getInitialVatAmount()));
+            }
             if (record.getInitialAmountExclVat() == null)
             {
                 criteria.add(EJRestrictions.isNull("AMOUNT_EXCL_VAT"));
@@ -159,14 +169,6 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             {
                 criteria.add(EJRestrictions.equals("INV_DATE", record.getInitialInvDate()));
             }
-            if (record.getInitialInvoiceId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("INVOICE_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("INVOICE_ID", record.getInitialInvoiceId()));
-            }
             if (record.getInitialNr() == null)
             {
                 criteria.add(EJRestrictions.isNull("NR"));
@@ -183,13 +185,13 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             {
                 criteria.add(EJRestrictions.equals("PAID", record.getInitialPaid()));
             }
-            if (record.getInitialPrinted() == null)
+            if (record.getInitialSent() == null)
             {
-                criteria.add(EJRestrictions.isNull("PRINTED"));
+                criteria.add(EJRestrictions.isNull("SENT"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("PRINTED", record.getInitialPrinted()));
+                criteria.add(EJRestrictions.equals("SENT", record.getInitialSent()));
             }
             if (record.getInitialVatRate() == null)
             {
@@ -199,6 +201,15 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             {
                 criteria.add(EJRestrictions.equals("VAT_RATE", record.getInitialVatRate()));
             }
+            if (record.getInitialInvoiceAddress() == null)
+            {
+                criteria.add(EJRestrictions.isNull("INVOICE_ADDRESS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
+            }
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "invoice", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -220,7 +231,14 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.clear();
 
             EJStatementCriteria criteria = new EJStatementCriteria();
-
+            if (record.getInitialVatAmount() == null)
+            {
+                criteria.add(EJRestrictions.isNull("VAT_AMOUNT"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("VAT_AMOUNT", record.getInitialVatAmount()));
+            }
             if (record.getInitialAmountExclVat() == null)
             {
                 criteria.add(EJRestrictions.isNull("AMOUNT_EXCL_VAT"));
@@ -285,14 +303,6 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             {
                 criteria.add(EJRestrictions.equals("INV_DATE", record.getInitialInvDate()));
             }
-            if (record.getInitialInvoiceId() == null)
-            {
-                criteria.add(EJRestrictions.isNull("INVOICE_ID"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("INVOICE_ID", record.getInitialInvoiceId()));
-            }
             if (record.getInitialNr() == null)
             {
                 criteria.add(EJRestrictions.isNull("NR"));
@@ -309,13 +319,13 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             {
                 criteria.add(EJRestrictions.equals("PAID", record.getInitialPaid()));
             }
-            if (record.getInitialPrinted() == null)
+            if (record.getInitialSent() == null)
             {
-                criteria.add(EJRestrictions.isNull("PRINTED"));
+                criteria.add(EJRestrictions.isNull("SENT"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("PRINTED", record.getInitialPrinted()));
+                criteria.add(EJRestrictions.equals("SENT", record.getInitialSent()));
             }
             if (record.getInitialVatRate() == null)
             {
@@ -325,6 +335,15 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             {
                 criteria.add(EJRestrictions.equals("VAT_RATE", record.getInitialVatRate()));
             }
+            if (record.getInitialInvoiceAddress() == null)
+            {
+                criteria.add(EJRestrictions.isNull("INVOICE_ADDRESS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
+            }
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "invoice", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();

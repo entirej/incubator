@@ -10,17 +10,18 @@ public class Invoice
 {
     private EJPojoProperty<String>     _ccyCode;
     private EJPojoProperty<Integer>    _paid;
-    private EJPojoProperty<Integer>    _printed;
+    private EJPojoProperty<Integer>    _sent;
     private EJPojoProperty<Timestamp>  _dueDate;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<BigDecimal> _vatRate;
     private EJPojoProperty<BigDecimal> _amountInclVat;
+    private EJPojoProperty<BigDecimal> _vatAmount;
     private EJPojoProperty<String>     _nr;
     private EJPojoProperty<Integer>    _custId;
     private EJPojoProperty<Integer>    _id;
-    private EJPojoProperty<Integer>    _invoiceId;
     private EJPojoProperty<BigDecimal> _amountExclVat;
     private EJPojoProperty<Date>       _invDate;
+    private EJPojoProperty<String>     _invoiceAddress;
 
     @EJFieldName("CCY_CODE")
     public String getCcyCode()
@@ -58,22 +59,22 @@ public class Invoice
         return EJPojoProperty.getPropertyInitialValue(_paid);
     }
 
-    @EJFieldName("PRINTED")
-    public Integer getPrinted()
+    @EJFieldName("SENT")
+    public Integer getSent()
     {
-        return EJPojoProperty.getPropertyValue(_printed);
+        return EJPojoProperty.getPropertyValue(_sent);
     }
 
-    @EJFieldName("PRINTED")
-    public void setPrinted(Integer printed)
+    @EJFieldName("SENT")
+    public void setSent(Integer sent)
     {
-        _printed = EJPojoProperty.setPropertyValue(_printed, printed);
+        _sent = EJPojoProperty.setPropertyValue(_sent, sent);
     }
 
-    @EJFieldName("PRINTED")
-    public Integer getInitialPrinted()
+    @EJFieldName("SENT")
+    public Integer getInitialSent()
     {
-        return EJPojoProperty.getPropertyInitialValue(_printed);
+        return EJPojoProperty.getPropertyInitialValue(_sent);
     }
 
     @EJFieldName("DUE_DATE")
@@ -148,6 +149,24 @@ public class Invoice
         return EJPojoProperty.getPropertyInitialValue(_amountInclVat);
     }
 
+    @EJFieldName("VAT_AMUNT")
+    public BigDecimal getVatAmount()
+    {
+        return EJPojoProperty.getPropertyValue(_vatAmount);
+    }
+
+    @EJFieldName("VAT_AMOUNT")
+    public void setVatAmount(BigDecimal vatAmount)
+    {
+        _vatAmount = EJPojoProperty.setPropertyValue(_vatAmount, vatAmount);
+    }
+
+    @EJFieldName("VAT_AMOUNT")
+    public BigDecimal getInitialVatAmount()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_vatAmount);
+    }
+
     @EJFieldName("NR")
     public String getNr()
     {
@@ -202,24 +221,6 @@ public class Invoice
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
 
-    @EJFieldName("INVOICE_ID")
-    public Integer getInvoiceId()
-    {
-        return EJPojoProperty.getPropertyValue(_invoiceId);
-    }
-
-    @EJFieldName("INVOICE_ID")
-    public void setInvoiceId(Integer invoiceId)
-    {
-        _invoiceId = EJPojoProperty.setPropertyValue(_invoiceId, invoiceId);
-    }
-
-    @EJFieldName("INVOICE_ID")
-    public Integer getInitialInvoiceId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_invoiceId);
-    }
-
     @EJFieldName("AMOUNT_EXCL_VAT")
     public BigDecimal getAmountExclVat()
     {
@@ -256,21 +257,40 @@ public class Invoice
         return EJPojoProperty.getPropertyInitialValue(_invDate);
     }
 
+    @EJFieldName("INVOICE_ADDRESS")
+    public String getInvoiceAddress()
+    {
+        return EJPojoProperty.getPropertyValue(_invoiceAddress);
+    }
+
+    @EJFieldName("INVOICE_ADDRESS")
+    public void setInvoiceAddress(String invoiceAddress)
+    {
+        _invoiceAddress = EJPojoProperty.setPropertyValue(_invoiceAddress, invoiceAddress);
+    }
+
+    @EJFieldName("INVOICE_ADDRESS")
+    public String getInitialInvoiceAddress()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_invoiceAddress);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_ccyCode);
         EJPojoProperty.clearInitialValue(_paid);
-        EJPojoProperty.clearInitialValue(_printed);
+        EJPojoProperty.clearInitialValue(_sent);
         EJPojoProperty.clearInitialValue(_dueDate);
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_vatRate);
         EJPojoProperty.clearInitialValue(_amountInclVat);
+        EJPojoProperty.clearInitialValue(_vatAmount);
         EJPojoProperty.clearInitialValue(_nr);
         EJPojoProperty.clearInitialValue(_custId);
         EJPojoProperty.clearInitialValue(_id);
-        EJPojoProperty.clearInitialValue(_invoiceId);
         EJPojoProperty.clearInitialValue(_amountExclVat);
         EJPojoProperty.clearInitialValue(_invDate);
+        EJPojoProperty.clearInitialValue(_invoiceAddress);
     }
 
 }

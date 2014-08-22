@@ -7,8 +7,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Locale.Builder;
 
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.customer.Customer;
+import org.entirej.ejinvoice.forms.invoice.Invoice;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
@@ -49,6 +51,31 @@ public class ProjectService
         cust.setLocale(new Builder().setLanguage(cust.getLocaleLanguage()).setRegion(cust.getLocaleCountry()).build());
 
         return cust;
+    }
+    
+    public String getLastInvoicNr(EJForm form, Integer customerId)
+    {
+        EJStatementExecutor executor = new EJStatementExecutor();
+        
+        EJStatementParameter custIdParam = new EJStatementParameter(EJParameterType.IN);
+        custIdParam.setValue(customerId);
+        
+        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        
+        EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
+        companyIdParam.setValue(companyId);
+        
+        String selectStmt = "SELECT NR FROM INVOICE WHERE ID = (SELECT MAX(ID) FROM INVOICE WHERE CUST_ID = ? AND COMPANY_ID = ? )";
+        
+        List<EJSelectResult> results = executor.executeQuery(form.getConnection(), selectStmt, custIdParam, companyIdParam);
+        if (results.size() > 0)
+        {
+            return "Last invoice number: "+results.get(0).getItemValue("NR");
+        }
+        else
+        {
+            return "No invoices created for this customer";
+        }
     }
 
     public static void validateInvoicePeriod(EJForm form, Integer projectId, Integer taskId, Date periodFrom, Date periodTo)
@@ -241,8 +268,9 @@ public class ProjectService
         executor.executeUpdate(form, "invoice_positions", criteria, statusParam);
     }
 
-    public void createInvoice(EJForm form)
+    public void createInvoice(EJForm form, Invoice invoice)
     {
+        
         Collection<EJRecord> records = form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getBlockRecords();
         
     }
