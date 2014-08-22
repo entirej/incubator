@@ -74,11 +74,11 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     {
         ArrayList<OpenProjectItem> projectItems = new ArrayList<OpenProjectItem>();
 
-        Integer projectId = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID).getValue();
+        Integer projectId = toInteger(queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID).getValue());
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
         projectIdParam.setValue(projectId);
 
-        Integer companyId = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_COMPANY_ID).getValue();
+        Integer companyId = toInteger(queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_COMPANY_ID).getValue());
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
 
@@ -90,9 +90,9 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         final Calendar FT_CAL = Calendar.getInstance();
         for (EJSelectResult result : results)
         {
-            Integer taskId = (Integer) result.getItemValue("TASK_ID");
-            Integer month = (Integer) result.getItemValue("TE_MONTH");
-            Integer year = (Integer) result.getItemValue("TE_YEAR");
+            Integer taskId = toInteger(result.getItemValue("TASK_ID"));
+            Integer month = toInteger(result.getItemValue("TE_MONTH"));
+            Integer year = toInteger(result.getItemValue("TE_YEAR"));
 
             GroupKey key = new GroupKey(taskId, month, year);
             Map<Integer, List<EJSelectResult>> map = groupedResult.get(key);
@@ -102,7 +102,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
 
                 groupedResult.put(key, map);
             }
-            Integer day = (Integer) result.getItemValue("TE_DAY");
+            Integer day = toInteger(result.getItemValue("TE_DAY"));
             List<EJSelectResult> list = map.get(day);
             if (list == null)
             {
@@ -194,13 +194,13 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                     {
 
                         item = new OpenProjectItem();
-                        item.setCompanyId((Integer) result.getItemValue("COMPANY_ID"));
-                        item.setProjectId((Integer) result.getItemValue("PROJECT_ID"));
+                        item.setCompanyId(toInteger(result.getItemValue("COMPANY_ID")));
+                        item.setProjectId(toInteger(result.getItemValue("PROJECT_ID")));
                         item.setProjectName((String) result.getItemValue("PROJECT_NAME"));
-                        item.setTaskId((Integer) result.getItemValue("TASK_ID"));
+                        item.setTaskId(toInteger(result.getItemValue("TASK_ID")));
                         item.setTaskName((String) result.getItemValue("TASK_NAME"));
-                        item.setTeMonth((Integer) result.getItemValue("TE_MONTH"));
-                        item.setTeYear((Integer) result.getItemValue("TE_YEAR"));
+                        item.setTeMonth(toInteger(result.getItemValue("TE_MONTH")));
+                        item.setTeYear(toInteger(result.getItemValue("TE_YEAR")));
                         item.setPayRate((BigDecimal) result.getItemValue("PAY_RATE"));
                         item.setCreateInvoicePosition("Plan");
                         item.setTeFirstDay(start);
@@ -237,6 +237,26 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     @Override
     public void executeDelete(EJForm form, List<OpenProjectItem> recordsToDelete)
     {
+    }
+    
+    
+    private Integer toInteger(Object object)
+    {
+        if(object instanceof Integer)
+        {
+            return (Integer) object;
+        }
+        if(object instanceof Long)
+        {
+            return ((Long) object).intValue();
+        }
+        if(object instanceof Number)
+        {
+            return ((Number) object).intValue();
+        }
+        
+        return null;
+        
     }
 
     private static class GroupKey implements Comparable<GroupKey>
