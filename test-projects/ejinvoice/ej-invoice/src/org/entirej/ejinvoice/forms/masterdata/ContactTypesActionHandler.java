@@ -23,18 +23,13 @@ package org.entirej.ejinvoice.forms.masterdata;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
-import org.entirej.ejinvoice.referencedlovdefs.constants.RL_CONTACT_TYPES;
 import org.entirej.framework.core.EJActionProcessorException;
-import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
-import org.entirej.framework.core.service.EJQueryCriteria;
-import org.entirej.framework.core.service.EJRestrictions;
 
 /**
  * This class is used to perform all business functionalities including data

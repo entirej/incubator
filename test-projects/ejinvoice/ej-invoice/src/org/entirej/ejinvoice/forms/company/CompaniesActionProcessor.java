@@ -8,18 +8,18 @@ import java.util.ArrayList;
 
 import org.entirej.applicationframework.rwt.file.EJRWTFileUpload;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
+import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
-import org.entirej.ejinvoice.forms.projects.ApprovedProjectItem;
-import org.entirej.ejinvoice.forms.projects.MarkedForInvoiceProjectItem;
-import org.entirej.ejinvoice.forms.projects.PlannedProjectItem;
-import org.entirej.ejinvoice.forms.projects.ProjectService;
+import org.entirej.ejinvoice.forms.login.UserService;
 import org.entirej.framework.core.EJActionProcessorException;
+import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJQuestionButton;
+import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
 public class CompaniesActionProcessor extends DefaultFormActionProcessor
@@ -27,7 +27,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-//        form.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
+        // form.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
     }
 
     @Override
@@ -40,13 +40,13 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             {
                 String filePath = EJRWTFileUpload.promptFileUpload("Logo");
 
-                if(filePath==null || filePath.length()==0)
+                if (filePath == null || filePath.length() == 0)
                     return;
-                //File image = new File(filePath);
+                // File image = new File(filePath);
 
                 Path path = Paths.get(filePath);
                 byte[] data = Files.readAllBytes(path);
-                
+
                 record.setValue(F_COMPANY.B_COMPANIES.I_LOGO, data);
             }
             catch (IOException e)
@@ -71,17 +71,47 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             question.setRecord(record);
             form.askQuestion(question);
         }
+        else if (F_COMPANY.AC_CHANGE_EMAIL.equals(command) && (screenType.equals(EJScreenType.UPDATE) || screenType.equals(EJScreenType.INSERT)))
+        {
+            if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_EMAIL).equals("Y"))
+            {
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_EMAIL).setEditable(true);
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_EMAIL).setEditable(true);
+            }
+            else
+            {
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_EMAIL).setEditable(false);
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_EMAIL).setEditable(false);
+            }
+        }
+        else if (F_COMPANY.AC_CHANGE_PASSWORD.equals(command) && screenType.equals(EJScreenType.UPDATE))
+        {
+            if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_PASSWORD).equals("Y") && (screenType.equals(EJScreenType.UPDATE) || screenType.equals(EJScreenType.INSERT)))
+            {
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_INITIAL_PASSWORD).setEditable(true);
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_PASSWORD).setEditable(true);
+            }
+            else
+            {
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_INITIAL_PASSWORD).setEditable(false);
+                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_PASSWORD).setEditable(false);
+            }
+        }
+        else if (F_COMPANY.AC_CREATE_NEW_USER.equals(command))
+        {
+            form.getBlock(F_COMPANY.B_USERS.ID).enterInsert(false);
+        }
     }
-    
+
     @Override
     public void questionAnswered(EJQuestion question) throws EJActionProcessorException
     {
         if (question.getName().equals("ASK_DELETE_USER") && question.getAnswer().equals(EJQuestionButton.ONE))
         {
-            if (new UserService().canDeleteUser(question.getForm(), (User)question.getRecord().getBlockServicePojo()))
+            if (ServiceRetriever.getUserService(question.getForm()).canDeleteUser(question.getForm(), (User) question.getRecord().getBlockServicePojo()))
             {
                 ArrayList<User> users = new ArrayList<User>();
-                users.add((User)question.getRecord().getBlockServicePojo());
+                users.add((User) question.getRecord().getBlockServicePojo());
                 new UserBlockService().executeDelete(question.getForm(), users);
             }
             else
@@ -96,11 +126,62 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         }
         else if (question.getName().equals("ASK_INACTIVATE_USER") && question.getAnswer().equals(EJQuestionButton.ONE))
         {
-            User user = (User)question.getRecord().getBlockServicePojo();
+            User user = (User) question.getRecord().getBlockServicePojo();
             user.setActive(0);
             ArrayList<User> users = new ArrayList<User>();
             users.add(user);
             new UserBlockService().executeUpdate(question.getForm(), users);
         }
     }
+
+    @Override
+    public void preOpenScreen(EJBlock block, EJRecord record, EJScreenType screenType) throws EJActionProcessorException
+    {
+        if (F_COMPANY.B_USERS.ID.equals(block.getName()) && EJScreenType.UPDATE.equals(screenType))
+        {
+            record.setValue(F_COMPANY.B_USERS.I_CHANGE_EMAIL, "N");
+            record.setValue(F_COMPANY.B_USERS.I_CHANGE_PASSWORD, "N");
+            record.setValue(F_COMPANY.B_USERS.I_CONFIRM_EMAIL, null);
+            record.setValue(F_COMPANY.B_USERS.I_INITIAL_PASSWORD, null);
+            record.setValue(F_COMPANY.B_USERS.I_CONFIRM_PASSWORD, null);
+            
+            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_EMAIL).setEditable(false);
+            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_EMAIL).setEditable(false);
+            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_INITIAL_PASSWORD).setEditable(false);
+            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_PASSWORD).setEditable(false);
+        }
+    }
+
+    @Override
+    public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
+    {
+        if (F_COMPANY.B_USERS.ID.equals(record.getBlockName()))
+        {
+            if (EJRecordType.UPDATE.equals(recordType))
+            {
+                if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_PASSWORD).equals("Y"))
+                {
+                    String hashPassword = ServiceRetriever.getUserService(form).validatePassword((String) record.getValue(F_COMPANY.B_USERS.I_INITIAL_PASSWORD), (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_PASSWORD));
+                    record.setValue(F_COMPANY.B_USERS.I_PASSWORD, hashPassword);
+                }
+                if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_EMAIL).equals("Y"))
+                {
+                    String email = (String) record.getValue(F_COMPANY.B_USERS.I_EMAIL);
+                    String confirmEmail = (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_EMAIL);
+
+                    ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
+                }
+            }
+            else if (EJRecordType.INSERT.equals(recordType))
+            {
+                String email = (String) record.getValue(F_COMPANY.B_USERS.I_EMAIL);
+                String confirmEmail = (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_EMAIL);
+
+                String hashPassword = ServiceRetriever.getUserService(form).validatePassword((String) record.getValue(F_COMPANY.B_USERS.I_INITIAL_PASSWORD), (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_PASSWORD));
+                record.setValue(F_COMPANY.B_USERS.I_PASSWORD, hashPassword);
+                ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
+            }
+        }
+    }
+
 }

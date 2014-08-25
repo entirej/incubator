@@ -2,10 +2,13 @@ package org.entirej.ejinvoice.forms.login;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale.Builder;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.EJContextProvider;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
 import org.entirej.ejinvoice.forms.masterdata.ContactType;
 import org.entirej.ejinvoice.forms.masterdata.ContactTypeBlockService;
@@ -17,6 +20,7 @@ import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
+import org.entirej.framework.core.service.EJParameterType;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJSelectResult;
@@ -32,6 +36,26 @@ public class UserService
         this.contextProvider = contextProvider;
     }
 
+    public boolean canDeleteUser(EJForm form, User user)
+    {
+        String selectStmt = "select count(*) as entry_count from customer_project_timeentry where user_id = ? ";
+
+        EJStatementExecutor executor = new EJStatementExecutor();
+        EJStatementParameter userIdParam = new EJStatementParameter(EJParameterType.IN);
+        userIdParam.setValue(user.getId());
+
+        List<EJSelectResult> results = executor.executeQuery(form.getConnection(), selectStmt.toString(), userIdParam);
+        if (results.size() > 0)
+        {
+            EJSelectResult result = results.get(0);
+            if (((Long)result.getItemValue("entry_count")) > 0)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
     public String validatePassword(String password, String confirmPassword) throws EJApplicationException
     {
         if (password == null || ((String) password).trim().length() == 0)
@@ -50,32 +74,50 @@ public class UserService
         return PasswordHashGen.toHash((String) password);
     }
 
-    public void validateEmailAddress(String email) throws EJApplicationException
+    public void validateEmailAddress(EJForm form, String email, String confirmEmail, Integer userId) throws EJApplicationException
     {
+        if (email == null || ((String) email).trim().length() == 0)
+        {
+            throw new EJApplicationException("Email cannot be Empty!");
+
+        }
+
+        if (email != null && (!email.equals(confirmEmail)))
+        {
+
+            throw new EJApplicationException("Entered email addresses don't match!, Please Try again.");
+
+        }
         if (!EmailValidator.getInstance().isValid(email))
         {
             throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "The email address you have entered is not a valid email address."));
         }
+        
+        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        
+        if (doesEmailExist(email, companyId, userId))
+        {
+            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "There is already a user within your company with this email address");
+            throw new EJApplicationException(message);
+        }
     }
 
-    public boolean doesEmailExist(String email)
+    public boolean doesEmailExist(String email, Integer companyId, Integer userId)
     {
-        throw new EJApplicationException("Do something here!!!");
-        
-        /*
-        final String stmt = "SELECT EMAIL FROM USER ";
+        final String stmt = "SELECT EMAIL FROM USER";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
-        criteria.add(EJRestrictions.equals("EMAIL", email));
+        criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
+        criteria.add(EJRestrictions.notEquals("ID", userId));
+        
         List<EJSelectResult> results = new EJStatementExecutor().executeQuery(contextProvider.getConnection(), stmt, criteria);
 
         return !results.isEmpty();
-        */
     }
 
     public User getUser(String email, String password)
     {
-        final String stmt = "SELECT COMPANY_ID, EMAIL,FIRST_NAME,ID,LAST_NAME,NOTES,PASSWORD FROM user";
+        final String stmt = "SELECT ADDRESS,COMPANY_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,PASSWORD,POST_CODE,TOWN, ROLE, ACTIVE FROM user";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("email", email));
@@ -84,14 +126,16 @@ public class UserService
         List<User> list = new EJStatementExecutor().executeQuery(User.class, contextProvider.getConnection(), stmt, criteria);
         if (!list.isEmpty())
         {
-            return list.get(0);
+            User usr = list.get(0);
+            usr.setLocale(new Builder().setLanguage(usr.getLocaleLanguage()).setRegion(usr.getLocaleCountry()).build());
+            return usr;
         }
         return null;
     }
 
     public User getUser(String email)
     {
-        final String stmt = "SELECT COMPANY_ID, EMAIL,FIRST_NAME,ID,LAST_NAME,NOTES,PASSWORD FROM user";
+        final String stmt = "SELECT ADDRESS,COMPANY_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,PASSWORD,POST_CODE,TOWN, ROLE, ACTIVE FROM user";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("email", email));
@@ -99,7 +143,9 @@ public class UserService
         List<User> list = new EJStatementExecutor().executeQuery(User.class, contextProvider.getConnection(), stmt, criteria);
         if (!list.isEmpty())
         {
-            return list.get(0);
+            User usr = list.get(0);
+            usr.setLocale(new Builder().setLanguage(usr.getLocaleLanguage()).setRegion(usr.getLocaleCountry()).build());
+            return usr;
         }
         return null;
     }

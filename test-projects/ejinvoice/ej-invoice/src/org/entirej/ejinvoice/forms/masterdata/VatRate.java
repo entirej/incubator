@@ -1,6 +1,7 @@
 package org.entirej.ejinvoice.forms.masterdata;
 
 import java.math.BigDecimal;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 

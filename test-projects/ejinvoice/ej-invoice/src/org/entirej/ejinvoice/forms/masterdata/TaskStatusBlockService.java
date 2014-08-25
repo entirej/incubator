@@ -2,7 +2,7 @@ package org.entirej.ejinvoice.forms.masterdata;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.entirej.ejinvoice.forms.masterdata.TaskStatus;
+
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
