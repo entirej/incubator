@@ -21,35 +21,35 @@
         <propertyGroup name="APP_MESSAGING">
             <propertyGroup name="APP_MSG_WARNING">
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
-            </propertyGroup>
-            <propertyGroup name="APP_MSG_HINT">
-                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_INFO">
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[NOTIFICATION]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+            </propertyGroup>
+            <propertyGroup name="APP_MSG_HINT">
                 <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
             </propertyGroup>
             <propertyGroup name="APP_MSG_ERROR">
                 <property name="APP_MSG_TYPE" multilingual="false" propertyType="STRING"><![CDATA[DIALOG]]></property>
+                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
                 <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                 <property name="APP_MSG_NOTIFICATION_AUTOHIDE" multilingual="false" propertyType="BOOLEAN"></property>
-                <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
             </propertyGroup>
         </propertyGroup>
         <propertyGroup name="ACTION_GROUP">
-            <property name="KEY_QUERY" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+Q]]></property>
             <property name="KEY_DELETE" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+D]]></property>
-            <property name="KEY_UPDATE" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+U]]></property>
             <property name="KEY_LOV" multilingual="false" propertyType="STRING"><![CDATA[SHIFT+ARROW_DOWN]]></property>
-            <property name="KEY_REFRESH" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+R]]></property>
+            <property name="KEY_UPDATE" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+U]]></property>
+            <property name="KEY_QUERY" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+Q]]></property>
             <property name="KEY_INSERT" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+I]]></property>
+            <property name="KEY_REFRESH" multilingual="false" propertyType="STRING"><![CDATA[CTRL+SHIFT+R]]></property>
         </propertyGroup>
     </applicationDefinedProperties>
     <packages>
@@ -156,15 +156,15 @@
                             <property name="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
                             <property name="EXPAND_X"><![CDATA[true]]></property>
                             <property name="ALIGNMENT"><![CDATA[LEFT]]></property>
-                            <property name="PARAMETER"><![CDATA[email]]></property>
                             <property name="WIDTH"><![CDATA[100]]></property>
+                            <property name="PARAMETER"><![CDATA[email]]></property>
                         </listEntry>
                         <listEntry>
                             <property name="VISUAL_ATTRIBUTE"><![CDATA[dataBold]]></property>
                             <property name="EXPAND_X"><![CDATA[true]]></property>
                             <property name="ALIGNMENT"><![CDATA[RIGHT]]></property>
-                            <property name="PARAMETER"><![CDATA[name]]></property>
                             <property name="WIDTH"><![CDATA[100]]></property>
+                            <property name="PARAMETER"><![CDATA[name]]></property>
                         </listEntry>
                     </propertyList>
                 </rendererProperties>
@@ -315,6 +315,15 @@
             <weight><![CDATA[Bold]]></weight>
             <foregroundColor><![CDATA[r0g0b0]]></foregroundColor>
             <backgroundColor><![CDATA[r197g217b241]]></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="dataGray">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <fontSizeAsPercentage>false</fontSizeAsPercentage>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r162g162b162]]></foregroundColor>
+            <backgroundColor></backgroundColor>
         </visualAttribute>
     </visualAttributes>
 </entirejFramework>

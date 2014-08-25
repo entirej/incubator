@@ -7,19 +7,14 @@ public class Company
 {
     private EJPojoProperty<String>  _postCode;
     private EJPojoProperty<String>  _address;
-    private EJPojoProperty<String>  _bankAddress;
     private EJPojoProperty<Object>  _logo;
-    private EJPojoProperty<String>  _accountNumber;
-    private EJPojoProperty<String>  _bankPostCode;
-    private EJPojoProperty<String>  _iban;
     private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<String>  _bankTown;
-    private EJPojoProperty<String>  _bankCountry;
     private EJPojoProperty<String>  _name;
     private EJPojoProperty<String>  _town;
     private EJPojoProperty<String>  _country;
-    private EJPojoProperty<String>  _bankName;
     private EJPojoProperty<String>  _vatNr;
+    private EJPojoProperty<String>  _invoiceNotes;
+    private EJPojoProperty<String>  _invoiceSummary;
 
     @EJFieldName("POST_CODE")
     public String getPostCode()
@@ -57,76 +52,40 @@ public class Company
         return EJPojoProperty.getPropertyInitialValue(_address);
     }
 
-    @EJFieldName("BANK_ADDRESS")
-    public String getBankAddress()
+    @EJFieldName("INVOICE_NOTES")
+    public String getInvoiceNotes()
     {
-        return EJPojoProperty.getPropertyValue(_bankAddress);
+        return EJPojoProperty.getPropertyValue(_invoiceNotes);
     }
 
-    @EJFieldName("BANK_ADDRESS")
-    public void setBankAddress(String bankAddress)
+    @EJFieldName("INVOICE_NOTES")
+    public void setInvoiceNotes(String invoiceNotes)
     {
-        _bankAddress = EJPojoProperty.setPropertyValue(_bankAddress, bankAddress);
+        _invoiceNotes = EJPojoProperty.setPropertyValue(_invoiceNotes, invoiceNotes);
     }
 
-    @EJFieldName("BANK_ADDRESS")
-    public String getInitialBankAddress()
+    @EJFieldName("INVOICE_NOTES")
+    public String getInitialInvoiceNotes()
     {
-        return EJPojoProperty.getPropertyInitialValue(_bankAddress);
+        return EJPojoProperty.getPropertyInitialValue(_invoiceNotes);
     }
 
-    @EJFieldName("ACCOUNT_NUMBER")
-    public String getAccountNumber()
+    @EJFieldName("INVOICE_SUMMARY")
+    public String getInvoiceSummary()
     {
-        return EJPojoProperty.getPropertyValue(_accountNumber);
+        return EJPojoProperty.getPropertyValue(_invoiceSummary);
     }
 
-    @EJFieldName("ACCOUNT_NUMBER")
-    public void setAccountNumber(String accountNumber)
+    @EJFieldName("INVOICE_SUMMARY")
+    public void setInvoiceSummary(String invoiceSummary)
     {
-        _accountNumber = EJPojoProperty.setPropertyValue(_accountNumber, accountNumber);
+        _invoiceSummary = EJPojoProperty.setPropertyValue(_invoiceSummary, invoiceSummary);
     }
 
-    @EJFieldName("ACCOUNT_NUMBER")
-    public String getInitialAccountNumber()
+    @EJFieldName("INVOICE_SUMMARY")
+    public String getInitialInvoiceSummary()
     {
-        return EJPojoProperty.getPropertyInitialValue(_accountNumber);
-    }
-
-    @EJFieldName("BANK_POST_CODE")
-    public String getBankPostCode()
-    {
-        return EJPojoProperty.getPropertyValue(_bankPostCode);
-    }
-
-    @EJFieldName("BANK_POST_CODE")
-    public void setBankPostCode(String bankPostCode)
-    {
-        _bankPostCode = EJPojoProperty.setPropertyValue(_bankPostCode, bankPostCode);
-    }
-
-    @EJFieldName("BANK_POST_CODE")
-    public String getInitialBankPostCode()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_bankPostCode);
-    }
-
-    @EJFieldName("IBAN")
-    public String getIban()
-    {
-        return EJPojoProperty.getPropertyValue(_iban);
-    }
-
-    @EJFieldName("IBAN")
-    public void setIban(String iban)
-    {
-        _iban = EJPojoProperty.setPropertyValue(_iban, iban);
-    }
-
-    @EJFieldName("IBAN")
-    public String getInitialIban()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_iban);
+        return EJPojoProperty.getPropertyInitialValue(_invoiceSummary);
     }
 
     @EJFieldName("ID")
@@ -145,24 +104,6 @@ public class Company
     public Integer getInitialId()
     {
         return EJPojoProperty.getPropertyInitialValue(_id);
-    }
-
-    @EJFieldName("BANK_TOWN")
-    public String getBankTown()
-    {
-        return EJPojoProperty.getPropertyValue(_bankTown);
-    }
-
-    @EJFieldName("BANK_TOWN")
-    public void setBankTown(String bankTown)
-    {
-        _bankTown = EJPojoProperty.setPropertyValue(_bankTown, bankTown);
-    }
-
-    @EJFieldName("BANK_TOWN")
-    public String getInitialBankTown()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_bankTown);
     }
 
     @EJFieldName("NAME")
@@ -218,45 +159,6 @@ public class Company
     {
         return EJPojoProperty.getPropertyInitialValue(_country);
     }
-
-    @EJFieldName("BANK_NAME")
-    public String getBankName()
-    {
-        return EJPojoProperty.getPropertyValue(_bankName);
-    }
-
-    @EJFieldName("BANK_NAME")
-    public void setBankName(String bankName)
-    {
-        _bankName = EJPojoProperty.setPropertyValue(_bankName, bankName);
-    }
-
-    @EJFieldName("BANK_NAME")
-    public String getInitialBankName()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_bankName);
-    }
-
-    
-    @EJFieldName("BANK_COUNTRY")
-    public String getBankCountry()
-    {
-        return EJPojoProperty.getPropertyValue(_bankCountry);
-    }
-
-    @EJFieldName("BANK_COUNTRY")
-    public void setBankCountry(String bankCountry)
-    {
-        _bankCountry = EJPojoProperty.setPropertyValue(_bankCountry, bankCountry);
-    }
-
-    @EJFieldName("BANK_COUNTRY")
-    public String getInitialBankCountry()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_bankCountry);
-    }
-    
-    
     
     @EJFieldName("VAT_NR")
     public String getVatNr()
@@ -298,18 +200,13 @@ public class Company
     {
         EJPojoProperty.clearInitialValue(_postCode);
         EJPojoProperty.clearInitialValue(_address);
-        EJPojoProperty.clearInitialValue(_accountNumber);
-        EJPojoProperty.clearInitialValue(_bankPostCode);
-        EJPojoProperty.clearInitialValue(_iban);
+        EJPojoProperty.clearInitialValue(_invoiceSummary);
+        EJPojoProperty.clearInitialValue(_invoiceNotes);
         EJPojoProperty.clearInitialValue(_id);
-        EJPojoProperty.clearInitialValue(_bankTown);
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_town);
         EJPojoProperty.clearInitialValue(_country);
-        EJPojoProperty.clearInitialValue(_bankName);
-        EJPojoProperty.clearInitialValue(_bankCountry);
         EJPojoProperty.clearInitialValue(_vatNr);
-        EJPojoProperty.clearInitialValue(_bankAddress);
         EJPojoProperty.clearInitialValue(_logo);
     }
 
