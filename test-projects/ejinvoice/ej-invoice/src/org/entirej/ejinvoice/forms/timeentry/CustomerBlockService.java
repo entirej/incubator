@@ -19,14 +19,13 @@
 package org.entirej.ejinvoice.forms.timeentry;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale.Builder;
 
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.PKSequenceService;
-import org.entirej.ejinvoice.forms.login.User;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;

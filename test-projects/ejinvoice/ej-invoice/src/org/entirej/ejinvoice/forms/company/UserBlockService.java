@@ -66,7 +66,7 @@ public class UserBlockService implements EJBlockService<User>
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             parameters.add(new EJStatementParameter("ROLE", String.class, record.getRole()));
-            parameters.add(new EJStatementParameter("ACTIVE", Integer.class, record.getActive()));
+            parameters.add(new EJStatementParameter("ACTIVE", Integer.class, 1));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "user", parameters.toArray(paramArray));
             record.clearInitialValues();

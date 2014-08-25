@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
-import org.entirej.ejinvoice.forms.login.User;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;

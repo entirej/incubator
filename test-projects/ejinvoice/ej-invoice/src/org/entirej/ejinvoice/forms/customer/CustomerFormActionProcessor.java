@@ -29,7 +29,6 @@ import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
 /**
