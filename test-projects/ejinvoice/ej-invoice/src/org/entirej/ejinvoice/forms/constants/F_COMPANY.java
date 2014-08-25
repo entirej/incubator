@@ -40,23 +40,27 @@ public class F_COMPANY
 
     public static class B_USERS
     {
-        public static final String ID                = "Users";
-        public static final String I_FIRST_NAME      = "firstName";
-        public static final String I_LAST_NAME       = "lastName";
-        public static final String I_LOCALE_LANGUAGE = "localeLanguage";
-        public static final String I_LOCALE_COUNTRY  = "localeCountry";
-        public static final String I_NOTES           = "notes";
-        public static final String I_ID              = "id";
-        public static final String I_TOWN            = "town";
-        public static final String I_COMPANY_ID      = "companyId";
-        public static final String I_EMAIL           = "email";
-        public static final String I_POST_CODE       = "postCode";
-        public static final String I_ADDRESS         = "address";
-        public static final String I_PASSWORD        = "password";
-        public static final String I_LOCALE          = "locale";
-        public static final String I_ROLE            = "role";
-        public static final String I_EDIT            = "edit";
-        public static final String I_DELETE          = "delete";
+        public static final String ID                   = "Users";
+        public static final String I_FIRST_NAME         = "firstName";
+        public static final String I_LAST_NAME          = "lastName";
+        public static final String I_LOCALE_LANGUAGE    = "localeLanguage";
+        public static final String I_LOCALE_COUNTRY     = "localeCountry";
+        public static final String I_NOTES              = "notes";
+        public static final String I_ID                 = "id";
+        public static final String I_TOWN               = "town";
+        public static final String I_COMPANY_ID         = "companyId";
+        public static final String I_EMAIL              = "email";
+        public static final String I_POST_CODE          = "postCode";
+        public static final String I_ADDRESS            = "address";
+        public static final String I_PASSWORD           = "password";
+        public static final String I_LOCALE             = "locale";
+        public static final String I_ROLE               = "role";
+        public static final String I_EDIT               = "edit";
+        public static final String I_DELETE             = "delete";
+        public static final String I_CONFIRM_PASSWORD   = "confirmPassword";
+        public static final String I_CONFIRM_EMAIL      = "confirmEmail";
+        public static final String I_CHANGE_CREDENTIALS = "changeCredentials";
+        public static final String I_ACTIVE             = "active";
 
     }
 

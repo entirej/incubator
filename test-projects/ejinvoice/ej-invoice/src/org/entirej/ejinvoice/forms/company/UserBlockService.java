@@ -19,7 +19,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class UserBlockService implements EJBlockService<User>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ADDRESS,COMPANY_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,PASSWORD,POST_CODE,TOWN, ROLE FROM user";
+    private String                    _selectStatement = "SELECT ADDRESS,COMPANY_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,PASSWORD,POST_CODE,TOWN, ROLE, ACTIVE FROM user";
 
     public UserBlockService()
     {
@@ -66,6 +66,7 @@ public class UserBlockService implements EJBlockService<User>
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             parameters.add(new EJStatementParameter("ROLE", String.class, record.getRole()));
+            parameters.add(new EJStatementParameter("ACTIVE", Integer.class, record.getActive()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "user", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -100,6 +101,7 @@ public class UserBlockService implements EJBlockService<User>
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             parameters.add(new EJStatementParameter("ROLE", String.class, record.getRole()));
+            parameters.add(new EJStatementParameter("ACTIVE", Integer.class, record.getActive()));
             
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialAddress() == null)
@@ -205,6 +207,14 @@ public class UserBlockService implements EJBlockService<User>
             else
             {
                 criteria.add(EJRestrictions.equals("ROLE", record.getInitialRole()));
+            }
+            if (record.getInitialActive() == null)
+            {
+                criteria.add(EJRestrictions.isNull("ACTIVE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("ACTIVE", record.getInitialActive()));
             }
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -332,6 +342,14 @@ public class UserBlockService implements EJBlockService<User>
             else
             {
                 criteria.add(EJRestrictions.equals("ROLE", record.getInitialRole()));
+            }
+            if (record.getInitialActive() == null)
+            {
+                criteria.add(EJRestrictions.isNull("ACTIVE"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("ACTIVE", record.getInitialActive()));
             }
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];

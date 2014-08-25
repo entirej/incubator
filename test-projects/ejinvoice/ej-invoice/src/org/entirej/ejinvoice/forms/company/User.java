@@ -21,6 +21,7 @@ public class User
     private EJPojoProperty<String>  _role;
     private EJPojoProperty<String>  _address;
     private EJPojoProperty<String>  _password;
+    private EJPojoProperty<Integer>  _active;
 
     @EJFieldName("FIRST_NAME")
     public String getFirstName()
@@ -274,6 +275,24 @@ public class User
         return EJPojoProperty.getPropertyInitialValue(_locale);
     }
 
+    @EJFieldName("ACTIVE")
+    public Integer getActive()
+    {
+        return EJPojoProperty.getPropertyValue(_active);
+    }
+
+    @EJFieldName("ACTIVE")
+    public void setActive(Integer active)
+    {
+        _active = EJPojoProperty.setPropertyValue(_active, active);
+    }
+
+    @EJFieldName("ACTIVE")
+    public Integer getInitialActive()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_active);
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_firstName);
@@ -290,6 +309,7 @@ public class User
         EJPojoProperty.clearInitialValue(_password);
         EJPojoProperty.clearInitialValue(_locale);
         EJPojoProperty.clearInitialValue(_role);
+        EJPojoProperty.clearInitialValue(_active);
     }
 
 }
