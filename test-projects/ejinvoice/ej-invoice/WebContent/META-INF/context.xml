@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context cookies="false">
     <!-- Specify a JDBC datasource -->
-     <Resource name="jdbc/ejinvoice" auth="Container"
+     <Resource name="jdbc/ejinvoice-hosted" auth="Container"
         type="javax.sql.DataSource"
-        username="root" password=""
+        username="ejinvoice" password="ejinvoice"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://localhost:3306/ej-invoice"
-        maxActive="100" maxIdle="20"  minIdle="10" testWhileIdle="true"
-        timeBetweenEvictionRunsMillis="60000" validationQuery="SELECT 1" />
+        url="jdbc:mysql://mysql-entirej.whelastic.net/ej-invoice"
+        maxActive="40" maxIdle="20"  minIdle="5" testWhileIdle="true"
+        validationQuery="SELECT 1" />
 </Context>
