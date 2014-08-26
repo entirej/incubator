@@ -427,6 +427,11 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
     @Override
     public void refreshAfterChange(EJDataRecord arg0)
     {
+        
+        if (hoursSumInfo != null && !hoursSumInfo.isDisposed())
+        {
+            hoursSumInfo.setText(getTotalHours(_block.getRecords()));
+        }
         createHTML();
 
     }

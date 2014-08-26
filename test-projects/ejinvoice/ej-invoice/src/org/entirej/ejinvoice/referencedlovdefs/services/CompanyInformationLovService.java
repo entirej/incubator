@@ -36,7 +36,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CompanyInformationLovService implements EJBlockService<CompanyInformation>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ADDRESS,BANK_ADDRESS,BANK_NAME,BANK_POST_CODE,BANK_TOWN,IBAN,ID,NAME,POST_CODE,TOWN FROM COMPANY_INFORMATION";
+    private String                    _selectStatement = "SELECT ADDRESS,ID,NAME,POST_CODE,TOWN FROM COMPANY_INFORMATION";
 
     public CompanyInformationLovService()
     {
@@ -67,11 +67,6 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
             // Initialise the value list
             parameters.clear();
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS", String.class, record.getBankAddress()));
-            parameters.add(new EJStatementParameter("BANK_NAME", String.class, record.getBankName()));
-            parameters.add(new EJStatementParameter("BANK_POST_CODE", String.class, record.getBankPostCode()));
-            parameters.add(new EJStatementParameter("BANK_TOWN", String.class, record.getBankTown()));
-            parameters.add(new EJStatementParameter("IBAN", String.class, record.getIban()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
@@ -99,11 +94,6 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
 
             // First add the new values
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
-            parameters.add(new EJStatementParameter("BANK_ADDRESS", String.class, record.getBankAddress()));
-            parameters.add(new EJStatementParameter("BANK_NAME", String.class, record.getBankName()));
-            parameters.add(new EJStatementParameter("BANK_POST_CODE", String.class, record.getBankPostCode()));
-            parameters.add(new EJStatementParameter("BANK_TOWN", String.class, record.getBankTown()));
-            parameters.add(new EJStatementParameter("IBAN", String.class, record.getIban()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
@@ -117,46 +107,6 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
             else
             {
                 criteria.add(EJRestrictions.equals("ADDRESS", record.getInitialAddress()));
-            }
-            if (record.getInitialBankAddress() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS", record.getInitialBankAddress()));
-            }
-            if (record.getInitialBankName() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_NAME"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_NAME", record.getInitialBankName()));
-            }
-            if (record.getInitialBankPostCode() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_POST_CODE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_POST_CODE", record.getInitialBankPostCode()));
-            }
-            if (record.getInitialBankTown() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_TOWN"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_TOWN", record.getInitialBankTown()));
-            }
-            if (record.getInitialIban() == null)
-            {
-                criteria.add(EJRestrictions.isNull("IBAN"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("IBAN", record.getInitialIban()));
             }
             if (record.getInitialId() == null)
             {
@@ -224,46 +174,6 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
             if (record.getInitialAddress() == null)
             {
                 criteria.add(EJRestrictions.isNull("ADDRESS"));
-            }
-            if (record.getInitialBankAddress() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_ADDRESS"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_ADDRESS", record.getInitialBankAddress()));
-            }
-            if (record.getInitialBankName() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_NAME"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_NAME", record.getInitialBankName()));
-            }
-            if (record.getInitialBankPostCode() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_POST_CODE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_POST_CODE", record.getInitialBankPostCode()));
-            }
-            if (record.getInitialBankTown() == null)
-            {
-                criteria.add(EJRestrictions.isNull("BANK_TOWN"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("BANK_TOWN", record.getInitialBankTown()));
-            }
-            if (record.getInitialIban() == null)
-            {
-                criteria.add(EJRestrictions.isNull("IBAN"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("IBAN", record.getInitialIban()));
             }
             if (record.getInitialId() == null)
             {

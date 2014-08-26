@@ -12,10 +12,12 @@ import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.invoice.Invoice;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
+import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.EJManagedFrameworkConnection;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.data.controllers.EJQuestion;
@@ -420,7 +422,11 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         if (F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID.equals(record.getBlockName()))
         {
             BigDecimal amount = (BigDecimal) record.getValue(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.I_AMOUNT);
-            markedForInvoiceAmount = markedForInvoiceAmount.add(amount);
+            if(amount!=null)
+            {
+
+                markedForInvoiceAmount = markedForInvoiceAmount.add(amount);
+            }
         }
     }
 
@@ -586,6 +592,9 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             invoice.setSent(0);
             
             new ProjectService().createInvoice(form, invoice);
+            
+            EJManagedFrameworkConnection connection = form.getConnection();
+            InvoiceReport.openInvoice(connection, invId);
             
             form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
         }

@@ -19,22 +19,19 @@ public class F_COMPANY
 
     public static class B_COMPANIES
     {
-        public static final String ID               = "Companies";
-        public static final String I_POST_CODE      = "postCode";
-        public static final String I_ADDRESS        = "address";
-        public static final String I_BANK_ADDRESS   = "bankAddress";
-        public static final String I_ACCOUNT_NUMBER = "accountNumber";
-        public static final String I_BANK_POST_CODE = "bankPostCode";
-        public static final String I_IBAN           = "iban";
-        public static final String I_ID             = "id";
-        public static final String I_BANK_TOWN      = "bankTown";
-        public static final String I_BANK_COUNTRY   = "bankCountry";
-        public static final String I_NAME           = "name";
-        public static final String I_TOWN           = "town";
-        public static final String I_BANK_NAME      = "bankName";
-        public static final String I_VAT_NR         = "vatNr";
-        public static final String I_COUNTRY        = "country";
-        public static final String I_LOGO           = "logo";
+        public static final String ID                     = "Companies";
+        public static final String I_POST_CODE            = "postCode";
+        public static final String I_ADDRESS              = "address";
+        public static final String I_ID                   = "id";
+        public static final String I_NAME                 = "name";
+        public static final String I_TOWN                 = "town";
+        public static final String I_VAT_NR               = "vatNr";
+        public static final String I_COUNTRY              = "country";
+        public static final String I_LOGO                 = "logo";
+        public static final String I_INVOICE_SUMMARY      = "invoiceSummary";
+        public static final String I_INVOICE_NOTES        = "invoiceNotes";
+        public static final String I_INVOICE_NOTES_INFO   = "invoiceNotesInfo";
+        public static final String I_INVOICE_SUMMARY_INFO = "invoiceSummaryInfo";
 
     }
 

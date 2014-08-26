@@ -32,5 +32,6 @@ public class EJ_PROPERTIES
     public static final String VA_WORKWEEK_DATA_ODD  = "WORKWEEK_DATA_ODD";
     public static final String VA_DATA_EVEN          = "dataEven";
     public static final String VA_TABLE_HEADER_2     = "tableHeader2";
+    public static final String VA_DATA_GRAY          = "dataGray";
 
 }

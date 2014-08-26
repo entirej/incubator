@@ -15,17 +15,10 @@ public class F_TIME_ENTRY
         public static final String ID                = "Company";
         public static final String I_POST_CODE       = "postCode";
         public static final String I_ADDRESS         = "address";
-        public static final String I_BANK_ADDRESS    = "bankAddress";
-        public static final String I_ACCOUNT_NUMBER  = "accountNumber";
-        public static final String I_BANK_POST_CODE  = "bankPostCode";
-        public static final String I_IBAN            = "iban";
         public static final String I_ID              = "id";
-        public static final String I_BANK_TOWN       = "bankTown";
         public static final String I_NAME            = "name";
         public static final String I_TOWN            = "town";
         public static final String I_COUNTRY         = "country";
-        public static final String I_BANK_NAME       = "bankName";
-        public static final String I_BANK_COUNTRY    = "bankCountry";
         public static final String I_VAT_NR          = "vatNr";
         public static final String I_LOGO            = "logo";
         public static final String I_DISPLAY_ADDRESS = "displayAddress";
@@ -72,7 +65,6 @@ public class F_TIME_ENTRY
         public static final String I_END_LABEL        = "endLabel";
         public static final String I_HOURS_LABEL      = "hoursLabel";
         public static final String I_EQUALS_LABEL     = "equalsLabel";
-        public static final String I_WORK_DATE_ENTRY  = "workDateEntry";
         public static final String I__EDIT            = "_edit";
         public static final String I__DELETE          = "_delete";
         public static final String I_INVP_ID          = "invpId";

@@ -12,17 +12,12 @@ public class RL_COMPANY_INFORMATION
 
     public static class L_COMPANY_INFORMATION
     {
-        public static final String ID               = "CompanyInformation";
-        public static final String I_NAME           = "name";
-        public static final String I_BANK_TOWN      = "bankTown";
-        public static final String I_IBAN           = "iban";
-        public static final String I_TOWN           = "town";
-        public static final String I_ADDRESS        = "address";
-        public static final String I_BANK_POST_CODE = "bankPostCode";
-        public static final String I_ID             = "id";
-        public static final String I_BANK_ADDRESS   = "bankAddress";
-        public static final String I_BANK_NAME      = "bankName";
-        public static final String I_POST_CODE      = "postCode";
+        public static final String ID          = "CompanyInformation";
+        public static final String I_NAME      = "name";
+        public static final String I_TOWN      = "town";
+        public static final String I_ADDRESS   = "address";
+        public static final String I_ID        = "id";
+        public static final String I_POST_CODE = "postCode";
 
     }
 
