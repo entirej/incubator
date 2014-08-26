@@ -10,6 +10,7 @@ import java.util.Locale.Builder;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.company.Company;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.invoice.Invoice;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
@@ -286,6 +287,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             ProjectService projectService = new ProjectService();
             String lastInvoiceNumber = projectService.getLastInvoicNr(form, project.getCustomerId());
             Customer customer = projectService.getCustomerInfo(form, project.getCustomerId());
+            Company company = projectService.getCompany(form);
             
             Calendar calendar = Calendar.getInstance(form.getCurrentLocale());
             Date invoiceDate = new Date(calendar.getTime().getTime());
@@ -315,8 +317,10 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).setValue(null);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR_LABEL).setValue("Invoice No. ("+lastInvoiceNumber+")");
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).setValue(customer.getVatRate());
-
             
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_SUMMARY).setValue(company.getInvoiceSummary());
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_NOTES).setValue(company.getInvoiceNotes());
+
             form.showPopupCanvas(F_PROJECTS.C_INVOICE_CREATION_POPUP);            
         }
 
@@ -573,7 +577,8 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             String address = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).getValue();
             String nr = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).getValue();
             BigDecimal vatRate = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).getValue();
-            
+            String invoiceSummary = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_SUMMARY).getValue();
+            String invoiceNotes = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_NOTES).getValue();
             
             Customer cust = new ProjectService().getCustomerInfo(form, customerId);
             
@@ -594,6 +599,8 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             invoice.setLocaleCountry(cust.getLocaleCountry());
             invoice.setLocaleLanguage(cust.getLocaleLanguage());
             invoice.setLocale(new Builder().setLanguage(invoice.getLocaleLanguage()).setRegion(invoice.getLocaleCountry()).build());
+            invoice.setSummary(invoiceSummary);
+            invoice.setNotes(invoiceNotes);
             
             new ProjectService().createInvoice(form, invoice);
             

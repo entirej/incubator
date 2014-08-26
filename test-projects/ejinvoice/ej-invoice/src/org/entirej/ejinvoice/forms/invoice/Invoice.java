@@ -27,7 +27,8 @@ public class Invoice
     private EJPojoProperty<String>     _localeCountry;
     private EJPojoProperty<String>     _localeLanguage;
     private EJPojoProperty<Locale>     _locale;
-
+    private EJPojoProperty<String>     _summary;
+    private EJPojoProperty<String>     _notes;
 
     @EJFieldName("CCY_CODE")
     public String getCcyCode()
@@ -336,8 +337,47 @@ public class Invoice
         return EJPojoProperty.getPropertyInitialValue(_locale);
     }
     
+    @EJFieldName("SUMMARY")
+    public String getSummary()
+    {
+        return EJPojoProperty.getPropertyValue(_summary);
+    }
+
+    @EJFieldName("SUMMARY")
+    public void setSummary(String summary)
+    {
+        _summary = EJPojoProperty.setPropertyValue(_summary, summary);
+    }
+
+    @EJFieldName("SUMMARY")
+    public String getInitialSummary()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_summary);
+    }
+
+    
+    
+    @EJFieldName("NOTES")
+    public String getNotes()
+    {
+        return EJPojoProperty.getPropertyValue(_notes);
+    }
+
+    @EJFieldName("NOTES")
+    public void setNotes(String notes)
+    {
+        _notes = EJPojoProperty.setPropertyValue(_notes, notes);
+    }
+
+    @EJFieldName("NOTES")
+    public String getInitialNotes()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_notes);
+    }
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_notes);
+        EJPojoProperty.clearInitialValue(_summary);
         EJPojoProperty.clearInitialValue(_localeCountry);
         EJPojoProperty.clearInitialValue(_localeLanguage);
         EJPojoProperty.clearInitialValue(_locale);

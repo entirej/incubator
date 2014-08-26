@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale.Builder;
 
 import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.forms.company.Company;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.invoice.Invoice;
 import org.entirej.ejinvoice.forms.invoice.InvoiceBlockService;
@@ -30,6 +31,22 @@ import org.entirej.framework.core.service.EJStatementParameter;
 
 public class ProjectService
 {
+    public Company getCompany(EJForm form)
+    {
+        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        
+        String selectStatement = "SELECT ADDRESS,COUNTRY,ID,LOGO,NAME,POST_CODE,TOWN, VAT_NR, INVOICE_NOTES, INVOICE_SUMMARY FROM company_information";
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        List<Company> companies = new EJStatementExecutor().executeQuery(Company.class, form, selectStatement, criteria);
+        
+        if (companies.size() == 0)
+        {
+            throw new EJApplicationException("ProjectService.getCompany: Unable to find a company with id " + companyId);
+        }
+        
+        return companies.get(0);
+    }
 
     public Customer getCustomerInfo(EJForm form, Integer customerId)
     {
@@ -41,8 +58,7 @@ public class ProjectService
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("ID", customerId));
-        List<Customer> customers = executor.executeQuery(Customer.class, form,
-                "SELECT ID, COMPANY_ID, NAME, ADDRESS, POST_CODE, TOWN, COUNTRY, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, PAYMENT_DAYS, CUSTOMER_NUMBER, LOCALE_LANGUAGE, LOCALE_COUNTRY FROM CUSTOMER ", criteria);
+        List<Customer> customers = executor.executeQuery(Customer.class, form, "SELECT ID, COMPANY_ID, NAME, ADDRESS, POST_CODE, TOWN, COUNTRY, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, PAYMENT_DAYS, CUSTOMER_NUMBER, LOCALE_LANGUAGE, LOCALE_COUNTRY FROM CUSTOMER ", criteria);
 
         if (customers.size() == 0)
         {
@@ -53,29 +69,28 @@ public class ProjectService
 
         cust.setLocale(new Builder().setLanguage(cust.getLocaleLanguage()).setRegion(cust.getLocaleCountry()).build());
         cust.setCcyCode(Currency.getInstance(cust.getLocale()).getCurrencyCode());
-        
 
         return cust;
     }
-    
+
     public String getLastInvoicNr(EJForm form, Integer customerId)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
-        
+
         EJStatementParameter custIdParam = new EJStatementParameter(EJParameterType.IN);
         custIdParam.setValue(customerId);
-        
-        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-        
+
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
-        
+
         String selectStmt = "SELECT NR FROM INVOICE WHERE ID = (SELECT MAX(ID) FROM INVOICE WHERE CUST_ID = ? AND COMPANY_ID = ? )";
-        
+
         List<EJSelectResult> results = executor.executeQuery(form.getConnection(), selectStmt, custIdParam, companyIdParam);
         if (results.size() > 0)
         {
-            return "Last invoice number: "+results.get(0).getItemValue("NR");
+            return "Last invoice number: " + results.get(0).getItemValue("NR");
         }
         else
         {
@@ -278,24 +293,21 @@ public class ProjectService
         ArrayList<Invoice> invoices = new ArrayList<Invoice>();
         invoices.add(invoice);
         new InvoiceBlockService().executeInsert(form, invoices);
-        
-        
+
         // Now update all chosen invoice positions with the new invoice Id
         Collection<EJRecord> records = form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getBlockRecords();
-        
+
         ArrayList<MarkedForInvoiceProjectItem> items = new ArrayList<MarkedForInvoiceProjectItem>();
         for (EJRecord record : records)
         {
-            MarkedForInvoiceProjectItem item = (MarkedForInvoiceProjectItem)record.getBlockServicePojo();
+            MarkedForInvoiceProjectItem item = (MarkedForInvoiceProjectItem) record.getBlockServicePojo();
             item.setInvId(invoice.getId());
             item.setStatus("INVOICED");
             items.add(item);
         }
-        
+
         new MarkedForInvoiceProjectItemBlockService().executeUpdate(form, items);
-        
-        
-        
+
     }
 
 }

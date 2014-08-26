@@ -265,6 +265,8 @@ public class F_PROJECTS
         public static final String I_AMOUNT_INCL_VAT = "amountInclVat";
         public static final String I_INVOICE_ADDRESS = "invoiceAddress";
         public static final String I_VAT_RATE        = "vatRate";
+        public static final String I_INVOICE_SUMMARY = "invoiceSummary";
+        public static final String I_INVOICE_NOTES   = "invoiceNotes";
 
     }
 

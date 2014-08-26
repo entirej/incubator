@@ -71,6 +71,8 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("VAT_RATE", BigDecimal.class, record.getVatRate()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+            parameters.add(new EJStatementParameter("SUMMARY", String.class, record.getSummary()));
+            parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "invoice", parameters.toArray(paramArray));
@@ -108,6 +110,8 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+            parameters.add(new EJStatementParameter("SUMMARY", String.class, record.getSummary()));
+            parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
 
 
             EJStatementCriteria criteria = new EJStatementCriteria();
