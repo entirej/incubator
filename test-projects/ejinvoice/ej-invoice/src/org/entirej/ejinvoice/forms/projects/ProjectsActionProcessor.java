@@ -554,7 +554,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
-        else if (F_PROJECTS.C_INVOICE_CREATION_POPUP.equals(popupCanvasName))
+        else if (F_PROJECTS.C_INVOICE_CREATION_POPUP.equals(popupCanvasName) && button.equals(EJPopupButton.ONE))
         {
             Invoice invoice = new Invoice();
             
@@ -590,6 +590,8 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             invoice.setNr(nr);
             invoice.setPaid(0);
             invoice.setSent(0);
+            invoice.setLocaleCountry(cust.getLocaleCountry());
+            invoice.setLocaleLanguage(cust.getLocaleLanguage());
             
             new ProjectService().createInvoice(form, invoice);
             
