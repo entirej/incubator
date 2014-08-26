@@ -222,6 +222,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
 
     }
+   
+ 
 
     @Override
     public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
@@ -242,6 +244,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.showTabCanvasPage(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS);
             form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
             form.openEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
+            customerInserted = false;
         }
     }
 
