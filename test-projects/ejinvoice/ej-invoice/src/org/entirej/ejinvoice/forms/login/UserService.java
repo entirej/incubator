@@ -196,6 +196,7 @@ public class UserService
         parameters.add(new EJStatementParameter("NOTES", String.class, user.getNotes()));
         parameters.add(new EJStatementParameter("PASSWORD", String.class, user.getPassword()));
         parameters.add(new EJStatementParameter("ACTIVE", Integer.class, user.getActive()));
+        parameters.add(new EJStatementParameter("ROLE", Integer.class, user.getRole()));
 
         paramArray = new EJStatementParameter[parameters.size()];
         recordsProcessed += executor.executeInsert(form, "user", parameters.toArray(paramArray));

@@ -11,6 +11,7 @@ import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJQuerySort;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -35,6 +36,8 @@ public class UserBlockService implements EJBlockService<User>
     @Override
     public List<User> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        queryCriteria.add(EJQuerySort.ASC("case when (ROLE='OWNER')=true then 1 when (ROLE='ADMINISTRATOR')=true then 2 when (ROLE='EMPLOYEE')=true then 3 else 4 END"));
+        
         List<User> users = _statementExecutor.executeQuery(User.class, form, _selectStatement, queryCriteria);
         for (User user : users)
         {
