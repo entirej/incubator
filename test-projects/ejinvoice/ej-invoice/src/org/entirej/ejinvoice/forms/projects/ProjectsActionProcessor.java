@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.util.Calendar;
+import java.util.Locale.Builder;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
@@ -592,11 +593,12 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             invoice.setSent(0);
             invoice.setLocaleCountry(cust.getLocaleCountry());
             invoice.setLocaleLanguage(cust.getLocaleLanguage());
+            invoice.setLocale(new Builder().setLanguage(invoice.getLocaleLanguage()).setRegion(invoice.getLocaleCountry()).build());
             
             new ProjectService().createInvoice(form, invoice);
             
             EJManagedFrameworkConnection connection = form.getConnection();
-            InvoiceReport.openInvoice(connection, invId);
+            InvoiceReport.openInvoicePDF(connection, invId,invoice.getLocale(),nr);
             
             form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
         }
