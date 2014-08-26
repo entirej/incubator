@@ -44,26 +44,18 @@ public class F_LOGIN
 
     public static class B_COMPANY
     {
-        public static final String ID          = "company";
-        public static final String I_NAME      = "name";
-        public static final String I_ADDRESS   = "address";
-        public static final String I_POST_CODE = "postCode";
-        public static final String I_TOWN      = "town";
-        public static final String I_COUNTRY   = "country";
-        public static final String I_LOGO      = "logo";
-
-    }
-
-    public static class B_BANK_INFORMATION
-    {
-        public static final String ID               = "bankInformation";
-        public static final String I_NAME           = "name";
-        public static final String I_ADDRESS        = "address";
-        public static final String I_POST_CODE      = "postCode";
-        public static final String I_TOWN           = "town";
-        public static final String I_COUNTRY        = "country";
-        public static final String I_IBAN           = "IBAN";
-        public static final String I_ACCOUNT_NUMBER = "accountNumber";
+        public static final String ID                      = "company";
+        public static final String I_NAME                  = "name";
+        public static final String I_ADDRESS               = "address";
+        public static final String I_POST_CODE             = "postCode";
+        public static final String I_TOWN                  = "town";
+        public static final String I_COUNTRY               = "country";
+        public static final String I_FIRST_NAME            = "firstName";
+        public static final String I_LAST_NAME             = "lastName";
+        public static final String I_EMAIL_ADDRESS         = "emailAddress";
+        public static final String I_EMAIL_ADDRESS_CONFIRM = "emailAddressConfirm";
+        public static final String I_PASSWORD              = "password";
+        public static final String I_PASSWORD_CONFIRM      = "passwordConfirm";
 
     }
 

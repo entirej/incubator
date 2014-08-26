@@ -200,7 +200,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
 
             if (!record.getBlockName().equals(F_PROJECTS.B_PROJECT_TASKS.ID))
             {
-                form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeLastQuery();
+                form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
             }
         }
         else if (F_PROJECTS.AC_ADD_NEW_TASK.equals(command))
