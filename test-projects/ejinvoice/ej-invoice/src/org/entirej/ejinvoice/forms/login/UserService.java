@@ -8,6 +8,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.EJContextProvider;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.company.Company;
 import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
 import org.entirej.ejinvoice.forms.masterdata.ContactType;
@@ -22,6 +23,7 @@ import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.service.EJParameterType;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJRestriction;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -74,7 +76,7 @@ public class UserService
         return PasswordHashGen.toHash((String) password);
     }
 
-    public void validateEmailAddress(EJForm form, String email, String confirmEmail, Integer userId) throws EJApplicationException
+    public void validateEmailAddress(EJForm form, String email, String confirmEmail, Integer companyId, Integer userId) throws EJApplicationException
     {
         if (email == null || ((String) email).trim().length() == 0)
         {
@@ -93,12 +95,18 @@ public class UserService
             throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "The email address you have entered is not a valid email address."));
         }
         
-        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-        
         if (doesEmailExist(email, companyId, userId))
         {
-            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "There is already a user within your company with this email address");
-            throw new EJApplicationException(message);
+            if (companyId != null)
+            {
+                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "There is already a user within your company with this email address");
+                throw new EJApplicationException(message);
+            }
+            else
+            {
+                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "A user with this email address has already been registered, please choose a different email address");
+                throw new EJApplicationException(message);
+            }
         }
     }
 
@@ -107,7 +115,12 @@ public class UserService
         final String stmt = "SELECT EMAIL FROM USER";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
-        criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
+        if (companyId != null)
+        {
+            criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
+        }
+        
+        criteria.add(EJRestrictions.equals("EMAIL", email));
         criteria.add(EJRestrictions.notEquals("ID", userId));
         
         List<EJSelectResult> results = new EJStatementExecutor().executeQuery(contextProvider.getConnection(), stmt, criteria);
@@ -150,24 +163,42 @@ public class UserService
         return null;
     }
 
-    public void registerUser(EJForm form, User user)
+    public void register(EJForm form, Company company,  User user)
     {
+        EJStatementExecutor executor = new EJStatementExecutor();
+        
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
 
+        parameters.clear();
+        parameters.add(new EJStatementParameter("ADDRESS", String.class, company.getAddress()));
+        parameters.add(new EJStatementParameter("INVOICE_NOTES", String.class, company.getInvoiceNotes()));
+        parameters.add(new EJStatementParameter("INVOICE_SUMMARY", String.class, company.getInvoiceSummary()));
+        parameters.add(new EJStatementParameter("COUNTRY", String.class, company.getCountry()));
+        parameters.add(new EJStatementParameter("ID", Integer.class, company.getId()));
+        parameters.add(new EJStatementParameter("LOGO", Object.class, company.getLogo()));
+        parameters.add(new EJStatementParameter("NAME", String.class, company.getName()));
+        parameters.add(new EJStatementParameter("POST_CODE", String.class, company.getPostCode()));
+        parameters.add(new EJStatementParameter("TOWN", String.class, company.getTown()));
+        parameters.add(new EJStatementParameter("VAT_NR", String.class, company.getVatNr()));
+        
+        EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+        executor.executeInsert(form, "company_information", parameters.toArray(paramArray));
+        
+        
         // Initialise the value list
         parameters.clear();
-        int pkSequence = PKSequenceService.getPKSequence(form.getConnection());
-        parameters.add(new EJStatementParameter("ID", Integer.class, pkSequence));
-        parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, pkSequence));
+        parameters.add(new EJStatementParameter("ID", Integer.class, user.getId()));
+        parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, company.getId()));
         parameters.add(new EJStatementParameter("EMAIL", String.class, user.getEmail()));
         parameters.add(new EJStatementParameter("FIRST_NAME", String.class, user.getFirstName()));
         parameters.add(new EJStatementParameter("LAST_NAME", String.class, user.getLastName()));
         parameters.add(new EJStatementParameter("NOTES", String.class, user.getNotes()));
         parameters.add(new EJStatementParameter("PASSWORD", String.class, user.getPassword()));
+        parameters.add(new EJStatementParameter("ACTIVE", Integer.class, user.getActive()));
 
-        EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
-        recordsProcessed += new EJStatementExecutor().executeInsert(form, "user", parameters.toArray(paramArray));
+        paramArray = new EJStatementParameter[parameters.size()];
+        recordsProcessed += executor.executeInsert(form, "user", parameters.toArray(paramArray));
         user.clearInitialValues();
 
         if (recordsProcessed != 1)
@@ -176,14 +207,15 @@ public class UserService
         }
         else
         {
-            setupDefaultData(pkSequence);
+            setupDefaultData(company);
             form.getBlock(F_LOGIN.B_LOGON.ID).clear(true);
             form.showMessage(new EJMessage(EJMessageLevel.MESSAGE, "Registration Successful, please log in..."));
         }
     }
 
-    public void setupDefaultData(int companyId)
+    public void setupDefaultData(Company company)
     {
+        /*
         // Default Data User
         User user = getUser("template@ej.org");
         if (user == null)
@@ -243,6 +275,7 @@ public class UserService
             }
 
         }
+        */
 
     }
 

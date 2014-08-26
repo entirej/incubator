@@ -22,20 +22,6 @@ public class F_LOGIN
 
     }
 
-    public static class B_REGISTER
-    {
-        public static final String ID                = "register";
-        public static final String I_REGISTER_LABEL  = "registerLabel";
-        public static final String I_PASSWORD        = "password";
-        public static final String I_PASSWORD_RETYPE = "passwordRetype";
-        public static final String I_REGISTER        = "register";
-        public static final String I_EMAIL           = "email";
-        public static final String I_FIRST_NAME      = "firstName";
-        public static final String I_LAST_NAME       = "lastName";
-        public static final String I_CANCEL          = "cancel";
-
-    }
-
     public static class B_FORGOT
     {
         public static final String ID = "forgot";
@@ -56,6 +42,9 @@ public class F_LOGIN
         public static final String I_EMAIL_ADDRESS_CONFIRM = "emailAddressConfirm";
         public static final String I_PASSWORD              = "password";
         public static final String I_PASSWORD_CONFIRM      = "passwordConfirm";
+        public static final String I_REGISTER              = "register";
+        public static final String I_CANCEL                = "cancel";
+        public static final String I_ADMIN_INFORMATION     = "adminInformation";
 
     }
 
@@ -69,25 +58,13 @@ public class F_LOGIN
 
     }
 
-    public static final String C_LOGON       = "logon";
-    public static final String C_REGISTER    = "register";
-    public static final String C_FORGOT      = "forgot";
-    public static final String C_NEW_COMPANY = "NewCompany";
-    public static final String C_MAIN        = "main";
+    public static final String C_LOGON                = "logon";
+    public static final String C_COMPANY              = "company";
+    public static final String C_FORGOT               = "forgot";
 
-    public static class C_MAIN_PAGES
-    {
-        public static final String COMPANY          = "company";
-        public static final String BANK_INFORMATION = "bankInformation";
-
-    }
-
-    public static final String C_COMPANY          = "company";
-    public static final String C_BANK_INFORMATION = "bankInformation";
-
-    public static final String AC_CANCEL_SIGNUP   = "CANCEL_SIGNUP";
-    public static final String AC_LOGON           = "LOGON";
-    public static final String AC_REGISTER        = "REGISTER";
-    public static final String AC_SIGNUP          = "SIGNUP";
+    public static final String AC_CANCEL_REGISTRATION = "CANCEL_REGISTRATION";
+    public static final String AC_LOGON               = "LOGON";
+    public static final String AC_REGISTER            = "REGISTER";
+    public static final String AC_SIGNUP              = "SIGNUP";
 
 }

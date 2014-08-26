@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import org.entirej.applicationframework.rwt.file.EJRWTFileUpload;
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
@@ -155,6 +156,9 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     @Override
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
     {
+        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        
+
         if (F_COMPANY.B_USERS.ID.equals(record.getBlockName()))
         {
             if (EJRecordType.UPDATE.equals(recordType))
@@ -169,7 +173,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
                     String email = (String) record.getValue(F_COMPANY.B_USERS.I_EMAIL);
                     String confirmEmail = (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_EMAIL);
 
-                    ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
+                    ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, companyId, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
                 }
             }
             else if (EJRecordType.INSERT.equals(recordType))
@@ -179,7 +183,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
 
                 String hashPassword = ServiceRetriever.getUserService(form).validatePassword((String) record.getValue(F_COMPANY.B_USERS.I_INITIAL_PASSWORD), (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_PASSWORD));
                 record.setValue(F_COMPANY.B_USERS.I_PASSWORD, hashPassword);
-                ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
+                ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, companyId, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
             }
         }
     }
