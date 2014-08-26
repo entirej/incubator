@@ -6,6 +6,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.util.Locale;
+
+import net.sf.jasperreports.engine.JRParameter;
 
 import org.entirej.applicationframework.rwt.file.EJRWTFileDownload;
 import org.entirej.framework.core.EJManagedFrameworkConnection;
@@ -17,15 +20,16 @@ public class InvoiceReport
 {
 
     
-    public static void openInvoice( EJManagedFrameworkConnection connection,final int invId)
+    public static void openInvoicePDF( EJManagedFrameworkConnection connection,final int invId,Locale locale,String exportName)
     {
         try
         {
             File tempFile = File.createTempFile("tmpejinv",String.valueOf(invId));
             
             EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
-            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID);
-            EJRWTFileDownload.download(tempFile.getAbsolutePath(), String.valueOf(invId)+".pdf");
+            EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
+            EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName+".pdf");
             tempFile.deleteOnExit();
         }
         catch (IOException e)
@@ -34,14 +38,15 @@ public class InvoiceReport
         }
     }
     
-    public static byte[] generateInvoice( EJManagedFrameworkConnection connection,final int invId)
+    public static byte[] generateInvoicePDF( EJManagedFrameworkConnection connection,final int invId,Locale locale)
     {
         try
         {
             File tempFile = File.createTempFile("tmpejinv",String.valueOf(invId));
             
             EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
-            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID);
+            EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
            
             Path path = Paths.get(tempFile.getAbsolutePath());
             byte[] data = Files.readAllBytes(path);
