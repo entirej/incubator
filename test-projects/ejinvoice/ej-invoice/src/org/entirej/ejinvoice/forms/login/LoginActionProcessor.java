@@ -9,6 +9,7 @@ import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.company.Company;
 import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
@@ -19,7 +20,6 @@ import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
-import org.entirej.framework.core.enumerations.EJPopupButton;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
 public class LoginActionProcessor extends DefaultFormActionProcessor
@@ -109,7 +109,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPassword(hashPassword);
-            user.setRole("OWNER");
+            user.setRole(UserRole.OWNER.toString());
             user.setActive(1);
             user.setCompanyId(newCompanyId);
             user.setLocaleCountry(Locale.getDefault().getCountry());

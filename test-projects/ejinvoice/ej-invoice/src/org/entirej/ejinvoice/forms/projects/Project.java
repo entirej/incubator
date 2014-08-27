@@ -15,12 +15,8 @@ public class Project
     private EJPojoProperty<Integer>    _customerId;
     private EJPojoProperty<Date>       _startDate;
     private EJPojoProperty<Date>       _endDate;
-    private EJPojoProperty<Integer>    _status;
+    private EJPojoProperty<String>     _status;
     private EJPojoProperty<String>     _notes;
-
-    private EJPojoProperty<Integer>    _newNotStarted;
-    private EJPojoProperty<Integer>    _started;
-    private EJPojoProperty<Integer>    _completed;
 
     private EJPojoProperty<Long>       _openItems;
     private EJPojoProperty<Long>       _plannedItems;
@@ -36,7 +32,7 @@ public class Project
     private EJPojoProperty<BigDecimal> _taskPayRate;
     private EJPojoProperty<Integer>    _taskUserId;
     private EJPojoProperty<BigDecimal> _taskFixPrice;
-    private EJPojoProperty<Integer>    _taskStatus;
+    private EJPojoProperty<String>     _taskStatus;
     private EJPojoProperty<String>     _taskInvoiceable;
 
     @EJFieldName("ID")
@@ -94,77 +90,23 @@ public class Project
     }
 
     @EJFieldName("STATUS")
-    public Integer getStatus()
+    public String getStatus()
     {
         return EJPojoProperty.getPropertyValue(_status);
     }
 
     @EJFieldName("STATUS")
-    public void setStatus(Integer status)
+    public void setStatus(String status)
     {
         _status = EJPojoProperty.setPropertyValue(_status, status);
     }
 
     @EJFieldName("STATUS")
-    public Integer getInitialStatus()
+    public String getInitialStatus()
     {
         return EJPojoProperty.getPropertyInitialValue(_status);
     }
-
-    @EJFieldName("NEW_NOT_STARTED")
-    public Integer getNewNotStarted()
-    {
-        return EJPojoProperty.getPropertyValue(_newNotStarted);
-    }
-
-    @EJFieldName("NEW_NOT_STARTED")
-    public void setNewNotStarted(Integer newNotStarted)
-    {
-        _newNotStarted = EJPojoProperty.setPropertyValue(_newNotStarted, newNotStarted);
-    }
-
-    @EJFieldName("NEW_NOT_STARTED")
-    public Integer getInitialNewNotStarted()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_newNotStarted);
-    }
-
-    @EJFieldName("STARTED")
-    public Integer getStarted()
-    {
-        return EJPojoProperty.getPropertyValue(_started);
-    }
-
-    @EJFieldName("STARTED")
-    public void setStarted(Integer started)
-    {
-        _started = EJPojoProperty.setPropertyValue(_started, started);
-    }
-
-    @EJFieldName("STARTED")
-    public Integer getInitialStarted()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_started);
-    }
-
-    @EJFieldName("COMPLETED")
-    public Integer getCompleted()
-    {
-        return EJPojoProperty.getPropertyValue(_completed);
-    }
-
-    @EJFieldName("COMPLETED")
-    public void setCompleted(Integer completed)
-    {
-        _completed = EJPojoProperty.setPropertyValue(_completed, completed);
-    }
-
-    @EJFieldName("COMPLETED")
-    public Integer getInitialCompleted()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_completed);
-    }
-
+    
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -400,19 +342,19 @@ public class Project
     }
 
     @EJFieldName("TASK_STATUS")
-    public Integer getTaskStatus()
+    public String getTaskStatus()
     {
         return EJPojoProperty.getPropertyValue(_taskStatus);
     }
 
     @EJFieldName("TASK_STATUS")
-    public void setTaskStatus(Integer taskStatus)
+    public void setTaskStatus(String taskStatus)
     {
         _taskStatus = EJPojoProperty.setPropertyValue(_taskStatus, taskStatus);
     }
 
     @EJFieldName("TASK_STATUS")
-    public Integer getInitialTaskStatus()
+    public String getInitialTaskStatus()
     {
         return EJPojoProperty.getPropertyInitialValue(_taskStatus);
     }
@@ -525,9 +467,6 @@ public class Project
 
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);
-        EJPojoProperty.clearInitialValue(_newNotStarted);
-        EJPojoProperty.clearInitialValue(_started);
-        EJPojoProperty.clearInitialValue(_completed);
 
         EJPojoProperty.clearInitialValue(_taskCprId);
         EJPojoProperty.clearInitialValue(_taskNotes);

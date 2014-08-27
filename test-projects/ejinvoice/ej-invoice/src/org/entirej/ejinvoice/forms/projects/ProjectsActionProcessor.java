@@ -12,6 +12,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.company.Company;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.invoice.Invoice;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
@@ -29,9 +30,11 @@ import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJRestrictions;
 
 public class ProjectsActionProcessor extends DefaultFormActionProcessor
 {
+    private boolean    refreshProjectLists    = false;
     private boolean    timeEntryInserted      = false;
     private BigDecimal markedForInvoiceAmount = new BigDecimal(0);
 
@@ -61,6 +64,28 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE).setEditable(false);
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE).setEditable(false);
             }
+        }
+    }
+
+    @Override
+    public void validateQueryCriteria(EJForm form, EJQueryCriteria queryCriteria) throws EJActionProcessorException
+    {
+        super.validateQueryCriteria(form, queryCriteria);
+        
+        if (F_PROJECTS.B_PROJECTS.ID.equals(queryCriteria.getBlockName()))
+        {
+            Integer statusNew = (Integer)form.getBlock(F_PROJECTS.B_PROJECTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_NEW).getValue();
+            Integer statusInWork = (Integer)form.getBlock(F_PROJECTS.B_PROJECTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_IN_WORK).getValue();
+            Integer statusOnHold = (Integer)form.getBlock(F_PROJECTS.B_PROJECTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_ON_HOLD).getValue();
+            Integer statusCompleted= (Integer)form.getBlock(F_PROJECTS.B_PROJECTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_COMPLETED).getValue();
+            Integer statusDeleted = (Integer)form.getBlock(F_PROJECTS.B_PROJECTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_DELETED).getValue();
+            
+            queryCriteria.add(EJRestrictions.equals(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_NEW, statusNew));
+            queryCriteria.add(EJRestrictions.equals(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_IN_WORK, statusInWork));
+            queryCriteria.add(EJRestrictions.equals(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_ON_HOLD, statusOnHold));
+            queryCriteria.add(EJRestrictions.equals(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_COMPLETED, statusCompleted));
+            queryCriteria.add(EJRestrictions.equals(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_DELETED, statusDeleted));
+            
         }
     }
 
@@ -162,9 +187,9 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         else if (F_PROJECTS.AC_PROJECT_DETAILS.equals(command))
         {
             StringBuilder builder = new StringBuilder();
-            builder.append((String)record.getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_NAME));
-            builder.append(" (").append((String)record.getValue(F_PROJECTS.B_PROJECTS.I_NAME)).append(")");
-            
+            builder.append((String) record.getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_NAME));
+            builder.append(" (").append((String) record.getValue(F_PROJECTS.B_PROJECTS.I_NAME)).append(")");
+
             form.getBlock(F_PROJECTS.B_INVOICE_HEADER.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_HEADER.I_PROJECT_INFORMATION).setValue(builder.toString());
 
             form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.INVOICE);
@@ -177,11 +202,11 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         else if (F_PROJECTS.AC_PROJECT_DETAILS_CREATION.equals(command))
         {
             StringBuilder builder = new StringBuilder();
-            builder.append((String)record.getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_NAME));
-            builder.append(" (").append((String)record.getValue(F_PROJECTS.B_PROJECTS.I_NAME)).append(")");
-            
+            builder.append((String) record.getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_NAME));
+            builder.append(" (").append((String) record.getValue(F_PROJECTS.B_PROJECTS.I_NAME)).append(")");
+
             form.getBlock(F_PROJECTS.B_INVOICE_HEADER.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_HEADER.I_PROJECT_INFORMATION).setValue(builder.toString());
-            
+
             form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.INVOICE);
             form.showTabCanvasPage(F_PROJECTS.C_PROJECT_INVOICE_TAB, F_PROJECTS.C_PROJECT_INVOICE_TAB_PAGES.INVOICE_CREATION);
             form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
@@ -281,47 +306,47 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         else if (F_PROJECTS.AC_CREATE_FINAL_INVOICE.equals(command))
         {
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).clear(true);
-            
-            Project project = (Project)form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getBlockServicePojo();
-            
+
+            Project project = (Project) form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getBlockServicePojo();
+
             ProjectService projectService = new ProjectService();
             String lastInvoiceNumber = projectService.getLastInvoicNr(form, project.getCustomerId());
             Customer customer = projectService.getCustomerInfo(form, project.getCustomerId());
             Company company = projectService.getCompany(form);
-            
+
             Calendar calendar = Calendar.getInstance(form.getCurrentLocale());
             Date invoiceDate = new Date(calendar.getTime().getTime());
             calendar.add(Calendar.DAY_OF_MONTH, customer.getPaymentDays());
             Date dueDate = new Date(calendar.getTime().getTime());
-            
+
             StringBuilder address = new StringBuilder();
             address.append(customer.getAddress()).append("\n");
             address.append(customer.getPostCode()).append("  ").append(customer.getTown()).append("\n");
             address.append(customer.getCountry());
-            
-            BigDecimal amountExcl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_EXCL);
-            BigDecimal amountIncl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_INCL);
-            BigDecimal vatAmount =  (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_VAT_AMOUNT);
-            
+
+            BigDecimal amountExcl = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_EXCL);
+            BigDecimal amountIncl = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_INCL);
+            BigDecimal vatAmount = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_TOTAL.I_VAT_AMOUNT);
+
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_CREATION.I_COMPANY_ID, project.getCompanyId());
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_CREATION.I_CUST_ID, customer.getId());
-            
+
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_EXCL_VAT).setValue(amountExcl);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_INCL_VAT).setValue(amountIncl);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_AMOUNT).setValue(vatAmount);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).setValue(dueDate);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE_LABEL).setValue("Due Date");
-            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE_INFO).setValue("(Customers standard: "+customer.getPaymentDays()+" days)");
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE_INFO).setValue("(Customers standard: " + customer.getPaymentDays() + " days)");
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).setValue(invoiceDate);
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).setValue(address.toString());
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).setValue(null);
-            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR_LABEL).setValue("Invoice No. ("+lastInvoiceNumber+")");
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR_LABEL).setValue("Invoice No. (" + lastInvoiceNumber + ")");
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).setValue(customer.getVatRate());
-            
+
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_SUMMARY).setValue(company.getInvoiceSummary());
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_NOTES).setValue(company.getInvoiceNotes());
 
-            form.showPopupCanvas(F_PROJECTS.C_INVOICE_CREATION_POPUP);            
+            form.showPopupCanvas(F_PROJECTS.C_INVOICE_CREATION_POPUP);
         }
 
     }
@@ -363,6 +388,11 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");
 
             form.showMessage(message);
+        }
+        if (refreshProjectLists)
+        {
+            refreshProjectLists = false;
+            form.getForm(F_TIME_ENTRY.ID).getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT).refreshItemRenderer();
         }
     }
 
@@ -427,7 +457,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         if (F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID.equals(record.getBlockName()))
         {
             BigDecimal amount = (BigDecimal) record.getValue(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.I_AMOUNT);
-            if(amount!=null)
+            if (amount != null)
             {
 
                 markedForInvoiceAmount = markedForInvoiceAmount.add(amount);
@@ -435,28 +465,48 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         }
     }
 
+    
+    
     @Override
     public void postBlockQuery(EJForm form, EJBlock block) throws EJActionProcessorException
     {
         if (F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID.equals(block.getName()))
         {
-            Integer customerId = (Integer)form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_ID);
-            
+            Integer customerId = (Integer) form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_ID);
+
             Customer customer = new ProjectService().getCustomerInfo(form, customerId);
-            
+
             NumberFormat ccyFormat = NumberFormat.getCurrencyInstance(customer.getLocale());
-            
+
             Double taxValue = markedForInvoiceAmount.multiply(customer.getVatRate().divide(new BigDecimal(100))).doubleValue();
             Double totalValue = markedForInvoiceAmount.add(new BigDecimal(taxValue)).doubleValue();
 
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_EXCL, markedForInvoiceAmount);
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_TOTAL.I_AMOUNT_INCL, new BigDecimal(totalValue));
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getFocusedRecord().setValue(F_PROJECTS.B_INVOICE_TOTAL.I_VAT_AMOUNT, new BigDecimal(taxValue));
-            
+
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_SUBTOTAL).setValue(ccyFormat.format(markedForInvoiceAmount).toString());
-            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TAX_LABEL).setValue("VAT ("+customer.getVatRate() +"%)");
+            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TAX_LABEL).setValue("VAT (" + customer.getVatRate() + "%)");
             form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TAX).setValue(ccyFormat.format(taxValue).toString());
-            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TOTAL).setValue(ccyFormat.format(totalValue).toString());            
+            form.getBlock(F_PROJECTS.B_INVOICE_TOTAL.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_TOTAL.I_TOTAL).setValue(ccyFormat.format(totalValue).toString());
+        }
+    }
+
+    @Override
+    public void postInsert(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_PROJECTS.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            refreshProjectLists = true;
+        }
+    }
+
+    @Override
+    public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_PROJECTS.B_PROJECTS.ID.equals(record.getBlockName()))
+        {
+            refreshProjectLists = true;
         }
     }
 
@@ -490,6 +540,11 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
                 block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
                 block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
             }
+        }
+        if (screenType.equals(EJScreenType.INSERT) && F_PROJECTS.B_PROJECTS.ID.equals(block.getName()))
+        {
+            block.getForm().getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECTS.I_TASK_STATUS).refreshItemRenderer();
+            block.getForm().getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECTS.I_STATUS).refreshItemRenderer();
         }
     }
 
@@ -562,26 +617,25 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         else if (F_PROJECTS.C_INVOICE_CREATION_POPUP.equals(popupCanvasName) && button.equals(EJPopupButton.ONE))
         {
             Invoice invoice = new Invoice();
-            
+
             final int invId = PKSequenceService.getPKSequence(form.getConnection());
-            
-            
-            Integer companyId = (Integer)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_CREATION.I_COMPANY_ID);
-            Integer customerId = (Integer)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_CREATION.I_CUST_ID);
-            
-            BigDecimal amountExcl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_EXCL_VAT).getValue();
-            BigDecimal amountIncl = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_INCL_VAT).getValue();
-            BigDecimal vatAmount  = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_AMOUNT).getValue();
-            Date dueDate = (Date)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).getValue();
-            Date invDate = (Date)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).getValue();
-            String address = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).getValue();
-            String nr = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).getValue();
-            BigDecimal vatRate = (BigDecimal)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).getValue();
-            String invoiceSummary = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_SUMMARY).getValue();
-            String invoiceNotes = (String)form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_NOTES).getValue();
-            
+
+            Integer companyId = (Integer) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_CREATION.I_COMPANY_ID);
+            Integer customerId = (Integer) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getFocusedRecord().getValue(F_PROJECTS.B_INVOICE_CREATION.I_CUST_ID);
+
+            BigDecimal amountExcl = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_EXCL_VAT).getValue();
+            BigDecimal amountIncl = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_AMOUNT_INCL_VAT).getValue();
+            BigDecimal vatAmount = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_AMOUNT).getValue();
+            Date dueDate = (Date) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).getValue();
+            Date invDate = (Date) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).getValue();
+            String address = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).getValue();
+            String nr = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).getValue();
+            BigDecimal vatRate = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).getValue();
+            String invoiceSummary = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_SUMMARY).getValue();
+            String invoiceNotes = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_NOTES).getValue();
+
             Customer cust = new ProjectService().getCustomerInfo(form, customerId);
-            
+
             invoice.setId(invId);
             invoice.setCcyCode(cust.getCcyCode());
             invoice.setCompanyId(companyId);
@@ -601,14 +655,13 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             invoice.setLocale(new Builder().setLanguage(invoice.getLocaleLanguage()).setRegion(invoice.getLocaleCountry()).build());
             invoice.setSummary(invoiceSummary);
             invoice.setNotes(invoiceNotes);
-            
+
             new ProjectService().createInvoice(form, invoice);
             EJManagedFrameworkConnection connection = form.getConnection();
             new ProjectService().updateInvoicPDF(form, invId, InvoiceReport.generateInvoicePDF(connection, invId, invoice.getLocale()));
-            
-            
-            InvoiceReport.openInvoicePDF(connection, invId,invoice.getLocale(),nr);
-            
+
+            InvoiceReport.openInvoicePDF(connection, invId, invoice.getLocale(), nr);
+
             form.getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
         }
     }

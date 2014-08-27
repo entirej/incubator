@@ -15,6 +15,8 @@ public class EJ_PROPERTIES
     public static final String P_NAME                = "name";
     public static final String P_USER_ID             = "USER_ID";
     public static final String P_COMPANY_ID          = "COMPANY_ID";
+    public static final String P_BUILT_BY            = "builtBy";
+    public static final String P_DATABASE_NAME       = "DATABASE_NAME";
 
     public static final String VA_DATA               = "data";
     public static final String VA_DATA_BOLD          = "dataBold";

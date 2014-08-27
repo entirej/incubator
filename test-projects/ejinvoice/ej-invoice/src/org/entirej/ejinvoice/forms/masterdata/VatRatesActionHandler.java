@@ -64,8 +64,16 @@ public class VatRatesActionHandler extends DefaultFormActionProcessor
             // check if the record to be deleted has any FK constraints usage
             // with other table data and if so throw an exception and block
             // physical delete
-            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getFocusedRecord(), "VAT_RATES");
-            form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this rate?");
+            try
+            {
+                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form, form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getFocusedRecord(), "VAT_RATES");
+                form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this rate?");
+            }
+            catch (Exception e)
+            {
+                form.handleException(e);
+            }
+            
         }
     }
 

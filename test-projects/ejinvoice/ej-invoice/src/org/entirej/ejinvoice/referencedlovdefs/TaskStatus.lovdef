@@ -62,26 +62,6 @@
                     <lovMappingList>
                     </lovMappingList>
                     <itemList>
-                        <item name="orderKey">
-                            <blockServiceItem>true</blockServiceItem>
-                            <mandatoryItem>false</mandatoryItem>
-                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
-                            <defaultInsertValue></defaultInsertValue>
-                            <defaultQueryValue></defaultQueryValue>
-                            <itemRendererProperties>
-                            </itemRendererProperties>
-                        </item>
-                        <item name="companyId">
-                            <blockServiceItem>true</blockServiceItem>
-                            <mandatoryItem>false</mandatoryItem>
-                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
-                            <defaultInsertValue></defaultInsertValue>
-                            <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
-                            <itemRendererProperties>
-                            </itemRendererProperties>
-                        </item>
                         <item name="description">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
@@ -96,26 +76,6 @@
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
-                            </itemRendererProperties>
-                        </item>
-                        <item name="id">
-                            <blockServiceItem>true</blockServiceItem>
-                            <mandatoryItem>false</mandatoryItem>
-                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
-                            <defaultInsertValue></defaultInsertValue>
-                            <defaultQueryValue></defaultQueryValue>
-                            <itemRendererProperties>
-                            </itemRendererProperties>
-                        </item>
-                        <item name="invoiceable">
-                            <blockServiceItem>true</blockServiceItem>
-                            <mandatoryItem>false</mandatoryItem>
-                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                            <itemRendererName></itemRendererName>
-                            <defaultInsertValue></defaultInsertValue>
-                            <defaultQueryValue></defaultQueryValue>
-                            <itemRendererProperties>
                             </itemRendererProperties>
                         </item>
                         <item name="name">
@@ -134,10 +94,10 @@
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
-                        <item name="assignAfterInvoice">
+                        <item name="code">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
-                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
                             <itemRendererName></itemRendererName>
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>

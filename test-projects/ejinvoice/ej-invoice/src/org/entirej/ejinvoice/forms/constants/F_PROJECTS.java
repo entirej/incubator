@@ -12,14 +12,16 @@ public class F_PROJECTS
 
     public static class B_PROJECTS_TOOLBAR
     {
-        public static final String ID                        = "ProjectsToolbar";
-        public static final String I_CREATE_NEW_PROJECT      = "createNewProject";
-        public static final String I_CUSTOMER_ID             = "customerId";
-        public static final String I_CUSTOMER_NAME           = "customerName";
-        public static final String I_REFRESH                 = "refresh";
-        public static final String I_SHOW_COMPLETED_PROJECTS = "showCompletedProjects";
-        public static final String I_SHOW_STARTED_PROJECTS   = "showStartedProjects";
-        public static final String I_SHOW_NEW_PROJECTS       = "showNewProjects";
+        public static final String ID                   = "ProjectsToolbar";
+        public static final String I_CREATE_NEW_PROJECT = "createNewProject";
+        public static final String I_CUSTOMER_ID        = "customerId";
+        public static final String I_CUSTOMER_NAME      = "customerName";
+        public static final String I_REFRESH            = "refresh";
+        public static final String I_STATUS_ON_HOLD     = "statusOnHold";
+        public static final String I_STATUS_IN_WORK     = "statusInWork";
+        public static final String I_STATUS_NEW         = "statusNew";
+        public static final String I_STATUS_COMPLETED   = "statusCompleted";
+        public static final String I_STATUS_DELETED     = "statusDeleted";
 
     }
 
@@ -66,9 +68,6 @@ public class F_PROJECTS
         public static final String I_MARKED_FOR_INVOICE_ITEMS       = "markedForInvoiceItems";
         public static final String I_EDIT                           = "edit";
         public static final String I_TASKS                          = "tasks";
-        public static final String I_NEW_NOT_STARTED                = "newNotStarted";
-        public static final String I_STARTED                        = "started";
-        public static final String I_COMPLETED                      = "completed";
 
     }
 
@@ -115,6 +114,7 @@ public class F_PROJECTS
         public static final String I_MESSAGE_LABEL     = "messageLabel";
         public static final String I_DELETE            = "delete";
         public static final String I_EDIT              = "edit";
+        public static final String I_STATUS_NAME       = "statusName";
 
     }
 
@@ -306,24 +306,18 @@ public class F_PROJECTS
     public static class L_PROJECT_STATUS
     {
         public static final String ID            = "ProjectStatus";
-        public static final String I_ORDER_KEY   = "orderKey";
         public static final String I_DESCRIPTION = "description";
-        public static final String I_COMPANY_ID  = "companyId";
-        public static final String I_ID          = "id";
         public static final String I_NAME        = "name";
+        public static final String I_CODE        = "code";
 
     }
 
     public static class L_TASK_STATUS
     {
-        public static final String ID                     = "TaskStatus";
-        public static final String I_ORDER_KEY            = "orderKey";
-        public static final String I_COMPANY_ID           = "companyId";
-        public static final String I_DESCRIPTION          = "description";
-        public static final String I_ID                   = "id";
-        public static final String I_INVOICEABLE          = "invoiceable";
-        public static final String I_NAME                 = "name";
-        public static final String I_ASSIGN_AFTER_INVOICE = "assignAfterInvoice";
+        public static final String ID            = "TaskStatus";
+        public static final String I_DESCRIPTION = "description";
+        public static final String I_NAME        = "name";
+        public static final String I_CODE        = "code";
 
     }
 

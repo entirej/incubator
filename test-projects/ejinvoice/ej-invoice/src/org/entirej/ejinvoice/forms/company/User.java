@@ -21,7 +21,7 @@ public class User
     private EJPojoProperty<String>  _role;
     private EJPojoProperty<String>  _address;
     private EJPojoProperty<String>  _password;
-    private EJPojoProperty<Integer>  _active;
+    private EJPojoProperty<Integer> _active;
 
     @EJFieldName("FIRST_NAME")
     public String getFirstName()

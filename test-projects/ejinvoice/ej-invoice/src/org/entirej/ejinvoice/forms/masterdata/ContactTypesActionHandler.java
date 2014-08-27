@@ -40,7 +40,7 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-//        form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
+        // form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
     }
 
     @Override
@@ -52,8 +52,15 @@ public class ContactTypesActionHandler extends DefaultFormActionProcessor
             // and check if the record to be deleted has any FK constraints
             // usage with other table data and if so throw an exception and
             // block physical delete
-            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord(), "CONTACT_TYPES");
-            form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact type?");
+            try
+            {
+                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form, form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getFocusedRecord(), "CONTACT_TYPES");
+                form.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this contact type?");
+            }
+            catch (Exception e)
+            {
+                form.handleException(e);
+            }
         }
         else if (F_MASTER_DATA.AC_MODIFY_CONTACT.equals(command))
         {

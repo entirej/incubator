@@ -38,7 +38,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerBlockService implements EJBlockService<Customer>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_NUMBER, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM CUSTOMER";
+    private String                    _selectStatement = "SELECT ACTIVE, COMPANY_ID, CUSTOMER_NUMBER, ADDRESS,ID,NAME,POST_CODE,TOWN, COUNTRY, PAYMENT_DAYS, VAT_ID, (SELECT RATE FROM VAT_RATES WHERE ID = VAT_ID) AS VAT_RATE, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM CUSTOMER";
 
     public CustomerBlockService()
     {
@@ -89,6 +89,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
             parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+            parameters.add(new EJStatementParameter("ACTIVE", Integer.class, record.getActive()));
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "CUSTOMER", parameters.toArray(paramArray));
@@ -142,6 +143,7 @@ public class CustomerBlockService implements EJBlockService<Customer>
             parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+            parameters.add(new EJStatementParameter("ACTIVE", Integer.class, record.getActive()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             criteria.add(EJRestrictions.equals("COMPANY_ID", record.getCompanyId()));

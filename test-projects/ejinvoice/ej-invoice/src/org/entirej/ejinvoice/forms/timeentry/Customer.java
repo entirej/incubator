@@ -41,6 +41,7 @@ public class Customer
     private EJPojoProperty<String>     _localeLanguage;
     private EJPojoProperty<Locale>     _locale;
     private EJPojoProperty<String>     _ccyCode;
+    private EJPojoProperty<Integer>    _active;
 
     private EJPojoProperty<String>     _email;
     private EJPojoProperty<String>     _phone;
@@ -447,9 +448,6 @@ public class Customer
         return EJPojoProperty.getPropertyInitialValue(_locale);
     }
 
-    
-    
-    
     @EJFieldName("CCY_CODE")
     public String getCcyCode()
     {
@@ -467,8 +465,25 @@ public class Customer
     {
         return EJPojoProperty.getPropertyInitialValue(_ccyCode);
     }
-    
-    
+
+    @EJFieldName("ACTIVE")
+    public Integer getActive()
+    {
+        return EJPojoProperty.getPropertyValue(_active);
+    }
+
+    @EJFieldName("ACTIVE")
+    public void setActive(Integer active)
+    {
+        _active = EJPojoProperty.setPropertyValue(_active, active);
+    }
+
+    @EJFieldName("ACTIVE")
+    public Integer getInitialActive()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_active);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_customerNumber);
@@ -485,7 +500,8 @@ public class Customer
         EJPojoProperty.clearInitialValue(_localeLanguage);
         EJPojoProperty.clearInitialValue(_locale);
         EJPojoProperty.clearInitialValue(_ccyCode);
-        
+        EJPojoProperty.clearInitialValue(_active);
+
         EJPojoProperty.clearInitialValue(_email);
         EJPojoProperty.clearInitialValue(_phone);
         EJPojoProperty.clearInitialValue(_contactTypesId);

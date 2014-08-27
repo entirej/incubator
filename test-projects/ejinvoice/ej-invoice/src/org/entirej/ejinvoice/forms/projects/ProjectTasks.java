@@ -14,7 +14,7 @@ public class ProjectTasks
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _invoiceable;
-    private EJPojoProperty<Integer>    _status;
+    private EJPojoProperty<String>     _status;
 
     @EJFieldName("ID")
     public Integer getId()
@@ -161,19 +161,19 @@ public class ProjectTasks
     }
     
     @EJFieldName("STATUS")
-    public Integer getStatus()
+    public String getStatus()
     {
         return EJPojoProperty.getPropertyValue(_status);
     }
 
     @EJFieldName("STATUS")
-    public void setStatus(Integer status)
+    public void setStatus(String status)
     {
         _status = EJPojoProperty.setPropertyValue(_status, status);
     }
 
     @EJFieldName("STATUS")
-    public Integer getInitialStatus()
+    public String getInitialStatus()
     {
         return EJPojoProperty.getPropertyInitialValue(_status);
     }

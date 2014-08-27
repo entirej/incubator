@@ -29,7 +29,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.framework.core.EJActionProcessorException;
+import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
@@ -59,7 +61,7 @@ public class DBService
      * 
      * @throws EJActionProcessorException
      */
-    public void validateDeleteRecordUsage(final EJRecord focusedRecord, final String tableName) throws EJActionProcessorException
+    public void validateDeleteRecordUsage(final EJForm form, final EJRecord focusedRecord, final String tableName) throws EJActionProcessorException
     {
         if (focusedRecord == null)
         {
@@ -82,8 +84,10 @@ public class DBService
                 // get database meta information
                 final DatabaseMetaData metaData = connection.getMetaData();
 
+                String dbName = (String)form.getApplicationLevelParameter(EJ_PROPERTIES.P_DATABASE_NAME).getValue();
+                
                 // get the FK's related to a given table name
-                final ResultSet exportedKeys = metaData.getExportedKeys("MIAP", "MIAP", tableName);
+                final ResultSet exportedKeys = metaData.getExportedKeys(dbName, dbName, tableName);
 
                 Map<String, String> keyRegistry = new HashMap<String, String>();
                 while (exportedKeys.next())
@@ -108,7 +112,7 @@ public class DBService
                     List<EJSelectResult> results = executor.executeQuery(contextProvider.getConnection(), "SELECT * FROM " + key, queryCriteria);
                     if (!results.isEmpty())
                     {
-                        throw new EJActionProcessorException("Cannot Delete Selected Record.\n Record usage found in : " + key);
+                        throw new EJActionProcessorException("Cannot Delete Selected Record.\nRecord usage found in : " + key);
                     }
                 }
             }

@@ -5,6 +5,7 @@ import java.util.Currency;
 import java.util.List;
 import java.util.Locale.Builder;
 
+import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJApplicationException;
@@ -103,7 +104,12 @@ public class UserBlockService implements EJBlockService<User>
             parameters.add(new EJStatementParameter("PASSWORD", String.class, record.getPassword()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
-            parameters.add(new EJStatementParameter("ROLE", String.class, record.getRole()));
+            
+            if (!record.getInitialRole().equals(UserRole.OWNER))
+            {
+                parameters.add(new EJStatementParameter("ROLE", String.class, record.getRole()));
+            }
+            
             parameters.add(new EJStatementParameter("ACTIVE", Integer.class, record.getActive()));
             
             EJStatementCriteria criteria = new EJStatementCriteria();

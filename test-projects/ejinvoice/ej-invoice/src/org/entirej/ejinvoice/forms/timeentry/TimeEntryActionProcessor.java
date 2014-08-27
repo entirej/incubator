@@ -3,16 +3,20 @@ package org.entirej.ejinvoice.forms.timeentry;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
+import org.entirej.ejinvoice.forms.projects.PlannedProjectItem;
+import org.entirej.ejinvoice.forms.projects.ProjectService;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -21,13 +25,16 @@ import org.entirej.framework.core.EJParameterList;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.data.controllers.EJFormParameter;
+import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
+import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
 
 public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
     private boolean customerInserted = false;
+    private boolean customerUpdated   = false;
     private Integer customerId       = null;
 
     @Override
@@ -139,6 +146,16 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterUpdate();
         }
+        else if (F_TIME_ENTRY.AC_DELETE_CUSTOMER.equals(command))
+        {
+            EJQuestion question = new EJQuestion(form, "ASK_DELETE_CUSTOMER");
+            question.setTitle("Delete Customer");
+            question.setMessage(new EJMessage("Are you sure you want to delete this customer?"));
+            question.setButtonText(EJQuestionButton.ONE, "Yes");
+            question.setButtonText(EJQuestionButton.TWO, "Cancel");
+            question.setRecord(record);
+            form.askQuestion(question);
+        }
         else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
         {
             EJParameterList paramList = new EJParameterList();
@@ -208,7 +225,67 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).gainFocus();
 
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(end.getTime(), end.getTime()));
+        }
+        if (F_TIME_ENTRY.AC_QUERY_CUSTOMERS.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+        }
+    }
 
+    @Override
+    public void questionAnswered(EJQuestion question) throws EJActionProcessorException
+    {
+        if (question.getName().equals("ASK_DELETE_CUSTOMER") && question.getAnswer().equals(EJQuestionButton.ONE))
+        {
+            boolean canBeDeleted = true;
+            try
+            {
+                ServiceRetriever.getDBService(question.getForm()).validateDeleteRecordUsage(question.getForm(), question.getForm().getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).getFocusedRecord(), "CUSTOMER");
+            }
+            catch (Exception e)
+            {
+                canBeDeleted = false;
+            }
+
+            if (canBeDeleted)
+            {
+                ArrayList<Customer> customers = new ArrayList<Customer>();
+                customers.add((Customer) question.getRecord().getBlockServicePojo());
+                new CustomerBlockService().executeDelete(question.getForm(), customers);
+
+                question.getForm().getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+            }
+            else
+            {
+                EJQuestion deactivateQuestion = new EJQuestion(question.getForm(), "ASK_DEACTIVATE_CUSTOMER");
+                deactivateQuestion.setTitle("Deactivate Customer");
+                deactivateQuestion.setMessage(new EJMessage("This customer has data depedencies and cannot be permanently deleted. Do you want to set the active flag of this customer to false?"));
+                deactivateQuestion.setButtonText(EJQuestionButton.ONE, "Yes");
+                deactivateQuestion.setButtonText(EJQuestionButton.TWO, "Cancel");
+                deactivateQuestion.setRecord(question.getRecord());
+                deactivateQuestion.getForm().askQuestion(deactivateQuestion);
+            }
+        }
+        if (question.getName().equals("ASK_DEACTIVATE_CUSTOMER") && question.getAnswer().equals(EJQuestionButton.ONE))
+        {
+            ArrayList<Customer> customers = new ArrayList<Customer>();
+            Customer cust = (Customer) question.getRecord().getBlockServicePojo();
+            cust.setActive(0);
+            customers.add(cust);
+            new CustomerBlockService().executeUpdate(question.getForm(), customers);
+
+            question.getForm().getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+        }
+    }
+
+    
+    
+    @Override
+    public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(record.getBlockName()))
+        {
+            customerUpdated = true;
         }
     }
 
@@ -222,8 +299,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
 
     }
-   
- 
 
     @Override
     public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
@@ -245,6 +320,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
             form.openEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
             customerInserted = false;
+        }
+        else if (customerUpdated)
+        {
+            customerUpdated = false;
+            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
         }
     }
 
@@ -273,6 +353,15 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 {
                     companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
                 }
+            }
+            else if (F_TIME_ENTRY.C_MAIN_PAGES.ADMINISTRATION.equals(tabPageName))
+            {
+                EJForm masterDataForm = form.getEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS);
+                if (masterDataForm.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getBlockRecords().size() <= 0)
+                {
+                    masterDataForm.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
+                }
+                
             }
         }
     }
@@ -323,8 +412,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(block.getName()))
         {
             block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_VAT_ID).refreshItemRenderer();
-            block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
-            block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_SALUTATIONS_ID).refreshItemRenderer();
+
+            if (EJScreenType.INSERT.equals(screenType))
+            {
+                block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
+                block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_SALUTATIONS_ID).refreshItemRenderer();
+            }
         }
     }
 

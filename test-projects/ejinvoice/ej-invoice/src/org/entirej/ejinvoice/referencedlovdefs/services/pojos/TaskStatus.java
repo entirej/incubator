@@ -5,48 +5,19 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class TaskStatus
 {
-    private EJPojoProperty<Integer> _orderKey;
-    private EJPojoProperty<Integer> _companyId;
     private EJPojoProperty<String>  _description;
-    private EJPojoProperty<Integer> _id;
-    private EJPojoProperty<Integer> _invoiceable;
+    private EJPojoProperty<String>  _code;
     private EJPojoProperty<String>  _name;
-    private EJPojoProperty<Integer> _assignAfterInvoice;
 
-    @EJFieldName("ORDER_KEY")
-    public Integer getOrderKey()
+    public TaskStatus()
     {
-        return EJPojoProperty.getPropertyValue(_orderKey);
     }
-
-    @EJFieldName("ORDER_KEY")
-    public void setOrderKey(Integer orderKey)
+    
+    public TaskStatus(String code, String name, String description)
     {
-        _orderKey = EJPojoProperty.setPropertyValue(_orderKey, orderKey);
-    }
-
-    @EJFieldName("ORDER_KEY")
-    public Integer getInitialOrderKey()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_orderKey);
-    }
-
-    @EJFieldName("COMPANY_ID")
-    public Integer getCompanyId()
-    {
-        return EJPojoProperty.getPropertyValue(_companyId);
-    }
-
-    @EJFieldName("COMPANY_ID")
-    public void setCompanyId(Integer  companyId)
-    {
-        _companyId = EJPojoProperty.setPropertyValue(_companyId, companyId);
-    }
-
-    @EJFieldName("COMPANY_ID")
-    public Integer getInitialCompanyId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_companyId);
+        setCode(code);
+        setName(name);
+        setDescription(description);
     }
 
     @EJFieldName("DESCRIPTION")
@@ -67,42 +38,6 @@ public class TaskStatus
         return EJPojoProperty.getPropertyInitialValue(_description);
     }
 
-    @EJFieldName("ID")
-    public Integer getId()
-    {
-        return EJPojoProperty.getPropertyValue(_id);
-    }
-
-    @EJFieldName("ID")
-    public void setId(Integer id)
-    {
-        _id = EJPojoProperty.setPropertyValue(_id, id);
-    }
-
-    @EJFieldName("ID")
-    public Integer getInitialId()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_id);
-    }
-
-    @EJFieldName("INVOICEABLE")
-    public Integer getInvoiceable()
-    {
-        return EJPojoProperty.getPropertyValue(_invoiceable);
-    }
-
-    @EJFieldName("INVOICEABLE")
-    public void setInvoiceable(Integer invoiceable)
-    {
-        _invoiceable = EJPojoProperty.setPropertyValue(_invoiceable, invoiceable);
-    }
-
-    @EJFieldName("INVOICEABLE")
-    public Integer getInitialInvoiceable()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_invoiceable);
-    }
-
     @EJFieldName("NAME")
     public String getName()
     {
@@ -120,34 +55,30 @@ public class TaskStatus
     {
         return EJPojoProperty.getPropertyInitialValue(_name);
     }
-
-    @EJFieldName("ASSIGN_AFTER_INVOICE")
-    public Integer getAssignAfterInvoice()
+    
+    @EJFieldName("CODE")
+    public String getCode()
     {
-        return EJPojoProperty.getPropertyValue(_assignAfterInvoice);
+        return EJPojoProperty.getPropertyValue(_code);
     }
 
-    @EJFieldName("ASSIGN_AFTER_INVOICE")
-    public void setAssignAfterInvoice(Integer assignAfterInvoice)
+    @EJFieldName("CODE")
+    public void setCode(String code)
     {
-        _assignAfterInvoice = EJPojoProperty.setPropertyValue(_assignAfterInvoice, assignAfterInvoice);
+        _code = EJPojoProperty.setPropertyValue(_code, code);
     }
 
-    @EJFieldName("ASSIGN_AFTER_INVOICE")
-    public Integer getInitialAssignAfterInvoice()
+    @EJFieldName("CODE")
+    public String getInitialCode()
     {
-        return EJPojoProperty.getPropertyInitialValue(_assignAfterInvoice);
+        return EJPojoProperty.getPropertyInitialValue(_code);
     }
 
     public void clearInitialValues()
     {
-        EJPojoProperty.clearInitialValue(_orderKey);
-        EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_description);
-        EJPojoProperty.clearInitialValue(_id);
-        EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_name);
-        EJPojoProperty.clearInitialValue(_assignAfterInvoice);
+        EJPojoProperty.clearInitialValue(_code);
     }
 
 }

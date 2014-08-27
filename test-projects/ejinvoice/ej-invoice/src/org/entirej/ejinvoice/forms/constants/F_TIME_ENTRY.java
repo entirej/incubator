@@ -73,8 +73,9 @@ public class F_TIME_ENTRY
 
     public static class B_CUSTOMERS_TOOLBAR
     {
-        public static final String ID                    = "CustomersToolbar";
-        public static final String I_CREATE_NEW_CUSTOMER = "createNewCustomer";
+        public static final String ID                        = "CustomersToolbar";
+        public static final String I_CREATE_NEW_CUSTOMER     = "createNewCustomer";
+        public static final String I_SHOW_INACTIVE_CUSTOMERS = "showInactiveCustomers";
 
     }
 
@@ -108,6 +109,7 @@ public class F_TIME_ENTRY
         public static final String I_LOCALE_COUNTRY   = "localeCountry";
         public static final String I_LOCALE_LANGUAGE  = "localeLanguage";
         public static final String I_CCY_CODE         = "ccyCode";
+        public static final String I_ACTIVE           = "active";
 
     }
 
@@ -204,24 +206,18 @@ public class F_TIME_ENTRY
     public static class L_PROJECT_STATUS
     {
         public static final String ID            = "ProjectStatus";
-        public static final String I_ORDER_KEY   = "orderKey";
         public static final String I_DESCRIPTION = "description";
-        public static final String I_COMPANY_ID  = "companyId";
-        public static final String I_ID          = "id";
         public static final String I_NAME        = "name";
+        public static final String I_CODE        = "code";
 
     }
 
     public static class L_TASK_STATUS
     {
-        public static final String ID                     = "TaskStatus";
-        public static final String I_ORDER_KEY            = "orderKey";
-        public static final String I_COMPANY_ID           = "companyId";
-        public static final String I_DESCRIPTION          = "description";
-        public static final String I_ID                   = "id";
-        public static final String I_INVOICEABLE          = "invoiceable";
-        public static final String I_NAME                 = "name";
-        public static final String I_ASSIGN_AFTER_INVOICE = "assignAfterInvoice";
+        public static final String ID            = "TaskStatus";
+        public static final String I_DESCRIPTION = "description";
+        public static final String I_NAME        = "name";
+        public static final String I_CODE        = "code";
 
     }
 
@@ -275,6 +271,7 @@ public class F_TIME_ENTRY
     public static final String AC_DELETE_TIME_ENTRY     = "DELETE_TIME_ENTRY";
     public static final String AC_EDIT_CUSTOMER         = "EDIT_CUSTOMER";
     public static final String AC_EDIT_TIME_ENTRY       = "EDIT_TIME_ENTRY";
+    public static final String AC_QUERY_CUSTOMERS       = "QUERY_CUSTOMERS";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
 
 }

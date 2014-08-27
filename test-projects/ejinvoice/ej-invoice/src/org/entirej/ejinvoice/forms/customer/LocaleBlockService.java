@@ -61,8 +61,8 @@ public class LocaleBlockService implements EJBlockService<CustomerLocale>
                 custLocales.add(custLocale);
             }
         }
-        
-        Collections.sort(custLocales);
+            
+        Collections.sort(custLocales, new LocaleCompare());
         
 
         return custLocales;

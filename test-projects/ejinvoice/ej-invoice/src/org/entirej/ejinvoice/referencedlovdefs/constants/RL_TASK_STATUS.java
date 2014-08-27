@@ -12,14 +12,10 @@ public class RL_TASK_STATUS
 
     public static class L_TASK_STATUS
     {
-        public static final String ID                     = "TaskStatus";
-        public static final String I_ORDER_KEY            = "orderKey";
-        public static final String I_COMPANY_ID           = "companyId";
-        public static final String I_DESCRIPTION          = "description";
-        public static final String I_ID                   = "id";
-        public static final String I_INVOICEABLE          = "invoiceable";
-        public static final String I_NAME                 = "name";
-        public static final String I_ASSIGN_AFTER_INVOICE = "assignAfterInvoice";
+        public static final String ID            = "TaskStatus";
+        public static final String I_DESCRIPTION = "description";
+        public static final String I_NAME        = "name";
+        public static final String I_CODE        = "code";
 
     }
 

@@ -40,7 +40,7 @@ public class SalutationActionHandler extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-//        form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).executeQuery();
+        // form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).executeQuery();
     }
 
     @Override
@@ -60,11 +60,17 @@ public class SalutationActionHandler extends DefaultFormActionProcessor
             // check if the record to be deleted has any FK constraints usage
             // with other table data and if so throw an exception and block
             // physical delete
-            ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).getFocusedRecord(), "SALUTATIONS");
-            form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this salutation?");
+            try
+            {
+                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form, form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).getFocusedRecord(), "SALUTATIONS");
+                form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this salutation?");
+            }
+            catch (Exception e)
+            {
+                form.handleException(e);
+            }
         }
     }
-
 
     @Override
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException

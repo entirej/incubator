@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.enums.ProjectStatus;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
@@ -38,9 +39,6 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append(",      COMPANY_ID ");
         _selectStatement.append(",      INVOICEABLE ");
         _selectStatement.append(",      FIX_PRICE ");
-        _selectStatement.append(",      NEW_NOT_STARTED ");
-        _selectStatement.append(",      STARTED ");
-        _selectStatement.append(",      COMPLETED ");
         _selectStatement.append(",      (select count(*) ");
         _selectStatement.append("        from   customer_project_timeentry cpte ");
         _selectStatement.append("        ,      customer_project_tasks cupt ");
@@ -96,23 +94,66 @@ public class ProjectBlockService implements EJBlockService<Project>
     @Override
     public List<Project> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        Integer newProjects = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_NEW_NOT_STARTED).getValue();
-        Integer startedProjects = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_STARTED).getValue();
-        Integer completedProjects = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_COMPLETED).getValue();
-        
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_NEW_NOT_STARTED));
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_STARTED));
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS.I_COMPLETED));
-        
-        EJRestriction<Integer> newProjRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_NEW_NOT_STARTED, newProjects);
-        EJRestriction<Integer> startProjRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STARTED, startedProjects);
-        EJRestriction<Integer> completedProjRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_COMPLETED, completedProjects);
-        
-        newProjRestriction.add(EJRestrictionJoin.OR, startProjRestriction);
-        newProjRestriction.add(EJRestrictionJoin.OR, completedProjRestriction);
+        boolean filterStatus = true;
 
-        queryCriteria.add(newProjRestriction);
+        Integer statusNew = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_NEW).getValue();
+        Integer statusInWork = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_IN_WORK).getValue();
+        Integer statusOnHold = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_ON_HOLD).getValue();
+        Integer statusCompleted = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_COMPLETED).getValue();
+        Integer statusDeleted = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_DELETED).getValue();
+
+        if (statusNew == 0 && statusInWork == 0 && statusOnHold == 0 && statusCompleted == 0 && statusDeleted == 0)
+        {
+            filterStatus = false;
+        }
+
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_NEW));
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_IN_WORK));
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_ON_HOLD));
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_COMPLETED));
+        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_DELETED));
+
+        EJRestriction<String> newRestriction;
         
+        if (filterStatus)
+        {
+            if (statusNew.equals(1))
+            {
+                newRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.NEW.toString());
+            }
+            else
+            {
+                newRestriction = EJRestrictions.notEquals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.NEW.toString());
+            }
+
+            if (statusInWork.equals(1))
+            {
+                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.INWORK.toString());
+                newRestriction.add(EJRestrictionJoin.OR, restriction);
+            }
+            if (statusOnHold.equals(1))
+            {
+                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.ONHOLD.toString());
+                newRestriction.add(EJRestrictionJoin.OR, restriction);
+            }
+            if (statusCompleted.equals(1))
+            {
+                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.COMPLETED.toString());
+                newRestriction.add(EJRestrictionJoin.OR, restriction);
+            }
+            if (statusDeleted.equals(1))
+            {
+                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.DELETED.toString());
+                newRestriction.add(EJRestrictionJoin.OR, restriction);
+            }
+        }
+        else
+        {
+            newRestriction = EJRestrictions.isNull(F_PROJECTS.B_PROJECTS.I_STATUS);
+        }
+
+        queryCriteria.add(newRestriction);
+
         return _statementExecutor.executeQuery(Project.class, form, _selectStatement.toString(), queryCriteria);
     }
 
@@ -136,9 +177,6 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
-            parameters.add(new EJStatementParameter("NEW_NOT_STARTED", Integer.class, record.getNewNotStarted()));
-            parameters.add(new EJStatementParameter("STARTED", Integer.class, record.getStarted()));
-            parameters.add(new EJStatementParameter("COMPLETED", Integer.class, record.getCompleted()));
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
@@ -188,9 +226,6 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("START_DATE", Date.class, record.getStartDate()));
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
-            parameters.add(new EJStatementParameter("NEW_NOT_STARTED", Integer.class, record.getNewNotStarted()));
-            parameters.add(new EJStatementParameter("STARTED", Integer.class, record.getStarted()));
-            parameters.add(new EJStatementParameter("COMPLETED", Integer.class, record.getCompleted()));
 
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
@@ -283,30 +318,6 @@ public class ProjectBlockService implements EJBlockService<Project>
             else
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
-            }
-            if (record.getInitialNewNotStarted() == null)
-            {
-                criteria.add(EJRestrictions.isNull("NEW_NOT_STARTED"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("NEW_NOT_STARTED", record.getInitialNewNotStarted()));
-            }
-            if (record.getInitialStarted() == null)
-            {
-                criteria.add(EJRestrictions.isNull("STARTED"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("STARTED", record.getInitialStarted()));
-            }
-            if (record.getInitialCompleted() == null)
-            {
-                criteria.add(EJRestrictions.isNull("COMPLETED"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("COMPLETED", record.getInitialCompleted()));
             }
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -419,31 +430,6 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
             }
-            if (record.getInitialNewNotStarted() == null)
-            {
-                criteria.add(EJRestrictions.isNull("NEW_NOT_STARTED"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("NEW_NOT_STARTED", record.getInitialNewNotStarted()));
-            }
-            if (record.getInitialStarted() == null)
-            {
-                criteria.add(EJRestrictions.isNull("STARTED"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("STARTED", record.getInitialStarted()));
-            }
-            if (record.getInitialCompleted() == null)
-            {
-                criteria.add(EJRestrictions.isNull("COMPLETED"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("COMPLETED", record.getInitialCompleted()));
-            }
-
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_projects", criteria, parameters.toArray(paramArray));

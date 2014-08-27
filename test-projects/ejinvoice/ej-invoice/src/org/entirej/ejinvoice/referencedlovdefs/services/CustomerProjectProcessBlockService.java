@@ -6,6 +6,7 @@ import org.entirej.ejinvoice.referencedlovdefs.services.pojos.CustomerProjectPro
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementExecutor;
 
 public class CustomerProjectProcessBlockService implements EJBlockService<CustomerProjectProcess>
@@ -30,6 +31,11 @@ public class CustomerProjectProcessBlockService implements EJBlockService<Custom
         queryCriteria.setRestrictionAlias("id", "CPT.ID");
         queryCriteria.setRestrictionAlias("cprId", "CPR.ID");
         queryCriteria.setRestrictionAlias("companyId", "CPR.COMPANY_ID");
+        
+        if (!queryCriteria.containsRestriction("cprId"))
+        {
+            queryCriteria.add(EJRestrictions.isNull("cprId"));
+        }
         
         return _statementExecutor.executeQuery(CustomerProjectProcess.class, form, _selectStatement, queryCriteria);
     }
