@@ -109,7 +109,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             user.setFirstName(firstName);
             user.setLastName(lastName);
             user.setPassword(hashPassword);
-            user.setRole("ADMINISTRATOR");
+            user.setRole("OWNER");
             user.setActive(1);
             user.setCompanyId(newCompanyId);
             user.setLocaleCountry(Locale.getDefault().getCountry());

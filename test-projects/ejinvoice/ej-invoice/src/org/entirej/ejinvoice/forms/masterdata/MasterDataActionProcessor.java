@@ -49,9 +49,6 @@ public class MasterDataActionProcessor extends DefaultFormActionProcessor
                 form.getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).executeQuery();
             }
         }
-        else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.TASK_STATUS.equals(tabPageName))
-        {
-        }
         else if (F_MASTER_DATA.C_MAIN_TAB_PAGES.VAT_RATES.equals(tabPageName))
         {
             if (form.getBlock(F_MASTER_DATA.B_VAT_RATES.ID).getBlockRecords().size() <= 0)

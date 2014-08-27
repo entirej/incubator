@@ -297,13 +297,13 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 str.append(address);
                 str.append("\n");
             }
-            str.append(zip);
+            str.append((zip == null ? "" : zip));
             str.append(" ");
-            str.append(town);
+            str.append((town == null ? "" : town));
             str.append(" ");
-            str.append(country);
+            str.append((country == null ? "" : country));
             str.append("\n");
-            str.append(vatNr);
+            str.append((vatNr == null ? "" : vatNr));
 
             record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, str.toString());
         }
@@ -314,6 +314,17 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__EDIT, "/icons/edit10.gif");
                 record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__DELETE, "/icons/delete10.png");
             }
+        }
+    }
+
+    @Override
+    public void preOpenScreen(EJBlock block, EJRecord record, EJScreenType screenType) throws EJActionProcessorException
+    {
+        if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(block.getName()))
+        {
+            block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_VAT_ID).refreshItemRenderer();
+            block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
+            block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_SALUTATIONS_ID).refreshItemRenderer();
         }
     }
 

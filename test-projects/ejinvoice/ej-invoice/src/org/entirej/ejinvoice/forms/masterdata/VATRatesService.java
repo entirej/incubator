@@ -60,7 +60,7 @@ public class VATRatesService
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         
         EJQueryCriteria criteria = new EJQueryCriteria();
-        criteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
+        criteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         criteria.add(EJRestrictions.equalsIgnoreCase("NAME", name));
         if (id != null)
         {

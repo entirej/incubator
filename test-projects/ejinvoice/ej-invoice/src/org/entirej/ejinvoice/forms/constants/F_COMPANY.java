@@ -46,7 +46,6 @@ public class F_COMPANY
     {
         public static final String ID                 = "Users";
         public static final String I_FIRST_NAME       = "firstName";
-        public static final String I_LAST_NAME        = "lastName";
         public static final String I_LOCALE_LANGUAGE  = "localeLanguage";
         public static final String I_LOCALE_COUNTRY   = "localeCountry";
         public static final String I_NOTES            = "notes";
@@ -55,6 +54,7 @@ public class F_COMPANY
         public static final String I_COMPANY_ID       = "companyId";
         public static final String I_EMAIL            = "email";
         public static final String I_POST_CODE        = "postCode";
+        public static final String I_LAST_NAME        = "lastName";
         public static final String I_ADDRESS          = "address";
         public static final String I_PASSWORD         = "password";
         public static final String I_LOCALE           = "locale";
@@ -67,6 +67,7 @@ public class F_COMPANY
         public static final String I_CHANGE_EMAIL     = "changeEmail";
         public static final String I_CHANGE_PASSWORD  = "changePassword";
         public static final String I_ACTIVE           = "active";
+        public static final String I_ROLE_DISPLAY     = "roleDisplay";
 
     }
 

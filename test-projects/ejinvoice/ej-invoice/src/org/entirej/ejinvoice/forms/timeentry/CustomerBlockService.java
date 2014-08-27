@@ -69,8 +69,6 @@ public class CustomerBlockService implements EJBlockService<Customer>
     {
         User usr = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
 
-        Builder builder = new Builder();
-        
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
 
@@ -108,7 +106,9 @@ public class CustomerBlockService implements EJBlockService<Customer>
             parameters.add(new EJStatementParameter("MOBILE", String.class, record.getMobile()));
             parameters.add(new EJStatementParameter("PHONE", String.class, record.getPhone()));
             parameters.add(new EJStatementParameter("SALUTATIONS_ID", Integer.class, record.getSalutationsId()));
-            parameters.add(new EJStatementParameter("CONPANY_ID", Integer.class, usr.getCompanyId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, usr.getCompanyId()));
+            
+            paramArray = new EJStatementParameter[parameters.size()];
             _statementExecutor.executeInsert(form, "customer_contact", parameters.toArray(paramArray));
             record.clearInitialValues();
         }

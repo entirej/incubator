@@ -92,7 +92,6 @@ public class F_MASTER_DATA
     public static class C_MAIN_TAB_PAGES
     {
         public static final String PROJECT_STATUS = "ProjectStatus";
-        public static final String TASK_STATUS    = "TaskStatus";
         public static final String CONTACT__TYPES = "Contact Types";
         public static final String SALUTATION     = "Salutation";
         public static final String VAT_RATES      = "VatRates";
