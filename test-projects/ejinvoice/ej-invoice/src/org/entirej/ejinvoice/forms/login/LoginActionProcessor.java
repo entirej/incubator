@@ -52,7 +52,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             {
                 e.printStackTrace();
             }
-            User user = ServiceRetriever.getUserService(form).getUser(username, password);
+            User user = ServiceRetriever.getUserService(form).getUser(form, username, password);
 
             if (user != null)
             {

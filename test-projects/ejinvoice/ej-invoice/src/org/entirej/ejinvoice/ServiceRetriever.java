@@ -43,14 +43,7 @@ public class ServiceRetriever
             return _userService;
         }
 
-        _userService = new UserService(new EJContextProvider()
-        {
-            @Override
-            public EJFrameworkConnection getConnection()
-            {
-                return fwkHelper.getConnection();
-            }
-        });
+        _userService = new UserService();
 
         return _userService;
     }

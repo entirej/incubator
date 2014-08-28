@@ -40,11 +40,8 @@ import org.entirej.framework.core.service.EJStatementParameter;
 
 public class UserService
 {
-    private final EJContextProvider contextProvider;
-
-    public UserService(EJContextProvider contextProvider)
+    public UserService()
     {
-        this.contextProvider = contextProvider;
     }
 
     public boolean canDeleteUser(EJForm form, User user)
@@ -104,7 +101,7 @@ public class UserService
             throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "The email address you have entered is not a valid email address."));
         }
         
-        if (doesEmailExist(email, companyId, userId))
+        if (doesEmailExist(form, email, companyId, userId))
         {
             if (companyId != null)
             {
@@ -119,7 +116,7 @@ public class UserService
         }
     }
 
-    public boolean doesEmailExist(String email, Integer companyId, Integer userId)
+    public boolean doesEmailExist(EJForm form, String email, Integer companyId, Integer userId)
     {
         final String stmt = "SELECT EMAIL FROM USER";
 
@@ -132,12 +129,12 @@ public class UserService
         criteria.add(EJRestrictions.equals("EMAIL", email));
         criteria.add(EJRestrictions.notEquals("ID", userId));
         
-        List<EJSelectResult> results = new EJStatementExecutor().executeQuery(contextProvider.getConnection(), stmt, criteria);
+        List<EJSelectResult> results = new EJStatementExecutor().executeQuery(form.getConnection(), stmt, criteria);
 
         return !results.isEmpty();
     }
 
-    public User getUser(String email, String password)
+    public User getUser(EJForm form, String email, String password)
     {
         final String stmt = "SELECT ADDRESS,COMPANY_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,PASSWORD,POST_CODE,TOWN, ROLE, ACTIVE FROM user";
 
@@ -145,7 +142,7 @@ public class UserService
         criteria.add(EJRestrictions.equals("email", email));
         criteria.add(EJRestrictions.equals("password", PasswordHashGen.toHash(password)));
 
-        List<User> list = new EJStatementExecutor().executeQuery(User.class, contextProvider.getConnection(), stmt, criteria);
+        List<User> list = new EJStatementExecutor().executeQuery(User.class, form.getConnection(), stmt, criteria);
         if (!list.isEmpty())
         {
             User usr = list.get(0);
@@ -155,14 +152,14 @@ public class UserService
         return null;
     }
 
-    public User getUser(String email)
+    public User getUser(EJForm form, String email)
     {
         final String stmt = "SELECT ADDRESS,COMPANY_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,PASSWORD,POST_CODE,TOWN, ROLE, ACTIVE FROM user";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("email", email));
 
-        List<User> list = new EJStatementExecutor().executeQuery(User.class, contextProvider.getConnection(), stmt, criteria);
+        List<User> list = new EJStatementExecutor().executeQuery(User.class, form.getConnection(), stmt, criteria);
         if (!list.isEmpty())
         {
             User usr = list.get(0);
@@ -241,18 +238,18 @@ public class UserService
 
             SalutationBlockService blockService = new SalutationBlockService();
 
-            List<Salutation> salutations = blockService.getSalutations(contextProvider.getConnection(), criteria);
+            List<Salutation> salutations = blockService.getSalutations(form.getConnection(), criteria);
             for (Salutation salutation : salutations)
             {
                 _salutations.put(salutation.getId(), salutation);
                 
-                salutation.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                salutation.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 salutation.setCompanyId(company.getId());
             }
 
             if (salutations.size() > 0)
             {
-                blockService.insertSalutations(contextProvider.getConnection(), salutations);
+                blockService.insertSalutations(form.getConnection(), salutations);
             }
 
         }
@@ -261,18 +258,18 @@ public class UserService
 
             VatRateBlockService blockService = new VatRateBlockService();
 
-            List<VatRate> vatRates = blockService.getVatRates(contextProvider.getConnection(), criteria);
+            List<VatRate> vatRates = blockService.getVatRates(form.getConnection(), criteria);
             for (VatRate rate : vatRates)
             {
                 _vatRates.put(rate.getId(), rate);
                 
-                rate.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                rate.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 rate.setCompanyId(company.getId());
             }
 
             if (vatRates.size() > 0)
             {
-                blockService.insertVatRates(contextProvider.getConnection(), vatRates);
+                blockService.insertVatRates(form.getConnection(), vatRates);
             }
         }
         
@@ -280,18 +277,18 @@ public class UserService
 
             ContactTypeBlockService blockService = new ContactTypeBlockService();
 
-            List<ContactType> contactTypes = blockService.getContactTypes(contextProvider.getConnection(), criteria);
+            List<ContactType> contactTypes = blockService.getContactTypes(form.getConnection(), criteria);
             for (ContactType type : contactTypes)
             {
                 _contactTypes.put(type.getId(), type);
                 
-                type.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                type.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 type.setCompanyId(company.getId());
             }
 
             if (contactTypes.size() > 0)
             {
-                blockService.insertContactTypes(contextProvider.getConnection(), contactTypes);
+                blockService.insertContactTypes(form.getConnection(), contactTypes);
             }
         }     
         
@@ -310,13 +307,13 @@ public class UserService
                 custContactCriteria.add(EJRestrictions.equals("CUSTOMER_ID", customer.getId()));
                 List<CustomerContact> customerContacts = custContactService.executeQuery(form, custContactCriteria);
                 
-                customer.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                customer.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 customer.setCompanyId(company.getId());
                 customer.setVatId(_vatRates.get(customer.getVatId()).getId());                
 
                 for (CustomerContact contact : customerContacts)
                 {
-                    contact.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                    contact.setId(PKSequenceService.getPKSequence(form.getConnection()));
                     contact.setCompanyId(customer.getCompanyId());
                     contact.setCustomerId(customer.getId());
                     
@@ -354,12 +351,12 @@ public class UserService
                 tasksCriteria.add(EJRestrictions.equals("CPR_ID", project.getId()));
                 List<ProjectTasks> projectTasks= projectTasksService.executeQuery(form, tasksCriteria);
                                                 
-                project.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                project.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 project.setCompanyId(company.getId());
 
                 for (ProjectTasks task : projectTasks)
                 {
-                    task.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                    task.setId(PKSequenceService.getPKSequence(form.getConnection()));
                     task.setCompanyId(project.getCompanyId());
                     task.setCprId(project.getId());
                     
