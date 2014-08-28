@@ -8,6 +8,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.framework.core.EJFrameworkManager;
 import org.entirej.framework.core.interfaces.EJConnectionFactory;
 import org.entirej.framework.core.interfaces.EJFrameworkConnection;
@@ -15,7 +16,7 @@ import org.entirej.framework.core.interfaces.EJFrameworkConnection;
 public class ConnectionFactory implements EJConnectionFactory
 {
     private volatile DataSource dataSource;
-
+    
     public ConnectionFactory()
     {
 
@@ -24,11 +25,10 @@ public class ConnectionFactory implements EJConnectionFactory
     @Override
     public EJFrameworkConnection createConnection(EJFrameworkManager fwkManager)
     {
-
-        return new FrameworkConnection(this);
+        return new FrameworkConnection(fwkManager, this);
     }
 
-    Connection createConnection()
+    Connection getConnection(EJFrameworkManager fwkManager)
     {
         Connection conn = null;
         // long startTime = System.currentTimeMillis();
@@ -40,7 +40,8 @@ public class ConnectionFactory implements EJConnectionFactory
                 if (dataSource == null)
                 {
                     // String dataSourceID = "jdbc/ejinvoice";
-                    String dataSourceID = "jdbc/ejinvoice-hosted";
+                    String dataSourceID = (String)fwkManager.getApplicationLevelParameter(EJ_PROPERTIES.P_DATA_SOURCE_NAME).getValue();
+//                    String dataSourceID = "jdbc/ejinvoice-hosted";
                     assert dataSourceID != null;
                     Context initContext = new InitialContext();
                     Context envContext = (Context) initContext.lookup("java:/comp/env");

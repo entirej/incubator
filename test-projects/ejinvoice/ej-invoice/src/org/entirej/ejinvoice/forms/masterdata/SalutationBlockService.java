@@ -53,9 +53,6 @@ public class SalutationBlockService implements EJBlockService<Salutation>
     @Override
     public List<Salutation> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
-
         queryCriteria.add(EJQuerySort.ASC("VALUE"));
         return _statementExecutor.executeQuery(Salutation.class, form, _selectStatement, queryCriteria);
     }

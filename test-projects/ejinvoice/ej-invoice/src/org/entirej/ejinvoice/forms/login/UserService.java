@@ -11,19 +11,26 @@ import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.company.Company;
 import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_LOGIN;
+import org.entirej.ejinvoice.forms.customer.CustomerContact;
+import org.entirej.ejinvoice.forms.customer.CustomerContactBlockService;
 import org.entirej.ejinvoice.forms.masterdata.ContactType;
 import org.entirej.ejinvoice.forms.masterdata.ContactTypeBlockService;
 import org.entirej.ejinvoice.forms.masterdata.Salutation;
 import org.entirej.ejinvoice.forms.masterdata.SalutationBlockService;
 import org.entirej.ejinvoice.forms.masterdata.VatRate;
 import org.entirej.ejinvoice.forms.masterdata.VatRateBlockService;
+import org.entirej.ejinvoice.forms.projects.Project;
+import org.entirej.ejinvoice.forms.projects.ProjectBlockService;
+import org.entirej.ejinvoice.forms.projects.ProjectTasks;
+import org.entirej.ejinvoice.forms.projects.ProjectTasksBlockService;
+import org.entirej.ejinvoice.forms.timeentry.Customer;
+import org.entirej.ejinvoice.forms.timeentry.CustomerBlockService;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.service.EJParameterType;
 import org.entirej.framework.core.service.EJQueryCriteria;
-import org.entirej.framework.core.service.EJRestriction;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -210,39 +217,19 @@ public class UserService
         }
         else
         {
-            setupDefaultData(company);
+            setupDefaultData(form, company);
             form.getBlock(F_LOGIN.B_LOGON.ID).clear(true);
             form.showMessage(new EJMessage(EJMessageLevel.MESSAGE, "Registration Successful, please log in..."));
         }
     }
 
-    public void setupDefaultData(Company company)
+    public void setupDefaultData(EJForm form, Company company)
     {
-        /*
-        // Default Data User
-        User user = getUser("template@ej.org");
-        if (user == null)
-            return;
+        Integer defaultsCompanyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_NEW_COMPANY_DEFAULTS_COMPANY_ID).getValue();
 
         EJQueryCriteria criteria = new EJQueryCriteria();
-        criteria.add(EJRestrictions.equals("COMPANY_ID", user.getCompanyId()));
+        criteria.add(EJRestrictions.equals("COMPANY_ID", defaultsCompanyId));
 
-        {// create Contact Types
-
-            ContactTypeBlockService blockService = new ContactTypeBlockService();
-
-            List<ContactType> contactTypes = blockService.getContactTypes(contextProvider.getConnection(), criteria);
-            for (ContactType contactType : contactTypes)
-            {
-                contactType.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
-                contactType.setCompanyId(companyId);
-            }
-            if (contactTypes.size() > 0)
-            {
-                blockService.insertContactTypes(contextProvider.getConnection(), contactTypes);
-            }
-
-        }
         {// create Salutation
 
             SalutationBlockService blockService = new SalutationBlockService();
@@ -251,7 +238,7 @@ public class UserService
             for (Salutation salutation : salutations)
             {
                 salutation.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
-                salutation.setCompanyId(companyId);
+                salutation.setCompanyId(company.getId());
             }
 
             if (salutations.size() > 0)
@@ -269,17 +256,113 @@ public class UserService
             for (VatRate rate : vatRates)
             {
                 rate.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
-                rate.setCompanyId(companyId);
+                rate.setCompanyId(company.getId());
             }
 
             if (vatRates.size() > 0)
             {
                 blockService.insertVatRates(contextProvider.getConnection(), vatRates);
             }
-
         }
-        */
+        
+        {// contact Types
 
+            ContactTypeBlockService blockService = new ContactTypeBlockService();
+
+            List<ContactType> contactTypes = blockService.getContactTypes(contextProvider.getConnection(), criteria);
+            for (ContactType type : contactTypes)
+            {
+                type.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                type.setCompanyId(company.getId());
+            }
+
+            if (contactTypes.size() > 0)
+            {
+                blockService.insertContactTypes(contextProvider.getConnection(), contactTypes);
+            }
+        }     
+        
+        {// example customer
+
+            List<CustomerContact> allCustomerContacts = new ArrayList<CustomerContact>();
+            
+            CustomerContactBlockService custContactService = new CustomerContactBlockService();
+            CustomerBlockService blockService = new CustomerBlockService();
+
+            List<Customer> customers = blockService.executeQuery(form, criteria);
+            for (Customer customer : customers)
+            {
+                EJQueryCriteria custContactCriteria = new EJQueryCriteria();
+                custContactCriteria.add(EJRestrictions.equals("COMPANY_ID", defaultsCompanyId));
+                custContactCriteria.add(EJRestrictions.equals("CUSTOMER_ID", customer.getId()));
+                List<CustomerContact> customerContacts = custContactService.executeQuery(form, custContactCriteria);
+                                                
+                customer.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                customer.setCompanyId(company.getId());
+
+                for (CustomerContact contact : customerContacts)
+                {
+                    contact.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                    contact.setCompanyId(customer.getCompanyId());
+                    contact.setCustomerId(customer.getId());
+                    
+                    allCustomerContacts.add(contact);
+                }
+            }
+
+            if (customers.size() > 0)
+            {
+                blockService.executeInsert(form, customers);
+            }
+            
+            if (allCustomerContacts.size() > 0)
+            {
+                custContactService.executeInsert(form, allCustomerContacts);
+            }
+
+        } 
+        
+        {// example project
+
+            List<ProjectTasks> allProjectTasks = new ArrayList<ProjectTasks>();
+            
+            ProjectTasksBlockService projectTasksService = new ProjectTasksBlockService();
+            ProjectBlockService blockService = new ProjectBlockService();
+
+            List<Project> projects = blockService.executeQuery(form, criteria);
+            for (Project project : projects)
+            {
+                EJQueryCriteria tasksCriteria = new EJQueryCriteria();
+                tasksCriteria.add(EJRestrictions.equals("COMPANY_ID", defaultsCompanyId));
+                tasksCriteria.add(EJRestrictions.equals("CPR_ID", project.getId()));
+                List<ProjectTasks> projectTasks= projectTasksService.executeQuery(form, tasksCriteria);
+                                                
+                project.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                project.setCompanyId(company.getId());
+
+                for (ProjectTasks task : projectTasks)
+                {
+                    task.setId(PKSequenceService.getPKSequence(contextProvider.getConnection()));
+                    task.setCompanyId(project.getCompanyId());
+                    
+                    allProjectTasks.add(task);
+                }
+            }
+
+            if (projects.size() > 0)
+            {
+                blockService.executeInsert(form, projects);
+            }
+            
+            if (allProjectTasks.size() > 0)
+            {
+                projectTasksService.executeInsert(form, allProjectTasks);
+            }
+
+        } 
+        
+        
+        
     }
 
 }
