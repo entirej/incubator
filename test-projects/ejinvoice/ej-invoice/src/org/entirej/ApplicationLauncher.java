@@ -15,7 +15,7 @@ public class ApplicationLauncher extends EJRWTApplicationLauncher
     @Override
     public void postApplicationBuild(EJFrameworkHelper frameworkHelper)
     {
-        frameworkHelper.setApplicationLevelParameter(EJ_PROPERTIES.P_BUILT_BY, "Built with <a style='color:#' href=\"http://entirej.com/\" target=\"_blank\">"+createEJImageTag()+"</a>");
+        frameworkHelper.setApplicationLevelParameter(EJ_PROPERTIES.P_BUILT_BY, "<a style='color:#' href=\"http://entirej.com/\" target=\"_blank\">"+createEJImageTag()+"</a>");
         frameworkHelper.openForm(F_LOGIN.ID, null, false);
     }
 
