@@ -10,6 +10,7 @@ import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJQuerySort;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -34,9 +35,8 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
     @Override
     public List<CustomerContact> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User user = (User) form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_COMPANY_ID, user.getCompanyId()));
-
+        queryCriteria.add(EJQuerySort.ASC("FIRST_NAME"));
+        queryCriteria.add(EJQuerySort.ASC("LAST_NAME"));
         return _statementExecutor.executeQuery(CustomerContact.class, form, _selectStatement, queryCriteria);
     }
 
@@ -71,7 +71,36 @@ public class CustomerContactBlockService implements EJBlockService<CustomerConta
                     + recordsProcessed);
         }
     }
-
+    
+    public void registerCustomerContact(EJForm form, List<CustomerContact> newRecords)
+    {
+        List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
+        int recordsProcessed = 0;
+        for (CustomerContact record : newRecords)
+        {
+            // Initialise the value list
+            parameters.clear();
+            parameters.add(new EJStatementParameter("CONTACT_TYPES_ID", Integer.class, record.getContactTypesId()));
+            parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustomerId()));
+            parameters.add(new EJStatementParameter("EMAIL", String.class, record.getEmail()));
+            parameters.add(new EJStatementParameter("FIRST_NAME", String.class, record.getFirstName()));
+            parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("LAST_NAME", String.class, record.getLastName()));
+            parameters.add(new EJStatementParameter("MOBILE", String.class, record.getMobile()));
+            parameters.add(new EJStatementParameter("PHONE", String.class, record.getPhone()));
+            parameters.add(new EJStatementParameter("SALUTATIONS_ID", Integer.class, record.getSalutationsId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
+            EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+            recordsProcessed += _statementExecutor.executeInsert(form, "customer_contact", parameters.toArray(paramArray));
+            record.clearInitialValues();
+        }
+        if (recordsProcessed != newRecords.size())
+        {
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: "
+                    + recordsProcessed);
+        }
+    }
+    
     @Override
     public void executeUpdate(EJForm form, List<CustomerContact> updateRecords)
     {

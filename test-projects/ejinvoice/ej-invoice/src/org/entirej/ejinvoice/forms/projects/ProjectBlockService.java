@@ -206,6 +206,36 @@ public class ProjectBlockService implements EJBlockService<Project>
         }
     }
 
+    public void registerProject(EJForm form, List<Project> newRecords)
+    {
+        List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
+        int recordsProcessed = 0;
+        for (Project record : newRecords)
+        {
+            // Initialise the value list
+            parameters.clear();
+            parameters.add(new EJStatementParameter("CUSTOMER_ID", Integer.class, record.getCustomerId()));
+            parameters.add(new EJStatementParameter("DESCRIPTION", String.class, record.getDescription()));
+            parameters.add(new EJStatementParameter("END_DATE", Date.class, record.getEndDate()));
+            parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
+            parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
+            parameters.add(new EJStatementParameter("START_DATE", Date.class, record.getStartDate()));
+            parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
+            parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+
+            EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+            recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
+        }
+
+        if (recordsProcessed != newRecords.size())
+        {
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: " + recordsProcessed);
+        }
+    }
+    
     @Override
     public void executeUpdate(EJForm form, List<Project> updateRecords)
     {

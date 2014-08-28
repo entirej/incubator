@@ -120,6 +120,41 @@ public class CustomerBlockService implements EJBlockService<Customer>
 
     }
 
+    public void registerCustomer(EJForm form, List<Customer> newRecords)
+    {
+        List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
+        int recordsProcessed = 0;
+
+        for (Customer record : newRecords)
+        {
+            // Initialise the value list
+            parameters.clear();
+
+            parameters.add(new EJStatementParameter("CUSTOMER_NUMBER", String.class, record.getCustomerNumber()));
+            parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
+            parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
+            parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
+            parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
+            parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
+            parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
+            parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
+            parameters.add(new EJStatementParameter("VAT_ID", Integer.class, record.getVatId()));
+            parameters.add(new EJStatementParameter("PAYMENT_DAYS", Integer.class, record.getPaymentDays()));
+            parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
+            parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
+            parameters.add(new EJStatementParameter("ACTIVE", Integer.class, record.getActive()));
+
+            EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
+            recordsProcessed += _statementExecutor.executeInsert(form, "CUSTOMER", parameters.toArray(paramArray));
+            record.clearInitialValues();
+        }
+        if (recordsProcessed != newRecords.size())
+        {
+            throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: " + recordsProcessed);
+        }
+    }
+
+    
     @Override
     public void executeUpdate(EJForm form, List<Customer> updateRecords)
     {

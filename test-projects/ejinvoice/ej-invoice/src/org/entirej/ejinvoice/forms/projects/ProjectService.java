@@ -73,6 +73,21 @@ public class ProjectService
         return cust;
     }
 
+    public List<Project> getAllProjects(EJForm form, Integer companyId)
+    {
+        if (companyId == null)
+        {
+            throw new EJApplicationException("No company id passed ProjectService.getAllProjects");
+        }
+        EJStatementExecutor executor = new EJStatementExecutor();
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
+        List<Project> projects = executor.executeQuery(Project.class, form, "SELECT ID, COMPANY_ID, NAME, DESCRIPTION, CUSTOMER_ID, START_DATE, END_DATE, STATUS, NOTES, INVOICEABLE, FIX_PRICE, INVP_ID FROM CUSTOMER_PROJECTS ", criteria);
+
+        return projects;
+    }
+    
     public String getLastInvoicNr(EJForm form, Integer customerId)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
