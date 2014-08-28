@@ -122,6 +122,30 @@ public class ProjectService
             return null;
         }
     }
+    public byte[] getInvoicDtlPDF(EJForm form, int invNR)
+    {
+        EJStatementExecutor executor = new EJStatementExecutor();
+        
+        EJStatementParameter custIdParam = new EJStatementParameter(EJParameterType.IN);
+        custIdParam.setValue(invNR);
+        
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        
+        EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
+        companyIdParam.setValue(companyId);
+        
+        String selectStmt = "SELECT INVOICE_DTL_FILE FROM INVOICE WHERE ID = ? and COMPANY_ID = ?";
+        
+        List<EJSelectResult> results = executor.executeQuery(form.getConnection(), selectStmt, custIdParam, companyIdParam);
+        if (results.size() > 0)
+        {
+            return (byte[])results.get(0).getItemValue("INVOICE_DTL_FILE");
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     public void updateInvoicPDF(EJForm form, int invNR, byte[] data)
     {
@@ -133,6 +157,18 @@ public class ProjectService
         criteria.add(EJRestrictions.equals("ID", invNR));
         criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
         executor.executeUpdate(form, "INVOICE", criteria, new EJStatementParameter[] { new EJStatementParameter("INVOICE_FILE", Object.class, data) });
+    }
+    
+    public void updateInvoicDtlPDF(EJForm form, int invNR, byte[] data)
+    {
+        EJStatementExecutor executor = new EJStatementExecutor();
+        
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        
+        EJStatementCriteria criteria = new EJStatementCriteria();
+        criteria.add(EJRestrictions.equals("ID", invNR));
+        criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
+        executor.executeUpdate(form, "INVOICE", criteria, new EJStatementParameter[] { new EJStatementParameter("INVOICE_DTL_FILE", Object.class, data) });
     }
 
     public static void validateInvoicePeriod(EJForm form, Integer projectId, Integer taskId, Date periodFrom, Date periodTo)
