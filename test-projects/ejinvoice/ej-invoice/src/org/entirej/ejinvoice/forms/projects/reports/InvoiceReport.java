@@ -63,4 +63,47 @@ public class InvoiceReport
         }
         return null;
     }
+    public static void openInvoiceDtlPDF( EJManagedFrameworkConnection connection,final int invId,Locale locale,String exportName)
+    {
+        try
+        {
+            File tempFile = File.createTempFile("tmpejinvdtl",String.valueOf(invId));
+            
+            EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
+            EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_DTL_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
+            EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName+".pdf");
+            tempFile.deleteOnExit();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    
+    public static byte[] generateInvoiceDtlPDF( EJManagedFrameworkConnection connection,final int invId,Locale locale)
+    {
+        try
+        {
+            File tempFile = File.createTempFile("tmpejinvdtl",String.valueOf(invId));
+            
+            EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
+            EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_DTL_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
+            
+            Path path = Paths.get(tempFile.getAbsolutePath());
+            byte[] data = Files.readAllBytes(path);
+            
+            if(!tempFile.delete())
+            {
+                tempFile.deleteOnExit();  
+            }
+            return data;
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }

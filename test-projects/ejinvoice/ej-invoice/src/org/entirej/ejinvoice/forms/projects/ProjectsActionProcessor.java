@@ -659,6 +659,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             new ProjectService().createInvoice(form, invoice);
             EJManagedFrameworkConnection connection = form.getConnection();
             new ProjectService().updateInvoicPDF(form, invId, InvoiceReport.generateInvoicePDF(connection, invId, invoice.getLocale()));
+            new ProjectService().updateInvoicDtlPDF(form, invId, InvoiceReport.generateInvoiceDtlPDF(connection, invId, invoice.getLocale()));
 
             InvoiceReport.openInvoicePDF(connection, invId, invoice.getLocale(), nr);
 
