@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
@@ -95,10 +96,22 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
     private String getDiffMinutesString(Long start, Long end)
     {
+        //remove seconds
+        Calendar instance = Calendar.getInstance();
+        instance.setTimeInMillis(start);
+        instance.set(Calendar.SECOND, 0);
+        instance.set(Calendar.MILLISECOND, 0);
+        start = instance.getTimeInMillis();
+        instance.setTimeInMillis(end);
+        instance.set(Calendar.SECOND, 0);
+        instance.set(Calendar.MILLISECOND, 0);
+        end = instance.getTimeInMillis();
+        
         long diff = end - start;
-        long diffHours = diff / (60 * 60 * 1000);
-        long diffMinutes = (diff / (60 * 1000)) - (diffHours * 60);
-
+        final long hour = 3600000;
+        final long minute = 60000;
+        long diffHours = (diff / hour);
+        long diffMinutes =  ((diff % hour) /minute);
         String diffMinutesString = String.format("%02d", diffMinutes);
 
         return diffHours + ":" + diffMinutesString;
