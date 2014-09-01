@@ -125,3 +125,17 @@ DateTime-Calendar-Navbar {
 	font: 11px Verdana, "Lucida Sans", Arial, Helvetica, sans-serif;
 	text-shadow: none;
 }
+
+
+Button[PUSH]:hover.login
+	{
+	
+	background-image: gradient(linear, left top, left bottom, from(#f88e11), to(#f06015));
+}
+Button[PUSH].login
+	{
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	border: solid 1px #da7c0c;
+	color: #fef4e9;
+	background-image: gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+}
