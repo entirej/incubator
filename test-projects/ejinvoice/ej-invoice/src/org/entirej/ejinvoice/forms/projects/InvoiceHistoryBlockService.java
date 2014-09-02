@@ -38,6 +38,22 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
         queryCriteria.add(EJQuerySort.ASC("INV_DATE"));
         queryCriteria.add(EJQuerySort.ASC("DUE_DATE"));
 
+        String status = (String)queryCriteria.getRestriction("STATUS").getValue();
+        
+        switch (status)
+        {
+            case "ALL":
+                queryCriteria.add(EJRestrictions.equals("PAID", 0));
+                break;
+            case "DRAFT":
+                queryCriteria.add(EJRestrictions.equals("PAID", 0));
+                break;
+            case "SENT":
+                break;
+            case "LATE":
+                break;
+        }
+        
         List<InvoiceHistory> results = _statementExecutor.executeQuery(InvoiceHistory.class, form, _selectStatement, queryCriteria);
         for (InvoiceHistory result : results)
         {

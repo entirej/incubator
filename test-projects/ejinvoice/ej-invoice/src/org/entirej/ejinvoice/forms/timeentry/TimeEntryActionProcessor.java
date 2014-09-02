@@ -247,8 +247,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_SHOW_INVOICE.equals(command))
         {
-            
             InvoiceReport.downloadReport(new ProjectService().getInvoicPDF(form,(int) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID)), record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR)+".pdf");
+        }
+        else if (F_TIME_ENTRY.AC_INVOICE_HISTORY_STATUS_CHANGED.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
         }
     }
 

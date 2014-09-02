@@ -20,17 +20,16 @@ import org.entirej.reports.EJReports;
 public class InvoiceReport
 {
 
-    
-    public static void openInvoicePDF( EJManagedFrameworkConnection connection,final int invId,Locale locale,String exportName)
+    public static void openInvoicePDF(EJManagedFrameworkConnection connection, final int invId, Locale locale, String exportName)
     {
         try
         {
-            File tempFile = File.createTempFile("tmpejinv",String.valueOf(invId));
-            
+            File tempFile = File.createTempFile("tmpejinv", String.valueOf(invId));
+
             EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
             EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
-            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
-            EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName+".pdf");
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF, (Connection) connection.getConnectionObject(), invID, localeParameter);
+            EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName + ".pdf");
             tempFile.deleteOnExit();
         }
         catch (IOException e)
@@ -38,23 +37,23 @@ public class InvoiceReport
             e.printStackTrace();
         }
     }
-    
-    public static byte[] generateInvoicePDF( EJManagedFrameworkConnection connection,final int invId,Locale locale)
+
+    public static byte[] generateInvoicePDF(EJManagedFrameworkConnection connection, final int invId, Locale locale)
     {
         try
         {
-            File tempFile = File.createTempFile("tmpejinv",String.valueOf(invId));
-            
+            File tempFile = File.createTempFile("tmpejinv", String.valueOf(invId));
+
             EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
             EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
-            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
-           
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF, (Connection) connection.getConnectionObject(), invID, localeParameter);
+
             Path path = Paths.get(tempFile.getAbsolutePath());
             byte[] data = Files.readAllBytes(path);
-            
-            if(!tempFile.delete())
+
+            if (!tempFile.delete())
             {
-              tempFile.deleteOnExit();  
+                tempFile.deleteOnExit();
             }
             return data;
         }
@@ -64,16 +63,17 @@ public class InvoiceReport
         }
         return null;
     }
-    public static void openInvoiceDtlPDF( EJManagedFrameworkConnection connection,final int invId,Locale locale,String exportName)
+
+    public static void openInvoiceDtlPDF(EJManagedFrameworkConnection connection, final int invId, Locale locale, String exportName)
     {
         try
         {
-            File tempFile = File.createTempFile("tmpejinvdtl",String.valueOf(invId));
-            
+            File tempFile = File.createTempFile("tmpejinvdtl", String.valueOf(invId));
+
             EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
             EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
-            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_DTL_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
-            EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName+".pdf");
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_DTL_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF, (Connection) connection.getConnectionObject(), invID, localeParameter);
+            EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName + ".pdf");
             tempFile.deleteOnExit();
         }
         catch (IOException e)
@@ -81,23 +81,23 @@ public class InvoiceReport
             e.printStackTrace();
         }
     }
-    
-    public static byte[] generateInvoiceDtlPDF( EJManagedFrameworkConnection connection,final int invId,Locale locale)
+
+    public static byte[] generateInvoiceDtlPDF(EJManagedFrameworkConnection connection, final int invId, Locale locale)
     {
         try
         {
-            File tempFile = File.createTempFile("tmpejinvdtl",String.valueOf(invId));
-            
+            File tempFile = File.createTempFile("tmpejinvdtl", String.valueOf(invId));
+
             EJReportParameter invID = new EJReportParameter("EJ_INV_ID", invId);
             EJReportParameter localeParameter = new EJReportParameter(JRParameter.REPORT_LOCALE, locale);
-            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_DTL_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF,(Connection) connection.getConnectionObject(), invID,localeParameter);
-            
+            EJReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_DTL_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF, (Connection) connection.getConnectionObject(), invID, localeParameter);
+
             Path path = Paths.get(tempFile.getAbsolutePath());
             byte[] data = Files.readAllBytes(path);
-            
-            if(!tempFile.delete())
+
+            if (!tempFile.delete())
             {
-                tempFile.deleteOnExit();  
+                tempFile.deleteOnExit();
             }
             return data;
         }
@@ -107,25 +107,29 @@ public class InvoiceReport
         }
         return null;
     }
-    
-    
-    public static void downloadReport(byte[] data,String outputName)
-  
+
+    public static void downloadReport(byte[] data, String outputName)
+
     {
-        
+
         try
         {
             File temp = File.createTempFile("tmpejinvpdf", "pdf");
-            if(data!=null)
-                try (FileOutputStream fos = new FileOutputStream(temp)) {
+            if (data != null)
+                try (FileOutputStream fos = new FileOutputStream(temp))
+                {
                     fos.write(data);
-                } catch (IOException ioe) {
+                }
+                catch (IOException ioe)
+                {
                     ioe.printStackTrace();
-                } 
+                }
             EJRWTFileDownload.download(temp.getAbsolutePath(), outputName);
-        } catch (IOException ioe) {
+        }
+        catch (IOException ioe)
+        {
             ioe.printStackTrace();
-        } 
-        
+        }
+
     }
 }
