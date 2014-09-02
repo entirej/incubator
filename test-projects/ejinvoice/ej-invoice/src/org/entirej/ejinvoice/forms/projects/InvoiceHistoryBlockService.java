@@ -19,7 +19,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,COMPANY_ID,CUST_ID,DUE_DATE,ID,INVOICE_ADDRESS,INVOICE_DTL_FILE,INVOICE_FILE,INV_DATE,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,NR,PAID,SENT,SUMMARY,VAT_AMOUNT,VAT_RATE FROM invoice";
+    private String                    _selectStatement = "SELECT AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,COMPANY_ID,CUST_ID,DUE_DATE,ID,INVOICE_ADDRESS,INV_DATE,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,NR,PAID,SENT,SUMMARY,VAT_AMOUNT,VAT_RATE FROM invoice";
 
     public InvoiceHistoryBlockService()
     {
@@ -75,8 +75,6 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("INV_DATE", Date.class, record.getInvDate()));
             parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
-            parameters.add(new EJStatementParameter("INVOICE_DTL_FILE", Object.class, record.getInvoiceDtlFile()));
-            parameters.add(new EJStatementParameter("INVOICE_FILE", Object.class, record.getInvoiceFile()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
@@ -117,8 +115,6 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("INV_DATE", Date.class, record.getInvDate()));
             parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
-            parameters.add(new EJStatementParameter("INVOICE_DTL_FILE", Object.class, record.getInvoiceDtlFile()));
-            parameters.add(new EJStatementParameter("INVOICE_FILE", Object.class, record.getInvoiceFile()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
@@ -194,22 +190,8 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             {
                 criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
             }
-            if (record.getInitialInvoiceDtlFile() == null)
-            {
-                criteria.add(EJRestrictions.isNull("INVOICE_DTL_FILE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("INVOICE_DTL_FILE", record.getInitialInvoiceDtlFile()));
-            }
-            if (record.getInitialInvoiceFile() == null)
-            {
-                criteria.add(EJRestrictions.isNull("INVOICE_FILE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("INVOICE_FILE", record.getInitialInvoiceFile()));
-            }
+            
+            
             if (record.getInitialLocaleCountry() == null)
             {
                 criteria.add(EJRestrictions.isNull("LOCALE_COUNTRY"));
@@ -369,22 +351,7 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             {
                 criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
             }
-            if (record.getInitialInvoiceDtlFile() == null)
-            {
-                criteria.add(EJRestrictions.isNull("INVOICE_DTL_FILE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("INVOICE_DTL_FILE", record.getInitialInvoiceDtlFile()));
-            }
-            if (record.getInitialInvoiceFile() == null)
-            {
-                criteria.add(EJRestrictions.isNull("INVOICE_FILE"));
-            }
-            else
-            {
-                criteria.add(EJRestrictions.equals("INVOICE_FILE", record.getInitialInvoiceFile()));
-            }
+           
             if (record.getInitialLocaleCountry() == null)
             {
                 criteria.add(EJRestrictions.isNull("LOCALE_COUNTRY"));

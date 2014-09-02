@@ -1,6 +1,7 @@
 package org.entirej.ejinvoice.forms.projects.reports;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -105,5 +106,26 @@ public class InvoiceReport
             e.printStackTrace();
         }
         return null;
+    }
+    
+    
+    public static void downloadReport(byte[] data,String outputName)
+  
+    {
+        
+        try
+        {
+            File temp = File.createTempFile("tmpejinvpdf", "pdf");
+            if(data!=null)
+                try (FileOutputStream fos = new FileOutputStream(temp)) {
+                    fos.write(data);
+                } catch (IOException ioe) {
+                    ioe.printStackTrace();
+                } 
+            EJRWTFileDownload.download(temp.getAbsolutePath(), outputName);
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        } 
+        
     }
 }

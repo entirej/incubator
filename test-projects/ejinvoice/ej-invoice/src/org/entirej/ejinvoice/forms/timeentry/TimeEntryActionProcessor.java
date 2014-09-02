@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.entirej.applicationframework.rwt.file.EJRWTFileDownload;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
@@ -246,6 +247,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_SHOW_INVOICE.equals(command))
         {
+            
+            InvoiceReport.downloadReport(new ProjectService().getInvoicPDF(form,(int) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID)), record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR)+".pdf");
         }
     }
 

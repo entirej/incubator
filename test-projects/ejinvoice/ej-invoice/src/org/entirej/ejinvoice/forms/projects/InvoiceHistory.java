@@ -21,10 +21,8 @@ public class InvoiceHistory
     private EJPojoProperty<String>     _invoiceAddress;
     private EJPojoProperty<String>     _nr;
     private EJPojoProperty<BigDecimal> _vatRate;
-    private EJPojoProperty<Object>     _invoiceDtlFile;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<String>     _localeLanguage;
-    private EJPojoProperty<Object>     _invoiceFile;
     private EJPojoProperty<Date>       _dueDate;
     private EJPojoProperty<String>     _status;
 
@@ -280,23 +278,7 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_vatRate);
     }
 
-    @EJFieldName("INVOICE_DTL_FILE")
-    public Object getInvoiceDtlFile()
-    {
-        return EJPojoProperty.getPropertyValue(_invoiceDtlFile);
-    }
-
-    @EJFieldName("INVOICE_DTL_FILE")
-    public void setInvoiceDtlFile(Object invoiceDtlFile)
-    {
-        _invoiceDtlFile = EJPojoProperty.setPropertyValue(_invoiceDtlFile, invoiceDtlFile);
-    }
-
-    @EJFieldName("INVOICE_DTL_FILE")
-    public Object getInitialInvoiceDtlFile()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_invoiceDtlFile);
-    }
+    
 
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
@@ -334,23 +316,7 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_localeLanguage);
     }
 
-    @EJFieldName("INVOICE_FILE")
-    public Object getInvoiceFile()
-    {
-        return EJPojoProperty.getPropertyValue(_invoiceFile);
-    }
-
-    @EJFieldName("INVOICE_FILE")
-    public void setInvoiceFile(Object invoiceFile)
-    {
-        _invoiceFile = EJPojoProperty.setPropertyValue(_invoiceFile, invoiceFile);
-    }
-
-    @EJFieldName("INVOICE_FILE")
-    public Object getInitialInvoiceFile()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_invoiceFile);
-    }
+   
 
     @EJFieldName("DUE_DATE")
     public Date getDueDate()
@@ -407,10 +373,8 @@ public class InvoiceHistory
         EJPojoProperty.clearInitialValue(_invoiceAddress);
         EJPojoProperty.clearInitialValue(_nr);
         EJPojoProperty.clearInitialValue(_vatRate);
-        EJPojoProperty.clearInitialValue(_invoiceDtlFile);
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_localeLanguage);
-        EJPojoProperty.clearInitialValue(_invoiceFile);
         EJPojoProperty.clearInitialValue(_dueDate);
         EJPojoProperty.clearInitialValue(_status);
     }
