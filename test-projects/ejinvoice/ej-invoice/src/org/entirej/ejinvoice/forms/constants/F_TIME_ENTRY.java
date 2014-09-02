@@ -121,6 +121,13 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class B_INVOICE_HISTORY_FILTER
+    {
+        public static final String ID       = "InvoiceHistoryFilter";
+        public static final String I_STATUS = "status";
+
+    }
+
     public static class B_INVOICE_HISTORY
     {
         public static final String ID                 = "InvoiceHistory";
@@ -145,6 +152,15 @@ public class F_TIME_ENTRY
         public static final String I_DUE_DATE         = "dueDate";
         public static final String I_CUST_NAME        = "custName";
         public static final String I_INVOICE_IMAGE    = "invoiceImage";
+        public static final String I_STATUS           = "status";
+
+    }
+
+    public static class B_INVOICE_HISTORY_KEY
+    {
+        public static final String ID              = "InvoiceHistoryKey";
+        public static final String I_INVOICE       = "invoice";
+        public static final String I_INVOICE_LABEL = "invoiceLabel";
 
     }
 
@@ -300,22 +316,26 @@ public class F_TIME_ENTRY
 
     }
 
-    public static final String C_CUSTOMERS_TOOLBAR      = "CustomersToolbar";
-    public static final String C_CUSTOMER               = "Customer";
-    public static final String C_CUSTOMERS_KEY          = "CustomersKey";
-    public static final String C_CUSTOMER_DETAILS_FORM  = "CustomerDetailsForm";
-    public static final String C_COMPANY_FORM           = "CompanyForm";
-    public static final String C_MASTER_DATA_CANVAS     = "masterDataCanvas";
-    public static final String C_INVOICE_HISTORY        = "InvoiceHistory";
+    public static final String C_CUSTOMERS_TOOLBAR               = "CustomersToolbar";
+    public static final String C_CUSTOMER                        = "Customer";
+    public static final String C_CUSTOMERS_KEY                   = "CustomersKey";
+    public static final String C_CUSTOMER_DETAILS_FORM           = "CustomerDetailsForm";
+    public static final String C_COMPANY_FORM                    = "CompanyForm";
+    public static final String C_MASTER_DATA_CANVAS              = "masterDataCanvas";
+    public static final String C_OUTSTANDING_INVOICES            = "OutstandingInvoices";
+    public static final String C_INVOICE_HISTORY_FILTER          = "InvoiceHistoryFilter";
+    public static final String C_INVOICE_HISTORY                 = "InvoiceHistory";
+    public static final String C_INVOICE_HISTORY_KEY             = "InvoiceHistoryKey";
 
-    public static final String AC_ADD_TIME_ENTRY        = "ADD_TIME_ENTRY";
-    public static final String AC_CREATE_NEW_CUSTOMER   = "CREATE_NEW_CUSTOMER";
-    public static final String AC_DELETE_CUSTOMER       = "DELETE_CUSTOMER";
-    public static final String AC_DELETE_TIME_ENTRY     = "DELETE_TIME_ENTRY";
-    public static final String AC_EDIT_CUSTOMER         = "EDIT_CUSTOMER";
-    public static final String AC_EDIT_TIME_ENTRY       = "EDIT_TIME_ENTRY";
-    public static final String AC_QUERY_CUSTOMERS       = "QUERY_CUSTOMERS";
-    public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
-    public static final String AC_SHOW_INVOICE          = "SHOW_INVOICE";
+    public static final String AC_ADD_TIME_ENTRY                 = "ADD_TIME_ENTRY";
+    public static final String AC_CREATE_NEW_CUSTOMER            = "CREATE_NEW_CUSTOMER";
+    public static final String AC_DELETE_CUSTOMER                = "DELETE_CUSTOMER";
+    public static final String AC_DELETE_TIME_ENTRY              = "DELETE_TIME_ENTRY";
+    public static final String AC_EDIT_CUSTOMER                  = "EDIT_CUSTOMER";
+    public static final String AC_EDIT_TIME_ENTRY                = "EDIT_TIME_ENTRY";
+    public static final String AC_INVOICE_HISTORY_STATUS_CHANGED = "INVOICE_HISTORY_STATUS_CHANGED";
+    public static final String AC_QUERY_CUSTOMERS                = "QUERY_CUSTOMERS";
+    public static final String AC_SHOW_CUSTOMER_DETAILS          = "SHOW_CUSTOMER_DETAILS";
+    public static final String AC_SHOW_INVOICE                   = "SHOW_INVOICE";
 
 }

@@ -37,5 +37,9 @@ public class EJ_PROPERTIES
     public static final String VA_DATA_EVEN                      = "dataEven";
     public static final String VA_TABLE_HEADER_2                 = "tableHeader2";
     public static final String VA_DATA_GRAY                      = "dataGray";
+    public static final String VA_INVOIEC_STATUS_DRAFT           = "InvoiecStatusDraft";
+    public static final String VA_INVOICE_STATUS_LATE            = "InvoiceStatusLate";
+    public static final String VA_INVOICE_STATUS_SENT            = "InvoiceStatusSent";
+    public static final String VA_INVOICE_STATUS_PAID            = "InvoiceStatusPaid";
 
 }

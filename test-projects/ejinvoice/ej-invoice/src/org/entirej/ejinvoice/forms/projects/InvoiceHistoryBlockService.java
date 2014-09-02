@@ -38,7 +38,24 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
         queryCriteria.add(EJQuerySort.ASC("INV_DATE"));
         queryCriteria.add(EJQuerySort.ASC("DUE_DATE"));
 
-        return _statementExecutor.executeQuery(InvoiceHistory.class, form, _selectStatement, queryCriteria);
+        List<InvoiceHistory> results = _statementExecutor.executeQuery(InvoiceHistory.class, form, _selectStatement, queryCriteria);
+        for (InvoiceHistory result : results)
+        {
+            if (result.getDueDate().before(new Date(System.currentTimeMillis())))
+            {
+                result.setStatus("LATE");
+            }
+            else if (result.getSent()==1) 
+            {
+                result.setStatus("SENT");
+            }
+            else
+            {
+                result.setStatus("DRAFT");
+            }
+        }
+        
+        return results;
     }
 
     @Override
@@ -69,6 +86,7 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             parameters.add(new EJStatementParameter("SUMMARY", String.class, record.getSummary()));
             parameters.add(new EJStatementParameter("VAT_AMOUNT", BigDecimal.class, record.getVatAmount()));
             parameters.add(new EJStatementParameter("VAT_RATE", BigDecimal.class, record.getVatRate()));
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "invoice", parameters.toArray(paramArray));
             record.clearInitialValues();

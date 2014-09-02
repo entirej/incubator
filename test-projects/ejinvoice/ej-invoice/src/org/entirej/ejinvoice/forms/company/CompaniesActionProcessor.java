@@ -12,6 +12,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -121,6 +122,14 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_COMPANY.B_USERS.ID).enterInsert(false);
         }
+    }
+
+    @Override
+    public void postFormSave(EJForm form) throws EJActionProcessorException
+    {
+        super.postFormSave(form);
+        
+        form.getForm(F_TIME_ENTRY.ID).getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
     }
 
     @Override

@@ -26,6 +26,7 @@ public class InvoiceHistory
     private EJPojoProperty<String>     _localeLanguage;
     private EJPojoProperty<Object>     _invoiceFile;
     private EJPojoProperty<Date>       _dueDate;
+    private EJPojoProperty<String>     _status;
 
     @EJFieldName("VAT_AMOUNT")
     public BigDecimal getVatAmount()
@@ -369,6 +370,27 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_dueDate);
     }
 
+    
+    
+    
+    @EJFieldName("STATUS")
+    public String getStatus()
+    {
+        return EJPojoProperty.getPropertyValue(_status);
+    }
+
+    @EJFieldName("STATUS")
+    public void setStatus(String status)
+    {
+        _status = EJPojoProperty.setPropertyValue(_status, status);
+    }
+
+    @EJFieldName("STATUS")
+    public String getInitialStatus()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_status);
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_vatAmount);
@@ -390,6 +412,7 @@ public class InvoiceHistory
         EJPojoProperty.clearInitialValue(_localeLanguage);
         EJPojoProperty.clearInitialValue(_invoiceFile);
         EJPojoProperty.clearInitialValue(_dueDate);
+        EJPojoProperty.clearInitialValue(_status);
     }
 
 }

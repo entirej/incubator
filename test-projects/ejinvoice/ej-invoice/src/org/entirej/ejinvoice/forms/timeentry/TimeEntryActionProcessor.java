@@ -18,6 +18,7 @@ import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.projects.PlannedProjectItem;
 import org.entirej.ejinvoice.forms.projects.ProjectService;
+import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -239,9 +240,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(end.getTime(), end.getTime()));
         }
-        if (F_TIME_ENTRY.AC_QUERY_CUSTOMERS.equals(command))
+        else if (F_TIME_ENTRY.AC_QUERY_CUSTOMERS.equals(command))
         {
             form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+        }
+        else if (F_TIME_ENTRY.AC_SHOW_INVOICE.equals(command))
+        {
         }
     }
 
@@ -413,12 +417,31 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, str.toString());
         }
-        if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
+        else if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
         {
             if (record.getValue(F_TIME_ENTRY.B_TIME_ENTRY.I_INVP_ID) == null)
             {
                 record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__EDIT, "/icons/edit10.gif");
                 record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__DELETE, "/icons/delete10.png");
+            }
+        }
+        else if (F_TIME_ENTRY.B_INVOICE_HISTORY.ID.equals(record.getBlockName()))
+        {
+            if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).equals("DRAFT"))
+            {
+                record.getItem(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOIEC_STATUS_DRAFT);
+            }
+            else if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).equals("SENT"))
+            {
+                record.getItem(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOICE_STATUS_SENT);
+            }
+            else if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).equals("LATE"))
+            {
+                record.getItem(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOICE_STATUS_LATE);
+            }
+            else if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).equals("PAID"))
+            {
+                record.getItem(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOICE_STATUS_PAID);
             }
         }
     }
