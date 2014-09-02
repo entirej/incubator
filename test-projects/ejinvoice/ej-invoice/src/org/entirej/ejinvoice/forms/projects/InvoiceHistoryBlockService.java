@@ -38,30 +38,78 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
         queryCriteria.add(EJQuerySort.ASC("INV_DATE"));
         queryCriteria.add(EJQuerySort.ASC("DUE_DATE"));
 
-        String status = (String)queryCriteria.getRestriction("STATUS").getValue();
-        
-        switch (status)
+        if (queryCriteria.containsRestriction("STATUS"))
         {
-            case "ALL":
-                queryCriteria.add(EJRestrictions.equals("PAID", 0));
-                break;
-            case "DRAFT":
-                queryCriteria.add(EJRestrictions.equals("PAID", 0));
-                break;
-            case "SENT":
-                break;
-            case "LATE":
-                break;
+            String status = (String) queryCriteria.getRestriction("STATUS").getValue();
+            queryCriteria.removeRestriction("STATUS");
+            switch (status)
+            {
+                case "ALL":
+                    queryCriteria.add(EJRestrictions.notEquals("PAID", 1));
+                    break;
+                case "DRAFT":
+                    queryCriteria.add(EJRestrictions.equals("PAID", 0));
+                    queryCriteria.add(EJRestrictions.equals("SENT", 0));
+                    break;
+                case "SENT":
+                    queryCriteria.add(EJRestrictions.equals("SENT", 1));
+                    break;
+                case "LATE":
+                    queryCriteria.add(EJRestrictions.lessThan("DUE_DATE", new Date(System.currentTimeMillis())));
+                    break;
+            }
+        }
+        else
+        {
+            queryCriteria.add(EJRestrictions.equals("PAID", 1));
+        }
+        
+        if (queryCriteria.containsRestriction("dateFrom") && queryCriteria.containsRestriction("dateTo"))
+        {
+            queryCriteria.add(EJRestrictions.between("INV_DATE", (Date)queryCriteria.getRestriction("dateFrom").getValue(), (Date)queryCriteria.getRestriction("dateTo").getValue()));
+            queryCriteria.removeRestriction("dateFrom");
+            queryCriteria.removeRestriction("dateTo");
+        }
+        else if (queryCriteria.containsRestriction("dateFrom"))
+        {
+            queryCriteria.add(EJRestrictions.greaterThanEqualTo("INV_DATE", (Date)queryCriteria.getRestriction("dateFrom").getValue()));
+            queryCriteria.removeRestriction("dateFrom");
+        }
+        else if (queryCriteria.containsRestriction("dateTo"))
+        {
+            queryCriteria.add(EJRestrictions.lessThanEqualTo("INV_DATE", (Date)queryCriteria.getRestriction("dateTo").getValue()));
+            queryCriteria.removeRestriction("dateTo");
+        }
+        
+        if (queryCriteria.containsRestriction("amountFrom") && queryCriteria.containsRestriction("amountTo"))
+        {
+            queryCriteria.add(EJRestrictions.between("AMOUNT_INCL_VAT", (BigDecimal)queryCriteria.getRestriction("amountFrom").getValue(), (BigDecimal)queryCriteria.getRestriction("amountTo").getValue()));
+            queryCriteria.removeRestriction("amountFrom");
+            queryCriteria.removeRestriction("amountTo");
+        }
+        else if (queryCriteria.containsRestriction("amountFrom"))
+        {
+            queryCriteria.add(EJRestrictions.greaterThanEqualTo("AMOUNT_INCL_VAT", (BigDecimal)queryCriteria.getRestriction("amountFrom").getValue()));
+            queryCriteria.removeRestriction("amountFrom");
+        }
+        else if (queryCriteria.containsRestriction("amountTo"))
+        {
+            queryCriteria.add(EJRestrictions.lessThanEqualTo("AMOUNT_INCL_VAT", (BigDecimal)queryCriteria.getRestriction("amountTo").getValue()));
+            queryCriteria.removeRestriction("amountTo");
         }
         
         List<InvoiceHistory> results = _statementExecutor.executeQuery(InvoiceHistory.class, form, _selectStatement, queryCriteria);
         for (InvoiceHistory result : results)
         {
-            if (result.getDueDate().before(new Date(System.currentTimeMillis())))
+            if (result.getPaid() == 1)
+            {
+                result.setStatus("PAID");
+            }
+            else if (result.getDueDate().before(new Date(System.currentTimeMillis())))
             {
                 result.setStatus("LATE");
             }
-            else if (result.getSent()==1) 
+            else if (result.getSent() == 1)
             {
                 result.setStatus("SENT");
             }
@@ -70,7 +118,7 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
                 result.setStatus("DRAFT");
             }
         }
-        
+
         return results;
     }
 
@@ -100,7 +148,7 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             parameters.add(new EJStatementParameter("SUMMARY", String.class, record.getSummary()));
             parameters.add(new EJStatementParameter("VAT_AMOUNT", BigDecimal.class, record.getVatAmount()));
             parameters.add(new EJStatementParameter("VAT_RATE", BigDecimal.class, record.getVatRate()));
-            
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "invoice", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -206,8 +254,7 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             {
                 criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
             }
-            
-            
+
             if (record.getInitialLocaleCountry() == null)
             {
                 criteria.add(EJRestrictions.isNull("LOCALE_COUNTRY"));
@@ -367,7 +414,7 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             {
                 criteria.add(EJRestrictions.equals("INVOICE_ADDRESS", record.getInitialInvoiceAddress()));
             }
-           
+
             if (record.getInitialLocaleCountry() == null)
             {
                 criteria.add(EJRestrictions.isNull("LOCALE_COUNTRY"));

@@ -84,7 +84,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeQuery(TimeEntryBlockService.getWeeKQueryCriteria(new EJQueryCriteria(form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID)), TimeEntryBlockService.getWeek(workDate)));
             }
         }
-        if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
+        else if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
         {
             if (F_TIME_ENTRY.B_TIME_ENTRY.I_START_TIME.equals(itemName) || F_TIME_ENTRY.B_TIME_ENTRY.I_END_TIME.equals(itemName))
             {
@@ -252,6 +252,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.AC_INVOICE_HISTORY_STATUS_CHANGED.equals(command))
         {
             form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
+        }
+        else if (F_TIME_ENTRY.AC_REFRESH_PAID_INVOICES.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY_PAID.ID).executeQuery();
         }
     }
 

@@ -341,7 +341,6 @@ public class F_PROJECTS
     {
         public static final String INVOICE_PLANNING = "InvoicePlanning";
         public static final String INVOICE_CREATION = "InvoiceCreation";
-        public static final String INVOICE_HISTORY  = "InvoiceHistory";
 
     }
 
