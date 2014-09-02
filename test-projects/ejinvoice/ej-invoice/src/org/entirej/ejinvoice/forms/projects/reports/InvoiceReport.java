@@ -125,6 +125,7 @@ public class InvoiceReport
                     ioe.printStackTrace();
                 }
             EJRWTFileDownload.download(temp.getAbsolutePath(), outputName);
+            temp.deleteOnExit();
         }
         catch (IOException ioe)
         {
