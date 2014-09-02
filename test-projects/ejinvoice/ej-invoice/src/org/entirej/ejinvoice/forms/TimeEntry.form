@@ -7348,7 +7348,7 @@
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
                         </itemRendererProperties>
