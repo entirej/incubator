@@ -363,6 +363,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 }
                 
             }
+            else if (F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_HISTORY.equals(tabPageName))
+            {
+                form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
+            }
         }
     }
 

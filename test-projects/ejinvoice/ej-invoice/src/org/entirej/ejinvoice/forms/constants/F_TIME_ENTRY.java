@@ -121,6 +121,33 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class B_INVOICE_HISTORY
+    {
+        public static final String ID                 = "InvoiceHistory";
+        public static final String I_VAT_AMOUNT       = "vatAmount";
+        public static final String I_PAID             = "paid";
+        public static final String I_SENT             = "sent";
+        public static final String I_ID               = "id";
+        public static final String I_LOCALE_COUNTRY   = "localeCountry";
+        public static final String I_SUMMARY          = "summary";
+        public static final String I_NOTES            = "notes";
+        public static final String I_AMOUNT_EXCL_VAT  = "amountExclVat";
+        public static final String I_INV_DATE         = "invDate";
+        public static final String I_AMOUNT_INCL_VAT  = "amountInclVat";
+        public static final String I_CUST_ID          = "custId";
+        public static final String I_INVOICE_ADDRESS  = "invoiceAddress";
+        public static final String I_NR               = "nr";
+        public static final String I_VAT_RATE         = "vatRate";
+        public static final String I_INVOICE_DTL_FILE = "invoiceDtlFile";
+        public static final String I_COMPANY_ID       = "companyId";
+        public static final String I_LOCALE_LANGUAGE  = "localeLanguage";
+        public static final String I_INVOICE_FILE     = "invoiceFile";
+        public static final String I_DUE_DATE         = "dueDate";
+        public static final String I_CUST_NAME        = "custName";
+        public static final String I_INVOICE_IMAGE    = "invoiceImage";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID           = "VatRate";
@@ -238,11 +265,12 @@ public class F_TIME_ENTRY
 
     public static class C_MAIN_PAGES
     {
-        public static final String TIME__ENTRY    = "Time Entry";
-        public static final String PROJECTS       = "Projects";
-        public static final String CUSTOMERS      = "Customers";
-        public static final String COMPANY        = "Company";
-        public static final String ADMINISTRATION = "Administration";
+        public static final String TIME__ENTRY     = "Time Entry";
+        public static final String PROJECTS        = "Projects";
+        public static final String CUSTOMERS       = "Customers";
+        public static final String COMPANY         = "Company";
+        public static final String ADMINISTRATION  = "Administration";
+        public static final String INVOICE_HISTORY = "InvoiceHistory";
 
     }
 
@@ -264,6 +292,7 @@ public class F_TIME_ENTRY
     public static final String C_CUSTOMER_DETAILS_FORM  = "CustomerDetailsForm";
     public static final String C_COMPANY_FORM           = "CompanyForm";
     public static final String C_MASTER_DATA_CANVAS     = "masterDataCanvas";
+    public static final String C_INVOICE_HISTORY        = "InvoiceHistory";
 
     public static final String AC_ADD_TIME_ENTRY        = "ADD_TIME_ENTRY";
     public static final String AC_CREATE_NEW_CUSTOMER   = "CREATE_NEW_CUSTOMER";
@@ -273,5 +302,6 @@ public class F_TIME_ENTRY
     public static final String AC_EDIT_TIME_ENTRY       = "EDIT_TIME_ENTRY";
     public static final String AC_QUERY_CUSTOMERS       = "QUERY_CUSTOMERS";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
+    public static final String AC_SHOW_INVOICE          = "SHOW_INVOICE";
 
 }
