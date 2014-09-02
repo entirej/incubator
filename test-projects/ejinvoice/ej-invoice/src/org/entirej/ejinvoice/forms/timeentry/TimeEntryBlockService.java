@@ -112,9 +112,9 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             // Initialise the value list
             parameters.clear();
             parameters.add(new EJStatementParameter("CUPT_ID", Integer.class, record.getCuptId()));
-            parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
+            parameters.add(new EJStatementParameter("END_TIME", Time.class, removeSeconds(record.getEndTime())));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
+            parameters.add(new EJStatementParameter("START_TIME", Time.class, removeSeconds(record.getStartTime())));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("WORK_DATE", Date.class, record.getWorkDate()));
@@ -128,6 +128,17 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             throw new EJApplicationException("Unexpected amount of records processed in insert. Expected: " + newRecords.size() + ". Inserted: " + recordsProcessed);
         }
     }
+    
+    Time removeSeconds(Time time)
+    {
+        if( time==null) return null;
+        Calendar instance = Calendar.getInstance();
+        instance.setTime(time);
+        instance.set(Calendar.SECOND, 0);
+        instance.set(Calendar.MILLISECOND, 0);
+        
+        return new Time((instance.getTime().getTime()));//remove seconds 
+    }
 
     public void enterTimeEntry(EJForm form, TimeEntry record)
     {
@@ -140,11 +151,11 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
             // Initialise the value list
             parameters.clear();
             parameters.add(new EJStatementParameter("CUPT_ID", Integer.class, record.getCuptId()));
-            parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
+            parameters.add(new EJStatementParameter("END_TIME", Time.class, removeSeconds(record.getEndTime())));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
-            parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
+            parameters.add(new EJStatementParameter("START_TIME", Time.class, removeSeconds(record.getStartTime())));
             parameters.add(new EJStatementParameter("WORK_DATE", Date.class, record.getWorkDate()));
             parameters.add(new EJStatementParameter("WORK_DESCRIPTION", String.class, record.getWorkDescription()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -175,9 +186,9 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 
             // First add the new values
             parameters.add(new EJStatementParameter("CUPT_ID", Integer.class, record.getCuptId()));
-            parameters.add(new EJStatementParameter("END_TIME", Time.class, record.getEndTime()));
+            parameters.add(new EJStatementParameter("END_TIME", Time.class, removeSeconds(record.getEndTime())));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("START_TIME", Time.class, record.getStartTime()));
+            parameters.add(new EJStatementParameter("START_TIME", Time.class, removeSeconds(record.getStartTime())));
             parameters.add(new EJStatementParameter("USER_ID", Integer.class, record.getUserId()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("WORK_DATE", Date.class, record.getWorkDate()));

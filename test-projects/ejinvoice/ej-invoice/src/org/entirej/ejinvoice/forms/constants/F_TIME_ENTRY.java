@@ -260,6 +260,20 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class L_WORK_WEEK_PROJECT_TASKS
+    {
+        public static final String ID                    = "WorkWeekProjectTasks";
+        public static final String I_ID                  = "id";
+        public static final String I_CPR_ID              = "cprId";
+        public static final String I_NOTES               = "notes";
+        public static final String I_PROJECT_DESCRIPTION = "projectDescription";
+        public static final String I_PROJECT_NAME        = "projectName";
+        public static final String I_PROCESS_NAME        = "processName";
+        public static final String I_PAY_RATE            = "payRate";
+        public static final String I_COMPANY_ID          = "companyId";
+
+    }
+
     public static final String C_COMPANY = "Company";
     public static final String C_MAIN    = "Main";
 

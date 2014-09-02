@@ -972,7 +972,20 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                 if (dateWeek == activeWeek)
                 {
                     if (entry.getEndTime() != null && entry.getStartTime() != null)
-                        diff = diff + (entry.getEndTime().getTime() - entry.getStartTime().getTime());
+                    {
+                        long start = entry.getStartTime().getTime();
+                        long end = entry.getEndTime().getTime();
+                        Calendar instance = Calendar.getInstance();
+                        instance.setTimeInMillis(start);
+                        instance.set(Calendar.SECOND, 0);
+                        instance.set(Calendar.MILLISECOND, 0);
+                        start = instance.getTimeInMillis();
+                        instance.setTimeInMillis(end);
+                        instance.set(Calendar.SECOND, 0);
+                        instance.set(Calendar.MILLISECOND, 0);
+                        end = instance.getTimeInMillis();
+                        diff = diff + (end - start);
+                    }
                 }
 
             }

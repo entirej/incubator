@@ -2515,14 +2515,16 @@
                     </propertyGroup>
                 </updateScreenRendererProperties>
                 <lovMappingList>
-                    <lovMapping name="CustomerProjectTask" lovDefinitionName="CustomerProjectTasks" executeAfterQuery="true">
+                    <lovMapping name="CustomerProjectTasks" lovDefinitionName="WorkWeekProjectTasks" executeAfterQuery="true">
                         <displayName></displayName>
                         <lovItemMappingList>
-                            <itemMap lovDefinitionItem="id" blockItemName="cuptId">
-                            </itemMap>
                             <itemMap lovDefinitionItem="projectName" blockItemName="project">
                             </itemMap>
                             <itemMap lovDefinitionItem="processName" blockItemName="task">
+                            </itemMap>
+                            <itemMap lovDefinitionItem="id" blockItemName="cuptId">
+                            </itemMap>
+                            <itemMap lovDefinitionItem="cprId" blockItemName="cuprId">
                             </itemMap>
                         </lovItemMappingList>
                     </lovMapping>
@@ -7306,6 +7308,16 @@
             </lovDefinition>
             <lovDefinition name="CustomerLocale" isReferenced="true" referencedLovDefinitionName="CustomerLocale">
                 <itemList>
+                </itemList>
+            </lovDefinition>
+            <lovDefinition name="WorkWeekProjectTasks" isReferenced="true" referencedLovDefinitionName="CustomerProjectTasks">
+                <itemList>
+                    <item name="cprId">
+                        <defaultQueryValue><![CDATA[BLOCK_ITEM:TimeEntry.cuprId]]></defaultQueryValue>
+                    </item>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
         </lovDefinitionList>
