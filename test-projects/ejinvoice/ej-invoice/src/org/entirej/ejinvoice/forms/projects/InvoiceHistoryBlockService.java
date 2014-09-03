@@ -53,6 +53,7 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
                     break;
                 case "SENT":
                     queryCriteria.add(EJRestrictions.equals("SENT", 1));
+                    queryCriteria.add(EJRestrictions.equals("PAID", 0));
                     break;
                 case "LATE":
                     queryCriteria.add(EJRestrictions.lessThan("DUE_DATE", new Date(System.currentTimeMillis())));

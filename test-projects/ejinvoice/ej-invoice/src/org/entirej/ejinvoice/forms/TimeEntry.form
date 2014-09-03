@@ -7861,8 +7861,8 @@
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </updateScreenRendererItemProperties>
                                 </item>
-                                <item referencedItemName="dueDate" isSpacerItem="false">
-                                    <label><![CDATA[Due Date]]></label>
+                                <item referencedItemName="invDate" isSpacerItem="false">
+                                    <label><![CDATA[Invoice Date]]></label>
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
@@ -7884,8 +7884,8 @@
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </updateScreenRendererItemProperties>
                                 </item>
-                                <item referencedItemName="invDate" isSpacerItem="false">
-                                    <label><![CDATA[Inv Date]]></label>
+                                <item referencedItemName="dueDate" isSpacerItem="false">
+                                    <label><![CDATA[Due Date]]></label>
                                     <hint></hint>
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>

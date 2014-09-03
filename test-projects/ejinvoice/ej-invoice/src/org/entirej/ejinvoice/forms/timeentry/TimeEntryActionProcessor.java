@@ -5,6 +5,8 @@ import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
+import java.util.Locale.Builder;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
@@ -34,9 +36,12 @@ import org.entirej.framework.core.service.EJQueryCriteria;
 
 public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
-    private boolean customerInserted = false;
-    private boolean customerUpdated   = false;
-    private Integer customerId       = null;
+    private boolean invoiceUpdated       = false;
+    private Integer updatedInvoiceId     = null;
+    private Locale  updatedInvoiceLocale = null;
+    private boolean customerInserted     = false;
+    private boolean customerUpdated      = false;
+    private Integer customerId           = null;
 
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
@@ -95,7 +100,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
     private String getDiffMinutesString(Long start, Long end)
     {
-        //remove seconds
+        // remove seconds
         Calendar instance = Calendar.getInstance();
         instance.setTimeInMillis(start);
         instance.set(Calendar.SECOND, 0);
@@ -105,12 +110,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         instance.set(Calendar.SECOND, 0);
         instance.set(Calendar.MILLISECOND, 0);
         end = instance.getTimeInMillis();
-        
+
         long diff = end - start;
         final long hour = 3600000;
         final long minute = 60000;
         long diffHours = (diff / hour);
-        long diffMinutes =  ((diff % hour) /minute);
+        long diffMinutes = ((diff % hour) / minute);
         String diffMinutesString = String.format("%02d", diffMinutes);
 
         return diffHours + ":" + diffMinutesString;
@@ -244,7 +249,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_SHOW_INVOICE.equals(command))
         {
-            InvoiceReport.downloadReport(new ProjectService().getInvoicPDF(form,(int) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID)), record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR)+".pdf");
+            InvoiceReport.downloadReport(new ProjectService().getInvoicPDF(form, (int) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID)), record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR) + ".pdf");
         }
         else if (F_TIME_ENTRY.AC_INVOICE_HISTORY_STATUS_CHANGED.equals(command))
         {
@@ -306,14 +311,20 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
     }
 
-    
-    
     @Override
     public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
     {
         if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(record.getBlockName()))
         {
             customerUpdated = true;
+        }
+        else if (F_TIME_ENTRY.B_INVOICE_HISTORY.ID.equals(record.getBlockName()))
+        {
+            invoiceUpdated = true;
+            updatedInvoiceId = (Integer) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID);
+            String localeLanguage = (String) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_LOCALE_LANGUAGE);
+            String localeCountry = (String) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_LOCALE_COUNTRY);
+            updatedInvoiceLocale = new Builder().setLanguage(localeLanguage).setRegion(localeCountry).build();
         }
     }
 
@@ -353,6 +364,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             customerUpdated = false;
             form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+        }
+        else if (invoiceUpdated)
+        {
+            invoiceUpdated = false;
+            new ProjectService().updateInvoicPDF(form, updatedInvoiceId, InvoiceReport.generateInvoicePDF(form.getConnection(), updatedInvoiceId, updatedInvoiceLocale));
+            updatedInvoiceId = null;
+            updatedInvoiceLocale = null;
+            form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
         }
     }
 
@@ -427,7 +446,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__DELETE, "/icons/delete10.png");
             }
         }
-        else if (F_TIME_ENTRY.B_INVOICE_HISTORY.ID.equals(record.getBlockName()))
+        else if (F_TIME_ENTRY.B_INVOICE_HISTORY.ID.equals(record.getBlockName()) || F_TIME_ENTRY.B_INVOICE_HISTORY_PAID.ID.equals(record.getBlockName()))
         {
             if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).equals("DRAFT"))
             {
@@ -459,6 +478,37 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             {
                 block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
                 block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_SALUTATIONS_ID).refreshItemRenderer();
+            }
+        }
+        else if (F_TIME_ENTRY.B_INVOICE_HISTORY.ID.equals(block.getName()))
+        {
+            if (EJScreenType.UPDATE.equals(screenType))
+            {
+                Integer sent = (Integer) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_SENT);
+                if (sent == 0)
+                {
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SENT).setEditable(true);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_PAID).setEditable(false);
+
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INV_DATE).setEditable(true);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_DUE_DATE).setEditable(true);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR).setEditable(true);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INVOICE_ADDRESS).setEditable(true);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SUMMARY).setEditable(true);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NOTES).setEditable(true);
+                }
+                else
+                {
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SENT).setEditable(false);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_PAID).setEditable(true);
+
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INV_DATE).setEditable(false);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_DUE_DATE).setEditable(false);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR).setEditable(false);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INVOICE_ADDRESS).setEditable(false);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SUMMARY).setEditable(false);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NOTES).setEditable(false);
+                }
             }
         }
     }
