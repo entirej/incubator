@@ -321,10 +321,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.B_INVOICE_HISTORY.ID.equals(record.getBlockName()))
         {
             invoiceUpdated = true;
-            updatedInvoiceId = (Integer) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID);
-            String localeLanguage = (String) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_LOCALE_LANGUAGE);
-            String localeCountry = (String) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_LOCALE_COUNTRY);
-            updatedInvoiceLocale = new Builder().setLanguage(localeLanguage).setRegion(localeCountry).build();
+
+            if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_SENT).equals(0))
+            {
+                updatedInvoiceId = (Integer) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID);
+                String localeLanguage = (String) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_LOCALE_LANGUAGE);
+                String localeCountry = (String) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_LOCALE_COUNTRY);
+                updatedInvoiceLocale = new Builder().setLanguage(localeLanguage).setRegion(localeCountry).build();
+            }
         }
     }
 
@@ -368,9 +372,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (invoiceUpdated)
         {
             invoiceUpdated = false;
-            new ProjectService().updateInvoicPDF(form, updatedInvoiceId, InvoiceReport.generateInvoicePDF(form.getConnection(), updatedInvoiceId, updatedInvoiceLocale));
-            updatedInvoiceId = null;
-            updatedInvoiceLocale = null;
+            if (updatedInvoiceId != null)
+            {
+                new ProjectService().updateInvoicPDF(form, updatedInvoiceId, InvoiceReport.generateInvoicePDF(form.getConnection(), updatedInvoiceId, updatedInvoiceLocale));
+                updatedInvoiceId = null;
+                updatedInvoiceLocale = null;
+            }
             form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
         }
     }
