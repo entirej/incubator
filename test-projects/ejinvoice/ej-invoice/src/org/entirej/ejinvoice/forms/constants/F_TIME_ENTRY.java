@@ -348,7 +348,6 @@ public class F_TIME_ENTRY
         public static final String PROJECTS        = "Projects";
         public static final String CUSTOMERS       = "Customers";
         public static final String COMPANY         = "Company";
-        public static final String ADMINISTRATION  = "Administration";
         public static final String INVOICE_HISTORY = "InvoiceHistory";
 
     }
@@ -370,7 +369,6 @@ public class F_TIME_ENTRY
     public static final String C_CUSTOMERS_KEY         = "CustomersKey";
     public static final String C_CUSTOMER_DETAILS_FORM = "CustomerDetailsForm";
     public static final String C_COMPANY_FORM          = "CompanyForm";
-    public static final String C_MASTER_DATA_CANVAS    = "masterDataCanvas";
     public static final String C_INVOICE_HISTORY_TAB   = "InvoiceHistoryTab";
 
     public static class C_INVOICE_HISTORY_TAB_PAGES

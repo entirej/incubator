@@ -6,7 +6,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import org.entirej.applicationframework.rwt.file.EJRWTFileDownload;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
@@ -14,10 +13,9 @@ import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
-import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
-import org.entirej.ejinvoice.forms.projects.PlannedProjectItem;
 import org.entirej.ejinvoice.forms.projects.ProjectService;
 import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -55,7 +53,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
         form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(timestamp.getTime(), timestamp.getTime()));
 
-        form.openEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS, null);
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
     }
@@ -267,7 +264,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             boolean canBeDeleted = true;
             try
             {
-                ServiceRetriever.getDBService(question.getForm()).validateDeleteRecordUsage(question.getForm(), question.getForm().getBlock(F_MASTER_DATA.B_SALUTATIONS.ID).getFocusedRecord(), "CUSTOMER");
+                ServiceRetriever.getDBService(question.getForm()).validateDeleteRecordUsage(question.getForm(), question.getForm().getBlock(F_MASTER_DATA_SALUTATION.B_SALUTATIONS.ID).getFocusedRecord(), "CUSTOMER");
             }
             catch (Exception e)
             {
@@ -380,15 +377,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 {
                     companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
                 }
-            }
-            else if (F_TIME_ENTRY.C_MAIN_PAGES.ADMINISTRATION.equals(tabPageName))
-            {
-                EJForm masterDataForm = form.getEmbeddedForm(F_MASTER_DATA.ID, F_TIME_ENTRY.C_MASTER_DATA_CANVAS);
-                if (masterDataForm.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).getBlockRecords().size() <= 0)
-                {
-                    masterDataForm.getBlock(F_MASTER_DATA.B_CONTACT_TYPES.ID).executeQuery();
-                }
-                
             }
             else if (F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_HISTORY.equals(tabPageName))
             {

@@ -126,6 +126,12 @@ DateTime-Calendar-Navbar {
 	text-shadow: none;
 }
 
+Composite.banner {
+   background-color: #ffffff;
+   padding: 8px 8px 8px 8px;
+   border: solid 1px #a4a4a4;
+   border-radius: 3px;
+}
 
 Composite.login {
 	background-color: #f0f2f5;

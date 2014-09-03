@@ -12,6 +12,9 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_CONTACT_TYPES;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
+import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_VAT_RATES;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
@@ -28,8 +31,48 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        // form.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
+        form.openEmbeddedForm(F_MASTER_DATA_CONTACT_TYPES.ID, F_COMPANY.C_CONTACT_TYPES_FORM, null);
+        form.openEmbeddedForm(F_MASTER_DATA_SALUTATION.ID, F_COMPANY.C_SALUTATIONS_FORM, null);
+        form.openEmbeddedForm(F_MASTER_DATA_VAT_RATES.ID, F_COMPANY.C_VAT_RATES_FORM, null);
     }
+
+    @Override
+    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
+    {
+        if (F_COMPANY.C_MAIN_TAB_PAGES.CONTACT_TYPES.equals(tabPageName))
+        {
+            EJForm embeddedForm = form.getEmbeddedForm(F_MASTER_DATA_CONTACT_TYPES.ID, F_COMPANY.C_CONTACT_TYPES_FORM);
+           
+            EJBlock embeddedBlock = embeddedForm.getBlock(F_MASTER_DATA_CONTACT_TYPES.B_CONTACT_TYPES.ID);
+            if (embeddedBlock.getBlockRecords().size() == 0)
+            {
+                embeddedBlock.executeQuery();
+            }
+            
+        }
+        else if (F_COMPANY.C_MAIN_TAB_PAGES.SALUTATIONS.equals(tabPageName))
+        {
+            EJForm embeddedForm = form.getEmbeddedForm(F_MASTER_DATA_SALUTATION.ID, F_COMPANY.C_SALUTATIONS_FORM);
+            
+            EJBlock embeddedBlock = embeddedForm.getBlock(F_MASTER_DATA_SALUTATION.B_SALUTATIONS.ID);
+            if (embeddedBlock.getBlockRecords().size() == 0)
+            {
+                embeddedBlock.executeQuery();
+            }  
+        }
+        else if (F_COMPANY.C_MAIN_TAB_PAGES.VAT_RATES.equals(tabPageName))
+        {
+            EJForm embeddedForm = form.getEmbeddedForm(F_MASTER_DATA_VAT_RATES.ID, F_COMPANY.C_VAT_RATES_FORM);
+            
+            EJBlock embeddedBlock = embeddedForm.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID);
+            if (embeddedBlock.getBlockRecords().size() == 0)
+            {
+                embeddedBlock.executeQuery();
+            } 
+        }
+    }
+
+
 
     @Override
     public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException

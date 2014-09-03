@@ -35,8 +35,8 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
     @Override
     public List<InvoiceHistory> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        queryCriteria.add(EJQuerySort.ASC("INV_DATE"));
-        queryCriteria.add(EJQuerySort.ASC("DUE_DATE"));
+        queryCriteria.add(EJQuerySort.DESC("INV_DATE"));
+        queryCriteria.add(EJQuerySort.DESC("DUE_DATE"));
 
         if (queryCriteria.containsRestriction("STATUS"))
         {

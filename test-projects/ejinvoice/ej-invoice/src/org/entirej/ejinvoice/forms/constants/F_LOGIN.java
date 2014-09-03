@@ -19,6 +19,7 @@ public class F_LOGIN
         public static final String I_SIGNUP      = "signup";
         public static final String I_FORGOT      = "forgot";
         public static final String I_EMAIL       = "email";
+        public static final String I_BIZIBO_LOGO = "biziboLogo";
 
     }
 

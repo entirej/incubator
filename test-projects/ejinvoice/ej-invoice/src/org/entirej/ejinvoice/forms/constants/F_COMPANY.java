@@ -83,11 +83,25 @@ public class F_COMPANY
 
     }
 
+    public static final String C_MAIN_TAB = "MainTab";
+
+    public static class C_MAIN_TAB_PAGES
+    {
+        public static final String COMPANY       = "Company";
+        public static final String CONTACT_TYPES = "ContactTypes";
+        public static final String VAT_RATES     = "VatRates";
+        public static final String SALUTATIONS   = "Salutations";
+
+    }
+
     public static final String C_COMPANY_TOOLBAR       = "CompanyToolbar";
     public static final String C_COMPANIES             = "Companies";
     public static final String C_EMPLOYEE              = "employee";
     public static final String C_USER_TOOLBAR          = "UserToolbar";
     public static final String C_USERS                 = "Users";
+    public static final String C_CONTACT_TYPES_FORM    = "ContactTypesForm";
+    public static final String C_VAT_RATES_FORM        = "VatRatesForm";
+    public static final String C_SALUTATIONS_FORM      = "SalutationsForm";
 
     public static final String AC_ADD_LOGO             = "ADD_LOGO";
     public static final String AC_CHANGE_EMAIL         = "CHANGE_EMAIL";
