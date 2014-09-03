@@ -19,7 +19,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,COMPANY_ID,CUST_ID,DUE_DATE,ID,INVOICE_ADDRESS,INV_DATE,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,NR,PAID,SENT,SUMMARY,VAT_AMOUNT,VAT_RATE FROM invoice";
+    private String                    _selectStatement = "SELECT FOOTER, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,COMPANY_ID,CUST_ID,DUE_DATE, SENT_DATE, PAYMENT_DATE,ID,INVOICE_ADDRESS,INV_DATE,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,NR,PAID,SENT,SUMMARY,VAT_AMOUNT,VAT_RATE FROM invoice";
 
     public InvoiceHistoryBlockService()
     {
@@ -137,12 +137,15 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("CUST_ID", Integer.class, record.getCustId()));
             parameters.add(new EJStatementParameter("DUE_DATE", Date.class, record.getDueDate()));
+            parameters.add(new EJStatementParameter("SENT_DATE", Date.class, record.getSentDate()));
+            parameters.add(new EJStatementParameter("PAYMENT_DATE", Date.class, record.getPaymentDate()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("INV_DATE", Date.class, record.getInvDate()));
             parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
+            parameters.add(new EJStatementParameter("FOOTER", String.class, record.getFooter()));
             parameters.add(new EJStatementParameter("NR", String.class, record.getNr()));
             parameters.add(new EJStatementParameter("PAID", Integer.class, record.getPaid()));
             parameters.add(new EJStatementParameter("SENT", Integer.class, record.getSent()));
@@ -177,12 +180,15 @@ public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("CUST_ID", Integer.class, record.getCustId()));
             parameters.add(new EJStatementParameter("DUE_DATE", Date.class, record.getDueDate()));
+            parameters.add(new EJStatementParameter("SENT_DATE", Date.class, record.getSentDate()));
+            parameters.add(new EJStatementParameter("PAYMENT_DATE", Date.class, record.getPaymentDate()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("INV_DATE", Date.class, record.getInvDate()));
             parameters.add(new EJStatementParameter("INVOICE_ADDRESS", String.class, record.getInvoiceAddress()));
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
+            parameters.add(new EJStatementParameter("FOOTER", String.class, record.getFooter()));
             parameters.add(new EJStatementParameter("NR", String.class, record.getNr()));
             parameters.add(new EJStatementParameter("PAID", Integer.class, record.getPaid()));
             parameters.add(new EJStatementParameter("SENT", Integer.class, record.getSent()));

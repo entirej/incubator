@@ -149,11 +149,13 @@ public class F_TIME_ENTRY
         public static final String I_LOCALE_LANGUAGE = "localeLanguage";
         public static final String I_DUE_DATE        = "dueDate";
         public static final String I_CUST_NAME       = "custName";
-        public static final String I_CUST_TOWN       = "custTown";
-        public static final String I_CUST_COUNTRY    = "custCountry";
         public static final String I_INVOICE_IMAGE   = "invoiceImage";
         public static final String I_STATUS          = "status";
         public static final String I_UPDATE          = "update";
+        public static final String I_ACTION          = "action";
+        public static final String I_SENT_DATE       = "sentDate";
+        public static final String I_PAYMENT_DATE    = "paymentDate";
+        public static final String I_FOOTER          = "footer";
 
     }
 
@@ -197,6 +199,8 @@ public class F_TIME_ENTRY
         public static final String I_DATE_TO         = "dateTo";
         public static final String I_AMOUNT_FROM     = "amountFrom";
         public static final String I_AMOUNT_TO       = "amountTo";
+        public static final String I_SENT_DATE       = "sentDate";
+        public static final String I_PAYMENT_DATE    = "paymentDate";
 
     }
 
@@ -213,6 +217,22 @@ public class F_TIME_ENTRY
         public static final String ID              = "InvoiceHistoryOpenKey";
         public static final String I_INVOICE       = "invoice";
         public static final String I_INVOICE_LABEL = "invoiceLabel";
+
+    }
+
+    public static class B_SEND_INVOICE
+    {
+        public static final String ID          = "SendInvoice";
+        public static final String I_SEND_DATE = "sendDate";
+        public static final String I_NOTES     = "notes";
+
+    }
+
+    public static class B_PAY_INVOICE
+    {
+        public static final String ID             = "PayInvoice";
+        public static final String I_PAYMENT_DATE = "paymentDate";
+        public static final String I_NOTES        = "notes";
 
     }
 
@@ -387,6 +407,10 @@ public class F_TIME_ENTRY
     public static final String C_INVOICE_HISTORY_PAID            = "InvoiceHistoryPaid";
     public static final String C_INVOICE_HISTORY_KEY             = "InvoiceHistoryKey";
     public static final String C_COMPANY_FORM                    = "CompanyForm";
+    public static final String C_SEND_INVOICE_POPUP              = "SendInvoicePopup";
+    public static final String C_SEND_INVOICE                    = "SendInvoice";
+    public static final String C_PAY_INVOICE_POPUP               = "PayInvoicePopup";
+    public static final String C_PAY_INVOICE                     = "PayInvoice";
 
     public static final String AC_ADD_TIME_ENTRY                 = "ADD_TIME_ENTRY";
     public static final String AC_CREATE_NEW_CUSTOMER            = "CREATE_NEW_CUSTOMER";
@@ -394,6 +418,7 @@ public class F_TIME_ENTRY
     public static final String AC_DELETE_TIME_ENTRY              = "DELETE_TIME_ENTRY";
     public static final String AC_EDIT_CUSTOMER                  = "EDIT_CUSTOMER";
     public static final String AC_EDIT_TIME_ENTRY                = "EDIT_TIME_ENTRY";
+    public static final String AC_INVOICE_ACTION                 = "INVOICE_ACTION";
     public static final String AC_INVOICE_HISTORY_STATUS_CHANGED = "INVOICE_HISTORY_STATUS_CHANGED";
     public static final String AC_QUERY_CUSTOMERS                = "QUERY_CUSTOMERS";
     public static final String AC_REFRESH_PAID_INVOICES          = "REFRESH_PAID_INVOICES";

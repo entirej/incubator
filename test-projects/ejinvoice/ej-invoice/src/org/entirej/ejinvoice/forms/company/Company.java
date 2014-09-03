@@ -13,7 +13,7 @@ public class Company
     private EJPojoProperty<String>  _town;
     private EJPojoProperty<String>  _country;
     private EJPojoProperty<String>  _vatNr;
-    private EJPojoProperty<String>  _invoiceNotes;
+    private EJPojoProperty<String>  _invoiceFooter;
     private EJPojoProperty<String>  _invoiceSummary;
 
     @EJFieldName("POST_CODE")
@@ -52,22 +52,22 @@ public class Company
         return EJPojoProperty.getPropertyInitialValue(_address);
     }
 
-    @EJFieldName("INVOICE_NOTES")
-    public String getInvoiceNotes()
+    @EJFieldName("INVOICE_FOOTER")
+    public String getInvoiceFooter()
     {
-        return EJPojoProperty.getPropertyValue(_invoiceNotes);
+        return EJPojoProperty.getPropertyValue(_invoiceFooter);
     }
 
-    @EJFieldName("INVOICE_NOTES")
-    public void setInvoiceNotes(String invoiceNotes)
+    @EJFieldName("INVOICE_FOOTER")
+    public void setInvoiceFooter(String invoiceFooter)
     {
-        _invoiceNotes = EJPojoProperty.setPropertyValue(_invoiceNotes, invoiceNotes);
+        _invoiceFooter = EJPojoProperty.setPropertyValue(_invoiceFooter, invoiceFooter);
     }
 
-    @EJFieldName("INVOICE_NOTES")
-    public String getInitialInvoiceNotes()
+    @EJFieldName("INVOICE_FOOTER")
+    public String getInitialInvoiceFooter()
     {
-        return EJPojoProperty.getPropertyInitialValue(_invoiceNotes);
+        return EJPojoProperty.getPropertyInitialValue(_invoiceFooter);
     }
 
     @EJFieldName("INVOICE_SUMMARY")
@@ -201,7 +201,7 @@ public class Company
         EJPojoProperty.clearInitialValue(_postCode);
         EJPojoProperty.clearInitialValue(_address);
         EJPojoProperty.clearInitialValue(_invoiceSummary);
-        EJPojoProperty.clearInitialValue(_invoiceNotes);
+        EJPojoProperty.clearInitialValue(_invoiceFooter);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_town);

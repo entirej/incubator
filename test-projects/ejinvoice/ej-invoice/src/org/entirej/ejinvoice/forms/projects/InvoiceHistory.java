@@ -13,6 +13,7 @@ public class InvoiceHistory
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<String>     _localeCountry;
     private EJPojoProperty<String>     _summary;
+    private EJPojoProperty<String>     _footer;
     private EJPojoProperty<String>     _notes;
     private EJPojoProperty<BigDecimal> _amountExclVat;
     private EJPojoProperty<Date>       _invDate;
@@ -24,6 +25,8 @@ public class InvoiceHistory
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<String>     _localeLanguage;
     private EJPojoProperty<Date>       _dueDate;
+    private EJPojoProperty<Date>       _paymentDate;
+    private EJPojoProperty<Date>       _sentDate;
     private EJPojoProperty<String>     _status;
 
     @EJFieldName("VAT_AMOUNT")
@@ -132,6 +135,24 @@ public class InvoiceHistory
     public String getInitialSummary()
     {
         return EJPojoProperty.getPropertyInitialValue(_summary);
+    }
+
+    @EJFieldName("FOOTER")
+    public String getFooter()
+    {
+        return EJPojoProperty.getPropertyValue(_footer);
+    }
+
+    @EJFieldName("FOOTER")
+    public void setFooter(String footer)
+    {
+        _footer = EJPojoProperty.setPropertyValue(_footer, footer);
+    }
+
+    @EJFieldName("FOOTER")
+    public String getInitialFooter()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_footer);
     }
 
     @EJFieldName("NOTES")
@@ -278,8 +299,6 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_vatRate);
     }
 
-    
-
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -316,8 +335,6 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_localeLanguage);
     }
 
-   
-
     @EJFieldName("DUE_DATE")
     public Date getDueDate()
     {
@@ -336,9 +353,42 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_dueDate);
     }
 
-    
-    
-    
+    @EJFieldName("SENT_DATE")
+    public Date getSentDate()
+    {
+        return EJPojoProperty.getPropertyValue(_sentDate);
+    }
+
+    @EJFieldName("SENT_DATE")
+    public void setSentDate(Date sentDate)
+    {
+        _sentDate = EJPojoProperty.setPropertyValue(_sentDate, sentDate);
+    }
+
+    @EJFieldName("SENT_DATE")
+    public Date getInitialSentDate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_sentDate);
+    }
+
+    @EJFieldName("PAYMENT_DATE")
+    public Date getPaymentDate()
+    {
+        return EJPojoProperty.getPropertyValue(_paymentDate);
+    }
+
+    @EJFieldName("PAYMENT_DATE")
+    public void setPaymentDate(Date paymentDate)
+    {
+        _paymentDate = EJPojoProperty.setPropertyValue(_paymentDate, paymentDate);
+    }
+
+    @EJFieldName("PAYMENT_DATE")
+    public Date getInitialPaymentDate()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_paymentDate);
+    }
+
     @EJFieldName("STATUS")
     public String getStatus()
     {
@@ -356,7 +406,7 @@ public class InvoiceHistory
     {
         return EJPojoProperty.getPropertyInitialValue(_status);
     }
-    
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_vatAmount);
@@ -365,6 +415,7 @@ public class InvoiceHistory
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_localeCountry);
         EJPojoProperty.clearInitialValue(_summary);
+        EJPojoProperty.clearInitialValue(_footer);
         EJPojoProperty.clearInitialValue(_notes);
         EJPojoProperty.clearInitialValue(_amountExclVat);
         EJPojoProperty.clearInitialValue(_invDate);
@@ -376,6 +427,8 @@ public class InvoiceHistory
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_localeLanguage);
         EJPojoProperty.clearInitialValue(_dueDate);
+        EJPojoProperty.clearInitialValue(_sentDate);
+        EJPojoProperty.clearInitialValue(_paymentDate);
         EJPojoProperty.clearInitialValue(_status);
     }
 

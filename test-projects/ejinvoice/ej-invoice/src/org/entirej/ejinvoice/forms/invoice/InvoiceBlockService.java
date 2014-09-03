@@ -21,7 +21,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class InvoiceBlockService implements EJBlockService<Invoice>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT VAT_AMOUNT, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT, COMPANY_ID,CUST_ID,DUE_DATE,ID,INV_DATE,NR,PAID,SENT,VAT_RATE, INVOICE_ADDRESS, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM invoice";
+    private String                    _selectStatement = "SELECT SUMMARY, NOTES, FOOTER, VAT_AMOUNT, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT, COMPANY_ID,CUST_ID,DUE_DATE,ID,INV_DATE,NR,PAID,SENT,VAT_RATE, INVOICE_ADDRESS, LOCALE_COUNTRY, LOCALE_LANGUAGE FROM invoice";
 
     public InvoiceBlockService()
     {
@@ -72,6 +72,7 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
             parameters.add(new EJStatementParameter("SUMMARY", String.class, record.getSummary()));
+            parameters.add(new EJStatementParameter("FOOTER", String.class, record.getFooter()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
             
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -111,6 +112,7 @@ public class InvoiceBlockService implements EJBlockService<Invoice>
             parameters.add(new EJStatementParameter("LOCALE_COUNTRY", String.class, record.getLocaleCountry()));
             parameters.add(new EJStatementParameter("LOCALE_LANGUAGE", String.class, record.getLocaleLanguage()));
             parameters.add(new EJStatementParameter("SUMMARY", String.class, record.getSummary()));
+            parameters.add(new EJStatementParameter("FOOTER", String.class, record.getFooter()));
             parameters.add(new EJStatementParameter("NOTES", String.class, record.getNotes()));
 
 

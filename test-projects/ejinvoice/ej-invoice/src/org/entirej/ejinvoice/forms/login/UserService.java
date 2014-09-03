@@ -178,7 +178,7 @@ public class UserService
 
         parameters.clear();
         parameters.add(new EJStatementParameter("ADDRESS", String.class, company.getAddress()));
-        parameters.add(new EJStatementParameter("INVOICE_NOTES", String.class, company.getInvoiceNotes()));
+        parameters.add(new EJStatementParameter("INVOICE_FOOTER", String.class, company.getInvoiceFooter()));
         parameters.add(new EJStatementParameter("INVOICE_SUMMARY", String.class, company.getInvoiceSummary()));
         parameters.add(new EJStatementParameter("COUNTRY", String.class, company.getCountry()));
         parameters.add(new EJStatementParameter("ID", Integer.class, company.getId()));

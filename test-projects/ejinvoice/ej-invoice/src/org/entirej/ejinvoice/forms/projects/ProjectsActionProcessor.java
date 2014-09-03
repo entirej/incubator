@@ -18,6 +18,7 @@ import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJActionProcessorException;
+import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJManagedFrameworkConnection;
@@ -344,11 +345,10 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).setValue(customer.getVatRate());
 
             form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_SUMMARY).setValue(company.getInvoiceSummary());
-            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_NOTES).setValue(company.getInvoiceNotes());
+            form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_FOOTER).setValue(company.getInvoiceFooter());
 
             form.showPopupCanvas(F_PROJECTS.C_INVOICE_CREATION_POPUP);
         }
-
     }
 
     @Override
@@ -371,8 +371,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             new ProjectService().deleteMarkedForInvoicedPosition(question.getForm(), (MarkedForInvoiceProjectItem) question.getForm().getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getFocusedRecord().getBlockServicePojo());
             question.getForm().getBlock(F_PROJECTS.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
             question.getForm().getBlock(F_PROJECTS.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
-
-        }
+        }        
     }
 
     @Override
@@ -632,8 +631,30 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             String nr = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).getValue();
             BigDecimal vatRate = (BigDecimal) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_VAT_RATE).getValue();
             String invoiceSummary = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_SUMMARY).getValue();
+            String invoiceFooter = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_FOOTER).getValue();
             String invoiceNotes = (String) form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_NOTES).getValue();
 
+            if (nr == null)
+            {
+                form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_NR).gainFocus();
+                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter an Invoice Number"));
+            }
+            if (invDate == null)
+            {
+                form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INV_DATE).gainFocus();
+                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter an Invoice Date"));
+            }
+            if (dueDate == null)
+            {
+                form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_DUE_DATE).gainFocus();
+                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a Due Date"));
+            }
+            if (address == null)
+            {
+                form.getBlock(F_PROJECTS.B_INVOICE_CREATION.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_CREATION.I_INVOICE_ADDRESS).gainFocus();
+                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter an Address"));
+            }
+            
             Customer cust = new ProjectService().getCustomerInfo(form, customerId);
 
             invoice.setId(invId);
@@ -654,6 +675,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             invoice.setLocaleLanguage(cust.getLocaleLanguage());
             invoice.setLocale(new Builder().setLanguage(invoice.getLocaleLanguage()).setRegion(invoice.getLocaleCountry()).build());
             invoice.setSummary(invoiceSummary);
+            invoice.setFooter(invoiceFooter);
             invoice.setNotes(invoiceNotes);
 
             new ProjectService().createInvoice(form, invoice);

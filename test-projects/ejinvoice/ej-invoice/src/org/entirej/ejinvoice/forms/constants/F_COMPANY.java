@@ -29,8 +29,8 @@ public class F_COMPANY
         public static final String I_COUNTRY              = "country";
         public static final String I_LOGO                 = "logo";
         public static final String I_INVOICE_SUMMARY      = "invoiceSummary";
-        public static final String I_INVOICE_NOTES        = "invoiceNotes";
-        public static final String I_INVOICE_NOTES_INFO   = "invoiceNotesInfo";
+        public static final String I_INVOICE_FOOTER       = "invoiceFooter";
+        public static final String I_INVOICE_FOOTER_INFO  = "invoiceFooterInfo";
         public static final String I_INVOICE_SUMMARY_INFO = "invoiceSummaryInfo";
 
     }

@@ -13,11 +13,14 @@ import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
+import org.entirej.ejinvoice.forms.projects.InvoiceHistory;
+import org.entirej.ejinvoice.forms.projects.InvoiceHistoryBlockService;
 import org.entirej.ejinvoice.forms.projects.ProjectService;
 import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -30,6 +33,7 @@ import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.data.controllers.EJFormParameter;
 import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
+import org.entirej.framework.core.enumerations.EJPopupButton;
 import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
@@ -58,6 +62,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
         form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS).setValue(getDiffMinutesString(timestamp.getTime(), timestamp.getTime()));
 
+        User user = (User)form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
+        
+//        if (user.getRole().equals(UserRole.CONTROLLER.toString()))
+//        {
+//            form.
+//        }
+//        
+        
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
     }
@@ -262,6 +274,22 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         else if (F_TIME_ENTRY.AC_UPDATE_INVOICE.equals(command))
         {
             form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).enterUpdate();
+        }
+        else if (F_TIME_ENTRY.AC_INVOICE_ACTION.equals(command))
+        {
+            if (((String)record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ACTION)).equalsIgnoreCase("Mark as Sent"))
+            {
+                form.getBlock(F_TIME_ENTRY.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_SEND_INVOICE.I_SEND_DATE).setValue(new Date(System.currentTimeMillis()));
+                form.getBlock(F_TIME_ENTRY.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_SEND_INVOICE.I_NOTES).setValue(record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NOTES));
+                form.showPopupCanvas(F_TIME_ENTRY.C_SEND_INVOICE_POPUP);
+            }
+            else if (((String)record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ACTION)).equalsIgnoreCase("Record Payment"))
+            {
+                form.getBlock(F_TIME_ENTRY.B_PAY_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_PAY_INVOICE.I_PAYMENT_DATE).setValue(new Date(System.currentTimeMillis()));
+                form.getBlock(F_TIME_ENTRY.B_PAY_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_PAY_INVOICE.I_NOTES).setValue(record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NOTES));
+                form.showPopupCanvas(F_TIME_ENTRY.C_PAY_INVOICE_POPUP);
+            }
+
         }
     }
 
@@ -471,6 +499,18 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             {
                 record.getItem(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOICE_STATUS_PAID);
             }
+            
+            if (F_TIME_ENTRY.B_INVOICE_HISTORY.ID.equals(record.getBlockName()))
+            {
+                if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).equals("DRAFT"))
+                {
+                    record.getItem(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ACTION).setValue("Mark as sent");
+                }
+                else if (record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_STATUS).equals("SENT"))
+                {
+                    record.getItem(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ACTION).setValue("Record Payment");
+                }
+            }
         }
     }
 
@@ -494,30 +534,78 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 Integer sent = (Integer) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_SENT);
                 if (sent == 0)
                 {
-                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SENT).setEditable(true);
-                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_PAID).setEditable(false);
-
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INV_DATE).setEditable(true);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_DUE_DATE).setEditable(true);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR).setEditable(true);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INVOICE_ADDRESS).setEditable(true);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SUMMARY).setEditable(true);
-                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NOTES).setEditable(true);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_FOOTER).setEditable(true);
                 }
                 else
                 {
-                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SENT).setEditable(false);
-                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_PAID).setEditable(true);
-
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INV_DATE).setDisplayProperty("DISPLAY_VALUE_AS_LABEL", "true");
+                    
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INV_DATE).setEditable(false);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_DUE_DATE).setEditable(false);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR).setEditable(false);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_INVOICE_ADDRESS).setEditable(false);
                     block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_SUMMARY).setEditable(false);
-                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_NOTES).setEditable(false);
+                    block.getScreenItem(EJScreenType.UPDATE, F_TIME_ENTRY.B_INVOICE_HISTORY.I_FOOTER).setEditable(false);
                 }
             }
         }
     }
+
+    @Override
+    public void popupCanvasClosing(EJForm form, String popupCanvasName, EJPopupButton button) throws EJActionProcessorException
+    {
+        if (F_TIME_ENTRY.C_SEND_INVOICE_POPUP.equals(popupCanvasName) && button.equals(EJPopupButton.ONE))
+        {
+            Date sendDate = (Date)form.getBlock(F_TIME_ENTRY.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_SEND_INVOICE.I_SEND_DATE).getValue();
+            String notes = (String)form.getBlock(F_TIME_ENTRY.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_SEND_INVOICE.I_NOTES).getValue();
+            
+            if (sendDate == null)
+            {
+                throw new EJActionProcessorException(new EJMessage(EJMessageLevel.ERROR, "Please enter the date when the invoice was sent"));
+            }
+            
+            InvoiceHistory invPos = (InvoiceHistory)form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).getFocusedRecord().getBlockServicePojo();
+            invPos.setSentDate(sendDate);
+            invPos.setNotes(notes);
+            invPos.setSent(1);
+            
+            ArrayList<InvoiceHistory> pojos = new ArrayList<InvoiceHistory>();
+            pojos.add(invPos);
+            
+            new InvoiceHistoryBlockService().executeUpdate(form, pojos);
+            
+            form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
+        }
+        else if (F_TIME_ENTRY.C_PAY_INVOICE_POPUP.equals(popupCanvasName) && button.equals(EJPopupButton.ONE))
+        {
+            Date payDate = (Date)form.getBlock(F_TIME_ENTRY.B_PAY_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_PAY_INVOICE.I_PAYMENT_DATE).getValue();
+            String notes = (String)form.getBlock(F_TIME_ENTRY.B_PAY_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_PAY_INVOICE.I_NOTES).getValue();
+            
+            if (payDate == null)
+            {
+                throw new EJActionProcessorException(new EJMessage(EJMessageLevel.ERROR, "Please enter the date when the invoice was paid"));
+            }
+            
+            InvoiceHistory invPos = (InvoiceHistory)form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).getFocusedRecord().getBlockServicePojo();
+            invPos.setPaymentDate(payDate);
+            invPos.setNotes(notes);
+            invPos.setPaid(1);
+            
+            ArrayList<InvoiceHistory> pojos = new ArrayList<InvoiceHistory>();
+            pojos.add(invPos);
+            
+            new InvoiceHistoryBlockService().executeUpdate(form, pojos);
+            
+            form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
+        }
+
+    }
+    
+    
 
 }

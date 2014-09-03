@@ -35,7 +35,7 @@ public class ProjectService
     {
         Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
         
-        String selectStatement = "SELECT ADDRESS,COUNTRY,ID,LOGO,NAME,POST_CODE,TOWN, VAT_NR, INVOICE_NOTES, INVOICE_SUMMARY FROM company_information";
+        String selectStatement = "SELECT ADDRESS,COUNTRY,ID,LOGO,NAME,POST_CODE,TOWN, VAT_NR, INVOICE_FOOTER, INVOICE_SUMMARY FROM company_information";
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         List<Company> companies = new EJStatementExecutor().executeQuery(Company.class, form, selectStatement, criteria);

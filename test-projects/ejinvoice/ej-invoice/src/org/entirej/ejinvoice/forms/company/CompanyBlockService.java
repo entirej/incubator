@@ -15,7 +15,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CompanyBlockService implements EJBlockService<Company>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT ADDRESS,COUNTRY,ID,LOGO,NAME,POST_CODE,TOWN, VAT_NR, INVOICE_NOTES, INVOICE_SUMMARY FROM company_information";
+    private String                    _selectStatement = "SELECT ADDRESS,COUNTRY,ID,LOGO,NAME,POST_CODE,TOWN, VAT_NR, INVOICE_FOOTER, INVOICE_SUMMARY FROM company_information";
 
     public CompanyBlockService()
     {
@@ -48,7 +48,7 @@ public class CompanyBlockService implements EJBlockService<Company>
             // Initialise the value list
             parameters.clear();
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
-            parameters.add(new EJStatementParameter("INVOICE_NOTES", String.class, record.getInvoiceNotes()));
+            parameters.add(new EJStatementParameter("INVOICE_FOOTER", String.class, record.getInvoiceFooter()));
             parameters.add(new EJStatementParameter("INVOICE_SUMMARY", String.class, record.getInvoiceSummary()));
             parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
@@ -80,7 +80,7 @@ public class CompanyBlockService implements EJBlockService<Company>
             // First add the new values
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("INVOICE_SUMMARY", String.class, record.getInvoiceSummary()));
-            parameters.add(new EJStatementParameter("INVOICE_NOTES", String.class, record.getInvoiceNotes()));
+            parameters.add(new EJStatementParameter("INVOICE_NOTES", String.class, record.getInvoiceFooter()));
             parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("LOGO", Object.class, record.getLogo()));
@@ -106,13 +106,13 @@ public class CompanyBlockService implements EJBlockService<Company>
             {
                 criteria.add(EJRestrictions.equals("INVOICE_SUMMARY", record.getInitialInvoiceSummary()));
             }
-            if (record.getInitialInvoiceNotes() == null)
+            if (record.getInitialInvoiceFooter() == null)
             {
-                criteria.add(EJRestrictions.isNull("INVOICE_NOTES"));
+                criteria.add(EJRestrictions.isNull("INVOICE_FOOTER"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("INVOICE_NOTES", record.getInitialInvoiceNotes()));
+                criteria.add(EJRestrictions.equals("INVOICE_FOOTER", record.getInitialInvoiceFooter()));
             }
             if (record.getInitialCountry() == null)
             {
@@ -208,13 +208,13 @@ public class CompanyBlockService implements EJBlockService<Company>
             {
                 criteria.add(EJRestrictions.equals("INVOICE_SUMMARY", record.getInitialInvoiceSummary()));
             }
-            if (record.getInitialInvoiceNotes() == null)
+            if (record.getInitialInvoiceFooter() == null)
             {
-                criteria.add(EJRestrictions.isNull("INVOICE_NOTES"));
+                criteria.add(EJRestrictions.isNull("INVOICE_FOOTER"));
             }
             else
             {
-                criteria.add(EJRestrictions.equals("INVOICE_NOTES", record.getInitialInvoiceNotes()));
+                criteria.add(EJRestrictions.equals("INVOICE_FOOTER", record.getInitialInvoiceFooter()));
             }
             if (record.getInitialCountry() == null)
             {

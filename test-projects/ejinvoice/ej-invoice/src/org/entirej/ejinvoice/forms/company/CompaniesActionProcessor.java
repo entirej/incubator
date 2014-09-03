@@ -81,7 +81,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         {
             record.setValue(F_COMPANY.B_USERS.I_ROLE_DISPLAY, record.getValue(F_COMPANY.B_USERS.I_ROLE));
 
-            if (record.getValue(F_COMPANY.B_USERS.I_ROLE).equals(UserRole.OWNER))
+            if (record.getValue(F_COMPANY.B_USERS.I_ROLE).equals(UserRole.OWNER.toString()))
             {
                 // Cannot delete the owner
                 record.setValue(F_COMPANY.B_USERS.I_EDIT, "/icons/edit10.gif");
