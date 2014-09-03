@@ -40,4 +40,17 @@ public class ApplicationLauncher extends EJRWTApplicationLauncher
 
         return "org/entirej/ejinvoice/theme/ejinvoice.css";
     }
+    
+    @Override
+    protected String getFavicon()
+    {
+        return "icons/bizibo-icon-16.ico";
+    }
+    
+    protected String getLoadingMessage()
+    {
+        return "BiziBo Loading...";
+    }
+    
+   
 }
