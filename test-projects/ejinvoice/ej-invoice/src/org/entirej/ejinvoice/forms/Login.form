@@ -156,6 +156,7 @@
                         <itemRendererProperties>
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
                             <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
@@ -171,6 +172,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -203,6 +205,7 @@
                         <itemRendererProperties>
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
                             <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
@@ -219,6 +222,7 @@
                         <itemRendererProperties>
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
                             <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
@@ -234,6 +238,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -268,6 +273,7 @@
                             <verticalAlignment><![CDATA[CENTER]]></verticalAlignment>
                             <horizontalAlignment><![CDATA[CENTER]]></horizontalAlignment>
                             <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"><![CDATA[login]]></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <propertyList name="TITLE_BAR_ACTIONS">
@@ -763,6 +769,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -779,6 +786,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[Left]]></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
@@ -794,6 +802,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -810,6 +819,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -826,6 +836,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -842,6 +853,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -858,6 +870,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -874,6 +887,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -890,6 +904,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -906,6 +921,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -922,6 +938,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
@@ -939,6 +956,7 @@
                         <itemRendererProperties>
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
                             <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
@@ -955,6 +973,7 @@
                         <itemRendererProperties>
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
                             <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
@@ -970,6 +989,7 @@
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[Left]]></property>
                             <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                             <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
@@ -986,6 +1006,7 @@
                         <itemRendererProperties>
                             <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                             <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                             <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
                             <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
@@ -1019,6 +1040,7 @@
                             <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
                             <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                             <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <propertyList name="TITLE_BAR_ACTIONS">
@@ -1066,6 +1088,7 @@
                             <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
                             <horizontalAlignment><![CDATA[CENTER]]></horizontalAlignment>
                             <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <propertyList name="TITLE_BAR_ACTIONS">
@@ -1281,6 +1304,7 @@
                             <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
                             <horizontalAlignment><![CDATA[CENTER]]></horizontalAlignment>
                             <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <propertyList name="TITLE_BAR_ACTIONS">
@@ -1544,6 +1568,7 @@
                             <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
                             <horizontalAlignment><![CDATA[CENTER]]></horizontalAlignment>
                             <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
                                 <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                 <propertyList name="TITLE_BAR_ACTIONS">
