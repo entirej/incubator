@@ -149,8 +149,11 @@ public class F_TIME_ENTRY
         public static final String I_LOCALE_LANGUAGE = "localeLanguage";
         public static final String I_DUE_DATE        = "dueDate";
         public static final String I_CUST_NAME       = "custName";
+        public static final String I_CUST_TOWN       = "custTown";
+        public static final String I_CUST_COUNTRY    = "custCountry";
         public static final String I_INVOICE_IMAGE   = "invoiceImage";
         public static final String I_STATUS          = "status";
+        public static final String I_UPDATE          = "update";
 
     }
 
@@ -347,8 +350,8 @@ public class F_TIME_ENTRY
         public static final String TIME__ENTRY     = "Time Entry";
         public static final String PROJECTS        = "Projects";
         public static final String CUSTOMERS       = "Customers";
-        public static final String COMPANY         = "Company";
         public static final String INVOICE_HISTORY = "InvoiceHistory";
+        public static final String COMPANY         = "Company";
 
     }
 
@@ -368,7 +371,6 @@ public class F_TIME_ENTRY
     public static final String C_CUSTOMER              = "Customer";
     public static final String C_CUSTOMERS_KEY         = "CustomersKey";
     public static final String C_CUSTOMER_DETAILS_FORM = "CustomerDetailsForm";
-    public static final String C_COMPANY_FORM          = "CompanyForm";
     public static final String C_INVOICE_HISTORY_TAB   = "InvoiceHistoryTab";
 
     public static class C_INVOICE_HISTORY_TAB_PAGES
@@ -384,6 +386,7 @@ public class F_TIME_ENTRY
     public static final String C_INVOICE_HISTORY_PAID_FILTER     = "InvoiceHistoryPaidFilter";
     public static final String C_INVOICE_HISTORY_PAID            = "InvoiceHistoryPaid";
     public static final String C_INVOICE_HISTORY_KEY             = "InvoiceHistoryKey";
+    public static final String C_COMPANY_FORM                    = "CompanyForm";
 
     public static final String AC_ADD_TIME_ENTRY                 = "ADD_TIME_ENTRY";
     public static final String AC_CREATE_NEW_CUSTOMER            = "CREATE_NEW_CUSTOMER";
@@ -396,5 +399,6 @@ public class F_TIME_ENTRY
     public static final String AC_REFRESH_PAID_INVOICES          = "REFRESH_PAID_INVOICES";
     public static final String AC_SHOW_CUSTOMER_DETAILS          = "SHOW_CUSTOMER_DETAILS";
     public static final String AC_SHOW_INVOICE                   = "SHOW_INVOICE";
+    public static final String AC_UPDATE_INVOICE                 = "UPDATE_INVOICE";
 
 }

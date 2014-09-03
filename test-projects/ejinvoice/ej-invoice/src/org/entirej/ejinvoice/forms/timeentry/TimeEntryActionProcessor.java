@@ -254,6 +254,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY_PAID.ID).executeQuery();
         }
+        else if (F_TIME_ENTRY.AC_UPDATE_INVOICE.equals(command))
+        {
+            form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).enterUpdate();
+        }
     }
 
     @Override
