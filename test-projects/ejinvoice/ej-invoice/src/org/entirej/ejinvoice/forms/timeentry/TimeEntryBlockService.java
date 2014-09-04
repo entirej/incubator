@@ -37,6 +37,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
     public static int getCurrentWeek()
     {
         Calendar c = Calendar.getInstance();
+        c.setFirstDayOfWeek(Calendar.MONDAY);
         c.setTime(new java.util.Date());
 
         return c.get(Calendar.WEEK_OF_YEAR);
@@ -45,6 +46,7 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
     public static int getWeek(Date date)
     {
         Calendar c = Calendar.getInstance();
+        c.setFirstDayOfWeek(Calendar.MONDAY);
         c.setTime(new java.util.Date(date.getTime()));
 
         return c.get(Calendar.WEEK_OF_YEAR);
@@ -55,13 +57,13 @@ public class TimeEntryBlockService implements EJBlockService<TimeEntry>
 
         Calendar c = Calendar.getInstance();
         c.setTime(new java.util.Date());
-        c.set(Calendar.WEEK_OF_YEAR, week);
-        int dayOfWeek = c.get(Calendar.DAY_OF_WEEK) - c.getFirstDayOfWeek();
-        c.add(Calendar.DAY_OF_MONTH, -dayOfWeek);
+      c.setFirstDayOfWeek(Calendar.MONDAY);
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
+        c.set(Calendar.WEEK_OF_YEAR, week);
+        c.set(Calendar.DAY_OF_WEEK, c.getFirstDayOfWeek());
         java.util.Date weekStart = c.getTime();
 
         // we do not need the same day a week after, that's why use 6, not 7

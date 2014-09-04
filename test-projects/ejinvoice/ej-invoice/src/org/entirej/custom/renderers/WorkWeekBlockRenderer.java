@@ -298,6 +298,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
         }
         else
         {
+            weekCalendar.setFirstDayOfWeek(Calendar.MONDAY);
             EJDataRecord record = _block.getRecord(0);
             if (record != null && record.getServicePojo() instanceof TimeEntry)
             {
@@ -922,7 +923,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
 
     private void initActiveWeek()
     {
-
+        weekCalendar.setFirstDayOfWeek(Calendar.MONDAY);
         weekCalendar.setTime(new Date());
         setActiveWeek(weekCalendar.get(Calendar.WEEK_OF_YEAR));
     }
@@ -966,7 +967,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
             if (servicePojo instanceof TimeEntry)
             {
                 TimeEntry entry = (TimeEntry) servicePojo;
-
+                weekCalendar.setFirstDayOfWeek(Calendar.MONDAY);
                 weekCalendar.setTime(entry.getWorkDate());
                 int dateWeek = weekCalendar.get(Calendar.WEEK_OF_YEAR);
                 if (dateWeek == activeWeek)
@@ -976,6 +977,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                         long start = entry.getStartTime().getTime();
                         long end = entry.getEndTime().getTime();
                         Calendar instance = Calendar.getInstance();
+                        instance.setFirstDayOfWeek(Calendar.MONDAY);
                         instance.setTimeInMillis(start);
                         instance.set(Calendar.SECOND, 0);
                         instance.set(Calendar.MILLISECOND, 0);
@@ -1005,6 +1007,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
     public static int getCurrentWeek()
     {
         Calendar c = Calendar.getInstance();
+        c.setFirstDayOfWeek(Calendar.MONDAY);
         c.setTime(new java.util.Date());
         
         return c.get(Calendar.WEEK_OF_YEAR);
@@ -1126,7 +1129,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
     Map<Integer, List<EJDataRecord>> getGrouped(Collection<EJDataRecord> records)
     {
         Map<Integer, List<EJDataRecord>> grouped = new HashMap<Integer, List<EJDataRecord>>();
-
+        weekCalendar.setFirstDayOfWeek(Calendar.MONDAY);
         for (EJDataRecord ejDataRecord : records)
         {
             Object servicePojo = ejDataRecord.getServicePojo();
@@ -1215,7 +1218,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                         evenVA = valueVA;
                     }
 
-                    int[] WEEK_DAYS = new int[] { Calendar.SATURDAY, Calendar.FRIDAY, Calendar.THURSDAY, Calendar.WEDNESDAY, Calendar.TUESDAY, Calendar.MONDAY, Calendar.SUNDAY };
+                    int[] WEEK_DAYS = new int[] {     Calendar.MONDAY,Calendar.TUESDAY,Calendar.WEDNESDAY,Calendar.THURSDAY, Calendar.FRIDAY, Calendar.SATURDAY,Calendar.SUNDAY };
 
                     Map<Integer, List<EJDataRecord>> grouped = getGrouped(_block.getRecords());
                     int rowid = 0;
@@ -1465,6 +1468,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                 break;
         }
 
+        weekCalendar.setFirstDayOfWeek(Calendar.MONDAY);
         weekCalendar.set(Calendar.WEEK_OF_YEAR, activeWeek);
         weekCalendar.set(Calendar.DAY_OF_WEEK, DAY);
         Date time = weekCalendar.getTime();
