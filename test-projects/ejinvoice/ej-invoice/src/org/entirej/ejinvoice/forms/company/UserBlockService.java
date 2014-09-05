@@ -105,7 +105,7 @@ public class UserBlockService implements EJBlockService<User>
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
             
-            if (!record.getInitialRole().equals(UserRole.OWNER))
+            if (!record.getInitialRole().equals(UserRole.OWNER.toString()))
             {
                 parameters.add(new EJStatementParameter("ROLE", String.class, record.getRole()));
             }

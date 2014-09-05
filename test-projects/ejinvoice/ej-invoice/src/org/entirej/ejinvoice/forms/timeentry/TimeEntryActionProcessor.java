@@ -13,6 +13,7 @@ import org.entirej.custom.renderers.WorkWeekBlockRenderer;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
@@ -64,11 +65,16 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
         User user = (User)form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
         
-//        if (user.getRole().equals(UserRole.CONTROLLER.toString()))
-//        {
-//            form.
-//        }
-//        
+        if (user.getRole().equals(UserRole.CONTROLLER.toString()))
+        {
+            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_HISTORY, false);
+            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.COMPANY, false);
+            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS, false);
+        }
+        else if (user.getRole().equals(UserRole.EMPLOYEE.toString()))
+        {
+            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS, false);
+        }
         
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
