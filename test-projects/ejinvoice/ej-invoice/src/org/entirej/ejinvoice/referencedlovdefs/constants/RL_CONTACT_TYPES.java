@@ -6,18 +6,16 @@ package org.entirej.ejinvoice.referencedlovdefs.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class RL_CONTACT_TYPES
-{
-    public static final String ID = "ContactTypes";
+public class RL_CONTACT_TYPES {
+	public static final String ID = "ContactTypes";
 
-    public static class L_CONTACT_TYPES
-    {
-        public static final String ID            = "ContactTypes";
-        public static final String I_TYPE        = "type";
-        public static final String I_ID          = "id";
-        public static final String I_DESCRIPTION = "description";
-        public static final String I_COMPANY_ID  = "companyId";
+	public static class L_CONTACT_TYPES {
+		public static final String ID = "ContactTypes";
+		public static final String I_TYPE = "type";
+		public static final String I_ID = "id";
+		public static final String I_DESCRIPTION = "description";
+		public static final String I_COMPANY_ID = "companyId";
 
-    }
+	}
 
 }

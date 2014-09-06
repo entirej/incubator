@@ -6,35 +6,32 @@ package org.entirej.ejinvoice.forms.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class F_MASTER_DATA_VAT_RATES
-{
-    public static final String ID = "MasterDataVatRates";
+public class F_MASTER_DATA_VAT_RATES {
+	public static final String ID = "MasterDataVatRates";
 
-    public static class B_VAT_RATES_TOOLBAR
-    {
-        public static final String ID                 = "VatRatesToolbar";
-        public static final String I_ADD_NEW_VAT_RATE = "addNewVatRate";
+	public static class B_VAT_RATES_TOOLBAR {
+		public static final String ID = "VatRatesToolbar";
+		public static final String I_ADD_NEW_VAT_RATE = "addNewVatRate";
 
-    }
+	}
 
-    public static class B_VAT_RATES
-    {
-        public static final String ID           = "VatRates";
-        public static final String I_NOTES      = "notes";
-        public static final String I_RATE       = "rate";
-        public static final String I_NAME       = "name";
-        public static final String I_ID         = "id";
-        public static final String I_COMPANY_ID = "companyId";
-        public static final String I_DELETE     = "delete";
-        public static final String I_EDIT       = "edit";
+	public static class B_VAT_RATES {
+		public static final String ID = "VatRates";
+		public static final String I_NOTES = "notes";
+		public static final String I_RATE = "rate";
+		public static final String I_NAME = "name";
+		public static final String I_ID = "id";
+		public static final String I_COMPANY_ID = "companyId";
+		public static final String I_DELETE = "delete";
+		public static final String I_EDIT = "edit";
 
-    }
+	}
 
-    public static final String C_VAT_RATES_TOOLBAR = "VatRatesToolbar";
-    public static final String C_VAT_RATES         = "VatRates";
+	public static final String C_VAT_RATES_TOOLBAR = "VatRatesToolbar";
+	public static final String C_VAT_RATES = "VatRates";
 
-    public static final String AC_CREATE_VAT_RATE  = "CREATE_VAT_RATE";
-    public static final String AC_DELETE_VAT_RATE  = "DELETE_VAT_RATE";
-    public static final String AC_MODIFY_VAT_RATE  = "MODIFY_VAT_RATE";
+	public static final String AC_CREATE_VAT_RATE = "CREATE_VAT_RATE";
+	public static final String AC_DELETE_VAT_RATE = "DELETE_VAT_RATE";
+	public static final String AC_MODIFY_VAT_RATE = "MODIFY_VAT_RATE";
 
 }

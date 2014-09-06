@@ -6,67 +6,62 @@ package org.entirej.ejinvoice.forms.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class F_LOGIN
-{
-    public static final String ID = "Login";
+public class F_LOGIN {
+	public static final String ID = "Login";
 
-    public static class B_LOGON
-    {
-        public static final String ID            = "logon";
-        public static final String I_LOGIN_LABEL = "loginLabel";
-        public static final String I_PASSWORD    = "password";
-        public static final String I_LOGIN       = "login";
-        public static final String I_SIGNUP      = "signup";
-        public static final String I_FORGOT      = "forgot";
-        public static final String I_EMAIL       = "email";
-        public static final String I_BIZIBO_LOGO = "biziboLogo";
+	public static class B_LOGON {
+		public static final String ID = "logon";
+		public static final String I_LOGIN_LABEL = "loginLabel";
+		public static final String I_PASSWORD = "password";
+		public static final String I_LOGIN = "login";
+		public static final String I_SIGNUP = "signup";
+		public static final String I_FORGOT = "forgot";
+		public static final String I_EMAIL = "email";
+		public static final String I_BIZIBO_LOGO = "biziboLogo";
 
-    }
+	}
 
-    public static class B_FORGOT
-    {
-        public static final String ID = "forgot";
+	public static class B_FORGOT {
+		public static final String ID = "forgot";
 
-    }
+	}
 
-    public static class B_COMPANY
-    {
-        public static final String ID                      = "company";
-        public static final String I_NAME                  = "name";
-        public static final String I_ADDRESS               = "address";
-        public static final String I_POST_CODE             = "postCode";
-        public static final String I_TOWN                  = "town";
-        public static final String I_COUNTRY               = "country";
-        public static final String I_FIRST_NAME            = "firstName";
-        public static final String I_LAST_NAME             = "lastName";
-        public static final String I_EMAIL_ADDRESS         = "emailAddress";
-        public static final String I_EMAIL_ADDRESS_CONFIRM = "emailAddressConfirm";
-        public static final String I_PASSWORD              = "password";
-        public static final String I_PASSWORD_CONFIRM      = "passwordConfirm";
-        public static final String I_REGISTER              = "register";
-        public static final String I_CANCEL                = "cancel";
-        public static final String I_ADMIN_INFORMATION     = "adminInformation";
-        public static final String I_REGISTER_LABEL        = "registerLabel";
+	public static class B_COMPANY {
+		public static final String ID = "company";
+		public static final String I_NAME = "name";
+		public static final String I_ADDRESS = "address";
+		public static final String I_POST_CODE = "postCode";
+		public static final String I_TOWN = "town";
+		public static final String I_COUNTRY = "country";
+		public static final String I_FIRST_NAME = "firstName";
+		public static final String I_LAST_NAME = "lastName";
+		public static final String I_EMAIL_ADDRESS = "emailAddress";
+		public static final String I_EMAIL_ADDRESS_CONFIRM = "emailAddressConfirm";
+		public static final String I_PASSWORD = "password";
+		public static final String I_PASSWORD_CONFIRM = "passwordConfirm";
+		public static final String I_REGISTER = "register";
+		public static final String I_CANCEL = "cancel";
+		public static final String I_ADMIN_INFORMATION = "adminInformation";
+		public static final String I_REGISTER_LABEL = "registerLabel";
 
-    }
+	}
 
-    public static final String C_STACKED = "stacked";
+	public static final String C_STACKED = "stacked";
 
-    public static class C_STACKED_PAGES
-    {
-        public static final String LOGON    = "logon";
-        public static final String REGISTER = "register";
-        public static final String FORGOT   = "forgot";
+	public static class C_STACKED_PAGES {
+		public static final String LOGON = "logon";
+		public static final String REGISTER = "register";
+		public static final String FORGOT = "forgot";
 
-    }
+	}
 
-    public static final String C_LOGON                = "logon";
-    public static final String C_COMPANY              = "company";
-    public static final String C_FORGOT               = "forgot";
+	public static final String C_LOGON = "logon";
+	public static final String C_COMPANY = "company";
+	public static final String C_FORGOT = "forgot";
 
-    public static final String AC_CANCEL_REGISTRATION = "CANCEL_REGISTRATION";
-    public static final String AC_LOGON               = "LOGON";
-    public static final String AC_REGISTER            = "REGISTER";
-    public static final String AC_SIGNUP              = "SIGNUP";
+	public static final String AC_CANCEL_REGISTRATION = "CANCEL_REGISTRATION";
+	public static final String AC_LOGON = "LOGON";
+	public static final String AC_REGISTER = "REGISTER";
+	public static final String AC_SIGNUP = "SIGNUP";
 
 }

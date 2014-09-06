@@ -20,6 +20,7 @@ import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY_OVERVIEW;
 import org.entirej.ejinvoice.forms.projects.InvoiceHistory;
 import org.entirej.ejinvoice.forms.projects.InvoiceHistoryBlockService;
 import org.entirej.ejinvoice.forms.projects.ProjectService;
@@ -78,6 +79,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
+        form.openEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM, null);
     }
 
     @Override
@@ -445,6 +447,12 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             else if (F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_HISTORY.equals(tabPageName))
             {
                 form.getBlock(F_TIME_ENTRY.B_INVOICE_HISTORY.ID).executeQuery();
+            }
+            else if (F_TIME_ENTRY.C_MAIN_PAGES.TIME_ENTRY_OVERVIEW.equals(tabPageName))
+            {
+                EJForm timeEntryOverview = form.getEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM);
+                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.ID).executeQuery();
+                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_OVERVIEW.ID).executeQuery();
             }
         }
     }
