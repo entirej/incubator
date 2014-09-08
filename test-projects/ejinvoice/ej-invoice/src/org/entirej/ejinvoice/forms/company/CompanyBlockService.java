@@ -80,7 +80,7 @@ public class CompanyBlockService implements EJBlockService<Company>
             // First add the new values
             parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("INVOICE_SUMMARY", String.class, record.getInvoiceSummary()));
-            parameters.add(new EJStatementParameter("INVOICE_NOTES", String.class, record.getInvoiceFooter()));
+            parameters.add(new EJStatementParameter("INVOICE_FOOTER", String.class, record.getInvoiceFooter()));
             parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("LOGO", Object.class, record.getLogo()));
