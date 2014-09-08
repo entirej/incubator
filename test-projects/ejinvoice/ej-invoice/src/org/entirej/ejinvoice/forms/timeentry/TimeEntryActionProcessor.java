@@ -17,12 +17,14 @@ import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_CREATION;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY_OVERVIEW;
 import org.entirej.ejinvoice.forms.projects.InvoiceHistory;
 import org.entirej.ejinvoice.forms.projects.InvoiceHistoryBlockService;
+import org.entirej.ejinvoice.forms.projects.InvoiceService;
 import org.entirej.ejinvoice.forms.projects.ProjectService;
 import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -77,6 +79,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS, false);
         }
         
+        form.openEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_INVOICE_CREATION_FORM, null);
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
         form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
         form.openEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM, null);
@@ -269,7 +272,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_SHOW_INVOICE.equals(command))
         {
-            InvoiceReport.downloadReport(new ProjectService().getInvoicPDF(form, (int) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID)), record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR) + ".pdf");
+            InvoiceReport.downloadReport(new InvoiceService().getInvoicPDF(form, (int) record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_ID)), record.getValue(F_TIME_ENTRY.B_INVOICE_HISTORY.I_NR) + ".pdf");
         }
         else if (F_TIME_ENTRY.AC_INVOICE_HISTORY_STATUS_CHANGED.equals(command))
         {
@@ -410,7 +413,7 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             invoiceUpdated = false;
             if (updatedInvoiceId != null)
             {
-                new ProjectService().updateInvoicPDF(form, updatedInvoiceId, InvoiceReport.generateInvoicePDF(form.getConnection(), updatedInvoiceId, updatedInvoiceLocale));
+                new InvoiceService().updateInvoicPDF(form, updatedInvoiceId, InvoiceReport.generateInvoicePDF(form.getConnection(), updatedInvoiceId, updatedInvoiceLocale));
                 updatedInvoiceId = null;
                 updatedInvoiceLocale = null;
             }

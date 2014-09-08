@@ -23,6 +23,7 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class Customer
 {
+    private EJPojoProperty<Integer> _itemsToInvoice;
     private EJPojoProperty<Integer> _companyId;
     private EJPojoProperty<Integer> _id;
     private EJPojoProperty<String>  _address;
@@ -30,6 +31,24 @@ public class Customer
     private EJPojoProperty<String>  _postCode;
     private EJPojoProperty<String>  _town;
     private EJPojoProperty<String>  _country;
+
+    @EJFieldName("ITEMS_TO_INVOICE")
+    public Integer getItemsToInvoice()
+    {
+        return EJPojoProperty.getPropertyValue(_itemsToInvoice);
+    }
+
+    @EJFieldName("ITEMS_TO_INVOICE")
+    public void setItemsToInvoice(Integer itemsToInvoice)
+    {
+        _itemsToInvoice = EJPojoProperty.setPropertyValue(_itemsToInvoice, itemsToInvoice);
+    }
+
+    @EJFieldName("ITEMS_TO_INVOICE")
+    public Integer getInitialItemsToInvoice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_itemsToInvoice);
+    }
 
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
@@ -48,8 +67,7 @@ public class Customer
     {
         return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
-    
-    
+
     @EJFieldName("ID")
     public Integer getId()
     {
@@ -139,7 +157,7 @@ public class Customer
     {
         return EJPojoProperty.getPropertyInitialValue(_town);
     }
-    
+
     @EJFieldName("COUNTRY")
     public String getCountry()
     {
@@ -167,6 +185,7 @@ public class Customer
         EJPojoProperty.clearInitialValue(_postCode);
         EJPojoProperty.clearInitialValue(_town);
         EJPojoProperty.clearInitialValue(_country);
+        EJPojoProperty.clearInitialValue(_itemsToInvoice);
     }
 
 }

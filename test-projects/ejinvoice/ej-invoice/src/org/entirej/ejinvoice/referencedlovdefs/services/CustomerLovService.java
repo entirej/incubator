@@ -23,12 +23,15 @@ import java.util.List;
 
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.forms.company.User;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY.L_CUSTOMER;
+import org.entirej.ejinvoice.referencedlovdefs.constants.RL_CUSTOMER;
 import org.entirej.ejinvoice.referencedlovdefs.services.pojos.Customer;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
+import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
@@ -52,6 +55,42 @@ public class CustomerLovService implements EJBlockService<Customer>
     @Override
     public List<Customer> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        if (queryCriteria.containsRestriction(RL_CUSTOMER.L_CUSTOMER.I_ITEMS_TO_INVOICE) && queryCriteria.getRestriction(RL_CUSTOMER.L_CUSTOMER.I_ITEMS_TO_INVOICE).getValue().equals(1))
+        {
+            User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
+            queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
+            
+            StringBuilder selectStmt = new StringBuilder(_selectStatement);
+            selectStmt.append(" WHERE ID IN (SELECT CUSTOMER_ID ")
+                      .append(" FROM   CUSTOMER_PROJECTS CUPR   ")
+                      .append(",       INVOICE_POSITIONS INVP   ")
+                      .append(" WHERE  CUPR.ID = INVP.CUPR_ID   ")
+                      .append(" AND    CUPR.COMPANY_ID = ?     ")
+                      .append(" AND    INVP.STATUS IN ('APPROVED','MARKED_FOR_INVOICE')) ")
+                      .append(" AND COMPANY_ID = ?              ");
+                            
+            EJStatementParameter companyIdParam = new EJStatementParameter(usr.getCompanyId());
+            EJStatementParameter companyIdParam2 = new EJStatementParameter(usr.getCompanyId());
+            
+            List<EJSelectResult> results = _statementExecutor.executeQuery(form, selectStmt.toString(), companyIdParam, companyIdParam2);
+            
+            ArrayList<Customer> customers = new ArrayList<Customer>();
+            for (EJSelectResult result : results)
+            {
+                Customer customer = new Customer();
+                customer.setId((Integer)result.getItemValue("ID"));
+                customer.setAddress((String)result.getItemValue("ADDRESS"));
+                customer.setCompanyId((Integer)result.getItemValue("COMPANY_ID"));
+                customer.setCountry((String)result.getItemValue("COUNTRY"));
+                customer.setName((String)result.getItemValue("NAME"));
+                customer.setPostCode((String)result.getItemValue("POST_CODE"));
+                customer.setTown((String)result.getItemValue("TOWN"));
+                
+                customers.add(customer);
+            }
+            return customers;
+        }
+        
         User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
         queryCriteria.add(EJRestrictions.equals("COMPANY_ID", usr.getCompanyId()));
         return _statementExecutor.executeQuery(Customer.class, form, _selectStatement, queryCriteria);

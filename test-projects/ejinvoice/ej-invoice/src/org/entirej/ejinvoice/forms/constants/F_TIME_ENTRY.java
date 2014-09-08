@@ -249,14 +249,15 @@ public class F_TIME_ENTRY
 
     public static class L_CUSTOMER
     {
-        public static final String ID           = "Customer";
-        public static final String I_ID         = "id";
-        public static final String I_ADDRESS    = "address";
-        public static final String I_NAME       = "name";
-        public static final String I_POST_CODE  = "postCode";
-        public static final String I_TOWN       = "town";
-        public static final String I_COUNTRY    = "country";
-        public static final String I_COMPANY_ID = "companyId";
+        public static final String ID                 = "Customer";
+        public static final String I_ID               = "id";
+        public static final String I_ADDRESS          = "address";
+        public static final String I_NAME             = "name";
+        public static final String I_POST_CODE        = "postCode";
+        public static final String I_TOWN             = "town";
+        public static final String I_COUNTRY          = "country";
+        public static final String I_COMPANY_ID       = "companyId";
+        public static final String I_ITEMS_TO_INVOICE = "itemsToInvoice";
 
     }
 
@@ -371,6 +372,7 @@ public class F_TIME_ENTRY
         public static final String TIME_ENTRY_OVERVIEW = "TimeEntryOverview";
         public static final String PROJECTS            = "Projects";
         public static final String CUSTOMERS           = "Customers";
+        public static final String INVOICE_CREATION    = "InvoiceCreation";
         public static final String INVOICE_HISTORY     = "InvoiceHistory";
         public static final String COMPANY             = "Company";
 
@@ -393,6 +395,7 @@ public class F_TIME_ENTRY
     public static final String C_CUSTOMER              = "Customer";
     public static final String C_CUSTOMERS_KEY         = "CustomersKey";
     public static final String C_CUSTOMER_DETAILS_FORM = "CustomerDetailsForm";
+    public static final String C_INVOICE_CREATION_FORM = "InvoiceCreationForm";
     public static final String C_INVOICE_HISTORY_TAB   = "InvoiceHistoryTab";
 
     public static class C_INVOICE_HISTORY_TAB_PAGES
