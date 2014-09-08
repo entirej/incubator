@@ -558,9 +558,9 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             builder.append(openItem.getProjectName()).append("\n");
             builder.append(openItem.getTaskName()).append("\n");
 
-            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, form.getCurrentLocale());
-            builder.append(dateFormat.format(openItem.getTeFirstDay())).append(" - ");
-            builder.append(dateFormat.format(openItem.getTeLastDay()));
+//            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, form.getCurrentLocale());
+//            builder.append(dateFormat.format(openItem.getTeFirstDay())).append(" - ");
+//            builder.append(dateFormat.format(openItem.getTeLastDay()));
 
             form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).clear(true);
             form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).setValue(openItem.getTeFirstDay());
