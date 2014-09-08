@@ -346,7 +346,7 @@ public class ProjectService
         payRateParam.setValue(position.getPayRate());
 
         EJStatementParameter amountParam;
-        if (position.getPayRate() != null)
+        if (position.getPayRate() != null && position.getWorkHours()!=null)
         {
             amountParam = new EJStatementParameter("AMOUNT", BigDecimal.class);
             amountParam.setValue(position.getWorkHours().multiply(position.getPayRate()));
