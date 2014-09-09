@@ -337,7 +337,30 @@ public class InvoiceService
         }
 
         new MarkedForInvoiceProjectItemBlockService().executeUpdate(form, items);
-
     }
 
+    public void deleteInvoice(EJForm form, Integer invoiceId)
+    {
+        if (invoiceId == null)
+        {
+            return;
+        }
+        
+        EJStatementExecutor executor = new EJStatementExecutor();
+        
+        
+        EJStatementCriteria invCriteria = new EJStatementCriteria();
+        invCriteria.add(EJRestrictions.equals("INV_ID", invoiceId));
+        
+        EJStatementParameter invParam    = new EJStatementParameter("INV_ID", Integer.class, EJParameterType.IN, null);
+        EJStatementParameter statusParam = new EJStatementParameter("STATUS", String.class, "MARKED_FOR_INVOICE");
+        executor.executeUpdate(form.getConnection(), "INVOICE_POSITIONS", invCriteria, invParam, statusParam);
+        
+        invCriteria = new EJStatementCriteria();
+        invCriteria.add(EJRestrictions.equals("ID", invoiceId));
+        executor.executeDelete(form.getConnection(), "INVOICE", invCriteria);
+        
+    }
+    
+    
 }

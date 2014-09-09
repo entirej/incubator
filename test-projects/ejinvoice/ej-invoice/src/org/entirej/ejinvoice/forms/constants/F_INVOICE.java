@@ -138,6 +138,7 @@ public class F_INVOICE
         public static final String I_SENT_DATE       = "sentDate";
         public static final String I_PAYMENT_DATE    = "paymentDate";
         public static final String I_FOOTER          = "footer";
+        public static final String I_DELETE          = "delete";
 
     }
 
@@ -302,6 +303,7 @@ public class F_INVOICE
     public static final String AC_CREATE_FINAL_INVOICE            = "CREATE_FINAL_INVOICE";
     public static final String AC_CUSTOMER_ID_CHANGED             = "CUSTOMER_ID_CHANGED";
     public static final String AC_DELETE_APPROVED_ITEM            = "DELETE_APPROVED_ITEM";
+    public static final String AC_DELETE_INVOICE                  = "DELETE_INVOICE";
     public static final String AC_DELETE_MARKED_FOR_INVOICE__ITEM = "DELETE_MARKED_FOR_INVOICE__ITEM";
     public static final String AC_INVOICE_ACTION                  = "INVOICE_ACTION";
     public static final String AC_INVOICE_HISTORY_STATUS_CHANGED  = "INVOICE_HISTORY_STATUS_CHANGED";

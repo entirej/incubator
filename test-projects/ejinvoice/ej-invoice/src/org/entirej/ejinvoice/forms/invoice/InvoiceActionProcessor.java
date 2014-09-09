@@ -193,6 +193,14 @@ public class InvoiceActionProcessor extends DefaultFormActionProcessor
         {
             form.getBlock(F_INVOICE.B_INVOICE_HISTORY.ID).enterUpdate();
         }
+        else if (F_INVOICE.AC_DELETE_INVOICE.equals(command))
+        {
+            EJQuestion question = new EJQuestion(form, "ASK_DELETE_INVOICE");
+            question.setMessage(new EJMessage("Are you sure you want to delete this invoice?"));
+            question.setButtonText(EJQuestionButton.ONE, "Yes");
+            question.setButtonText(EJQuestionButton.TWO, "Cancel");
+            form.askQuestion(question);
+        }
         else if (F_INVOICE.AC_INVOICE_ACTION.equals(command))
         {
             if (((String)record.getValue(F_INVOICE.B_INVOICE_HISTORY.I_ACTION)).equalsIgnoreCase("Mark as Sent"))
@@ -229,6 +237,12 @@ public class InvoiceActionProcessor extends DefaultFormActionProcessor
                             .getBlockServicePojo());
             question.getForm().getBlock(F_INVOICE.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
             question.getForm().getBlock(F_INVOICE.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
+        }
+        else if (question.getName().equals("ASK_DELETE_INVOICE") && question.getAnswer().equals(EJQuestionButton.ONE))
+        {
+            Integer id = (Integer)question.getForm().getBlock(F_INVOICE.B_INVOICE_HISTORY.ID).getFocusedRecord().getValue(F_INVOICE.B_INVOICE_HISTORY.I_ID);
+            new InvoiceService().deleteInvoice(question.getForm(), id);
+            question.getForm().getBlock(F_INVOICE.B_INVOICE_HISTORY.ID).executeQuery();
         }
     }
 
@@ -282,6 +296,7 @@ public class InvoiceActionProcessor extends DefaultFormActionProcessor
             if (record.getValue(F_INVOICE.B_INVOICE_HISTORY.I_STATUS).equals("DRAFT"))
             {
                 record.getItem(F_INVOICE.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOIEC_STATUS_DRAFT);
+                record.getItem(F_INVOICE.B_INVOICE_HISTORY.I_DELETE).setValue("/icons/delete10.png");
             }
             else if (record.getValue(F_INVOICE.B_INVOICE_HISTORY.I_STATUS).equals("SENT"))
             {
@@ -528,4 +543,22 @@ public class InvoiceActionProcessor extends DefaultFormActionProcessor
         }
         
     }
+
+    @Override
+    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
+    {
+        if (F_INVOICE.C_MAIN_PAGES.OUTSTANDING_INVOICES.equals(tabPageName))
+        {
+            if (form.getBlock(F_INVOICE.B_INVOICE_HISTORY.ID).getBlockRecords().size() <= 0)
+            {
+                form.getBlock(F_INVOICE.B_INVOICE_HISTORY.ID).executeQuery();
+            }
+        }
+        else if (F_INVOICE.C_MAIN_PAGES.INVOICE_CREATION.equals(tabPageName))
+        {
+            form.getBlock(F_INVOICE.B_FILTER.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE.B_FILTER.I_CUSTOMER_ID).refreshItemRenderer();
+        }
+    }
+    
+    
 }
