@@ -9,6 +9,7 @@ import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
+import org.entirej.ejinvoice.forms.invoice.InvoiceService;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;

@@ -3,6 +3,8 @@ package org.entirej.ejinvoice.forms.projects;
 import java.sql.Date;
 import java.util.ArrayList;
 
+import org.entirej.ejinvoice.forms.invoice.InvoicePositionStatus;
+
 public class WorkPeriod
 {
     private Integer               _invpId;

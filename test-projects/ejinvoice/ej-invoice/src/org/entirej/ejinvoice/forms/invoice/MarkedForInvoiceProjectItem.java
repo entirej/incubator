@@ -1,11 +1,11 @@
-package org.entirej.ejinvoice.forms.projects;
+package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
-public class ApprovedProjectItem
+public class MarkedForInvoiceProjectItem
 {
     private EJPojoProperty<BigDecimal> _hoursWorked;
     private EJPojoProperty<String>     _taskName;
@@ -22,7 +22,6 @@ public class ApprovedProjectItem
     private EJPojoProperty<Integer>    _cuptId;
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _text;
-    private EJPojoProperty<String>     _addToInvoice;
 
     @EJFieldName("HOURS_WORKED")
     public BigDecimal getHoursWorked()
@@ -294,24 +293,6 @@ public class ApprovedProjectItem
         return EJPojoProperty.getPropertyInitialValue(_text);
     }
 
-    @EJFieldName("ADD_TO_INVOICE")
-    public String getAddToInvoice()
-    {
-        return EJPojoProperty.getPropertyValue(_addToInvoice);
-    }
-
-    @EJFieldName("ADD_TO_INVOICE")
-    public void setAddToInvoice(String addToInvoice)
-    {
-        _addToInvoice = EJPojoProperty.setPropertyValue(_addToInvoice, addToInvoice);
-    }
-
-    @EJFieldName("ADD_TO_INVOICE")
-    public String getInitialAddToInvoice()
-    {
-        return EJPojoProperty.getPropertyInitialValue(_addToInvoice);
-    }
-
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_hoursWorked);
@@ -329,7 +310,6 @@ public class ApprovedProjectItem
         EJPojoProperty.clearInitialValue(_cuptId);
         EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_text);
-        EJPojoProperty.clearInitialValue(_addToInvoice);
     }
 
 }

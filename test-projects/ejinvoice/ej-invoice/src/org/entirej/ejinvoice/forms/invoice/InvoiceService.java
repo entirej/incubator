@@ -1,4 +1,4 @@
-package org.entirej.ejinvoice.forms.projects;
+package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -11,11 +11,9 @@ import java.util.Locale.Builder;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.forms.company.Company;
-import org.entirej.ejinvoice.forms.constants.F_INVOICE_CREATION;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
-import org.entirej.ejinvoice.forms.invoice.Invoice;
-import org.entirej.ejinvoice.forms.invoice.InvoiceBlockService;
-import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
+import org.entirej.ejinvoice.forms.projects.PlannedProjectItem;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
@@ -327,7 +325,7 @@ public class InvoiceService
         new InvoiceBlockService().executeInsert(form, invoices);
 
         // Now update all chosen invoice positions with the new invoice Id
-        Collection<EJRecord> records = form.getBlock(F_INVOICE_CREATION.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getBlockRecords();
+        Collection<EJRecord> records = form.getBlock(F_INVOICE.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getBlockRecords();
 
         ArrayList<MarkedForInvoiceProjectItem> items = new ArrayList<MarkedForInvoiceProjectItem>();
         for (EJRecord record : records)

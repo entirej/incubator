@@ -1,11 +1,11 @@
-package org.entirej.ejinvoice.forms.projects;
+package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.entirej.ejinvoice.forms.projects.InvoiceHistory;
+import org.entirej.ejinvoice.forms.invoice.InvoiceHistory;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;

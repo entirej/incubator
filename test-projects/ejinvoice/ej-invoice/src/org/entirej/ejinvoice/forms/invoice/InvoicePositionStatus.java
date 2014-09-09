@@ -1,4 +1,4 @@
-package org.entirej.ejinvoice.forms.projects;
+package org.entirej.ejinvoice.forms.invoice;
 
 public enum InvoicePositionStatus
 {

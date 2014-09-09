@@ -1,4 +1,4 @@
-package org.entirej.ejinvoice.forms.projects;
+package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
 import java.sql.Date;

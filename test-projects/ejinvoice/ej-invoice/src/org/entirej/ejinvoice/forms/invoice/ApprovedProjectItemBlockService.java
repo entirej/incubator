@@ -1,4 +1,4 @@
-package org.entirej.ejinvoice.forms.projects;
+package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -15,12 +15,12 @@ import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
 
-public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<MarkedForInvoiceProjectItem>
+public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT,COMPANY_ID FROM invoice_positions";
+    private String                    _selectStatement = "SELECT COMPANY_ID, AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT, 'Add' AS ADD_TO_INVOICE FROM invoice_positions";
 
-    public MarkedForInvoiceProjectItemBlockService()
+    public ApprovedProjectItemBlockService()
     {
         _statementExecutor = new EJStatementExecutor();
     }
@@ -32,21 +32,21 @@ public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<M
     }
 
     @Override
-    public List<MarkedForInvoiceProjectItem> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
+    public List<ApprovedProjectItem> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
         queryCriteria.add(EJQuerySort.ASC("PERIOD_FROM"));
         queryCriteria.add(EJQuerySort.ASC("PERIOD_TO"));
         queryCriteria.add(EJQuerySort.ASC("TASK_NAME"));
-        queryCriteria.add(EJRestrictions.equals("STATUS", "MARKED_FOR_INVOICE"));
-        return _statementExecutor.executeQuery(MarkedForInvoiceProjectItem.class, form, _selectStatement, queryCriteria);
+        queryCriteria.add(EJRestrictions.equals("STATUS", "APPROVED"));
+        return _statementExecutor.executeQuery(ApprovedProjectItem.class, form, _selectStatement, queryCriteria);
     }
 
     @Override
-    public void executeInsert(EJForm form, List<MarkedForInvoiceProjectItem> newRecords)
+    public void executeInsert(EJForm form, List<ApprovedProjectItem> newRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
-        for (MarkedForInvoiceProjectItem record : newRecords)
+        for (ApprovedProjectItem record : newRecords)
         {
             // Initialise the value list
             parameters.clear();
@@ -76,12 +76,12 @@ public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<M
     }
 
     @Override
-    public void executeUpdate(EJForm form, List<MarkedForInvoiceProjectItem> updateRecords)
+    public void executeUpdate(EJForm form, List<ApprovedProjectItem> updateRecords)
     {
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (MarkedForInvoiceProjectItem record : updateRecords)
+        for (ApprovedProjectItem record : updateRecords)
         {
             parameters.clear();
 
@@ -235,12 +235,12 @@ public class MarkedForInvoiceProjectItemBlockService implements EJBlockService<M
     }
 
     @Override
-    public void executeDelete(EJForm form, List<MarkedForInvoiceProjectItem> recordsToDelete)
+    public void executeDelete(EJForm form, List<ApprovedProjectItem> recordsToDelete)
     {
         ArrayList<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
 
         int recordsProcessed = 0;
-        for (MarkedForInvoiceProjectItem record : recordsToDelete)
+        for (ApprovedProjectItem record : recordsToDelete)
         {
             parameters.clear();
 
