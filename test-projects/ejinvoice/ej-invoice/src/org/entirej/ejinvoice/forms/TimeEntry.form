@@ -79,6 +79,25 @@
                             </canvas>
                         </canvasList>
                     </tabPage>
+                    <tabPage name="InvoiceCreation">
+                        <pageTitle><![CDATA[Invoice]]></pageTitle>
+                        <firstNavigationalBlock></firstNavigationalBlock>
+                        <firstNavigationalItem></firstNavigationalItem>
+                        <enabled>true</enabled>
+                        <visible>true</visible>
+                        <numCols>1</numCols>
+                        <canvasList>
+                            <canvas name="InvoiceForm" type="FORM">
+                                <width>0</width>
+                                <height>0</height>
+                                <numCols>1</numCols>
+                                <horizontalSpan>1</horizontalSpan>
+                                <verticalSpan>1</verticalSpan>
+                                <expandHorizontally>true</expandHorizontally>
+                                <expandVertically>true</expandVertically>
+                            </canvas>
+                        </canvasList>
+                    </tabPage>
                     <tabPage name="Customers">
                         <pageTitle></pageTitle>
                         <firstNavigationalBlock></firstNavigationalBlock>
@@ -131,25 +150,6 @@
                                         </canvasList>
                                     </stackedPage>
                                 </stackedPageList>
-                            </canvas>
-                        </canvasList>
-                    </tabPage>
-                    <tabPage name="InvoiceCreation">
-                        <pageTitle><![CDATA[Invoice]]></pageTitle>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <enabled>true</enabled>
-                        <visible>true</visible>
-                        <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="InvoiceForm" type="FORM">
-                                <width>0</width>
-                                <height>0</height>
-                                <numCols>1</numCols>
-                                <horizontalSpan>1</horizontalSpan>
-                                <verticalSpan>1</verticalSpan>
-                                <expandHorizontally>true</expandHorizontally>
-                                <expandVertically>true</expandVertically>
                             </canvas>
                         </canvasList>
                     </tabPage>

@@ -256,8 +256,8 @@ public class F_TIME_ENTRY
         public static final String TIME__ENTRY         = "Time Entry";
         public static final String TIME_ENTRY_OVERVIEW = "TimeEntryOverview";
         public static final String PROJECTS            = "Projects";
-        public static final String CUSTOMERS           = "Customers";
         public static final String INVOICE_CREATION    = "InvoiceCreation";
+        public static final String CUSTOMERS           = "Customers";
         public static final String COMPANY             = "Company";
 
     }
@@ -266,6 +266,7 @@ public class F_TIME_ENTRY
     public static final String C_TIME_ENTRY               = "TimeEntry";
     public static final String C_TIME_ENTRY_OVERVIEW_FORM = "TimeEntryOverviewForm";
     public static final String C_PROJECT_FORM             = "ProjectForm";
+    public static final String C_INVOICE_FORM             = "InvoiceForm";
     public static final String C_CUSTOMER_STACK           = "CustomerStack";
 
     public static class C_CUSTOMER_STACK_PAGES
@@ -279,7 +280,6 @@ public class F_TIME_ENTRY
     public static final String C_CUSTOMER               = "Customer";
     public static final String C_CUSTOMERS_KEY          = "CustomersKey";
     public static final String C_CUSTOMER_DETAILS_FORM  = "CustomerDetailsForm";
-    public static final String C_INVOICE_FORM           = "InvoiceForm";
     public static final String C_COMPANY_FORM           = "CompanyForm";
 
     public static final String AC_ADD_TIME_ENTRY        = "ADD_TIME_ENTRY";

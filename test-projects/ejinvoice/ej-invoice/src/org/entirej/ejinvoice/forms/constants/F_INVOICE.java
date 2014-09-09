@@ -12,10 +12,9 @@ public class F_INVOICE
 
     public static class B_FILTER
     {
-        public static final String ID              = "filter";
-        public static final String I_CUSTOMER_ID   = "customerId";
-        public static final String I_CUSTOMER_NAME = "customerName";
-        public static final String I_REFRESH       = "refresh";
+        public static final String ID            = "filter";
+        public static final String I_CUSTOMER_ID = "customerId";
+        public static final String I_REFRESH     = "refresh";
 
     }
 
@@ -301,6 +300,7 @@ public class F_INVOICE
 
     public static final String AC_ADD_TO_INVOICE                  = "ADD_TO_INVOICE";
     public static final String AC_CREATE_FINAL_INVOICE            = "CREATE_FINAL_INVOICE";
+    public static final String AC_CUSTOMER_ID_CHANGED             = "CUSTOMER_ID_CHANGED";
     public static final String AC_DELETE_APPROVED_ITEM            = "DELETE_APPROVED_ITEM";
     public static final String AC_DELETE_MARKED_FOR_INVOICE__ITEM = "DELETE_MARKED_FOR_INVOICE__ITEM";
     public static final String AC_INVOICE_ACTION                  = "INVOICE_ACTION";

@@ -46,11 +46,11 @@ public class InvoiceActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void lovCompleted(EJForm form, EJScreenItem screenItem, boolean valueChosen) throws EJActionProcessorException
+    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (F_INVOICE.B_FILTER.I_CUSTOMER_NAME.equals(screenItem.getName()))
+        if (F_INVOICE.B_FILTER.I_CUSTOMER_ID.equals(itemName))
         {
-            if (valueChosen)
+            if (record.getValue(itemName) != null)
             {
                 form.getBlock(F_INVOICE.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
                 form.getBlock(F_INVOICE.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
@@ -64,6 +64,14 @@ public class InvoiceActionProcessor extends DefaultFormActionProcessor
                 }
             }
         }
+    }
+
+
+
+    @Override
+    public void lovCompleted(EJForm form, EJScreenItem screenItem, boolean valueChosen) throws EJActionProcessorException
+    {
+
     }
 
     @Override
@@ -210,6 +218,14 @@ public class InvoiceActionProcessor extends DefaultFormActionProcessor
         {
             new InvoiceService().deleteMarkedForInvoicedPosition(question.getForm(),
                     (MarkedForInvoiceProjectItem) question.getForm().getBlock(F_INVOICE.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).getFocusedRecord()
+                            .getBlockServicePojo());
+            question.getForm().getBlock(F_INVOICE.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
+            question.getForm().getBlock(F_INVOICE.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
+        }
+        else if (question.getName().equals("ASK_DELETE_APPROVED_POSITION") && question.getAnswer().equals(EJQuestionButton.ONE))
+        {
+            new InvoiceService().deleteApprovedPosition(question.getForm(),
+                    (ApprovedProjectItem) question.getForm().getBlock(F_INVOICE.B_APPROVED_PROJECT_ITEMS.ID).getFocusedRecord()
                             .getBlockServicePojo());
             question.getForm().getBlock(F_INVOICE.B_APPROVED_PROJECT_ITEMS.ID).executeQuery();
             question.getForm().getBlock(F_INVOICE.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
