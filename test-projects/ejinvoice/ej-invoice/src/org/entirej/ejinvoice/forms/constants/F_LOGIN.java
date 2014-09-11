@@ -47,6 +47,7 @@ public class F_LOGIN
         public static final String I_CANCEL                = "cancel";
         public static final String I_ADMIN_INFORMATION     = "adminInformation";
         public static final String I_REGISTER_LABEL        = "registerLabel";
+        public static final String I_BIZI_BO_LOGO          = "biziBoLogo";
 
     }
 

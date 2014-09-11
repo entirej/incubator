@@ -12,9 +12,13 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.framework.core.EJFrameworkManager;
 import org.entirej.framework.core.interfaces.EJConnectionFactory;
 import org.entirej.framework.core.interfaces.EJFrameworkConnection;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ConnectionFactory implements EJConnectionFactory
 {
+    private Logger connectionFactoryLogger = LoggerFactory.getLogger(this.getClass());
+    
     private volatile DataSource dataSource;
     
     public ConnectionFactory()
@@ -41,6 +45,9 @@ public class ConnectionFactory implements EJConnectionFactory
                 {
                     // String dataSourceID = "jdbc/ejinvoice";
                     String dataSourceID = (String)fwkManager.getApplicationLevelParameter(EJ_PROPERTIES.P_DATA_SOURCE_NAME).getValue();
+                    
+                    System.out.println("Connection to datasource: "+dataSourceID);
+                    
 //                    String dataSourceID = "jdbc/ejinvoice-hosted";
                     assert dataSourceID != null;
                     Context initContext = new InitialContext();
