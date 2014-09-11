@@ -31,6 +31,7 @@ public class CustomerProjects
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<Integer>    _custId;
     private EJPojoProperty<String>     _description;
+    private EJPojoProperty<String>     _status;
 
     @EJFieldName("NAME")
     public String getName()
@@ -141,6 +142,26 @@ public class CustomerProjects
     {
         return EJPojoProperty.getPropertyInitialValue(_description);
     }
+    
+    
+
+    @EJFieldName("STATUS")
+    public String getStatus()
+    {
+        return EJPojoProperty.getPropertyValue(_status);
+    }
+
+    @EJFieldName("STATUS")
+    public void setStatus(String status)
+    {
+        _status = EJPojoProperty.setPropertyValue(_status, status);
+    }
+
+    @EJFieldName("STATUS")
+    public String getInitialStatus()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_status);
+    }
 
     public void clearInitialValues()
     {
@@ -150,6 +171,7 @@ public class CustomerProjects
         EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_custId);
         EJPojoProperty.clearInitialValue(_description);
+        EJPojoProperty.clearInitialValue(_status);
     }
 
 }

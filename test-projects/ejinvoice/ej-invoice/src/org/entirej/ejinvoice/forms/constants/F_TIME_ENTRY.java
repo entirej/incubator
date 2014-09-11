@@ -154,6 +154,7 @@ public class F_TIME_ENTRY
         public static final String I_CUST_ID     = "custId";
         public static final String I_DESCRIPTION = "description";
         public static final String I_COMPANY_ID  = "companyId";
+        public static final String I_STATUS      = "status";
 
     }
 
@@ -187,6 +188,7 @@ public class F_TIME_ENTRY
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
         public static final String I_COMPANY_ID          = "companyId";
+        public static final String I_STATUS              = "status";
 
     }
 
@@ -201,6 +203,7 @@ public class F_TIME_ENTRY
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
         public static final String I_COMPANY_ID          = "companyId";
+        public static final String I_STATUS              = "status";
 
     }
 
@@ -245,6 +248,19 @@ public class F_TIME_ENTRY
         public static final String I_PROCESS_NAME        = "processName";
         public static final String I_PAY_RATE            = "payRate";
         public static final String I_COMPANY_ID          = "companyId";
+        public static final String I_STATUS              = "status";
+
+    }
+
+    public static class L_UPDATE_CUSTOMER_PROJECTS
+    {
+        public static final String ID            = "UpdateCustomerProjects";
+        public static final String I_NAME        = "name";
+        public static final String I_ID          = "id";
+        public static final String I_CUST_ID     = "custId";
+        public static final String I_DESCRIPTION = "description";
+        public static final String I_COMPANY_ID  = "companyId";
+        public static final String I_STATUS      = "status";
 
     }
 

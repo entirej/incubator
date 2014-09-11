@@ -151,4 +151,13 @@ Button[PUSH].login
 	border: solid 1px #da7c0c;
 	color: #fef4e9;
 	background-image: gradient(linear, left top, left bottom, from(#faa51a), to(#f47a20));
+} 
+
+
+Button[PUSH].entry
+{
+   text-shadow: 0 1px 1px rgba(0,0,0,.3)  ;
+   border: solid 1px #61B329;
+   color: #fef4e9;
+   background-image: gradient(linear, left top, left bottom, from(#A6D785), to(#61B329));
 }

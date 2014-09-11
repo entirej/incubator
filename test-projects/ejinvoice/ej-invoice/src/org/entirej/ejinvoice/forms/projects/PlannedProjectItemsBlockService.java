@@ -113,6 +113,7 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
             parameters.add(new EJStatementParameter("TASK_NAME", String.class, record.getTaskName()));
             parameters.add(new EJStatementParameter("PERIOD_FROM", Date.class, record.getPeriodFrom()));
             parameters.add(new EJStatementParameter("PERIOD_TO", Date.class, record.getPeriodTo()));
+            parameters.add(new EJStatementParameter("TEXT", String.class, record.getInvpText()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getInvpId()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();

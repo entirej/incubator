@@ -122,6 +122,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
         else if (F_LOGIN.AC_SIGNUP.equals(command))
         {
             form.getBlock(F_LOGIN.B_COMPANY.ID).clear(true);
+            form.getBlock(F_LOGIN.B_COMPANY.ID).getScreenItem(EJScreenType.MAIN, F_LOGIN.B_COMPANY.I_BIZI_BO_LOGO).setValue("/icons/Bizibo.png");
             
             form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.REGISTER);
         }

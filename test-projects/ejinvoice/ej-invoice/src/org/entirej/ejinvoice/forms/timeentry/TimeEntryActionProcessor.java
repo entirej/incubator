@@ -36,6 +36,9 @@ import org.entirej.framework.core.service.EJQueryCriteria;
 
 public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 {
+    public static String PROJECT_STATUS_FOR_TIME_ENTRY = "INWORK";
+    public static String PROJECT_TASK_STATUS_FOR_TIME_ENTRY = "INWORK";
+    
     private boolean customerInserted     = false;
     private boolean customerUpdated      = false;
     private Integer customerId           = null;

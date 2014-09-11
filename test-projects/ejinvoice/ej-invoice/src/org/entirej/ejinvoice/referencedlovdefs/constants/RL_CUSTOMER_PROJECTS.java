@@ -18,6 +18,7 @@ public class RL_CUSTOMER_PROJECTS
         public static final String I_CUST_ID     = "custId";
         public static final String I_DESCRIPTION = "description";
         public static final String I_COMPANY_ID  = "companyId";
+        public static final String I_STATUS      = "status";
 
     }
 
