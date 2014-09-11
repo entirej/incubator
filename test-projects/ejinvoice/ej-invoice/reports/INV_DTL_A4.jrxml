@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version last-->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="INV_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e545fa2-11a2-4144-b69e-0a49d2fe1a98">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="INV_DTL_A4" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3e545fa2-11a2-4144-b69e-0a49d2fe1a98">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL"/>
 	<style name="Table_TH" mode="Opaque" backcolor="#F0F8FF">
 		<box>
@@ -55,52 +55,32 @@
 		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MYSQL"/>
 		<parameter name="F_INV_ID" class="java.lang.String"/>
 		<parameter name="CURRENCY_FORMAT" class="java.lang.String"/>
+		<parameter name="DATE_FORMAT" class="java.lang.String"/>
 		<queryString language="SQL">
-			<![CDATA[SELECT * FROM INVOICE_POSITIONS WHERE INV_ID =  $P{F_INV_ID}]]>
+			<![CDATA[SELECT t.WORK_DATE, t.START_TIME, t.END_TIME, t.WORK_DESCRIPTION, ip.PROJECT_NAME, ip.TASK_NAME,u.LAST_NAME,u.FIRST_NAME FROM invoice_positions ip, customer_project_timeentry t,user u  WHERE ip.id = t.INVP_ID and u.id = t.USER_ID and ip.INV_ID =  $P{F_INV_ID} ORDER BY  u.LAST_NAME, WORK_DATE, START_TIME]]>
 		</queryString>
-		<field name="ID" class="java.lang.Integer">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="COMPANY_ID" class="java.lang.Integer">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="INV_ID" class="java.lang.Integer">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
 		<field name="PROJECT_NAME" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 		<field name="TASK_NAME" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="HOURS_WORKED" class="java.math.BigDecimal">
+		<field name="WORK_DATE" class="java.sql.Date">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="PAY_RATE" class="java.math.BigDecimal">
+		<field name="START_TIME" class="java.sql.Time">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="FIX_PRICE" class="java.math.BigDecimal">
+		<field name="END_TIME" class="java.sql.Time">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="AMOUNT" class="java.math.BigDecimal">
+		<field name="WORK_DESCRIPTION" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="CUPR_ID" class="java.lang.Integer">
+		<field name="LAST_NAME" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
-		<field name="CUPT_ID" class="java.lang.Integer">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="TEXT" class="java.lang.String">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="PERIOD_FROM" class="java.sql.Date">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="PERIOD_TO" class="java.sql.Date">
-			<fieldDescription><![CDATA[]]></fieldDescription>
-		</field>
-		<field name="STATUS" class="java.lang.String">
+		<field name="FIRST_NAME" class="java.lang.String">
 			<fieldDescription><![CDATA[]]></fieldDescription>
 		</field>
 	</subDataset>
@@ -160,7 +140,7 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="294" splitType="Stretch">
+		<band height="301" splitType="Stretch">
 			<staticText>
 				<reportElement x="400" y="9" width="84" height="25" uuid="7e1c7dc1-d093-4253-aecf-dec9c2c2daa3">
 					<property name="local_mesure_unitheight" value="pixel"/>
@@ -273,9 +253,7 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 				</reportElement>
 			</line>
 			<staticText>
-				<reportElement x="280" y="120" width="100" height="20" forecolor="#878484" uuid="ec51f400-7854-4abf-b64c-b6b98c5d2aa7">
-					<printWhenExpression><![CDATA[$F{VAT_NR}!=null]]></printWhenExpression>
-				</reportElement>
+				<reportElement x="280" y="120" width="100" height="20" forecolor="#878484" uuid="ec51f400-7854-4abf-b64c-b6b98c5d2aa7"/>
 				<textElement textAlignment="Right"/>
 				<text><![CDATA[VAT No.]]></text>
 			</staticText>
@@ -286,16 +264,19 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 			<componentElement>
 				<reportElement x="0" y="10" width="555" height="70" uuid="829683d5-a310-4a60-9d07-1b6e3d78a849"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="INV_DTL" uuid="48848487-4123-4e99-a89b-a10baae28910">
+					<datasetRun subDataset="INV_DTL" uuid="8ef06c40-7696-43c3-a4d6-7d50e13524c1">
 						<datasetParameter name="CURRENCY_FORMAT">
 							<datasetParameterExpression><![CDATA[((java.text.DecimalFormat)java.text.NumberFormat.getCurrencyInstance()).toPattern()]]></datasetParameterExpression>
 						</datasetParameter>
 						<datasetParameter name="F_INV_ID">
 							<datasetParameterExpression><![CDATA[$P{EJ_INV_ID}]]></datasetParameterExpression>
 						</datasetParameter>
+						<datasetParameter name="DATE_FORMAT">
+							<datasetParameterExpression><![CDATA[(((java.text.SimpleDateFormat) java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT,$P{REPORT_LOCALE})).toPattern())]]></datasetParameterExpression>
+						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="190" uuid="60d314a8-e6d7-4111-84b5-e4963e02a6e3">
+					<jr:column width="220" uuid="60d314a8-e6d7-4111-84b5-e4963e02a6e3">
 						<jr:columnHeader style="Table 1_CH" height="30">
 							<box>
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -304,7 +285,7 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<staticText>
-								<reportElement x="10" y="6" width="180" height="20" uuid="ecfb7a20-6a7c-4843-b943-d2b6e80c4ebb">
+								<reportElement x="10" y="6" width="210" height="20" uuid="ecfb7a20-6a7c-4843-b943-d2b6e80c4ebb">
 									<property name="local_mesure_unitheight" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 									<property name="local_mesure_unitwidth" value="pixel"/>
@@ -324,7 +305,7 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<rightPen lineColor="#827F7F"/>
 							</box>
 							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-								<reportElement x="10" y="6" width="180" height="34" uuid="f760694f-237d-46a2-97e4-4a3f05cc13f6">
+								<reportElement x="10" y="6" width="210" height="34" uuid="f760694f-237d-46a2-97e4-4a3f05cc13f6">
 									<property name="local_mesure_unitheight" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 									<property name="local_mesure_unity" value="pixel"/>
@@ -333,12 +314,12 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
 								<textElement verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{TEXT}.trim()+"\n"
-+ java.text.DateFormat.getDateInstance( java.text.DateFormat.SHORT,$P{REPORT_LOCALE}).format($F{PERIOD_FROM})+"  -  "+ java.text.DateFormat.getDateInstance( java.text.DateFormat.SHORT,$P{REPORT_LOCALE}).format($F{PERIOD_TO})]]></textFieldExpression>
+								<textFieldExpression><![CDATA[$F{LAST_NAME} + " " +$F{FIRST_NAME}+", \n"+
+$F{WORK_DESCRIPTION}+"\n [ "+$F{PROJECT_NAME}+" - "+$F{TASK_NAME}+" ]"]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="ddbe38de-6d8a-4781-9d73-d9d6637e32ee">
+					<jr:column width="80" uuid="ddbe38de-6d8a-4781-9d73-d9d6637e32ee">
 						<jr:columnHeader style="Table 1_CH" height="30">
 							<box>
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#827F7F"/>
@@ -355,10 +336,10 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 									<property name="local_mesure_unity" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.y" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Hours Worked]]></text>
+								<text><![CDATA[Work Date]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="50">
@@ -369,7 +350,7 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#827F7F"/>
 							</box>
 							<textField isBlankWhenNull="true">
-								<reportElement x="3" y="6" width="80" height="34" uuid="4b079717-9043-4bf3-857b-18044e900ef1">
+								<reportElement x="0" y="6" width="80" height="34" uuid="4b079717-9043-4bf3-857b-18044e900ef1">
 									<property name="local_mesure_unitx" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.x" value="px"/>
 									<property name="local_mesure_unitwidth" value="pixel"/>
@@ -379,8 +360,9 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 									<property name="local_mesure_unity" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.y" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{HOURS_WORKED}]]></textFieldExpression>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{WORK_DATE}]]></textFieldExpression>
+								<patternExpression><![CDATA[$P{DATE_FORMAT}]]></patternExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -393,7 +375,7 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#827F7F"/>
 							</box>
 							<staticText>
-								<reportElement x="0" y="6" width="80" height="20" uuid="0b6875b8-2216-49fd-a5b5-31769d0f4470">
+								<reportElement x="0" y="6" width="90" height="20" uuid="0b6875b8-2216-49fd-a5b5-31769d0f4470">
 									<property name="local_mesure_unitx" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.x" value="px"/>
 									<property name="local_mesure_unity" value="pixel"/>
@@ -401,10 +383,10 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 									<property name="local_mesure_unitwidth" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Unit Price]]></text>
+								<text><![CDATA[Start Time]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="50">
@@ -414,18 +396,19 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#827F7F"/>
 								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#827F7F"/>
 							</box>
-							<textField isBlankWhenNull="true">
-								<reportElement x="1" y="6" width="80" height="34" uuid="404cbf25-2e14-48e5-bcb1-4d50a1cd64d3">
+							<textField pattern="HH:mm" isBlankWhenNull="true">
+								<reportElement x="0" y="6" width="90" height="34" uuid="404cbf25-2e14-48e5-bcb1-4d50a1cd64d3">
 									<property name="local_mesure_unitheight" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
 									<property name="local_mesure_unitwidth" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 									<property name="local_mesure_unity" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.y" value="px"/>
+									<property name="local_mesure_unitx" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.x" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{PAY_RATE}]]></textFieldExpression>
-								<patternExpression><![CDATA[$P{CURRENCY_FORMAT}]]></patternExpression>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{START_TIME}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
@@ -438,7 +421,7 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#827F7F"/>
 							</box>
 							<staticText>
-								<reportElement x="0" y="6" width="80" height="20" uuid="084ccc9e-f9b7-416c-bce1-2c4c75f30ce4">
+								<reportElement x="0" y="6" width="90" height="20" uuid="084ccc9e-f9b7-416c-bce1-2c4c75f30ce4">
 									<property name="local_mesure_unitx" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.x" value="px"/>
 									<property name="local_mesure_unity" value="pixel"/>
@@ -446,10 +429,10 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 									<property name="local_mesure_unitwidth" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right">
+								<textElement textAlignment="Center">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Fixed Price]]></text>
+								<text><![CDATA[End Time]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="50">
@@ -459,18 +442,19 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<bottomPen lineWidth="0.5" lineStyle="Solid" lineColor="#827F7F"/>
 								<rightPen lineWidth="0.5" lineStyle="Solid" lineColor="#827F7F"/>
 							</box>
-							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="7" width="80" height="34" uuid="44fa2bba-692f-47ae-842c-44cdcafd82ca">
+							<textField pattern="HH:mm" isBlankWhenNull="true">
+								<reportElement x="0" y="7" width="90" height="34" uuid="44fa2bba-692f-47ae-842c-44cdcafd82ca">
 									<property name="local_mesure_unitheight" value="pixel"/>
 									<property name="com.jaspersoft.studio.unit.height" value="px"/>
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
 								</reportElement>
-								<textElement textAlignment="Right" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{FIX_PRICE}]]></textFieldExpression>
-								<patternExpression><![CDATA[$P{CURRENCY_FORMAT}]]></patternExpression>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{END_TIME}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="100" uuid="717dc162-9592-4ed5-9672-fd63b8c6b2d2">
+					<jr:column width="80" uuid="717dc162-9592-4ed5-9672-fd63b8c6b2d2">
 						<jr:columnHeader style="Table 1_CH" height="30">
 							<box>
 								<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -479,11 +463,14 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 							</box>
 							<staticText>
-								<reportElement x="0" y="7" width="90" height="20" uuid="adf2582b-8f76-4bbe-bfed-1b4ed11ce3aa"/>
+								<reportElement x="0" y="7" width="80" height="20" uuid="adf2582b-8f76-4bbe-bfed-1b4ed11ce3aa">
+									<property name="local_mesure_unitwidth" value="pixel"/>
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
 								<textElement textAlignment="Right">
 									<font isBold="true"/>
 								</textElement>
-								<text><![CDATA[Amount]]></text>
+								<text><![CDATA[Hours Worked]]></text>
 							</staticText>
 						</jr:columnHeader>
 						<jr:detailCell style="Table 1_TD" height="50">
@@ -494,9 +481,12 @@ where i.COMPANY_ID = ci.ID  and i.CUST_ID = c.ID AND i.ID =  $P{EJ_INV_ID}]]>
 								<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#827F7F"/>
 							</box>
 							<textField isBlankWhenNull="true">
-								<reportElement x="0" y="6" width="90" height="34" uuid="96a048b1-14ff-4341-a017-1519117b3e11"/>
-								<textElement textAlignment="Right" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{AMOUNT}]]></textFieldExpression>
+								<reportElement x="0" y="6" width="80" height="34" uuid="96a048b1-14ff-4341-a017-1519117b3e11">
+									<property name="com.jaspersoft.studio.unit.width" value="px"/>
+								</reportElement>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[(($F{END_TIME}.getTime()-$F{START_TIME}.getTime())/ (3600000)) +
+":"+String.format("%02d", ((($F{END_TIME}.getTime()-$F{START_TIME}.getTime())%3600000)/60000))]]></textFieldExpression>
 								<patternExpression><![CDATA[$P{CURRENCY_FORMAT}]]></patternExpression>
 							</textField>
 						</jr:detailCell>
