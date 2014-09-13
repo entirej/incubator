@@ -1015,16 +1015,17 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
     
     private void createHeaderUI()
     {
+        Link cWeeks = new Link(header, SWT.NONE);
         header.setData(RWT.CUSTOM_VARIANT, "workview");
         Label wk = new Label(header, SWT.NONE);
         wk.setText("Wk");
-
+        wk.setVisible(false);
         Font blodFont = getBlodFont(wk.getFont());
         wk.setFont(blodFont);
 
         GridData bt = new GridData();
         bt.heightHint = 21;
-        
+       
         Button pWeeks = new Button(header, SWT.PUSH);
         pWeeks.setText("<");
         pWeeks.setLayoutData(bt);
@@ -1042,6 +1043,8 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                 }
             }
         });
+        pWeeks.setVisible(false);
+        
         workweeks = new Link[13];
         for (int i = 0; i < 13; i++)
         {
@@ -1070,6 +1073,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                 }
             });
             workweeks[i] = week;
+            week.setVisible(false);
         }
         updateWeekSelectionUI();
         Button nWeeks = new Button(header, SWT.PUSH);
@@ -1090,8 +1094,9 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                 }
             }
         });
+        nWeeks.setVisible(false);
         new Label(header, SWT.NONE);
-        Link cWeeks = new Link(header, SWT.NONE);
+      
         cWeeks.setText("<a>Current Week</a>");
         cWeeks.setFont(blodFont);
         cWeeks.setData(RWT.CUSTOM_VARIANT, "workview");
