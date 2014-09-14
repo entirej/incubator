@@ -15,7 +15,24 @@
         <formRendererProperties>
         </formRendererProperties>
         <canvasList>
-            <canvas name="projectStack" type="STACKED">
+            <canvas name="NewInvoiceItemPopup" type="POPUP">
+                <width>400</width>
+                <height>300</height>
+                <numCols>1</numCols>
+                <horizontalSpan>1</horizontalSpan>
+                <verticalSpan>1</verticalSpan>
+                <expandHorizontally>true</expandHorizontally>
+                <expandVertically>true</expandVertically>
+                <popupPageTitle><![CDATA[Create new Invoice Position]]></popupPageTitle>
+                <buttonOneText><![CDATA[Create]]></buttonOneText>
+                <buttonTwoText><![CDATA[Cancel]]></buttonTwoText>
+                <buttonThreeText></buttonThreeText>
+                <canvasList>
+                    <canvas name="NewInvoiceItem" type="BLOCK">
+                    </canvas>
+                </canvasList>
+            </canvas>
+            <canvas name="projectTab" type="TAB">
                 <width>0</width>
                 <height>0</height>
                 <numCols>1</numCols>
@@ -23,13 +40,14 @@
                 <verticalSpan>1</verticalSpan>
                 <expandHorizontally>true</expandHorizontally>
                 <expandVertically>true</expandVertically>
-                <initialStackedPageName><![CDATA[projects]]></initialStackedPageName>
-                <stackedPageList>
-                    <stackedPage name="projects">
-                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
-                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
+                <tabPosition><![CDATA[TOP]]></tabPosition>
+                <tabPageList>
+                    <tabPage name="projects">
+                        <pageTitle><![CDATA[Projects]]></pageTitle>
                         <firstNavigationalBlock></firstNavigationalBlock>
                         <firstNavigationalItem></firstNavigationalItem>
+                        <enabled>true</enabled>
+                        <visible>true</visible>
                         <numCols>1</numCols>
                         <canvasList>
                             <canvas name="ProjectsToolbar" type="BLOCK">
@@ -39,12 +57,27 @@
                             <canvas name="projectKey" type="BLOCK">
                             </canvas>
                         </canvasList>
-                    </stackedPage>
-                    <stackedPage name="invoice">
-                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
-                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
+                    </tabPage>
+                    <tabPage name="Project Tasks">
+                        <pageTitle></pageTitle>
                         <firstNavigationalBlock></firstNavigationalBlock>
                         <firstNavigationalItem></firstNavigationalItem>
+                        <enabled>true</enabled>
+                        <visible>true</visible>
+                        <numCols>1</numCols>
+                        <canvasList>
+                            <canvas name="ProjectTasksToolbar" type="BLOCK">
+                            </canvas>
+                            <canvas name="ProjectTasks" type="BLOCK">
+                            </canvas>
+                        </canvasList>
+                    </tabPage>
+                    <tabPage name="Invoice Planning">
+                        <pageTitle></pageTitle>
+                        <firstNavigationalBlock></firstNavigationalBlock>
+                        <firstNavigationalItem></firstNavigationalItem>
+                        <enabled>true</enabled>
+                        <visible>true</visible>
                         <numCols>1</numCols>
                         <canvasList>
                             <canvas name="InvoiceHeader" type="BLOCK">
@@ -66,38 +99,8 @@
                                 </groupCanvasList>
                             </canvas>
                         </canvasList>
-                    </stackedPage>
-                    <stackedPage name="tasks">
-                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
-                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="ProjectTasksToolbar" type="BLOCK">
-                            </canvas>
-                            <canvas name="ProjectTasks" type="BLOCK">
-                            </canvas>
-                        </canvasList>
-                    </stackedPage>
-                </stackedPageList>
-            </canvas>
-            <canvas name="NewInvoiceItemPopup" type="POPUP">
-                <width>400</width>
-                <height>300</height>
-                <numCols>1</numCols>
-                <horizontalSpan>1</horizontalSpan>
-                <verticalSpan>1</verticalSpan>
-                <expandHorizontally>true</expandHorizontally>
-                <expandVertically>true</expandVertically>
-                <popupPageTitle><![CDATA[Create new Invoice Position]]></popupPageTitle>
-                <buttonOneText><![CDATA[Create]]></buttonOneText>
-                <buttonTwoText><![CDATA[Cancel]]></buttonTwoText>
-                <buttonThreeText></buttonThreeText>
-                <canvasList>
-                    <canvas name="NewInvoiceItem" type="BLOCK">
-                    </canvas>
-                </canvasList>
+                    </tabPage>
+                </tabPageList>
             </canvas>
         </canvasList>
         <blockList>
@@ -4741,38 +4744,26 @@
                             <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
                         </itemRendererProperties>
                     </item>
-                    <item name="projectInformation">
+                    <item name="projects">
                         <blockServiceItem>false</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[LabelItem]]></itemRendererName>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ComboItem]]></itemRendererName>
                         <defaultInsertValue></defaultInsertValue>
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
-                            <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
                             <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
-                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
-                            <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
-                        </itemRendererProperties>
-                    </item>
-                    <item name="backToProjects">
-                        <blockServiceItem>false</blockServiceItem>
-                        <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[LabelItem]]></itemRendererName>
-                        <defaultInsertValue></defaultInsertValue>
-                        <defaultQueryValue></defaultQueryValue>
-                        <itemRendererProperties>
-                            <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
-                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
-                            <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
+                            <property name="LOVDEFINITION" multilingual="false" propertyType="LOV_DEFINITION_WITH_ITEMS"><![CDATA[Projects.id]]></property>
+                            <property name="VISIBLE_ITEM_COUNT" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
+                            <property name="INITIALIES_LOV" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <propertyList name="DISPLAY_COLUMNS">
+                                <listEntry>
+                                    <property name="FORMAT"></property>
+                                    <property name="COLUMN"><![CDATA[name]]></property>
+                                    <property name="RETURN_ITEM"></property>
+                                    <property name="DISPLAYED"><![CDATA[true]]></property>
+                                </listEntry>
+                            </propertyList>
                         </itemRendererProperties>
                     </item>
                 </itemList>
@@ -4792,7 +4783,7 @@
                         <itemGroup name="main">
                             <displayFrame>false</displayFrame>
                             <frameTitle></frameTitle>
-                            <numCols>2</numCols>
+                            <numCols>5</numCols>
                             <height>0</height>
                             <width>0</width>
                             <xspan>1</xspan>
@@ -4800,7 +4791,7 @@
                             <expandHorizontally>true</expandHorizontally>
                             <expandVertically>true</expandVertically>
                             <verticalAlignment><![CDATA[CENTER]]></verticalAlignment>
-                            <horizontalAlignment><![CDATA[BEGINNING]]></horizontalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
                             <rendererProperties>
                                 <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
@@ -4809,54 +4800,6 @@
                                 </propertyList>
                             </rendererProperties>
                             <itemGroupItemList>
-                                <item referencedItemName="spacer100" isSpacerItem="true">
-                                    <label></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="projectInformation" isSpacerItem="false">
-                                    <label></label>
-                                    <hint></hint>
-                                    <editAllowed>true</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[titleMedium]]></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
                                 <item referencedItemName="spacer200" isSpacerItem="true">
                                     <label></label>
                                     <hint></hint>
@@ -4869,39 +4812,15 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                         <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                         <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
                                         <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[20]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
                                         <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
-                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="backToProjects" isSpacerItem="false">
-                                    <label><![CDATA[[Back To Projects List]]]></label>
-                                    <hint></hint>
-                                    <editAllowed>true</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand><![CDATA[BACK_TO_PROJECT_OVERVIEW]]></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
-                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[18]]></property>
-                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
-                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
-                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -4925,7 +4844,69 @@
                                         <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
                                         <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer400" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer300" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="projects" isSpacerItem="false">
+                                    <label><![CDATA[Projects]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand><![CDATA[QUERY_PROJECT_TASKS]]></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
@@ -8610,6 +8591,13 @@
             </lovDefinition>
             <lovDefinition name="TaskStatus" isReferenced="true" referencedLovDefinitionName="TaskStatus">
                 <itemList>
+                </itemList>
+            </lovDefinition>
+            <lovDefinition name="Projects" isReferenced="true" referencedLovDefinitionName="CustomerProjects">
+                <itemList>
+                    <item name="companyId">
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                    </item>
                 </itemList>
             </lovDefinition>
         </lovDefinitionList>

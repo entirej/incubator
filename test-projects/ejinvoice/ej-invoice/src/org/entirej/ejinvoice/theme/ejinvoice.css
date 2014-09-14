@@ -158,6 +158,6 @@ Button[PUSH].entry
 {
    text-shadow: 0 1px 1px rgba(0,0,0,.3)  ;
    border: solid 1px #61B329;
-   color: #fef4e9;
+   color: #FFFFFF;
    background-image: gradient(linear, left top, left bottom, from(#A6D785), to(#61B329));
 }

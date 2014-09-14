@@ -16,6 +16,7 @@ public class F_TIME_ENTRY_OVERVIEW
         public static final String I_DATE_FROM     = "dateFrom";
         public static final String I_DATE_TO       = "dateTo";
         public static final String I_REFRESH_IMAGE = "refreshImage";
+        public static final String I_USER_ID       = "userId";
 
     }
 
@@ -43,6 +44,26 @@ public class F_TIME_ENTRY_OVERVIEW
         public static final String I_PROJECT_DESCRIPTION = "projectDescription";
         public static final String I_WORK_DESCRIPTION    = "workDescription";
         public static final String I_WORK_DATE           = "workDate";
+
+    }
+
+    public static class L_USERS
+    {
+        public static final String ID                = "Users";
+        public static final String I_PASSWORD        = "password";
+        public static final String I_NOTES           = "notes";
+        public static final String I_TOWN            = "town";
+        public static final String I_LOCALE_COUNTRY  = "localeCountry";
+        public static final String I_LAST_NAME       = "lastName";
+        public static final String I_ADDRESS         = "address";
+        public static final String I_ACTIVE          = "active";
+        public static final String I_POST_CODE       = "postCode";
+        public static final String I_LOCALE_LANGUAGE = "localeLanguage";
+        public static final String I_ID              = "id";
+        public static final String I_ROLE            = "role";
+        public static final String I_COMPANY_ID      = "companyId";
+        public static final String I_FIRST_NAME      = "firstName";
+        public static final String I_EMAIL           = "email";
 
     }
 

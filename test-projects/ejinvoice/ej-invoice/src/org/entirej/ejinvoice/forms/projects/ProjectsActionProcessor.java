@@ -184,7 +184,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_PROJECTS.B_INVOICE_HEADER.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_HEADER.I_PROJECT_INFORMATION).setValue(builder.toString());
 
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.INVOICE);
+            form.showTabCanvasPage(F_PROJECTS.C_PROJECT_TAB, F_PROJECTS.C_PROJECT_TAB_PAGES.INVOICE__PLANNING);
             form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
@@ -202,21 +202,19 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
 //            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
 
-        else if (F_PROJECTS.AC_PROJECT_TASKS.equals(command))
+        else if (F_PROJECTS.AC_QUERY_PROJECT_TASKS.equals(command))
         {
-            form.getBlock(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.I_PROJECT_INFORMATION).setValue("Project: " + record.getValue(F_PROJECTS.B_PROJECTS.I_NAME));
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.TASKS);
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
         }
-        else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
-        {
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS);
-
-            if (!record.getBlockName().equals(F_PROJECTS.B_PROJECT_TASKS.ID))
-            {
-                form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
-            }
-        }
+//        else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
+//        {
+//            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS);
+//
+//            if (!record.getBlockName().equals(F_PROJECTS.B_PROJECT_TASKS.ID))
+//            {
+//                form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
+//            }
+//        }
         else if (F_PROJECTS.AC_ADD_NEW_TASK.equals(command))
         {
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).enterInsert(false);
@@ -287,7 +285,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         {
             timeEntryInserted = false;
 
-            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.INVOICE);
+            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_TAB, F_PROJECTS.C_PROJECT_TAB_PAGES.INVOICE__PLANNING);
             form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
 
             EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");

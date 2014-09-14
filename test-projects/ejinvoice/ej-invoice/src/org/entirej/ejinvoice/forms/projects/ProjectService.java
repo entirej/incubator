@@ -88,4 +88,27 @@ public class ProjectService
         return projects;
     }
     
+    public String getStatus(EJForm form, Integer projectId)
+    {
+        if (projectId == null)
+        {
+            throw new EJApplicationException("No project id passed ProjectService.getStatus");
+        }
+        EJStatementExecutor executor = new EJStatementExecutor();
+
+        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
+        criteria.add(EJRestrictions.equals("ID", projectId));
+        List<Project> projects = executor.executeQuery(Project.class, form, "SELECT STATUS FROM CUSTOMER_PROJECTS ", criteria);
+
+        if (projects.size() > 0)
+        {
+            return projects.get(0).getStatus();
+        }
+        else
+        {
+            return "NONE";
+        }
+    }
 }

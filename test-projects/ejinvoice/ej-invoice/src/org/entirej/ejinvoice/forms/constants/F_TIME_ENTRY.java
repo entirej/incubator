@@ -43,6 +43,7 @@ public class F_TIME_ENTRY
         public static final String I_EDIT_COMPANY_INFORMATION = "editCompanyInformation";
         public static final String I_PROJECT_LABEL            = "projectLabel";
         public static final String I_PROCESS_LABEL            = "processLabel";
+        public static final String I_REFRESH_PROJECT_LISTS    = "refreshProjectLists";
 
     }
 
@@ -305,6 +306,7 @@ public class F_TIME_ENTRY
     public static final String AC_EDIT_CUSTOMER         = "EDIT_CUSTOMER";
     public static final String AC_EDIT_TIME_ENTRY       = "EDIT_TIME_ENTRY";
     public static final String AC_QUERY_CUSTOMERS       = "QUERY_CUSTOMERS";
+    public static final String AC_REFRESH_PROJECT_LISTS = "REFRESH_PROJECT_LISTS";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
 
 }

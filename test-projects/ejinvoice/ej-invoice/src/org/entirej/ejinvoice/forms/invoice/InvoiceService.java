@@ -54,49 +54,50 @@ public class InvoiceService
             return "No invoices created for this customer";
         }
     }
-    
+
     public byte[] getInvoicPDF(EJForm form, int invNR)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
-        
+
         EJStatementParameter custIdParam = new EJStatementParameter(EJParameterType.IN);
         custIdParam.setValue(invNR);
-        
+
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-        
+
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
-        
+
         String selectStmt = "SELECT INVOICE_FILE FROM INVOICE WHERE ID = ? and COMPANY_ID = ?";
-        
+
         List<EJSelectResult> results = executor.executeQuery(form.getConnection(), selectStmt, custIdParam, companyIdParam);
         if (results.size() > 0)
         {
-            return (byte[])results.get(0).getItemValue("INVOICE_FILE");
+            return (byte[]) results.get(0).getItemValue("INVOICE_FILE");
         }
         else
         {
             return null;
         }
     }
+
     public byte[] getInvoicDtlPDF(EJForm form, int invNR)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
-        
+
         EJStatementParameter custIdParam = new EJStatementParameter(EJParameterType.IN);
         custIdParam.setValue(invNR);
-        
+
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-        
+
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
-        
+
         String selectStmt = "SELECT INVOICE_DTL_FILE FROM INVOICE WHERE ID = ? and COMPANY_ID = ?";
-        
+
         List<EJSelectResult> results = executor.executeQuery(form.getConnection(), selectStmt, custIdParam, companyIdParam);
         if (results.size() > 0)
         {
-            return (byte[])results.get(0).getItemValue("INVOICE_DTL_FILE");
+            return (byte[]) results.get(0).getItemValue("INVOICE_DTL_FILE");
         }
         else
         {
@@ -115,17 +116,52 @@ public class InvoiceService
         criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
         executor.executeUpdate(form, "INVOICE", criteria, new EJStatementParameter[] { new EJStatementParameter("INVOICE_FILE", Object.class, data) });
     }
-    
+
     public void updateInvoicDtlPDF(EJForm form, int invNR, byte[] data)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
-        
+
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-        
+
         EJStatementCriteria criteria = new EJStatementCriteria();
         criteria.add(EJRestrictions.equals("ID", invNR));
         criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
         executor.executeUpdate(form, "INVOICE", criteria, new EJStatementParameter[] { new EJStatementParameter("INVOICE_DTL_FILE", Object.class, data) });
+    }
+
+    /**
+     * Checks to see if the specified date is in an block invoice period. A
+     * blocked period is any invoice position that has been approved for
+     * invoicing or later stages
+     * 
+     * @param form
+     *            The form from where the method is being called
+     * @param date
+     *            The specified date
+     * @return <code>true</code> if this date is in a blocked period, otherwise
+     *         <code>false</code>
+     */
+    public boolean isInBlockedInvoicePeriod(EJForm form, Date date)
+    {
+        String select = "select * from invoice_positions where status != 'PLANNED' and company_id = ? and ? BETWEEN PERIOD_FROM AND PERIOD_TO";
+
+        EJStatementExecutor executor = new EJStatementExecutor();
+
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+
+        EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
+        companyIdParam.setValue(companyId);
+
+        EJStatementParameter dateParam = new EJStatementParameter(EJParameterType.IN);
+        dateParam.setValue(date);
+
+        List<EJSelectResult> results = executor.executeQuery(form.getConnection(), select, companyIdParam, dateParam);
+        if (results.size() > 0)
+        {
+            return true;
+        }
+
+        return false;
     }
 
     public static void validateInvoicePeriod(EJForm form, Integer projectId, Integer taskId, Date periodFrom, Date periodTo)
@@ -135,14 +171,20 @@ public class InvoiceService
 
     public static void validateInvoicePeriod(EJForm form, Integer projectId, Integer taskId, Integer invpId, Date periodFrom, Date periodTo)
     {
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+
         StringBuilder selectStmt = new StringBuilder();
 
         selectStmt.append("select * from invoice_positions ");
-        selectStmt.append("where (( ? >= period_from and ? <= period_to) or ( ? >= period_from and ? <= period_to)) ");
+        selectStmt.append("where company_id = ? ");
+        selectStmt.append("and (( ? >= period_from and ? <= period_to) or ( ? >= period_from and ? <= period_to)) ");
         selectStmt.append("and cupr_id = ? ");
         selectStmt.append("and cupt_id = ? ");
 
         EJStatementExecutor executor = new EJStatementExecutor();
+
+        EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
+        companyIdParam.setValue(companyId);
 
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
         projectIdParam.setValue(projectId);
@@ -163,11 +205,13 @@ public class InvoiceService
             EJStatementParameter invpIdParam = new EJStatementParameter(EJParameterType.IN);
             invpIdParam.setValue(invpId);
 
-            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam, taskIdParam, invpIdParam);
+            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), companyIdParam, periodFromParam, periodFromParam, periodToParam,
+                    periodToParam, projectIdParam, taskIdParam, invpIdParam);
         }
         else
         {
-            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), periodFromParam, periodFromParam, periodToParam, periodToParam, projectIdParam, taskIdParam);
+            results = executor.executeQuery(form.getConnection(), selectStmt.toString(), companyIdParam, periodFromParam, periodFromParam, periodToParam,
+                    periodToParam, projectIdParam, taskIdParam);
         }
 
         if (results.size() > 0)
@@ -178,7 +222,8 @@ public class InvoiceService
             String periodFromResult = DateFormat.getDateInstance(DateFormat.LONG, form.getCurrentLocale()).format(result.getItemValue("PERIOD_FROM"));
             String periodToResult = DateFormat.getDateInstance(DateFormat.LONG, form.getCurrentLocale()).format(result.getItemValue("PERIOD_TO"));
 
-            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "This period overlaps with another period rangig from: " + periodFromResult + " : " + periodToResult + ". Please change your invoice period accordingly.");
+            EJMessage message = new EJMessage(EJMessageLevel.ERROR, "This period overlaps with another period rangig from: " + periodFromResult + " : "
+                    + periodToResult + ". Please change your invoice period accordingly.");
             throw new EJApplicationException(message);
         }
 
@@ -254,7 +299,8 @@ public class InvoiceService
         EJStatementParameter taskNameParam = new EJStatementParameter("TASK_NAME", String.class);
         taskNameParam.setValue(position.getTaskName());
 
-        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, companyIdParam, textParam, periodFromParam, periodToParam, statusParam, projectNameParam, taskNameParam);
+        executor.executeInsert(form.getConnection(), "INVOICE_POSITIONS", idParam, cuprIdParam, cuptIdParam, companyIdParam, textParam, periodFromParam,
+                periodToParam, statusParam, projectNameParam, taskNameParam);
 
     }
 
@@ -288,7 +334,7 @@ public class InvoiceService
         payRateParam.setValue(position.getPayRate());
 
         EJStatementParameter amountParam;
-        if (position.getPayRate() != null && position.getWorkHours()!=null)
+        if (position.getPayRate() != null && position.getWorkHours() != null)
         {
             amountParam = new EJStatementParameter("AMOUNT", BigDecimal.class);
             amountParam.setValue(position.getWorkHours().multiply(position.getPayRate()));
@@ -345,22 +391,20 @@ public class InvoiceService
         {
             return;
         }
-        
+
         EJStatementExecutor executor = new EJStatementExecutor();
-        
-        
+
         EJStatementCriteria invCriteria = new EJStatementCriteria();
         invCriteria.add(EJRestrictions.equals("INV_ID", invoiceId));
-        
-        EJStatementParameter invParam    = new EJStatementParameter("INV_ID", Integer.class, EJParameterType.IN, null);
+
+        EJStatementParameter invParam = new EJStatementParameter("INV_ID", Integer.class, EJParameterType.IN, null);
         EJStatementParameter statusParam = new EJStatementParameter("STATUS", String.class, "MARKED_FOR_INVOICE");
         executor.executeUpdate(form.getConnection(), "INVOICE_POSITIONS", invCriteria, invParam, statusParam);
-        
+
         invCriteria = new EJStatementCriteria();
         invCriteria.add(EJRestrictions.equals("ID", invoiceId));
         executor.executeDelete(form.getConnection(), "INVOICE", invCriteria);
-        
+
     }
-    
-    
+
 }

@@ -5,6 +5,8 @@ import java.util.Calendar;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
+import org.entirej.ejinvoice.enums.UserRole;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY_OVERVIEW;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
@@ -19,6 +21,13 @@ public class TimeEntryOverviewActionProcessor extends DefaultFormActionProcessor
     {
         Calendar c = Calendar.getInstance();   // this takes current date
         c.set(Calendar.DAY_OF_MONTH, 1);
+        
+        User user = (User)form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
+        form.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_FILTER.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_FILTER.I_USER_ID).setValue(user.getId());
+        if (user.getRole().equals(UserRole.EMPLOYEE.toString()))
+        {
+            form.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_FILTER.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_FILTER.I_USER_ID).setVisible(false);
+        }
         
         Date dateFrom = new Date(c.getTime().getTime());
         Date dateTo   = new Date(System.currentTimeMillis());

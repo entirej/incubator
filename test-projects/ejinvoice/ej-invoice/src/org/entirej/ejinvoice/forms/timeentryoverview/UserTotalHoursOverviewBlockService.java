@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.company.User;
+import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY_OVERVIEW;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
@@ -60,7 +62,7 @@ public class UserTotalHoursOverviewBlockService implements EJBlockService<UserTo
                 .append("and   cpte.user_id = user.id ")
                 .append("and   cupr.company_id = ? ");
 
-        String orderBy = " order by cupr.name, cupt.name, user.first_name, user.last_name, work_date, start_time";
+        String orderBy = " order by user.first_name, user.last_name, cupr.name, cupt.name, work_date, start_time";
 
         ArrayList<EJStatementParameter> paramList = new ArrayList<EJStatementParameter>();
 
@@ -68,9 +70,24 @@ public class UserTotalHoursOverviewBlockService implements EJBlockService<UserTo
         EJStatementParameter companyIdParam = new EJStatementParameter(companyId);
         paramList.add(companyIdParam);
 
-        if (queryCriteria.containsRestriction("userId"))
+        Integer userId = null;
+        if (queryCriteria.containsRestriction(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_USER_ID))
         {
-            Integer userId = (Integer) queryCriteria.getRestriction("userId").getValue();
+            userId = (Integer) queryCriteria.getRestriction(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_USER_ID).getValue();
+        }
+
+        // No user restriction has been selected so check if the user is an
+        // employee, if he is, then restrict the selection to that employee only
+        if (userId == null)
+        {
+            if (user.getRole().equals(UserRole.EMPLOYEE.toString()))
+            {
+                userId = user.getId();
+            }
+        }
+
+        if (userId != null)
+        {
             selectStatement.append(" and user.id = ? ");
             paramList.add(new EJStatementParameter(userId));
         }
@@ -115,7 +132,7 @@ public class UserTotalHoursOverviewBlockService implements EJBlockService<UserTo
         }
         
         
-        int userId = -1;
+        userId = -1;
         int userIdResult;
         StringBuilder description = new StringBuilder();
         for (EJSelectResult result : results)
