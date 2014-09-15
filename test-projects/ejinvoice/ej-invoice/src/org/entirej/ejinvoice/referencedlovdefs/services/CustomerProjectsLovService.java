@@ -18,6 +18,7 @@
  ******************************************************************************/
 package org.entirej.ejinvoice.referencedlovdefs.services;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +37,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerProjectsLovService implements EJBlockService<CustomerProjects>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_ID,DESCRIPTION,ID,NAME, STATUS FROM CUSTOMER_PROJECTS";
+    private String                    _selectStatement = "SELECT COMPANY_ID, CUSTOMER_ID,DESCRIPTION,ID,NAME, STATUS, FIX_PRICE FROM CUSTOMER_PROJECTS";
 
     public CustomerProjectsLovService()
     {
@@ -72,6 +73,7 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("COMPANY_ID", String.class, record.getCompanyId()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "CUSTOMER_PROJECTS", parameters.toArray(paramArray));
             record.clearInitialValues();
@@ -100,6 +102,7 @@ public class CustomerProjectsLovService implements EJBlockService<CustomerProjec
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
             parameters.add(new EJStatementParameter("STATUS", String.class, record.getStatus()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustId() == null)

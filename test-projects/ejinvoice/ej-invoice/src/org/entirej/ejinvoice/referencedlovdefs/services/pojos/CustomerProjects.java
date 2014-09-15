@@ -32,6 +32,7 @@ public class CustomerProjects
     private EJPojoProperty<Integer>    _custId;
     private EJPojoProperty<String>     _description;
     private EJPojoProperty<String>     _status;
+    private EJPojoProperty<BigDecimal> _fixPrice;
 
     @EJFieldName("NAME")
     public String getName()
@@ -69,7 +70,6 @@ public class CustomerProjects
         return EJPojoProperty.getPropertyInitialValue(_id);
     }
 
-    
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -87,8 +87,7 @@ public class CustomerProjects
     {
         return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
-    
-    
+
     @EJFieldName("PAY_RATE")
     public BigDecimal getPayRate()
     {
@@ -142,8 +141,6 @@ public class CustomerProjects
     {
         return EJPojoProperty.getPropertyInitialValue(_description);
     }
-    
-    
 
     @EJFieldName("STATUS")
     public String getStatus()
@@ -163,6 +160,23 @@ public class CustomerProjects
         return EJPojoProperty.getPropertyInitialValue(_status);
     }
 
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getFixPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public void setFixPrice(BigDecimal fixPrice)
+    {
+        _fixPrice = EJPojoProperty.setPropertyValue(_fixPrice, fixPrice);
+    }
+
+    @EJFieldName("FIX_PRICE")
+    public BigDecimal getInitialFixPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_fixPrice);
+    }
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_name);
@@ -172,6 +186,7 @@ public class CustomerProjects
         EJPojoProperty.clearInitialValue(_custId);
         EJPojoProperty.clearInitialValue(_description);
         EJPojoProperty.clearInitialValue(_status);
+        EJPojoProperty.clearInitialValue(_fixPrice);
     }
 
 }

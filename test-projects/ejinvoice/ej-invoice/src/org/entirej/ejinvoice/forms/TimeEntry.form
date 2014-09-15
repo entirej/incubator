@@ -5,7 +5,7 @@
         <formDisplayName></formDisplayName>
         <formWidth>820</formWidth>
         <formHeight>520</formHeight>
-        <numCols>1</numCols>
+        <numCols>2</numCols>
         <actionProcessorClassName><![CDATA[org.entirej.ejinvoice.forms.timeentry.TimeEntryActionProcessor]]></actionProcessorClassName>
         <formRendererName><![CDATA[Form]]></formRendererName>
         <formParameterList>
@@ -17,7 +17,7 @@
         <canvasList>
             <canvas name="Company" type="BLOCK">
             </canvas>
-            <canvas name="Main" type="TAB">
+            <canvas name="mainSplit" type="SPLIT">
                 <width>0</width>
                 <height>0</height>
                 <numCols>1</numCols>
@@ -25,154 +25,168 @@
                 <verticalSpan>1</verticalSpan>
                 <expandHorizontally>true</expandHorizontally>
                 <expandVertically>true</expandVertically>
-                <tabPosition><![CDATA[TOP]]></tabPosition>
-                <tabPageList>
-                    <tabPage name="Time Entry">
-                        <pageTitle><![CDATA[Time]]></pageTitle>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <enabled>true</enabled>
-                        <visible>true</visible>
+                <splitOrientation><![CDATA[HORIZONTAL]]></splitOrientation>
+                <groupCanvasList>
+                    <canvas name="Menu" type="BLOCK">
+                    </canvas>
+                    <canvas name="Main" type="TAB">
+                        <width>100</width>
+                        <height>0</height>
                         <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="TimeEntryEntry" type="BLOCK">
-                            </canvas>
-                            <canvas name="TimeEntry" type="BLOCK">
-                            </canvas>
-                        </canvasList>
-                    </tabPage>
-                    <tabPage name="TimeEntryOverview">
-                        <pageTitle><![CDATA[Time Entry Overview]]></pageTitle>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <enabled>true</enabled>
-                        <visible>true</visible>
-                        <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="TimeEntryOverviewForm" type="FORM">
-                                <width>0</width>
-                                <height>0</height>
+                        <horizontalSpan>1</horizontalSpan>
+                        <verticalSpan>1</verticalSpan>
+                        <expandHorizontally>true</expandHorizontally>
+                        <expandVertically>true</expandVertically>
+                        <tabPosition><![CDATA[TOP]]></tabPosition>
+                        <tabPageList>
+                            <tabPage name="Time Entry">
+                                <pageTitle><![CDATA[Time]]></pageTitle>
+                                <firstNavigationalBlock></firstNavigationalBlock>
+                                <firstNavigationalItem></firstNavigationalItem>
+                                <enabled>true</enabled>
+                                <visible>true</visible>
                                 <numCols>1</numCols>
-                                <horizontalSpan>1</horizontalSpan>
-                                <verticalSpan>1</verticalSpan>
-                                <expandHorizontally>true</expandHorizontally>
-                                <expandVertically>true</expandVertically>
-                            </canvas>
-                        </canvasList>
-                    </tabPage>
-                    <tabPage name="Projects">
-                        <pageTitle><![CDATA[Projects]]></pageTitle>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <enabled>true</enabled>
-                        <visible>true</visible>
-                        <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="ProjectForm" type="FORM">
-                                <width>0</width>
-                                <height>0</height>
+                                <canvasList>
+                                    <canvas name="TimeEntryEntry" type="BLOCK">
+                                    </canvas>
+                                    <canvas name="TimeEntry" type="BLOCK">
+                                    </canvas>
+                                </canvasList>
+                            </tabPage>
+                            <tabPage name="TimeEntryOverview">
+                                <pageTitle><![CDATA[Time Entry Overview]]></pageTitle>
+                                <firstNavigationalBlock></firstNavigationalBlock>
+                                <firstNavigationalItem></firstNavigationalItem>
+                                <enabled>true</enabled>
+                                <visible>true</visible>
                                 <numCols>1</numCols>
-                                <horizontalSpan>1</horizontalSpan>
-                                <verticalSpan>1</verticalSpan>
-                                <expandHorizontally>true</expandHorizontally>
-                                <expandVertically>true</expandVertically>
-                            </canvas>
-                        </canvasList>
-                    </tabPage>
-                    <tabPage name="InvoiceCreation">
-                        <pageTitle><![CDATA[Invoice]]></pageTitle>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <enabled>true</enabled>
-                        <visible>true</visible>
-                        <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="InvoiceForm" type="FORM">
-                                <width>0</width>
-                                <height>0</height>
-                                <numCols>1</numCols>
-                                <horizontalSpan>1</horizontalSpan>
-                                <verticalSpan>1</verticalSpan>
-                                <expandHorizontally>true</expandHorizontally>
-                                <expandVertically>true</expandVertically>
-                            </canvas>
-                        </canvasList>
-                    </tabPage>
-                    <tabPage name="Customers">
-                        <pageTitle></pageTitle>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <enabled>true</enabled>
-                        <visible>true</visible>
-                        <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="CustomerStack" type="STACKED">
-                                <width>0</width>
-                                <height>0</height>
-                                <numCols>1</numCols>
-                                <horizontalSpan>1</horizontalSpan>
-                                <verticalSpan>1</verticalSpan>
-                                <expandHorizontally>true</expandHorizontally>
-                                <expandVertically>true</expandVertically>
-                                <initialStackedPageName></initialStackedPageName>
-                                <stackedPageList>
-                                    <stackedPage name="CustomerOverview">
-                                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
-                                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
-                                        <firstNavigationalBlock></firstNavigationalBlock>
-                                        <firstNavigationalItem></firstNavigationalItem>
+                                <canvasList>
+                                    <canvas name="TimeEntryOverviewForm" type="FORM">
+                                        <width>0</width>
+                                        <height>0</height>
                                         <numCols>1</numCols>
-                                        <canvasList>
-                                            <canvas name="CustomersToolbar" type="BLOCK">
-                                            </canvas>
-                                            <canvas name="Customer" type="BLOCK">
-                                            </canvas>
-                                            <canvas name="CustomersKey" type="BLOCK">
-                                            </canvas>
-                                        </canvasList>
-                                    </stackedPage>
-                                    <stackedPage name="CustomerDetails">
-                                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
-                                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
-                                        <firstNavigationalBlock></firstNavigationalBlock>
-                                        <firstNavigationalItem></firstNavigationalItem>
+                                        <horizontalSpan>1</horizontalSpan>
+                                        <verticalSpan>1</verticalSpan>
+                                        <expandHorizontally>true</expandHorizontally>
+                                        <expandVertically>true</expandVertically>
+                                    </canvas>
+                                </canvasList>
+                            </tabPage>
+                            <tabPage name="Projects">
+                                <pageTitle><![CDATA[Projects]]></pageTitle>
+                                <firstNavigationalBlock></firstNavigationalBlock>
+                                <firstNavigationalItem></firstNavigationalItem>
+                                <enabled>true</enabled>
+                                <visible>true</visible>
+                                <numCols>1</numCols>
+                                <canvasList>
+                                    <canvas name="ProjectForm" type="FORM">
+                                        <width>0</width>
+                                        <height>0</height>
                                         <numCols>1</numCols>
-                                        <canvasList>
-                                            <canvas name="CustomerDetailsForm" type="FORM">
-                                                <width>0</width>
-                                                <height>0</height>
+                                        <horizontalSpan>1</horizontalSpan>
+                                        <verticalSpan>1</verticalSpan>
+                                        <expandHorizontally>true</expandHorizontally>
+                                        <expandVertically>true</expandVertically>
+                                    </canvas>
+                                </canvasList>
+                            </tabPage>
+                            <tabPage name="InvoiceCreation">
+                                <pageTitle><![CDATA[Invoice]]></pageTitle>
+                                <firstNavigationalBlock></firstNavigationalBlock>
+                                <firstNavigationalItem></firstNavigationalItem>
+                                <enabled>true</enabled>
+                                <visible>true</visible>
+                                <numCols>1</numCols>
+                                <canvasList>
+                                    <canvas name="InvoiceForm" type="FORM">
+                                        <width>0</width>
+                                        <height>0</height>
+                                        <numCols>1</numCols>
+                                        <horizontalSpan>1</horizontalSpan>
+                                        <verticalSpan>1</verticalSpan>
+                                        <expandHorizontally>true</expandHorizontally>
+                                        <expandVertically>true</expandVertically>
+                                    </canvas>
+                                </canvasList>
+                            </tabPage>
+                            <tabPage name="Customers">
+                                <pageTitle></pageTitle>
+                                <firstNavigationalBlock></firstNavigationalBlock>
+                                <firstNavigationalItem></firstNavigationalItem>
+                                <enabled>true</enabled>
+                                <visible>true</visible>
+                                <numCols>1</numCols>
+                                <canvasList>
+                                    <canvas name="CustomerStack" type="STACKED">
+                                        <width>0</width>
+                                        <height>0</height>
+                                        <numCols>1</numCols>
+                                        <horizontalSpan>1</horizontalSpan>
+                                        <verticalSpan>1</verticalSpan>
+                                        <expandHorizontally>true</expandHorizontally>
+                                        <expandVertically>true</expandVertically>
+                                        <initialStackedPageName></initialStackedPageName>
+                                        <stackedPageList>
+                                            <stackedPage name="CustomerOverview">
+                                                <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
+                                                <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
+                                                <firstNavigationalBlock></firstNavigationalBlock>
+                                                <firstNavigationalItem></firstNavigationalItem>
                                                 <numCols>1</numCols>
-                                                <horizontalSpan>1</horizontalSpan>
-                                                <verticalSpan>1</verticalSpan>
-                                                <expandHorizontally>true</expandHorizontally>
-                                                <expandVertically>true</expandVertically>
-                                            </canvas>
-                                        </canvasList>
-                                    </stackedPage>
-                                </stackedPageList>
-                            </canvas>
-                        </canvasList>
-                    </tabPage>
-                    <tabPage name="Company">
-                        <pageTitle><![CDATA[Administration]]></pageTitle>
-                        <firstNavigationalBlock></firstNavigationalBlock>
-                        <firstNavigationalItem></firstNavigationalItem>
-                        <enabled>true</enabled>
-                        <visible>true</visible>
-                        <numCols>1</numCols>
-                        <canvasList>
-                            <canvas name="CompanyForm" type="FORM">
-                                <width>0</width>
-                                <height>0</height>
+                                                <canvasList>
+                                                    <canvas name="CustomersToolbar" type="BLOCK">
+                                                    </canvas>
+                                                    <canvas name="Customer" type="BLOCK">
+                                                    </canvas>
+                                                    <canvas name="CustomersKey" type="BLOCK">
+                                                    </canvas>
+                                                </canvasList>
+                                            </stackedPage>
+                                            <stackedPage name="CustomerDetails">
+                                                <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
+                                                <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
+                                                <firstNavigationalBlock></firstNavigationalBlock>
+                                                <firstNavigationalItem></firstNavigationalItem>
+                                                <numCols>1</numCols>
+                                                <canvasList>
+                                                    <canvas name="CustomerDetailsForm" type="FORM">
+                                                        <width>0</width>
+                                                        <height>0</height>
+                                                        <numCols>1</numCols>
+                                                        <horizontalSpan>1</horizontalSpan>
+                                                        <verticalSpan>1</verticalSpan>
+                                                        <expandHorizontally>true</expandHorizontally>
+                                                        <expandVertically>true</expandVertically>
+                                                    </canvas>
+                                                </canvasList>
+                                            </stackedPage>
+                                        </stackedPageList>
+                                    </canvas>
+                                </canvasList>
+                            </tabPage>
+                            <tabPage name="Company">
+                                <pageTitle><![CDATA[Administration]]></pageTitle>
+                                <firstNavigationalBlock></firstNavigationalBlock>
+                                <firstNavigationalItem></firstNavigationalItem>
+                                <enabled>true</enabled>
+                                <visible>true</visible>
                                 <numCols>1</numCols>
-                                <horizontalSpan>1</horizontalSpan>
-                                <verticalSpan>1</verticalSpan>
-                                <expandHorizontally>true</expandHorizontally>
-                                <expandVertically>true</expandVertically>
-                            </canvas>
-                        </canvasList>
-                    </tabPage>
-                </tabPageList>
+                                <canvasList>
+                                    <canvas name="CompanyForm" type="FORM">
+                                        <width>0</width>
+                                        <height>0</height>
+                                        <numCols>1</numCols>
+                                        <horizontalSpan>1</horizontalSpan>
+                                        <verticalSpan>1</verticalSpan>
+                                        <expandHorizontally>true</expandHorizontally>
+                                        <expandVertically>true</expandVertically>
+                                    </canvas>
+                                </canvasList>
+                            </tabPage>
+                        </tabPageList>
+                    </canvas>
+                </groupCanvasList>
             </canvas>
         </canvasList>
         <blockList>
@@ -409,7 +423,7 @@
                     <numCols>1</numCols>
                     <height>80</height>
                     <width>0</width>
-                    <horizontalSpan>1</horizontalSpan>
+                    <horizontalSpan>2</horizontalSpan>
                     <verticalSpan>1</verticalSpan>
                     <expandHorizontally>true</expandHorizontally>
                     <expandVertically>false</expandVertically>
@@ -6774,6 +6788,216 @@
                                         <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
                                         <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
                                         <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                    </itemGroupList>
+                </mainScreen>
+                <queryScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </queryScreen>
+                <insertScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </insertScreen>
+                <updateScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </updateScreen>
+            </block>
+            <block name="Menu" referenced="false" controlBlock="false">
+                <isMirrored>false</isMirrored>
+                <mirrorParent></mirrorParent>
+                <description></description>
+                <queryAllowed>true</queryAllowed>
+                <insertAllowed>true</insertAllowed>
+                <updateAllowed>true</updateAllowed>
+                <addControlBlockDefaultRecord>true</addControlBlockDefaultRecord>
+                <deleteAllowed>true</deleteAllowed>
+                <canvasName><![CDATA[Menu]]></canvasName>
+                <blockRendererName><![CDATA[TreeRecord]]></blockRendererName>
+                <serviceClassName><![CDATA[org.entirej.ejinvoice.menu.MenuBlockService]]></serviceClassName>
+                <actionProcessorClassName></actionProcessorClassName>
+                <queryAllRows>false</queryAllRows>
+                <maxResults>0</maxResults>
+                <pageSize>0</pageSize>
+                <applicationProperties>
+                </applicationProperties>
+                <blockRendererProperties>
+                    <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                    <property name="HIDE_TREE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="FILTER" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="RELATION_ITEM" multilingual="false" propertyType="BLOCK_ITEM"><![CDATA[parentId]]></property>
+                    <property name="NODE_IMAGE_ITEM" multilingual="false" propertyType="BLOCK_ITEM"><![CDATA[iconName]]></property>
+                    <property name="NODE_EXPAND_LEVEL" multilingual="false" propertyType="INTEGER"><![CDATA[0]]></property>
+                    <property name="PARENT_ITEM" multilingual="false" propertyType="BLOCK_ITEM"><![CDATA[id]]></property>
+                    <property name="DOUBLE_CLICK_ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                    <propertyGroup name="TITLE_BAR">
+                        <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                        <propertyList name="TITLE_BAR_ACTIONS">
+                        </propertyList>
+                    </propertyGroup>
+                </blockRendererProperties>
+                <queryScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="CLEAR_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                </queryScreenRendererProperties>
+                <insertScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </insertScreenRendererProperties>
+                <updateScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </updateScreenRendererProperties>
+                <lovMappingList>
+                </lovMappingList>
+                <itemList>
+                    <item name="parentId">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="id">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="name">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[LabelItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="iconName">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="actionCommand">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                </itemList>
+                <mainScreenProperties>
+                    <displayFrame>false</displayFrame>
+                    <frameTitle></frameTitle>
+                    <numCols>1</numCols>
+                    <height>0</height>
+                    <width>30</width>
+                    <horizontalSpan>1</horizontalSpan>
+                    <verticalSpan>1</verticalSpan>
+                    <expandHorizontally>true</expandHorizontally>
+                    <expandVertically>true</expandVertically>
+                </mainScreenProperties>
+                <mainScreen>
+                    <itemGroupList>
+                        <itemGroup name="main">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>1</numCols>
+                            <height>0</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>true</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <itemGroupItemList>
+                                <item referencedItemName="name" isSpacerItem="false">
+                                    <label><![CDATA[Name]]></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand><![CDATA[OPEN_MENU_ITEM]]></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="SUFFIX" multilingual="false" propertyType="STRING"></property>
+                                        <property name="PREFIX" multilingual="false" propertyType="STRING"></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                             </itemGroupItemList>

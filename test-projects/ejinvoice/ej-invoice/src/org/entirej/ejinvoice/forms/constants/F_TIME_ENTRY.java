@@ -122,6 +122,17 @@ public class F_TIME_ENTRY
 
     }
 
+    public static class B_MENU
+    {
+        public static final String ID               = "Menu";
+        public static final String I_PARENT_ID      = "parentId";
+        public static final String I_ID             = "id";
+        public static final String I_NAME           = "name";
+        public static final String I_ICON_NAME      = "iconName";
+        public static final String I_ACTION_COMMAND = "actionCommand";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID           = "VatRate";
@@ -265,8 +276,10 @@ public class F_TIME_ENTRY
 
     }
 
-    public static final String C_COMPANY = "Company";
-    public static final String C_MAIN    = "Main";
+    public static final String C_COMPANY    = "Company";
+    public static final String C_MAIN_SPLIT = "mainSplit";
+    public static final String C_MENU       = "Menu";
+    public static final String C_MAIN       = "Main";
 
     public static class C_MAIN_PAGES
     {
@@ -305,6 +318,7 @@ public class F_TIME_ENTRY
     public static final String AC_DELETE_TIME_ENTRY     = "DELETE_TIME_ENTRY";
     public static final String AC_EDIT_CUSTOMER         = "EDIT_CUSTOMER";
     public static final String AC_EDIT_TIME_ENTRY       = "EDIT_TIME_ENTRY";
+    public static final String AC_OPEN_MENU_ITEM        = "OPEN_MENU_ITEM";
     public static final String AC_QUERY_CUSTOMERS       = "QUERY_CUSTOMERS";
     public static final String AC_REFRESH_PROJECT_LISTS = "REFRESH_PROJECT_LISTS";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";

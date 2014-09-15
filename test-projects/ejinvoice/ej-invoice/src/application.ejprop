@@ -115,11 +115,65 @@
     </renderer>
     <applicationMenus>
         <applicationMenu name="Default" actionProcessorClassName="" default="true">
-            <leaf type="FORM" name="InvoiceOverview">
-                <displayName><![CDATA[Invoice Overview]]></displayName>
-                <formName><![CDATA[InvoiceOverview]]></formName>
-                <hint></hint>
+            <leaf type="BRANCH" name="COMPANIES">
+                <displayName><![CDATA[Companies]]></displayName>
                 <icon></icon>
+                <leaf type="ACTION" name="OPEN_ALL_COMPANIES">
+                    <displayName><![CDATA[All]]></displayName>
+                    <actionCommand><![CDATA[OPEN_ALL_COMPANIES]]></actionCommand>
+                    <hint></hint>
+                    <icon></icon>
+                </leaf>
+                <leaf type="ACTION" name="ACTIVE_COMPANIES">
+                    <displayName><![CDATA[Active]]></displayName>
+                    <actionCommand><![CDATA[OPEN_ACTIVE_COMPANIES]]></actionCommand>
+                    <hint></hint>
+                    <icon></icon>
+                </leaf>
+            </leaf>
+            <leaf type="BRANCH" name="PROJECTS">
+                <displayName><![CDATA[Projects]]></displayName>
+                <icon><![CDATA[/icons/projects.png]]></icon>
+                <leaf type="ACTION" name="ALL_PROJECTS">
+                    <displayName><![CDATA[All]]></displayName>
+                    <actionCommand><![CDATA[OPEN_ALL_PROJECTS]]></actionCommand>
+                    <hint></hint>
+                    <icon></icon>
+                </leaf>
+                <leaf type="ACTION" name="ACTIVE_PROJECTS">
+                    <displayName><![CDATA[Active]]></displayName>
+                    <actionCommand><![CDATA[OPEN_ACTIVE_PROJECTS]]></actionCommand>
+                    <hint></hint>
+                    <icon></icon>
+                </leaf>
+                <leaf type="ACTION" name="MY_PROJECTS">
+                    <displayName><![CDATA[Mine]]></displayName>
+                    <actionCommand><![CDATA[OPEN_MY_PROJECTS]]></actionCommand>
+                    <hint></hint>
+                    <icon></icon>
+                </leaf>
+            </leaf>
+            <leaf type="BRANCH" name="TASKS">
+                <displayName><![CDATA[Tasks]]></displayName>
+                <icon><![CDATA[/icons/projectTasks.png]]></icon>
+                <leaf type="ACTION" name="ALL_PROJECT_TASKS">
+                    <displayName><![CDATA[All]]></displayName>
+                    <actionCommand><![CDATA[OPEN_ALL_TASKS]]></actionCommand>
+                    <hint></hint>
+                    <icon></icon>
+                </leaf>
+                <leaf type="ACTION" name="MY_TASKS">
+                    <displayName><![CDATA[Mine]]></displayName>
+                    <actionCommand><![CDATA[OPEN_MY_TASKS]]></actionCommand>
+                    <hint></hint>
+                    <icon></icon>
+                </leaf>
+            </leaf>
+            <leaf type="ACTION" name="TIME_TRACKING">
+                <displayName><![CDATA[Time Tracking]]></displayName>
+                <actionCommand><![CDATA[OPEN_TIME_TRACKING]]></actionCommand>
+                <hint></hint>
+                <icon><![CDATA[/icons/openhours.png]]></icon>
             </leaf>
         </applicationMenu>
     </applicationMenus>

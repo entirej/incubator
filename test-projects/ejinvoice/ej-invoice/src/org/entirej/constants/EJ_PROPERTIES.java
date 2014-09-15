@@ -42,4 +42,13 @@ public class EJ_PROPERTIES
     public static final String VA_INVOICE_STATUS_SENT            = "InvoiceStatusSent";
     public static final String VA_INVOICE_STATUS_PAID            = "InvoiceStatusPaid";
 
+    public static final String AC_OPEN_ACTIVE_COMPANIES          = "OPEN_ACTIVE_COMPANIES";
+    public static final String AC_OPEN_ACTIVE_PROJECTS           = "OPEN_ACTIVE_PROJECTS";
+    public static final String AC_OPEN_ALL_COMPANIES             = "OPEN_ALL_COMPANIES";
+    public static final String AC_OPEN_ALL_PROJECTS              = "OPEN_ALL_PROJECTS";
+    public static final String AC_OPEN_ALL_TASKS                 = "OPEN_ALL_TASKS";
+    public static final String AC_OPEN_MY_PROJECTS               = "OPEN_MY_PROJECTS";
+    public static final String AC_OPEN_MY_TASKS                  = "OPEN_MY_TASKS";
+    public static final String AC_OPEN_TIME_TRACKING             = "OPEN_TIME_TRACKING";
+
 }
