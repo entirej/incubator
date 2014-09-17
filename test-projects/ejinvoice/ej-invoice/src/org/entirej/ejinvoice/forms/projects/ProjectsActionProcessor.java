@@ -100,11 +100,17 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         }
         else if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType)) && F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
         {
-            BigDecimal projectFixPrice = (BigDecimal) form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE);
+            Integer cprId = (Integer)record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_CPR_ID);
+            BigDecimal projectFixPrice = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_PROJECT_FIX_PRICE);
             String taskInvoiceable = (String) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE);
             BigDecimal taskFixPrice = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE);
             BigDecimal taskRate = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE);
 
+            if (cprId == null)
+            {
+                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please choose a project to which this task belongs");
+                throw new EJActionProcessorException(message);
+            }
             if (projectFixPrice == null)
             {
                 if (taskInvoiceable.equals("Y") && (taskFixPrice == null && taskRate == null))
@@ -264,7 +270,27 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             new InvoiceService().approveInvoicePosition(form, projectItem);
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
-
+        else if (F_PROJECTS.AC_INSERT_PROJECT_FOR_TASK.equals(command))
+        {
+            BigDecimal projectFixPrice = (BigDecimal)record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_PROJECT_FIX_PRICE);
+            
+            if (projectFixPrice != null)
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE, "Y");
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE, null);
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE, null);
+                
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
+            }
+            else
+            {
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
+                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
+            }
+        }
     }
 
     @Override
@@ -382,23 +408,28 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         if ((screenType.equals(EJScreenType.INSERT) || screenType.equals(EJScreenType.UPDATE)) && F_PROJECTS.B_PROJECT_TASKS.ID.equals(block.getName()))
         {
             
+            BigDecimal projectFixPrice = (BigDecimal)block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.I_FIX_PRICE);
+            Integer projectId = (Integer)block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.I_PROJECTS);
             
+            record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_CPR_ID, projectId);
+            record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_PROJECT_FIX_PRICE, projectFixPrice);
             String message = "Each invoicable task requires either an Hourly Rate or a Fixed price, If the project is already a fixed price project then no price can be set on the project tasks";
             record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_MESSAGE_LABEL, message);
 
-//            if (block.getForm().getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE) != null)
-//            {
-//                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE, "Y");
-//                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(false);
-//                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
-//                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
-//            }
-//            else
-//            {
-//                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(true);
-//                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
-//                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
-//            }
+            
+            if (projectFixPrice != null)
+            {
+                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE, "Y");
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(false);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
+            }
+            else
+            {
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(true);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
+                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
+            }
         }
         if (screenType.equals(EJScreenType.INSERT) && F_PROJECTS.B_PROJECTS.ID.equals(block.getName()))
         {
@@ -417,10 +448,6 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             StringBuilder builder = new StringBuilder();
             builder.append(openItem.getProjectName()).append("\n");
             builder.append(openItem.getTaskName()).append("\n");
-
-//            DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, form.getCurrentLocale());
-//            builder.append(dateFormat.format(openItem.getTeFirstDay())).append(" - ");
-//            builder.append(dateFormat.format(openItem.getTeLastDay()));
 
             form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).clear(true);
             form.getBlock(F_PROJECTS.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).setValue(openItem.getTeFirstDay());

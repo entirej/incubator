@@ -5430,7 +5430,7 @@
                                     <enableLovNotification>false</enableLovNotification>
                                     <lovMappingName></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
+                                    <actionCommand><![CDATA[INSERT_PROJECT_FOR_TASK]]></actionCommand>
                                     <insertScreenRendererItemProperties>
                                         <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                                         <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>

@@ -284,6 +284,7 @@ public class F_PROJECTS
     public static final String AC_DELETE_PROJECT_TASK      = "DELETE_PROJECT_TASK";
     public static final String AC_EDIT_PLANNED_ITEM        = "EDIT_PLANNED_ITEM";
     public static final String AC_EDIT_PROJECT_TASK        = "EDIT_PROJECT_TASK";
+    public static final String AC_INSERT_PROJECT_FOR_TASK  = "INSERT_PROJECT_FOR_TASK";
     public static final String AC_INVOICEABLE              = "INVOICEABLE";
     public static final String AC_INVOICEABLE_TASK         = "INVOICEABLE_TASK";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
