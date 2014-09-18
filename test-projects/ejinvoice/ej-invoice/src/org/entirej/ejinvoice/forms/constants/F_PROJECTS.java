@@ -89,36 +89,6 @@ public class F_PROJECTS
 
     }
 
-    public static class B_PROJECT_TASKS_TOOLBAR
-    {
-        public static final String ID          = "ProjectTasksToolbar";
-        public static final String I_ADD_NEW   = "addNew";
-        public static final String I_PROJECTS  = "projects";
-        public static final String I_FIX_PRICE = "fixPrice";
-
-    }
-
-    public static class B_PROJECT_TASKS
-    {
-        public static final String ID                  = "ProjectTasks";
-        public static final String I_ID                = "id";
-        public static final String I_CPR_ID            = "cprId";
-        public static final String I_NOTES             = "notes";
-        public static final String I_NAME              = "name";
-        public static final String I_PAY_RATE          = "payRate";
-        public static final String I_INVOICEABLE       = "invoiceable";
-        public static final String I_INVOICEABLE_IMAGE = "invoiceableImage";
-        public static final String I_FIX_PRICE         = "fixPrice";
-        public static final String I_COMPANY_ID        = "companyId";
-        public static final String I_STATUS            = "status";
-        public static final String I_MESSAGE_LABEL     = "messageLabel";
-        public static final String I_DELETE            = "delete";
-        public static final String I_EDIT              = "edit";
-        public static final String I_STATUS_NAME       = "statusName";
-        public static final String I_PROJECT_FIX_PRICE = "projectFixPrice";
-
-    }
-
     public static class B_OPEN_PROJECT_ITEMS
     {
         public static final String ID                        = "OpenProjectItems";
@@ -259,7 +229,6 @@ public class F_PROJECTS
     public static class C_PROJECT_TAB_PAGES
     {
         public static final String PROJECTS          = "projects";
-        public static final String PROJECT__TASKS    = "Project Tasks";
         public static final String INVOICE__PLANNING = "Invoice Planning";
 
     }
@@ -267,32 +236,24 @@ public class F_PROJECTS
     public static final String C_PROJECTS_TOOLBAR          = "ProjectsToolbar";
     public static final String C_PROJECTS                  = "Projects";
     public static final String C_PROJECT_KEY               = "projectKey";
-    public static final String C_PROJECT_TASKS_TOOLBAR     = "ProjectTasksToolbar";
-    public static final String C_PROJECT_TASKS             = "ProjectTasks";
     public static final String C_INVOICE_HEADER            = "InvoiceHeader";
     public static final String C_INVOICE_SPLIT             = "invoiceSplit";
     public static final String C_OPEN_PROJECT_ITEMS        = "OpenProjectItems";
     public static final String C_PLANNED_PROJECT_ITEMS     = "PlannedProjectItems";
 
-    public static final String AC_ADD_NEW_TASK             = "ADD_NEW_TASK";
     public static final String AC_ADD_TO_INV_POS           = "ADD_TO_INV_POS";
     public static final String AC_APPROVE_INV_POS          = "APPROVE_INV_POS";
     public static final String AC_BACK_TO_PROJECT_OVERVIEW = "BACK_TO_PROJECT_OVERVIEW";
     public static final String AC_CREATE_INVOICE_POSITION  = "CREATE_INVOICE_POSITION";
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_DELETE_PLANNED_ITEM      = "DELETE_PLANNED_ITEM";
-    public static final String AC_DELETE_PROJECT_TASK      = "DELETE_PROJECT_TASK";
     public static final String AC_EDIT_PLANNED_ITEM        = "EDIT_PLANNED_ITEM";
-    public static final String AC_EDIT_PROJECT_TASK        = "EDIT_PROJECT_TASK";
-    public static final String AC_INSERT_PROJECT_FOR_TASK  = "INSERT_PROJECT_FOR_TASK";
     public static final String AC_INVOICEABLE              = "INVOICEABLE";
-    public static final String AC_INVOICEABLE_TASK         = "INVOICEABLE_TASK";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
     public static final String AC_OPEN_CUSTOMER            = "OPEN_CUSTOMER";
     public static final String AC_PROJECT_DETAILS          = "PROJECT_DETAILS";
     public static final String AC_PROJECT_DETAILS_CREATION = "PROJECT_DETAILS_CREATION";
     public static final String AC_PROJECT_TASKS            = "PROJECT_TASKS";
-    public static final String AC_QUERY_PROJECT_TASKS      = "QUERY_PROJECT_TASKS";
     public static final String AC_REFRESH_PROJECT_LIST     = "REFRESH_PROJECT_LIST";
 
 }

@@ -36,21 +36,21 @@ import org.entirej.framework.core.enumerations.EJScreenType;
  * validations related to CUSTOMER, CUSTOMER_CONTACT & CUSTOMER_PROJECTS block
  * service.
  */
-public class CustomerFormActionProcessor extends DefaultFormActionProcessor
+public class CustomerContactsFormActionProcessor extends DefaultFormActionProcessor
 {
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CST_ID) != null)
-        {
-            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).executeQuery();
-        }
+//        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CST_ID) != null)
+//        {
+//            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).executeQuery();
+//        }
 
-        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION) != null)
-        {
-            String custInfo = (String)form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION).getValue();
-            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_INFORMATION).setValue(custInfo);
-        }
+//        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION) != null)
+//        {
+//            String custInfo = (String)form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION).getValue();
+//            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_INFORMATION).setValue(custInfo);
+//        }
     }
 
     @Override
@@ -65,10 +65,9 @@ public class CustomerFormActionProcessor extends DefaultFormActionProcessor
                 launcher.openURL("mailto:" + email);
             }
         }
-        else if (F_CUSTOMER_CONTACTS.AC_BACK_TO_CUSTOMER_LIST.equals(command))
+        else if (F_CUSTOMER_CONTACTS.AC_QUERY_CONTACTS.equals(command))
         {
-            form.getForm(F_TIME_ENTRY.ID).showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
-            form.getForm(F_TIME_ENTRY.ID).closeEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM);
+            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).executeQuery();
         }
         else if (F_CUSTOMER_CONTACTS.AC_ADD_NEW_CONTACT.equals(command))
         {

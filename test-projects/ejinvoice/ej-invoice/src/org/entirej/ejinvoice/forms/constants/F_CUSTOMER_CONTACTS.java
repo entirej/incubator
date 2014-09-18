@@ -12,10 +12,9 @@ public class F_CUSTOMER_CONTACTS
 
     public static class B_CUSTOMER_CONTACTS_TOOLBAR
     {
-        public static final String ID                      = "CustomerContactsToolbar";
-        public static final String I_ADD_NEW_CONTACT       = "addNewContact";
-        public static final String I_BACK_TO_CUSTOMER_LIST = "backToCustomerList";
-        public static final String I_CUSTOMER_INFORMATION  = "customerInformation";
+        public static final String ID                = "CustomerContactsToolbar";
+        public static final String I_ADD_NEW_CONTACT = "addNewContact";
+        public static final String I_CUSTOMER_ID     = "customerId";
 
     }
 
@@ -34,6 +33,7 @@ public class F_CUSTOMER_CONTACTS
         public static final String I_DELETE           = "delete";
         public static final String I_EDIT             = "edit";
         public static final String I_COMPANY_ID       = "companyId";
+        public static final String I_CUSTOMER_NAME    = "customerName";
 
     }
 
@@ -67,16 +67,27 @@ public class F_CUSTOMER_CONTACTS
 
     }
 
+    public static class L_CUSTOMER_INFORMATION
+    {
+        public static final String ID                 = "CustomerInformation";
+        public static final String I_ID               = "id";
+        public static final String I_ADDRESS          = "address";
+        public static final String I_NAME             = "name";
+        public static final String I_POST_CODE        = "postCode";
+        public static final String I_TOWN             = "town";
+        public static final String I_COUNTRY          = "country";
+        public static final String I_COMPANY_ID       = "companyId";
+        public static final String I_ITEMS_TO_INVOICE = "itemsToInvoice";
+
+    }
+
     public static final String C_CUSTOMER_CONTACTS_TOOLBAR = "CustomerContactsToolbar";
     public static final String C_CUSTOMER_CONTACTS         = "CustomerContacts";
 
     public static final String AC_ADD_NEW_CONTACT          = "ADD_NEW_CONTACT";
-    public static final String AC_BACK_TO_CUSTOMER_LIST    = "BACK_TO_CUSTOMER_LIST";
     public static final String AC_DELETE_CUSTOMER_CONTACT  = "DELETE_CUSTOMER_CONTACT";
     public static final String AC_EDIT_CONTACT             = "EDIT_CONTACT";
     public static final String AC_OPEN_EMAIL               = "OPEN_EMAIL";
-
-    public static final String P_CST_ID                    = "cstId";
-    public static final String P_CUSTOMER_INFORMATION      = "customerInformation";
+    public static final String AC_QUERY_CONTACTS           = "QUERY_CONTACTS";
 
 }

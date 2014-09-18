@@ -3,11 +3,13 @@ package org.entirej.ejinvoice.forms.projects;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.entirej.ejinvoice.forms.projects.ProjectTasks;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
+import org.entirej.framework.core.service.EJQuerySort;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -32,6 +34,7 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
     @Override
     public List<ProjectTasks> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        queryCriteria.add(EJQuerySort.ASC("NAME"));
         return _statementExecutor.executeQuery(ProjectTasks.class, form, _selectStatement, queryCriteria);
     }
 

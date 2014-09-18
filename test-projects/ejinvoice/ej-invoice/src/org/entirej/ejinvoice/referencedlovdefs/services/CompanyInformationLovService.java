@@ -52,8 +52,6 @@ public class CompanyInformationLovService implements EJBlockService<CompanyInfor
     @Override
     public List<CompanyInformation> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        User usr = (User)form.getApplicationLevelParameter(ApplicationParameters.PARAM_USER).getValue();
-        queryCriteria.add(EJRestrictions.equals("USER_ID", usr.getId()));
         return _statementExecutor.executeQuery(CompanyInformation.class, form, _selectStatement, queryCriteria);
     }
 

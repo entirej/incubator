@@ -44,10 +44,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     public static String PROJECT_STATUS_FOR_TIME_ENTRY      = "INWORK";
     public static String PROJECT_TASK_STATUS_FOR_TIME_ENTRY = "INWORK";
 
-    private boolean      customerInserted                   = false;
-    private boolean      customerUpdated                    = false;
-    private Integer      customerId                         = null;
-
+    private FormHandler _formHandler = new FormHandler();
+    
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
@@ -71,19 +69,19 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
         User user = (User) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
 
-        if (user.getRole().equals(UserRole.CONTROLLER.toString()))
-        {
-            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_CREATION, false);
-            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.COMPANY, false);
-            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS, false);
-        }
-        else if (user.getRole().equals(UserRole.EMPLOYEE.toString()))
-        {
-            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_CREATION, false);
-            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.COMPANY, false);
-            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS, false);
-            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS, false);
-        }
+//        if (user.getRole().equals(UserRole.CONTROLLER.toString()))
+//        {
+//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_CREATION, false);
+//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.COMPANY, false);
+//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS, false);
+//        }
+//        else if (user.getRole().equals(UserRole.EMPLOYEE.toString()))
+//        {
+//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_CREATION, false);
+//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.COMPANY, false);
+//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS, false);
+//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS, false);
+//        }
 
         form.openEmbeddedForm(F_INVOICE.ID, F_TIME_ENTRY.C_INVOICE_FORM, null);
         form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
@@ -192,42 +190,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             }
             return;
         }
-        else if (F_TIME_ENTRY.AC_CREATE_NEW_CUSTOMER.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_CUSTOMERS.I_SALUTATIONS_ID).refreshItemRenderer();
-            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).getScreenItem(EJScreenType.INSERT, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
-            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterInsert(false);
-        }
-        else if (F_TIME_ENTRY.AC_EDIT_CUSTOMER.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).enterUpdate();
-        }
-        else if (F_TIME_ENTRY.AC_DELETE_CUSTOMER.equals(command))
-        {
-            EJQuestion question = new EJQuestion(form, "ASK_DELETE_CUSTOMER");
-            question.setTitle("Delete Customer");
-            question.setMessage(new EJMessage("Are you sure you want to delete this customer?"));
-            question.setButtonText(EJQuestionButton.ONE, "Yes");
-            question.setButtonText(EJQuestionButton.TWO, "Cancel");
-            question.setRecord(record);
-            form.askQuestion(question);
-        }
-        else if (F_TIME_ENTRY.AC_SHOW_CUSTOMER_DETAILS.equals(command))
-        {
-            EJParameterList paramList = new EJParameterList();
-            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CST_ID, Integer.class);
-            cstParam.setValue(record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID));
-
-            EJFormParameter cstInfoParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION, String.class);
-            cstInfoParam.setValue("Customer: " + record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_CUSTOMER_NUMBER) + " ("
-                    + record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_NAME) + ")");
-
-            paramList.addParameter(cstParam);
-            paramList.addParameter(cstInfoParam);
-
-            form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
-            form.openEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
-        }
         else if (F_TIME_ENTRY.AC_ADD_TIME_ENTRY.equals(command))
         {
             Integer userId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER_ID).getValue();
@@ -272,17 +234,19 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS)
                     .setValue(getDiffMinutesString(end.getTime(), end.getTime()));
         }
-        else if (F_TIME_ENTRY.AC_QUERY_CUSTOMERS.equals(command))
-        {
-            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
-        }
         else if (F_TIME_ENTRY.AC_REFRESH_PROJECT_LISTS.equals(command))
         {
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT).refreshItemRenderer();
             form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).refreshItemRenderer();
         }
+        else if (F_TIME_ENTRY.AC_OPEN_MENU_ITEM.equals(command))
+        {
+            _formHandler.openForm(form, (String)record.getValue(F_TIME_ENTRY.B_MENU.I_ACTION_COMMAND));
+        }
     }
 
+    
+    
     @Override
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
     {
@@ -345,140 +309,51 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
     }
 
-    @Override
-    public void questionAnswered(EJQuestion question) throws EJActionProcessorException
-    {
-        if (question.getName().equals("ASK_DELETE_CUSTOMER") && question.getAnswer().equals(EJQuestionButton.ONE))
-        {
-            boolean canBeDeleted = true;
-            try
-            {
-                ServiceRetriever.getDBService(question.getForm()).validateDeleteRecordUsage(question.getForm(),
-                        question.getForm().getBlock(F_MASTER_DATA_SALUTATION.B_SALUTATIONS.ID).getFocusedRecord(), "CUSTOMER");
-            }
-            catch (Exception e)
-            {
-                canBeDeleted = false;
-            }
-
-            if (canBeDeleted)
-            {
-                ArrayList<Customer> customers = new ArrayList<Customer>();
-                customers.add((Customer) question.getRecord().getBlockServicePojo());
-                new CustomerBlockService().executeDelete(question.getForm(), customers);
-
-                question.getForm().getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
-            }
-            else
-            {
-                EJQuestion deactivateQuestion = new EJQuestion(question.getForm(), "ASK_DEACTIVATE_CUSTOMER");
-                deactivateQuestion.setTitle("Deactivate Customer");
-                deactivateQuestion.setMessage(new EJMessage(
-                        "This customer has data depedencies and cannot be permanently deleted. Do you want to set the active flag of this customer to false?"));
-                deactivateQuestion.setButtonText(EJQuestionButton.ONE, "Yes");
-                deactivateQuestion.setButtonText(EJQuestionButton.TWO, "Cancel");
-                deactivateQuestion.setRecord(question.getRecord());
-                deactivateQuestion.getForm().askQuestion(deactivateQuestion);
-            }
-        }
-        if (question.getName().equals("ASK_DEACTIVATE_CUSTOMER") && question.getAnswer().equals(EJQuestionButton.ONE))
-        {
-            ArrayList<Customer> customers = new ArrayList<Customer>();
-            Customer cust = (Customer) question.getRecord().getBlockServicePojo();
-            cust.setActive(0);
-            customers.add(cust);
-            new CustomerBlockService().executeUpdate(question.getForm(), customers);
-
-            question.getForm().getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
-        }
-    }
-
-    @Override
-    public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(record.getBlockName()))
-        {
-            customerUpdated = true;
-        }
-    }
-
-    @Override
-    public void postInsert(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(record.getBlockName()))
-        {
-            customerInserted = true;
-            customerId = (Integer) record.getValue(F_TIME_ENTRY.B_CUSTOMERS.I_ID);
-        }
-
-    }
 
     @Override
     public void postDelete(EJForm form, EJRecord record) throws EJActionProcessorException
     {
         form.saveChanges();
     }
-
-    @Override
-    public void postFormSave(EJForm form) throws EJActionProcessorException
-    {
-        if (customerInserted)
-        {
-            EJParameterList paramList = new EJParameterList();
-            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CST_ID, Integer.class);
-            cstParam.setValue(customerId);
-            paramList.addParameter(cstParam);
-
-            form.showTabCanvasPage(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS);
-            form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
-            form.openEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_TIME_ENTRY.C_CUSTOMER_DETAILS_FORM, paramList);
-            customerInserted = false;
-        }
-        else if (customerUpdated)
-        {
-            customerUpdated = false;
-            form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
-        }
-    }
-
-    @Override
-    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
-    {
-        if (F_TIME_ENTRY.C_MAIN.equals(tabCanvasName))
-        {
-            if (F_TIME_ENTRY.C_MAIN_PAGES.TIME__ENTRY.equals(tabPageName))
-            {
-                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeLastQuery();
-            }
-            else if (F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS.equals(tabPageName))
-            {
-                form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
-                form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
-            }
-//            else if (F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS.equals(tabPageName))
+//
+//    @Override
+//    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
+//    {
+//        if (F_TIME_ENTRY.C_MAIN_STACK.equals(tabCanvasName))
+//        {
+//            if (F_TIME_ENTRY.C_MAIN_PAGES.TIME__ENTRY.equals(tabPageName))
 //            {
-//                EJForm projectForm = form.getEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM);
-//                if (projectForm.getDisplayedStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK).equals(F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS))
+//                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeLastQuery();
+//            }
+//            else if (F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS.equals(tabPageName))
+//            {
+//                form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
+//                form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
+//            }
+////            else if (F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS.equals(tabPageName))
+////            {
+////                EJForm projectForm = form.getEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM);
+////                if (projectForm.getDisplayedStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK).equals(F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS))
+////                {
+////                    projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
+////                }
+////            }
+//            else if (F_TIME_ENTRY.C_MAIN_PAGES.COMPANY.equals(tabPageName))
+//            {
+//                EJForm companyForm = form.getEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM);
+//                if (companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).getBlockRecords().size() <= 0)
 //                {
-//                    projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
+//                    companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
 //                }
 //            }
-            else if (F_TIME_ENTRY.C_MAIN_PAGES.COMPANY.equals(tabPageName))
-            {
-                EJForm companyForm = form.getEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM);
-                if (companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).getBlockRecords().size() <= 0)
-                {
-                    companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
-                }
-            }
-            else if (F_TIME_ENTRY.C_MAIN_PAGES.TIME_ENTRY_OVERVIEW.equals(tabPageName))
-            {
-                EJForm timeEntryOverview = form.getEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM);
-                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.ID).executeQuery();
-                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_OVERVIEW.ID).executeQuery();
-            }
-        }
-    }
+//            else if (F_TIME_ENTRY.C_MAIN_PAGES.TIME_ENTRY_OVERVIEW.equals(tabPageName))
+//            {
+//                EJForm timeEntryOverview = form.getEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM);
+//                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.ID).executeQuery();
+//                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_OVERVIEW.ID).executeQuery();
+//            }
+//        }
+//    }
 
     @Override
     public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
@@ -524,18 +399,4 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
     }
 
-    @Override
-    public void preOpenScreen(EJBlock block, EJRecord record, EJScreenType screenType) throws EJActionProcessorException
-    {
-        if (F_TIME_ENTRY.B_CUSTOMERS.ID.equals(block.getName()))
-        {
-            block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_VAT_ID).refreshItemRenderer();
-
-            if (EJScreenType.INSERT.equals(screenType))
-            {
-                block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_CONTACT_TYPES_ID).refreshItemRenderer();
-                block.getScreenItem(screenType, F_TIME_ENTRY.B_CUSTOMERS.I_SALUTATIONS_ID).refreshItemRenderer();
-            }
-        }
-    }
 }

@@ -11,6 +11,7 @@
             <renderer name="TreeTableRecord" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.block.definition.EJRWTTreeTableRecordBlockDefinition"/>
             <renderer name="HTMLMultiRecord" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.block.definition.EJRWTHtmlTableBlockRendererDefinition"/>
             <renderer name="WORKWEEK" rendererDefinitionClassName="org.entirej.custom.renderers.definition.WorkWeekBlockRendererDefinition"/>
+            <renderer name="MenuRenderer" rendererDefinitionClassName="org.entirej.custom.renderers.definition.MenuRendererDefinition"/>
         </blockRenderers>
         <itemRenderers>
             <renderer name="TextItem" rendererDefinitionClassName="org.entirej.applicationframework.rwt.renderers.item.definition.EJRWTTextItemRendererDefinition">

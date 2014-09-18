@@ -94,40 +94,9 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             }
             else
             {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
+//                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
             }
 
-        }
-        else if ((EJRecordType.INSERT.equals(recordType) || EJRecordType.UPDATE.equals(recordType)) && F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
-        {
-            Integer cprId = (Integer)record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_CPR_ID);
-            BigDecimal projectFixPrice = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_PROJECT_FIX_PRICE);
-            String taskInvoiceable = (String) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE);
-            BigDecimal taskFixPrice = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE);
-            BigDecimal taskRate = (BigDecimal) record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE);
-
-            if (cprId == null)
-            {
-                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Please choose a project to which this task belongs");
-                throw new EJActionProcessorException(message);
-            }
-            if (projectFixPrice == null)
-            {
-                if (taskInvoiceable.equals("Y") && (taskFixPrice == null && taskRate == null))
-                {
-                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "Either a Fix Price or an Hourly Rate must be entered for this invoicable task");
-                    throw new EJActionProcessorException(message);
-                }
-            }
-
-            if (record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
-            {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
-            }
-            else
-            {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
-            }
         }
         else if (F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID.equals(record.getBlockName()) && EJRecordType.UPDATE.equals(recordType))
         {
@@ -166,22 +135,6 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(false);
             }
         }
-        else if (F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()) && F_PROJECTS.AC_INVOICEABLE_TASK.equals(command))
-        {
-            if (record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
-            {
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
-            }
-            else
-            {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE, null);
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE, null);
-
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
-            }
-        }
         else if (F_PROJECTS.AC_PROJECT_DETAILS.equals(command))
         {
             StringBuilder builder = new StringBuilder();
@@ -208,10 +161,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
 //            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
 
-        else if (F_PROJECTS.AC_QUERY_PROJECT_TASKS.equals(command))
-        {
-            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
-        }
+
 //        else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
 //        {
 //            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS);
@@ -221,18 +171,6 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
 //                form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
 //            }
 //        }
-        else if (F_PROJECTS.AC_ADD_NEW_TASK.equals(command))
-        {
-            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).enterInsert(false);
-        }
-        else if (F_PROJECTS.AC_EDIT_PROJECT_TASK.equals(command))
-        {
-            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).enterUpdate();
-        }
-        else if (F_PROJECTS.AC_DELETE_PROJECT_TASK.equals(command))
-        {
-            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).askToDeleteCurrentRecord("Are you sure you want to delete this task?");
-        }
         else if (F_PROJECTS.AC_MODIFY_PROJECT.equals(command))
         {
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).enterUpdate();
@@ -270,27 +208,6 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             new InvoiceService().approveInvoicePosition(form, projectItem);
             form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
         }
-        else if (F_PROJECTS.AC_INSERT_PROJECT_FOR_TASK.equals(command))
-        {
-            BigDecimal projectFixPrice = (BigDecimal)record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_PROJECT_FIX_PRICE);
-            
-            if (projectFixPrice != null)
-            {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE, "Y");
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE, null);
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE, null);
-                
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(false);
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
-            }
-            else
-            {
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(true);
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
-                form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
-            }
-        }
     }
 
     @Override
@@ -312,7 +229,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             timeEntryInserted = false;
 
             form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_TAB, F_PROJECTS.C_PROJECT_TAB_PAGES.INVOICE__PLANNING);
-            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
+//            form.getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).executeQuery();
 
             EJMessage message = new EJMessage(EJMessageLevel.MESSAGE, "Before you can book time against your project you need a project task. Please enter one here before continuing.");
 
@@ -375,13 +292,6 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
                 record.setValue(F_PROJECTS.B_PROJECTS.I_MARKED_FOR_INVOICE_ITEMS_IMAGE, null);
             }
         }
-        else if (F_PROJECTS.B_PROJECT_TASKS.ID.equals(record.getBlockName()))
-        {
-            if (record.getValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
-            {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
-            }
-        }
     }
     
     @Override
@@ -405,32 +315,6 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
     @Override
     public void preOpenScreen(EJBlock block, EJRecord record, EJScreenType screenType) throws EJActionProcessorException
     {
-        if ((screenType.equals(EJScreenType.INSERT) || screenType.equals(EJScreenType.UPDATE)) && F_PROJECTS.B_PROJECT_TASKS.ID.equals(block.getName()))
-        {
-            
-            BigDecimal projectFixPrice = (BigDecimal)block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.I_FIX_PRICE);
-            Integer projectId = (Integer)block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.ID).getFocusedRecord().getValue(F_PROJECTS.B_PROJECT_TASKS_TOOLBAR.I_PROJECTS);
-            
-            record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_CPR_ID, projectId);
-            record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_PROJECT_FIX_PRICE, projectFixPrice);
-            String message = "Each invoicable task requires either an Hourly Rate or a Fixed price, If the project is already a fixed price project then no price can be set on the project tasks";
-            record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_MESSAGE_LABEL, message);
-
-            
-            if (projectFixPrice != null)
-            {
-                record.setValue(F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE, "Y");
-                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(false);
-                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(false);
-                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(false);
-            }
-            else
-            {
-                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_INVOICEABLE).setEditable(true);
-                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_FIX_PRICE).setEditable(true);
-                block.getForm().getBlock(F_PROJECTS.B_PROJECT_TASKS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECT_TASKS.I_PAY_RATE).setEditable(true);
-            }
-        }
         if (screenType.equals(EJScreenType.INSERT) && F_PROJECTS.B_PROJECTS.ID.equals(block.getName()))
         {
             block.getForm().getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(screenType, F_PROJECTS.B_PROJECTS.I_TASK_STATUS).refreshItemRenderer();

@@ -131,7 +131,7 @@ Composite.banner {
    padding: 8px 8px 8px 8px;
    border: solid 1px #a4a4a4;
    border-radius: 3px;
-}
+}  
 
 Composite.login {
 	background-color: #f0f2f5;
@@ -160,3 +160,5 @@ Button[PUSH].entry
    color: #FFFFFF;
    background-image: gradient(linear, left top, left bottom, from(#A6D785), to(#61B329));
 }
+
+
