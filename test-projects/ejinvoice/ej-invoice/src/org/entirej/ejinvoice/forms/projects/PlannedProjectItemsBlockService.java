@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_PLANNING;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
@@ -43,7 +45,7 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
         _selectStatement.append("       and   cpte.cupt_id = invp.cupt_id) AS WORK_HOURS ");
         _selectStatement.append("from invoice_positions invp ");
         _selectStatement.append("where invp.status = 'PLANNED' ");
-        _selectStatement.append("and   invp.cupr_id = ? ");
+        _selectStatement.append("and   invp.cupr_id in (select id from customer_projects where customer_id = ?) ");
         _selectStatement.append("and   invp.company_id = ? ");
         _selectStatement.append("order by invp.period_from ");
     }
@@ -59,16 +61,16 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
     {
         ArrayList<PlannedProjectItem> projectItems = new ArrayList<PlannedProjectItem>();
         
-        Integer projectId = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_PROJECT_ID).getValue();
-        EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
-        projectIdParam.setValue(projectId);
+        Integer customerId = (Integer)queryCriteria.getRestriction(F_INVOICE_PLANNING.B_PLANNED_PROJECT_ITEMS.I_CUSTOMER_ID).getValue();
+        EJStatementParameter customerIdParam = new EJStatementParameter(EJParameterType.IN);
+        customerIdParam.setValue(customerId);
 
-        Integer companyId = (Integer)queryCriteria.getRestriction(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.I_COMPANY_ID).getValue();
+        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
 
         
-        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam, companyIdParam);
+        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), customerIdParam, companyIdParam);
         for (EJSelectResult result : results)
         {
             PlannedProjectItem item = new PlannedProjectItem();

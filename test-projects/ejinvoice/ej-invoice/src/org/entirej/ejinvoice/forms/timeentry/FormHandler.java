@@ -6,6 +6,10 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_CREATION;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_PLANNING;
+import org.entirej.ejinvoice.forms.constants.F_OUTSTANDING_INVOICES;
+import org.entirej.ejinvoice.forms.constants.F_PAID_INVOICES;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_PROJECT_TASKS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
@@ -43,7 +47,23 @@ public class FormHandler
         else if (command.startsWith("OPEN_PROJECT_TASKS"))
         {
             String status = command.substring(command.indexOf(":") + 1);
-            openProjectTasks(form, status);
+            openProjectTasks(form, status, null);
+        }
+        else if (command.equals("OPEN_INVOICE_PLANNING"))
+        {
+            openInvoicePlanning(form);
+        }
+        else if (command.equals("OPEN_INVOICE_CREATION"))
+        {
+            openInvoiceCreation(form);
+        }
+        else if (command.equals("OPEN_INVOICE_OUTSTANDING"))
+        {
+            openOutstandingInvoices(form);
+        }
+        else if (command.equals("OPEN_INVOICE_PAID"))
+        {
+            openPaidInvoices(form);
         }
     }
 
@@ -90,16 +110,24 @@ public class FormHandler
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("COMPANY_ID", new Integer(companyId)));
         criteria.add(EJRestrictions.equals("STATUS", status));
-        EJForm customerForm = form.getEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM);
-        customerForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery(criteria);
+        EJForm projectForm = form.getEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM);
+        projectForm.getBlock(F_PROJECTS.B_PROJECTS_TOOLBAR.ID).getFocusedRecord().setValue(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS, status);
+        projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery(criteria);
 
         form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.PROJECTS);
     }
 
-    private void openProjectTasks(EJForm form, String status)
+    public void openProjectTasks(EJForm callingForm, String status, Integer iProjectId)
     {
+        EJForm form = callingForm;
+        if (!F_TIME_ENTRY.ID.equals(callingForm.getName()))
+        {
+            form = form.getForm(F_TIME_ENTRY.ID);
+        }
+        
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-
+        Integer projectId = iProjectId;
+        
         if (form.getEmbeddedForm(F_PROJECT_TASKS.ID, F_TIME_ENTRY.C_PROJECT_TASKS_FORM) == null)
         {
             form.openEmbeddedForm(F_PROJECT_TASKS.ID, F_TIME_ENTRY.C_PROJECT_TASKS_FORM, null);
@@ -110,11 +138,16 @@ public class FormHandler
         criteria.add(EJRestrictions.equals("STATUS", status));
         EJForm projectTasksForm = form.getEmbeddedForm(F_PROJECT_TASKS.ID, F_TIME_ENTRY.C_PROJECT_TASKS_FORM);
         projectTasksForm.setFormParameter("STATUS", status);
-        Integer projectId = (Integer) projectTasksForm.getBlock(F_PROJECT_TASKS.B_PROJECT_TASKS_TOOLBAR.ID).getFocusedRecord().getValue(F_PROJECT_TASKS.B_PROJECT_TASKS_TOOLBAR.I_PROJECTS);
+
+        if (projectId == null)
+        {
+            projectId = (Integer) projectTasksForm.getBlock(F_PROJECT_TASKS.B_PROJECT_TASKS_TOOLBAR.ID).getFocusedRecord().getValue(F_PROJECT_TASKS.B_PROJECT_TASKS_TOOLBAR.I_PROJECTS);
+        }
 
         if (projectId != null)
         {
             criteria.add(EJRestrictions.equals("CPR_ID", projectId));
+            projectTasksForm.getBlock(F_PROJECT_TASKS.B_PROJECT_TASKS_TOOLBAR.ID).getCurrentScreenRecord(EJScreenType.MAIN).setValue(F_PROJECT_TASKS.B_PROJECT_TASKS_TOOLBAR.I_PROJECTS, projectId);
         }
 
         projectTasksForm.getBlock(F_PROJECT_TASKS.B_PROJECT_TASKS.ID).executeQuery(criteria);
@@ -159,4 +192,72 @@ public class FormHandler
         form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.CUSTOMER_CONTACTS);
     }
 
+    private void openInvoicePlanning(EJForm form)
+    {
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+
+        if (form.getEmbeddedForm(F_INVOICE_PLANNING.ID, F_TIME_ENTRY.C_INVOICE_PLANNING_FORM) == null)
+        {
+            form.openEmbeddedForm(F_INVOICE_PLANNING.ID, F_TIME_ENTRY.C_INVOICE_PLANNING_FORM, null);
+        }
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("COMPANY_ID", new Integer(companyId)));
+
+
+        form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.INVOICE_PLANNING);
+//        EJForm invoicePlanningForm = form.getEmbeddedForm(F_INVOICE_PLANNING.ID, F_TIME_ENTRY.C_INVOICE_PLANNING_FORM);
+//      invoicePlanningForm.getBlock(F_INVOICE_PLANNING.B_PLANNED_PROJECT_ITEMS.ID).executeQuery(criteria);
+    }
+    
+    private void openInvoiceCreation(EJForm form)
+    {
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+
+        if (form.getEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_INVOICE_CREATION_FORM) == null)
+        {
+            form.openEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_INVOICE_CREATION_FORM, null);
+        }
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("COMPANY_ID", new Integer(companyId)));
+//        EJForm invoiceCreationForm = form.getEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_INVOICE_CREATION_FORM);
+//        invoiceCreationForm.getBlock(F_INVOICE_CREATION.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery(criteria);
+
+        form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.INVOICE_CREATION);
+    }
+    
+    private void openOutstandingInvoices(EJForm form)
+    {
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+
+        if (form.getEmbeddedForm(F_OUTSTANDING_INVOICES.ID, F_TIME_ENTRY.C_OUTSTANDING_INVOICES_FORM) == null)
+        {
+            form.openEmbeddedForm(F_OUTSTANDING_INVOICES.ID, F_TIME_ENTRY.C_OUTSTANDING_INVOICES_FORM, null);
+        }
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("COMPANY_ID", new Integer(companyId)));
+//        EJForm outstandingInvoicesForm = form.getEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_OUTSTANDING_INVOICES_FORM);
+//        outstandingInvoicesForm.getBlock(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.ID).executeQuery(criteria);
+
+        form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.OUTSTANDING_INVOICES);
+    }
+    
+    private void openPaidInvoices(EJForm form)
+    {
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+
+        if (form.getEmbeddedForm(F_PAID_INVOICES.ID, F_TIME_ENTRY.C_PAID_INVOICES_FORM) == null)
+        {
+            form.openEmbeddedForm(F_PAID_INVOICES.ID, F_TIME_ENTRY.C_PAID_INVOICES_FORM, null);
+        }
+
+        EJQueryCriteria criteria = new EJQueryCriteria();
+        criteria.add(EJRestrictions.equals("COMPANY_ID", new Integer(companyId)));
+//        EJForm paidInvoicesForm = form.getEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_OUTSTANDING_INVOICES_FORM);
+//        paidInvoicesForm.getBlock(F_PAID_INVOICES.B_INVOICE_HISTORY_PAID.ID).executeQuery(criteria);
+
+        form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.PAID_INVOICES);
+    }
 }

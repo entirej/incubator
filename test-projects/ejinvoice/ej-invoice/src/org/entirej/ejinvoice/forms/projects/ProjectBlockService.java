@@ -94,66 +94,6 @@ public class ProjectBlockService implements EJBlockService<Project>
     @Override
     public List<Project> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        boolean filterStatus = true;
-
-        Integer statusNew = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_NEW).getValue();
-        Integer statusInWork = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_IN_WORK).getValue();
-        Integer statusOnHold = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_ON_HOLD).getValue();
-        Integer statusCompleted = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_COMPLETED).getValue();
-        Integer statusDeleted = (Integer) queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_DELETED).getValue();
-
-        if (statusNew == 0 && statusInWork == 0 && statusOnHold == 0 && statusCompleted == 0 && statusDeleted == 0)
-        {
-            filterStatus = false;
-        }
-
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_NEW));
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_IN_WORK));
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_ON_HOLD));
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_COMPLETED));
-        queryCriteria.remove(queryCriteria.getRestriction(F_PROJECTS.B_PROJECTS_TOOLBAR.I_STATUS_DELETED));
-
-        EJRestriction<String> newRestriction;
-        
-        if (filterStatus)
-        {
-            if (statusNew.equals(1))
-            {
-                newRestriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.NEW.toString());
-            }
-            else
-            {
-                newRestriction = EJRestrictions.notEquals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.NEW.toString());
-            }
-
-            if (statusInWork.equals(1))
-            {
-                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.INWORK.toString());
-                newRestriction.add(EJRestrictionJoin.OR, restriction);
-            }
-            if (statusOnHold.equals(1))
-            {
-                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.ONHOLD.toString());
-                newRestriction.add(EJRestrictionJoin.OR, restriction);
-            }
-            if (statusCompleted.equals(1))
-            {
-                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.COMPLETED.toString());
-                newRestriction.add(EJRestrictionJoin.OR, restriction);
-            }
-            if (statusDeleted.equals(1))
-            {
-                EJRestriction<String> restriction = EJRestrictions.equals(F_PROJECTS.B_PROJECTS.I_STATUS, ProjectStatus.DELETED.toString());
-                newRestriction.add(EJRestrictionJoin.OR, restriction);
-            }
-        }
-        else
-        {
-            newRestriction = EJRestrictions.isNull(F_PROJECTS.B_PROJECTS.I_STATUS);
-        }
-
-        queryCriteria.add(newRestriction);
-
         return _statementExecutor.executeQuery(Project.class, form, _selectStatement.toString(), queryCriteria);
     }
 

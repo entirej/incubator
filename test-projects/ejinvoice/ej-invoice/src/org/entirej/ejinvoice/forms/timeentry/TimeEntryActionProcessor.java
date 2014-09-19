@@ -15,7 +15,7 @@ import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
-import org.entirej.ejinvoice.forms.constants.F_INVOICE;
+import org.entirej.ejinvoice.forms.constants.F_PAID_INVOICES;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
@@ -83,10 +83,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 //            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS, false);
 //        }
 
-        form.openEmbeddedForm(F_INVOICE.ID, F_TIME_ENTRY.C_INVOICE_FORM, null);
-        form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
-        form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
-        form.openEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM, null);
+//        form.openEmbeddedForm(F_PAID_INVOICES.ID, F_TIME_ENTRY.C_INVOICE_FORM, null);
+//        form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
+//        form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
+//        form.openEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM, null);
     }
 
     @Override

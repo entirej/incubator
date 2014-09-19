@@ -237,31 +237,37 @@ public class F_TIME_ENTRY
 
     public static class C_MAIN_STACK_PAGES
     {
-        public static final String TIME_ENTRY          = "TimeEntry";
-        public static final String TIME_ENTRY_OVERVIEW = "TimeEntryOverview";
-        public static final String PROJECTS            = "Projects";
-        public static final String PROJECT_TASKS       = "ProjectTasks";
-        public static final String INVOICE_CREATION    = "InvoiceCreation";
-        public static final String CUSTOMER            = "Customer";
-        public static final String CUSTOMER_CONTACTS   = "CustomerContacts";
-        public static final String COMPANY             = "Company";
+        public static final String TIME_ENTRY           = "TimeEntry";
+        public static final String TIME_ENTRY_OVERVIEW  = "TimeEntryOverview";
+        public static final String PROJECTS             = "Projects";
+        public static final String PROJECT_TASKS        = "ProjectTasks";
+        public static final String INVOICE_CREATION     = "InvoiceCreation";
+        public static final String CUSTOMER             = "Customer";
+        public static final String CUSTOMER_CONTACTS    = "CustomerContacts";
+        public static final String COMPANY              = "Company";
+        public static final String INVOICE_PLANNING     = "InvoicePlanning";
+        public static final String OUTSTANDING_INVOICES = "OutstandingInvoices";
+        public static final String PAID_INVOICES        = "PaidInvoices";
 
     }
 
-    public static final String C_TIME_ENTRY_ENTRY         = "TimeEntryEntry";
-    public static final String C_TIME_ENTRY               = "TimeEntry";
-    public static final String C_TIME_ENTRY_OVERVIEW_FORM = "TimeEntryOverviewForm";
-    public static final String C_PROJECT_FORM             = "ProjectForm";
-    public static final String C_PROJECT_TASKS_FORM       = "ProjectTasksForm";
-    public static final String C_INVOICE_FORM             = "InvoiceForm";
-    public static final String C_CUSTOMER_FORM            = "CustomerForm";
-    public static final String C_CUSTOMER_CONTACTS_FORM   = "CustomerContactsForm";
-    public static final String C_COMPANY_FORM             = "CompanyForm";
+    public static final String C_TIME_ENTRY_ENTRY          = "TimeEntryEntry";
+    public static final String C_TIME_ENTRY                = "TimeEntry";
+    public static final String C_TIME_ENTRY_OVERVIEW_FORM  = "TimeEntryOverviewForm";
+    public static final String C_PROJECT_FORM              = "ProjectForm";
+    public static final String C_PROJECT_TASKS_FORM        = "ProjectTasksForm";
+    public static final String C_INVOICE_CREATION_FORM     = "InvoiceCreationForm";
+    public static final String C_CUSTOMER_FORM             = "CustomerForm";
+    public static final String C_CUSTOMER_CONTACTS_FORM    = "CustomerContactsForm";
+    public static final String C_COMPANY_FORM              = "CompanyForm";
+    public static final String C_INVOICE_PLANNING_FORM     = "InvoicePlanningForm";
+    public static final String C_OUTSTANDING_INVOICES_FORM = "OutstandingInvoicesForm";
+    public static final String C_PAID_INVOICES_FORM        = "PaidInvoicesForm";
 
-    public static final String AC_ADD_TIME_ENTRY          = "ADD_TIME_ENTRY";
-    public static final String AC_DELETE_TIME_ENTRY       = "DELETE_TIME_ENTRY";
-    public static final String AC_EDIT_TIME_ENTRY         = "EDIT_TIME_ENTRY";
-    public static final String AC_OPEN_MENU_ITEM          = "OPEN_MENU_ITEM";
-    public static final String AC_REFRESH_PROJECT_LISTS   = "REFRESH_PROJECT_LISTS";
+    public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";
+    public static final String AC_DELETE_TIME_ENTRY        = "DELETE_TIME_ENTRY";
+    public static final String AC_EDIT_TIME_ENTRY          = "EDIT_TIME_ENTRY";
+    public static final String AC_OPEN_MENU_ITEM           = "OPEN_MENU_ITEM";
+    public static final String AC_REFRESH_PROJECT_LISTS    = "REFRESH_PROJECT_LISTS";
 
 }

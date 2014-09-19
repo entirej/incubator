@@ -41,6 +41,7 @@ public class MenuBlockService implements EJBlockService<Menu>
     {
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Menu timetrackingMenu = new Menu();
         timetrackingMenu.setIcon(getURL("/icons/openhours.png"));
         timetrackingMenu.setName("Time Tracking");
@@ -61,6 +62,7 @@ public class MenuBlockService implements EJBlockService<Menu>
         timeentryOverviewMenu.setParentId(timetrackingMenu.getId());
         menuItems.add(timeentryOverviewMenu);
 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Menu customersMenu = new Menu();
         customersMenu.setIcon(getURL("/icons/customer.png"));
         customersMenu.setName("Contacts");
@@ -81,6 +83,7 @@ public class MenuBlockService implements EJBlockService<Menu>
         customerContactsMenu.setParentId(customersMenu.getId());
         menuItems.add(customerContactsMenu);
 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Menu projectsMenu = new Menu();
         projectsMenu.setIcon(getURL("/icons/projects.png"));
         projectsMenu.setIconName("/icons/projects.png");
@@ -89,9 +92,9 @@ public class MenuBlockService implements EJBlockService<Menu>
         menuItems.add(projectsMenu);
 
         Hashtable<String, Long> projectCounts = getProjectCounts(form);
-        
+
         Menu projectsNewMenu = new Menu();
-        projectsNewMenu.setName("New ("+projectCounts.get("NEW")+")");
+        projectsNewMenu.setName("New (" + projectCounts.get("NEW") + ")");
         projectsNewMenu.setActionCommand("OPEN_PROJECTS:NEW");
         projectsNewMenu.setId(_id++);
         projectsNewMenu.setParentId(projectsMenu.getId());
@@ -99,7 +102,7 @@ public class MenuBlockService implements EJBlockService<Menu>
         addProjectsToMenu(form, companyId, projectsNewMenu, "NEW");
 
         Menu projectsActiveMenu = new Menu();
-        projectsActiveMenu.setName("In Work ("+projectCounts.get("INWORK")+")");
+        projectsActiveMenu.setName("In Work (" + projectCounts.get("INWORK") + ")");
         projectsActiveMenu.setActionCommand("OPEN_PROJECTS:INWORK");
         projectsActiveMenu.setId(_id++);
         projectsActiveMenu.setParentId(projectsMenu.getId());
@@ -107,7 +110,7 @@ public class MenuBlockService implements EJBlockService<Menu>
         addProjectsToMenu(form, companyId, projectsActiveMenu, "INWORK");
 
         Menu projectsInactiveMenu = new Menu();
-        projectsInactiveMenu.setName("On Hold ("+projectCounts.get("ONHOLD")+")");
+        projectsInactiveMenu.setName("On Hold (" + projectCounts.get("ONHOLD") + ")");
         projectsInactiveMenu.setActionCommand("OPEN_PROJECTS:ONHOLD");
         projectsInactiveMenu.setId(_id++);
         projectsInactiveMenu.setParentId(projectsMenu.getId());
@@ -115,7 +118,7 @@ public class MenuBlockService implements EJBlockService<Menu>
         addProjectsToMenu(form, companyId, projectsInactiveMenu, "ONHOLD");
 
         Menu projectsCompletedMenu = new Menu();
-        projectsCompletedMenu.setName("Completed ("+projectCounts.get("COMPLETED")+")");
+        projectsCompletedMenu.setName("Completed (" + projectCounts.get("COMPLETED") + ")");
         projectsCompletedMenu.setActionCommand("OPEN_PROJECTS:COMPLETED");
         projectsCompletedMenu.setId(_id++);
         projectsCompletedMenu.setParentId(projectsMenu.getId());
@@ -123,13 +126,14 @@ public class MenuBlockService implements EJBlockService<Menu>
         addProjectsToMenu(form, companyId, projectsCompletedMenu, "COMPLETED");
 
         Menu projectsDeleteddMenu = new Menu();
-        projectsDeleteddMenu.setName("Deleted ("+projectCounts.get("DELETED")+")");
+        projectsDeleteddMenu.setName("Deleted (" + projectCounts.get("DELETED") + ")");
         projectsDeleteddMenu.setActionCommand("OPEN_PROJECTS:DELETED");
         projectsDeleteddMenu.setId(_id++);
         projectsDeleteddMenu.setParentId(projectsMenu.getId());
         menuItems.add(projectsDeleteddMenu);
         addProjectsToMenu(form, companyId, projectsDeleteddMenu, "DELETED");
 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Menu tasksMenu = new Menu();
         tasksMenu.setIcon(getURL("/icons/projectTasks.png"));
         tasksMenu.setName("Tasks");
@@ -138,42 +142,43 @@ public class MenuBlockService implements EJBlockService<Menu>
         menuItems.add(tasksMenu);
 
         Hashtable<String, Long> taskCounts = getTaskCounts(form);
-        
+
         Menu tasksAllMenu = new Menu();
-        tasksAllMenu.setName("New ("+taskCounts.get("NEW")+")");
+        tasksAllMenu.setName("New (" + taskCounts.get("NEW") + ")");
         tasksAllMenu.setActionCommand("OPEN_PROJECT_TASKS:NEW");
         tasksAllMenu.setId(_id++);
         tasksAllMenu.setParentId(tasksMenu.getId());
         menuItems.add(tasksAllMenu);
 
         Menu tasksInWorkMenu = new Menu();
-        tasksInWorkMenu.setName("In Work ("+taskCounts.get("INWORK")+")");
+        tasksInWorkMenu.setName("In Work (" + taskCounts.get("INWORK") + ")");
         tasksInWorkMenu.setActionCommand("OPEN_PROJECT_TASKS:INWORK");
         tasksInWorkMenu.setId(_id++);
         tasksInWorkMenu.setParentId(tasksMenu.getId());
         menuItems.add(tasksInWorkMenu);
 
         Menu tasksOnHoldMenu = new Menu();
-        tasksOnHoldMenu.setName("On Hold ("+taskCounts.get("ONHOLD")+")");
+        tasksOnHoldMenu.setName("On Hold (" + taskCounts.get("ONHOLD") + ")");
         tasksOnHoldMenu.setActionCommand("OPEN_PROJECT_TASKS:ONHOLD");
         tasksOnHoldMenu.setId(_id++);
         tasksOnHoldMenu.setParentId(tasksMenu.getId());
         menuItems.add(tasksOnHoldMenu);
 
         Menu tasksCompletedMenu = new Menu();
-        tasksCompletedMenu.setName("Completed ("+taskCounts.get("COMPLETED")+")");
+        tasksCompletedMenu.setName("Completed (" + taskCounts.get("COMPLETED") + ")");
         tasksCompletedMenu.setActionCommand("OPEN_PROJECT_TASKS:COMPLETED");
         tasksCompletedMenu.setId(_id++);
         tasksCompletedMenu.setParentId(tasksMenu.getId());
         menuItems.add(tasksCompletedMenu);
 
         Menu tasksDeletedMenu = new Menu();
-        tasksDeletedMenu.setName("Deleted ("+taskCounts.get("DELETED")+")");
+        tasksDeletedMenu.setName("Deleted (" + taskCounts.get("DELETED") + ")");
         tasksDeletedMenu.setActionCommand("OPEN_PROJECT_TASKS:DELETED");
         tasksDeletedMenu.setId(_id++);
         tasksDeletedMenu.setParentId(tasksMenu.getId());
         menuItems.add(tasksDeletedMenu);
 
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Menu invoiceMenu = new Menu();
         invoiceMenu.setIcon(getURL("/icons/invoice.png"));
         invoiceMenu.setName("Invoice");
@@ -189,7 +194,7 @@ public class MenuBlockService implements EJBlockService<Menu>
 
         Menu invoiceCreationMenu = new Menu();
         invoiceCreationMenu.setName("Invoice Creation");
-        invoiceCreationMenu.setActionCommand("OPEN_INVOICE_PLANNING");
+        invoiceCreationMenu.setActionCommand("OPEN_INVOICE_CREATION");
         invoiceCreationMenu.setId(_id++);
         invoiceCreationMenu.setParentId(invoiceMenu.getId());
         menuItems.add(invoiceCreationMenu);
@@ -238,7 +243,7 @@ public class MenuBlockService implements EJBlockService<Menu>
 
         return values;
     }
-    
+
     public Hashtable<String, Long> getTaskCounts(EJForm form)
     {
         StringBuilder stmt = new StringBuilder();

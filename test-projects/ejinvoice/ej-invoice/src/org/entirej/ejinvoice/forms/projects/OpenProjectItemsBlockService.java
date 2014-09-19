@@ -8,11 +8,9 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
 
-import org.eclipse.swt.internal.widgets.groupkit.GroupOperationHandler;
-import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
+import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_PLANNING;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJParameterType;
@@ -20,7 +18,6 @@ import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
-import org.omg.CORBA._PolicyStub;
 
 public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectItem>
 {
@@ -54,8 +51,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("   CUPT.INVP_ID IS NULL AND");
         _selectStatement.append("   CPR.ID       = ?  AND ");
         _selectStatement.append("   CPR.COMPANY_ID = ? ");
-        _selectStatement
-                .append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND INVP.CUPT_ID = CUPT.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
+        _selectStatement.append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND INVP.CUPT_ID = CUPT.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
         _selectStatement.append("    ");
         _selectStatement.append(" order by TE_YEAR,TE_MONTH,TE_DAY");
 
@@ -74,11 +70,11 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     {
         ArrayList<OpenProjectItem> projectItems = new ArrayList<OpenProjectItem>();
 
-        Integer projectId = toInteger(queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID).getValue());
+        Integer projectId = toInteger(queryCriteria.getRestriction(F_INVOICE_PLANNING.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID).getValue());
         EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
         projectIdParam.setValue(projectId);
 
-        Integer companyId = toInteger(queryCriteria.getRestriction(F_PROJECTS.B_OPEN_PROJECT_ITEMS.I_COMPANY_ID).getValue());
+        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
 
@@ -109,7 +105,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                 list = new ArrayList<EJSelectResult>();
                 map.put(day, list);
             }
-            
+
             list.add(result);
 
         }
@@ -124,8 +120,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             year.setValue(key.year);
             EJStatementParameter taskIdParam = new EJStatementParameter(EJParameterType.IN);
             taskIdParam.setValue(key.taskId);
-            
-            
+
             List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), projectIdParam, taskIdParam, year, month, companyIdParam);
 
             Map<Integer, List<EJSelectResult>> map = groupedResult.get(key);
@@ -238,25 +233,24 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     public void executeDelete(EJForm form, List<OpenProjectItem> recordsToDelete)
     {
     }
-    
-    
+
     private Integer toInteger(Object object)
     {
-        if(object instanceof Integer)
+        if (object instanceof Integer)
         {
             return (Integer) object;
         }
-        if(object instanceof Long)
+        if (object instanceof Long)
         {
             return ((Long) object).intValue();
         }
-        if(object instanceof Number)
+        if (object instanceof Number)
         {
             return ((Number) object).intValue();
         }
-        
+
         return null;
-        
+
     }
 
     private static class GroupKey implements Comparable<GroupKey>
@@ -298,14 +292,14 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             if (year != other.year)
                 return false;
             if (taskId != other.taskId)
-                return false;            
+                return false;
             return true;
         }
 
         @Override
         public int compareTo(GroupKey o)
         {
-            int i = Integer.compare(year, o.year);            
+            int i = Integer.compare(year, o.year);
             if (i == 0)
             {
                 i = Integer.compare(month, o.month);
