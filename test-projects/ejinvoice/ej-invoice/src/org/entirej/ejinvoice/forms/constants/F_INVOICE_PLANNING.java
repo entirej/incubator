@@ -33,6 +33,8 @@ public class F_INVOICE_PLANNING
         public static final String I_CREATE_INVOICE_POSITION = "createInvoicePosition";
         public static final String I_PAY_RATE                = "payRate";
         public static final String I_COMPANY_ID              = "companyId";
+        public static final String I_DISPLAY_TEXT            = "displayText";
+        public static final String I_DISPLAY_VALUE_TEXT      = "displayValueText";
 
     }
 

@@ -8,6 +8,8 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class OpenProjectItem
 {
+    private EJPojoProperty<String>     _displayText;
+    private EJPojoProperty<String>     _displayValueText;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<Integer>    _invpId;
     private EJPojoProperty<Integer>    _projectId;
@@ -22,6 +24,44 @@ public class OpenProjectItem
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<String>     _createInvoicePosition;
 
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        return EJPojoProperty.getPropertyValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    
+    @EJFieldName("DISPLAY_VALUE_TEXT")
+    public String getDisplayValueText()
+    {
+        return EJPojoProperty.getPropertyValue(_displayValueText);
+    }
+
+    @EJFieldName("DISPLAY_VALUE_TEXT")
+    public void setDisplayValueText(String displayValueText)
+    {
+        _displayValueText = EJPojoProperty.setPropertyValue(_displayValueText, displayValueText);
+    }
+
+    @EJFieldName("DISPLAY_VALUE_TEXT")
+    public String getInitialDisplayValueText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayValueText);
+    }
+    
+    
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -258,6 +298,8 @@ public class OpenProjectItem
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_displayText);
+        EJPojoProperty.clearInitialValue(_displayValueText);
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_invpId);
         EJPojoProperty.clearInitialValue(_payRate);

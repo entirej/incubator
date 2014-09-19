@@ -18,7 +18,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,COMPANY_ID, FIX_PRICE, STATUS, INVOICEABLE FROM customer_project_tasks";
+    private String                    _selectStatement = "SELECT CPR_ID,ID,NAME,NOTES,PAY_RATE,COMPANY_ID, FIX_PRICE, STATUS,  INVOICEABLE, (SELECT NAME FROM CUSTOMER WHERE ID = (SELECT CUSTOMER_ID FROM CUSTOMER_PROJECTS WHERE ID = CUSTOMER_PROJECT_TASKS.CPR_ID)) CUSTOMER_NAME,(SELECT NAME FROM CUSTOMER_PROJECTS WHERE ID = CUSTOMER_PROJECT_TASKS.CPR_ID) PROJECT_NAME FROM customer_project_tasks";
 
     public ProjectTasksBlockService()
     {
@@ -34,8 +34,61 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
     @Override
     public List<ProjectTasks> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        queryCriteria.add(EJQuerySort.ASC("CUSTOMER_NAME"));
         queryCriteria.add(EJQuerySort.ASC("NAME"));
-        return _statementExecutor.executeQuery(ProjectTasks.class, form, _selectStatement, queryCriteria);
+
+        List<ProjectTasks> tasks = _statementExecutor.executeQuery(ProjectTasks.class, form, _selectStatement, queryCriteria);
+
+        for (ProjectTasks task : tasks)
+        {
+            StringBuilder display = new StringBuilder();
+            display.append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"");
+            display.append("<tr>");
+            display.append("<td align=\"left\" width=\"33%\"><span style =\"font-weight: bold; font-size: 110% \">" + task.getProjectName() + "  (" + task.getName() + ")</span></td>");
+            display.append("<td align=\"center\" width=\"33%\">");
+            display.append("<span style =\"font-weight: normal; font-size: 110% \">" + task.getCustomerName() + "</span>");
+            display.append("</td>");
+            
+            if (task.getFixPrice() != null)
+            {
+                display.append("<td align=\"right\"  width=\"33%\">Fix Price:</td>");
+            }
+            else
+            {
+                display.append("<td align=\"right\"  width=\"33%\">Hourly Rate:</td>");
+            }
+            
+            display.append("</tr>");
+
+            display.append("<tr>");
+            display.append("<td align=\"left\" colspan=3; height=1>");
+            if (task.getNotes() != null)
+            {
+                display.append("<span style =\"font-weight: normal; font-size: 100% \">" + task.getNotes() + "</span>");
+            }
+            else
+            {
+                display.append("<span style =\"font-weight: normal; font-size: 100% \">&nbsp;</span>");
+            }
+            display.append("</tr>");
+            display.append("</table>");
+
+            task.setDisplayText1(display.toString());
+
+            task.setDisplayText2("<span style =\"font-weight: normal; font-size: 110% \">" + task.getCustomerName() + "</span>");
+
+            if (task.getFixPrice() != null)
+            {
+                task.setPrice(task.getFixPrice());
+            }
+            else
+            {
+                task.setPrice(task.getPayRate());
+            }
+
+        }
+
+        return tasks;
     }
 
     @Override
@@ -86,7 +139,6 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getStatus()));
-
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCprId() == null)
@@ -161,7 +213,7 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             {
                 criteria.add(EJRestrictions.equals("STATUS", record.getInitialStatus()));
             }
-            
+
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeUpdate(form, "customer_project_tasks", criteria, parameters.toArray(paramArray));
             record.clearInitialValues();

@@ -16,6 +16,12 @@ public class ProjectTasks
     private EJPojoProperty<String>     _invoiceable;
     private EJPojoProperty<String>     _status;
 
+    private EJPojoProperty<String>     _customerName;
+    private EJPojoProperty<String>     _projectName;
+    private EJPojoProperty<String>     _displayText1;
+    private EJPojoProperty<String>     _displayText2;
+    private EJPojoProperty<BigDecimal> _price;
+
     @EJFieldName("ID")
     public Integer getId()
     {
@@ -106,6 +112,24 @@ public class ProjectTasks
         return EJPojoProperty.getPropertyInitialValue(_payRate);
     }
 
+    @EJFieldName("PRICE")
+    public BigDecimal getPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_price);
+    }
+
+    @EJFieldName("PRICE")
+    public void setPrice(BigDecimal price)
+    {
+        _price = EJPojoProperty.setPropertyValue(_price, price);
+    }
+
+    @EJFieldName("PRICE")
+    public BigDecimal getInitialPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_price);
+    }
+    
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -141,7 +165,7 @@ public class ProjectTasks
     {
         return EJPojoProperty.getPropertyInitialValue(_fixPrice);
     }
-    
+
     @EJFieldName("INVOICEABLE")
     public String getInvoiceable()
     {
@@ -151,7 +175,7 @@ public class ProjectTasks
     @EJFieldName("INVOICEABLE")
     public void setInvoiceable(String invoiceable)
     {
-        _invoiceable =  EJPojoProperty.setPropertyValue(_invoiceable, invoiceable);
+        _invoiceable = EJPojoProperty.setPropertyValue(_invoiceable, invoiceable);
     }
 
     @EJFieldName("INVOICEABLE")
@@ -159,7 +183,7 @@ public class ProjectTasks
     {
         return EJPojoProperty.getPropertyInitialValue(_invoiceable);
     }
-    
+
     @EJFieldName("STATUS")
     public String getStatus()
     {
@@ -177,7 +201,79 @@ public class ProjectTasks
     {
         return EJPojoProperty.getPropertyInitialValue(_status);
     }
-    
+
+    @EJFieldName("DISPLAY_TEXT_1")
+    public String getDisplayText1()
+    {
+        return EJPojoProperty.getPropertyValue(_displayText1);
+    }
+
+    @EJFieldName("DISPLAY_TEXT_1")
+    public void setDisplayText1(String displayText1)
+    {
+        _displayText1 = EJPojoProperty.setPropertyValue(_displayText1, displayText1);
+    }
+
+    @EJFieldName("DISPLAY_TEXT_1")
+    public String getInitialDisplayText1()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText1);
+    }
+
+    @EJFieldName("DISPLAY_TEXT_2")
+    public String getDisplayText2()
+    {
+        return EJPojoProperty.getPropertyValue(_displayText2);
+    }
+
+    @EJFieldName("DISPLAY_TEXT_2")
+    public void setDisplayText2(String displayText2)
+    {
+        _displayText2 = EJPojoProperty.setPropertyValue(_displayText2, displayText2);
+    }
+
+    @EJFieldName("DISPLAY_TEXT_2")
+    public String getInitialDisplayText2()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText2);
+    }
+
+    @EJFieldName("PROJECT_NAME")
+    public String getProjectName()
+    {
+        return EJPojoProperty.getPropertyValue(_projectName);
+    }
+
+    @EJFieldName("PROJECT_NAME")
+    public void setProjectName(String projectName)
+    {
+        _projectName = EJPojoProperty.setPropertyValue(_projectName, projectName);
+    }
+
+    @EJFieldName("PROJECT_NAME")
+    public String getInitialProjectName()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_projectName);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public String getCustomerName()
+    {
+        return EJPojoProperty.getPropertyValue(_customerName);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public void setCustomerName(String customerName)
+    {
+        _customerName = EJPojoProperty.setPropertyValue(_customerName, customerName);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public String getInitialCustomerName()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_customerName);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_id);
@@ -189,6 +285,12 @@ public class ProjectTasks
         EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_status);
+
+        EJPojoProperty.clearInitialValue(_price);
+        EJPojoProperty.clearInitialValue(_customerName);
+        EJPojoProperty.clearInitialValue(_projectName);
+        EJPojoProperty.clearInitialValue(_displayText1);
+        EJPojoProperty.clearInitialValue(_displayText2);
     }
 
 }

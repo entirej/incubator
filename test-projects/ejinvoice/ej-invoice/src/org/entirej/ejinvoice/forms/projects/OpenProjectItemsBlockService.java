@@ -200,6 +200,12 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                         item.setCreateInvoicePosition("Plan");
                         item.setTeFirstDay(start);
                         item.setTeLastDay(item.getTeFirstDay());
+                        
+                        StringBuilder display = new StringBuilder();
+                        display.append("<span style =\"font-weight: bold; font-size: 110% \">"+item.getProjectName()+"  ("+item.getTaskName()+")</span>");
+                        display.append("<br><span style =\"font-weight: normal; font-size: 100% \">"+item.getTeFirstDay()+" - "+item.getTeLastDay()+"</span></br>");
+                        item.setDisplayText(display.toString());
+                        item.setDisplayValueText("Hours: ");
                         projectItems.add(item);
                     }
 

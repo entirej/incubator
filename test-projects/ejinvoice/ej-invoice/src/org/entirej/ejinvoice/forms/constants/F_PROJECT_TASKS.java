@@ -37,6 +37,11 @@ public class F_PROJECT_TASKS
         public static final String I_EDIT              = "edit";
         public static final String I_STATUS_NAME       = "statusName";
         public static final String I_PROJECT_FIX_PRICE = "projectFixPrice";
+        public static final String I_CUSTOMER_NAME     = "customerName";
+        public static final String I_PROJECT_NAME      = "projectName";
+        public static final String I_DISPLAY_TEXT_1    = "displayText1";
+        public static final String I_DISPLAY_TEXT_2    = "displayText2";
+        public static final String I_PRICE             = "price";
 
     }
 
