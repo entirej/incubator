@@ -19,7 +19,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class InvoiceHistoryBlockService implements EJBlockService<InvoiceHistory>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT FOOTER, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,COMPANY_ID,CUST_ID,DUE_DATE, SENT_DATE, PAYMENT_DATE,ID,INVOICE_ADDRESS,INV_DATE,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,NR,PAID,SENT,SUMMARY,VAT_AMOUNT,VAT_RATE FROM invoice";
+    private String                    _selectStatement = "SELECT FOOTER, AMOUNT_EXCL_VAT,AMOUNT_INCL_VAT,COMPANY_ID,CUST_ID, (SELECT NAME FROM CUSTOMER WHERE ID = INVOICE.CUST_ID) CUST_NAME, DUE_DATE, SENT_DATE, PAYMENT_DATE,ID,INVOICE_ADDRESS,INV_DATE,LOCALE_COUNTRY,LOCALE_LANGUAGE,NOTES,NR,PAID,SENT,SUMMARY,VAT_AMOUNT,VAT_RATE FROM invoice";
 
     public InvoiceHistoryBlockService()
     {

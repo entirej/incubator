@@ -8,6 +8,8 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class PlannedProjectItem
 {
+    private EJPojoProperty<String>     _displayText;
+    private EJPojoProperty<String>     _displayValueText;
     private EJPojoProperty<Integer>    _customerId;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<Integer>    _invpId;
@@ -25,6 +27,43 @@ public class PlannedProjectItem
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _createInvoicePosition;
 
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        return EJPojoProperty.getPropertyValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    
+    @EJFieldName("DISPLAY_VALUE_TEXT")
+    public String getDisplayValueText()
+    {
+        return EJPojoProperty.getPropertyValue(_displayValueText);
+    }
+
+    @EJFieldName("DISPLAY_VALUE_TEXT")
+    public void setDisplayValueText(String displayValueText)
+    {
+        _displayValueText = EJPojoProperty.setPropertyValue(_displayValueText, displayValueText);
+    }
+
+    @EJFieldName("DISPLAY_VALUE_TEXT")
+    public String getInitialDisplayValueText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayValueText);
+    }
+    
     @EJFieldName("CUSTOMER_ID")
     public Integer getCustomerId()
     {
@@ -315,6 +354,8 @@ public class PlannedProjectItem
 
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_displayText);
+        EJPojoProperty.clearInitialValue(_displayValueText);
         EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_customerId);
         EJPojoProperty.clearInitialValue(_companyId);

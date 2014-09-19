@@ -17,6 +17,13 @@ public class F_INVOICE_CREATION
 
     }
 
+    public static class B_APPROVED_PROJECT_ITEMS_HEADER
+    {
+        public static final String ID       = "ApprovedProjectItemsHeader";
+        public static final String I_HEADER = "header";
+
+    }
+
     public static class B_APPROVED_PROJECT_ITEMS
     {
         public static final String ID               = "ApprovedProjectItems";
@@ -37,6 +44,14 @@ public class F_INVOICE_CREATION
         public static final String I_DELETE         = "delete";
         public static final String I_ADD_TO_INVOICE = "addToInvoice";
         public static final String I_COMPANY_ID     = "companyId";
+        public static final String I_DISPLAY_TEXT   = "displayText";
+
+    }
+
+    public static class B_MARKED_FOR_INVOICE_PROJECT_ITEMS_HEADER
+    {
+        public static final String ID       = "MarkedForInvoiceProjectItemsHeader";
+        public static final String I_HEADER = "header";
 
     }
 
@@ -59,6 +74,7 @@ public class F_INVOICE_CREATION
         public static final String I_FIX_PRICE    = "fixPrice";
         public static final String I_TEXT         = "text";
         public static final String I_DELETE       = "delete";
+        public static final String I_DISPLAY_TEXT = "displayText";
 
     }
 
@@ -154,20 +170,23 @@ public class F_INVOICE_CREATION
 
     }
 
-    public static final String C_FILTER                           = "filter";
-    public static final String C_APPROVED_PROJECT_ITEMS           = "ApprovedProjectItems";
-    public static final String C_MARKED_FOR_INVOICE               = "markedForInvoice";
-    public static final String C_MARKED_FOR_INVOICE_PROJECT_ITEMS = "MarkedForInvoiceProjectItems";
-    public static final String C_INVOICE_TOTAL                    = "InvoiceTotal";
-    public static final String C_INVOICE_CREATION_POPUP           = "InvoiceCreationPopup";
-    public static final String C_INVOICE_CREATION                 = "InvoiceCreation";
+    public static final String C_FILTER                                  = "filter";
+    public static final String C_APPROVED                                = "Approved";
+    public static final String C_APPROVED_PROJECT_ITEMS_HEADER           = "ApprovedProjectItemsHeader";
+    public static final String C_APPROVED_PROJECT_ITEMS                  = "ApprovedProjectItems";
+    public static final String C_MARKED                                  = "Marked";
+    public static final String C_MARKED_FOR_INVOICE_PROJECT_ITEMS_HEADER = "MarkedForInvoiceProjectItemsHeader";
+    public static final String C_MARKED_FOR_INVOICE_PROJECT_ITEMS        = "MarkedForInvoiceProjectItems";
+    public static final String C_INVOICE_TOTAL                           = "InvoiceTotal";
+    public static final String C_INVOICE_CREATION_POPUP                  = "InvoiceCreationPopup";
+    public static final String C_INVOICE_CREATION                        = "InvoiceCreation";
 
-    public static final String AC_ADD_TO_INVOICE                  = "ADD_TO_INVOICE";
-    public static final String AC_CREATE_FINAL_INVOICE            = "CREATE_FINAL_INVOICE";
-    public static final String AC_CUSTOMER_ID_CHANGED             = "CUSTOMER_ID_CHANGED";
-    public static final String AC_DELETE_APPROVED_ITEM            = "DELETE_APPROVED_ITEM";
-    public static final String AC_DELETE_MARKED_FOR_INVOICE__ITEM = "DELETE_MARKED_FOR_INVOICE__ITEM";
+    public static final String AC_ADD_TO_INVOICE                         = "ADD_TO_INVOICE";
+    public static final String AC_CREATE_FINAL_INVOICE                   = "CREATE_FINAL_INVOICE";
+    public static final String AC_CUSTOMER_ID_CHANGED                    = "CUSTOMER_ID_CHANGED";
+    public static final String AC_DELETE_APPROVED_ITEM                   = "DELETE_APPROVED_ITEM";
+    public static final String AC_DELETE_MARKED_FOR_INVOICE__ITEM        = "DELETE_MARKED_FOR_INVOICE__ITEM";
 
-    public static final String P_ITEMS_TO_INVOICE                 = "ITEMS_TO_INVOICE";
+    public static final String P_ITEMS_TO_INVOICE                        = "ITEMS_TO_INVOICE";
 
 }

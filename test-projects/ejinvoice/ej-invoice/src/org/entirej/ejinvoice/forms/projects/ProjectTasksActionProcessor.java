@@ -8,14 +8,28 @@ import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
-import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
 public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
 {
+
+    
+    
+    @Override
+    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (record.getValue(F_PROJECT_TASKS.B_PROJECT_TASKS.I_INVOICEABLE).equals("Y"))
+        {
+            record.setValue(F_PROJECT_TASKS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, "/icons/coins.png");
+        }
+        else
+        {
+            record.setValue(F_PROJECT_TASKS.B_PROJECT_TASKS.I_INVOICEABLE_IMAGE, null);
+        }
+    }
+
 
     @Override
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException

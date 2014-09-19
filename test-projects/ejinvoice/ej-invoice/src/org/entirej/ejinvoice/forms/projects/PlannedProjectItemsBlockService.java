@@ -88,6 +88,13 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
             item.setFixPrice((BigDecimal)result.getItemValue("FIX_PRICE"));
             item.setCreateInvoicePosition("Approve");
             
+            StringBuilder display = new StringBuilder();
+            display.append("<span style =\"font-weight: bold; font-size: 110% \">"+item.getProjectName()+"  ("+item.getTaskName()+")</span>");
+            display.append("<br><span style =\"font-weight: normal; font-size: 100% \">"+item.getPeriodFrom()+" - "+item.getPeriodTo()+"</span></br>");
+            item.setDisplayText(display.toString());
+            item.setDisplayValueText("Hours: ");
+
+            
             projectItems.add(item);
         }
         

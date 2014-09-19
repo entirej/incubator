@@ -18,6 +18,13 @@ public class F_INVOICE_PLANNING
 
     }
 
+    public static class B_OPEN_PROJECT_ITEM_HEADER
+    {
+        public static final String ID       = "OpenProjectItemHeader";
+        public static final String I_HEADER = "header";
+
+    }
+
     public static class B_OPEN_PROJECT_ITEMS
     {
         public static final String ID                        = "OpenProjectItems";
@@ -58,6 +65,13 @@ public class F_INVOICE_PLANNING
 
     }
 
+    public static class B_PLANNED_PROJECT_ITEMS_HEADER
+    {
+        public static final String ID       = "PlannedProjectItemsHeader";
+        public static final String I_HEADER = "header";
+
+    }
+
     public static class B_PLANNED_PROJECT_ITEMS
     {
         public static final String ID                        = "PlannedProjectItems";
@@ -78,6 +92,8 @@ public class F_INVOICE_PLANNING
         public static final String I_PAY_RATE                = "payRate";
         public static final String I_COMPANY_ID              = "companyId";
         public static final String I_CUSTOMER_ID             = "customerId";
+        public static final String I_DISPLAY_TEXT            = "displayText";
+        public static final String I_DISPLAY_VALUE_TEXT      = "displayValueText";
 
     }
 
@@ -108,18 +124,22 @@ public class F_INVOICE_PLANNING
 
     }
 
-    public static final String C_NEW_INVOICE_ITEM_POPUP   = "NewInvoiceItemPopup";
-    public static final String C_NEW_INVOICE_ITEM         = "NewInvoiceItem";
-    public static final String C_INVOICE_HEADER           = "InvoiceHeader";
-    public static final String C_INVOICE_SPLIT            = "invoiceSplit";
-    public static final String C_OPEN_PROJECT_ITEMS       = "OpenProjectItems";
-    public static final String C_PLANNED_PROJECT_ITEMS    = "PlannedProjectItems";
+    public static final String C_NEW_INVOICE_ITEM_POPUP       = "NewInvoiceItemPopup";
+    public static final String C_NEW_INVOICE_ITEM             = "NewInvoiceItem";
+    public static final String C_INVOICE_HEADER               = "InvoiceHeader";
+    public static final String C_INVOICE_SPLIT                = "invoiceSplit";
+    public static final String C_UNPLANNED                    = "Unplanned";
+    public static final String C_OPEN_PROJECT_ITEM_HEADER     = "OpenProjectItemHeader";
+    public static final String C_OPEN_PROJECT_ITEMS           = "OpenProjectItems";
+    public static final String C_PLANNED                      = "Planned";
+    public static final String C_PLANNED_PROJECT_ITEMS_HEADER = "PlannedProjectItemsHeader";
+    public static final String C_PLANNED_PROJECT_ITEMS        = "PlannedProjectItems";
 
-    public static final String AC_ADD_TO_INV_POS          = "ADD_TO_INV_POS";
-    public static final String AC_APPROVE_INV_POS         = "APPROVE_INV_POS";
-    public static final String AC_CREATE_INVOICE_POSITION = "CREATE_INVOICE_POSITION";
-    public static final String AC_DELETE_PLANNED_ITEM     = "DELETE_PLANNED_ITEM";
-    public static final String AC_EDIT_PLANNED_ITEM       = "EDIT_PLANNED_ITEM";
-    public static final String AC_REFRESH_BLOCKS          = "REFRESH_BLOCKS";
+    public static final String AC_ADD_TO_INV_POS              = "ADD_TO_INV_POS";
+    public static final String AC_APPROVE_INV_POS             = "APPROVE_INV_POS";
+    public static final String AC_CREATE_INVOICE_POSITION     = "CREATE_INVOICE_POSITION";
+    public static final String AC_DELETE_PLANNED_ITEM         = "DELETE_PLANNED_ITEM";
+    public static final String AC_EDIT_PLANNED_ITEM           = "EDIT_PLANNED_ITEM";
+    public static final String AC_REFRESH_BLOCKS              = "REFRESH_BLOCKS";
 
 }

@@ -2,11 +2,14 @@ package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
 public class ApprovedProjectItem
 {
+    private EJPojoProperty<String>     _displayText;
+
     private EJPojoProperty<BigDecimal> _hoursWorked;
     private EJPojoProperty<String>     _taskName;
     private EJPojoProperty<String>     _status;
@@ -23,6 +26,77 @@ public class ApprovedProjectItem
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _text;
     private EJPojoProperty<String>     _addToInvoice;
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _taskName = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"");
+        display.append("<tr>");
+        
+        display.append("<td align=\"left\" width=\"45%\">");
+            display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getProjectName() + "  (" + getTaskName() + ")</span>");
+        display.append("</td>");
+        
+        if (getFixPrice() != null)
+        {
+            display.append("<td align=\"right\"  width=\"45%\">Fix Price:</td>");
+        }
+        else
+        {
+            display.append("<td align=\"right\"  width=\"45%\">Hourly Rate:</td>");
+        }
+        
+        if (getFixPrice() != null)
+        {
+            display.append("<td align=\"right\" width=\"10%\">"+ getFixPrice()  +"</td>");
+        }
+        else
+        {
+            if (getPayRate() == null)
+            {
+                display.append("<td align=\"right\" width=\"10%\">&nbsp;</td>");
+            }
+            else
+            {
+                display.append("<td align=\"right\" width=\"10%\">"+ getPayRate()  +"</td>");
+            }
+        }
+        
+        display.append("</tr>");
+
+        display.append("<tr>");
+        display.append("<td align=\"left\" width=\"65\" height=1>");
+        display.append("<span style =\"font-weight: normal; font-size: 100% \">" + getPeriodFrom() + " - "+getPeriodTo()+"</span></td>");
+        
+        display.append("<td align=\"right\"  width=\"30%\">Hours:</td>");
+        
+        if (getHoursWorked()== null)
+        {
+            display.append("<td align=\"right\" width=\"10%\">&nbsp;</td>");
+        }
+        else
+        {
+            display.append("<td align=\"right\" width=\"10%\">"+ getHoursWorked()  +"</td>");
+        }
+        
+        display.append("</tr>");
+        display.append("</table>");
+
+        return display.toString();
+    }
 
     @EJFieldName("HOURS_WORKED")
     public BigDecimal getHoursWorked()

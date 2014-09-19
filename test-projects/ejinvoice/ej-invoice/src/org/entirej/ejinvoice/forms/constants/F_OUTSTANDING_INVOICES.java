@@ -46,6 +46,7 @@ public class F_OUTSTANDING_INVOICES
         public static final String I_PAYMENT_DATE    = "paymentDate";
         public static final String I_FOOTER          = "footer";
         public static final String I_DELETE          = "delete";
+        public static final String I_DISPLAY_TEXT    = "displayText";
 
     }
 

@@ -42,9 +42,23 @@ public class OutstandingInvoicesActionProcessor extends DefaultFormActionProcess
     }
 
     @Override
+    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
+    {
+        if (((String)record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ACTION)).equalsIgnoreCase("Mark as Sent"))
+        {
+            form.getBlock(F_OUTSTANDING_INVOICES.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_OUTSTANDING_INVOICES.B_SEND_INVOICE.I_SEND_DATE).setValue(new Date(System.currentTimeMillis()));
+            form.getBlock(F_OUTSTANDING_INVOICES.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_OUTSTANDING_INVOICES.B_SEND_INVOICE.I_NOTES).setValue(record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_NOTES));
+            form.showPopupCanvas(F_OUTSTANDING_INVOICES.C_SEND_INVOICE_POPUP);
+        }
+        else if (((String)record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ACTION)).equalsIgnoreCase("Record Payment"))
+        {
+            
+        }
+    }
+
+    @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-
         if (F_OUTSTANDING_INVOICES.AC_SHOW_INVOICE.equals(command))
         {
             InvoiceReport.downloadReport(new InvoiceService().getInvoicPDF(form, (int) record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ID)), record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_NR) + ".pdf");

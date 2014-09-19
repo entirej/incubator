@@ -2,6 +2,7 @@ package org.entirej.ejinvoice.forms.invoice;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
@@ -19,6 +20,7 @@ public class InvoiceHistory
     private EJPojoProperty<Date>       _invDate;
     private EJPojoProperty<BigDecimal> _amountInclVat;
     private EJPojoProperty<Integer>    _custId;
+    private EJPojoProperty<String>     _custName;
     private EJPojoProperty<String>     _invoiceAddress;
     private EJPojoProperty<String>     _nr;
     private EJPojoProperty<BigDecimal> _vatRate;
@@ -28,6 +30,7 @@ public class InvoiceHistory
     private EJPojoProperty<Date>       _paymentDate;
     private EJPojoProperty<Date>       _sentDate;
     private EJPojoProperty<String>     _status;
+    private EJPojoProperty<String>     _displayText;
 
     @EJFieldName("VAT_AMOUNT")
     public BigDecimal getVatAmount()
@@ -245,6 +248,28 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_custId);
     }
 
+    @EJFieldName("CUST_NAME")
+    public String getCustName()
+    {
+        return EJPojoProperty.getPropertyValue(_custName);
+    }
+
+    @EJFieldName("CUST_NAME")
+    public void setCustName(String custName)
+    {
+        _custName = EJPojoProperty.setPropertyValue(_custName, custName);
+    }
+
+    @EJFieldName("CUST_NAME")
+    public String getInitialCustName()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_custName);
+    }
+    
+    
+    
+    
+    
     @EJFieldName("INVOICE_ADDRESS")
     public String getInvoiceAddress()
     {
@@ -407,6 +432,63 @@ public class InvoiceHistory
         return EJPojoProperty.getPropertyInitialValue(_status);
     }
 
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
+        display.append("<tr>");
+
+        display.append("<td align=left width=50% colspan=3>");
+        display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getCustName() + "  (" + getNr() + ")</span>");
+        display.append("</td>");
+
+        display.append("<td align=\"right\"  width=\"30%\">Subtotal</td>");
+        display.append("<td align=\"right\"  width=\"20%\">"+getAmountExclVat()+"</td>");
+
+        display.append("</tr>");
+
+        
+        
+        display.append("<tr>");
+        display.append("<td align=\"left\"  width=\"20%\">"+getInvDate()+"</td>");
+        display.append("<td align=\"left\"  width=\"20%\">Due: "+getDueDate()+"</td>");
+        if (getSent() == 1)
+        {
+            display.append("<td align=\"left\"  width=\"20%\">Sent: "+getSentDate()+"</td>");
+        }
+        else
+        {
+            display.append("<td align=\"left\"  width=\"20%\">Sent:</td>");
+        }
+        display.append("<td align=\"right\"  width=\"20%\">VAT("+getVatRate()+"%)</td>");
+        display.append("<td align=\"right\"  width=\"20%\">"+getVatAmount()+"</td>");
+        
+        display.append("</tr>");
+        display.append("<tr>");
+        display.append("<td align=\"right\"  width=\"20%\">&nbsp;</td>");
+        display.append("<td align=\"right\"  width=\"20%\">&nbsp;</td>");
+        display.append("<td align=\"right\"  width=\"20%\">&nbsp;</td>");
+        display.append("<td align=\"right\"  width=\"20%\"><span style =\"font-weight: bold; font-size: 110% \">Amount</span></td>");
+        display.append("<td align=\"right\"  width=\"20%\"><span style =\"font-weight: bold; font-size: 110% \">"+getAmountInclVat()+"</span></td>");
+        display.append("</tr>");
+        
+        display.append("</table>");
+
+        return display.toString();
+    }
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_vatAmount);
@@ -430,6 +512,7 @@ public class InvoiceHistory
         EJPojoProperty.clearInitialValue(_sentDate);
         EJPojoProperty.clearInitialValue(_paymentDate);
         EJPojoProperty.clearInitialValue(_status);
+        EJPojoProperty.clearInitialValue(_custName);
     }
 
 }
