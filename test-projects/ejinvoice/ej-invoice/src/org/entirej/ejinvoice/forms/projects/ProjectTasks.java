@@ -256,8 +256,6 @@ public class ProjectTasks
         display.append("</table>");
 
         return display.toString();
-        
-//        return EJPojoProperty.getPropertyValue(_displayText1);
     }
 
     @EJFieldName("DISPLAY_TEXT_1")

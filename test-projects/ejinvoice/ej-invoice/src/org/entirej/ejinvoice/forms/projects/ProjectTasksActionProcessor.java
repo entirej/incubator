@@ -2,6 +2,7 @@ package org.entirej.ejinvoice.forms.projects;
 
 import java.math.BigDecimal;
 
+import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.forms.constants.F_PROJECT_TASKS;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
@@ -13,7 +14,7 @@ import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
-public class ProjectTasksActionProcessor extends EJDefaultFormActionProcessor implements EJFormActionProcessor
+public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
 {
 
     @Override

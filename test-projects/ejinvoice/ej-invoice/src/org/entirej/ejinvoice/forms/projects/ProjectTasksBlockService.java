@@ -37,63 +37,7 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
         queryCriteria.add(EJQuerySort.ASC("CUSTOMER_NAME"));
         queryCriteria.add(EJQuerySort.ASC("NAME"));
 
-        List<ProjectTasks> tasks = _statementExecutor.executeQuery(ProjectTasks.class, form, _selectStatement, queryCriteria);
-
-        for (ProjectTasks task : tasks)
-        {
-//            StringBuilder display = new StringBuilder();
-//            display.append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"");
-//            display.append("<tr>");
-//            display.append("<td align=\"left\" width=\"30%\"><span style =\"font-weight: bold; font-size: 110% \">" + task.getProjectName() + "  (" + task.getName() + ")</span></td>");
-//            display.append("<td align=\"center\" width=\"30%\">");
-//            display.append("<span style =\"font-weight: normal; font-size: 110% \">" + task.getCustomerName() + "</span>");
-//            display.append("</td>");
-//            
-//            if (task.getFixPrice() != null)
-//            {
-//                display.append("<td align=\"right\"  width=\"30%\">Fix Price:</td>");
-//            }
-//            else
-//            {
-//                display.append("<td align=\"right\"  width=\"30%\">Hourly Rate:</td>");
-//            }
-//            
-//            if (task.getFixPrice() != null)
-//            {
-//                display.append("<td align=\"right\" width=\"5%\">"+ task.getFixPrice()  +"</td>");
-//            }
-//            else
-//            {
-//                if (task.getPayRate() == null)
-//                {
-//                    display.append("<td align=\"right\" width=\"5%\">&nbsp;</td>");
-//                }
-//                else
-//                {
-//                    display.append("<td align=\"right\" width=\"5%\">"+ task.getPayRate()  +"</td>");
-//                }
-//            }
-//            
-//            display.append("</tr>");
-//
-//            display.append("<tr>");
-//            display.append("<td align=\"left\" colspan=4; height=1>");
-//            if (task.getNotes() != null)
-//            {
-//                display.append("<span style =\"font-weight: normal; font-size: 100% \">" + task.getNotes() + "</span>");
-//            }
-//            else
-//            {
-//                display.append("<span style =\"font-weight: normal; font-size: 100% \">&nbsp;</span>");
-//            }
-//            
-//            display.append("</tr>");
-//            display.append("</table>");
-//
-//            task.setDisplayText1(display.toString());
-        }
-
-        return tasks;
+        return _statementExecutor.executeQuery(ProjectTasks.class, form, _selectStatement, queryCriteria);
     }
 
     @Override
