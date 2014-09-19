@@ -44,24 +44,40 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             StringBuilder display = new StringBuilder();
             display.append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"");
             display.append("<tr>");
-            display.append("<td align=\"left\" width=\"33%\"><span style =\"font-weight: bold; font-size: 110% \">" + task.getProjectName() + "  (" + task.getName() + ")</span></td>");
-            display.append("<td align=\"center\" width=\"33%\">");
+            display.append("<td align=\"left\" width=\"30%\"><span style =\"font-weight: bold; font-size: 110% \">" + task.getProjectName() + "  (" + task.getName() + ")</span></td>");
+            display.append("<td align=\"center\" width=\"30%\">");
             display.append("<span style =\"font-weight: normal; font-size: 110% \">" + task.getCustomerName() + "</span>");
             display.append("</td>");
             
             if (task.getFixPrice() != null)
             {
-                display.append("<td align=\"right\"  width=\"33%\">Fix Price:</td>");
+                display.append("<td align=\"right\"  width=\"30%\">Fix Price:</td>");
             }
             else
             {
-                display.append("<td align=\"right\"  width=\"33%\">Hourly Rate:</td>");
+                display.append("<td align=\"right\"  width=\"30%\">Hourly Rate:</td>");
+            }
+            
+            if (task.getFixPrice() != null)
+            {
+                display.append("<td align=\"right\" width=\"5%\">"+ task.getFixPrice()  +"</td>");
+            }
+            else
+            {
+                if (task.getPayRate() == null)
+                {
+                    display.append("<td align=\"right\" width=\"5%\">&nbsp;</td>");
+                }
+                else
+                {
+                    display.append("<td align=\"right\" width=\"5%\">"+ task.getPayRate()  +"</td>");
+                }
             }
             
             display.append("</tr>");
 
             display.append("<tr>");
-            display.append("<td align=\"left\" colspan=3; height=1>");
+            display.append("<td align=\"left\" colspan=4; height=1>");
             if (task.getNotes() != null)
             {
                 display.append("<span style =\"font-weight: normal; font-size: 100% \">" + task.getNotes() + "</span>");
@@ -70,6 +86,7 @@ public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
             {
                 display.append("<span style =\"font-weight: normal; font-size: 100% \">&nbsp;</span>");
             }
+            
             display.append("</tr>");
             display.append("</table>");
 
