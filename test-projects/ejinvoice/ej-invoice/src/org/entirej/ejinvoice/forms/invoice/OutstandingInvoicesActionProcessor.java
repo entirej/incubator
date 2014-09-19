@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Locale.Builder;
 
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.forms.constants.F_OUTSTANDING_INVOICES;
 import org.entirej.ejinvoice.forms.projects.reports.InvoiceReport;
@@ -44,15 +45,37 @@ public class OutstandingInvoicesActionProcessor extends DefaultFormActionProcess
     @Override
     public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
     {
-        if (((String)record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ACTION)).equalsIgnoreCase("Mark as Sent"))
+        if (F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.ID.equals(record.getBlockName()))// || F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY_PAID.ID.equals(record.getBlockName()))
         {
-            form.getBlock(F_OUTSTANDING_INVOICES.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_OUTSTANDING_INVOICES.B_SEND_INVOICE.I_SEND_DATE).setValue(new Date(System.currentTimeMillis()));
-            form.getBlock(F_OUTSTANDING_INVOICES.B_SEND_INVOICE.ID).getScreenItem(EJScreenType.MAIN, F_OUTSTANDING_INVOICES.B_SEND_INVOICE.I_NOTES).setValue(record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_NOTES));
-            form.showPopupCanvas(F_OUTSTANDING_INVOICES.C_SEND_INVOICE_POPUP);
-        }
-        else if (((String)record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ACTION)).equalsIgnoreCase("Record Payment"))
-        {
+            if (record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).equals("DRAFT"))
+            {
+                record.getItem(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOIEC_STATUS_DRAFT);
+                record.getItem(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_DELETE).setValue("/icons/delete10.png");
+            }
+            else if (record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).equals("SENT"))
+            {
+                record.getItem(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOICE_STATUS_SENT);
+            }
+            else if (record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).equals("LATE"))
+            {
+                record.getItem(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOICE_STATUS_LATE);
+            }
+            else if (record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).equals("PAID"))
+            {
+                record.getItem(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).setVisualAttribute(EJ_PROPERTIES.VA_INVOICE_STATUS_PAID);
+            }
             
+            if (F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.ID.equals(record.getBlockName()))
+            {
+                if (record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).equals("DRAFT"))
+                {
+                    record.getItem(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ACTION).setValue("Mark as sent");
+                }
+                else if (record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_STATUS).equals("SENT"))
+                {
+                    record.getItem(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ACTION).setValue("Record Payment");
+                }
+            }
         }
     }
 
