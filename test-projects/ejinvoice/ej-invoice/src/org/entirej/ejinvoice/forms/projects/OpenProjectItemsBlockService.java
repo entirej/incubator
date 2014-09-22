@@ -11,6 +11,7 @@ import java.util.Map;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.forms.constants.F_INVOICE_PLANNING;
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJParameterType;
@@ -49,14 +50,15 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
         _selectStatement.append("   CPTE.CUPT_ID = CUPT.ID AND");
         _selectStatement.append("   CPTE.INVP_ID IS NULL AND");
         _selectStatement.append("   CUPT.INVP_ID IS NULL AND");
-        _selectStatement.append("   CPR.ID       = ?  AND ");
-        _selectStatement.append("   CPR.COMPANY_ID = ? ");
-        _selectStatement.append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND INVP.CUPT_ID = CUPT.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
+        _selectStatement.append("   CPR.COMPANY_ID = ? AND ");
+        _selectStatement.append("   CPR.CUSTOMER_ID = ? ");
+        _selectStatement
+                .append("   AND NOT EXISTS (SELECT 1 FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = CPR.ID AND INVP.CUPT_ID = CUPT.ID AND CPTE.WORK_DATE BETWEEN INVP.PERIOD_FROM AND INVP.PERIOD_TO)  ");
         _selectStatement.append("    ");
         _selectStatement.append(" order by TE_YEAR,TE_MONTH,TE_DAY");
 
         _selectPlanedStatement = new StringBuilder(
-                "SELECT INVP.PERIOD_TO ,INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPR_ID = ? AND INVP.CUPT_ID = ? AND ? between YEAR(INVP.PERIOD_FROM) and YEAR(INVP.PERIOD_TO)  and ? between MONTH(INVP.PERIOD_FROM) and MONTH(INVP.PERIOD_TO) AND INVP.COMPANY_ID = ? ORDER by PERIOD_FROM");
+                "SELECT INVP.PERIOD_TO ,INVP.PERIOD_FROM FROM INVOICE_POSITIONS INVP WHERE INVP.CUPT_ID = ? AND ? between YEAR(INVP.PERIOD_FROM) and YEAR(INVP.PERIOD_TO)  and ? between MONTH(INVP.PERIOD_FROM) and MONTH(INVP.PERIOD_TO) AND INVP.COMPANY_ID = ? ORDER by PERIOD_FROM");
     }
 
     @Override
@@ -70,17 +72,18 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     {
         ArrayList<OpenProjectItem> projectItems = new ArrayList<OpenProjectItem>();
 
-        Integer projectId = toInteger(queryCriteria.getRestriction(F_INVOICE_PLANNING.B_OPEN_PROJECT_ITEMS.I_PROJECT_ID).getValue());
-        EJStatementParameter projectIdParam = new EJStatementParameter(EJParameterType.IN);
-        projectIdParam.setValue(projectId);
-
-        Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
         EJStatementParameter companyIdParam = new EJStatementParameter(EJParameterType.IN);
         companyIdParam.setValue(companyId);
+        
+        Integer customerId = (Integer) queryCriteria.getRestriction(F_INVOICE_PLANNING.B_OPEN_PROJECT_ITEMS.I_CUSTOMER_ID).getValue();
+        EJStatementParameter customerIdParam = new EJStatementParameter(EJParameterType.IN);
+        customerIdParam.setValue(customerId);
+        
+
+        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), companyIdParam, customerIdParam);
 
         Map<GroupKey, Map<Integer, List<EJSelectResult>>> groupedResult = new HashMap<OpenProjectItemsBlockService.GroupKey, Map<Integer, List<EJSelectResult>>>();
-
-        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(), _selectStatement.toString(), projectIdParam, companyIdParam);
 
         Calendar calendar = Calendar.getInstance();
         final Calendar FT_CAL = Calendar.getInstance();
@@ -121,7 +124,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
             EJStatementParameter taskIdParam = new EJStatementParameter(EJParameterType.IN);
             taskIdParam.setValue(key.taskId);
 
-            List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), projectIdParam, taskIdParam, year, month, companyIdParam);
+            List<EJSelectResult> planed = _statementExecutor.executeQuery(form.getConnection(), _selectPlanedStatement.toString(), taskIdParam, year, month, companyIdParam);
 
             Map<Integer, List<EJSelectResult>> map = groupedResult.get(key);
             calendar.set(key.year, key.month - 1, 1);
@@ -200,10 +203,12 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                         item.setCreateInvoicePosition("Plan");
                         item.setTeFirstDay(start);
                         item.setTeLastDay(item.getTeFirstDay());
-                        
+
                         StringBuilder display = new StringBuilder();
-                        display.append("<span style =\"font-weight: bold; font-size: 110% \">"+item.getProjectName()+"  ("+item.getTaskName()+")</span>");
-                        display.append("<br><span style =\"font-weight: normal; font-size: 100% \">"+item.getTeFirstDay()+" - "+item.getTeLastDay()+"</span></br>");
+                        display.append("<span style =\"font-weight: bold; font-size: 110% \">" + item.getProjectName() + "  (" + item.getTaskName()
+                                + ")</span>");
+                        display.append("<br><span style =\"font-weight: normal; font-size: 100% \">" + item.getTeFirstDay() + " - " + item.getTeLastDay()
+                                + "</span></br>");
                         item.setDisplayText(display.toString());
                         item.setDisplayValueText("Hours: ");
                         projectItems.add(item);

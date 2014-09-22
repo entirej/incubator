@@ -14,7 +14,6 @@ public class F_INVOICE_PLANNING
     {
         public static final String ID            = "InvoiceHeader";
         public static final String I_CUSTOMER_ID = "customerId";
-        public static final String I_PROJECTS    = "projects";
 
     }
 
@@ -42,6 +41,7 @@ public class F_INVOICE_PLANNING
         public static final String I_COMPANY_ID              = "companyId";
         public static final String I_DISPLAY_TEXT            = "displayText";
         public static final String I_DISPLAY_VALUE_TEXT      = "displayValueText";
+        public static final String I_CUSTOMER_ID             = "customerId";
 
     }
 

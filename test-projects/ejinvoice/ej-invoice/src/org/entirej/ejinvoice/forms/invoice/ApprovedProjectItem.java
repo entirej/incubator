@@ -26,6 +26,7 @@ public class ApprovedProjectItem
     private EJPojoProperty<BigDecimal> _fixPrice;
     private EJPojoProperty<String>     _text;
     private EJPojoProperty<String>     _addToInvoice;
+    private EJPojoProperty<Integer>    _customerId;
 
     @EJFieldName("DISPLAY_TEXT")
     public String getInitialDisplayText()
@@ -45,11 +46,11 @@ public class ApprovedProjectItem
         StringBuilder display = new StringBuilder();
         display.append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\"");
         display.append("<tr>");
-        
+
         display.append("<td align=\"left\" width=\"45%\">");
-            display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getProjectName() + "  (" + getTaskName() + ")</span>");
+        display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getProjectName() + "  (" + getTaskName() + ")</span>");
         display.append("</td>");
-        
+
         if (getFixPrice() != null)
         {
             display.append("<td align=\"right\"  width=\"45%\">Fix Price:</td>");
@@ -58,10 +59,10 @@ public class ApprovedProjectItem
         {
             display.append("<td align=\"right\"  width=\"45%\">Hourly Rate:</td>");
         }
-        
+
         if (getFixPrice() != null)
         {
-            display.append("<td align=\"right\" width=\"10%\">"+ getFixPrice()  +"</td>");
+            display.append("<td align=\"right\" width=\"10%\">" + getFixPrice() + "</td>");
         }
         else
         {
@@ -71,27 +72,27 @@ public class ApprovedProjectItem
             }
             else
             {
-                display.append("<td align=\"right\" width=\"10%\">"+ getPayRate()  +"</td>");
+                display.append("<td align=\"right\" width=\"10%\">" + getPayRate() + "</td>");
             }
         }
-        
+
         display.append("</tr>");
 
         display.append("<tr>");
         display.append("<td align=\"left\" width=\"65\" height=1>");
-        display.append("<span style =\"font-weight: normal; font-size: 100% \">" + getPeriodFrom() + " - "+getPeriodTo()+"</span></td>");
-        
+        display.append("<span style =\"font-weight: normal; font-size: 100% \">" + getPeriodFrom() + " - " + getPeriodTo() + "</span></td>");
+
         display.append("<td align=\"right\"  width=\"30%\">Hours:</td>");
-        
-        if (getHoursWorked()== null)
+
+        if (getHoursWorked() == null)
         {
             display.append("<td align=\"right\" width=\"10%\">&nbsp;</td>");
         }
         else
         {
-            display.append("<td align=\"right\" width=\"10%\">"+ getHoursWorked()  +"</td>");
+            display.append("<td align=\"right\" width=\"10%\">" + getHoursWorked() + "</td>");
         }
-        
+
         display.append("</tr>");
         display.append("</table>");
 
@@ -386,6 +387,24 @@ public class ApprovedProjectItem
         return EJPojoProperty.getPropertyInitialValue(_addToInvoice);
     }
 
+    @EJFieldName("CUSTOMER_ID")
+    public Integer getCustomerId()
+    {
+        return EJPojoProperty.getPropertyValue(_customerId);
+    }
+
+    @EJFieldName("CUSTOMER_ID")
+    public void setCustomerId(Integer customerId)
+    {
+        _customerId = EJPojoProperty.setPropertyValue(_customerId, customerId);
+    }
+
+    @EJFieldName("CUSTOMER_ID")
+    public Integer getInitialCustomerId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_customerId);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_hoursWorked);
@@ -404,6 +423,7 @@ public class ApprovedProjectItem
         EJPojoProperty.clearInitialValue(_fixPrice);
         EJPojoProperty.clearInitialValue(_text);
         EJPojoProperty.clearInitialValue(_addToInvoice);
+        EJPojoProperty.clearInitialValue(_customerId);
     }
 
 }

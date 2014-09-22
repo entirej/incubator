@@ -224,8 +224,13 @@ public class FormHandler
             form.openEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_INVOICE_CREATION_FORM, null);
         }
 
+        
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("COMPANY_ID", new Integer(companyId)));
+        
+        EJForm invoiceCreationForm = form.getEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_INVOICE_CREATION_FORM);
+        invoiceCreationForm.getBlock(F_INVOICE_CREATION.B_FILTER.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_CREATION.B_FILTER.I_CUSTOMER_ID).refreshItemRenderer();
+        
 //        EJForm invoiceCreationForm = form.getEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_INVOICE_CREATION_FORM);
 //        invoiceCreationForm.getBlock(F_INVOICE_CREATION.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery(criteria);
 

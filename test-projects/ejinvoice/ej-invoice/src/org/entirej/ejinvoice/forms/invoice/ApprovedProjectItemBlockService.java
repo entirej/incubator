@@ -5,12 +5,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.ejinvoice.forms.constants.F_INVOICE_CREATION;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJQuerySort;
 import org.entirej.framework.core.service.EJRestrictions;
+import org.entirej.framework.core.service.EJSelectResult;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
 import org.entirej.framework.core.service.EJStatementParameter;
@@ -18,7 +20,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedProjectItem>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT COMPANY_ID, AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT, 'Add' AS ADD_TO_INVOICE FROM invoice_positions";
+    private String                    _selectStatement = "SELECT COMPANY_ID, AMOUNT,CUPR_ID,CUPT_ID,FIX_PRICE,HOURS_WORKED,ID,INV_ID,PAY_RATE,PERIOD_FROM,PERIOD_TO,PROJECT_NAME,STATUS,TASK_NAME,TEXT, 'Add' AS ADD_TO_INVOICE FROM invoice_positions WHERE CUPR_ID IN (SELECT ID FROM CUSTOMER_PROJECTS WHERE CUSTOMER_ID = ?) ";
 
     public ApprovedProjectItemBlockService()
     {
@@ -38,7 +40,35 @@ public class ApprovedProjectItemBlockService implements EJBlockService<ApprovedP
         queryCriteria.add(EJQuerySort.ASC("PERIOD_TO"));
         queryCriteria.add(EJQuerySort.ASC("TASK_NAME"));
         queryCriteria.add(EJRestrictions.equals("STATUS", "APPROVED"));
-        return _statementExecutor.executeQuery(ApprovedProjectItem.class, form, _selectStatement, queryCriteria);
+        
+        Integer customerId = (Integer)queryCriteria.getRestriction(F_INVOICE_CREATION.B_APPROVED_PROJECT_ITEMS.I_CUSTOMER_ID).getValue();
+        
+        queryCriteria.removeRestriction(F_INVOICE_CREATION.B_APPROVED_PROJECT_ITEMS.I_CUSTOMER_ID);
+        
+        ArrayList<ApprovedProjectItem> projectItems = new ArrayList<ApprovedProjectItem>();
+        List<EJSelectResult> results = _statementExecutor.executeQuery(form.getConnection(),_selectStatement, queryCriteria, new EJStatementParameter(customerId));
+        for (EJSelectResult result : results)
+        {
+            ApprovedProjectItem item = new ApprovedProjectItem();
+            item.setAddToInvoice((String)result.getItemValue("ADD_TO_INVOICE"));
+            item.setAmount((BigDecimal)result.getItemValue("AMOUNT"));
+            item.setCompanyId((Integer)result.getItemValue("COMPANY_ID"));
+            item.setCuprId((Integer)result.getItemValue("CUPR_ID"));
+            item.setCuptId((Integer)result.getItemValue("CUPT_ID"));
+            item.setFixPrice((BigDecimal)result.getItemValue("FIX_PRICE"));
+            item.setHoursWorked((BigDecimal)result.getItemValue("HOURS_WORKED"));
+            item.setId((Integer)result.getItemValue("ID"));
+            item.setInvId((Integer)result.getItemValue("INV_ID"));
+            item.setPayRate((BigDecimal)result.getItemValue("PAY_RATE"));
+            item.setPeriodFrom((Date)result.getItemValue("PERIOD_FROM"));
+            item.setPeriodTo((Date)result.getItemValue("PERIOD_TO"));
+            item.setProjectName((String)result.getItemValue("PROJECT_NAME"));
+            item.setStatus((String)result.getItemValue("STATUS"));
+            item.setTaskName((String)result.getItemValue("TASK_NAME"));
+            item.setText((String)result.getItemValue("TEXT"));
+            projectItems.add(item);
+        }
+        return projectItems;
     }
 
     @Override

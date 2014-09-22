@@ -50,17 +50,18 @@ public class InvoicePlanningActionProcessor extends DefaultFormActionProcessor
         {
             if (record.getValue(F_INVOICE_PLANNING.B_INVOICE_HEADER.I_CUSTOMER_ID) != null)
             {
-                form.getBlock(F_INVOICE_PLANNING.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();    
-            }
-            
-            if (record.getValue(F_INVOICE_PLANNING.B_INVOICE_HEADER.I_PROJECTS) == null)
-            {
-                form.getBlock(F_INVOICE_PLANNING.B_OPEN_PROJECT_ITEMS.ID).clear(true);
-            }
-            else
-            {
+                form.getBlock(F_INVOICE_PLANNING.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
                 form.getBlock(F_INVOICE_PLANNING.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
             }
+            
+//            if (record.getValue(F_INVOICE_PLANNING.B_INVOICE_HEADER.I_PROJECTS) == null)
+//            {
+//                form.getBlock(F_INVOICE_PLANNING.B_OPEN_PROJECT_ITEMS.ID).clear(true);
+//            }
+//            else
+//            {
+//                
+//            }
         }
         if (F_INVOICE_PLANNING.AC_CREATE_INVOICE_POSITION.equals(command))
         {

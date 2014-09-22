@@ -23,6 +23,7 @@ public class OpenProjectItem
     private EJPojoProperty<BigDecimal> _workHours;
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<String>     _createInvoicePosition;
+    private EJPojoProperty<Integer>    _customerId;
 
     @EJFieldName("DISPLAY_TEXT")
     public String getDisplayText()
@@ -42,7 +43,6 @@ public class OpenProjectItem
         return EJPojoProperty.getPropertyInitialValue(_displayText);
     }
 
-    
     @EJFieldName("DISPLAY_VALUE_TEXT")
     public String getDisplayValueText()
     {
@@ -60,8 +60,7 @@ public class OpenProjectItem
     {
         return EJPojoProperty.getPropertyInitialValue(_displayValueText);
     }
-    
-    
+
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -296,6 +295,24 @@ public class OpenProjectItem
         return EJPojoProperty.getPropertyInitialValue(_createInvoicePosition);
     }
 
+    @EJFieldName("CUSTOMER_ID")
+    public Integer getCustomerId()
+    {
+        return EJPojoProperty.getPropertyValue(_customerId);
+    }
+
+    @EJFieldName("CUSTOMER_ID")
+    public void setCustomerId(Integer customerId)
+    {
+        _customerId = EJPojoProperty.setPropertyValue(_customerId, customerId);
+    }
+
+    @EJFieldName("CUSTOMER_ID")
+    public Integer getInitialCustomerId()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_customerId);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_displayText);
@@ -313,6 +330,7 @@ public class OpenProjectItem
         EJPojoProperty.clearInitialValue(_teLastDay);
         EJPojoProperty.clearInitialValue(_workHours);
         EJPojoProperty.clearInitialValue(_createInvoicePosition);
+        EJPojoProperty.clearInitialValue(_customerId);
     }
 
 }

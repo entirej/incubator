@@ -45,6 +45,7 @@ public class F_INVOICE_CREATION
         public static final String I_ADD_TO_INVOICE = "addToInvoice";
         public static final String I_COMPANY_ID     = "companyId";
         public static final String I_DISPLAY_TEXT   = "displayText";
+        public static final String I_CUSTOMER_ID    = "customerId";
 
     }
 
