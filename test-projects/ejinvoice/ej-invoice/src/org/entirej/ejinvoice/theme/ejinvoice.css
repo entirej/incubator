@@ -171,8 +171,31 @@ Button[PUSH].save
 
 
 
+Text[BORDER].edit
+{
+border: 1px solid #aaaaaa  ;
+border-radius: 0;
+box-shadow: none;
+}
 
+Text[BORDER]:focused.edit 
+{
+   border: 1px solid #4f7cb1  ;
+   box-shadow: 0 0 5px #4f7cb1  ;
+}
 
+Combo[BORDER].edit 
+{
+border: 1px solid #aaaaaa  ;
+border-radius: 0 2px 2px 0;
+box-shadow: none;
+}
+
+Combo[BORDER]:focused.edit 
+{
+border: 1px solid #4f7cb1;
+box-shadow: 0 0 5px #4f7cb1  ;
+}
 
 TreeItem:hover {
 
