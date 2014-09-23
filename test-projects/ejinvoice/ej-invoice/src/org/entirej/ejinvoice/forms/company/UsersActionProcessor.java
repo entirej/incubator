@@ -72,23 +72,23 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
         {
             EJRecord baseRecord = form.getBlock(F_USERS.B_USERS.ID).getFocusedRecord();
 //            baseRecord.setValue(F_USERS.B_USERS.I_ID, record.getValue(F_USERS.B_USERS.I_ID));
-            baseRecord.setValue(F_USERS.B_USERS.I_ACTIVE, record.getValue(F_USERS.B_USERS.I_ACTIVE));
-            baseRecord.setValue(F_USERS.B_USERS.I_ADDRESS, record.getValue(F_USERS.B_USERS.I_ADDRESS));
-            baseRecord.setValue(F_USERS.B_USERS.I_EMAIL, record.getValue(F_USERS.B_USERS.I_EMAIL));
-            baseRecord.setValue(F_USERS.B_USERS.I_FIRST_NAME, record.getValue(F_USERS.B_USERS.I_FIRST_NAME));
-            baseRecord.setValue(F_USERS.B_USERS.I_LAST_NAME, record.getValue(F_USERS.B_USERS.I_LAST_NAME));
-            baseRecord.setValue(F_USERS.B_USERS.I_LOCALE, record.getValue(F_USERS.B_USERS.I_LOCALE));
-            baseRecord.setValue(F_USERS.B_USERS.I_LOCALE_LANGUAGE, record.getValue(F_USERS.B_USERS.I_LOCALE_LANGUAGE));
-            baseRecord.setValue(F_USERS.B_USERS.I_LOCALE_COUNTRY, record.getValue(F_USERS.B_USERS.I_LOCALE_COUNTRY));
-            baseRecord.setValue(F_USERS.B_USERS.I_NOTES, record.getValue(F_USERS.B_USERS.I_NOTES));
-            baseRecord.setValue(F_USERS.B_USERS.I_POST_CODE, record.getValue(F_USERS.B_USERS.I_POST_CODE));
+            baseRecord.setValue(F_USERS.B_USERS.I_ACTIVE, record.getValue(F_USERS.B_USERS_EDIT.I_ACTIVE));
+            baseRecord.setValue(F_USERS.B_USERS.I_ADDRESS, record.getValue(F_USERS.B_USERS_EDIT.I_ADDRESS));
+            baseRecord.setValue(F_USERS.B_USERS.I_EMAIL, record.getValue(F_USERS.B_USERS_EDIT.I_EMAIL));
+            baseRecord.setValue(F_USERS.B_USERS.I_FIRST_NAME, record.getValue(F_USERS.B_USERS_EDIT.I_FIRST_NAME));
+            baseRecord.setValue(F_USERS.B_USERS.I_LAST_NAME, record.getValue(F_USERS.B_USERS_EDIT.I_LAST_NAME));
+            baseRecord.setValue(F_USERS.B_USERS.I_LOCALE, record.getValue(F_USERS.B_USERS_EDIT.I_LOCALE));
+            baseRecord.setValue(F_USERS.B_USERS.I_LOCALE_LANGUAGE, record.getValue(F_USERS.B_USERS_EDIT.I_LOCALE_LANGUAGE));
+            baseRecord.setValue(F_USERS.B_USERS.I_LOCALE_COUNTRY, record.getValue(F_USERS.B_USERS_EDIT.I_LOCALE_COUNTRY));
+            baseRecord.setValue(F_USERS.B_USERS.I_NOTES, record.getValue(F_USERS.B_USERS_EDIT.I_NOTES));
+            baseRecord.setValue(F_USERS.B_USERS.I_POST_CODE, record.getValue(F_USERS.B_USERS_EDIT.I_POST_CODE));
             
-            baseRecord.setValue(F_USERS.B_USERS.I_TOWN, record.getValue(F_USERS.B_USERS.I_TOWN));
+            baseRecord.setValue(F_USERS.B_USERS.I_TOWN, record.getValue(F_USERS.B_USERS_EDIT.I_TOWN));
             
             User user = (User) baseRecord.getBlockServicePojo();
             if (!user.getInitialRole().equals(UserRole.OWNER))
             {
-                baseRecord.setValue(F_USERS.B_USERS.I_ROLE, record.getValue(F_USERS.B_USERS.I_ROLE));
+                baseRecord.setValue(F_USERS.B_USERS.I_ROLE, record.getValue(F_USERS.B_USERS_EDIT.I_ROLE));
             }
             
             form.getBlock(F_USERS.B_USERS.ID).updateRecord(baseRecord);
