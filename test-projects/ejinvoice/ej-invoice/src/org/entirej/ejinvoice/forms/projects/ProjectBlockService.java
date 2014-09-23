@@ -5,15 +5,13 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.PKSequenceService;
-import org.entirej.ejinvoice.enums.ProjectStatus;
-import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
-import org.entirej.framework.core.service.EJRestriction;
-import org.entirej.framework.core.service.EJRestrictionJoin;
 import org.entirej.framework.core.service.EJRestrictions;
 import org.entirej.framework.core.service.EJStatementCriteria;
 import org.entirej.framework.core.service.EJStatementExecutor;
@@ -29,6 +27,7 @@ public class ProjectBlockService implements EJBlockService<Project>
         _statementExecutor = new EJStatementExecutor();
 
         _selectStatement.append("SELECT CUSTOMER_ID ");
+        _selectStatement.append(",      (SELECT NAME FROM CUSTOMER WHERE ID = CPR1.CUSTOMER_ID) AS CUSTOMER_NAME ");
         _selectStatement.append(",      DESCRIPTION ");
         _selectStatement.append(",      END_DATE ");
         _selectStatement.append(",      ID ");
@@ -94,7 +93,15 @@ public class ProjectBlockService implements EJBlockService<Project>
     @Override
     public List<Project> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        return _statementExecutor.executeQuery(Project.class, form, _selectStatement.toString(), queryCriteria);
+        User user = (User)form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
+        
+        List<Project> projects = _statementExecutor.executeQuery(Project.class, form, _selectStatement.toString(), queryCriteria);
+        for (Project project : projects)
+        {
+            project.setLocale(user.getLocale());
+        }
+        
+        return projects;
     }
 
     @Override

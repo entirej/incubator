@@ -19,7 +19,7 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class CustomerContactBlockService implements EJBlockService<CustomerContact>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT COMPANY_ID, CONTACT_TYPES_ID,CUSTOMER_ID,EMAIL,FIRST_NAME,ID,LAST_NAME,MOBILE,PHONE,SALUTATIONS_ID FROM customer_contact";
+    private String                    _selectStatement = "SELECT COMPANY_ID, CONTACT_TYPES_ID, (SELECT TYPE FROM CONTACT_TYPES WHERE ID = CUSTOMER_CONTACT.CONTACT_TYPES_ID) AS CONTACT_TYPE, CUSTOMER_ID, (SELECT NAME FROM CUSTOMER WHERE ID = CUSTOMER_CONTACT.CUSTOMER_ID) AS CUSTOMER_NAME, EMAIL,FIRST_NAME,ID,LAST_NAME,MOBILE,PHONE,SALUTATIONS_ID, (SELECT VALUE FROM SALUTATIONS WHERE ID = CUSTOMER_CONTACT.SALUTATIONS_ID) AS SALUTATION FROM customer_contact";
 
     public CustomerContactBlockService()
     {

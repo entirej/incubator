@@ -66,27 +66,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
         form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID).getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_HOURS)
                 .setValue(getDiffMinutesString(timestamp.getTime(), timestamp.getTime()));
-
-        User user = (User) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
-
-//        if (user.getRole().equals(UserRole.CONTROLLER.toString()))
-//        {
-//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_CREATION, false);
-//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.COMPANY, false);
-//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS, false);
-//        }
-//        else if (user.getRole().equals(UserRole.EMPLOYEE.toString()))
-//        {
-//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.INVOICE_CREATION, false);
-//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.COMPANY, false);
-//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS, false);
-//            form.setTabPageVisible(F_TIME_ENTRY.C_MAIN, F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS, false);
-//        }
-
-//        form.openEmbeddedForm(F_PAID_INVOICES.ID, F_TIME_ENTRY.C_INVOICE_FORM, null);
-//        form.openEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM, null);
-//        form.openEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM, null);
-//        form.openEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM, null);
     }
 
     @Override
@@ -241,7 +220,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_TIME_ENTRY.AC_OPEN_MENU_ITEM.equals(command))
         {
-            _formHandler.openForm(form, (String)record.getValue(F_TIME_ENTRY.B_MENU.I_ACTION_COMMAND));
+            if (command != null)
+            {
+                _formHandler.openForm(form, (String)record.getValue(F_TIME_ENTRY.B_MENU.I_ACTION_COMMAND));
+            }
         }
     }
 

@@ -120,18 +120,6 @@ public class UserTotalHoursOverviewBlockService implements EJBlockService<UserTo
         paramArray = paramList.toArray(paramArray);
         List<EJSelectResult> results = _statementExecutor.executeQuery(form, selectStatement.toString(), paramArray);
 
-        if (results.size() > 0)
-        {
-            UserTotalHoursOverview header = new UserTotalHoursOverview();
-            header.setHours("Hours");
-            header.setWorkDate("Date");
-            header.setWorkPeriod("Period");
-            header.setWorkDescription("Work Description");
-            header.setHeaderCode(1);
-            returnResults.add(header);
-        }
-        
-        
         userId = -1;
         int userIdResult;
         StringBuilder description = new StringBuilder();
@@ -149,6 +137,7 @@ public class UserTotalHoursOverviewBlockService implements EJBlockService<UserTo
 
                 UserTotalHoursOverview userHeader = new UserTotalHoursOverview();
                 userHeader.setHeaderCode(2);
+                userHeader.setWorkPeriod((result.getItemValue("first_name")) + " " + result.getItemValue("last_name"));
                 userHeader.setProjectDescription((result.getItemValue("first_name")) + " " + result.getItemValue("last_name"));
                 returnResults.add(userHeader);
             }
@@ -171,16 +160,14 @@ public class UserTotalHoursOverviewBlockService implements EJBlockService<UserTo
             String endTimeString = new SimpleDateFormat("HH:mm").format(endTime);
             totalHoursDisp.setWorkPeriod(startTimeString+" - "+endTimeString);
                         
-            NumberFormat decimalFormat = DecimalFormat.getIntegerInstance(user.getLocale());
-            BigDecimal hours = (BigDecimal) result.getItemValue("hours");
-            
-            totalHoursDisp.setHours((hours == null ? "" : decimalFormat.format(hours.doubleValue())));
+            totalHoursDisp.setHours((BigDecimal) result.getItemValue("hours"));
             
             totalHoursDisp.setWorkDescription((String)result.getItemValue("work_description"));
             
             Date workDate = (Date)result.getItemValue("work_date");
             DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, user.getLocale());
             totalHoursDisp.setWorkDate(dateFormat.format(workDate));
+            totalHoursDisp.setLocale(user.getLocale());
             
             returnResults.add(totalHoursDisp);
         }

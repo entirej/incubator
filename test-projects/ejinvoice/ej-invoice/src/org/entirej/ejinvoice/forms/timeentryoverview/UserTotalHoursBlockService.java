@@ -145,6 +145,7 @@ public class UserTotalHoursBlockService implements EJBlockService<UserTotalHours
             description.append(" (").append((String) result.getItemValue("project_task")).append(") ");
 
             totalHoursDisp.setDescription(description.toString());
+            totalHoursDisp.setLocale(user.getLocale());
             BigDecimal hours = (BigDecimal) result.getItemValue("hours");
             totalHoursDisp.setHours(hours);
             totalHours = totalHours.add(hours);
@@ -158,6 +159,7 @@ public class UserTotalHoursBlockService implements EJBlockService<UserTotalHours
             UserTotalHoursDisplay totals = new UserTotalHoursDisplay();
             totals.setHeaderCode(2);            
             NumberFormat hoursFormat = NumberFormat.getInstance(user.getLocale());
+            hoursFormat.setMinimumFractionDigits(2);
 
             totals.setDescription("Total Hours Worked:  " + hoursFormat.format(totalHours).toString());
 

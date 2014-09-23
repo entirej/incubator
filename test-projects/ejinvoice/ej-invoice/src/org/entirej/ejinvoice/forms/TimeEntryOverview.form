@@ -536,6 +536,22 @@
                         <itemRendererProperties>
                         </itemRendererProperties>
                     </item>
+                    <item name="displayText">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextAreaItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[Left]]></property>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
                 </itemList>
                 <mainScreenProperties>
                     <displayFrame>false</displayFrame>
@@ -566,8 +582,8 @@
                                 <property name="HEADER_VA" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                             </rendererProperties>
                             <itemGroupItemList>
-                                <item referencedItemName="description" isSpacerItem="false">
-                                    <label><![CDATA[Description]]></label>
+                                <item referencedItemName="displayText" isSpacerItem="false">
+                                    <label><![CDATA[Display Text]]></label>
                                     <hint></hint>
                                     <editAllowed>false</editAllowed>
                                     <visible>true</visible>
@@ -578,24 +594,8 @@
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="hours" isSpacerItem="false">
-                                    <label><![CDATA[Hours]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
+                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[200]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>
                             </itemGroupItemList>
@@ -716,18 +716,11 @@
                     <item name="hours">
                         <blockServiceItem>true</blockServiceItem>
                         <mandatoryItem>false</mandatoryItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
+                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
                         <defaultInsertValue></defaultInsertValue>
                         <defaultQueryValue></defaultQueryValue>
                         <itemRendererProperties>
-                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
-                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
-                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
-                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
                         </itemRendererProperties>
                     </item>
                     <item name="userId">
@@ -828,6 +821,23 @@
                             <property name="CASE" multilingual="false" propertyType="STRING"></property>
                         </itemRendererProperties>
                     </item>
+                    <item name="displayText">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
                 </itemList>
                 <mainScreenProperties>
                     <displayFrame>false</displayFrame>
@@ -858,8 +868,8 @@
                                 <property name="HEADER_VA" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                             </rendererProperties>
                             <itemGroupItemList>
-                                <item referencedItemName="projectDescription" isSpacerItem="false">
-                                    <label></label>
+                                <item referencedItemName="displayText" isSpacerItem="false">
+                                    <label><![CDATA[Display Text]]></label>
                                     <hint></hint>
                                     <editAllowed>false</editAllowed>
                                     <visible>true</visible>
@@ -869,72 +879,8 @@
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
+                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
                                         <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="workDate" isSpacerItem="false">
-                                    <label><![CDATA[Date]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[15]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="workPeriod" isSpacerItem="false">
-                                    <label><![CDATA[Period]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[20]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="hours" isSpacerItem="false">
-                                    <label><![CDATA[Hours]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
-                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[10]]></property>
-                                    </blockRendererRequiredProperties>
-                                </item>
-                                <item referencedItemName="workDescription" isSpacerItem="false">
-                                    <label><![CDATA[Work Description]]></label>
-                                    <hint></hint>
-                                    <editAllowed>false</editAllowed>
-                                    <visible>true</visible>
-                                    <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
-                                    <validateFromLov>true</validateFromLov>
-                                    <actionCommand></actionCommand>
-                                    <blockRendererRequiredProperties>
-                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
-                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                         <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[200]]></property>
                                     </blockRendererRequiredProperties>
                                 </item>

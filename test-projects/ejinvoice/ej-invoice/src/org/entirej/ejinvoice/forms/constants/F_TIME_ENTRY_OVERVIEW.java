@@ -22,13 +22,14 @@ public class F_TIME_ENTRY_OVERVIEW
 
     public static class B_USER_TOTAL_HOURS
     {
-        public static final String ID            = "userTotalHours";
-        public static final String I_HEADER_CODE = "headerCode";
-        public static final String I_HOURS       = "hours";
-        public static final String I_DESCRIPTION = "description";
-        public static final String I_USER_ID     = "userId";
-        public static final String I_DATE_FROM   = "dateFrom";
-        public static final String I_DATE_TO     = "dateTo";
+        public static final String ID             = "userTotalHours";
+        public static final String I_HEADER_CODE  = "headerCode";
+        public static final String I_HOURS        = "hours";
+        public static final String I_DESCRIPTION  = "description";
+        public static final String I_USER_ID      = "userId";
+        public static final String I_DATE_FROM    = "dateFrom";
+        public static final String I_DATE_TO      = "dateTo";
+        public static final String I_DISPLAY_TEXT = "displayText";
 
     }
 
@@ -44,6 +45,7 @@ public class F_TIME_ENTRY_OVERVIEW
         public static final String I_PROJECT_DESCRIPTION = "projectDescription";
         public static final String I_WORK_DESCRIPTION    = "workDescription";
         public static final String I_WORK_DATE           = "workDate";
+        public static final String I_DISPLAY_TEXT        = "displayText";
 
     }
 

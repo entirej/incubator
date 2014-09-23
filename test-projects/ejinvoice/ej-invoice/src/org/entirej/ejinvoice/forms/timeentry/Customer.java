@@ -42,6 +42,7 @@ public class Customer
     private EJPojoProperty<Locale>     _locale;
     private EJPojoProperty<String>     _ccyCode;
     private EJPojoProperty<Integer>    _active;
+    private EJPojoProperty<String>     _displayText;
 
     private EJPojoProperty<String>     _email;
     private EJPojoProperty<String>     _phone;
@@ -484,6 +485,54 @@ public class Customer
         return EJPojoProperty.getPropertyInitialValue(_active);
     }
 
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
+        display.append("<tr>");
+
+        display.append("<td align=left width=85% colspan=3>");
+        display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getName() + "  (" + getCustomerNumber() + ")</span>");
+        display.append("</td>");
+
+        if (getActive() == 1)
+        {
+            display.append("<td align=\"right\"  width=\"15%\">Active</td>");
+        }
+        else
+        {
+            display.append("<td align=\"right\"  width=\"15%\">Not Active</td>");
+        }
+
+        display.append("</tr>");
+
+        display.append("<tr>");
+        display.append("<td align=\"left\"  width=\"55%\">"+getAddress()+" "+getPostCode()+" "+getTown()+" "+getCountry()+"</td>");
+        display.append("<td align=\"left\"  width=\"15%\">Currency: "+getCcyCode()+"</td>");
+        display.append("<td align=\"left\"  width=\"15%\">VAT%: "+getVatRate()+"</td>");
+        display.append("<td align=\"left\"  width=\"15%\">Pay Within: "+getPaymentDays()+" days</td>");
+        
+        display.append("</tr>");
+
+        
+        display.append("</table>");
+
+        return display.toString();
+    }
+    
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_customerNumber);
@@ -501,6 +550,7 @@ public class Customer
         EJPojoProperty.clearInitialValue(_locale);
         EJPojoProperty.clearInitialValue(_ccyCode);
         EJPojoProperty.clearInitialValue(_active);
+        EJPojoProperty.clearInitialValue(_displayText);
 
         EJPojoProperty.clearInitialValue(_email);
         EJPojoProperty.clearInitialValue(_phone);

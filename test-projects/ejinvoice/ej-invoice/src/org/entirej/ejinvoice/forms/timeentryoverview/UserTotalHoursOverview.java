@@ -1,20 +1,41 @@
 package org.entirej.ejinvoice.forms.timeentryoverview;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
 public class UserTotalHoursOverview
 {
-    private EJPojoProperty<Integer> _userId;
-    private EJPojoProperty<String>  _workDate;
-    private EJPojoProperty<String>  _projectDescription;
-    private EJPojoProperty<String>  _workPeriod;
-    private EJPojoProperty<String>  _hours;
-    private EJPojoProperty<String>  _workDescription;
-    private EJPojoProperty<Integer> _headerCode;
+    private EJPojoProperty<Locale>     _locale;
+    private EJPojoProperty<Integer>    _userId;
+    private EJPojoProperty<String>     _workDate;
+    private EJPojoProperty<String>     _projectDescription;
+    private EJPojoProperty<String>     _workPeriod;
+    private EJPojoProperty<BigDecimal> _hours;
+    private EJPojoProperty<String>     _workDescription;
+    private EJPojoProperty<Integer>    _headerCode;
+    private EJPojoProperty<String>     _displayText;
+
+    @EJFieldName("locale")
+    public Locale getLocale()
+    {
+        return EJPojoProperty.getPropertyValue(_locale);
+    }
+
+    @EJFieldName("locale")
+    public void setLocale(Locale locale)
+    {
+        _locale = EJPojoProperty.setPropertyValue(_locale, locale);
+    }
+
+    @EJFieldName("locale")
+    public Locale getInitialLocale()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_locale);
+    }
 
     @EJFieldName("header_code")
     public Integer getHeaderCode()
@@ -35,19 +56,19 @@ public class UserTotalHoursOverview
     }
 
     @EJFieldName("hours")
-    public String getHours()
+    public BigDecimal getHours()
     {
         return EJPojoProperty.getPropertyValue(_hours);
     }
 
     @EJFieldName("hours")
-    public void setHours(String hours)
+    public void setHours(BigDecimal hours)
     {
         _hours = EJPojoProperty.setPropertyValue(_hours, hours);
     }
 
     @EJFieldName("hours")
-    public String getInitialHours()
+    public BigDecimal getInitialHours()
     {
         return EJPojoProperty.getPropertyInitialValue(_hours);
     }
@@ -137,19 +158,112 @@ public class UserTotalHoursOverview
     }
 
     @EJFieldName("work_date")
-    public String getInitialWorDarw()
+    public String getInitialWorkDate()
     {
         return EJPojoProperty.getPropertyInitialValue(_workDate);
     }
 
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        NumberFormat format = null;
+        if (getLocale() == null)
+        {
+            format = NumberFormat.getNumberInstance();
+        }
+        else
+        {
+            format = NumberFormat.getNumberInstance(getLocale());
+        }
+        format.setMinimumFractionDigits(2);
+
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
+        display.append("<tr>");
+
+        display.append("<td align=left width=60 colspan=1 rowspan=2>");
+
+        if (getHeaderCode() != null && getHeaderCode() == 2)
+        {
+            display.append("<span style =\"font-weight: bold; font-size: 150%; rowspan=2 \">" + getWorkPeriod() + "</span>");
+        }
+        else
+        {
+            if (getWorkDate() == null)
+            {
+                display.append("<span style =\"font-weight: normal; font-size: 100% \">&nbsp;</span>");
+            }
+            else
+            {
+                display.append("<span style =\"font-weight: normal; font-size: 100% \">" + getWorkDate() + "  (" + getWorkPeriod() + ")</span>");
+            }
+        }
+
+        display.append("</td>");
+
+        display.append("<td align=left width=75% colspan=1 rowspan=1>");
+        if (getHeaderCode() != null && getHeaderCode() == 2)
+        {
+            display.append("<span style =\"font-weight: bold; font-size: 100% \">&nbsp;</span>");
+        }
+        else
+        {
+            display.append("<span style =\"font-weight: bold; font-size: 100% \">" + getProjectDescription() + "</span>");
+        }
+        display.append("</td>");
+
+        display.append("<td align=right width=10% colspan=1 rowspan=2>");
+        if (getHours() == null || (getHeaderCode() != null && getHeaderCode() == 2))
+        {
+            display.append("<span style =\"font-weight: normal; font-size: 100% \">&nbsp;</span>");
+        }
+        else
+        {
+            display.append("<span style =\"font-weight: normal; font-size: 100% \">" + format.format(getHours()) + " hours</span>");
+        }
+        display.append("</td>");
+
+        display.append("</tr>");
+
+        display.append("<tr>");
+        if (getWorkDescription() == null)
+        {
+            display.append("<td align=\"left\"  width=\"75%\">&nbsp;</td>");
+        }
+        else
+        {
+            display.append("<td align=\"left\"  width=\"75%\">" + getWorkDescription() + "</td>");
+        }
+        display.append("</tr>");
+        display.append("<tr>");
+
+        display.append("</table>");
+
+        return display.toString();
+    }
+
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_locale);
         EJPojoProperty.clearInitialValue(_hours);
         EJPojoProperty.clearInitialValue(_userId);
         EJPojoProperty.clearInitialValue(_workPeriod);
         EJPojoProperty.clearInitialValue(_projectDescription);
         EJPojoProperty.clearInitialValue(_workDescription);
         EJPojoProperty.clearInitialValue(_workDate);
+        EJPojoProperty.clearInitialValue(_displayText);
     }
 
 }

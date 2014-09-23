@@ -41,31 +41,21 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-//        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CST_ID) != null)
-//        {
-//            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).executeQuery();
-//        }
-
-//        if (form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION) != null)
-//        {
-//            String custInfo = (String)form.getParameterList().getParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION).getValue();
-//            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getScreenItem(EJScreenType.MAIN, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_INFORMATION).setValue(custInfo);
-//        }
     }
 
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (F_CUSTOMER_CONTACTS.AC_OPEN_EMAIL.equals(command))
-        {
-            String email = (String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_EMAIL);
-            if (email != null)
-            {
-                UrlLauncher launcher = RWT.getClient().getService(UrlLauncher.class);
-                launcher.openURL("mailto:" + email);
-            }
-        }
-        else if (F_CUSTOMER_CONTACTS.AC_QUERY_CONTACTS.equals(command))
+//        if (F_CUSTOMER_CONTACTS.AC_OPEN_EMAIL.equals(command))
+//        {
+//            String email = (String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_EMAIL);
+//            if (email != null)
+//            {
+//                UrlLauncher launcher = RWT.getClient().getService(UrlLauncher.class);
+//                launcher.openURL("mailto:" + email);
+//            }
+//        }
+        if (F_CUSTOMER_CONTACTS.AC_QUERY_CONTACTS.equals(command))
         {
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).executeQuery();
         }

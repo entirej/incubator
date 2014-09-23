@@ -51,6 +51,7 @@ public class F_PAID_INVOICES
         public static final String I_AMOUNT_TO       = "amountTo";
         public static final String I_SENT_DATE       = "sentDate";
         public static final String I_PAYMENT_DATE    = "paymentDate";
+        public static final String I_DISPLAY_TEXT    = "displayText";
 
     }
 

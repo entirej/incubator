@@ -2,21 +2,27 @@ package org.entirej.ejinvoice.forms.projects;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
 public class Project
 {
+    private EJPojoProperty<Locale>     _locale;
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<String>     _description;
     private EJPojoProperty<String>     _name;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<Integer>    _customerId;
+    private EJPojoProperty<String>     _customerName;
     private EJPojoProperty<Date>       _startDate;
     private EJPojoProperty<Date>       _endDate;
     private EJPojoProperty<String>     _status;
     private EJPojoProperty<String>     _notes;
+    private EJPojoProperty<String>     _displayText;
 
     private EJPojoProperty<Long>       _openItems;
     private EJPojoProperty<Long>       _plannedItems;
@@ -34,6 +40,24 @@ public class Project
     private EJPojoProperty<BigDecimal> _taskFixPrice;
     private EJPojoProperty<String>     _taskStatus;
     private EJPojoProperty<String>     _taskInvoiceable;
+
+    @EJFieldName("LOCALE")
+    public Locale getLocale()
+    {
+        return EJPojoProperty.getPropertyValue(_locale);
+    }
+
+    @EJFieldName("LOCALE")
+    public void setLocale(Locale locale)
+    {
+        _locale = EJPojoProperty.setPropertyValue(_locale, locale);
+    }
+
+    @EJFieldName("LOCALE")
+    public Locale getInitialLocale()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_locale);
+    }
 
     @EJFieldName("ID")
     public Integer getId()
@@ -106,7 +130,7 @@ public class Project
     {
         return EJPojoProperty.getPropertyInitialValue(_status);
     }
-    
+
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -141,6 +165,24 @@ public class Project
     public Integer getInitialCustomerId()
     {
         return EJPojoProperty.getPropertyInitialValue(_customerId);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public String getCustomerName()
+    {
+        return EJPojoProperty.getPropertyValue(_customerName);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public void setCustomerId(String customerName)
+    {
+        _customerName = EJPojoProperty.setPropertyValue(_customerName, customerName);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public String getInitialCustomerName()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_customerName);
     }
 
     @EJFieldName("START_DATE")
@@ -449,13 +491,67 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_markedFormInvoiceItems);
     }
 
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        NumberFormat format = null;
+        DateFormat dateFormat = null;
+        if (getLocale() == null)
+        {
+            format = NumberFormat.getNumberInstance();
+            dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+        }
+        else
+        {
+            format = NumberFormat.getNumberInstance(getLocale());
+            dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, getLocale());
+        }
+        format.setMinimumFractionDigits(2);
+
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
+        display.append("<tr>");
+
+        display.append("<td align=left width=40%>");
+        display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getName() + "</span>");
+        display.append("</td>");
+
+        display.append("<td align=\"left\"  width=\"30%\">" + getCustomerName() + "</td>");
+        display.append("<td align=\"right\"  width=\"15%\">" + (getStartDate() == null ? "&nbsp;" : "Start: "+dateFormat.format(getStartDate())) + "</td>");
+        display.append("<td align=\"right\"  width=\"15%\">" + (getEndDate() == null ? "&nbsp;" : "End: "+dateFormat.format(getEndDate())) + "</td>");
+        display.append("</tr>");
+
+        display.append("<tr>");
+        display.append("<td align=\"left\"  width=\"70%\" colspan=2>" + (getNotes() == null ? "&nbsp;" : getNotes()) + "</td>");
+        display.append("<td align=\"right\"  width=\"30%\" colspan=2>" + (getFixPrice() == null ? "&nbsp;" : "Fix Price: "+format.format(getFixPrice())) + "</td>");
+        display.append("</tr>");
+
+        display.append("</table>");
+
+        return display.toString();
+    }
+
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_locale);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_description);
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_customerId);
+        EJPojoProperty.clearInitialValue(_customerName);
         EJPojoProperty.clearInitialValue(_startDate);
         EJPojoProperty.clearInitialValue(_endDate);
         EJPojoProperty.clearInitialValue(_status);
@@ -464,6 +560,7 @@ public class Project
         EJPojoProperty.clearInitialValue(_plannedItems);
         EJPojoProperty.clearInitialValue(_approvedItems);
         EJPojoProperty.clearInitialValue(_markedFormInvoiceItems);
+        EJPojoProperty.clearInitialValue(_displayText);
 
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);

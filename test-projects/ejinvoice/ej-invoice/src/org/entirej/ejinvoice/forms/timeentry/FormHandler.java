@@ -23,6 +23,11 @@ public class FormHandler
 {
     public void openForm(EJForm form, String command)
     {
+        if (command == null)
+        {
+            return;
+        }
+        
         if (command.equals("OPEN_TIME_ENTRY_OVERVIEW"))
         {
             openTimeEntryOverview(form);
@@ -248,7 +253,11 @@ public class FormHandler
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("COMPANY_ID", new Integer(companyId)));
-        EJForm outstandingInvoicesForm = form.getEmbeddedForm(F_INVOICE_CREATION.ID, F_TIME_ENTRY.C_OUTSTANDING_INVOICES_FORM);
+        criteria.add(EJRestrictions.equals("STATUS", "ALL"));
+        
+        EJForm outstandingInvoicesForm = form.getEmbeddedForm(F_OUTSTANDING_INVOICES.ID, F_TIME_ENTRY.C_OUTSTANDING_INVOICES_FORM);
+        outstandingInvoicesForm.getBlock(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY_FILTER.ID).getScreenItem(EJScreenType.MAIN, F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY_FILTER.I_STATUS).setValue("ALL");
+        
         outstandingInvoicesForm.getBlock(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.ID).executeQuery(criteria);
 
         form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.OUTSTANDING_INVOICES);

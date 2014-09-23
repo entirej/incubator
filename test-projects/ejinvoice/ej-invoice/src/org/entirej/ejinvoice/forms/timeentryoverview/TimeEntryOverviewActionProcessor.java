@@ -51,23 +51,23 @@ public class TimeEntryOverviewActionProcessor extends DefaultFormActionProcessor
     {
         if (F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.ID.equals(record.getBlockName()))
         {
-            Integer headerKey = (Integer) record.getValue(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HEADER_CODE);
-
-            if (headerKey != null && 1 == headerKey)
-            {
-                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
-                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
-            }
-            else if (headerKey == null)
-            {
-                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_DESCRIPTION).setVisualAttribute(null);
-                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HOURS).setVisualAttribute(null);
-            }
-            else if (headerKey == 2)
-            {
-                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_DATA_BOLD);
-                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_DATA_BOLD);
-            }
+//            Integer headerKey = (Integer) record.getValue(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HEADER_CODE);
+//
+//            if (headerKey != null && 1 == headerKey)
+//            {
+//                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+//                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_TABLE_HEADER);
+//            }
+//            else if (headerKey == null)
+//            {
+//                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_DESCRIPTION).setVisualAttribute(null);
+//                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HOURS).setVisualAttribute(null);
+//            }
+//            else if (headerKey == 2)
+//            {
+//                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_DESCRIPTION).setVisualAttribute(EJ_PROPERTIES.VA_DATA_BOLD);
+//                record.getItem(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.I_HOURS).setVisualAttribute(EJ_PROPERTIES.VA_DATA_BOLD);
+//            }
         }
         if (F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_OVERVIEW.ID.equals(record.getBlockName()))
         {

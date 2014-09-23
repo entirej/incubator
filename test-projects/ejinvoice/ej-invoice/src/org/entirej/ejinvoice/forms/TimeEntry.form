@@ -28,7 +28,7 @@
                 <splitOrientation><![CDATA[HORIZONTAL]]></splitOrientation>
                 <groupCanvasList>
                     <canvas name="menuGroup" type="GROUP">
-                        <width>25</width>
+                        <width>35</width>
                         <height>0</height>
                         <numCols>1</numCols>
                         <horizontalSpan>1</horizontalSpan>
@@ -3882,11 +3882,13 @@
                 <blockRendererProperties>
                     <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
                     <property name="HIDE_TREE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="HIDE_SELECTION" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                     <property name="NODE_EXPAND_LEVEL" multilingual="false" propertyType="INTEGER"></property>
                     <property name="RELATION_ITEM" multilingual="false" propertyType="BLOCK_ITEM"><![CDATA[parentId]]></property>
                     <property name="NODE_IMAGE_ITEM" multilingual="false" propertyType="BLOCK_ITEM"><![CDATA[icon]]></property>
-                    <property name="DOUBLE_CLICK_ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[OPEN_MENU_ITEM]]></property>
+                    <property name="DOUBLE_CLICK_ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
                     <property name="PARENT_ITEM" multilingual="false" propertyType="BLOCK_ITEM"><![CDATA[id]]></property>
+                    <property name="CLICK_ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[OPEN_MENU_ITEM]]></property>
                     <property name="FILTER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                     <propertyGroup name="TITLE_BAR">
                         <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>

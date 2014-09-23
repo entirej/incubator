@@ -63,6 +63,7 @@ public class F_PROJECTS
         public static final String I_MARKED_FOR_INVOICE_ITEMS       = "markedForInvoiceItems";
         public static final String I_EDIT                           = "edit";
         public static final String I_TASKS                          = "tasks";
+        public static final String I_DISPLAY_TEXT                   = "displayText";
 
     }
 
@@ -156,7 +157,6 @@ public class F_PROJECTS
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
     public static final String AC_INVOICEABLE              = "INVOICEABLE";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
-    public static final String AC_OPEN_CUSTOMER            = "OPEN_CUSTOMER";
     public static final String AC_PROJECT_DETAILS          = "PROJECT_DETAILS";
     public static final String AC_PROJECT_DETAILS_CREATION = "PROJECT_DETAILS_CREATION";
     public static final String AC_REFRESH_PROJECT_LIST     = "REFRESH_PROJECT_LIST";

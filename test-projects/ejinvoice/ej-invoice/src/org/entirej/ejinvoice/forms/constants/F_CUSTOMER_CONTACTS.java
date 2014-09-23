@@ -34,6 +34,7 @@ public class F_CUSTOMER_CONTACTS
         public static final String I_EDIT             = "edit";
         public static final String I_COMPANY_ID       = "companyId";
         public static final String I_CUSTOMER_NAME    = "customerName";
+        public static final String I_DISPLAY_TEXT     = "displayText";
 
     }
 
@@ -87,7 +88,6 @@ public class F_CUSTOMER_CONTACTS
     public static final String AC_ADD_NEW_CONTACT          = "ADD_NEW_CONTACT";
     public static final String AC_DELETE_CUSTOMER_CONTACT  = "DELETE_CUSTOMER_CONTACT";
     public static final String AC_EDIT_CONTACT             = "EDIT_CONTACT";
-    public static final String AC_OPEN_EMAIL               = "OPEN_EMAIL";
     public static final String AC_QUERY_CONTACTS           = "QUERY_CONTACTS";
 
 }

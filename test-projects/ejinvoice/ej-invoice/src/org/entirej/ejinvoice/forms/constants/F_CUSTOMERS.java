@@ -49,6 +49,7 @@ public class F_CUSTOMERS
         public static final String I_LOCALE_LANGUAGE  = "localeLanguage";
         public static final String I_CCY_CODE         = "ccyCode";
         public static final String I_ACTIVE           = "active";
+        public static final String I_DISPLAY_TEXT     = "displayText";
 
     }
 
