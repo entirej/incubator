@@ -161,6 +161,14 @@ Button[PUSH].entry
    background-image: gradient(linear, left top, left bottom, from(#A6D785), to(#61B329));
 }
 
+Button[PUSH].save
+{
+   text-shadow: 0 1px 1px rgba(0,0,0,.3)  ;
+   border: solid 1px #42588B;
+   color: #FFFFFF;
+   background-image: gradient(linear, left top, left bottom, from(#A1AECB), to(#42588B));
+}
+
 
 
 

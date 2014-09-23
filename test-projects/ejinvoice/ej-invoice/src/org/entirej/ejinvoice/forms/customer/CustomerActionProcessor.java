@@ -13,12 +13,14 @@ import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.ejinvoice.forms.timeentry.CustomerBlockService;
 import org.entirej.ejinvoice.forms.timeentry.FormHandler;
 import org.entirej.ejinvoice.forms.timeentry.TimeEntry;
 import org.entirej.ejinvoice.forms.timeentry.TimeEntryBlockService;
+import org.entirej.ejinvoice.menu.MenuBlockService;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -64,22 +66,10 @@ public class CustomerActionProcessor extends EJDefaultFormActionProcessor implem
         }
         else if (F_CUSTOMERS.AC_SHOW_CUSTOMER_DETAILS.equals(command))
         {
+            Integer customerId = (Integer)record.getValue(F_CUSTOMERS.B_CUSTOMERS.I_ID);
+            new FormHandler().synchronizeMenu(form.getForm(F_TIME_ENTRY.ID), MenuBlockService.CONTACT_PEOPLE);
+            new FormHandler().openCustomerContacts(form, customerId);
             
-            new FormHandler().openCustomerContacts(form, (Integer)record.getValue(F_CUSTOMERS.B_CUSTOMERS.I_ID));
-//            
-//            EJParameterList paramList = new EJParameterList();
-//            EJFormParameter cstParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CST_ID, Integer.class);
-//            cstParam.setValue(record.getValue(F_CUSTOMERS.B_CUSTOMERS.I_ID));
-//
-//            EJFormParameter cstInfoParam = new EJFormParameter(F_CUSTOMER_CONTACTS.P_CUSTOMER_INFORMATION, String.class);
-//            cstInfoParam.setValue("Customer: " + record.getValue(F_CUSTOMERS.B_CUSTOMERS.I_CUSTOMER_NUMBER) + " ("
-//                    + record.getValue(F_CUSTOMERS.B_CUSTOMERS.I_NAME) + ")");
-//
-//            paramList.addParameter(cstParam);
-//            paramList.addParameter(cstInfoParam);
-//
-//            form.showStackedCanvasPage(F_CUSTOMERS.C_CUSTOMER_STACK, F_CUSTOMERS.C_CUSTOMER_STACK_PAGES.CUSTOMER_DETAILS);
-//            form.openEmbeddedForm(F_CUSTOMER_CONTACTS.ID, F_CUSTOMERS.C_CUSTOMER_DETAILS_FORM, paramList);
         }
         else if (F_CUSTOMERS.AC_QUERY_CUSTOMERS.equals(command))
         {

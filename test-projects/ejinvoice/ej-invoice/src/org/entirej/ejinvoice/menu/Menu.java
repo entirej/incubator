@@ -5,13 +5,41 @@ import org.entirej.framework.core.service.EJPojoProperty;
 
 public class Menu
 {
-    private EJPojoProperty<Object>   _icon;
+    private EJPojoProperty<String>  _key;
+    private EJPojoProperty<Object>  _icon;
     private EJPojoProperty<Integer> _parentId;
     private EJPojoProperty<Integer> _id;
     private EJPojoProperty<String>  _name;
     private EJPojoProperty<String>  _iconName;
     private EJPojoProperty<String>  _actionCommand;
 
+    public Menu()
+    {
+    }
+    
+    public Menu(String key)
+    {
+        setKey(key);
+    }
+    
+    @EJFieldName("key")
+    public String getKey()
+    {
+        return EJPojoProperty.getPropertyValue(_key);
+    }
+
+    @EJFieldName("key")
+    public void setKey(String key)
+    {
+        _key = EJPojoProperty.setPropertyValue(_key, key);
+    }
+
+    @EJFieldName("key")
+    public String getInitialKey()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_key);
+    }
+    
     @EJFieldName("parentId")
     public Integer getParentId()
     {
@@ -119,9 +147,10 @@ public class Menu
     {
         return EJPojoProperty.getPropertyInitialValue(_icon);
     }
-    
+
     public void clearInitialValues()
     {
+        EJPojoProperty.clearInitialValue(_key);
         EJPojoProperty.clearInitialValue(_parentId);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_name);

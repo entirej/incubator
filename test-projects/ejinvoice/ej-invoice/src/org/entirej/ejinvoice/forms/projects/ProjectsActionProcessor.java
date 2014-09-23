@@ -11,6 +11,7 @@ import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.ejinvoice.forms.invoice.InvoiceService;
 import org.entirej.ejinvoice.forms.timeentry.FormHandler;
+import org.entirej.ejinvoice.menu.MenuBlockService;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -86,6 +87,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
         {
             Integer projectId = (Integer)record.getValue(F_PROJECTS.B_PROJECTS.I_ID);
             new FormHandler().openProjectTasks(form, "INWORK", projectId);
+            new FormHandler().synchronizeMenu(form.getForm(F_TIME_ENTRY.ID), MenuBlockService.TASKS_INWORK);
         }
         if (F_PROJECTS.AC_INVOICEABLE.equals(command) && EJScreenType.INSERT.equals(screenType))
         {

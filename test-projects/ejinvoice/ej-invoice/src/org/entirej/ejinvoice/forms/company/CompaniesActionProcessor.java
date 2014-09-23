@@ -31,9 +31,6 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
-        form.openEmbeddedForm(F_MASTER_DATA_CONTACT_TYPES.ID, F_COMPANY.C_CONTACT_TYPES_FORM, null);
-        form.openEmbeddedForm(F_MASTER_DATA_SALUTATION.ID, F_COMPANY.C_SALUTATIONS_FORM, null);
-        form.openEmbeddedForm(F_MASTER_DATA_VAT_RATES.ID, F_COMPANY.C_VAT_RATES_FORM, null);
     }
 
     @Override
@@ -72,28 +69,6 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         }
     }
 
-
-
-    @Override
-    public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
-    {
-        if (F_COMPANY.B_USERS.ID.equals(record.getBlockName()))
-        {
-            record.setValue(F_COMPANY.B_USERS.I_ROLE_DISPLAY, record.getValue(F_COMPANY.B_USERS.I_ROLE));
-
-            if (record.getValue(F_COMPANY.B_USERS.I_ROLE).equals(UserRole.OWNER.toString()))
-            {
-                // Cannot delete the owner
-                record.setValue(F_COMPANY.B_USERS.I_EDIT, "/icons/edit10.gif");
-            }
-            else
-            {
-                record.setValue(F_COMPANY.B_USERS.I_EDIT, "/icons/edit10.gif");
-                record.setValue(F_COMPANY.B_USERS.I_DELETE, "/icons/delete10.png");
-            }
-        }
-    }
-
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
@@ -121,49 +96,6 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         else if (F_COMPANY.AC_EDIT_COMPANY_DETAILS.equals(command))
         {
             form.getBlock(F_COMPANY.B_COMPANIES.ID).enterUpdate();
-        }
-        else if (F_COMPANY.AC_EDIT_USER.equals(command))
-        {
-            form.getBlock(F_COMPANY.B_USERS.ID).enterUpdate();
-        }
-        else if (F_COMPANY.AC_DELETE_USER.equals(command))
-        {
-            EJQuestion question = new EJQuestion(form, "ASK_DELETE_USER");
-            question.setMessage(new EJMessage("Are you sure you want to delete this user?"));
-            question.setButtonText(EJQuestionButton.ONE, "Yes");
-            question.setButtonText(EJQuestionButton.TWO, "Cancel");
-            question.setRecord(record);
-            form.askQuestion(question);
-        }
-        else if (F_COMPANY.AC_CHANGE_EMAIL.equals(command) && (screenType.equals(EJScreenType.UPDATE) || screenType.equals(EJScreenType.INSERT)))
-        {
-            if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_EMAIL).equals("Y"))
-            {
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_EMAIL).setEditable(true);
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_EMAIL).setEditable(true);
-            }
-            else
-            {
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_EMAIL).setEditable(false);
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_EMAIL).setEditable(false);
-            }
-        }
-        else if (F_COMPANY.AC_CHANGE_PASSWORD.equals(command) && screenType.equals(EJScreenType.UPDATE))
-        {
-            if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_PASSWORD).equals("Y") && (screenType.equals(EJScreenType.UPDATE) || screenType.equals(EJScreenType.INSERT)))
-            {
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_INITIAL_PASSWORD).setEditable(true);
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_PASSWORD).setEditable(true);
-            }
-            else
-            {
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_INITIAL_PASSWORD).setEditable(false);
-                form.getBlock(F_COMPANY.B_USERS.ID).getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_PASSWORD).setEditable(false);
-            }
-        }
-        else if (F_COMPANY.AC_CREATE_NEW_USER.equals(command))
-        {
-            form.getBlock(F_COMPANY.B_USERS.ID).enterInsert(false);
         }
     }
 
@@ -203,75 +135,6 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             ArrayList<User> users = new ArrayList<User>();
             users.add(user);
             new UserBlockService().executeUpdate(question.getForm(), users);
-        }
-    }
-
-    @Override
-    public void preOpenScreen(EJBlock block, EJRecord record, EJScreenType screenType) throws EJActionProcessorException
-    {
-        if (F_COMPANY.B_USERS.ID.equals(block.getName()) && EJScreenType.UPDATE.equals(screenType))
-        {
-            record.setValue(F_COMPANY.B_USERS.I_CHANGE_EMAIL, "N");
-            record.setValue(F_COMPANY.B_USERS.I_CHANGE_PASSWORD, "N");
-            record.setValue(F_COMPANY.B_USERS.I_CONFIRM_EMAIL, null);
-            record.setValue(F_COMPANY.B_USERS.I_INITIAL_PASSWORD, null);
-            record.setValue(F_COMPANY.B_USERS.I_CONFIRM_PASSWORD, null);
-
-            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_EMAIL).setEditable(false);
-            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_EMAIL).setEditable(false);
-            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_INITIAL_PASSWORD).setEditable(false);
-            block.getScreenItem(screenType, F_COMPANY.B_USERS.I_CONFIRM_PASSWORD).setEditable(false);
-
-            if (record.getValue(F_COMPANY.B_USERS.I_ROLE).equals("OWNER"))
-            {
-                block.getScreenItem(screenType, F_COMPANY.B_USERS.I_ROLE).setVisible(false);
-            }
-            else
-            {
-                block.getScreenItem(screenType, F_COMPANY.B_USERS.I_ROLE).setVisible(true);
-            }
-        }
-    }
-
-    @Override
-    public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
-    {
-        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-
-        if (F_COMPANY.B_USERS.ID.equals(record.getBlockName()))
-        {
-            if (EJRecordType.UPDATE.equals(recordType))
-            {
-                if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_PASSWORD).equals("Y"))
-                {
-                    String hashPassword = ServiceRetriever.getUserService(form).validatePassword((String) record.getValue(F_COMPANY.B_USERS.I_INITIAL_PASSWORD), (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_PASSWORD));
-                    record.setValue(F_COMPANY.B_USERS.I_PASSWORD, hashPassword);
-                }
-                if (record.getValue(F_COMPANY.B_USERS.I_CHANGE_EMAIL).equals("Y"))
-                {
-                    String email = (String) record.getValue(F_COMPANY.B_USERS.I_EMAIL);
-                    String confirmEmail = (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_EMAIL);
-
-                    ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, companyId, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
-                }
-
-                User user = (User) record.getBlockServicePojo();
-                if (user.getInitialRole().equals(UserRole.OWNER))
-                {
-                    // The role is automatically set to EMPLOYEE because of the
-                    // Radio Group not containing the value Owner
-                    record.setValue(F_COMPANY.B_USERS.I_ROLE, UserRole.OWNER.toString());
-                }
-            }
-            else if (EJRecordType.INSERT.equals(recordType))
-            {
-                String email = (String) record.getValue(F_COMPANY.B_USERS.I_EMAIL);
-                String confirmEmail = (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_EMAIL);
-
-                String hashPassword = ServiceRetriever.getUserService(form).validatePassword((String) record.getValue(F_COMPANY.B_USERS.I_INITIAL_PASSWORD), (String) record.getValue(F_COMPANY.B_USERS.I_CONFIRM_PASSWORD));
-                record.setValue(F_COMPANY.B_USERS.I_PASSWORD, hashPassword);
-                ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail, companyId, (Integer) record.getValue(F_COMPANY.B_USERS.I_ID));
-            }
         }
     }
 
