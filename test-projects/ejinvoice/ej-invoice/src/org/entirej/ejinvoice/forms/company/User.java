@@ -1,5 +1,6 @@
 package org.entirej.ejinvoice.forms.company;
 
+import java.sql.Date;
 import java.util.Locale;
 
 import org.entirej.framework.core.EJFieldName;
@@ -22,6 +23,10 @@ public class User
     private EJPojoProperty<String>  _address;
     private EJPojoProperty<String>  _password;
     private EJPojoProperty<Integer> _active;
+    private EJPojoProperty<Date>    _dateOfBirth;
+    private EJPojoProperty<String>  _gender;
+    private EJPojoProperty<String>  _displayText;
+    
 
     @EJFieldName("FIRST_NAME")
     public String getFirstName()
@@ -292,6 +297,100 @@ public class User
     {
         return EJPojoProperty.getPropertyInitialValue(_active);
     }
+
+    @EJFieldName("DATE_OF_BIRTH")
+    public Date getDateOfBirth()
+    {
+        return EJPojoProperty.getPropertyValue(_dateOfBirth);
+    }
+
+    @EJFieldName("DATE_OF_BIRTH")
+    public void setDateOfBirth(Date dateOfBirth)
+    {
+        _dateOfBirth = EJPojoProperty.setPropertyValue(_dateOfBirth, dateOfBirth);
+    }
+
+    @EJFieldName("DATE_OF_BIRTH")
+    public Date getInitialDateOfBirth()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_dateOfBirth);
+    }
+
+    @EJFieldName("GENDER")
+    public String getGender()
+    {
+        return EJPojoProperty.getPropertyValue(_gender);
+    }
+
+    @EJFieldName("GENDER")
+    public void setGender(String gender)
+    {
+        _gender = EJPojoProperty.setPropertyValue(_gender, gender);
+    }
+
+    @EJFieldName("GENDER")
+    public String getInitialGender()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_gender);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
+        display.append("<tr>");
+
+        display.append("<td align=left width=40% colspan=1>");
+        display.append("<span style=\"font-weight: bold; font-size: 110% \">" + getFirstName() + " " + getLastName()+ "</span>");
+        display.append("</td>");
+
+        display.append("<td align=left width=40% colspan=1>"+  (getEmail() == null ? "&nbsp;" : "<a href=\"mailto:"+getEmail()+"\">"+getEmail()+"</a>") + "</td>");
+        display.append("<td align=right width=20% colspan=1>"+ (getActive() == 1 ? "Active" : "In-Active") + "</td>");
+
+        display.append("</tr>");
+
+        display.append("<tr>");
+        String address = (getAddress() == null ? "" : getAddress());
+        address = address + (getPostCode() == null ? "" : getPostCode());
+        address = address + (getTown() == null ? "" : getTown());
+        
+        display.append("<td align=\"left\"  width=\"80%\" colspan=2>" + address + "</td>");
+        
+        String role = null;
+        switch (getRole())
+        {
+            case "OWNER":
+                role = "Owner";
+                break;
+            case "EMPLOYEE":
+                role = "Employee";
+                break;
+            case "ADMINISTRATOR":
+                role = "Administrator";
+                break;
+        }
+        
+        display.append("<td align=\"right\"  width=\"20%\">" + role + "</td>");
+
+        display.append("</tr>");
+
+        display.append("</table>");
+
+        return display.toString();
+    }
     
     public void clearInitialValues()
     {
@@ -310,6 +409,8 @@ public class User
         EJPojoProperty.clearInitialValue(_locale);
         EJPojoProperty.clearInitialValue(_role);
         EJPojoProperty.clearInitialValue(_active);
+        EJPojoProperty.clearInitialValue(_dateOfBirth);
+        EJPojoProperty.clearInitialValue(_gender);
     }
 
 }

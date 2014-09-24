@@ -2,16 +2,12 @@ package org.entirej.ejinvoice.forms.customer;
 
 import java.util.Comparator;
 
-import org.ietf.jgss.Oid;
-
 class LocaleCompare implements Comparator<CustomerLocale>
 {
 
     @Override
     public int compare(CustomerLocale o1, CustomerLocale o2)
     {
-        
-        
         int compareTo = o1.getCountryDesc().compareTo(o2.getCountryDesc());
         if(compareTo==0)
         {
