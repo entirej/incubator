@@ -19,34 +19,29 @@ public class F_USERS
 
     public static class B_USERS
     {
-        public static final String ID                 = "Users";
-        public static final String I_FIRST_NAME       = "firstName";
-        public static final String I_LOCALE_LANGUAGE  = "localeLanguage";
-        public static final String I_LOCALE_COUNTRY   = "localeCountry";
-        public static final String I_NOTES            = "notes";
-        public static final String I_ID               = "id";
-        public static final String I_TOWN             = "town";
-        public static final String I_COMPANY_ID       = "companyId";
-        public static final String I_EMAIL            = "email";
-        public static final String I_POST_CODE        = "postCode";
-        public static final String I_LAST_NAME        = "lastName";
-        public static final String I_ADDRESS          = "address";
-        public static final String I_PASSWORD         = "password";
-        public static final String I_LOCALE           = "locale";
-        public static final String I_ROLE             = "role";
-        public static final String I_EDIT             = "edit";
-        public static final String I_DELETE           = "delete";
-        public static final String I_INITIAL_PASSWORD = "initialPassword";
-        public static final String I_CONFIRM_PASSWORD = "confirmPassword";
-        public static final String I_CONFIRM_EMAIL    = "confirmEmail";
-        public static final String I_CHANGE_EMAIL     = "changeEmail";
-        public static final String I_CHANGE_PASSWORD  = "changePassword";
-        public static final String I_ACTIVE           = "active";
-        public static final String I_ROLE_DISPLAY     = "roleDisplay";
-        public static final String I_FIRST_LAST_NAME  = "firstLastName";
-        public static final String I_DATE_OF_BIRTH    = "dateOfBirth";
-        public static final String I_GENDER           = "gender";
-        public static final String I_DISPLAY_TEXT     = "displayText";
+        public static final String ID                = "Users";
+        public static final String I_FIRST_NAME      = "firstName";
+        public static final String I_LOCALE_LANGUAGE = "localeLanguage";
+        public static final String I_LOCALE_COUNTRY  = "localeCountry";
+        public static final String I_NOTES           = "notes";
+        public static final String I_ID              = "id";
+        public static final String I_TOWN            = "town";
+        public static final String I_COMPANY_ID      = "companyId";
+        public static final String I_EMAIL           = "email";
+        public static final String I_POST_CODE       = "postCode";
+        public static final String I_LAST_NAME       = "lastName";
+        public static final String I_ADDRESS         = "address";
+        public static final String I_PASSWORD        = "password";
+        public static final String I_LOCALE          = "locale";
+        public static final String I_ROLE            = "role";
+        public static final String I_EDIT            = "edit";
+        public static final String I_DELETE          = "delete";
+        public static final String I_ACTIVE          = "active";
+        public static final String I_ROLE_DISPLAY    = "roleDisplay";
+        public static final String I_FIRST_LAST_NAME = "firstLastName";
+        public static final String I_DATE_OF_BIRTH   = "dateOfBirth";
+        public static final String I_GENDER          = "gender";
+        public static final String I_DISPLAY_TEXT    = "displayText";
 
     }
 
@@ -74,6 +69,8 @@ public class F_USERS
         public static final String I_ID              = "id";
         public static final String I_LOCALE_LANGUAGE = "localeLanguage";
         public static final String I_LOCALE_COUNTRY  = "localeCountry";
+        public static final String I_CHANGE_PASSWORD = "changePassword";
+        public static final String I_CHANGE_EMAIL    = "changeEmail";
 
     }
 
@@ -108,6 +105,28 @@ public class F_USERS
 
     }
 
+    public static class B_CHANGE_PASSWORD
+    {
+        public static final String ID                 = "ChangePassword";
+        public static final String I_PAGE_TITLE       = "pageTitle";
+        public static final String I_SAVE_BUTTON      = "saveButton";
+        public static final String I_CANCEL_BUTTON    = "cancelButton";
+        public static final String I_PASSWORD         = "password";
+        public static final String I_CONFIRM_PASSWORD = "confirmPassword";
+
+    }
+
+    public static class B_CHANGE_EMAIL
+    {
+        public static final String ID              = "ChangeEmail";
+        public static final String I_PAGE_TITLE    = "pageTitle";
+        public static final String I_SAVE_BUTTON   = "saveButton";
+        public static final String I_CANCEL_BUTTON = "cancelButton";
+        public static final String I_EMAIL         = "email";
+        public static final String I_CONFIRM_EMAIL = "confirmEmail";
+
+    }
+
     public static class L_LOCALES
     {
         public static final String ID              = "Locales";
@@ -124,25 +143,33 @@ public class F_USERS
 
     public static class C_MAIN_STACK_PAGES
     {
-        public static final String USERS  = "users";
-        public static final String EDIT   = "edit";
-        public static final String INSERT = "Insert";
+        public static final String USERS           = "users";
+        public static final String EDIT            = "edit";
+        public static final String INSERT          = "Insert";
+        public static final String CHANGE_PASSWORD = "changePassword";
+        public static final String CHANGE_EMAIL    = "changeEmail";
 
     }
 
-    public static final String C_USER_TOOLBAR     = "UserToolbar";
-    public static final String C_USERS            = "Users";
-    public static final String C_USERS_EDIT       = "UsersEdit";
-    public static final String C_USER_INSERT      = "UserInsert";
+    public static final String C_USER_TOOLBAR          = "UserToolbar";
+    public static final String C_USERS                 = "Users";
+    public static final String C_USERS_EDIT            = "UsersEdit";
+    public static final String C_USER_INSERT           = "UserInsert";
+    public static final String C_CHANGE_PASSWORD       = "ChangePassword";
+    public static final String C_CHANGE_EMAIL          = "ChangeEmail";
 
-    public static final String AC_CHANGE_EMAIL    = "CHANGE_EMAIL";
-    public static final String AC_CHANGE_PASSWORD = "CHANGE_PASSWORD";
-    public static final String AC_CREATE_NEW_USER = "CREATE_NEW_USER";
-    public static final String AC_DELETE_USER     = "DELETE_USER";
-    public static final String AC_EDIT_CANCEL     = "EDIT_CANCEL";
-    public static final String AC_EDIT_SAVE       = "EDIT_SAVE";
-    public static final String AC_EDIT_USER       = "EDIT_USER";
-    public static final String AC_INSERT_CANCEL   = "INSERT_CANCEL";
-    public static final String AC_INSERT_SAVE     = "INSERT_SAVE";
+    public static final String AC_CREATE_NEW_USER      = "CREATE_NEW_USER";
+    public static final String AC_DELETE_USER          = "DELETE_USER";
+    public static final String AC_EDIT_CANCEL          = "EDIT_CANCEL";
+    public static final String AC_EDIT_SAVE            = "EDIT_SAVE";
+    public static final String AC_EDIT_USER            = "EDIT_USER";
+    public static final String AC_EMAIL_CANCEL         = "EMAIL_CANCEL";
+    public static final String AC_EMAIL_SAVE           = "EMAIL_SAVE";
+    public static final String AC_INSERT_CANCEL        = "INSERT_CANCEL";
+    public static final String AC_INSERT_SAVE          = "INSERT_SAVE";
+    public static final String AC_PASSWORD_CANCEL      = "PASSWORD_CANCEL";
+    public static final String AC_PASSWORD_SAVE        = "PASSWORD_SAVE";
+    public static final String AC_SHOW_CHANGE_EMAIL    = "SHOW_CHANGE_EMAIL";
+    public static final String AC_SHOW_CHANGE_PASSWORD = "SHOW_CHANGE_PASSWORD";
 
 }
