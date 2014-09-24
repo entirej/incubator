@@ -193,6 +193,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             }
 
             form.getBlock(F_USERS.B_USERS.ID).updateRecord(baseRecord);
+            baseRecord.synchronize();
             form.saveChanges();
 
             form.getBlock(F_USERS.B_USERS_EDIT.ID).clear(true);
@@ -210,6 +211,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             baseRecord.setValue(F_USERS.B_USERS_INSERT.I_PASSWORD, hashPassword);
             
             form.getBlock(F_USERS.B_USERS.ID).updateRecord(baseRecord);
+            baseRecord.synchronize();
             form.saveChanges();
             form.getBlock(F_USERS.B_CHANGE_EMAIL.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
@@ -226,6 +228,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             
             baseRecord.setValue(F_USERS.B_USERS.I_EMAIL, record.getValue(F_USERS.B_CHANGE_EMAIL.I_EMAIL));
             form.getBlock(F_USERS.B_USERS.ID).updateRecord(baseRecord);
+            baseRecord.synchronize();
             form.saveChanges();
             form.getBlock(F_USERS.B_CHANGE_EMAIL.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);

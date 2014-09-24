@@ -61,6 +61,58 @@ public class F_CUSTOMERS
 
     }
 
+    public static class B_CUSTOMERS_UPDATE
+    {
+        public static final String ID                = "CustomersUpdate";
+        public static final String I_PAGE_TITLE      = "pageTitle";
+        public static final String I_SAVE_BUTTON     = "saveButton";
+        public static final String I_CANCEL_BUTTON   = "cancelButton";
+        public static final String I_ID              = "id";
+        public static final String I_ADDRESS         = "address";
+        public static final String I_POST_CODE       = "postCode";
+        public static final String I_TOWN            = "town";
+        public static final String I_COUNTRY         = "country";
+        public static final String I_PAYMENT_DAYS    = "paymentDays";
+        public static final String I_LOCALE          = "locale";
+        public static final String I_LOCALE_COUNTRY  = "localeCountry";
+        public static final String I_LOCALE_LANGUAGE = "localeLanguage";
+        public static final String I_ACTIVE          = "active";
+        public static final String I_VAT_ID          = "vatId";
+        public static final String I_CUSTOMER_NUMBER = "customerNumber";
+        public static final String I_NAME            = "name";
+
+    }
+
+    public static class B_CUSTOMERS_INSERT
+    {
+        public static final String ID                      = "CustomersInsert";
+        public static final String I_PAGE_TITLE            = "pageTitle";
+        public static final String I_SAVE_BUTTON           = "saveButton";
+        public static final String I_CANCEL_BUTTON         = "cancelButton";
+        public static final String I_ID                    = "id";
+        public static final String I_ADDRESS               = "address";
+        public static final String I_POST_CODE             = "postCode";
+        public static final String I_TOWN                  = "town";
+        public static final String I_COUNTRY               = "country";
+        public static final String I_PAYMENT_DAYS          = "paymentDays";
+        public static final String I_LOCALE                = "locale";
+        public static final String I_LOCALE_COUNTRY        = "localeCountry";
+        public static final String I_LOCALE_LANGUAGE       = "localeLanguage";
+        public static final String I_ACTIVE                = "active";
+        public static final String I_VAT_ID                = "vatId";
+        public static final String I_CUSTOMER_NUMBER       = "customerNumber";
+        public static final String I_NAME                  = "name";
+        public static final String I_DEFAULT_CONTACT_TITLE = "defaultContactTitle";
+        public static final String I_CONTACT_TYPES_ID      = "contactTypesId";
+        public static final String I_SALUTATIONS_ID        = "salutationsId";
+        public static final String I_FIRST_NAME            = "firstName";
+        public static final String I_LAST_NAME             = "lastName";
+        public static final String I_MOBILE                = "mobile";
+        public static final String I_PHONE                 = "phone";
+        public static final String I_EMAIL                 = "email";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID           = "VatRate";
@@ -117,13 +169,29 @@ public class F_CUSTOMERS
 
     }
 
+    public static final String C_MAIN_STACK = "mainStack";
+
+    public static class C_MAIN_STACK_PAGES
+    {
+        public static final String MAIN   = "main";
+        public static final String UPDATE = "update";
+        public static final String INSERT = "insert";
+
+    }
+
     public static final String C_CUSTOMERS_TOOLBAR      = "CustomersToolbar";
     public static final String C_CUSTOMER               = "Customer";
     public static final String C_CUSTOMERS_KEY          = "CustomersKey";
+    public static final String C_CUSTOMERS__UPDATE      = "Customers Update";
+    public static final String C_CUSTOMERS_INSERT       = "CustomersInsert";
 
     public static final String AC_CREATE_NEW_CUSTOMER   = "CREATE_NEW_CUSTOMER";
     public static final String AC_DELETE_CUSTOMER       = "DELETE_CUSTOMER";
+    public static final String AC_EDIT_CANCEL           = "EDIT_CANCEL";
     public static final String AC_EDIT_CUSTOMER         = "EDIT_CUSTOMER";
+    public static final String AC_EDIT_SAVE             = "EDIT_SAVE";
+    public static final String AC_INSERT_CANCEL         = "INSERT_CANCEL";
+    public static final String AC_INSERT_SAVE           = "INSERT_SAVE";
     public static final String AC_QUERY_CUSTOMERS       = "QUERY_CUSTOMERS";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
 
