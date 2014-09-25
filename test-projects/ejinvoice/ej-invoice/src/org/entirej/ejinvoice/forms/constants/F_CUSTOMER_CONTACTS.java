@@ -35,6 +35,61 @@ public class F_CUSTOMER_CONTACTS
         public static final String I_COMPANY_ID       = "companyId";
         public static final String I_CUSTOMER_NAME    = "customerName";
         public static final String I_DISPLAY_TEXT     = "displayText";
+        public static final String I_SALUTATION       = "salutation";
+        public static final String I_CONTACT_TYPE     = "contactType";
+
+    }
+
+    public static class B_CUSTOMER_CONTACTS_EDIT
+    {
+        public static final String ID                       = "CustomerContactsEdit";
+        public static final String I_UPDATE_PAGE_TITLE      = "updatePageTitle";
+        public static final String I_CONTACT_TYPES_ID       = "contactTypesId";
+        public static final String I_CONTACT_TYPES_VALUE    = "contactTypesValue";
+        public static final String I_CONTACT_TYPES_ID_ERROR = "contactTypesIdError";
+        public static final String I_SALUTATIONS_ID         = "salutationsId";
+        public static final String I_SALUTATIONS_ID_VALUE   = "salutationsIdValue";
+        public static final String I_SALUTATIONS_ID_ERROR   = "salutationsIdError";
+        public static final String I_FIRST_NAME             = "firstName";
+        public static final String I_FIRST_NAME_ERROR       = "firstNameError";
+        public static final String I_LAST_NAME              = "lastName";
+        public static final String I_LAST_NAME_ERROR        = "lastNameError";
+        public static final String I_PHONE                  = "phone";
+        public static final String I_PHONE_ERROR            = "phoneError";
+        public static final String I_MOBILE                 = "mobile";
+        public static final String I_MOBILE_ERROR           = "mobileError";
+        public static final String I_EMAIL                  = "email";
+        public static final String I_EMAIL_ERROR            = "emailError";
+        public static final String I_SAVE_BUTTON            = "saveButton";
+        public static final String I_CANCEL_BUTTON          = "cancelButton";
+
+    }
+
+    public static class B_CUSTOMER_CONTACTS_INSERT
+    {
+        public static final String ID                       = "CustomerContactsInsert";
+        public static final String I_INSERT_PAGE_TITLE      = "insertPageTitle";
+        public static final String I_CONTACT_TYPES_ID       = "contactTypesId";
+        public static final String I_CONTACT_TYPES_VALUE    = "contactTypesValue";
+        public static final String I_CONTACT_TYPES_ID_ERROR = "contactTypesIdError";
+        public static final String I_SALUTATIONS_ID         = "salutationsId";
+        public static final String I_SALUTATIONS_ID_VALUE   = "salutationsIdValue";
+        public static final String I_SALUTATIONS_ID_ERROR   = "salutationsIdError";
+        public static final String I_FIRST_NAME             = "firstName";
+        public static final String I_FIRST_NAME_ERROR       = "firstNameError";
+        public static final String I_LAST_NAME              = "lastName";
+        public static final String I_LAST_NAME_ERROR        = "lastNameError";
+        public static final String I_PHONE                  = "phone";
+        public static final String I_PHONE_ERROR            = "phoneError";
+        public static final String I_MOBILE                 = "mobile";
+        public static final String I_MOBILE_ERROR           = "mobileError";
+        public static final String I_EMAIL                  = "email";
+        public static final String I_EMAIL_ERROR            = "emailError";
+        public static final String I_SAVE_BUTTON            = "saveButton";
+        public static final String I_CANCEL_BUTTON          = "cancelButton";
+        public static final String I_CUSTOMER_ID            = "customerId";
+        public static final String I_CUSTOMER_ID_ERROR      = "customerIdError";
+        public static final String I_CUSTOMER_NAME          = "customerName";
 
     }
 
@@ -82,12 +137,28 @@ public class F_CUSTOMER_CONTACTS
 
     }
 
+    public static final String C_MAIN_STACK = "mainStack";
+
+    public static class C_MAIN_STACK_PAGES
+    {
+        public static final String MAIN   = "main";
+        public static final String EDIT   = "edit";
+        public static final String INSERT = "insert";
+
+    }
+
     public static final String C_CUSTOMER_CONTACTS_TOOLBAR = "CustomerContactsToolbar";
     public static final String C_CUSTOMER_CONTACTS         = "CustomerContacts";
+    public static final String C_CUSTOMER_CONTACTS_EDIT    = "CustomerContactsEdit";
+    public static final String C_CUSTOMER_CONTACTS_INSERT  = "CustomerContactsInsert";
 
     public static final String AC_ADD_NEW_CONTACT          = "ADD_NEW_CONTACT";
     public static final String AC_DELETE_CUSTOMER_CONTACT  = "DELETE_CUSTOMER_CONTACT";
+    public static final String AC_EDIT_CANCEL              = "EDIT_CANCEL";
     public static final String AC_EDIT_CONTACT             = "EDIT_CONTACT";
+    public static final String AC_EDIT_SAVE                = "EDIT_SAVE";
+    public static final String AC_INSERT_CANCEL            = "INSERT_CANCEL";
+    public static final String AC_INSERT_SAVE              = "INSERT_SAVE";
     public static final String AC_QUERY_CONTACTS           = "QUERY_CONTACTS";
 
 }

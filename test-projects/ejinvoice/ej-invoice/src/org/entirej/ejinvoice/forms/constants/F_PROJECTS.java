@@ -85,6 +85,61 @@ public class F_PROJECTS
 
     }
 
+    public static class B_PROJECTS_EDIT
+    {
+        public static final String ID                  = "ProjectsEdit";
+        public static final String I_NAME              = "name";
+        public static final String I_NAME_ERROR        = "nameError";
+        public static final String I_DESCRIPTION       = "description";
+        public static final String I_STATUS            = "status";
+        public static final String I_STATUS_VALUE      = "statusValue";
+        public static final String I_STATUS_ERROR      = "statusError";
+        public static final String I_INVOICEABLE       = "invoiceable";
+        public static final String I_FIX_PRICE         = "fixPrice";
+        public static final String I_START_DATE        = "startDate";
+        public static final String I_END_DATE          = "endDate";
+        public static final String I_NOTES             = "notes";
+        public static final String I_CUSTOMER_ID       = "customerId";
+        public static final String I_CUSTOMER_ID_ERROR = "customerIdError";
+        public static final String I_CUSTOMER_NAME     = "customerName";
+        public static final String I_SAVE              = "save";
+        public static final String I_CANCEL            = "cancel";
+        public static final String I_PAGE_TITLE        = "pageTitle";
+
+    }
+
+    public static class B_PROJECT_INSERT
+    {
+        public static final String ID                  = "ProjectInsert";
+        public static final String I_NAME              = "name";
+        public static final String I_NAME_ERROR        = "nameError";
+        public static final String I_DESCRIPTION       = "description";
+        public static final String I_STATUS            = "status";
+        public static final String I_STATUS_VALUE      = "statusValue";
+        public static final String I_STATUS_ERROR      = "statusError";
+        public static final String I_INVOICEABLE       = "invoiceable";
+        public static final String I_FIX_PRICE         = "fixPrice";
+        public static final String I_START_DATE        = "startDate";
+        public static final String I_END_DATE          = "endDate";
+        public static final String I_NOTES             = "notes";
+        public static final String I_CUSTOMER_ID       = "customerId";
+        public static final String I_CUSTOMER_ID_ERROR = "customerIdError";
+        public static final String I_CUSTOMER_NAME     = "customerName";
+        public static final String I_SAVE              = "save";
+        public static final String I_CANCEL            = "cancel";
+        public static final String I_PAGE_TITLE        = "pageTitle";
+        public static final String I_TASK_TITLE        = "taskTitle";
+        public static final String I_TASK_NAME         = "taskName";
+        public static final String I_TASK_NAME_ERROR   = "taskNameError";
+        public static final String I_TASK_INVOICEABLE  = "taskInvoiceable";
+        public static final String I_TASK_STATUS       = "taskStatus";
+        public static final String I_TASK_STATUS_ERROR = "taskStatusError";
+        public static final String I_TASK_FIX_PRICE    = "taskFixPrice";
+        public static final String I_TASK_HOURLY_RATE  = "taskHourlyRate";
+        public static final String I_TASK_NOTES        = "taskNotes";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID           = "VatRate";
@@ -150,11 +205,27 @@ public class F_PROJECTS
 
     }
 
+    public static final String C_MAIN_STACK = "mainStack";
+
+    public static class C_MAIN_STACK_PAGES
+    {
+        public static final String MAIN   = "main";
+        public static final String EDIT   = "edit";
+        public static final String INSERT = "insert";
+
+    }
+
     public static final String C_PROJECTS_TOOLBAR          = "ProjectsToolbar";
     public static final String C_PROJECTS                  = "Projects";
     public static final String C_PROJECT_KEY               = "projectKey";
+    public static final String C_PROJECTS_EDIT             = "ProjectsEdit";
+    public static final String C_PROJECTS_INSERT           = "ProjectsInsert";
 
     public static final String AC_CREATE_NEW_PROJECT       = "CREATE_NEW_PROJECT";
+    public static final String AC_EDIT_CANCEL              = "EDIT_CANCEL";
+    public static final String AC_EDIT_SAVE                = "EDIT_SAVE";
+    public static final String AC_INSERT_CANCEL            = "INSERT_CANCEL";
+    public static final String AC_INSERT_SAVE              = "INSERT_SAVE";
     public static final String AC_INVOICEABLE              = "INVOICEABLE";
     public static final String AC_MODIFY_PROJECT           = "MODIFY_PROJECT";
     public static final String AC_PROJECT_DETAILS          = "PROJECT_DETAILS";

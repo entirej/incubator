@@ -63,65 +63,72 @@ public class F_CUSTOMERS
 
     public static class B_CUSTOMERS_UPDATE
     {
-        public static final String ID                = "CustomersUpdate";
-        public static final String I_PAGE_TITLE      = "pageTitle";
-        public static final String I_SAVE_BUTTON     = "saveButton";
-        public static final String I_CANCEL_BUTTON   = "cancelButton";
-        public static final String I_ID              = "id";
-        public static final String I_ADDRESS         = "address";
-        public static final String I_POST_CODE       = "postCode";
-        public static final String I_TOWN            = "town";
-        public static final String I_COUNTRY         = "country";
-        public static final String I_PAYMENT_DAYS    = "paymentDays";
-        public static final String I_LOCALE          = "locale";
-        public static final String I_LOCALE_COUNTRY  = "localeCountry";
-        public static final String I_LOCALE_LANGUAGE = "localeLanguage";
-        public static final String I_ACTIVE          = "active";
-        public static final String I_VAT_ID          = "vatId";
-        public static final String I_CUSTOMER_NUMBER = "customerNumber";
-        public static final String I_NAME            = "name";
+        public static final String ID                      = "CustomersUpdate";
+        public static final String I_PAGE_TITLE            = "pageTitle";
+        public static final String I_SAVE_BUTTON           = "saveButton";
+        public static final String I_CANCEL_BUTTON         = "cancelButton";
+        public static final String I_ID                    = "id";
+        public static final String I_ADDRESS               = "address";
+        public static final String I_ADDRESS_ERROR         = "addressError";
+        public static final String I_POST_CODE             = "postCode";
+        public static final String I_TOWN                  = "town";
+        public static final String I_COUNTRY               = "country";
+        public static final String I_COUNTRY_ERROR         = "countryError";
+        public static final String I_PAYMENT_DAYS          = "paymentDays";
+        public static final String I_PAYMENT_DAYS_ERROR    = "paymentDaysError";
+        public static final String I_LOCALE                = "locale";
+        public static final String I_LOCALE_ERROR          = "localeError";
+        public static final String I_LOCALE_COUNTRY        = "localeCountry";
+        public static final String I_LOCALE_LANGUAGE       = "localeLanguage";
+        public static final String I_ACTIVE                = "active";
+        public static final String I_VAT_ID                = "vatId";
+        public static final String I_VAT_ID_ERROR          = "vatIdError";
+        public static final String I_CUSTOMER_NUMBER       = "customerNumber";
+        public static final String I_CUSTOMER_NUMBER_ERROR = "customerNumberError";
+        public static final String I_NAME                  = "name";
+        public static final String I_NAME_ERROR            = "nameError";
 
     }
 
     public static class B_CUSTOMERS_INSERT
     {
-        public static final String ID                         = "CustomersInsert";
-        public static final String I_PAGE_TITLE               = "pageTitle";
-        public static final String I_SAVE_BUTTON              = "saveButton";
-        public static final String I_CANCEL_BUTTON            = "cancelButton";
-        public static final String I_ID                       = "id";
-        public static final String I_ADDRESS                  = "address";
-        public static final String I_POST_CODE                = "postCode";
-        public static final String I_TOWN                     = "town";
-        public static final String I_COUNTRY                  = "country";
-        public static final String I_PAYMENT_DAYS             = "paymentDays";
-        public static final String I_LOCALE                   = "locale";
-        public static final String I_LOCALE_COUNTRY           = "localeCountry";
-        public static final String I_LOCALE_LANGUAGE          = "localeLanguage";
-        public static final String I_ACTIVE                   = "active";
-        public static final String I_VAT_ID                   = "vatId";
-        public static final String I_CUSTOMER_NUMBER          = "customerNumber";
-        public static final String I_NAME                     = "name";
-        public static final String I_DEFAULT_CONTACT_TITLE    = "defaultContactTitle";
-        public static final String I_CONTACT_TYPES_ID         = "contactTypesId";
-        public static final String I_SALUTATIONS_ID           = "salutationsId";
-        public static final String I_FIRST_NAME               = "firstName";
-        public static final String I_LAST_NAME                = "lastName";
-        public static final String I_MOBILE                   = "mobile";
-        public static final String I_PHONE                    = "phone";
-        public static final String I_EMAIL                    = "email";
-        public static final String I_SPACER                   = "spacer";
-        public static final String I_ERROR_CUSTOMER_NUMBER    = "errorCustomerNumber";
-        public static final String I_ERROR_NAME               = "errorName";
-        public static final String I_ERROR_ADDRESS            = "errorAddress";
-        public static final String I_ERROR_COUNTRY            = "errorCountry";
-        public static final String I_ERROR_LOCALE             = "errorLocale";
-        public static final String I_ERROR_VAT                = "errorVAT";
-        public static final String I_ERROR_PAYMENT_DAYS       = "errorPaymentDays";
-        public static final String I_ERROR_CONTACT_TYPE       = "errorContactType";
-        public static final String I_ERROR_CONTACT_SALUTATION = "errorContactSalutation";
-        public static final String I_ERROR_CONTACT_LAST_NAME  = "errorContactLastName";
-        public static final String I_ERROR_CONTACT_EMAIL      = "errorContactEmail";
+        public static final String ID                       = "CustomersInsert";
+        public static final String I_PAGE_TITLE             = "pageTitle";
+        public static final String I_SAVE_BUTTON            = "saveButton";
+        public static final String I_CANCEL_BUTTON          = "cancelButton";
+        public static final String I_ID                     = "id";
+        public static final String I_ADDRESS                = "address";
+        public static final String I_POST_CODE              = "postCode";
+        public static final String I_TOWN                   = "town";
+        public static final String I_COUNTRY                = "country";
+        public static final String I_PAYMENT_DAYS           = "paymentDays";
+        public static final String I_LOCALE                 = "locale";
+        public static final String I_LOCALE_COUNTRY         = "localeCountry";
+        public static final String I_LOCALE_LANGUAGE        = "localeLanguage";
+        public static final String I_ACTIVE                 = "active";
+        public static final String I_VAT_ID                 = "vatId";
+        public static final String I_CUSTOMER_NUMBER        = "customerNumber";
+        public static final String I_NAME                   = "name";
+        public static final String I_DEFAULT_CONTACT_TITLE  = "defaultContactTitle";
+        public static final String I_CONTACT_TYPES_ID       = "contactTypesId";
+        public static final String I_SALUTATIONS_ID         = "salutationsId";
+        public static final String I_FIRST_NAME             = "firstName";
+        public static final String I_LAST_NAME              = "lastName";
+        public static final String I_MOBILE                 = "mobile";
+        public static final String I_PHONE                  = "phone";
+        public static final String I_EMAIL                  = "email";
+        public static final String I_SPACER                 = "spacer";
+        public static final String I_CUSTOMER_NUMBER_ERROR  = "customerNumberError";
+        public static final String I_NAME_ERROR             = "nameError";
+        public static final String I_ADDRESS_ERROR          = "addressError";
+        public static final String I_COUNTRY_ERROR          = "countryError";
+        public static final String I_LOCALE_ERROR           = "localeError";
+        public static final String I_VAT_ID_ERROR           = "vatIdError";
+        public static final String I_PAYMENT_DAYS_ERROR     = "paymentDaysError";
+        public static final String I_CONTACT_TYPES_ID_ERROR = "contactTypesIdError";
+        public static final String I_SALUTATIONS_ID_ERROR   = "salutationsIdError";
+        public static final String I_LAST_NAME_ERROR        = "lastNameError";
+        public static final String I_EMAIL_ERROR            = "emailError";
 
     }
 

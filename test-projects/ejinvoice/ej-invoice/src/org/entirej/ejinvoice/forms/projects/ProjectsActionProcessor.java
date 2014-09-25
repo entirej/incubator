@@ -2,17 +2,24 @@ package org.entirej.ejinvoice.forms.projects;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.Locale;
 
+import org.apache.commons.validator.routines.EmailValidator;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
 import org.entirej.ejinvoice.forms.invoice.InvoiceService;
+import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.ejinvoice.forms.timeentry.FormHandler;
 import org.entirej.ejinvoice.menu.MenuBlockService;
 import org.entirej.framework.core.EJActionProcessorException;
+import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
@@ -111,40 +118,187 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
                 form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE).setEditable(false);
             }
         }
-        else if (F_PROJECTS.AC_PROJECT_DETAILS_CREATION.equals(command))
-        {
-//            form.getForm(F_TIME_ENTRY.ID).getActionController().executeActionCommand(form, record, command, screenType);
-//            StringBuilder builder = new StringBuilder();
-//            builder.append((String) record.getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_NAME));
-//            builder.append(" (").append((String) record.getValue(F_PROJECTS.B_PROJECTS.I_NAME)).append(")");
-//
-//            form.getBlock(F_PROJECTS.B_INVOICE_HEADER.ID).getScreenItem(EJScreenType.MAIN, F_PROJECTS.B_INVOICE_HEADER.I_PROJECT_INFORMATION).setValue(builder.toString());
-//
-//            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.INVOICE);
-//            form.getBlock(F_PROJECTS.B_OPEN_PROJECT_ITEMS.ID).executeQuery();
-//            form.getBlock(F_PROJECTS.B_PLANNED_PROJECT_ITEMS.ID).executeQuery();
-        }
-
-
-//        else if (F_PROJECTS.AC_BACK_TO_PROJECT_OVERVIEW.equals(command))
-//        {
-//            form.showStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK, F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS);
-//
-//            if (!record.getBlockName().equals(F_PROJECTS.B_PROJECT_TASKS.ID))
-//            {
-//                form.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
-//            }
-//        }
         else if (F_PROJECTS.AC_MODIFY_PROJECT.equals(command))
         {
-            form.getBlock(F_PROJECTS.B_PROJECTS.ID).enterUpdate();
+            form.getBlock(F_PROJECTS.B_PROJECTS_EDIT.ID).clear(true);
+            EJRecord editRecord = form.getBlock(F_PROJECTS.B_PROJECTS_EDIT.ID).getFocusedRecord();
+
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_PAGE_TITLE, record.getValue(F_PROJECTS.B_PROJECTS.I_NAME) + " - Edit");
+
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_ID, record.getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_ID));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_NAME, record.getValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_NAME));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_DESCRIPTION, record.getValue(F_PROJECTS.B_PROJECTS.I_DESCRIPTION));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_END_DATE, record.getValue(F_PROJECTS.B_PROJECTS.I_END_DATE));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_INVOICEABLE, record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_NAME, record.getValue(F_PROJECTS.B_PROJECTS.I_NAME));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_NOTES, record.getValue(F_PROJECTS.B_PROJECTS.I_NOTES));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_START_DATE, record.getValue(F_PROJECTS.B_PROJECTS.I_START_DATE));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_STATUS, record.getValue(F_PROJECTS.B_PROJECTS.I_STATUS));            
+
+            form.showStackedCanvasPage(F_PROJECTS.C_MAIN_STACK, F_PROJECTS.C_MAIN_STACK_PAGES.EDIT);
+        }
+        else if (F_PROJECTS.AC_EDIT_SAVE.equals(command))
+        {
+            clearError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_ID);
+            clearError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_NAME);
+            clearError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_STATUS);
+            
+            Integer customerId = (Integer) record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_ID);
+            String name = (String) record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_NAME);
+            String status = (String) record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_STATUS);
+
+            boolean error = false;
+            if (customerId == null)
+            {
+                error = true;
+                setError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_ID, "Please choose a customer");
+            }
+            if (name == null || name.trim().length() == 0)
+            {
+                error = true;
+                setError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_NAME, "Please enter a name");
+            }
+            if (status == null || status.trim().length() == 0)
+            {
+                error = true;
+                setError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_STATUS, "Please choose a project status");
+            }
+            if (error)
+            {
+                throw new EJActionProcessorException();
+            }
+            
+            EJRecord baseRecord = form.getBlock(F_PROJECTS.B_PROJECTS.ID).getFocusedRecord();
+
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_ID, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_ID));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_DESCRIPTION, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_DESCRIPTION));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_END_DATE, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_END_DATE));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_FIX_PRICE));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_INVOICEABLE));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_NAME, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_NAME));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_NOTES, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_NOTES));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_START_DATE, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_START_DATE));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_STATUS, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_STATUS));
+
+            Project project = (Project)baseRecord.getBlockServicePojo();
+            project.setCustomerName((String)record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_NAME));
+            
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_DISPLAY_TEXT, project.getDisplayText());
+
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).updateRecord(baseRecord);
+            form.saveChanges();
+            form.getBlock(F_PROJECTS.B_PROJECTS_EDIT.ID).clear(true);
+            form.showStackedCanvasPage(F_PROJECTS.C_MAIN_STACK, F_PROJECTS.C_MAIN_STACK_PAGES.MAIN);
+        }
+        else if (F_PROJECTS.AC_INSERT_SAVE.equals(command))
+        {
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_CUSTOMER_ID);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_NAME);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_STATUS);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_TASK_NAME);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS);
+            
+            Integer customerId = (Integer) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_CUSTOMER_ID);
+            String name= (String) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_NAME);
+            String status= (String) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_STATUS);
+            String taskName= (String) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_NAME);
+            String taskStatus= (String) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS);
+
+            boolean error = false;
+            if (customerId== null)
+            {
+                error = true;
+                setError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_CUSTOMER_ID, "Please choose a customer");
+            }
+            if (name == null || name.trim().length() == 0)
+            {
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_NAME,  "Please enter a project name");
+            }
+            if (status == null || status.trim().length() == 0)
+            {
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ADDRESS,  "Please choose a project status");
+            }
+            if (taskName == null || taskName.trim().length() == 0)
+            {
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_COUNTRY,  "Please enter a task name");
+            }
+            if (taskStatus == null || taskStatus.trim().length() == 0)
+            {
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_LOCALE,  "Please choose a task status");
+            }
+
+            if (error)
+            {
+                throw new EJApplicationException();
+            }
+            
+            
+            Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+            EJRecord newRecord = form.getBlock(F_PROJECTS.B_PROJECTS.ID).createRecord();
+
+            int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_ID, idSeqNextval);
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_COMPANY_ID, companyId);
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_DESCRIPTION, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_DESCRIPTION));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_END_DATE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_END_DATE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_FIX_PRICE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_INVOICEABLE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_NAME, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_NAME));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_NOTES, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_NOTES));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_START_DATE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_START_DATE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_STATUS, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_STATUS));
+            
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_CPR_ID, idSeqNextval);
+            
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_FIX_PRICE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_INVOICEABLE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_INVOICEABLE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_NAME, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_NAME));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_NOTES, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_NOTES));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_PAY_RATE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_HOURLY_RATE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_STATUS, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS));
+
+            Project project = (Project)newRecord.getBlockServicePojo();
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_DISPLAY_TEXT, project.getDisplayText());
+            
+            form.getBlock(F_PROJECTS.B_PROJECTS.ID).insertRecord(newRecord);
+            form.saveChanges();
+            form.getBlock(F_PROJECTS.B_PROJECT_INSERT.ID).clear(true);
+            form.showStackedCanvasPage(F_PROJECTS.C_MAIN_STACK, F_PROJECTS.C_MAIN_STACK_PAGES.MAIN);
+        }
+        else if (F_PROJECTS.AC_EDIT_CANCEL.equals(command))
+        {
+            clearError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_ID);
+            clearError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_NAME);
+            clearError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_STATUS);
+
+            form.getBlock(F_PROJECTS.B_PROJECTS_EDIT.ID).clear(true);
+            form.showStackedCanvasPage(F_PROJECTS.C_MAIN_STACK, F_PROJECTS.C_MAIN_STACK_PAGES.MAIN);
+        }
+        else if (F_PROJECTS.AC_INSERT_CANCEL.equals(command))
+        {
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_CUSTOMER_ID);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_NAME);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_STATUS);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_TASK_NAME);
+            clearError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS);
+
+            form.getBlock(F_PROJECTS.B_PROJECT_INSERT.ID).clear(true);
+            form.showStackedCanvasPage(F_PROJECTS.C_MAIN_STACK, F_PROJECTS.C_MAIN_STACK_PAGES.MAIN);
         }
         else if (F_PROJECTS.AC_CREATE_NEW_PROJECT.equals(command))
         {
-            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_STATUS).refreshItemRenderer();
-            form.getBlock(F_PROJECTS.B_PROJECTS.ID).getScreenItem(EJScreenType.INSERT, F_PROJECTS.B_PROJECTS.I_TASK_STATUS).refreshItemRenderer();
+            form.getBlock(F_PROJECTS.B_PROJECT_INSERT.ID).clear(true);
+            EJRecord insertRecord = form.getBlock(F_PROJECTS.B_PROJECT_INSERT.ID).getFocusedRecord();
 
-            form.getBlock(F_PROJECTS.B_PROJECTS.ID).enterInsert(false);
+            insertRecord.setValue(F_PROJECTS.B_PROJECT_INSERT.I_PAGE_TITLE, "Create a new Project");
+            insertRecord.setValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_TITLE, "Add a new Task");
+            
+            form.showStackedCanvasPage(F_PROJECTS.C_MAIN_STACK, F_PROJECTS.C_MAIN_STACK_PAGES.INSERT);
         }
         else if (F_PROJECTS.AC_REFRESH_PROJECT_LIST.equals(command))
         {

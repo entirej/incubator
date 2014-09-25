@@ -99,7 +99,7 @@ public class CustomerContact
     }
 
     @EJFieldName("CONTACT_TYPE")
-    public void setContactTypesId(String contactType)
+    public void setContactType(String contactType)
     {
         _contactType = EJPojoProperty.setPropertyValue(_contactType, contactType);
     }
@@ -135,7 +135,7 @@ public class CustomerContact
     }
 
     @EJFieldName("CUSTOMER_NAME")
-    public void setCustomerId(String customerName)
+    public void setCustomerName(String customerName)
     {
         _customerName = EJPojoProperty.setPropertyValue(_customerName, customerName);
     }

@@ -433,7 +433,7 @@
             <fontSizeAsPercentage>false</fontSizeAsPercentage>
             <style><![CDATA[Unspecified]]></style>
             <weight><![CDATA[Unspecified]]></weight>
-            <foregroundColor><![CDATA[r255g0b0]]></foregroundColor>
+            <foregroundColor><![CDATA[r128g128b128]]></foregroundColor>
             <backgroundColor></backgroundColor>
         </visualAttribute>
     </visualAttributes>

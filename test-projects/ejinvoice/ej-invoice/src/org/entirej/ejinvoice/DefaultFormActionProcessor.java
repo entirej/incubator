@@ -18,11 +18,13 @@
  ******************************************************************************/
 package org.entirej.ejinvoice;
 
+import org.eclipse.rwt.EJ_RWT;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.actionprocessor.EJDefaultFormActionProcessor;
+import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
 
@@ -33,6 +35,18 @@ import org.entirej.framework.core.service.EJRestrictions;
  */
 public class DefaultFormActionProcessor extends EJDefaultFormActionProcessor
 {
+    public void setError(EJForm form, String blockName, String itemName, String message)
+    {
+        form.getBlock(blockName).getScreenItem(EJScreenType.MAIN, itemName).setItemRendererProperty(EJ_RWT.PROPERTY_CSS_KEY, "error");
+        form.getBlock(blockName).getCurrentScreenRecord(EJScreenType.MAIN).setValue(itemName+"Error", message);
+    }
+
+    public void clearError(EJForm form, String blockName, String itemName)
+    {
+        form.getBlock(blockName).getScreenItem(EJScreenType.MAIN, itemName).setItemRendererProperty(EJ_RWT.PROPERTY_CSS_KEY, "");
+        form.getBlock(blockName).getCurrentScreenRecord(EJScreenType.MAIN).setValue(itemName+"Error", null);
+    }
+    
     @Override
     public void validateQueryCriteria(EJForm form, EJQueryCriteria queryCriteria) throws EJActionProcessorException
     {

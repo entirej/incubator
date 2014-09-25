@@ -174,7 +174,7 @@ public class Project
     }
 
     @EJFieldName("CUSTOMER_NAME")
-    public void setCustomerId(String customerName)
+    public void setCustomerName(String customerName)
     {
         _customerName = EJPojoProperty.setPropertyValue(_customerName, customerName);
     }

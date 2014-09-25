@@ -233,7 +233,7 @@ Text[BORDER].error
 	border: 1px solid #FF0000  ;
 }
 
-Combo[BORDER].error
+Combo.error, Combo[BORDER].error
 {
    border: 1px solid #FF0000  ;
 }
