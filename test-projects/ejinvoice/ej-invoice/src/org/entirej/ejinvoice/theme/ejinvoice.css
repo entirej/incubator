@@ -228,7 +228,10 @@ TreeItem:hover {
 }
 
 
-
+Text[BORDER].error
+{
+	border: 1px solid #b1534f  ;
+}
 
 
 

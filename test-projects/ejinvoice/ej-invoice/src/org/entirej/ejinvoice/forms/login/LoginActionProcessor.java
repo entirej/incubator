@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Locale;
 
 import org.eclipse.rap.rwt.RWT;
+import org.eclipse.rwt.EJ_RWT;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
@@ -19,6 +20,7 @@ import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
+import org.entirej.framework.core.EJScreenItem;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
@@ -69,6 +71,8 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             }
             else
             {
+                EJScreenItem screenItem = form.getBlock(F_LOGIN.B_LOGON.ID).getScreenItem(EJScreenType.MAIN, F_LOGIN.B_LOGON.I_PASSWORD);
+                screenItem.setItemRendererProperty(EJ_RWT.PROPERTY_CSS_KEY , "error");
                 throw new EJActionProcessorException(new EJMessage(EJMessageLevel.ERROR, "The username or password you entered is incorrect."));
             }
         }

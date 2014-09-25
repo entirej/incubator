@@ -151,7 +151,7 @@ public class OutstandingInvoicesActionProcessor extends DefaultFormActionProcess
                 }
                 else
                 {
-                    block.getScreenItem(EJScreenType.UPDATE, F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_INV_DATE).setDisplayProperty("DISPLAY_VALUE_AS_LABEL", "true");
+                    block.getScreenItem(EJScreenType.UPDATE, F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_INV_DATE).setItemRendererProperty("DISPLAY_VALUE_AS_LABEL", "true");
                     
                     block.getScreenItem(EJScreenType.UPDATE, F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_INV_DATE).setEditable(false);
                     block.getScreenItem(EJScreenType.UPDATE, F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_DUE_DATE).setEditable(false);
