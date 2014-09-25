@@ -41,6 +41,7 @@ public class EJ_PROPERTIES
     public static final String VA_INVOICE_STATUS_LATE            = "InvoiceStatusLate";
     public static final String VA_INVOICE_STATUS_SENT            = "InvoiceStatusSent";
     public static final String VA_INVOICE_STATUS_PAID            = "InvoiceStatusPaid";
+    public static final String VA_ERROR_LABEL                    = "errorLabel";
 
     public static final String AC_OPEN_ACTIVE_COMPANIES          = "OPEN_ACTIVE_COMPANIES";
     public static final String AC_OPEN_ACTIVE_PROJECTS           = "OPEN_ACTIVE_PROJECTS";

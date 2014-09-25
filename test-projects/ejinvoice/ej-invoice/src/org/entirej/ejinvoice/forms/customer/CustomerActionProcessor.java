@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.eclipse.rwt.EJ_RWT;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
 import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
-import org.entirej.ejinvoice.forms.constants.F_USERS;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.ejinvoice.forms.timeentry.CustomerBlockService;
 import org.entirej.ejinvoice.forms.timeentry.FormHandler;
@@ -27,7 +27,6 @@ import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJScreenType;
-import org.entirej.framework.core.service.EJStatementParameter;
 
 public class CustomerActionProcessor extends EJDefaultFormActionProcessor implements EJFormActionProcessor
 {
@@ -48,6 +47,18 @@ public class CustomerActionProcessor extends EJDefaultFormActionProcessor implem
         }
         else if (F_CUSTOMERS.AC_INSERT_SAVE.equals(command))
         {
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_ADDRESS, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ADDRESS);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_EMAIL,F_CUSTOMERS.B_CUSTOMERS_INSERT.I_EMAIL);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_LAST_NAME, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_LAST_NAME);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_SALUTATION, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_SALUTATIONS_ID);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_TYPE, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_CONTACT_TYPES_ID);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_COUNTRY, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_COUNTRY);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CUSTOMER_NUMBER, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_CUSTOMER_NUMBER);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_LOCALE, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_LOCALE);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_NAME, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_NAME);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_PAYMENT_DAYS, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_PAYMENT_DAYS);
+            clearError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_VAT, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_VAT_ID);
+            
             String customerNumber = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_INSERT.I_CUSTOMER_NUMBER);
             String name = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_INSERT.I_NAME);
             String address = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ADDRESS);
@@ -61,51 +72,67 @@ public class CustomerActionProcessor extends EJDefaultFormActionProcessor implem
             String contactLastName = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_INSERT.I_LAST_NAME);
             String email = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_INSERT.I_EMAIL);
 
+            boolean error = false;
             if (customerNumber == null || customerNumber.trim().length() == 0)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a customer number"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CUSTOMER_NUMBER, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_CUSTOMER_NUMBER, "Please enter a customer number");
             }
             if (name == null || name.trim().length() == 0)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a name"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_NAME, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_NAME,  "Please enter a name");
             }
             if (address == null || address.trim().length() == 0)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter an address"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_ADDRESS, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ADDRESS,  "Please enter an address");
             }
             if (country == null || country.trim().length() == 0)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a country"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_COUNTRY, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_COUNTRY,  "Please enter a country");
             }
             if (locale == null)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please choose a locale"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_LOCALE, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_LOCALE,  "Please choose a locale");
             }
             if (vatId == null)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please choose a default VAT%"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_VAT, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_VAT_ID,  "Please choose a default VAT%");
             }
             if (paymentDays == null)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a default amount for the payment days"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_PAYMENT_DAYS, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_PAYMENT_DAYS,  "Please enter a default amount for the payment days");
             }
             if (contactTypeId == null)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please choose a type for the default contact"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_TYPE, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_CONTACT_TYPES_ID,  "Please choose a type for the default contact");
             }
             if (salutationsId == null)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a salutation for the default contact"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_SALUTATION, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_SALUTATIONS_ID, "Please enter a salutation for the default contact");
             }
             if (contactLastName == null)
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a last name for the default contact"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_LAST_NAME, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_LAST_NAME,  "Please enter a last name for the default contact");
             }
             if (!EmailValidator.getInstance().isValid(email))
             {
-                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "The email address you have entered is not a valid email address"));
+                error = true;
+                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ERROR_CONTACT_EMAIL, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_EMAIL,  "The email address you have entered is not a valid email address");
             }
 
+            if (error)
+            {
+                throw new EJApplicationException();
+            }
             Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
             EJRecord newRecord = form.getBlock(F_CUSTOMERS.B_CUSTOMERS.ID).createRecord();
 
@@ -168,6 +195,7 @@ public class CustomerActionProcessor extends EJDefaultFormActionProcessor implem
         }
         else if (F_CUSTOMERS.AC_EDIT_SAVE.equals(command))
         {
+            String customerNumber = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_UPDATE.I_CUSTOMER_NUMBER);
             String name = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_UPDATE.I_NAME);
             String address = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_UPDATE.I_ADDRESS);
             String country = (String) record.getValue(F_CUSTOMERS.B_CUSTOMERS_UPDATE.I_COUNTRY);
@@ -175,6 +203,10 @@ public class CustomerActionProcessor extends EJDefaultFormActionProcessor implem
             Integer vatId = (Integer) record.getValue(F_CUSTOMERS.B_CUSTOMERS_UPDATE.I_VAT_ID);
             Integer paymentDays = (Integer) record.getValue(F_CUSTOMERS.B_CUSTOMERS_UPDATE.I_PAYMENT_DAYS);
 
+            if (customerNumber == null || customerNumber.trim().length() == 0)
+            {
+                throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a customer number"));
+            }
             if (name == null || name.trim().length() == 0)
             {
                 throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "Please enter a name"));
@@ -258,6 +290,19 @@ public class CustomerActionProcessor extends EJDefaultFormActionProcessor implem
         }
     }
 
+    private void setError(EJForm form, String messageItemName, String borderItem, String message)
+    {
+        form.getBlock(F_CUSTOMERS.B_CUSTOMERS_INSERT.ID).getScreenItem(EJScreenType.MAIN, borderItem).setItemRendererProperty(EJ_RWT.PROPERTY_CSS_KEY, "error");
+        form.getBlock(F_CUSTOMERS.B_CUSTOMERS_INSERT.ID).getCurrentScreenRecord(EJScreenType.MAIN).setValue(messageItemName, message);
+    }
+
+    private void clearError(EJForm form, String itemName, String borderItem)
+    {
+        form.getBlock(F_CUSTOMERS.B_CUSTOMERS_INSERT.ID).getScreenItem(EJScreenType.MAIN, borderItem).setItemRendererProperty(EJ_RWT.PROPERTY_CSS_KEY, null);
+        form.getBlock(F_CUSTOMERS.B_CUSTOMERS_INSERT.ID).getCurrentScreenRecord(EJScreenType.MAIN).setValue(itemName, null);
+    }
+
+    
     @Override
     public void postUpdate(EJForm form, EJRecord record) throws EJActionProcessorException
     {

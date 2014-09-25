@@ -230,10 +230,13 @@ TreeItem:hover {
 
 Text[BORDER].error
 {
-	border: 1px solid #b1534f  ;
+	border: 1px solid #FF0000  ;
 }
 
-
+Combo[BORDER].error
+{
+   border: 1px solid #FF0000  ;
+}
 
 
 
