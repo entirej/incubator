@@ -45,6 +45,55 @@ public class F_PROJECT_TASKS
 
     }
 
+    public static class B_PROJECT_TASK_UPDATE
+    {
+        public static final String ID                  = "ProjectTaskUpdate";
+        public static final String I_NAME              = "name";
+        public static final String I_NAME_ERROR        = "nameError";
+        public static final String I_STATUS            = "status";
+        public static final String I_STATUS_ERROR      = "statusError";
+        public static final String I_STATUS_NAME       = "statusName";
+        public static final String I_MESSAGE_LABEL     = "messageLabel";
+        public static final String I_INVOICEABLE       = "invoiceable";
+        public static final String I_PAY_RATE          = "payRate";
+        public static final String I_FIX_PRICE         = "fixPrice";
+        public static final String I_FIX_PRICE_ERROR   = "fixPriceError";
+        public static final String I_NOTES             = "notes";
+        public static final String I_PAGE_TITLE        = "pageTitle";
+        public static final String I_SAVE_BUTTON       = "saveButton";
+        public static final String I_CANCEL            = "cancel";
+        public static final String I_PAY_RATE_ERROR    = "payRateError";
+        public static final String I_PROJECT_FIX_PRICE = "projectFixPrice";
+        public static final String I_CUSTOMER_NAME     = "customerName";
+
+    }
+
+    public static class B_PROJECT_TASK_INSERT
+    {
+        public static final String ID                  = "ProjectTaskInsert";
+        public static final String I_NAME              = "name";
+        public static final String I_NAME_ERROR        = "nameError";
+        public static final String I_STATUS            = "status";
+        public static final String I_STATUS_ERROR      = "statusError";
+        public static final String I_STATUS_NAME       = "statusName";
+        public static final String I_MESSAGE_LABEL     = "messageLabel";
+        public static final String I_INVOICEABLE       = "invoiceable";
+        public static final String I_PAY_RATE          = "payRate";
+        public static final String I_FIX_PRICE         = "fixPrice";
+        public static final String I_FIX_PRICE_ERROR   = "fixPriceError";
+        public static final String I_NOTES             = "notes";
+        public static final String I_PAGE_TITLE        = "pageTitle";
+        public static final String I_SAVE_BUTTON       = "saveButton";
+        public static final String I_CANCEL            = "cancel";
+        public static final String I_PAY_RATE_ERROR    = "payRateError";
+        public static final String I_PROJECT_FIX_PRICE = "projectFixPrice";
+        public static final String I_PROJECT_ID        = "projectId";
+        public static final String I_PROJECT_NAME      = "projectName";
+        public static final String I_PROJECT_ID_ERROR  = "projectIdError";
+        public static final String I_CUSTOMER_NAME     = "customerName";
+
+    }
+
     public static class L_VAT_RATE
     {
         public static final String ID           = "VatRate";
@@ -110,13 +159,29 @@ public class F_PROJECT_TASKS
 
     }
 
+    public static final String C_MAIN_STACK = "mainStack";
+
+    public static class C_MAIN_STACK_PAGES
+    {
+        public static final String MAIN   = "main";
+        public static final String EDIT   = "edit";
+        public static final String INSERT = "insert";
+
+    }
+
     public static final String C_PROJECT_TASKS_TOOLBAR    = "ProjectTasksToolbar";
     public static final String C_PROJECT_TASKS            = "ProjectTasks";
+    public static final String C_PROJECT_TASK_UPDATE      = "ProjectTaskUpdate";
+    public static final String C_PROJECT_TASK_INSERT      = "ProjectTaskInsert";
 
     public static final String AC_ADD_NEW_TASK            = "ADD_NEW_TASK";
     public static final String AC_DELETE_PROJECT_TASK     = "DELETE_PROJECT_TASK";
+    public static final String AC_EDIT_CANCEL             = "EDIT_CANCEL";
     public static final String AC_EDIT_PROJECT_TASK       = "EDIT_PROJECT_TASK";
+    public static final String AC_EDIT_SAVE               = "EDIT_SAVE";
+    public static final String AC_INSERT_CANCEL           = "INSERT_CANCEL";
     public static final String AC_INSERT_PROJECT_FOR_TASK = "INSERT_PROJECT_FOR_TASK";
+    public static final String AC_INSERT_SAVE             = "INSERT_SAVE";
     public static final String AC_INVOICEABLE_TASK        = "INVOICEABLE_TASK";
     public static final String AC_QUERY_PROJECT_TASKS     = "QUERY_PROJECT_TASKS";
 

@@ -14,6 +14,7 @@ public class ProjectTasks
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<BigDecimal> _fixPrice;
+    private EJPojoProperty<BigDecimal> _projectFixPrice;
     private EJPojoProperty<String>     _invoiceable;
     private EJPojoProperty<String>     _status;
 
@@ -130,7 +131,7 @@ public class ProjectTasks
     {
         return EJPojoProperty.getPropertyInitialValue(_price);
     }
-    
+
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
     {
@@ -165,6 +166,24 @@ public class ProjectTasks
     public BigDecimal getInitialFixPrice()
     {
         return EJPojoProperty.getPropertyInitialValue(_fixPrice);
+    }
+
+    @EJFieldName("PROJECT_FIX_PRICE")
+    public BigDecimal getProjectFixPrice()
+    {
+        return EJPojoProperty.getPropertyValue(_projectFixPrice);
+    }
+
+    @EJFieldName("PROJECT_FIX_PRICE")
+    public void setProjectFixPrice(BigDecimal projectFixPrice)
+    {
+        _projectFixPrice = EJPojoProperty.setPropertyValue(_projectFixPrice, projectFixPrice);
+    }
+
+    @EJFieldName("PROJECT_FIX_PRICE")
+    public BigDecimal getInitialProjectFixPrice()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_projectFixPrice);
     }
 
     @EJFieldName("INVOICEABLE")
@@ -211,9 +230,17 @@ public class ProjectTasks
         display.append("<tr>");
         display.append("<td align=\"left\" width=\"30%\"><span style =\"font-weight: bold; font-size: 110% \">" + getProjectName() + "  (" + getName() + ")</span></td>");
         display.append("<td align=\"center\" width=\"30%\">");
-        display.append("<span style =\"font-weight: normal; font-size: 110% \">" + getCustomerName() + "</span>");
-        display.append("</td>");
         
+        if (getProjectFixPrice() != null)
+        {
+            display.append("<span style =\"font-weight: normal; font-size: 110% \">" + getCustomerName() + " (Fix Price: "+getProjectFixPrice()+")</span>");
+        }
+        else
+        {
+            display.append("<span style =\"font-weight: normal; font-size: 110% \">" + getCustomerName() + "</span>");
+        }
+        display.append("</td>");
+
         if (getFixPrice() != null)
         {
             display.append("<td align=\"right\"  width=\"30%\">Fix Price:</td>");
@@ -222,10 +249,10 @@ public class ProjectTasks
         {
             display.append("<td align=\"right\"  width=\"30%\">Hourly Rate:</td>");
         }
-        
+
         if (getFixPrice() != null)
         {
-            display.append("<td align=\"right\" width=\"5%\">"+ getFixPrice()  +"</td>");
+            display.append("<td align=\"right\" width=\"5%\">" + getFixPrice() + "</td>");
         }
         else
         {
@@ -235,10 +262,10 @@ public class ProjectTasks
             }
             else
             {
-                display.append("<td align=\"right\" width=\"5%\">"+ getPayRate()  +"</td>");
+                display.append("<td align=\"right\" width=\"5%\">" + getPayRate() + "</td>");
             }
         }
-        
+
         display.append("</tr>");
 
         display.append("<tr>");
@@ -251,7 +278,7 @@ public class ProjectTasks
         {
             display.append("<span style =\"font-weight: normal; font-size: 100% \">&nbsp;</span>");
         }
-        
+
         display.append("</tr>");
         display.append("</table>");
 
@@ -333,6 +360,7 @@ public class ProjectTasks
         EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_fixPrice);
+        EJPojoProperty.clearInitialValue(_projectFixPrice);
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_status);
 
