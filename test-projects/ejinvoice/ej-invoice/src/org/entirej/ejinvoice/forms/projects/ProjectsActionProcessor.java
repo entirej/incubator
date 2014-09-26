@@ -214,22 +214,22 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             if (name == null || name.trim().length() == 0)
             {
                 error = true;
-                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_NAME,  "Please enter a project name");
+                setError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_NAME,  "Please enter a project name");
             }
             if (status == null || status.trim().length() == 0)
             {
                 error = true;
-                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_ADDRESS,  "Please choose a project status");
+                setError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_STATUS,  "Please choose a project status");
             }
             if (taskName == null || taskName.trim().length() == 0)
             {
                 error = true;
-                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_COUNTRY,  "Please enter a task name");
+                setError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_TASK_NAME,  "Please enter a task name");
             }
             if (taskStatus == null || taskStatus.trim().length() == 0)
             {
                 error = true;
-                setError(form, F_CUSTOMERS.B_CUSTOMERS_INSERT.ID, F_CUSTOMERS.B_CUSTOMERS_INSERT.I_LOCALE,  "Please choose a task status");
+                setError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS,  "Please choose a task status");
             }
 
             if (error)
@@ -244,6 +244,7 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             int idSeqNextval = PKSequenceService.getPKSequence(form.getConnection());
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_ID, idSeqNextval);
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_COMPANY_ID, companyId);
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_CUSTOMER_ID, customerId);
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_DESCRIPTION, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_DESCRIPTION));
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_END_DATE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_END_DATE));
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_FIX_PRICE));
@@ -263,6 +264,9 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_TASK_STATUS, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS));
 
             Project project = (Project)newRecord.getBlockServicePojo();
+            project.setCustomerName((String)record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_CUSTOMER_NAME));
+            
+            
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_DISPLAY_TEXT, project.getDisplayText());
             
             form.getBlock(F_PROJECTS.B_PROJECTS.ID).insertRecord(newRecord);
