@@ -12,10 +12,11 @@ public class F_PROJECT_TASKS
 
     public static class B_PROJECT_TASKS_TOOLBAR
     {
-        public static final String ID          = "ProjectTasksToolbar";
-        public static final String I_ADD_NEW   = "addNew";
-        public static final String I_PROJECTS  = "projects";
-        public static final String I_FIX_PRICE = "fixPrice";
+        public static final String ID             = "ProjectTasksToolbar";
+        public static final String I_ADD_NEW      = "addNew";
+        public static final String I_PROJECTS     = "projects";
+        public static final String I_FIX_PRICE    = "fixPrice";
+        public static final String I_PROJECT_NAME = "projectName";
 
     }
 
