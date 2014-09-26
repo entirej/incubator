@@ -5927,12 +5927,12 @@
                     <displayFrame>false</displayFrame>
                     <frameTitle></frameTitle>
                     <numCols>1</numCols>
-                    <height>0</height>
+                    <height>1000</height>
                     <width>0</width>
                     <horizontalSpan>1</horizontalSpan>
                     <verticalSpan>1</verticalSpan>
                     <expandHorizontally>true</expandHorizontally>
-                    <expandVertically>true</expandVertically>
+                    <expandVertically>false</expandVertically>
                 </mainScreenProperties>
                 <mainScreen>
                     <itemGroupList>
@@ -5940,7 +5940,7 @@
                             <displayFrame>false</displayFrame>
                             <frameTitle></frameTitle>
                             <numCols>3</numCols>
-                            <height>1000</height>
+                            <height>700</height>
                             <width>0</width>
                             <xspan>1</xspan>
                             <yspan>1</yspan>
