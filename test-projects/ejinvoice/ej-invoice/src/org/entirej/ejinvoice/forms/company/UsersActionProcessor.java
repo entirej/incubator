@@ -7,8 +7,10 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.enums.UserRole;
+import org.entirej.ejinvoice.forms.constants.F_CONTACT_TYPES;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_USERS;
+import org.entirej.ejinvoice.forms.masterdata.ContactType;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
@@ -161,12 +163,26 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             newRecord.setValue(F_USERS.B_USERS.I_DATE_OF_BIRTH, record.getValue(F_USERS.B_USERS_INSERT.I_DATE_OF_BIRTH));
             newRecord.setValue(F_USERS.B_USERS.I_GENDER, record.getValue(F_USERS.B_USERS_INSERT.I_GENDER));
             newRecord.setValue(F_USERS.B_USERS.I_TOWN, record.getValue(F_USERS.B_USERS_INSERT.I_TOWN));
-            newRecord.setValue(F_USERS.B_USERS.I_ROLE, record.getValue(F_USERS.B_USERS_EDIT.I_ROLE));
+            newRecord.setValue(F_USERS.B_USERS.I_ROLE, record.getValue(F_USERS.B_USERS_INSERT.I_ROLE));
+
+            if (record.getValue(F_USERS.B_USERS.I_ROLE).equals(UserRole.OWNER.toString()))
+            {
+                // Cannot delete the owner
+                newRecord.setValue(F_USERS.B_USERS.I_EDIT, "/icons/edit10.gif");
+            }
+            else
+            {
+                newRecord.setValue(F_USERS.B_USERS.I_EDIT, "/icons/edit10.gif");
+                newRecord.setValue(F_USERS.B_USERS.I_DELETE, "/icons/delete10.png");
+            }
+            
+            User user = (User) newRecord.getBlockServicePojo();
+            newRecord.setValue(F_USERS.B_USERS.I_DISPLAY_TEXT, user.getDisplayText());
 
             form.getBlock(F_USERS.B_USERS.ID).insertRecord(newRecord);
             form.saveChanges();
 
-            form.getBlock(F_USERS.B_USERS_EDIT.ID).clear(true);
+            form.getBlock(F_USERS.B_USERS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
         }
         else if (F_USERS.AC_EDIT_SAVE.equals(command))
@@ -186,11 +202,24 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             baseRecord.setValue(F_USERS.B_USERS.I_GENDER, record.getValue(F_USERS.B_USERS_EDIT.I_GENDER));
             baseRecord.setValue(F_USERS.B_USERS.I_TOWN, record.getValue(F_USERS.B_USERS_EDIT.I_TOWN));
 
+            if (record.getValue(F_USERS.B_USERS.I_ROLE).equals(UserRole.OWNER.toString()))
+            {
+                // Cannot delete the owner
+                baseRecord.setValue(F_USERS.B_USERS.I_DELETE, null);
+                baseRecord.setValue(F_USERS.B_USERS.I_EDIT, "/icons/edit10.gif");
+            }
+            else
+            {
+                baseRecord.setValue(F_USERS.B_USERS.I_EDIT, "/icons/edit10.gif");
+                baseRecord.setValue(F_USERS.B_USERS.I_DELETE, "/icons/delete10.png");
+            }
+            
             User user = (User) baseRecord.getBlockServicePojo();
             if (!user.getInitialRole().equals(UserRole.OWNER))
             {
                 baseRecord.setValue(F_USERS.B_USERS.I_ROLE, record.getValue(F_USERS.B_USERS_EDIT.I_ROLE));
             }
+            baseRecord.setValue(F_USERS.B_USERS.I_DISPLAY_TEXT, user.getDisplayText());
 
             form.getBlock(F_USERS.B_USERS.ID).updateRecord(baseRecord);
             baseRecord.synchronize();
@@ -282,6 +311,8 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
                 ArrayList<User> users = new ArrayList<User>();
                 users.add((User) question.getRecord().getBlockServicePojo());
                 new UserBlockService().executeDelete(question.getForm(), users);
+                question.getForm().saveChanges();
+                question.getForm().getBlock(F_USERS.B_USERS.ID).executeLastQuery();
             }
             else
             {
@@ -300,6 +331,8 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             ArrayList<User> users = new ArrayList<User>();
             users.add(user);
             new UserBlockService().executeUpdate(question.getForm(), users);
+            question.getForm().saveChanges();
+            question.getForm().getBlock(F_USERS.B_USERS.ID).executeLastQuery();
         }
     }
 

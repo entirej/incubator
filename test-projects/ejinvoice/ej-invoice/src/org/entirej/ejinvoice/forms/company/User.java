@@ -378,6 +378,9 @@ public class User
             case "EMPLOYEE":
                 role = "Employee";
                 break;
+            case "CONTROLLER":
+                role = "Controller";
+                break;
             case "ADMINISTRATOR":
                 role = "Administrator";
                 break;

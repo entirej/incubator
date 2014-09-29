@@ -34,7 +34,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
         else if (F_CONTACT_TYPES.AC_INSERT_SAVE.equals(command))
         {
             clearError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_TYPE);
-            
+
             String type = (String) record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_TYPE);
 
             boolean error = false;
@@ -42,6 +42,11 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
             {
                 error = true;
                 setError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_TYPE, "Please enter a type");
+            }
+            if (type != null && ContactTypesService.contactTypeExists(form, type, null))
+            {
+                error = true;
+                setError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_TYPE, "Type already exists");
             }
             if (error)
             {
@@ -55,16 +60,15 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
             newRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_COMPANY_ID, companyId);
             newRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_TYPE, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_TYPE));
             newRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_DESCRIPTION, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_DESCRIPTION));
-            
-            ContactType contactType= (ContactType)newRecord.getBlockServicePojo();
+
+            ContactType contactType = (ContactType) newRecord.getBlockServicePojo();
             newRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_DISPLAY_TEXT, contactType.getDisplayText());
-            
+
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES.ID).insertRecord(newRecord);
             form.saveChanges();
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.MAIN);
         }
-        
         else if (F_CONTACT_TYPES.AC_MODIFY_CONTACT.equals(command))
         {
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID).clear(true);
@@ -73,20 +77,27 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_PAGE_TITLE, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_TYPE) + " - Edit");
             editRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_TYPE));
             editRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_DESCRIPTION, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_DESCRIPTION));
+            editRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_ID, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_ID));
 
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.EDIT);
         }
         else if (F_CONTACT_TYPES.AC_EDIT_SAVE.equals(command))
         {
             clearError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE);
-            
+
             String type = (String) record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE);
+            Integer id = (Integer) record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_ID);
 
             boolean error = false;
             if (type == null || type.trim().length() == 0)
             {
                 error = true;
-                setError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE_ERROR, "Please enter a type");
+                setError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE, "Please enter a type");
+            }
+            if (type != null && ContactTypesService.contactTypeExists(form, type, id))
+            {
+                error = true;
+                setError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE, "Type already exists");
             }
             if (error)
             {
@@ -97,7 +108,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
             baseRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_TYPE, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE));
             baseRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_DESCRIPTION, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_DESCRIPTION));
 
-            ContactType contactType = (ContactType)baseRecord.getBlockServicePojo();
+            ContactType contactType = (ContactType) baseRecord.getBlockServicePojo();
             baseRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_DISPLAY_TEXT, contactType.getDisplayText());
 
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES.ID).updateRecord(baseRecord);
@@ -110,19 +121,18 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
         else if (F_CONTACT_TYPES.AC_EDIT_CANCEL.equals(command))
         {
             clearError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_TYPE);
-            
+
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID).clear(true);
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.MAIN);
         }
         else if (F_CONTACT_TYPES.AC_INSERT_CANCEL.equals(command))
         {
             clearError(form, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID, F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_TYPE);
-            
+
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.MAIN);
         }
-
-        if (F_CONTACT_TYPES.AC_DELETE_CONTACT_TYPE.equals(command))
+        else if (F_CONTACT_TYPES.AC_DELETE_CONTACT_TYPE.equals(command))
         {
             // before deleting the selected record from database validate
             // and check if the record to be deleted has any FK constraints
@@ -146,35 +156,4 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
         super.postDelete(form, record);
         form.saveChanges();
     }
-
-    @Override
-    public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
-    {
-        // validate the contact types screen
-        if (F_CONTACT_TYPES.B_CONTACT_TYPES.ID.equals(record.getBlockName()))
-        {
-            Object type = record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_TYPE);
-            Object id = record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_ID);
-
-            final EJScreenItem typeItem = form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_CONTACT_TYPES.B_CONTACT_TYPES.I_TYPE).getName());
-            final String typeLabel = typeItem.getLabel();
-
-            if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)
-            {
-
-                if (type == null || ((String) type).trim().length() == 0)
-                {
-                    throw new EJActionProcessorException(String.format("%s cannot be Empty!", typeLabel));
-
-                }
-
-                if (ContactTypesService.contactTypeExists(form, (String) type, (Integer) id))
-
-                {
-                    throw new EJActionProcessorException(String.format("Entered %s already Exist!", typeLabel));
-                }
-            }
-        }
-    }
-
 }

@@ -39,6 +39,7 @@ public class F_CONTACT_TYPES
         public static final String I_PAGE_TITLE  = "pageTitle";
         public static final String I_SAVE        = "save";
         public static final String I_CANCEL      = "cancel";
+        public static final String I_ID          = "id";
 
     }
 
