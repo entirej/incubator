@@ -25,7 +25,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
     {
         if (F_CONTACT_TYPES.AC_CREATE_CONTACT_TYPE.equals(command))
         {
-            form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES.ID).clear(true);
+            form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID).clear(true);
             EJRecord insertRecord = form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID).getFocusedRecord();
 
             insertRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_PAGE_TITLE, "Create a new Contact Type");
