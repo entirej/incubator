@@ -6,9 +6,9 @@ package org.entirej.ejinvoice.forms.constants;
  * entirej plugin from the form.  It
  * should not be modified by hand.
  */
-public class F_MASTER_DATA_SALUTATION
+public class F_SALUTATIONS
 {
-    public static final String ID = "MasterDataSalutation";
+    public static final String ID = "Salutations";
 
     public static class B_SALUTATIONS_TOOLBAR
     {

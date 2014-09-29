@@ -1,0 +1,1731 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entirejFramework>
+    <form>
+        <formTitle><![CDATA[Master Data]]></formTitle>
+        <formDisplayName></formDisplayName>
+        <formWidth>820</formWidth>
+        <formHeight>520</formHeight>
+        <numCols>1</numCols>
+        <actionProcessorClassName><![CDATA[org.entirej.ejinvoice.forms.masterdata.ContactTypesActionProcessor]]></actionProcessorClassName>
+        <formRendererName><![CDATA[Form]]></formRendererName>
+        <formParameterList>
+        </formParameterList>
+        <applicationProperties>
+        </applicationProperties>
+        <formRendererProperties>
+        </formRendererProperties>
+        <canvasList>
+            <canvas name="mainStack" type="STACKED">
+                <width>0</width>
+                <height>0</height>
+                <numCols>1</numCols>
+                <horizontalSpan>1</horizontalSpan>
+                <verticalSpan>1</verticalSpan>
+                <expandHorizontally>true</expandHorizontally>
+                <expandVertically>true</expandVertically>
+                <initialStackedPageName></initialStackedPageName>
+                <stackedPageList>
+                    <stackedPage name="main">
+                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
+                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
+                        <firstNavigationalBlock></firstNavigationalBlock>
+                        <firstNavigationalItem></firstNavigationalItem>
+                        <numCols>1</numCols>
+                        <canvasList>
+                            <canvas name="ContactTypesToolbar" type="BLOCK">
+                            </canvas>
+                            <canvas name="ContactTypes" type="BLOCK">
+                            </canvas>
+                        </canvasList>
+                    </stackedPage>
+                    <stackedPage name="edit">
+                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
+                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
+                        <firstNavigationalBlock></firstNavigationalBlock>
+                        <firstNavigationalItem></firstNavigationalItem>
+                        <numCols>1</numCols>
+                        <canvasList>
+                            <canvas name="ContactTypesUpdate" type="BLOCK">
+                            </canvas>
+                        </canvasList>
+                    </stackedPage>
+                    <stackedPage name="insert">
+                        <backgroundColourVisualAttributeName></backgroundColourVisualAttributeName>
+                        <foregroundColourVisualAttributeName></foregroundColourVisualAttributeName>
+                        <firstNavigationalBlock></firstNavigationalBlock>
+                        <firstNavigationalItem></firstNavigationalItem>
+                        <numCols>1</numCols>
+                        <canvasList>
+                            <canvas name="ContactTypesInsert" type="BLOCK">
+                            </canvas>
+                        </canvasList>
+                    </stackedPage>
+                </stackedPageList>
+            </canvas>
+        </canvasList>
+        <blockList>
+            <block name="ContactTypesToolbar" referenced="false" controlBlock="true">
+                <isMirrored>false</isMirrored>
+                <mirrorParent></mirrorParent>
+                <description></description>
+                <queryAllowed>true</queryAllowed>
+                <insertAllowed>true</insertAllowed>
+                <updateAllowed>true</updateAllowed>
+                <addControlBlockDefaultRecord>true</addControlBlockDefaultRecord>
+                <deleteAllowed>true</deleteAllowed>
+                <canvasName><![CDATA[ContactTypesToolbar]]></canvasName>
+                <blockRendererName><![CDATA[SingleRecord]]></blockRendererName>
+                <serviceClassName></serviceClassName>
+                <actionProcessorClassName></actionProcessorClassName>
+                <queryAllRows>false</queryAllRows>
+                <maxResults>0</maxResults>
+                <pageSize>0</pageSize>
+                <applicationProperties>
+                </applicationProperties>
+                <blockRendererProperties>
+                    <propertyGroup name="TITLE_BAR">
+                        <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                        <propertyList name="TITLE_BAR_ACTIONS">
+                        </propertyList>
+                    </propertyGroup>
+                </blockRendererProperties>
+                <queryScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CLEAR_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                </queryScreenRendererProperties>
+                <insertScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </insertScreenRendererProperties>
+                <updateScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </updateScreenRendererProperties>
+                <lovMappingList>
+                </lovMappingList>
+                <itemList>
+                    <item name="addNewContactType">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ButtonItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"><![CDATA[entry]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HIDE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="DEFAULT_BUTTON" multilingual="false" propertyType="BOOLEAN"></property>
+                        </itemRendererProperties>
+                    </item>
+                </itemList>
+                <mainScreenProperties>
+                    <displayFrame>false</displayFrame>
+                    <frameTitle></frameTitle>
+                    <numCols>1</numCols>
+                    <height>40</height>
+                    <width>0</width>
+                    <horizontalSpan>1</horizontalSpan>
+                    <verticalSpan>1</verticalSpan>
+                    <expandHorizontally>true</expandHorizontally>
+                    <expandVertically>false</expandVertically>
+                </mainScreenProperties>
+                <mainScreen>
+                    <itemGroupList>
+                        <itemGroup name="main">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>3</numCols>
+                            <height>0</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>true</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                                <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
+                                <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <propertyList name="TITLE_BAR_ACTIONS">
+                                </propertyList>
+                            </rendererProperties>
+                            <itemGroupItemList>
+                                <item referencedItemName="spacer200" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[12]]></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer100" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[2]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="addNewContactType" isSpacerItem="false">
+                                    <label><![CDATA[Add a new contact type]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand><![CDATA[CREATE_CONTACT_TYPE]]></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[140]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                    </itemGroupList>
+                </mainScreen>
+                <queryScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </queryScreen>
+                <insertScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </insertScreen>
+                <updateScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </updateScreen>
+            </block>
+            <block name="ContactTypes" referenced="false" controlBlock="false">
+                <isMirrored>false</isMirrored>
+                <mirrorParent></mirrorParent>
+                <description></description>
+                <queryAllowed>true</queryAllowed>
+                <insertAllowed>true</insertAllowed>
+                <updateAllowed>true</updateAllowed>
+                <addControlBlockDefaultRecord>true</addControlBlockDefaultRecord>
+                <deleteAllowed>true</deleteAllowed>
+                <canvasName><![CDATA[ContactTypes]]></canvasName>
+                <blockRendererName><![CDATA[HTMLMultiRecord]]></blockRendererName>
+                <serviceClassName><![CDATA[org.entirej.ejinvoice.forms.masterdata.ContactTypeBlockService]]></serviceClassName>
+                <actionProcessorClassName></actionProcessorClassName>
+                <queryAllRows>false</queryAllRows>
+                <maxResults>0</maxResults>
+                <pageSize>0</pageSize>
+                <applicationProperties>
+                </applicationProperties>
+                <blockRendererProperties>
+                    <property name="FILTER" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="ROW_EVEN_VA" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                    <property name="ROW_ODD_VA" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[dataOdd]]></property>
+                    <property name="CELL_PADDING" multilingual="false" propertyType="INTEGER"><![CDATA[5]]></property>
+                    <property name="SHOW_HEADING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="CELL_SPACING" multilingual="false" propertyType="INTEGER"><![CDATA[0]]></property>
+                    <property name="HEADER_VA" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[tableHeader]]></property>
+                    <propertyList name="ACTIONS">
+                    </propertyList>
+                </blockRendererProperties>
+                <queryScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CLEAR_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                </queryScreenRendererProperties>
+                <insertScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[Cancel]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"><![CDATA[New Contact Type]]></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[200]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[OK]]></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </insertScreenRendererProperties>
+                <updateScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[Cancel]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"><![CDATA[Edit Contact Type]]></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[200]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"><![CDATA[OK]]></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </updateScreenRendererProperties>
+                <lovMappingList>
+                </lovMappingList>
+                <itemList>
+                    <item name="type">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="id">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="description">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextAreaItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="companyId">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                        <itemRendererName></itemRendererName>
+                        <defaultInsertValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultInsertValue>
+                        <defaultQueryValue><![CDATA[APP_PARAMETER:COMPANY_ID]]></defaultQueryValue>
+                        <itemRendererProperties>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="edit">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ImageItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="IMAGE" multilingual="false" propertyType="PROJECT_FILE"><![CDATA[/icons/edit10.gif]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="delete">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ImageItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="IMAGE" multilingual="false" propertyType="PROJECT_FILE"><![CDATA[/icons/delete10.png]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="displayText">
+                        <blockServiceItem>true</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextAreaItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[Left]]></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
+                </itemList>
+                <mainScreenProperties>
+                    <displayFrame>false</displayFrame>
+                    <frameTitle></frameTitle>
+                    <numCols>1</numCols>
+                    <height>0</height>
+                    <width>0</width>
+                    <horizontalSpan>1</horizontalSpan>
+                    <verticalSpan>1</verticalSpan>
+                    <expandHorizontally>true</expandHorizontally>
+                    <expandVertically>true</expandVertically>
+                </mainScreenProperties>
+                <mainScreen>
+                    <itemGroupList>
+                        <itemGroup name="main">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>1</numCols>
+                            <height>200</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>false</expandHorizontally>
+                            <expandVertically>false</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <rendererProperties>
+                                <property name="HEADER_VA" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                            </rendererProperties>
+                            <itemGroupItemList>
+                                <item referencedItemName="delete" isSpacerItem="false">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[DELETE_CONTACT_TYPE]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="edit" isSpacerItem="false">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"><![CDATA[MODIFY_CONTACT]]></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="displayText" isSpacerItem="false">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="ACTION_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                        <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[200]]></property>
+                                        <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                    </itemGroupList>
+                </mainScreen>
+                <queryScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </queryScreen>
+                <insertScreen>
+                    <itemGroupList>
+                        <itemGroup name="main">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>2</numCols>
+                            <height>0</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>true</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <itemGroupItemList>
+                                <item referencedItemName="type" isSpacerItem="false">
+                                    <label><![CDATA[Type]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>true</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <insertScreenRendererItemProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[data]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <propertyGroup name="EXTRA_BUTTONS">
+                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                                        </propertyGroup>
+                                    </insertScreenRendererItemProperties>
+                                </item>
+                                <item referencedItemName="description" isSpacerItem="false">
+                                    <label><![CDATA[Description]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <insertScreenRendererItemProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[data]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <propertyGroup name="EXTRA_BUTTONS">
+                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                                        </propertyGroup>
+                                    </insertScreenRendererItemProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                    </itemGroupList>
+                </insertScreen>
+                <updateScreen>
+                    <itemGroupList>
+                        <itemGroup name="main">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>2</numCols>
+                            <height>0</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>true</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <itemGroupItemList>
+                                <item referencedItemName="type" isSpacerItem="false">
+                                    <label><![CDATA[Type]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>true</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <updateScreenRendererItemProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[data]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <propertyGroup name="EXTRA_BUTTONS">
+                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                                        </propertyGroup>
+                                    </updateScreenRendererItemProperties>
+                                </item>
+                                <item referencedItemName="description" isSpacerItem="false">
+                                    <label><![CDATA[Description]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <updateScreenRendererItemProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[data]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                                        <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                                        <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <propertyGroup name="EXTRA_BUTTONS">
+                                            <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                                            <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                                            <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                                        </propertyGroup>
+                                    </updateScreenRendererItemProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                    </itemGroupList>
+                </updateScreen>
+            </block>
+            <block name="ContactTypesUpdate" referenced="false" controlBlock="true">
+                <isMirrored>false</isMirrored>
+                <mirrorParent></mirrorParent>
+                <description></description>
+                <queryAllowed>true</queryAllowed>
+                <insertAllowed>true</insertAllowed>
+                <updateAllowed>true</updateAllowed>
+                <addControlBlockDefaultRecord>true</addControlBlockDefaultRecord>
+                <deleteAllowed>true</deleteAllowed>
+                <canvasName><![CDATA[ContactTypesUpdate]]></canvasName>
+                <blockRendererName><![CDATA[SingleRecord]]></blockRendererName>
+                <serviceClassName></serviceClassName>
+                <actionProcessorClassName></actionProcessorClassName>
+                <queryAllRows>false</queryAllRows>
+                <maxResults>0</maxResults>
+                <pageSize>0</pageSize>
+                <applicationProperties>
+                </applicationProperties>
+                <blockRendererProperties>
+                    <propertyGroup name="TITLE_BAR">
+                        <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                        <propertyList name="TITLE_BAR_ACTIONS">
+                        </propertyList>
+                    </propertyGroup>
+                </blockRendererProperties>
+                <queryScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="CLEAR_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                </queryScreenRendererProperties>
+                <insertScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </insertScreenRendererProperties>
+                <updateScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[300]]></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[400]]></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </updateScreenRendererProperties>
+                <lovMappingList>
+                </lovMappingList>
+                <itemList>
+                    <item name="type">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="typeError">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[LabelItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="description">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextAreaItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[Left]]></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="pageTitle">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[LabelItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="save">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ButtonItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"><![CDATA[entry]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HIDE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="DEFAULT_BUTTON" multilingual="false" propertyType="BOOLEAN"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="cancel">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ButtonItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HIDE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="DEFAULT_BUTTON" multilingual="false" propertyType="BOOLEAN"></property>
+                        </itemRendererProperties>
+                    </item>
+                </itemList>
+                <mainScreenProperties>
+                    <displayFrame>false</displayFrame>
+                    <frameTitle></frameTitle>
+                    <numCols>1</numCols>
+                    <height>0</height>
+                    <width>0</width>
+                    <horizontalSpan>1</horizontalSpan>
+                    <verticalSpan>1</verticalSpan>
+                    <expandHorizontally>true</expandHorizontally>
+                    <expandVertically>true</expandVertically>
+                </mainScreenProperties>
+                <mainScreen>
+                    <itemGroupList>
+                        <itemGroup name="main">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>3</numCols>
+                            <height>400</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>false</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                                <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
+                                <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <propertyList name="TITLE_BAR_ACTIONS">
+                                </propertyList>
+                            </rendererProperties>
+                            <itemGroupItemList>
+                                <item referencedItemName="spacer100" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[22]]></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="pageTitle" isSpacerItem="false">
+                                    <label><![CDATA[Page Title]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[titleMedium]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer200" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="type" isSpacerItem="false">
+                                    <label><![CDATA[Type]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>true</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[70]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="typeError" isSpacerItem="false">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[errorLabel]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="description" isSpacerItem="false">
+                                    <label><![CDATA[Description]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[70]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[6]]></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[6]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                        <itemGroup name="buttons">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>3</numCols>
+                            <height>0</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>true</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                                <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
+                                <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <propertyList name="TITLE_BAR_ACTIONS">
+                                </propertyList>
+                            </rendererProperties>
+                            <itemGroupItemList>
+                                <item referencedItemName="save" isSpacerItem="false">
+                                    <label><![CDATA[Save]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand><![CDATA[EDIT_SAVE]]></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="cancel" isSpacerItem="false">
+                                    <label><![CDATA[Cancel]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand><![CDATA[EDIT_CANCEL]]></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer100" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                    </itemGroupList>
+                </mainScreen>
+                <queryScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </queryScreen>
+                <insertScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </insertScreen>
+                <updateScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </updateScreen>
+            </block>
+            <block name="ContactTypesInsert" referenced="false" controlBlock="true">
+                <isMirrored>false</isMirrored>
+                <mirrorParent></mirrorParent>
+                <description></description>
+                <queryAllowed>true</queryAllowed>
+                <insertAllowed>true</insertAllowed>
+                <updateAllowed>true</updateAllowed>
+                <addControlBlockDefaultRecord>true</addControlBlockDefaultRecord>
+                <deleteAllowed>true</deleteAllowed>
+                <canvasName><![CDATA[ContactTypesInsert]]></canvasName>
+                <blockRendererName><![CDATA[SingleRecord]]></blockRendererName>
+                <serviceClassName></serviceClassName>
+                <actionProcessorClassName></actionProcessorClassName>
+                <queryAllRows>false</queryAllRows>
+                <maxResults>0</maxResults>
+                <pageSize>0</pageSize>
+                <applicationProperties>
+                </applicationProperties>
+                <blockRendererProperties>
+                    <propertyGroup name="TITLE_BAR">
+                        <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE" multilingual="false" propertyType="STRING"></property>
+                        <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                        <propertyList name="TITLE_BAR_ACTIONS">
+                        </propertyList>
+                    </propertyGroup>
+                </blockRendererProperties>
+                <queryScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="CLEAR_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                </queryScreenRendererProperties>
+                <insertScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </insertScreenRendererProperties>
+                <updateScreenRendererProperties>
+                    <property name="NUMCOLS" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="TITLE" multilingual="true" propertyType="STRING"></property>
+                    <property name="WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="CANCEL_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                    <property name="EXECUTE_BUTTON_TEXT" multilingual="false" propertyType="STRING"></property>
+                    <property name="MAXIMIZE" multilingual="false" propertyType="BOOLEAN"></property>
+                    <property name="SAVE_FORM_AFTER_EXECUTE" multilingual="false" propertyType="BOOLEAN"></property>
+                    <propertyGroup name="EXTRA_BUTTONS">
+                        <property name="BUTTON1_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON4_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON1_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON4_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON2_COMMAND" multilingual="false" propertyType="ACTION_COMMAND"></property>
+                        <property name="BUTTON5_LABEL" multilingual="true" propertyType="STRING"></property>
+                        <property name="BUTTON3_LABEL" multilingual="true" propertyType="STRING"></property>
+                    </propertyGroup>
+                </updateScreenRendererProperties>
+                <lovMappingList>
+                </lovMappingList>
+                <itemList>
+                    <item name="type">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
+                            <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="typeError">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[LabelItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="description">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[TextAreaItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[Left]]></property>
+                            <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
+                            <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="pageTitle">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[LabelItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="DISPLAY_AS_HYPERLINK" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="WRAP" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HTML_FORMAT" multilingual="false" propertyType="BOOLEAN"></property>
+                            <property name="CASE" multilingual="false" propertyType="STRING"><![CDATA[MIXED]]></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="save">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ButtonItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"><![CDATA[entry]]></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HIDE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="DEFAULT_BUTTON" multilingual="false" propertyType="BOOLEAN"></property>
+                        </itemRendererProperties>
+                    </item>
+                    <item name="cancel">
+                        <blockServiceItem>false</blockServiceItem>
+                        <mandatoryItem>false</mandatoryItem>
+                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                        <itemRendererName><![CDATA[ButtonItem]]></itemRendererName>
+                        <defaultInsertValue></defaultInsertValue>
+                        <defaultQueryValue></defaultQueryValue>
+                        <itemRendererProperties>
+                            <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                            <property name="ALIGNMENT" multilingual="false" propertyType="STRING"><![CDATA[CENTER]]></property>
+                            <property name="PICTURE" multilingual="false" propertyType="PROJECT_FILE"></property>
+                            <property name="HIDE_BORDER" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                            <property name="DEFAULT_BUTTON" multilingual="false" propertyType="BOOLEAN"></property>
+                        </itemRendererProperties>
+                    </item>
+                </itemList>
+                <mainScreenProperties>
+                    <displayFrame>false</displayFrame>
+                    <frameTitle></frameTitle>
+                    <numCols>1</numCols>
+                    <height>0</height>
+                    <width>0</width>
+                    <horizontalSpan>1</horizontalSpan>
+                    <verticalSpan>1</verticalSpan>
+                    <expandHorizontally>true</expandHorizontally>
+                    <expandVertically>true</expandVertically>
+                </mainScreenProperties>
+                <mainScreen>
+                    <itemGroupList>
+                        <itemGroup name="main">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>3</numCols>
+                            <height>400</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>false</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                                <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
+                                <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <propertyList name="TITLE_BAR_ACTIONS">
+                                </propertyList>
+                            </rendererProperties>
+                            <itemGroupItemList>
+                                <item referencedItemName="spacer100" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[22]]></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="pageTitle" isSpacerItem="false">
+                                    <label><![CDATA[Page Title]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[titleMedium]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer200" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[3]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="type" isSpacerItem="false">
+                                    <label><![CDATA[Type]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>true</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[70]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="typeError" isSpacerItem="false">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"><![CDATA[errorLabel]]></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="description" isSpacerItem="false">
+                                    <label><![CDATA[Description]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[70]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"><![CDATA[6]]></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[6]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                        <itemGroup name="buttons">
+                            <displayFrame>false</displayFrame>
+                            <frameTitle></frameTitle>
+                            <numCols>3</numCols>
+                            <height>0</height>
+                            <width>0</width>
+                            <xspan>1</xspan>
+                            <yspan>1</yspan>
+                            <expandHorizontally>true</expandHorizontally>
+                            <expandVertically>true</expandVertically>
+                            <verticalAlignment><![CDATA[FILL]]></verticalAlignment>
+                            <horizontalAlignment><![CDATA[FILL]]></horizontalAlignment>
+                            <rendererProperties>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
+                                <property name="TITLE_BAR_MODE" multilingual="false" propertyType="STRING"><![CDATA[GROUP]]></property>
+                                <property name="TITLE_BAR_EXPANDED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                <propertyList name="TITLE_BAR_ACTIONS">
+                                </propertyList>
+                            </rendererProperties>
+                            <itemGroupItemList>
+                                <item referencedItemName="save" isSpacerItem="false">
+                                    <label><![CDATA[Save]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand><![CDATA[INSERT_SAVE]]></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="cancel" isSpacerItem="false">
+                                    <label><![CDATA[Cancel]]></label>
+                                    <hint></hint>
+                                    <editAllowed>true</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand><![CDATA[INSERT_CANCEL]]></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[100]]></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"><![CDATA[1]]></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                                <item referencedItemName="spacer100" isSpacerItem="true">
+                                    <label></label>
+                                    <hint></hint>
+                                    <editAllowed>false</editAllowed>
+                                    <visible>true</visible>
+                                    <mandatory>false</mandatory>
+                                    <enableLovNotification>false</enableLovNotification>
+                                    <lovMappingName></lovMappingName>
+                                    <validateFromLov>true</validateFromLov>
+                                    <actionCommand></actionCommand>
+                                    <blockRendererRequiredProperties>
+                                        <property name="VISUAL_ATTRIBUTE" multilingual="false" propertyType="VISUAL_ATTRIBUTE"></property>
+                                        <property name="EXPAND_X" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="INITIALLY_DISPLAYED" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
+                                        <property name="DISPLAYED_WIDTH" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="ITEM_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="EXPAND_Y" multilingual="false" propertyType="BOOLEAN"></property>
+                                        <property name="DISPLAYED_HEIGHT" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="LABEL_POSITION" multilingual="false" propertyType="STRING"><![CDATA[LEFT]]></property>
+                                        <property name="LABEL_ORIENTATION" multilingual="false" propertyType="STRING"><![CDATA[RIGHT]]></property>
+                                        <property name="XSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                        <property name="YSPAN" multilingual="false" propertyType="INTEGER"></property>
+                                    </blockRendererRequiredProperties>
+                                </item>
+                            </itemGroupItemList>
+                            <itemGroupList>
+                            </itemGroupList>
+                        </itemGroup>
+                    </itemGroupList>
+                </mainScreen>
+                <queryScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </queryScreen>
+                <insertScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </insertScreen>
+                <updateScreen>
+                    <itemGroupList>
+                    </itemGroupList>
+                </updateScreen>
+            </block>
+        </blockList>
+        <objGroupDefinitionList>
+        </objGroupDefinitionList>
+        <relationList>
+        </relationList>
+        <lovDefinitionList>
+        </lovDefinitionList>
+    </form>
+</entirejFramework>

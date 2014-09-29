@@ -9,7 +9,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
-import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
+import org.entirej.ejinvoice.forms.constants.F_SALUTATIONS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.ejinvoice.forms.timeentry.CustomerBlockService;
@@ -355,7 +355,7 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
             boolean canBeDeleted = true;
             try
             {
-                ServiceRetriever.getDBService(question.getForm()).validateDeleteRecordUsage(question.getForm(), question.getForm().getBlock(F_MASTER_DATA_SALUTATION.B_SALUTATIONS.ID).getFocusedRecord(), "CUSTOMER");
+                ServiceRetriever.getDBService(question.getForm()).validateDeleteRecordUsage(question.getForm(), question.getForm().getBlock(F_SALUTATIONS.B_SALUTATIONS.ID).getFocusedRecord(), "CUSTOMER");
             }
             catch (Exception e)
             {

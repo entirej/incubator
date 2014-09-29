@@ -249,6 +249,9 @@ public class F_TIME_ENTRY
         public static final String OUTSTANDING_INVOICES = "OutstandingInvoices";
         public static final String PAID_INVOICES        = "PaidInvoices";
         public static final String USERS                = "Users";
+        public static final String CONTACT_TYPES        = "ContactTypes";
+        public static final String SALUTATIONS          = "Salutations";
+        public static final String VAT_RATES            = "VatRates";
 
     }
 
@@ -265,6 +268,9 @@ public class F_TIME_ENTRY
     public static final String C_OUTSTANDING_INVOICES_FORM = "OutstandingInvoicesForm";
     public static final String C_PAID_INVOICES_FORM        = "PaidInvoicesForm";
     public static final String C_USERS_FORM                = "UsersForm";
+    public static final String C_CONTACT_TYPES_FORM        = "ContactTypesForm";
+    public static final String C_SALUTATIONS_FORM          = "SalutationsForm";
+    public static final String C_VAT_RATES_FORM            = "VatRatesForm";
 
     public static final String AC_ADD_TIME_ENTRY           = "ADD_TIME_ENTRY";
     public static final String AC_DELETE_TIME_ENTRY        = "DELETE_TIME_ENTRY";

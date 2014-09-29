@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
-import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_VAT_RATES;
+import org.entirej.ejinvoice.forms.constants.F_VAT_RATES;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
@@ -18,17 +18,17 @@ public class MasterDataVatRatesActionProcessor extends DefaultFormActionProcesso
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
-        if (F_MASTER_DATA_VAT_RATES.AC_CREATE_VAT_RATE.equals(command))
+        if (F_VAT_RATES.AC_CREATE_VAT_RATE.equals(command))
         {
-            form.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID).enterInsert(false);
+            form.getBlock(F_VAT_RATES.B_VAT_RATES.ID).enterInsert(false);
             return;
         }
-        else if (F_MASTER_DATA_VAT_RATES.AC_MODIFY_VAT_RATE.equals(command))
+        else if (F_VAT_RATES.AC_MODIFY_VAT_RATE.equals(command))
         {
-            form.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID).enterUpdate();
+            form.getBlock(F_VAT_RATES.B_VAT_RATES.ID).enterUpdate();
             return;
         }
-        else if (F_MASTER_DATA_VAT_RATES.AC_DELETE_VAT_RATE.equals(command))
+        else if (F_VAT_RATES.AC_DELETE_VAT_RATE.equals(command))
         {
             // before deleting the selected record from database validate and
             // check if the record to be deleted has any FK constraints usage
@@ -36,8 +36,8 @@ public class MasterDataVatRatesActionProcessor extends DefaultFormActionProcesso
             // physical delete
             try
             {
-                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form, form.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID).getFocusedRecord(), "VAT_RATES");
-                form.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this rate?");
+                ServiceRetriever.getDBService(form).validateDeleteRecordUsage(form, form.getBlock(F_VAT_RATES.B_VAT_RATES.ID).getFocusedRecord(), "VAT_RATES");
+                form.getBlock(F_VAT_RATES.B_VAT_RATES.ID).askToDeleteCurrentRecord("Are you sure you want to delete this rate?");
             }
             catch (Exception e)
             {
@@ -58,15 +58,15 @@ public class MasterDataVatRatesActionProcessor extends DefaultFormActionProcesso
     public void validateRecord(EJForm form, EJRecord record, EJRecordType recordType) throws EJActionProcessorException
     {
         // validate the vat rates screen
-        if (F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID.equals(record.getBlockName()))
+        if (F_VAT_RATES.B_VAT_RATES.ID.equals(record.getBlockName()))
         {
-            Object rate = record.getValue(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.I_RATE);
-            Object name = record.getValue(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.I_NAME);
-            Object id = record.getValue(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.I_ID);
+            Object rate = record.getValue(F_VAT_RATES.B_VAT_RATES.I_RATE);
+            Object name = record.getValue(F_VAT_RATES.B_VAT_RATES.I_NAME);
+            Object id = record.getValue(F_VAT_RATES.B_VAT_RATES.I_ID);
 
-            final EJScreenItem vatRateItem = form.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.I_RATE).getName());
+            final EJScreenItem vatRateItem = form.getBlock(F_VAT_RATES.B_VAT_RATES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_VAT_RATES.B_VAT_RATES.I_RATE).getName());
             final String vatRateLabel = vatRateItem.getLabel();
-            final EJScreenItem nameItem = form.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.I_NAME).getName());
+            final EJScreenItem nameItem = form.getBlock(F_VAT_RATES.B_VAT_RATES.ID).getScreenItem(EJScreenType.MAIN, record.getItem(F_VAT_RATES.B_VAT_RATES.I_NAME).getName());
             final String nameLabel = nameItem.getLabel();
 
             if (recordType == EJRecordType.INSERT || recordType == EJRecordType.UPDATE)

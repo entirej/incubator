@@ -12,9 +12,9 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
-import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_CONTACT_TYPES;
-import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
-import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_VAT_RATES;
+import org.entirej.ejinvoice.forms.constants.F_CONTACT_TYPES;
+import org.entirej.ejinvoice.forms.constants.F_SALUTATIONS;
+import org.entirej.ejinvoice.forms.constants.F_VAT_RATES;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJBlock;
@@ -38,9 +38,9 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     {
         if (F_COMPANY.C_MAIN_TAB_PAGES.CONTACT_TYPES.equals(tabPageName))
         {
-            EJForm embeddedForm = form.getEmbeddedForm(F_MASTER_DATA_CONTACT_TYPES.ID, F_COMPANY.C_CONTACT_TYPES_FORM);
+            EJForm embeddedForm = form.getEmbeddedForm(F_CONTACT_TYPES.ID, F_COMPANY.C_CONTACT_TYPES_FORM);
            
-            EJBlock embeddedBlock = embeddedForm.getBlock(F_MASTER_DATA_CONTACT_TYPES.B_CONTACT_TYPES.ID);
+            EJBlock embeddedBlock = embeddedForm.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES.ID);
             if (embeddedBlock.getBlockRecords().size() == 0)
             {
                 embeddedBlock.executeQuery();
@@ -49,9 +49,9 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_COMPANY.C_MAIN_TAB_PAGES.SALUTATIONS.equals(tabPageName))
         {
-            EJForm embeddedForm = form.getEmbeddedForm(F_MASTER_DATA_SALUTATION.ID, F_COMPANY.C_SALUTATIONS_FORM);
+            EJForm embeddedForm = form.getEmbeddedForm(F_SALUTATIONS.ID, F_COMPANY.C_SALUTATIONS_FORM);
             
-            EJBlock embeddedBlock = embeddedForm.getBlock(F_MASTER_DATA_SALUTATION.B_SALUTATIONS.ID);
+            EJBlock embeddedBlock = embeddedForm.getBlock(F_SALUTATIONS.B_SALUTATIONS.ID);
             if (embeddedBlock.getBlockRecords().size() == 0)
             {
                 embeddedBlock.executeQuery();
@@ -59,9 +59,9 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         }
         else if (F_COMPANY.C_MAIN_TAB_PAGES.VAT_RATES.equals(tabPageName))
         {
-            EJForm embeddedForm = form.getEmbeddedForm(F_MASTER_DATA_VAT_RATES.ID, F_COMPANY.C_VAT_RATES_FORM);
+            EJForm embeddedForm = form.getEmbeddedForm(F_VAT_RATES.ID, F_COMPANY.C_VAT_RATES_FORM);
             
-            EJBlock embeddedBlock = embeddedForm.getBlock(F_MASTER_DATA_VAT_RATES.B_VAT_RATES.ID);
+            EJBlock embeddedBlock = embeddedForm.getBlock(F_VAT_RATES.B_VAT_RATES.ID);
             if (embeddedBlock.getBlockRecords().size() == 0)
             {
                 embeddedBlock.executeQuery();

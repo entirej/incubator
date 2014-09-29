@@ -16,7 +16,7 @@ import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_PAID_INVOICES;
-import org.entirej.ejinvoice.forms.constants.F_MASTER_DATA_SALUTATION;
+import org.entirej.ejinvoice.forms.constants.F_SALUTATIONS;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY_OVERVIEW;

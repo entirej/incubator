@@ -47,7 +47,9 @@ public class F_COMPANY
 
     }
 
-    public static final String C_MAIN_TAB = "MainTab";
+    public static final String C_COMPANY_TOOLBAR = "CompanyToolbar";
+    public static final String C_COMPANIES       = "Companies";
+    public static final String C_MAIN_TAB        = "MainTab";
 
     public static class C_MAIN_TAB_PAGES
     {
@@ -58,8 +60,6 @@ public class F_COMPANY
 
     }
 
-    public static final String C_COMPANY_TOOLBAR       = "CompanyToolbar";
-    public static final String C_COMPANIES             = "Companies";
     public static final String C_CONTACT_TYPES_FORM    = "ContactTypesForm";
     public static final String C_VAT_RATES_FORM        = "VatRatesForm";
     public static final String C_SALUTATIONS_FORM      = "SalutationsForm";

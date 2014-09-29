@@ -15,36 +15,39 @@ import org.entirej.framework.core.service.EJStatementParameter;
 
 public class MenuBlockService implements EJBlockService<Menu>
 {
-    public static String        TIMETRACKING        = "TIME_TRACKING";
-    public static String        TRACK_TIME          = "TRACK_TIME";
-    public static String        TIME_ENTRY_OVERVIEW = "TIME_ENTRY_OVERVIEW";
-    public static String        CONTACTS            = "CONTACTS";
-    public static String        CONTACT_COMPANIES   = "CONTACT_COMPANIES";
-    public static String        CONTACT_PEOPLE      = "CONTACT_PEOPLE";
-    public static String        PROJECTS            = "PROJECTS";
-    public static String        PROJECTS_NEW        = "PROJECTS_NEW";
-    public static String        PROJECTS_ONHOLD     = "PROJECTS_ONHOLD";
-    public static String        PROJECTS_INWORK     = "PROJECTS_INWORK";
-    public static String        PROJECTS_COMPLETED  = "PROJECTS_COMPLETED";
-    public static String        PROJECTS_DELETED    = "PROJECTS_DELETED";
-    public static String        TASKS               = "TASKS";
-    public static String        TASKS_NEW           = "TASKS_NEW";
-    public static String        TASKS_ONHOLD        = "TASKS_ONHOLD";
-    public static String        TASKS_INWORK        = "TASKS_INWORK";
-    public static String        TASKS_COMPLETED     = "TASKS_COMPLETED";
-    public static String        TASKS_DELETED       = "TASKS_DELETED";
-    public static String        INVOICE             = "INVOICE";
-    public static String        INVOICE_PLANNING    = "INVOICE_PLANNING";
-    public static String        INVOICE_CREATION    = "INVOICE_CREATION";
-    public static String        INVOICE_OUTSTANDING = "INVOICE_OUTSTANDING";
-    public static String        INVOICE_PAID        = "INVOICE_PAID";
-    public static String        SETTINGS            = "SETTINGS";
-    public static String        SETTINGS_COMPANY    = "SETTINGS_COMPANY";
-    public static String        SETTINGS_USERS      = "SETTINGS_USERS";
+    public static String        TIMETRACKING          = "TIME_TRACKING";
+    public static String        TRACK_TIME            = "TRACK_TIME";
+    public static String        TIME_ENTRY_OVERVIEW   = "TIME_ENTRY_OVERVIEW";
+    public static String        CONTACTS              = "CONTACTS";
+    public static String        CONTACT_COMPANIES     = "CONTACT_COMPANIES";
+    public static String        CONTACT_PEOPLE        = "CONTACT_PEOPLE";
+    public static String        PROJECTS              = "PROJECTS";
+    public static String        PROJECTS_NEW          = "PROJECTS_NEW";
+    public static String        PROJECTS_ONHOLD       = "PROJECTS_ONHOLD";
+    public static String        PROJECTS_INWORK       = "PROJECTS_INWORK";
+    public static String        PROJECTS_COMPLETED    = "PROJECTS_COMPLETED";
+    public static String        PROJECTS_DELETED      = "PROJECTS_DELETED";
+    public static String        TASKS                 = "TASKS";
+    public static String        TASKS_NEW             = "TASKS_NEW";
+    public static String        TASKS_ONHOLD          = "TASKS_ONHOLD";
+    public static String        TASKS_INWORK          = "TASKS_INWORK";
+    public static String        TASKS_COMPLETED       = "TASKS_COMPLETED";
+    public static String        TASKS_DELETED         = "TASKS_DELETED";
+    public static String        INVOICE               = "INVOICE";
+    public static String        INVOICE_PLANNING      = "INVOICE_PLANNING";
+    public static String        INVOICE_CREATION      = "INVOICE_CREATION";
+    public static String        INVOICE_OUTSTANDING   = "INVOICE_OUTSTANDING";
+    public static String        INVOICE_PAID          = "INVOICE_PAID";
+    public static String        SETTINGS              = "SETTINGS";
+    public static String        SETTINGS_COMPANY      = "SETTINGS_COMPANY";
+    public static String        SETTINGS_USERS        = "SETTINGS_USERS";
+    public static String        SETTINGS_VATRAT       = "SETTINGS_VATRATES";
+    public static String        SETTINGS_SALUTATIONS  = "SETTINGS_SALUTATIONS";
+    public static String        SETTINGS_CONTACTTYPES = "SETTINGS_CONTACTTYPES";
 
-    ArrayList<Menu>             menuItems           = new ArrayList<Menu>();
-    private EJStatementExecutor _stmtExecutor       = new EJStatementExecutor();
-    private int                 _id                 = 1;
+    ArrayList<Menu>             menuItems             = new ArrayList<Menu>();
+    private EJStatementExecutor _stmtExecutor         = new EJStatementExecutor();
+    private int                 _id                   = 1;
 
     @Override
     public boolean canQueryInPages()
@@ -260,6 +263,27 @@ public class MenuBlockService implements EJBlockService<Menu>
         settingsUsersMenu.setParentId(settingsMenu.getId());
         menuItems.add(settingsUsersMenu);
 
+        Menu contactTypesMenu = new Menu(SETTINGS_USERS);
+        contactTypesMenu.setName("Contact Types");
+        contactTypesMenu.setActionCommand("OPEN_CONTACTTYPES");
+        contactTypesMenu.setId(_id++);
+        contactTypesMenu.setParentId(settingsMenu.getId());
+        menuItems.add(contactTypesMenu);
+        
+        Menu salutationsMenu = new Menu(SETTINGS_USERS);
+        salutationsMenu.setName("Salutations");
+        salutationsMenu.setActionCommand("OPEN_SALUTATIONS");
+        salutationsMenu.setId(_id++);
+        salutationsMenu.setParentId(settingsMenu.getId());
+        menuItems.add(salutationsMenu);
+        
+        Menu vatRatesMenu = new Menu(SETTINGS_USERS);
+        vatRatesMenu.setName("VAT Rates");
+        vatRatesMenu.setActionCommand("OPEN_VATRATES");
+        vatRatesMenu.setId(_id++);
+        vatRatesMenu.setParentId(settingsMenu.getId());
+        menuItems.add(vatRatesMenu);
+        
         return menuItems;
     }
 
@@ -277,7 +301,8 @@ public class MenuBlockService implements EJBlockService<Menu>
         Hashtable<String, Long> values = new Hashtable<String, Long>();
 
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-        List<EJSelectResult> results = _stmtExecutor.executeQuery(form, stmt.toString(), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId));
+        List<EJSelectResult> results = _stmtExecutor.executeQuery(form, stmt.toString(), new EJStatementParameter(companyId), new EJStatementParameter(
+                companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId));
         for (EJSelectResult result : results)
         {
             values.put("NEW", (Long) result.getItemValue("NEW"));
@@ -305,7 +330,8 @@ public class MenuBlockService implements EJBlockService<Menu>
         Hashtable<String, Long> values = new Hashtable<String, Long>();
 
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
-        List<EJSelectResult> results = _stmtExecutor.executeQuery(form, stmt.toString(), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId));
+        List<EJSelectResult> results = _stmtExecutor.executeQuery(form, stmt.toString(), new EJStatementParameter(companyId), new EJStatementParameter(
+                companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId), new EJStatementParameter(companyId));
         for (EJSelectResult result : results)
         {
             values.put("NEW", (Long) result.getItemValue("NEW"));

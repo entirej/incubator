@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.forms.constants.F_COMPANY;
+import org.entirej.ejinvoice.forms.constants.F_CONTACT_TYPES;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_INVOICE_CREATION;
@@ -12,9 +13,11 @@ import org.entirej.ejinvoice.forms.constants.F_OUTSTANDING_INVOICES;
 import org.entirej.ejinvoice.forms.constants.F_PAID_INVOICES;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_PROJECT_TASKS;
+import org.entirej.ejinvoice.forms.constants.F_SALUTATIONS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY_OVERVIEW;
 import org.entirej.ejinvoice.forms.constants.F_USERS;
+import org.entirej.ejinvoice.forms.constants.F_VAT_RATES;
 import org.entirej.ejinvoice.menu.Menu;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
@@ -81,6 +84,18 @@ public class FormHandler
         {
             openUsers(form);
         }
+        else if (command.equals("OPEN_CONTACTTYPES"))
+        {
+            openContactTypes(form);
+        }
+        else if (command.equals("OPEN_SALUTATIONS"))
+        {
+            openSalutations(form);
+        }
+        else if (command.equals("OPEN_VATRATES"))
+        {
+            openVatRates(form);
+        }
     }
 
     private void openTimeEntryOverview(EJForm form)
@@ -127,6 +142,46 @@ public class FormHandler
         
         usersForm.getBlock(F_USERS.B_USERS.ID).executeQuery();
     }
+    
+    private void openContactTypes(EJForm form)
+    {
+        if (form.getEmbeddedForm(F_CONTACT_TYPES.ID, F_TIME_ENTRY.C_CONTACT_TYPES_FORM) == null)
+        {
+            form.openEmbeddedForm(F_CONTACT_TYPES.ID, F_TIME_ENTRY.C_CONTACT_TYPES_FORM, null);
+        }
+
+        form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.CONTACT_TYPES);
+        EJForm contactTypesForm = form.getEmbeddedForm(F_CONTACT_TYPES.ID, F_TIME_ENTRY.C_CONTACT_TYPES_FORM);
+        
+        contactTypesForm.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES.ID).executeQuery();
+    }
+    
+    private void openSalutations(EJForm form)
+    {
+        if (form.getEmbeddedForm(F_SALUTATIONS.ID, F_TIME_ENTRY.C_SALUTATIONS_FORM) == null)
+        {
+            form.openEmbeddedForm(F_SALUTATIONS.ID, F_TIME_ENTRY.C_SALUTATIONS_FORM, null);
+        }
+
+        form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.SALUTATIONS);
+        EJForm salutationsForm = form.getEmbeddedForm(F_SALUTATIONS.ID, F_TIME_ENTRY.C_SALUTATIONS_FORM);
+        
+        salutationsForm.getBlock(F_SALUTATIONS.B_SALUTATIONS.ID).executeQuery();
+    }
+    
+    private void openVatRates(EJForm form)
+    {
+        if (form.getEmbeddedForm(F_VAT_RATES.ID, F_TIME_ENTRY.C_VAT_RATES_FORM) == null)
+        {
+            form.openEmbeddedForm(F_VAT_RATES.ID, F_TIME_ENTRY.C_VAT_RATES_FORM, null);
+        }
+
+        form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.VAT_RATES);
+        EJForm salutationsForm = form.getEmbeddedForm(F_VAT_RATES.ID, F_TIME_ENTRY.C_VAT_RATES_FORM);
+        
+        salutationsForm.getBlock(F_VAT_RATES.B_VAT_RATES.ID).executeQuery();
+    }
+    
     private void openCustomers(EJForm form)
     {
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
