@@ -55,12 +55,10 @@ public class F_INVOICE_PLANNING
     public static class B_NEW_INVOICE_ITEM
     {
         public static final String ID             = "NewInvoiceItem";
-        public static final String I_DELETE       = "delete";
         public static final String I_PERIOD_LABEL = "periodLabel";
         public static final String I_PERIOD_FROM  = "periodFrom";
         public static final String I_PERIOD_TO    = "periodTo";
         public static final String I_STATUS_LABEL = "statusLabel";
-        public static final String I_STATUS       = "status";
         public static final String I_TEXT         = "text";
 
     }

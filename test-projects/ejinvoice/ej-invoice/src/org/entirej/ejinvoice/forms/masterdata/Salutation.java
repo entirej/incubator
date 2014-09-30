@@ -26,6 +26,7 @@ public class Salutation
     private EJPojoProperty<String>  _value;
     private EJPojoProperty<Integer> _id;
     private EJPojoProperty<Integer> _companyId;
+    private EJPojoProperty<String>  _displayText;
 
     @EJFieldName("VALUE")
     public String getValue()
@@ -80,12 +81,42 @@ public class Salutation
     {
         return EJPojoProperty.getPropertyInitialValue(_companyId);
     }
-    
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
+        display.append("<tr>");
+
+        display.append("<td align=left width=100% colspan=3>");
+        display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getValue() + "</span>");
+        display.append("</td>");
+        display.append("</tr>");
+
+        display.append("</table>");
+
+        return display.toString();
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_value);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_companyId);
+        EJPojoProperty.clearInitialValue(_displayText);
     }
 
 }

@@ -182,11 +182,14 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                     .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_NOTES).getValue();
             Integer cuptId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
                     .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_TASK).getValue();
-
+            Integer cuprId = (Integer) form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID)
+                    .getScreenItem(EJScreenType.MAIN, F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT).getValue();
+            
             Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
             TimeEntry timeEntry = new TimeEntry();
 
             timeEntry.setUserId(userId);
+            timeEntry.setCuprId(cuprId);
             timeEntry.setCuptId(cuptId);
             timeEntry.setEndTime(new Time(end.getTime()));
             timeEntry.setStartTime(new Time(start.getTime()));

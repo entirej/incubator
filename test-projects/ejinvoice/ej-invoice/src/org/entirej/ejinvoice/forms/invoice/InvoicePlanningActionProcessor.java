@@ -122,7 +122,6 @@ public class InvoicePlanningActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).clear(true);
             form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).setValue(openItem.getTeFirstDay());
             form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_PERIOD_TO).setValue(openItem.getTeLastDay());
-            form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_STATUS).setValue("PLANNED");
             form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_TEXT).setValue(builder.toString());
         }
     }
@@ -144,7 +143,7 @@ public class InvoicePlanningActionProcessor extends DefaultFormActionProcessor
 
             Date periodFrom = (Date) form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_PERIOD_FROM).getValue();
             Date periodTo = (Date) form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_PERIOD_TO).getValue();
-            String status = (String) form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_STATUS).getValue();
+            String status = "PLANNED";
             String text = (String) form.getBlock(F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.ID).getScreenItem(EJScreenType.MAIN, F_INVOICE_PLANNING.B_NEW_INVOICE_ITEM.I_TEXT).getValue();
 
             InvoiceService.validateInvoicePeriod(form, projectId, taskId, periodFrom, periodTo);

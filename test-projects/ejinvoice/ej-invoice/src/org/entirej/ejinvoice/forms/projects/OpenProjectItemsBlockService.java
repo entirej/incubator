@@ -200,7 +200,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                         item.setTeMonth(toInteger(result.getItemValue("TE_MONTH")));
                         item.setTeYear(toInteger(result.getItemValue("TE_YEAR")));
                         item.setPayRate((BigDecimal) result.getItemValue("PAY_RATE"));
-                        item.setCreateInvoicePosition("Plan");
+                        item.setCreateInvoicePosition("Define Period");
                         item.setTeFirstDay(start);
                         item.setTeLastDay(item.getTeFirstDay());
 
