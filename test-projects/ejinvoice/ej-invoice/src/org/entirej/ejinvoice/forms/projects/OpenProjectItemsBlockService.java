@@ -2,6 +2,7 @@ package org.entirej.ejinvoice.forms.projects;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -10,8 +11,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_INVOICE_PLANNING;
-import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJParameterType;
@@ -70,6 +71,9 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
     @Override
     public List<OpenProjectItem> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        User user = (User)form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, user.getLocale());
+        
         ArrayList<OpenProjectItem> projectItems = new ArrayList<OpenProjectItem>();
 
         Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
@@ -202,12 +206,18 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
                         item.setPayRate((BigDecimal) result.getItemValue("PAY_RATE"));
                         item.setCreateInvoicePosition("Define Period");
                         item.setTeFirstDay(start);
-                        item.setTeLastDay(item.getTeFirstDay());
+                        
+                        Calendar lastDayCal = Calendar.getInstance();
+                        lastDayCal.set(Calendar.YEAR, item.getTeYear());
+                        lastDayCal.set(Calendar.MONTH, item.getTeMonth()-1);
+                        lastDayCal.set(Calendar.DAY_OF_MONTH, lastDayCal.getActualMaximum(Calendar.DAY_OF_MONTH));  
+                        
+                        item.setTeLastDay(new Date(lastDayCal.getTimeInMillis()));
 
                         StringBuilder display = new StringBuilder();
                         display.append("<span style =\"font-weight: bold; font-size: 110% \">" + item.getProjectName() + "  (" + item.getTaskName()
                                 + ")</span>");
-                        display.append("<br><span style =\"font-weight: normal; font-size: 100% \">" + item.getTeFirstDay() + " - " + item.getTeLastDay()
+                        display.append("<br><span style =\"font-weight: normal; font-size: 100% \">" + dateFormat.format(item.getTeFirstDay()) + " - " + dateFormat.format(item.getTeLastDay())
                                 + "</span></br>");
                         item.setDisplayText(display.toString());
                         item.setDisplayValueText("Hours: ");

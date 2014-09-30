@@ -2,10 +2,12 @@ package org.entirej.ejinvoice.forms.projects;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.ejinvoice.forms.constants.F_INVOICE_PLANNING;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.framework.core.EJApplicationException;
@@ -59,6 +61,9 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
     @Override
     public List<PlannedProjectItem> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
+        User user = (User)form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
+        DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, user.getLocale());
+
         ArrayList<PlannedProjectItem> projectItems = new ArrayList<PlannedProjectItem>();
         
         Integer customerId = (Integer)queryCriteria.getRestriction(F_INVOICE_PLANNING.B_PLANNED_PROJECT_ITEMS.I_CUSTOMER_ID).getValue();
@@ -90,7 +95,7 @@ public class PlannedProjectItemsBlockService implements EJBlockService<PlannedPr
             
             StringBuilder display = new StringBuilder();
             display.append("<span style =\"font-weight: bold; font-size: 110% \">"+item.getProjectName()+"  ("+item.getTaskName()+")</span>");
-            display.append("<br><span style =\"font-weight: normal; font-size: 100% \">"+item.getPeriodFrom()+" - "+item.getPeriodTo()+"</span></br>");
+            display.append("<br><span style =\"font-weight: normal; font-size: 100% \">"+dateFormat.format(item.getPeriodFrom())+" - "+dateFormat.format(item.getPeriodTo())+"</span></br>");
             item.setDisplayText(display.toString());
             item.setDisplayValueText("Hours: ");
 

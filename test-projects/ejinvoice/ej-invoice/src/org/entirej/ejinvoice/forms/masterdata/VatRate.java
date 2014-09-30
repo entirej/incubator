@@ -12,6 +12,7 @@ public class VatRate
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<String>     _notes;
     private EJPojoProperty<String>     _name;
+    private EJPojoProperty<String>     _displayText;
 
     @EJFieldName("COMPANY_ID")
     public Integer getCompanyId()
@@ -103,6 +104,41 @@ public class VatRate
         return EJPojoProperty.getPropertyInitialValue(_name);
     }
 
+    @EJFieldName("DISPLAY_TEXT")
+    public String getDisplayText()
+    {
+        StringBuilder display = new StringBuilder();
+        display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
+        
+        display.append("<tr>");
+        display.append("<td align=left width=100% colspan=1>");
+        display.append("<span style =\"font-weight: bold; font-size: 110% \">" + getName() + ": "+getRate()+"%</span>");
+        display.append("</td>");
+        display.append("</tr>");
+        
+        display.append("<tr>");
+        display.append("<td align=left width=100% colspan=1>");
+        display.append(getNotes());
+        display.append("</td>");
+        display.append("</tr>");
+        
+        display.append("</table>");
+
+        return display.toString();
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public void setDisplayText(String displayText)
+    {
+        _displayText = EJPojoProperty.setPropertyValue(_displayText, displayText);
+    }
+
+    @EJFieldName("DISPLAY_TEXT")
+    public String getInitialDisplayText()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayText);
+    }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_companyId);
@@ -110,6 +146,7 @@ public class VatRate
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_notes);
         EJPojoProperty.clearInitialValue(_name);
+        EJPojoProperty.clearInitialValue(_displayText);
     }
 
 }
