@@ -132,7 +132,7 @@ public class OpenProjectItemsBlockService implements EJBlockService<OpenProjectI
 
             Map<Integer, List<EJSelectResult>> map = groupedResult.get(key);
             calendar.set(key.year, key.month - 1, 1);
-            int numberOfdays = calendar.getMaximum(Calendar.DAY_OF_MONTH);
+            int numberOfdays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
             OpenProjectItem item = null;
 
             Date start = new Date(calendar.getTime().getTime());
