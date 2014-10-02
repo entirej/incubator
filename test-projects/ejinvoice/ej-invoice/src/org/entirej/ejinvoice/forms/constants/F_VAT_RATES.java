@@ -31,11 +31,56 @@ public class F_VAT_RATES
 
     }
 
+    public static class B_VAT_RATES_EDIT
+    {
+        public static final String ID           = "VatRatesEdit";
+        public static final String I_SAVE       = "save";
+        public static final String I_CANCEL     = "cancel";
+        public static final String I_RATE       = "rate";
+        public static final String I_NAME       = "name";
+        public static final String I_NAME_ERROR = "nameError";
+        public static final String I_PAGE_TITLE = "pageTitle";
+        public static final String I_RATE_ERROR = "rateError";
+        public static final String I_ID         = "id";
+        public static final String I_NOTES      = "notes";
+
+    }
+
+    public static class B_VAT_RATES_INSERT
+    {
+        public static final String ID           = "VatRatesInsert";
+        public static final String I_SAVE       = "save";
+        public static final String I_CANCEL     = "cancel";
+        public static final String I_RATE       = "rate";
+        public static final String I_NAME       = "name";
+        public static final String I_NAME_ERROR = "nameError";
+        public static final String I_PAGE_TITLE = "pageTitle";
+        public static final String I_RATE_ERROR = "rateError";
+        public static final String I_NOTES      = "notes";
+
+    }
+
+    public static final String C_MAIN_STACK = "mainStack";
+
+    public static class C_MAIN_STACK_PAGES
+    {
+        public static final String MAIN   = "main";
+        public static final String EDIT   = "edit";
+        public static final String INSERT = "insert";
+
+    }
+
     public static final String C_VAT_RATES_TOOLBAR = "VatRatesToolbar";
     public static final String C_VAT_RATES         = "VatRates";
+    public static final String C_VAT_RATES_EDIT    = "VatRatesEdit";
+    public static final String C_VAT_RATES_INSERT  = "VatRatesInsert";
 
     public static final String AC_CREATE_VAT_RATE  = "CREATE_VAT_RATE";
     public static final String AC_DELETE_VAT_RATE  = "DELETE_VAT_RATE";
+    public static final String AC_EDIT_CANCEL      = "EDIT_CANCEL";
+    public static final String AC_EDIT_SAVE        = "EDIT_SAVE";
+    public static final String AC_INSERT_CANCEL    = "INSERT_CANCEL";
+    public static final String AC_INSERT_SAVE      = "INSERT_SAVE";
     public static final String AC_MODIFY_VAT_RATE  = "MODIFY_VAT_RATE";
 
 }

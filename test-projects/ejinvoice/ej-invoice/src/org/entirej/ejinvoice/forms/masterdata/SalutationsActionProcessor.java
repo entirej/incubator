@@ -11,7 +11,7 @@ import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
-public class MasterDataSalutationsActionProcessor extends DefaultFormActionProcessor
+public class SalutationsActionProcessor extends DefaultFormActionProcessor
 {
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
@@ -88,7 +88,7 @@ public class MasterDataSalutationsActionProcessor extends DefaultFormActionProce
             if (value != null && SalutationService.salutationExists(form, value, id))
             {
                 error = true;
-                setError(form, F_SALUTATIONS.B_SALUTATIONS_INSERT.ID, F_SALUTATIONS.B_SALUTATIONS_INSERT.I_VALUE, "Salutation already exists");
+                setError(form, F_SALUTATIONS.B_SALUTATIONS_EDIT.ID, F_SALUTATIONS.B_SALUTATIONS_EDIT.I_VALUE, "Salutation already exists");
             }
             if (error)
             {
