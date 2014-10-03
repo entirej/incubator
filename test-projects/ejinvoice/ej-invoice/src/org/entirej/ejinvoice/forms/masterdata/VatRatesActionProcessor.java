@@ -11,11 +11,9 @@ import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.EJScreenItem;
-import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
-public class MasterDataVatRatesActionProcessor extends DefaultFormActionProcessor
+public class VatRatesActionProcessor extends DefaultFormActionProcessor
 {
     @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException

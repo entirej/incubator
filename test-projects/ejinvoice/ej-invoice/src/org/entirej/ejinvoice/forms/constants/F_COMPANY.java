@@ -10,13 +10,6 @@ public class F_COMPANY
 {
     public static final String ID = "Company";
 
-    public static class B_COMPANIES_TOOLBAR
-    {
-        public static final String ID             = "CompaniesToolbar";
-        public static final String I_EDIT_COMPANY = "editCompany";
-
-    }
-
     public static class B_COMPANIES
     {
         public static final String ID                     = "Companies";
@@ -35,6 +28,30 @@ public class F_COMPANY
 
     }
 
+    public static class B_COMPANIES_EDIT
+    {
+        public static final String ID                          = "CompaniesEdit";
+        public static final String I_ID                        = "id";
+        public static final String I_PAGE_TITLE                = "pageTitle";
+        public static final String I_INVOICE_INFORMATION_TITLE = "invoiceInformationTitle";
+        public static final String I_COMPANY_LOGO_TITLE        = "companyLogoTitle";
+        public static final String I_NAME                      = "name";
+        public static final String I_NAME_ERROR                = "nameError";
+        public static final String I_ADDRESS                   = "address";
+        public static final String I_POST_CODE                 = "postCode";
+        public static final String I_TOWN                      = "town";
+        public static final String I_COUNTRY                   = "country";
+        public static final String I_VAT_NR                    = "vatNr";
+        public static final String I_INVOICE_SUMMARY           = "invoiceSummary";
+        public static final String I_INVOICE_SUMMARY_INFO      = "invoiceSummaryInfo";
+        public static final String I_INVOICE_FOOTER            = "invoiceFooter";
+        public static final String I_INVOICE_INFORMATION_INFO  = "invoiceInformationInfo";
+        public static final String I_LOGO                      = "logo";
+        public static final String I_SAVE                      = "save";
+        public static final String I_ADD_LOGO                  = "addLogo";
+
+    }
+
     public static class L_LOCALES
     {
         public static final String ID              = "Locales";
@@ -47,24 +64,9 @@ public class F_COMPANY
 
     }
 
-    public static final String C_COMPANY_TOOLBAR = "CompanyToolbar";
-    public static final String C_COMPANIES       = "Companies";
-    public static final String C_MAIN_TAB        = "MainTab";
+    public static final String C_COMPANIES_EDIT = "CompaniesEdit";
 
-    public static class C_MAIN_TAB_PAGES
-    {
-        public static final String COMPANY       = "Company";
-        public static final String CONTACT_TYPES = "ContactTypes";
-        public static final String VAT_RATES     = "VatRates";
-        public static final String SALUTATIONS   = "Salutations";
-
-    }
-
-    public static final String C_CONTACT_TYPES_FORM    = "ContactTypesForm";
-    public static final String C_VAT_RATES_FORM        = "VatRatesForm";
-    public static final String C_SALUTATIONS_FORM      = "SalutationsForm";
-
-    public static final String AC_ADD_LOGO             = "ADD_LOGO";
-    public static final String AC_EDIT_COMPANY_DETAILS = "EDIT_COMPANY_DETAILS";
+    public static final String AC_ADD_LOGO      = "ADD_LOGO";
+    public static final String AC_EDIT_SAVE     = "EDIT_SAVE";
 
 }

@@ -300,45 +300,6 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     {
         form.saveChanges();
     }
-//
-//    @Override
-//    public void tabPageChanged(EJForm form, String tabCanvasName, String tabPageName) throws EJActionProcessorException
-//    {
-//        if (F_TIME_ENTRY.C_MAIN_STACK.equals(tabCanvasName))
-//        {
-//            if (F_TIME_ENTRY.C_MAIN_PAGES.TIME__ENTRY.equals(tabPageName))
-//            {
-//                form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID).executeLastQuery();
-//            }
-//            else if (F_TIME_ENTRY.C_MAIN_PAGES.CUSTOMERS.equals(tabPageName))
-//            {
-//                form.showStackedCanvasPage(F_TIME_ENTRY.C_CUSTOMER_STACK, F_TIME_ENTRY.C_CUSTOMER_STACK_PAGES.CUSTOMER_OVERVIEW);
-//                form.getBlock(F_TIME_ENTRY.B_CUSTOMERS.ID).executeQuery();
-//            }
-////            else if (F_TIME_ENTRY.C_MAIN_PAGES.PROJECTS.equals(tabPageName))
-////            {
-////                EJForm projectForm = form.getEmbeddedForm(F_PROJECTS.ID, F_TIME_ENTRY.C_PROJECT_FORM);
-////                if (projectForm.getDisplayedStackedCanvasPage(F_PROJECTS.C_PROJECT_STACK).equals(F_PROJECTS.C_PROJECT_STACK_PAGES.PROJECTS))
-////                {
-////                    projectForm.getBlock(F_PROJECTS.B_PROJECTS.ID).executeQuery();
-////                }
-////            }
-//            else if (F_TIME_ENTRY.C_MAIN_PAGES.COMPANY.equals(tabPageName))
-//            {
-//                EJForm companyForm = form.getEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY_FORM);
-//                if (companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).getBlockRecords().size() <= 0)
-//                {
-//                    companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
-//                }
-//            }
-//            else if (F_TIME_ENTRY.C_MAIN_PAGES.TIME_ENTRY_OVERVIEW.equals(tabPageName))
-//            {
-//                EJForm timeEntryOverview = form.getEmbeddedForm(F_TIME_ENTRY_OVERVIEW.ID, F_TIME_ENTRY.C_TIME_ENTRY_OVERVIEW_FORM);
-//                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS.ID).executeQuery();
-//                timeEntryOverview.getBlock(F_TIME_ENTRY_OVERVIEW.B_USER_TOTAL_HOURS_OVERVIEW.ID).executeQuery();
-//            }
-//        }
-//    }
 
     @Override
     public void postQuery(EJForm form, EJRecord record) throws EJActionProcessorException
@@ -352,23 +313,67 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             String country = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_COUNTRY);
             String vatNr = (String) record.getValue(F_TIME_ENTRY.B_COMPANY.I_VAT_NR);
 
-            StringBuilder str = new StringBuilder();
-            str.append(name);
-            str.append("\n");
-            if (address != null)
-            {
-                str.append(address);
-                str.append("\n");
-            }
-            str.append((zip == null ? "" : zip));
-            str.append(" ");
-            str.append((town == null ? "" : town));
-            str.append(" ");
-            str.append((country == null ? "" : country));
-            str.append("\n");
-            str.append((vatNr == null ? "" : vatNr));
+            
+            StringBuilder display = new StringBuilder();
+            display.append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=100%");
+            
+            display.append("<tr>");
+            display.append("<td align=right width=100% colspan=1>");
+            display.append("<span style =\"font-weight: bold; font-size: 110% \">" + name + "</span>");
+            display.append("</td>");
+            display.append("</tr>");
 
-            record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, str.toString());
+            display.append("<tr>");
+            display.append("<td align=right width=100% colspan=1>");
+            display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (address == null ? "" : address) + "</span>");
+            display.append("</td>");
+            display.append("</tr>");
+
+            display.append("<tr>");
+            display.append("<td align=right width=100% colspan=1>");
+            display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (zip == null ? "" : zip) + "</span>");
+            display.append("</td>");
+            display.append("</tr>");
+            
+            display.append("<tr>");
+            display.append("<td align=right width=100% colspan=1>");
+            display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (town == null ? "" : town) + "</span>");
+            display.append("</td>");
+            display.append("</tr>");
+
+            display.append("<tr>");
+            display.append("<td align=right width=100% colspan=1>");
+            display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (country == null ? "" : country) + "</span>");
+            display.append("</td>");
+            display.append("</tr>");
+
+            display.append("<tr>");
+            display.append("<td align=right width=100% colspan=1>");
+            display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (vatNr == null ? "" : vatNr) + "</span>");
+            display.append("</td>");
+            display.append("</tr>");
+
+            
+            display.append("</table>");
+            
+//            
+//            StringBuilder str = new StringBuilder();
+//            str.append(name);
+//            str.append("\n");
+//            if (address != null)
+//            {
+//                str.append(address);
+//                str.append("\n");
+//            }
+//            str.append((zip == null ? "" : zip));
+//            str.append(" ");
+//            str.append((town == null ? "" : town));
+//            str.append(" ");
+//            str.append((country == null ? "" : country));
+//            str.append("\n");
+//            str.append((vatNr == null ? "" : vatNr));
+
+            record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, display.toString());
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
         {

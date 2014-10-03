@@ -125,9 +125,9 @@ public class FormHandler
         }
 
         form.showStackedCanvasPage(F_TIME_ENTRY.C_MAIN_STACK, F_TIME_ENTRY.C_MAIN_STACK_PAGES.COMPANY);
-        EJForm companyForm = form.getEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY);
-        
-        companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
+//        EJForm companyForm = form.getEmbeddedForm(F_COMPANY.ID, F_TIME_ENTRY.C_COMPANY);
+//        
+//        companyForm.getBlock(F_COMPANY.B_COMPANIES.ID).executeQuery();
     }
     
     private void openUsers(EJForm form)
