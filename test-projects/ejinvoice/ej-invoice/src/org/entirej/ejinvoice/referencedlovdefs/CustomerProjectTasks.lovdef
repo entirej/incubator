@@ -24,7 +24,7 @@
         </relationList>
         <lovDefinitionList>
             <lovDefinition name="CustomerProjectTasks" isReferenced="false" rendererName="Standard" allowUserQuery="false" automaticQuery="true">
-                <width>500</width>
+                <width>800</width>
                 <height>500</height>
                 <actionProcessorClassName></actionProcessorClassName>
                 <lovRendererProperties>
@@ -92,8 +92,8 @@
                             <itemRendererProperties>
                                 <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                                 <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
@@ -109,8 +109,8 @@
                             <itemRendererProperties>
                                 <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                                 <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
@@ -126,14 +126,14 @@
                             <itemRendererProperties>
                                 <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                                 <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
-                        <item name="processName">
+                        <item name="taskName">
                             <blockServiceItem>true</blockServiceItem>
                             <mandatoryItem>false</mandatoryItem>
                             <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
@@ -143,8 +143,8 @@
                             <itemRendererProperties>
                                 <property name="MAXLENGTH" multilingual="false" propertyType="INTEGER"></property>
                                 <property name="PROTECTED" multilingual="false" propertyType="BOOLEAN"></property>
-                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                                 <property name="CASE" multilingual="false" propertyType="STRING"></property>
@@ -158,10 +158,10 @@
                             <defaultInsertValue></defaultInsertValue>
                             <defaultQueryValue></defaultQueryValue>
                             <itemRendererProperties>
-                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="SELECT_ON_FOCUS" multilingual="false" propertyType="BOOLEAN"><![CDATA[true]]></property>
-                                <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
+                                <property name="CSS_KEY" multilingual="false" propertyType="STRING"></property>
                                 <property name="DISPLAY_VALUE_AS_LABEL" multilingual="false" propertyType="BOOLEAN"><![CDATA[false]]></property>
+                                <property name="FORMAT" multilingual="false" propertyType="STRING"><![CDATA[###,###,###,###.##]]></property>
                                 <property name="ALIGNMENT" multilingual="false" propertyType="STRING"></property>
                             </itemRendererProperties>
                         </item>
@@ -227,11 +227,11 @@
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
-                                    <item referencedItemName="projectDescription" isSpacerItem="false">
-                                        <label><![CDATA[Project Description]]></label>
+                                    <item referencedItemName="taskName" isSpacerItem="false">
+                                        <label><![CDATA[Task]]></label>
                                         <hint></hint>
                                         <editAllowed>false</editAllowed>
                                         <visible>true</visible>
@@ -245,29 +245,11 @@
                                             <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
-                                        </lovRendererRequiredProperties>
-                                    </item>
-                                    <item referencedItemName="processName" isSpacerItem="false">
-                                        <label><![CDATA[Process]]></label>
-                                        <hint></hint>
-                                        <editAllowed>false</editAllowed>
-                                        <visible>true</visible>
-                                        <mandatory>false</mandatory>
-                                        <enableLovNotification>false</enableLovNotification>
-                                        <lovMappingName></lovMappingName>
-                                        <validateFromLov>true</validateFromLov>
-                                        <actionCommand></actionCommand>
-                                        <lovRendererRequiredProperties>
-                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
-                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[40]]></property>
+                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[30]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                     <item referencedItemName="notes" isSpacerItem="false">
-                                        <label><![CDATA[Process Description]]></label>
+                                        <label><![CDATA[Description]]></label>
                                         <hint></hint>
                                         <editAllowed>false</editAllowed>
                                         <visible>true</visible>
@@ -282,24 +264,6 @@
                                             <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
                                             <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[80]]></property>
-                                        </lovRendererRequiredProperties>
-                                    </item>
-                                    <item referencedItemName="payRate" isSpacerItem="false">
-                                        <label><![CDATA[Pay Rate]]></label>
-                                        <hint></hint>
-                                        <editAllowed>false</editAllowed>
-                                        <visible>true</visible>
-                                        <mandatory>false</mandatory>
-                                        <enableLovNotification>false</enableLovNotification>
-                                        <lovMappingName></lovMappingName>
-                                        <validateFromLov>true</validateFromLov>
-                                        <actionCommand></actionCommand>
-                                        <lovRendererRequiredProperties>
-                                            <property name="COL_ALLIGN" multilingual="false" propertyType="STRING"></property>
-                                            <property name="ALLOW_ROW_SORTING" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="ALLOW_COLUMN_RESIZE" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="ALLOW_COLUMN_REORDER" multilingual="false" propertyType="BOOLEAN"></property>
-                                            <property name="DISPLAY_WIDTH" multilingual="false" propertyType="INTEGER"><![CDATA[12]]></property>
                                         </lovRendererRequiredProperties>
                                     </item>
                                 </itemGroupItemList>
