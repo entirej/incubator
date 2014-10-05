@@ -315,64 +315,19 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
 
             
             StringBuilder display = new StringBuilder();
-            display.append("<table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=100%");
-            
-            display.append("<tr>");
-            display.append("<td align=right width=100% colspan=1>");
             display.append("<span style =\"font-weight: bold; font-size: 110% \">" + name + "</span>");
-            display.append("</td>");
-            display.append("</tr>");
-
-            display.append("<tr>");
-            display.append("<td align=right width=100% colspan=1>");
+            display.append("<br/>");
             display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (address == null ? "" : address) + "</span>");
-            display.append("</td>");
-            display.append("</tr>");
-
-            display.append("<tr>");
-            display.append("<td align=right width=100% colspan=1>");
+            display.append("<br/>");
             display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (zip == null ? "" : zip) + "</span>");
-            display.append("</td>");
-            display.append("</tr>");
-            
-            display.append("<tr>");
-            display.append("<td align=right width=100% colspan=1>");
+            display.append("<br/>");
             display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (town == null ? "" : town) + "</span>");
-            display.append("</td>");
-            display.append("</tr>");
-
-            display.append("<tr>");
-            display.append("<td align=right width=100% colspan=1>");
+            display.append("<br/>");
             display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (country == null ? "" : country) + "</span>");
-            display.append("</td>");
-            display.append("</tr>");
-
-            display.append("<tr>");
-            display.append("<td align=right width=100% colspan=1>");
+            display.append("<br/>");
             display.append("<span style =\"font-weight: normal; font-size: 100% \">" + (vatNr == null ? "" : vatNr) + "</span>");
-            display.append("</td>");
-            display.append("</tr>");
-
+            display.append("<br/>");
             
-            display.append("</table>");
-            
-//            
-//            StringBuilder str = new StringBuilder();
-//            str.append(name);
-//            str.append("\n");
-//            if (address != null)
-//            {
-//                str.append(address);
-//                str.append("\n");
-//            }
-//            str.append((zip == null ? "" : zip));
-//            str.append(" ");
-//            str.append((town == null ? "" : town));
-//            str.append(" ");
-//            str.append((country == null ? "" : country));
-//            str.append("\n");
-//            str.append((vatNr == null ? "" : vatNr));
-
             record.setValue(F_TIME_ENTRY.B_COMPANY.I_DISPLAY_ADDRESS, display.toString());
         }
         else if (F_TIME_ENTRY.B_TIME_ENTRY.ID.equals(record.getBlockName()))
