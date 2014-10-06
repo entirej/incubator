@@ -189,5 +189,6 @@ public class F_INVOICE_CREATION
     public static final String AC_DELETE_MARKED_FOR_INVOICE__ITEM        = "DELETE_MARKED_FOR_INVOICE__ITEM";
 
     public static final String P_ITEMS_TO_INVOICE                        = "ITEMS_TO_INVOICE";
+    public static final String P_IN_EDIT_MODE                            = "IN_EDIT_MODE";
 
 }

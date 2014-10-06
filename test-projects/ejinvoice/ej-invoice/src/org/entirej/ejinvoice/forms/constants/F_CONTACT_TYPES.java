@@ -78,4 +78,6 @@ public class F_CONTACT_TYPES
     public static final String AC_INSERT_SAVE          = "INSERT_SAVE";
     public static final String AC_MODIFY_CONTACT       = "MODIFY_CONTACT";
 
+    public static final String P_IN_EDIT_MODE          = "IN_EDIT_MODE";
+
 }

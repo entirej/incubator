@@ -214,4 +214,6 @@ public class F_CUSTOMERS
     public static final String AC_QUERY_CUSTOMERS       = "QUERY_CUSTOMERS";
     public static final String AC_SHOW_CUSTOMER_DETAILS = "SHOW_CUSTOMER_DETAILS";
 
+    public static final String P_IN_EDIT_MODE           = "IN_EDIT_MODE";
+
 }

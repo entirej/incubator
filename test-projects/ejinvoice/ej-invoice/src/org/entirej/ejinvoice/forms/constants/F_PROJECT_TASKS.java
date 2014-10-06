@@ -187,5 +187,6 @@ public class F_PROJECT_TASKS
     public static final String AC_QUERY_PROJECT_TASKS     = "QUERY_PROJECT_TASKS";
 
     public static final String P_STATUS                   = "STATUS";
+    public static final String P_IN_EDIT_MODE             = "IN_EDIT_MODE";
 
 }

@@ -49,6 +49,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
+        super.newFormInstance(form);
+        
         form.getBlock(F_TIME_ENTRY.B_MENU.ID).executeQuery();
         
         form.getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();

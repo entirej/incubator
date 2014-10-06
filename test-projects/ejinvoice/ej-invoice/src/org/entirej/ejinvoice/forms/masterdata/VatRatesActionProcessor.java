@@ -25,6 +25,8 @@ public class VatRatesActionProcessor extends DefaultFormActionProcessor
 
             insertRecord.setValue(F_VAT_RATES.B_VAT_RATES_INSERT.I_PAGE_TITLE, "Create a new VAT rate");
             form.showStackedCanvasPage(F_VAT_RATES.C_MAIN_STACK, F_VAT_RATES.C_MAIN_STACK_PAGES.INSERT);
+            
+            form.setFormParameter(F_VAT_RATES.P_IN_EDIT_MODE, true);
         }
         else if (F_VAT_RATES.AC_INSERT_SAVE.equals(command))
         {
@@ -76,6 +78,7 @@ public class VatRatesActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             form.getBlock(F_VAT_RATES.B_VAT_RATES_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_VAT_RATES.C_MAIN_STACK, F_VAT_RATES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_VAT_RATES.P_IN_EDIT_MODE, false);
         }
         else if (F_VAT_RATES.AC_INSERT_CANCEL.equals(command))
         {
@@ -84,6 +87,7 @@ public class VatRatesActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_VAT_RATES.B_VAT_RATES_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_VAT_RATES.C_MAIN_STACK, F_VAT_RATES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_VAT_RATES.P_IN_EDIT_MODE, false);
         }
         else if (F_VAT_RATES.AC_MODIFY_VAT_RATE.equals(command))
         {
@@ -97,6 +101,7 @@ public class VatRatesActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_VAT_RATES.B_VAT_RATES_EDIT.I_NOTES, record.getValue(F_VAT_RATES.B_VAT_RATES.I_NOTES));
 
             form.showStackedCanvasPage(F_VAT_RATES.C_MAIN_STACK, F_VAT_RATES.C_MAIN_STACK_PAGES.EDIT);
+            form.setFormParameter(F_VAT_RATES.P_IN_EDIT_MODE, true);
         }
         else if (F_VAT_RATES.AC_EDIT_SAVE.equals(command))
         {
@@ -147,6 +152,7 @@ public class VatRatesActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_VAT_RATES.B_VAT_RATES_EDIT.ID).clear(true);
 
             form.showStackedCanvasPage(F_VAT_RATES.C_MAIN_STACK, F_VAT_RATES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_VAT_RATES.P_IN_EDIT_MODE, false);
         }
         else if (F_VAT_RATES.AC_EDIT_CANCEL.equals(command))
         {
@@ -155,6 +161,7 @@ public class VatRatesActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_VAT_RATES.B_VAT_RATES_EDIT.ID).clear(true);
             form.showStackedCanvasPage(F_VAT_RATES.C_MAIN_STACK, F_VAT_RATES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_VAT_RATES.P_IN_EDIT_MODE, false);
         }
         else if (F_VAT_RATES.AC_MODIFY_VAT_RATE.equals(command))
         {

@@ -9,6 +9,7 @@ import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
+import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.ejinvoice.forms.constants.F_SALUTATIONS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
@@ -23,6 +24,7 @@ import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
 import org.entirej.framework.core.actionprocessor.interfaces.EJFormActionProcessor;
 import org.entirej.framework.core.data.controllers.EJQuestion;
+import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJScreenType;
 
@@ -42,6 +44,7 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
 
             insertRecord.setValue(F_CUSTOMERS.B_CUSTOMERS_INSERT.I_PAGE_TITLE, "Create a new Customer");
             form.showStackedCanvasPage(F_CUSTOMERS.C_MAIN_STACK, F_CUSTOMERS.C_MAIN_STACK_PAGES.INSERT);
+            form.setFormParameter(F_CUSTOMERS.P_IN_EDIT_MODE, true);
         }
         else if (F_CUSTOMERS.AC_INSERT_SAVE.equals(command))
         {
@@ -167,6 +170,7 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
             form.saveChanges();
             form.getBlock(F_CUSTOMERS.B_CUSTOMERS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CUSTOMERS.C_MAIN_STACK, F_CUSTOMERS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMERS.P_IN_EDIT_MODE, false);
         }
         else if (F_CUSTOMERS.AC_EDIT_CUSTOMER.equals(command))
         {
@@ -190,6 +194,7 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
             editRecord.setValue(F_CUSTOMERS.B_CUSTOMERS_UPDATE.I_VAT_ID, record.getValue(F_CUSTOMERS.B_CUSTOMERS.I_VAT_ID));
 
             form.showStackedCanvasPage(F_CUSTOMERS.C_MAIN_STACK, F_CUSTOMERS.C_MAIN_STACK_PAGES.UPDATE);
+            form.setFormParameter(F_CUSTOMERS.P_IN_EDIT_MODE, true);
         }
         else if (F_CUSTOMERS.AC_EDIT_SAVE.equals(command))
         {
@@ -273,6 +278,7 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
             form.getBlock(F_CUSTOMERS.B_CUSTOMERS_UPDATE.ID).clear(true);
 
             form.showStackedCanvasPage(F_CUSTOMERS.C_MAIN_STACK, F_CUSTOMERS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMERS.P_IN_EDIT_MODE, false);
         }
         else if (F_CUSTOMERS.AC_EDIT_CANCEL.equals(command))
         {
@@ -286,6 +292,7 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
             
             form.getBlock(F_CUSTOMERS.B_CUSTOMERS_UPDATE.ID).clear(true);
             form.showStackedCanvasPage(F_CUSTOMERS.C_MAIN_STACK, F_CUSTOMERS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMERS.P_IN_EDIT_MODE, false);
         }
         else if (F_CUSTOMERS.AC_INSERT_CANCEL.equals(command))
         {
@@ -303,6 +310,7 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
             
             form.getBlock(F_CUSTOMERS.B_CUSTOMERS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CUSTOMERS.C_MAIN_STACK, F_CUSTOMERS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMERS.P_IN_EDIT_MODE, false);
         }
         else if (F_CUSTOMERS.AC_DELETE_CUSTOMER.equals(command))
         {
@@ -316,6 +324,10 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
         }
         else if (F_CUSTOMERS.AC_SHOW_CUSTOMER_DETAILS.equals(command))
         {
+            if ((Boolean)form.getFormParameter(F_CUSTOMERS.P_IN_EDIT_MODE).getValue())
+            {
+                throw new EJApplicationException(new EJMessage(EJMessageLevel.WARNING, "Please complete your changes before continuing"));
+            }
             Integer customerId = (Integer) record.getValue(F_CUSTOMERS.B_CUSTOMERS.I_ID);
             new FormHandler().synchronizeMenu(form.getForm(F_TIME_ENTRY.ID), MenuBlockService.CONTACT_PEOPLE);
             new FormHandler().openCustomerContacts(form, customerId);

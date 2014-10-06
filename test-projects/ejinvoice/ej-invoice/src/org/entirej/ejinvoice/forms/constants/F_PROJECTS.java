@@ -231,4 +231,6 @@ public class F_PROJECTS
     public static final String AC_REFRESH_PROJECT_LIST = "REFRESH_PROJECT_LIST";
     public static final String AC_SHOW_PROJECT_TASKS   = "SHOW_PROJECT_TASKS";
 
+    public static final String P_IN_EDIT_MODE          = "IN_EDIT_MODE";
+
 }

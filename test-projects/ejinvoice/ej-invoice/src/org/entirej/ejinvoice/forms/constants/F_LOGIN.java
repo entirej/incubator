@@ -70,4 +70,6 @@ public class F_LOGIN
     public static final String AC_REGISTER            = "REGISTER";
     public static final String AC_SIGNUP              = "SIGNUP";
 
+    public static final String P_IN_EDIT_MODE         = "IN_EDIT_MODE";
+
 }

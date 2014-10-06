@@ -60,6 +60,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
         editRecord.setValue(F_COMPANY.B_COMPANIES_EDIT.I_POST_CODE, companyRecord.getValue(F_COMPANY.B_COMPANIES.I_POST_CODE));
         editRecord.setValue(F_COMPANY.B_COMPANIES_EDIT.I_TOWN, companyRecord.getValue(F_COMPANY.B_COMPANIES.I_TOWN));
         editRecord.setValue(F_COMPANY.B_COMPANIES_EDIT.I_VAT_NR, companyRecord.getValue(F_COMPANY.B_COMPANIES.I_VAT_NR));
+        form.setFormParameter(F_VAT_RATES.P_IN_EDIT_MODE, false);
     }
 
     @Override
@@ -96,6 +97,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             
             form.getForm(F_TIME_ENTRY.ID).getBlock(F_TIME_ENTRY.B_COMPANY.ID).enterQuery();
+            form.setFormParameter(F_COMPANY.P_IN_EDIT_MODE, false);
         }
         else if (F_COMPANY.AC_ADD_LOGO.equals(command))
         {
@@ -111,12 +113,19 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
                 byte[] data = Files.readAllBytes(path);
 
                 record.setValue(F_COMPANY.B_COMPANIES.I_LOGO, data);
+                form.setFormParameter(F_COMPANY.P_IN_EDIT_MODE, true);
             }
             catch (IOException e)
             {
                 e.printStackTrace();
             }
         }
+    }
+    
+    @Override
+    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
+    {
+        form.setFormParameter(F_COMPANY.P_IN_EDIT_MODE, true);
     }
 
     @Override

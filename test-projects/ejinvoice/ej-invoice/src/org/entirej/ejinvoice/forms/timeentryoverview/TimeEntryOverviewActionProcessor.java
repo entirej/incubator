@@ -19,6 +19,8 @@ public class TimeEntryOverviewActionProcessor extends DefaultFormActionProcessor
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
     {
+        super.newFormInstance(form);
+        
         Calendar c = Calendar.getInstance();   // this takes current date
         c.set(Calendar.DAY_OF_MONTH, 1);
         

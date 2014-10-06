@@ -8,6 +8,7 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
+import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_PROJECT_TASKS;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -109,6 +110,7 @@ public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
                 form.getBlock(F_PROJECT_TASKS.B_PROJECT_TASK_INSERT.ID).getScreenItem(EJScreenType.MAIN, F_PROJECT_TASKS.B_PROJECT_TASK_INSERT.I_PAY_RATE).setEditable(true);
             }
             form.showStackedCanvasPage(F_PROJECT_TASKS.C_MAIN_STACK, F_PROJECT_TASKS.C_MAIN_STACK_PAGES.INSERT);
+            form.setFormParameter(F_PROJECT_TASKS.P_IN_EDIT_MODE, true);
         }
         else if (F_PROJECT_TASKS.AC_INSERT_SAVE.equals(command))
         {
@@ -190,6 +192,7 @@ public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             form.getBlock(F_PROJECT_TASKS.B_PROJECT_TASK_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_PROJECT_TASKS.C_MAIN_STACK, F_PROJECT_TASKS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_PROJECT_TASKS.P_IN_EDIT_MODE, false);
         }
         else if (F_PROJECT_TASKS.AC_EDIT_PROJECT_TASK.equals(command))
         {
@@ -231,6 +234,7 @@ public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_PROJECT_TASKS.B_PROJECT_TASK_UPDATE.I_PROJECT_FIX_PRICE, record.getValue(F_PROJECT_TASKS.B_PROJECT_TASKS.I_PROJECT_FIX_PRICE));
 
             form.showStackedCanvasPage(F_PROJECT_TASKS.C_MAIN_STACK, F_PROJECT_TASKS.C_MAIN_STACK_PAGES.EDIT);
+            form.setFormParameter(F_PROJECT_TASKS.P_IN_EDIT_MODE, true);
         }
         else if (F_PROJECT_TASKS.AC_EDIT_SAVE.equals(command))
         {
@@ -300,6 +304,7 @@ public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_PROJECT_TASKS.B_PROJECT_TASK_UPDATE.ID).clear(true);
 
             form.showStackedCanvasPage(F_PROJECT_TASKS.C_MAIN_STACK, F_PROJECT_TASKS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_PROJECT_TASKS.P_IN_EDIT_MODE, false);
         }
         else if (F_PROJECT_TASKS.AC_EDIT_CANCEL.equals(command))
         {
@@ -310,6 +315,7 @@ public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_PROJECT_TASKS.B_PROJECT_TASK_UPDATE.ID).clear(true);
             form.showStackedCanvasPage(F_PROJECT_TASKS.C_MAIN_STACK, F_PROJECT_TASKS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_PROJECT_TASKS.P_IN_EDIT_MODE, false);
         }
         else if (F_PROJECT_TASKS.AC_INSERT_CANCEL.equals(command))
         {
@@ -322,6 +328,7 @@ public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_PROJECT_TASKS.B_PROJECT_TASK_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_PROJECT_TASKS.C_MAIN_STACK, F_PROJECT_TASKS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_PROJECT_TASKS.P_IN_EDIT_MODE, false);
         }
         else if (F_PROJECT_TASKS.B_PROJECT_TASK_INSERT.ID.equals(record.getBlockName()) && F_PROJECT_TASKS.AC_INVOICEABLE_TASK.equals(command))
         {

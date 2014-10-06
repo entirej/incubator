@@ -172,4 +172,6 @@ public class F_USERS
     public static final String AC_SHOW_CHANGE_EMAIL    = "SHOW_CHANGE_EMAIL";
     public static final String AC_SHOW_CHANGE_PASSWORD = "SHOW_CHANGE_PASSWORD";
 
+    public static final String P_IN_EDIT_MODE          = "IN_EDIT_MODE";
+
 }

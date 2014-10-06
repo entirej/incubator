@@ -8,6 +8,7 @@ import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.constants.F_CONTACT_TYPES;
+import org.entirej.ejinvoice.forms.constants.F_SALUTATIONS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
 import org.entirej.ejinvoice.forms.constants.F_USERS;
 import org.entirej.ejinvoice.forms.masterdata.ContactType;
@@ -59,6 +60,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_USERS.B_USERS_INSERT.I_LOCALE_COUNTRY, user.getLocaleCountry());
 
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.INSERT);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, true);
         }
         if (F_USERS.AC_SHOW_CHANGE_EMAIL.equals(command))
         {
@@ -73,6 +75,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_USERS.B_CHANGE_EMAIL.I_EMAIL, email);
             editRecord.setValue(F_USERS.B_CHANGE_EMAIL.I_CONFIRM_EMAIL, email);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.CHANGE_EMAIL);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, true);
         }
         if (F_USERS.AC_SHOW_CHANGE_PASSWORD.equals(command))
         {
@@ -84,6 +87,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             
             editRecord.setValue(F_USERS.B_CHANGE_PASSWORD.I_PAGE_TITLE, firstName+" "+lastName+" - Change Password");
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.CHANGE_PASSWORD);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, true);
         }
         else if (F_USERS.AC_EDIT_USER.equals(command))
         {
@@ -118,6 +122,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_USERS.B_USERS_EDIT.I_GENDER, record.getValue(F_USERS.B_USERS.I_GENDER));
 
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.EDIT);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, true);
         }
         else if (F_USERS.AC_INSERT_SAVE.equals(command))
         {
@@ -184,6 +189,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_USERS.B_USERS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, false);
         }
         else if (F_USERS.AC_EDIT_SAVE.equals(command))
         {
@@ -228,6 +234,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_USERS.B_USERS_EDIT.ID).clear(true);
             
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, false);
         }
         else if (F_USERS.AC_PASSWORD_SAVE.equals(command))
         {
@@ -244,6 +251,7 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             form.getBlock(F_USERS.B_CHANGE_EMAIL.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, false);
         }
         else if (F_USERS.AC_EMAIL_SAVE.equals(command))
         {
@@ -261,16 +269,19 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             form.getBlock(F_USERS.B_CHANGE_EMAIL.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, false);
         }
         else if (F_USERS.AC_INSERT_CANCEL.equals(command))
         {
             form.getBlock(F_USERS.B_USERS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, false);
         }
         else if (F_USERS.AC_EDIT_CANCEL.equals(command))
         {
             form.getBlock(F_USERS.B_USERS_EDIT.ID).clear(true);
             form.showStackedCanvasPage(F_USERS.C_MAIN_STACK, F_USERS.C_MAIN_STACK_PAGES.USERS);
+            form.setFormParameter(F_USERS.P_IN_EDIT_MODE, false);
         }
         else if (F_USERS.AC_PASSWORD_CANCEL.equals(command))
         {

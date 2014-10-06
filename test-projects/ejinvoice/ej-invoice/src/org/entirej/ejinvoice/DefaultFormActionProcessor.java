@@ -35,6 +35,12 @@ import org.entirej.framework.core.service.EJRestrictions;
  */
 public class DefaultFormActionProcessor extends EJDefaultFormActionProcessor
 {
+    @Override
+    public void newFormInstance(EJForm form) throws EJActionProcessorException
+    {
+        form.setFormParameter("IN_EDIT_MODE", false);
+    }
+
     public void setError(EJForm form, String blockName, String itemName, String message)
     {
         form.getBlock(blockName).getScreenItem(EJScreenType.MAIN, itemName).setItemRendererProperty(EJ_RWT.PROPERTY_CSS_KEY, "error");

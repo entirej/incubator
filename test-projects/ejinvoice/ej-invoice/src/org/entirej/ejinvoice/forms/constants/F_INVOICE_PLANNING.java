@@ -140,4 +140,6 @@ public class F_INVOICE_PLANNING
     public static final String AC_EDIT_PLANNED_ITEM           = "EDIT_PLANNED_ITEM";
     public static final String AC_REFRESH_BLOCKS              = "REFRESH_BLOCKS";
 
+    public static final String P_IN_EDIT_MODE                 = "IN_EDIT_MODE";
+
 }

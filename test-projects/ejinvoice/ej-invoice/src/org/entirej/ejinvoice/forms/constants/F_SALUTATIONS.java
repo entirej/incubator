@@ -75,4 +75,6 @@ public class F_SALUTATIONS
     public static final String AC_INSERT_SAVE       = "INSERT_SAVE";
     public static final String AC_MODIFY_SALUTATION = "MODIFY_SALUTATION";
 
+    public static final String P_IN_EDIT_MODE       = "IN_EDIT_MODE";
+
 }

@@ -161,4 +161,6 @@ public class F_CUSTOMER_CONTACTS
     public static final String AC_INSERT_SAVE              = "INSERT_SAVE";
     public static final String AC_QUERY_CONTACTS           = "QUERY_CONTACTS";
 
+    public static final String P_IN_EDIT_MODE              = "IN_EDIT_MODE";
+
 }

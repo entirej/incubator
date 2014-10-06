@@ -278,4 +278,6 @@ public class F_TIME_ENTRY
     public static final String AC_OPEN_MENU_ITEM           = "OPEN_MENU_ITEM";
     public static final String AC_REFRESH_PROJECT_LISTS    = "REFRESH_PROJECT_LISTS";
 
+    public static final String P_IN_EDIT_MODE              = "IN_EDIT_MODE";
+
 }

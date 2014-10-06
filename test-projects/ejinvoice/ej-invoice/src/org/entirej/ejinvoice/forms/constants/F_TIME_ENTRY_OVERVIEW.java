@@ -77,4 +77,6 @@ public class F_TIME_ENTRY_OVERVIEW
 
     public static final String AC_REFRESH_USER_TOTAL_HOURS = "REFRESH_USER_TOTAL_HOURS";
 
+    public static final String P_IN_EDIT_MODE              = "IN_EDIT_MODE";
+
 }

@@ -9,6 +9,7 @@ import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
 import org.entirej.ejinvoice.forms.constants.F_CONTACT_TYPES;
 import org.entirej.ejinvoice.forms.constants.F_CONTACT_TYPES;
+import org.entirej.ejinvoice.forms.constants.F_VAT_RATES;
 import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJApplicationException;
@@ -30,6 +31,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
 
             insertRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.I_PAGE_TITLE, "Create a new Contact Type");
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.INSERT);
+            form.setFormParameter(F_CONTACT_TYPES.P_IN_EDIT_MODE, true);
         }
         else if (F_CONTACT_TYPES.AC_INSERT_SAVE.equals(command))
         {
@@ -68,6 +70,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CONTACT_TYPES.P_IN_EDIT_MODE, false);
         }
         else if (F_CONTACT_TYPES.AC_MODIFY_CONTACT.equals(command))
         {
@@ -80,6 +83,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.I_ID, record.getValue(F_CONTACT_TYPES.B_CONTACT_TYPES.I_ID));
 
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.EDIT);
+            form.setFormParameter(F_CONTACT_TYPES.P_IN_EDIT_MODE, true);
         }
         else if (F_CONTACT_TYPES.AC_EDIT_SAVE.equals(command))
         {
@@ -117,6 +121,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID).clear(true);
 
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CONTACT_TYPES.P_IN_EDIT_MODE, false);
         }
         else if (F_CONTACT_TYPES.AC_EDIT_CANCEL.equals(command))
         {
@@ -124,6 +129,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_UPDATE.ID).clear(true);
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CONTACT_TYPES.P_IN_EDIT_MODE, false);
         }
         else if (F_CONTACT_TYPES.AC_INSERT_CANCEL.equals(command))
         {
@@ -131,6 +137,7 @@ public class ContactTypesActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CONTACT_TYPES.C_MAIN_STACK, F_CONTACT_TYPES.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CONTACT_TYPES.P_IN_EDIT_MODE, false);
         }
         else if (F_CONTACT_TYPES.AC_DELETE_CONTACT_TYPE.equals(command))
         {

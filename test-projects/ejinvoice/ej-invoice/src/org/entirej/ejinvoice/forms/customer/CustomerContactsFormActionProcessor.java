@@ -25,6 +25,7 @@ import org.apache.commons.validator.routines.EmailValidator;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
+import org.entirej.ejinvoice.forms.constants.F_CONTACT_TYPES;
 import org.entirej.ejinvoice.forms.constants.F_CUSTOMER_CONTACTS;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJApplicationException;
@@ -40,11 +41,6 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 public class CustomerContactsFormActionProcessor extends DefaultFormActionProcessor
 {
     @Override
-    public void newFormInstance(EJForm form) throws EJActionProcessorException
-    {
-    }
-
-    @Override
     public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
     {
         if (F_CUSTOMER_CONTACTS.AC_QUERY_CONTACTS.equals(command))
@@ -55,8 +51,8 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
         {
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID).clear(true);
             EJRecord insertRecord = form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID).getFocusedRecord();
-            
-            Integer customerId = (Integer)form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getFocusedRecord().getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_ID);
+
+            Integer customerId = (Integer) form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.ID).getFocusedRecord().getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_TOOLBAR.I_CUSTOMER_ID);
             if (customerId != null)
             {
                 insertRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_ID, customerId);
@@ -64,7 +60,7 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
 
             insertRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_INSERT_PAGE_TITLE, "Create a new Customer Contact");
             form.showStackedCanvasPage(F_CUSTOMER_CONTACTS.C_MAIN_STACK, F_CUSTOMER_CONTACTS.C_MAIN_STACK_PAGES.INSERT);
-
+            form.setFormParameter(F_CUSTOMER_CONTACTS.P_IN_EDIT_MODE, true);
         }
         else if (F_CUSTOMER_CONTACTS.AC_DELETE_CUSTOMER_CONTACT.equals(command))
         {
@@ -72,22 +68,23 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
         }
         else if (F_CUSTOMER_CONTACTS.AC_EDIT_CONTACT.equals(command))
         {
-                form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID).clear(true);
-                EJRecord editRecord = form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID).getFocusedRecord();
+            form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID).clear(true);
+            EJRecord editRecord = form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID).getFocusedRecord();
 
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_UPDATE_PAGE_TITLE, (record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_FIRST_NAME) + " " + record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_FIRST_NAME))+" - Edit");
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_UPDATE_PAGE_TITLE, (record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_FIRST_NAME) + " " + record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_FIRST_NAME)) + " - Edit");
 
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_CONTACT_TYPES_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_CONTACT_TYPES_ID));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_CONTACT_TYPES_VALUE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_CONTACT_TYPE));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_EMAIL, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_EMAIL));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_FIRST_NAME, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_FIRST_NAME));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_LAST_NAME, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_LAST_NAME));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_MOBILE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_MOBILE));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_PHONE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_PHONE));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_SALUTATIONS_ID));
-                editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID_VALUE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_SALUTATION));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_CONTACT_TYPES_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_CONTACT_TYPES_ID));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_CONTACT_TYPES_VALUE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_CONTACT_TYPE));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_EMAIL, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_EMAIL));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_FIRST_NAME, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_FIRST_NAME));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_LAST_NAME, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_LAST_NAME));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_MOBILE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_MOBILE));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_PHONE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_PHONE));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_SALUTATIONS_ID));
+            editRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID_VALUE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_SALUTATION));
 
-                form.showStackedCanvasPage(F_CUSTOMER_CONTACTS.C_MAIN_STACK, F_CUSTOMER_CONTACTS.C_MAIN_STACK_PAGES.EDIT);
+            form.showStackedCanvasPage(F_CUSTOMER_CONTACTS.C_MAIN_STACK, F_CUSTOMER_CONTACTS.C_MAIN_STACK_PAGES.EDIT);
+            form.setFormParameter(F_CUSTOMER_CONTACTS.P_IN_EDIT_MODE, true);
         }
         else if (F_CUSTOMER_CONTACTS.AC_EDIT_SAVE.equals(command))
         {
@@ -95,7 +92,7 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_EMAIL);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_LAST_NAME);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID);
-            
+
             Integer contactTypeId = (Integer) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_CONTACT_TYPES_ID);
             String email = (String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_EMAIL);
             String lastName = (String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_LAST_NAME);
@@ -136,10 +133,10 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             baseRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_PHONE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_PHONE));
             baseRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_SALUTATIONS_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID));
 
-            CustomerContact customerContact = (CustomerContact)baseRecord.getBlockServicePojo();
-           
-            customerContact.setContactType((String)record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_CONTACT_TYPES_VALUE));
-            customerContact.setSalutation((String)record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID_VALUE));
+            CustomerContact customerContact = (CustomerContact) baseRecord.getBlockServicePojo();
+
+            customerContact.setContactType((String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_CONTACT_TYPES_VALUE));
+            customerContact.setSalutation((String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID_VALUE));
             baseRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_DISPLAY_TEXT, customerContact.getDisplayText());
 
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).updateRecord(baseRecord);
@@ -148,6 +145,7 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID).clear(true);
 
             form.showStackedCanvasPage(F_CUSTOMER_CONTACTS.C_MAIN_STACK, F_CUSTOMER_CONTACTS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMER_CONTACTS.P_IN_EDIT_MODE, false);
         }
         else if (F_CUSTOMER_CONTACTS.AC_INSERT_SAVE.equals(command))
         {
@@ -156,7 +154,7 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_LAST_NAME);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_SALUTATIONS_ID);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_ID);
-            
+
             Integer customerId = (Integer) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_ID);
             Integer contactTypeId = (Integer) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_ID);
             Integer salutationsId = (Integer) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_SALUTATIONS_ID);
@@ -168,12 +166,12 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             if (customerId == null)
             {
                 error = true;
-                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_ID,  "Please choose a customer");
+                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_ID, "Please choose a customer");
             }
             if (contactTypeId == null)
             {
                 error = true;
-                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_ID,  "Please choose a type for the default contact");
+                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_ID, "Please choose a type for the default contact");
             }
             if (salutationsId == null)
             {
@@ -183,12 +181,12 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             if (contactLastName == null)
             {
                 error = true;
-                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_LAST_NAME,  "Please enter a last name for the default contact");
+                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_LAST_NAME, "Please enter a last name for the default contact");
             }
             if (!EmailValidator.getInstance().isValid(email))
             {
                 error = true;
-                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_EMAIL,  "The email address you have entered is not a valid email address");
+                setError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_EMAIL, "The email address you have entered is not a valid email address");
             }
 
             if (error)
@@ -204,7 +202,7 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_CONTACT_TYPES_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_ID));
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_CUSTOMER_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_ID));
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_CUSTOMER_NAME, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_NAME));
-            newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_EMAIL,      email);
+            newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_EMAIL, email);
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_FIRST_NAME, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_FIRST_NAME));
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_LAST_NAME, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_LAST_NAME));
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_MOBILE, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_MOBILE));
@@ -212,17 +210,18 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_SALUTATIONS_ID, record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_SALUTATIONS_ID));
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_COMPANY_ID, companyId);
 
-            CustomerContact customerContact = (CustomerContact)newRecord.getBlockServicePojo();
-            customerContact.setCustomerName((String)record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_NAME));
-            customerContact.setContactType((String)record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_VALUE));
-            customerContact.setSalutation((String)record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_SALUTATIONS_ID_VALUE));
-            
+            CustomerContact customerContact = (CustomerContact) newRecord.getBlockServicePojo();
+            customerContact.setCustomerName((String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CUSTOMER_NAME));
+            customerContact.setContactType((String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_VALUE));
+            customerContact.setSalutation((String) record.getValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_SALUTATIONS_ID_VALUE));
+
             newRecord.setValue(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.I_DISPLAY_TEXT, customerContact.getDisplayText());
-            
+
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).insertRecord(newRecord);
             form.saveChanges();
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CUSTOMER_CONTACTS.C_MAIN_STACK, F_CUSTOMER_CONTACTS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMER_CONTACTS.P_IN_EDIT_MODE, false);
         }
         else if (F_CUSTOMER_CONTACTS.AC_EDIT_CANCEL.equals(command))
         {
@@ -230,9 +229,10 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_EMAIL);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_LAST_NAME);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.I_SALUTATIONS_ID);
-            
+
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_EDIT.ID).clear(true);
             form.showStackedCanvasPage(F_CUSTOMER_CONTACTS.C_MAIN_STACK, F_CUSTOMER_CONTACTS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMER_CONTACTS.P_IN_EDIT_MODE, false);
         }
         else if (F_CUSTOMER_CONTACTS.AC_INSERT_CANCEL.equals(command))
         {
@@ -241,11 +241,12 @@ public class CustomerContactsFormActionProcessor extends DefaultFormActionProces
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_LAST_NAME);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_SALUTATIONS_ID);
             clearError(form, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID, F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.I_CONTACT_TYPES_ID);
-            
+
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_CUSTOMER_CONTACTS.C_MAIN_STACK, F_CUSTOMER_CONTACTS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_CUSTOMER_CONTACTS.P_IN_EDIT_MODE, false);
         }
-        
+
     }
 
     @Override

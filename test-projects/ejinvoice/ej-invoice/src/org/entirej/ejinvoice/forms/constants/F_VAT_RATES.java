@@ -83,4 +83,6 @@ public class F_VAT_RATES
     public static final String AC_INSERT_SAVE      = "INSERT_SAVE";
     public static final String AC_MODIFY_VAT_RATE  = "MODIFY_VAT_RATE";
 
+    public static final String P_IN_EDIT_MODE      = "IN_EDIT_MODE";
+
 }

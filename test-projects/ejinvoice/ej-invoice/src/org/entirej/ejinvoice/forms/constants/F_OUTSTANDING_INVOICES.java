@@ -141,5 +141,6 @@ public class F_OUTSTANDING_INVOICES
     public static final String AC_UPDATE_INVOICE                 = "UPDATE_INVOICE";
 
     public static final String P_ITEMS_TO_INVOICE                = "ITEMS_TO_INVOICE";
+    public static final String P_IN_EDIT_MODE                    = "IN_EDIT_MODE";
 
 }

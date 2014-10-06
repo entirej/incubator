@@ -4,6 +4,7 @@ import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.forms.constants.F_PROJECT_TASKS;
 import org.entirej.ejinvoice.forms.constants.F_SALUTATIONS;
 import org.entirej.framework.core.EJActionProcessorException;
 import org.entirej.framework.core.EJApplicationException;
@@ -23,6 +24,7 @@ public class SalutationsActionProcessor extends DefaultFormActionProcessor
 
             insertRecord.setValue(F_SALUTATIONS.B_SALUTATIONS_INSERT.I_PAGE_TITLE, "Create a new Salutation");
             form.showStackedCanvasPage(F_SALUTATIONS.C_MAIN_STACK, F_SALUTATIONS.C_MAIN_STACK_PAGES.INSERT);
+            form.setFormParameter(F_SALUTATIONS.P_IN_EDIT_MODE, true);
         }
         else if (F_SALUTATIONS.AC_INSERT_SAVE.equals(command))
         {
@@ -60,6 +62,7 @@ public class SalutationsActionProcessor extends DefaultFormActionProcessor
             form.saveChanges();
             form.getBlock(F_SALUTATIONS.B_SALUTATIONS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_SALUTATIONS.C_MAIN_STACK, F_SALUTATIONS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_SALUTATIONS.P_IN_EDIT_MODE, false);
         }
         else if (F_SALUTATIONS.AC_MODIFY_SALUTATION.equals(command))
         {
@@ -71,6 +74,7 @@ public class SalutationsActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_SALUTATIONS.B_SALUTATIONS_EDIT.I_VALUE, record.getValue(F_SALUTATIONS.B_SALUTATIONS.I_VALUE));
 
             form.showStackedCanvasPage(F_SALUTATIONS.C_MAIN_STACK, F_SALUTATIONS.C_MAIN_STACK_PAGES.EDIT);
+            form.setFormParameter(F_SALUTATIONS.P_IN_EDIT_MODE, true);
         }
         else if (F_SALUTATIONS.AC_EDIT_SAVE.equals(command))
         {
@@ -107,6 +111,7 @@ public class SalutationsActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_SALUTATIONS.B_SALUTATIONS_EDIT.ID).clear(true);
 
             form.showStackedCanvasPage(F_SALUTATIONS.C_MAIN_STACK, F_SALUTATIONS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_SALUTATIONS.P_IN_EDIT_MODE, false);
         }
         else if (F_SALUTATIONS.AC_EDIT_CANCEL.equals(command))
         {
@@ -114,6 +119,7 @@ public class SalutationsActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_SALUTATIONS.B_SALUTATIONS_EDIT.ID).clear(true);
             form.showStackedCanvasPage(F_SALUTATIONS.C_MAIN_STACK, F_SALUTATIONS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_SALUTATIONS.P_IN_EDIT_MODE, false);
         }
         else if (F_SALUTATIONS.AC_INSERT_CANCEL.equals(command))
         {
@@ -121,6 +127,7 @@ public class SalutationsActionProcessor extends DefaultFormActionProcessor
 
             form.getBlock(F_SALUTATIONS.B_SALUTATIONS_INSERT.ID).clear(true);
             form.showStackedCanvasPage(F_SALUTATIONS.C_MAIN_STACK, F_SALUTATIONS.C_MAIN_STACK_PAGES.MAIN);
+            form.setFormParameter(F_SALUTATIONS.P_IN_EDIT_MODE, false);
         }
         else if (F_SALUTATIONS.AC_DELETE_SALUTATION.equals(command))
         {

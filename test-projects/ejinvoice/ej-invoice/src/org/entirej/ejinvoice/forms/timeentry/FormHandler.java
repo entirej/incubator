@@ -19,8 +19,11 @@ import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY_OVERVIEW;
 import org.entirej.ejinvoice.forms.constants.F_USERS;
 import org.entirej.ejinvoice.forms.constants.F_VAT_RATES;
 import org.entirej.ejinvoice.menu.Menu;
+import org.entirej.framework.core.EJApplicationException;
 import org.entirej.framework.core.EJForm;
+import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
+import org.entirej.framework.core.enumerations.EJMessageLevel;
 import org.entirej.framework.core.enumerations.EJScreenType;
 import org.entirej.framework.core.service.EJQueryCriteria;
 import org.entirej.framework.core.service.EJRestrictions;
@@ -32,6 +35,11 @@ public class FormHandler
         if (command == null)
         {
             return;
+        }
+        
+        if ((Boolean)form.getActiveForm().getFormParameter("IN_EDIT_MODE").getValue())
+        {
+            throw new EJApplicationException(new EJMessage(EJMessageLevel.WARNING,"Please save your changes before continuing"));
         }
 
         if (command.equals("OPEN_TIME_ENTRY_OVERVIEW"))

@@ -69,4 +69,6 @@ public class F_COMPANY
     public static final String AC_ADD_LOGO      = "ADD_LOGO";
     public static final String AC_EDIT_SAVE     = "EDIT_SAVE";
 
+    public static final String P_IN_EDIT_MODE   = "IN_EDIT_MODE";
+
 }
