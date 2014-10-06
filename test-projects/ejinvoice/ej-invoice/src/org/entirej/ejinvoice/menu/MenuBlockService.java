@@ -6,6 +6,8 @@ import java.util.Hashtable;
 import java.util.List;
 
 import org.entirej.constants.EJ_PROPERTIES;
+import org.entirej.ejinvoice.enums.UserRole;
+import org.entirej.ejinvoice.forms.company.User;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.service.EJBlockService;
 import org.entirej.framework.core.service.EJQueryCriteria;
@@ -67,7 +69,12 @@ public class MenuBlockService implements EJBlockService<Menu>
     @Override
     public List<Menu> executeQuery(EJForm form, EJQueryCriteria queryCriteria)
     {
-        Integer companyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+        User user = (User) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
+        String userRole = user.getRole();
+        if (userRole.equals(UserRole.OWNER.toString()))
+        {
+            userRole = UserRole.ADMINISTRATOR.toString();
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
         Menu timetrackingMenu = new Menu(TIMETRACKING);
@@ -91,199 +98,216 @@ public class MenuBlockService implements EJBlockService<Menu>
         menuItems.add(timeentryOverviewMenu);
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Menu customersMenu = new Menu(CONTACTS);
-        customersMenu.setIcon(getURL("/icons/customer.png"));
-        customersMenu.setName("Contacts");
-        customersMenu.setId(_id++);
-        menuItems.add(customersMenu);
+        if (userRole.equals(UserRole.ADMINISTRATOR.toString()) || userRole.equals(UserRole.CONTROLLER.toString()))
+        {
+            Menu customersMenu = new Menu(CONTACTS);
+            customersMenu.setIcon(getURL("/icons/customer.png"));
+            customersMenu.setName("Contacts");
+            customersMenu.setId(_id++);
+            menuItems.add(customersMenu);
 
-        Menu companiesMenu = new Menu(CONTACT_COMPANIES);
-        companiesMenu.setName("Companies");
-        companiesMenu.setActionCommand("OPEN_CUSTOMERS");
-        companiesMenu.setId(_id++);
-        companiesMenu.setParentId(customersMenu.getId());
-        menuItems.add(companiesMenu);
+            Menu companiesMenu = new Menu(CONTACT_COMPANIES);
+            companiesMenu.setName("Companies");
+            companiesMenu.setActionCommand("OPEN_CUSTOMERS");
+            companiesMenu.setId(_id++);
+            companiesMenu.setParentId(customersMenu.getId());
+            menuItems.add(companiesMenu);
 
-        Menu customerContactsMenu = new Menu(CONTACT_PEOPLE);
-        customerContactsMenu.setName("People");
-        customerContactsMenu.setActionCommand("OPEN_CUSTOMER_CONTACTS");
-        customerContactsMenu.setId(_id++);
-        customerContactsMenu.setParentId(customersMenu.getId());
-        menuItems.add(customerContactsMenu);
-
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Menu projectsMenu = new Menu(PROJECTS);
-        projectsMenu.setIcon(getURL("/icons/projects.png"));
-        projectsMenu.setIconName("/icons/projects.png");
-        projectsMenu.setName("Projects");
-        projectsMenu.setId(_id++);
-        menuItems.add(projectsMenu);
-
-        Hashtable<String, Long> projectCounts = getProjectCounts(form);
-
-        Menu projectsNewMenu = new Menu(PROJECTS_NEW);
-        projectsNewMenu.setName("New (" + projectCounts.get("NEW") + ")");
-        projectsNewMenu.setActionCommand("OPEN_PROJECTS:NEW");
-        projectsNewMenu.setId(_id++);
-        projectsNewMenu.setParentId(projectsMenu.getId());
-        menuItems.add(projectsNewMenu);
-        // addProjectsToMenu(form, companyId, projectsNewMenu, "NEW");
-
-        Menu projectsActiveMenu = new Menu(PROJECTS_INWORK);
-        projectsActiveMenu.setName("In Work (" + projectCounts.get("INWORK") + ")");
-        projectsActiveMenu.setActionCommand("OPEN_PROJECTS:INWORK");
-        projectsActiveMenu.setId(_id++);
-        projectsActiveMenu.setParentId(projectsMenu.getId());
-        menuItems.add(projectsActiveMenu);
-        // addProjectsToMenu(form, companyId, projectsActiveMenu, "INWORK");
-
-        Menu projectsInactiveMenu = new Menu(PROJECTS_ONHOLD);
-        projectsInactiveMenu.setName("On Hold (" + projectCounts.get("ONHOLD") + ")");
-        projectsInactiveMenu.setActionCommand("OPEN_PROJECTS:ONHOLD");
-        projectsInactiveMenu.setId(_id++);
-        projectsInactiveMenu.setParentId(projectsMenu.getId());
-        menuItems.add(projectsInactiveMenu);
-        // addProjectsToMenu(form, companyId, projectsInactiveMenu, "ONHOLD");
-
-        Menu projectsCompletedMenu = new Menu(PROJECTS_COMPLETED);
-        projectsCompletedMenu.setName("Completed (" + projectCounts.get("COMPLETED") + ")");
-        projectsCompletedMenu.setActionCommand("OPEN_PROJECTS:COMPLETED");
-        projectsCompletedMenu.setId(_id++);
-        projectsCompletedMenu.setParentId(projectsMenu.getId());
-        menuItems.add(projectsCompletedMenu);
-        // addProjectsToMenu(form, companyId, projectsCompletedMenu,
-        // "COMPLETED");
-
-        Menu projectsDeleteddMenu = new Menu(PROJECTS_DELETED);
-        projectsDeleteddMenu.setName("Deleted (" + projectCounts.get("DELETED") + ")");
-        projectsDeleteddMenu.setActionCommand("OPEN_PROJECTS:DELETED");
-        projectsDeleteddMenu.setId(_id++);
-        projectsDeleteddMenu.setParentId(projectsMenu.getId());
-        menuItems.add(projectsDeleteddMenu);
-        // addProjectsToMenu(form, companyId, projectsDeleteddMenu, "DELETED");
+            Menu customerContactsMenu = new Menu(CONTACT_PEOPLE);
+            customerContactsMenu.setName("People");
+            customerContactsMenu.setActionCommand("OPEN_CUSTOMER_CONTACTS");
+            customerContactsMenu.setId(_id++);
+            customerContactsMenu.setParentId(customersMenu.getId());
+            menuItems.add(customerContactsMenu);
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Menu tasksMenu = new Menu(TASKS);
-        tasksMenu.setIcon(getURL("/icons/projectTasks.png"));
-        tasksMenu.setName("Tasks");
-        tasksMenu.setActionCommand("OPEN_PROJECT_TASKS");
-        tasksMenu.setId(_id++);
-        menuItems.add(tasksMenu);
+        if (userRole.equals(UserRole.ADMINISTRATOR.toString()) || userRole.equals(UserRole.CONTROLLER.toString()))
+        {
+            Menu projectsMenu = new Menu(PROJECTS);
+            projectsMenu.setIcon(getURL("/icons/projects.png"));
+            projectsMenu.setIconName("/icons/projects.png");
+            projectsMenu.setName("Projects");
+            projectsMenu.setId(_id++);
+            menuItems.add(projectsMenu);
 
-        Hashtable<String, Long> taskCounts = getTaskCounts(form);
+            Hashtable<String, Long> projectCounts = getProjectCounts(form);
 
-        Menu tasksAllMenu = new Menu(TASKS_NEW);
-        tasksAllMenu.setName("New (" + taskCounts.get("NEW") + ")");
-        tasksAllMenu.setActionCommand("OPEN_PROJECT_TASKS:NEW");
-        tasksAllMenu.setId(_id++);
-        tasksAllMenu.setParentId(tasksMenu.getId());
-        menuItems.add(tasksAllMenu);
+            Menu projectsNewMenu = new Menu(PROJECTS_NEW);
+            projectsNewMenu.setName("New (" + projectCounts.get("NEW") + ")");
+            projectsNewMenu.setActionCommand("OPEN_PROJECTS:NEW");
+            projectsNewMenu.setId(_id++);
+            projectsNewMenu.setParentId(projectsMenu.getId());
+            menuItems.add(projectsNewMenu);
 
-        Menu tasksInWorkMenu = new Menu(TASKS_INWORK);
-        tasksInWorkMenu.setName("In Work (" + taskCounts.get("INWORK") + ")");
-        tasksInWorkMenu.setActionCommand("OPEN_PROJECT_TASKS:INWORK");
-        tasksInWorkMenu.setId(_id++);
-        tasksInWorkMenu.setParentId(tasksMenu.getId());
-        menuItems.add(tasksInWorkMenu);
+            Menu projectsActiveMenu = new Menu(PROJECTS_INWORK);
+            projectsActiveMenu.setName("In Work (" + projectCounts.get("INWORK") + ")");
+            projectsActiveMenu.setActionCommand("OPEN_PROJECTS:INWORK");
+            projectsActiveMenu.setId(_id++);
+            projectsActiveMenu.setParentId(projectsMenu.getId());
+            menuItems.add(projectsActiveMenu);
 
-        Menu tasksOnHoldMenu = new Menu(TASKS_ONHOLD);
-        tasksOnHoldMenu.setName("On Hold (" + taskCounts.get("ONHOLD") + ")");
-        tasksOnHoldMenu.setActionCommand("OPEN_PROJECT_TASKS:ONHOLD");
-        tasksOnHoldMenu.setId(_id++);
-        tasksOnHoldMenu.setParentId(tasksMenu.getId());
-        menuItems.add(tasksOnHoldMenu);
+            Menu projectsInactiveMenu = new Menu(PROJECTS_ONHOLD);
+            projectsInactiveMenu.setName("On Hold (" + projectCounts.get("ONHOLD") + ")");
+            projectsInactiveMenu.setActionCommand("OPEN_PROJECTS:ONHOLD");
+            projectsInactiveMenu.setId(_id++);
+            projectsInactiveMenu.setParentId(projectsMenu.getId());
+            menuItems.add(projectsInactiveMenu);
 
-        Menu tasksCompletedMenu = new Menu(TASKS_COMPLETED);
-        tasksCompletedMenu.setName("Completed (" + taskCounts.get("COMPLETED") + ")");
-        tasksCompletedMenu.setActionCommand("OPEN_PROJECT_TASKS:COMPLETED");
-        tasksCompletedMenu.setId(_id++);
-        tasksCompletedMenu.setParentId(tasksMenu.getId());
-        menuItems.add(tasksCompletedMenu);
+            Menu projectsCompletedMenu = new Menu(PROJECTS_COMPLETED);
+            projectsCompletedMenu.setName("Completed (" + projectCounts.get("COMPLETED") + ")");
+            projectsCompletedMenu.setActionCommand("OPEN_PROJECTS:COMPLETED");
+            projectsCompletedMenu.setId(_id++);
+            projectsCompletedMenu.setParentId(projectsMenu.getId());
+            menuItems.add(projectsCompletedMenu);
 
-        Menu tasksDeletedMenu = new Menu(TASKS_DELETED);
-        tasksDeletedMenu.setName("Deleted (" + taskCounts.get("DELETED") + ")");
-        tasksDeletedMenu.setActionCommand("OPEN_PROJECT_TASKS:DELETED");
-        tasksDeletedMenu.setId(_id++);
-        tasksDeletedMenu.setParentId(tasksMenu.getId());
-        menuItems.add(tasksDeletedMenu);
-
-        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Menu invoiceMenu = new Menu(INVOICE);
-        invoiceMenu.setIcon(getURL("/icons/invoice.png"));
-        invoiceMenu.setName("Invoice");
-        invoiceMenu.setId(_id++);
-        menuItems.add(invoiceMenu);
-
-        Menu invoicePlanningMenu = new Menu(INVOICE_PLANNING);
-        invoicePlanningMenu.setName("Invoice Planning");
-        invoicePlanningMenu.setActionCommand("OPEN_INVOICE_PLANNING");
-        invoicePlanningMenu.setId(_id++);
-        invoicePlanningMenu.setParentId(invoiceMenu.getId());
-        menuItems.add(invoicePlanningMenu);
-
-        Menu invoiceCreationMenu = new Menu(INVOICE_CREATION);
-        invoiceCreationMenu.setName("Invoice Creation");
-        invoiceCreationMenu.setActionCommand("OPEN_INVOICE_CREATION");
-        invoiceCreationMenu.setId(_id++);
-        invoiceCreationMenu.setParentId(invoiceMenu.getId());
-        menuItems.add(invoiceCreationMenu);
-
-        Menu invoiceOutstandingMenu = new Menu(INVOICE_OUTSTANDING);
-        invoiceOutstandingMenu.setName("Outstanding Invoices");
-        invoiceOutstandingMenu.setActionCommand("OPEN_INVOICE_OUTSTANDING");
-        invoiceOutstandingMenu.setId(_id++);
-        invoiceOutstandingMenu.setParentId(invoiceMenu.getId());
-        menuItems.add(invoiceOutstandingMenu);
-
-        Menu invoicePaidMenu = new Menu(INVOICE_PAID);
-        invoicePaidMenu.setName("Paid Invoices");
-        invoicePaidMenu.setActionCommand("OPEN_INVOICE_PAID");
-        invoicePaidMenu.setId(_id++);
-        invoicePaidMenu.setParentId(invoiceMenu.getId());
-        menuItems.add(invoicePaidMenu);
+            Menu projectsDeleteddMenu = new Menu(PROJECTS_DELETED);
+            projectsDeleteddMenu.setName("Deleted (" + projectCounts.get("DELETED") + ")");
+            projectsDeleteddMenu.setActionCommand("OPEN_PROJECTS:DELETED");
+            projectsDeleteddMenu.setId(_id++);
+            projectsDeleteddMenu.setParentId(projectsMenu.getId());
+            menuItems.add(projectsDeleteddMenu);
+        }
 
         // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        Menu settingsMenu = new Menu(SETTINGS);
-        settingsMenu.setIcon(getURL("/icons/settings.png"));
-        settingsMenu.setName("Settings");
-        settingsMenu.setId(_id++);
-        menuItems.add(settingsMenu);
+        if (userRole.equals(UserRole.ADMINISTRATOR.toString()) || userRole.equals(UserRole.CONTROLLER.toString()))
+        {
 
-        Menu settingsCompanyMenu = new Menu(SETTINGS_COMPANY);
-        settingsCompanyMenu.setName("Company");
-        settingsCompanyMenu.setActionCommand("OPEN_COMPANY");
-        settingsCompanyMenu.setId(_id++);
-        settingsCompanyMenu.setParentId(settingsMenu.getId());
-        menuItems.add(settingsCompanyMenu);
+            Menu tasksMenu = new Menu(TASKS);
+            tasksMenu.setIcon(getURL("/icons/projectTasks.png"));
+            tasksMenu.setName("Tasks");
+            tasksMenu.setActionCommand("OPEN_PROJECT_TASKS");
+            tasksMenu.setId(_id++);
+            menuItems.add(tasksMenu);
 
-        Menu settingsUsersMenu = new Menu(SETTINGS_USERS);
-        settingsUsersMenu.setName("Users");
-        settingsUsersMenu.setActionCommand("OPEN_USERS");
-        settingsUsersMenu.setId(_id++);
-        settingsUsersMenu.setParentId(settingsMenu.getId());
-        menuItems.add(settingsUsersMenu);
+            Hashtable<String, Long> taskCounts = getTaskCounts(form);
 
-        Menu contactTypesMenu = new Menu(SETTINGS_USERS);
-        contactTypesMenu.setName("Contact Types");
-        contactTypesMenu.setActionCommand("OPEN_CONTACTTYPES");
-        contactTypesMenu.setId(_id++);
-        contactTypesMenu.setParentId(settingsMenu.getId());
-        menuItems.add(contactTypesMenu);
-        
-        Menu salutationsMenu = new Menu(SETTINGS_USERS);
-        salutationsMenu.setName("Salutations");
-        salutationsMenu.setActionCommand("OPEN_SALUTATIONS");
-        salutationsMenu.setId(_id++);
-        salutationsMenu.setParentId(settingsMenu.getId());
-        menuItems.add(salutationsMenu);
-        
-        Menu vatRatesMenu = new Menu(SETTINGS_USERS);
-        vatRatesMenu.setName("VAT Rates");
-        vatRatesMenu.setActionCommand("OPEN_VATRATES");
-        vatRatesMenu.setId(_id++);
-        vatRatesMenu.setParentId(settingsMenu.getId());
-        menuItems.add(vatRatesMenu);
-        
+            Menu tasksAllMenu = new Menu(TASKS_NEW);
+            tasksAllMenu.setName("New (" + taskCounts.get("NEW") + ")");
+            tasksAllMenu.setActionCommand("OPEN_PROJECT_TASKS:NEW");
+            tasksAllMenu.setId(_id++);
+            tasksAllMenu.setParentId(tasksMenu.getId());
+            menuItems.add(tasksAllMenu);
+
+            Menu tasksInWorkMenu = new Menu(TASKS_INWORK);
+            tasksInWorkMenu.setName("In Work (" + taskCounts.get("INWORK") + ")");
+            tasksInWorkMenu.setActionCommand("OPEN_PROJECT_TASKS:INWORK");
+            tasksInWorkMenu.setId(_id++);
+            tasksInWorkMenu.setParentId(tasksMenu.getId());
+            menuItems.add(tasksInWorkMenu);
+
+            Menu tasksOnHoldMenu = new Menu(TASKS_ONHOLD);
+            tasksOnHoldMenu.setName("On Hold (" + taskCounts.get("ONHOLD") + ")");
+            tasksOnHoldMenu.setActionCommand("OPEN_PROJECT_TASKS:ONHOLD");
+            tasksOnHoldMenu.setId(_id++);
+            tasksOnHoldMenu.setParentId(tasksMenu.getId());
+            menuItems.add(tasksOnHoldMenu);
+
+            Menu tasksCompletedMenu = new Menu(TASKS_COMPLETED);
+            tasksCompletedMenu.setName("Completed (" + taskCounts.get("COMPLETED") + ")");
+            tasksCompletedMenu.setActionCommand("OPEN_PROJECT_TASKS:COMPLETED");
+            tasksCompletedMenu.setId(_id++);
+            tasksCompletedMenu.setParentId(tasksMenu.getId());
+            menuItems.add(tasksCompletedMenu);
+
+            Menu tasksDeletedMenu = new Menu(TASKS_DELETED);
+            tasksDeletedMenu.setName("Deleted (" + taskCounts.get("DELETED") + ")");
+            tasksDeletedMenu.setActionCommand("OPEN_PROJECT_TASKS:DELETED");
+            tasksDeletedMenu.setId(_id++);
+            tasksDeletedMenu.setParentId(tasksMenu.getId());
+            menuItems.add(tasksDeletedMenu);
+        }
+
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (userRole.equals(UserRole.ADMINISTRATOR.toString()) || userRole.equals(UserRole.CONTROLLER.toString()))
+        {
+            Menu invoiceMenu = new Menu(INVOICE);
+            invoiceMenu.setIcon(getURL("/icons/invoice.png"));
+            invoiceMenu.setName("Invoice");
+            invoiceMenu.setId(_id++);
+            menuItems.add(invoiceMenu);
+
+            Menu invoicePlanningMenu = new Menu(INVOICE_PLANNING);
+            invoicePlanningMenu.setName("Invoice Planning");
+            invoicePlanningMenu.setActionCommand("OPEN_INVOICE_PLANNING");
+            invoicePlanningMenu.setId(_id++);
+            invoicePlanningMenu.setParentId(invoiceMenu.getId());
+            menuItems.add(invoicePlanningMenu);
+
+            if (userRole.equals(UserRole.ADMINISTRATOR.toString()))
+            {
+
+                Menu invoiceCreationMenu = new Menu(INVOICE_CREATION);
+                invoiceCreationMenu.setName("Invoice Creation");
+                invoiceCreationMenu.setActionCommand("OPEN_INVOICE_CREATION");
+                invoiceCreationMenu.setId(_id++);
+                invoiceCreationMenu.setParentId(invoiceMenu.getId());
+                menuItems.add(invoiceCreationMenu);
+
+                Menu invoiceOutstandingMenu = new Menu(INVOICE_OUTSTANDING);
+                invoiceOutstandingMenu.setName("Outstanding Invoices");
+                invoiceOutstandingMenu.setActionCommand("OPEN_INVOICE_OUTSTANDING");
+                invoiceOutstandingMenu.setId(_id++);
+                invoiceOutstandingMenu.setParentId(invoiceMenu.getId());
+                menuItems.add(invoiceOutstandingMenu);
+
+                Menu invoicePaidMenu = new Menu(INVOICE_PAID);
+                invoicePaidMenu.setName("Paid Invoices");
+                invoicePaidMenu.setActionCommand("OPEN_INVOICE_PAID");
+                invoicePaidMenu.setId(_id++);
+                invoicePaidMenu.setParentId(invoiceMenu.getId());
+                menuItems.add(invoicePaidMenu);
+            }
+        }
+        // ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        if (userRole.equals(UserRole.ADMINISTRATOR.toString()) || userRole.equals(UserRole.CONTROLLER.toString()))
+        {
+            Menu settingsMenu = new Menu(SETTINGS);
+            settingsMenu.setIcon(getURL("/icons/settings.png"));
+            settingsMenu.setName("Settings");
+            settingsMenu.setId(_id++);
+            menuItems.add(settingsMenu);
+
+            if (userRole.equals(UserRole.ADMINISTRATOR.toString()))
+            {
+                Menu settingsCompanyMenu = new Menu(SETTINGS_COMPANY);
+                settingsCompanyMenu.setName("Company");
+                settingsCompanyMenu.setActionCommand("OPEN_COMPANY");
+                settingsCompanyMenu.setId(_id++);
+                settingsCompanyMenu.setParentId(settingsMenu.getId());
+                menuItems.add(settingsCompanyMenu);
+            }
+            if (userRole.equals(UserRole.ADMINISTRATOR.toString()) || userRole.equals(UserRole.CONTROLLER.toString()))
+            {
+                Menu settingsUsersMenu = new Menu(SETTINGS_USERS);
+                settingsUsersMenu.setName("Users");
+                settingsUsersMenu.setActionCommand("OPEN_USERS");
+                settingsUsersMenu.setId(_id++);
+                settingsUsersMenu.setParentId(settingsMenu.getId());
+                menuItems.add(settingsUsersMenu);
+
+                Menu contactTypesMenu = new Menu(SETTINGS_USERS);
+                contactTypesMenu.setName("Contact Types");
+                contactTypesMenu.setActionCommand("OPEN_CONTACTTYPES");
+                contactTypesMenu.setId(_id++);
+                contactTypesMenu.setParentId(settingsMenu.getId());
+                menuItems.add(contactTypesMenu);
+
+                Menu salutationsMenu = new Menu(SETTINGS_USERS);
+                salutationsMenu.setName("Salutations");
+                salutationsMenu.setActionCommand("OPEN_SALUTATIONS");
+                salutationsMenu.setId(_id++);
+                salutationsMenu.setParentId(settingsMenu.getId());
+                menuItems.add(salutationsMenu);
+
+                Menu vatRatesMenu = new Menu(SETTINGS_USERS);
+                vatRatesMenu.setName("VAT Rates");
+                vatRatesMenu.setActionCommand("OPEN_VATRATES");
+                vatRatesMenu.setId(_id++);
+                vatRatesMenu.setParentId(settingsMenu.getId());
+                menuItems.add(vatRatesMenu);
+            }
+        }
         return menuItems;
     }
 

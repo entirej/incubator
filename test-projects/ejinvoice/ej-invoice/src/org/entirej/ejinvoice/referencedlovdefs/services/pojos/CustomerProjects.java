@@ -29,7 +29,9 @@ public class CustomerProjects
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<BigDecimal> _payRate;
-    private EJPojoProperty<Integer>    _custId;
+    private EJPojoProperty<Integer>    _customerId;
+    private EJPojoProperty<String>     _displayName;
+    private EJPojoProperty<String>     _customerName;
     private EJPojoProperty<String>     _description;
     private EJPojoProperty<String>     _status;
     private EJPojoProperty<BigDecimal> _fixPrice;
@@ -107,21 +109,57 @@ public class CustomerProjects
     }
 
     @EJFieldName("CUSTOMER_ID")
-    public Integer getCustId()
+    public Integer getCustomerId()
     {
-        return EJPojoProperty.getPropertyValue(_custId);
+        return EJPojoProperty.getPropertyValue(_customerId);
     }
 
     @EJFieldName("CUSTOMER_ID")
-    public void setCustId(Integer custId)
+    public void setCustId(Integer customerId)
     {
-        _custId = EJPojoProperty.setPropertyValue(_custId, custId);
+        _customerId = EJPojoProperty.setPropertyValue(_customerId, customerId);
     }
 
     @EJFieldName("CUSTOMER_ID")
-    public Integer getInitialCustId()
+    public Integer getInitialCustomerId()
     {
-        return EJPojoProperty.getPropertyInitialValue(_custId);
+        return EJPojoProperty.getPropertyInitialValue(_customerId);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public String getCustomerName()
+    {
+        return EJPojoProperty.getPropertyValue(_customerName);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public void setCustomerName(String customerName)
+    {
+        _customerName = EJPojoProperty.setPropertyValue(_customerName, customerName);
+    }
+
+    @EJFieldName("CUSTOMER_NAME")
+    public String getInitialCustomerName()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_customerName);
+    }
+
+    @EJFieldName("DISPLAY_NAME")
+    public String getDisplayName()
+    {
+        return EJPojoProperty.getPropertyValue(_displayName);
+    }
+
+    @EJFieldName("DISPLAY_NAME")
+    public void setDisplayName(String displayName)
+    {
+        _displayName = EJPojoProperty.setPropertyValue(_displayName, displayName);
+    }
+
+    @EJFieldName("DISPLAY_NAME")
+    public String getInitialDisplayName()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_displayName);
     }
 
     @EJFieldName("DESCRIPTION")
@@ -177,13 +215,16 @@ public class CustomerProjects
     {
         return EJPojoProperty.getPropertyInitialValue(_fixPrice);
     }
+
     public void clearInitialValues()
     {
         EJPojoProperty.clearInitialValue(_name);
         EJPojoProperty.clearInitialValue(_companyId);
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_payRate);
-        EJPojoProperty.clearInitialValue(_custId);
+        EJPojoProperty.clearInitialValue(_customerId);
+        EJPojoProperty.clearInitialValue(_displayName);
+        EJPojoProperty.clearInitialValue(_customerName);
         EJPojoProperty.clearInitialValue(_description);
         EJPojoProperty.clearInitialValue(_status);
         EJPojoProperty.clearInitialValue(_fixPrice);

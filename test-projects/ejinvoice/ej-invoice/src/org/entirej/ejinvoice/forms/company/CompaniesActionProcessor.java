@@ -96,7 +96,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_COMPANY.B_COMPANIES.ID).updateRecord(companyRecord);
             form.saveChanges();
             
-            form.getForm(F_TIME_ENTRY.ID).getBlock(F_TIME_ENTRY.B_COMPANY.ID).enterQuery();
+            form.getForm(F_TIME_ENTRY.ID).getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
             form.setFormParameter(F_COMPANY.P_IN_EDIT_MODE, false);
         }
         else if (F_COMPANY.AC_ADD_LOGO.equals(command))
@@ -112,7 +112,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
                 Path path = Paths.get(filePath);
                 byte[] data = Files.readAllBytes(path);
 
-                record.setValue(F_COMPANY.B_COMPANIES.I_LOGO, data);
+                record.setValue(F_COMPANY.B_COMPANIES_EDIT.I_LOGO, data);
                 form.setFormParameter(F_COMPANY.P_IN_EDIT_MODE, true);
             }
             catch (IOException e)

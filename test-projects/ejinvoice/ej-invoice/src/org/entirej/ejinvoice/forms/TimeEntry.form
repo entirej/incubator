@@ -781,6 +781,20 @@
                     </propertyGroup>
                 </updateScreenRendererProperties>
                 <lovMappingList>
+                    <lovMapping name="CustomerProjects" lovDefinitionName="CustomerProjects" executeAfterQuery="false">
+                        <displayName><![CDATA[Customer Projects]]></displayName>
+                        <lovItemMappingList>
+                            <itemMap lovDefinitionItem="id" blockItemName="project">
+                            </itemMap>
+                        </lovItemMappingList>
+                    </lovMapping>
+                    <lovMapping name="CustomerProjectTasks" lovDefinitionName="CustomerProjectTasks" executeAfterQuery="false">
+                        <displayName><![CDATA[Project Tasks]]></displayName>
+                        <lovItemMappingList>
+                            <itemMap lovDefinitionItem="id" blockItemName="task">
+                            </itemMap>
+                        </lovItemMappingList>
+                    </lovMapping>
                 </lovMappingList>
                 <itemList>
                     <item name="workDate">
@@ -845,13 +859,7 @@
                                     <property name="RETURN_ITEM"></property>
                                     <property name="FORMAT"></property>
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
-                                    <property name="COLUMN"><![CDATA[name]]></property>
-                                </listEntry>
-                                <listEntry>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="FORMAT"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                    <property name="COLUMN"><![CDATA[description]]></property>
+                                    <property name="COLUMN"><![CDATA[displayName]]></property>
                                 </listEntry>
                             </propertyList>
                         </itemRendererProperties>
@@ -873,7 +881,7 @@
                                     <property name="RETURN_ITEM"></property>
                                     <property name="FORMAT"></property>
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
-                                    <property name="COLUMN"><![CDATA[processName]]></property>
+                                    <property name="COLUMN"><![CDATA[taskName]]></property>
                                 </listEntry>
                                 <listEntry>
                                     <property name="RETURN_ITEM"></property>
@@ -1488,8 +1496,8 @@
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
                                     <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
+                                    <enableLovNotification>true</enableLovNotification>
+                                    <lovMappingName><![CDATA[CustomerProjects]]></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
@@ -1560,8 +1568,8 @@
                                     <editAllowed>true</editAllowed>
                                     <visible>true</visible>
                                     <mandatory>false</mandatory>
-                                    <enableLovNotification>false</enableLovNotification>
-                                    <lovMappingName></lovMappingName>
+                                    <enableLovNotification>true</enableLovNotification>
+                                    <lovMappingName><![CDATA[CustomerProjectTasks]]></lovMappingName>
                                     <validateFromLov>true</validateFromLov>
                                     <actionCommand></actionCommand>
                                     <blockRendererRequiredProperties>
@@ -2740,7 +2748,7 @@
                         <lovItemMappingList>
                             <itemMap lovDefinitionItem="projectName" blockItemName="project">
                             </itemMap>
-                            <itemMap lovDefinitionItem="processName" blockItemName="task">
+                            <itemMap lovDefinitionItem="taskName" blockItemName="task">
                             </itemMap>
                             <itemMap lovDefinitionItem="id" blockItemName="cuptId">
                             </itemMap>
@@ -2833,7 +2841,7 @@
                                     <property name="RETURN_ITEM"><![CDATA[task]]></property>
                                     <property name="FORMAT"></property>
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
-                                    <property name="COLUMN"><![CDATA[processName]]></property>
+                                    <property name="COLUMN"><![CDATA[taskName]]></property>
                                 </listEntry>
                                 <listEntry>
                                     <property name="RETURN_ITEM"></property>
@@ -2861,13 +2869,7 @@
                                     <property name="RETURN_ITEM"><![CDATA[project]]></property>
                                     <property name="FORMAT"></property>
                                     <property name="DISPLAYED"><![CDATA[true]]></property>
-                                    <property name="COLUMN"><![CDATA[name]]></property>
-                                </listEntry>
-                                <listEntry>
-                                    <property name="RETURN_ITEM"></property>
-                                    <property name="FORMAT"></property>
-                                    <property name="DISPLAYED"><![CDATA[true]]></property>
-                                    <property name="COLUMN"><![CDATA[description]]></property>
+                                    <property name="COLUMN"><![CDATA[displayName]]></property>
                                 </listEntry>
                             </propertyList>
                         </itemRendererProperties>

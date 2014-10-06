@@ -5,14 +5,14 @@ import java.math.BigDecimal;
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
-public class CustomerProjectProcess
+public class CustomerProjectTask
 {
     private EJPojoProperty<Integer>    _id;
     private EJPojoProperty<Integer>    _cprId;
     private EJPojoProperty<String>     _notes;
     private EJPojoProperty<String>     _projectDescription;
     private EJPojoProperty<String>     _projectName;
-    private EJPojoProperty<String>     _processName;
+    private EJPojoProperty<String>     _taskName;
     private EJPojoProperty<BigDecimal> _payRate;
     private EJPojoProperty<Integer>    _companyId;
     private EJPojoProperty<String>     _status;
@@ -107,22 +107,22 @@ public class CustomerProjectProcess
         return EJPojoProperty.getPropertyInitialValue(_projectName);
     }
 
-    @EJFieldName("PROCESS_NAME")
-    public String getProcessName()
+    @EJFieldName("TASK_NAME")
+    public String getTaskName()
     {
-        return EJPojoProperty.getPropertyValue(_processName);
+        return EJPojoProperty.getPropertyValue(_taskName);
     }
 
-    @EJFieldName("PROCESS_NAME")
-    public void setProcessName(String processName)
+    @EJFieldName("TASK_NAME")
+    public void setTaskName(String taskName)
     {
-        _processName = EJPojoProperty.setPropertyValue(_processName, processName);
+        _taskName = EJPojoProperty.setPropertyValue(_taskName, taskName);
     }
 
-    @EJFieldName("PROCESS_NAME")
-    public String getInitialProcessName()
+    @EJFieldName("TASK_NAME")
+    public String getInitialTaskName()
     {
-        return EJPojoProperty.getPropertyInitialValue(_processName);
+        return EJPojoProperty.getPropertyInitialValue(_taskName);
     }
 
     @EJFieldName("PAY_RATE")
@@ -184,7 +184,7 @@ public class CustomerProjectProcess
         EJPojoProperty.clearInitialValue(_id);
         EJPojoProperty.clearInitialValue(_cprId);
         EJPojoProperty.clearInitialValue(_notes);
-        EJPojoProperty.clearInitialValue(_processName);
+        EJPojoProperty.clearInitialValue(_taskName);
         EJPojoProperty.clearInitialValue(_projectName);
         EJPojoProperty.clearInitialValue(_payRate);
         EJPojoProperty.clearInitialValue(_companyId);
