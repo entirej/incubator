@@ -338,8 +338,8 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             {
                 if (!new InvoiceService().isInBlockedInvoicePeriod(form, (Date) record.getValue(F_TIME_ENTRY.B_TIME_ENTRY.I_WORK_DATE)))
                 {
-                    record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__EDIT, "/icons/edit10.gif");
-                    record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__DELETE, "/icons/delete10.png");
+                    record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__EDIT, "/icons/edit10.gif",true);
+                    record.setValue(F_TIME_ENTRY.B_TIME_ENTRY.I__DELETE, "/icons/delete10.png",true);
                 }
             }
         }
