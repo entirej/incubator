@@ -135,7 +135,11 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.LOGON);
             form.getBlock(F_LOGIN.B_COMPANY.ID).clear(true);
         }
-
+        else if (F_LOGIN.AC_FORGOT_PASSWORD.equals(command))
+        {
+            form.getBlock(F_LOGIN.B_FORGOT.ID).clear(true);
+            form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.FORGOT);
+        }
     }
 
 

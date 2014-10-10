@@ -25,7 +25,15 @@ public class F_LOGIN
 
     public static class B_FORGOT
     {
-        public static final String ID = "forgot";
+        public static final String ID                    = "forgot";
+        public static final String I_EMAIL               = "email";
+        public static final String I_EMAIL_ERROR         = "emailError";
+        public static final String I_CONFIRM_EMAIL       = "confirmEmail";
+        public static final String I_CONFIRM_EMAIL_ERROR = "confirmEmailError";
+        public static final String I_CHANGE_BUTTON       = "changeButton";
+        public static final String I_CANCEL_BUTTON       = "cancelButton";
+        public static final String I_BIZIBO_LOGO         = "biziboLogo";
+        public static final String I_TITLE               = "title";
 
     }
 
@@ -61,15 +69,18 @@ public class F_LOGIN
 
     }
 
-    public static final String C_LOGON                = "logon";
-    public static final String C_COMPANY              = "company";
-    public static final String C_FORGOT               = "forgot";
+    public static final String C_LOGON                   = "logon";
+    public static final String C_COMPANY                 = "company";
+    public static final String C_FORGOT                  = "forgot";
 
-    public static final String AC_CANCEL_REGISTRATION = "CANCEL_REGISTRATION";
-    public static final String AC_LOGON               = "LOGON";
-    public static final String AC_REGISTER            = "REGISTER";
-    public static final String AC_SIGNUP              = "SIGNUP";
+    public static final String AC_CANCEL_REGISTRATION    = "CANCEL_REGISTRATION";
+    public static final String AC_FORGOT_PASSWORD        = "FORGOT_PASSWORD";
+    public static final String AC_FORGOT_PASSWORD_CANCEL = "FORGOT_PASSWORD_CANCEL";
+    public static final String AC_LOGON                  = "LOGON";
+    public static final String AC_REGISTER               = "REGISTER";
+    public static final String AC_REQUEST_PASSWORD       = "REQUEST_PASSWORD";
+    public static final String AC_SIGNUP                 = "SIGNUP";
 
-    public static final String P_IN_EDIT_MODE         = "IN_EDIT_MODE";
+    public static final String P_IN_EDIT_MODE            = "IN_EDIT_MODE";
 
 }
