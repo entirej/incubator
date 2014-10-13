@@ -56,7 +56,7 @@ public class UserService
         if (results.size() > 0)
         {
             EJSelectResult result = results.get(0);
-            if (((Long)result.getItemValue("entry_count")) > 0)
+            if (((Long) result.getItemValue("entry_count")) > 0)
             {
                 return false;
             }
@@ -64,6 +64,7 @@ public class UserService
 
         return true;
     }
+
     public String validatePassword(String password, String confirmPassword) throws EJApplicationException
     {
         if (password == null || ((String) password).trim().length() == 0)
@@ -80,6 +81,11 @@ public class UserService
         }
 
         return PasswordHashGen.toHash((String) password);
+    }
+
+    public void validateEmailAddress(EJForm form, String email, String confirmEmail) throws EJApplicationException
+    {
+        validateEmailAddress(form, email, confirmEmail, null, null);
     }
 
     public void validateEmailAddress(EJForm form, String email, String confirmEmail, Integer companyId, Integer userId) throws EJApplicationException
@@ -100,18 +106,22 @@ public class UserService
         {
             throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR, "The email address you have entered is not a valid email address."));
         }
-        
-        if (doesEmailExist(form, email, companyId, userId))
+
+        if (userId != null)
         {
-            if (companyId != null)
+            if (doesEmailExist(form, email, companyId, userId))
             {
-                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "There is already a user within your company with this email address");
-                throw new EJApplicationException(message);
-            }
-            else
-            {
-                EJMessage message = new EJMessage(EJMessageLevel.ERROR, "A user with this email address has already been registered, please choose a different email address");
-                throw new EJApplicationException(message);
+                if (companyId != null)
+                {
+                    EJMessage message = new EJMessage(EJMessageLevel.ERROR, "There is already a user within your company with this email address");
+                    throw new EJApplicationException(message);
+                }
+                else
+                {
+                    EJMessage message = new EJMessage(EJMessageLevel.ERROR,
+                            "A user with this email address has already been registered, please choose a different email address");
+                    throw new EJApplicationException(message);
+                }
             }
         }
     }
@@ -125,9 +135,13 @@ public class UserService
         {
             criteria.add(EJRestrictions.equals("COMPANY_ID", companyId));
         }
-        
+
         criteria.add(EJRestrictions.equals("EMAIL", email));
-        criteria.add(EJRestrictions.notEquals("ID", userId));
+
+        if (userId != null)
+        {
+            criteria.add(EJRestrictions.notEquals("ID", userId));
+        }
         
         List<EJSelectResult> results = new EJStatementExecutor().executeQuery(form.getConnection(), stmt, criteria);
 
@@ -169,10 +183,10 @@ public class UserService
         return null;
     }
 
-    public void register(EJForm form, Company company,  User user)
+    public void register(EJForm form, Company company, User user)
     {
         EJStatementExecutor executor = new EJStatementExecutor();
-        
+
         List<EJStatementParameter> parameters = new ArrayList<EJStatementParameter>();
         int recordsProcessed = 0;
 
@@ -187,11 +201,10 @@ public class UserService
         parameters.add(new EJStatementParameter("POST_CODE", String.class, company.getPostCode()));
         parameters.add(new EJStatementParameter("TOWN", String.class, company.getTown()));
         parameters.add(new EJStatementParameter("VAT_NR", String.class, company.getVatNr()));
-        
+
         EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
         executor.executeInsert(form, "company_information", parameters.toArray(paramArray));
-        
-        
+
         // Initialise the value list
         parameters.clear();
         parameters.add(new EJStatementParameter("ID", Integer.class, user.getId()));
@@ -224,7 +237,7 @@ public class UserService
 
     public void setupDefaultData(EJForm form, Company company)
     {
-        Integer defaultsCompanyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_NEW_COMPANY_DEFAULTS_COMPANY_ID).getValue();
+        Integer defaultsCompanyId = (Integer) form.getApplicationLevelParameter(EJ_PROPERTIES.P_NEW_COMPANY_DEFAULTS_COMPANY_ID).getValue();
 
         EJQueryCriteria criteria = new EJQueryCriteria();
         criteria.add(EJRestrictions.equals("COMPANY_ID", defaultsCompanyId));
@@ -232,8 +245,7 @@ public class UserService
         HashMap<Integer, Salutation> _salutations = new HashMap<Integer, Salutation>();
         HashMap<Integer, VatRate> _vatRates = new HashMap<Integer, VatRate>();
         HashMap<Integer, ContactType> _contactTypes = new HashMap<Integer, ContactType>();
-        
-        
+
         {// create Salutation
 
             SalutationBlockService blockService = new SalutationBlockService();
@@ -242,7 +254,7 @@ public class UserService
             for (Salutation salutation : salutations)
             {
                 _salutations.put(salutation.getId(), salutation);
-                
+
                 salutation.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 salutation.setCompanyId(company.getId());
             }
@@ -262,7 +274,7 @@ public class UserService
             for (VatRate rate : vatRates)
             {
                 _vatRates.put(rate.getId(), rate);
-                
+
                 rate.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 rate.setCompanyId(company.getId());
             }
@@ -272,7 +284,7 @@ public class UserService
                 blockService.insertVatRates(form.getConnection(), vatRates);
             }
         }
-        
+
         {// contact Types
 
             ContactTypeBlockService blockService = new ContactTypeBlockService();
@@ -281,7 +293,7 @@ public class UserService
             for (ContactType type : contactTypes)
             {
                 _contactTypes.put(type.getId(), type);
-                
+
                 type.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 type.setCompanyId(company.getId());
             }
@@ -290,12 +302,12 @@ public class UserService
             {
                 blockService.insertContactTypes(form.getConnection(), contactTypes);
             }
-        }     
-        
+        }
+
         {// example customer
 
             List<CustomerContact> allCustomerContacts = new ArrayList<CustomerContact>();
-            
+
             CustomerContactBlockService custContactService = new CustomerContactBlockService();
             CustomerBlockService blockService = new CustomerBlockService();
 
@@ -306,20 +318,20 @@ public class UserService
                 custContactCriteria.add(EJRestrictions.equals("COMPANY_ID", defaultsCompanyId));
                 custContactCriteria.add(EJRestrictions.equals("CUSTOMER_ID", customer.getId()));
                 List<CustomerContact> customerContacts = custContactService.executeQuery(form, custContactCriteria);
-                
+
                 customer.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 customer.setCompanyId(company.getId());
-                customer.setVatId(_vatRates.get(customer.getVatId()).getId());                
+                customer.setVatId(_vatRates.get(customer.getVatId()).getId());
 
                 for (CustomerContact contact : customerContacts)
                 {
                     contact.setId(PKSequenceService.getPKSequence(form.getConnection()));
                     contact.setCompanyId(customer.getCompanyId());
                     contact.setCustomerId(customer.getId());
-                    
+
                     contact.setContactTypesId(_contactTypes.get(contact.getContactTypesId()).getId());
                     contact.setSalutationsId(_salutations.get(contact.getSalutationsId()).getId());
-                    
+
                     allCustomerContacts.add(contact);
                 }
             }
@@ -328,18 +340,18 @@ public class UserService
             {
                 blockService.registerCustomer(form, customers);
             }
-            
+
             if (allCustomerContacts.size() > 0)
             {
                 custContactService.registerCustomerContact(form, allCustomerContacts);
             }
 
-        } 
-        
+        }
+
         {// example project
 
             List<ProjectTasks> allProjectTasks = new ArrayList<ProjectTasks>();
-            
+
             ProjectTasksBlockService projectTasksService = new ProjectTasksBlockService();
             ProjectBlockService blockService = new ProjectBlockService();
 
@@ -349,8 +361,8 @@ public class UserService
                 EJQueryCriteria tasksCriteria = new EJQueryCriteria();
                 tasksCriteria.add(EJRestrictions.equals("COMPANY_ID", defaultsCompanyId));
                 tasksCriteria.add(EJRestrictions.equals("CPR_ID", project.getId()));
-                List<ProjectTasks> projectTasks= projectTasksService.executeQuery(form, tasksCriteria);
-                                                
+                List<ProjectTasks> projectTasks = projectTasksService.executeQuery(form, tasksCriteria);
+
                 project.setId(PKSequenceService.getPKSequence(form.getConnection()));
                 project.setCompanyId(company.getId());
 
@@ -359,7 +371,7 @@ public class UserService
                     task.setId(PKSequenceService.getPKSequence(form.getConnection()));
                     task.setCompanyId(project.getCompanyId());
                     task.setCprId(project.getId());
-                    
+
                     allProjectTasks.add(task);
                 }
             }
@@ -368,16 +380,14 @@ public class UserService
             {
                 blockService.registerProject(form, projects);
             }
-            
+
             if (allProjectTasks.size() > 0)
             {
                 projectTasksService.executeInsert(form, allProjectTasks);
             }
 
-        } 
-        
-        
-        
+        }
+
     }
 
 }

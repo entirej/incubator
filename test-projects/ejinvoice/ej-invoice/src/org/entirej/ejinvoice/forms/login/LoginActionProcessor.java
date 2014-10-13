@@ -10,6 +10,7 @@ import org.entirej.ejinvoice.ApplicationParameters;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
 import org.entirej.ejinvoice.ServiceRetriever;
+import org.entirej.ejinvoice.email.EmailUtil;
 import org.entirej.ejinvoice.enums.UserRole;
 import org.entirej.ejinvoice.forms.company.Company;
 import org.entirej.ejinvoice.forms.company.User;
@@ -140,7 +141,36 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
             form.getBlock(F_LOGIN.B_FORGOT.ID).clear(true);
             form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.FORGOT);
         }
+        else if (F_LOGIN.AC_FORGOT_PASSWORD_CANCEL.equals(command))
+        {
+            form.getBlock(F_LOGIN.B_FORGOT.ID).clear(true);
+            form.showStackedCanvasPage(F_LOGIN.C_STACKED, F_LOGIN.C_STACKED_PAGES.LOGON);
+        }
+        else if (F_LOGIN.AC_REQUEST_PASSWORD.equals(command))
+        {
+            Integer companyId = (Integer)form.getApplicationLevelParameter(EJ_PROPERTIES.P_COMPANY_ID).getValue();
+            String email = (String)record.getValue(F_LOGIN.B_FORGOT.I_EMAIL);
+            String confirmEmail = (String)record.getValue(F_LOGIN.B_FORGOT.I_CONFIRM_EMAIL);
+            
+            try
+            {
+                ServiceRetriever.getUserService(form).validateEmailAddress(form, email, confirmEmail);    
+            }
+            catch (Exception e)
+            {
+                record.setValue(F_LOGIN.B_FORGOT.I_EMAIL_ERROR, e.getMessage());
+            }
+            
+            if (!ServiceRetriever.getUserService(form).doesEmailExist(form, confirmEmail, companyId, null))
+            {
+                record.setValue(F_LOGIN.B_FORGOT.I_EMAIL_ERROR, "This email does not exist!");
+            }
+            
+            String hashValue = PasswordHashGen.toHash(email+System.currentTimeMillis());
+            
+            EmailUtil.sendMailViaDefaultEmail(form, "BiziBo: Request New Password", "Please use this to request a new password:\n\n"+hashValue, email);
+            
+        }
     }
-
 
 }

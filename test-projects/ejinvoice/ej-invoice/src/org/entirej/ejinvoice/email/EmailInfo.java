@@ -3,7 +3,7 @@ package org.entirej.ejinvoice.email;
 import org.entirej.framework.core.EJFieldName;
 import org.entirej.framework.core.service.EJPojoProperty;
 
- class EmailInfo
+public class EmailInfo
 {
     private EJPojoProperty<String>  _type;
     private EJPojoProperty<String>  _url;

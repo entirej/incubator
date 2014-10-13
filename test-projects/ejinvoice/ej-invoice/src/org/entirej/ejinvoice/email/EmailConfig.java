@@ -9,22 +9,17 @@ import org.entirej.framework.core.service.EJStatementExecutor;
 
  class EmailConfig
 {
-    private static final String _selectStatement = "Select * from email_configuration ";
+    private String selectStatement = "Select ID, TYPE, ADDRESS, PASSWORD, URL from email_configuration ";
 
-    private EmailConfig()
-    {
-
-    }
-
-
-
-    public static EmailInfo getDefaultEmailConfig(EJForm form)
+    public EmailInfo getDefaultEmailConfig(EJForm form)
     {
         EJStatementExecutor _statementExecutor = new EJStatementExecutor();
         EJQueryCriteria queryCriteria = new EJQueryCriteria();
         queryCriteria.add(EJRestrictions.equals("TYPE", "DEFAULT"));
 
-        List<EmailInfo> executeQuery = _statementExecutor.executeQuery(EmailInfo.class, form, _selectStatement, queryCriteria);
+        Class<?> em = EmailInfo.class;
+        
+        List<EmailInfo> executeQuery = _statementExecutor.executeQuery(EmailInfo.class, form, selectStatement, queryCriteria);
 
         if (executeQuery != null && executeQuery.size() > 0)
         {

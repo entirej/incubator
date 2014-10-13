@@ -2,9 +2,6 @@ package org.entirej.ejinvoice.email;
 
 import java.net.URI;
 
-import org.entirej.framework.core.EJApplicationException;
-import org.entirej.framework.core.EJForm;
-
 import microsoft.exchange.webservices.data.EmailAddress;
 import microsoft.exchange.webservices.data.EmailMessage;
 import microsoft.exchange.webservices.data.ExchangeCredentials;
@@ -13,12 +10,15 @@ import microsoft.exchange.webservices.data.ExchangeVersion;
 import microsoft.exchange.webservices.data.MessageBody;
 import microsoft.exchange.webservices.data.WebCredentials;
 
+import org.entirej.framework.core.EJApplicationException;
+import org.entirej.framework.core.EJForm;
+
 public class EmailUtil
 {
 
     public static void sendMailViaDefaultEmail(EJForm form, String subject, String bodyText, String toAddress)
     {
-        EmailInfo defaultEmailConfig = EmailConfig.getDefaultEmailConfig(form);
+        EmailInfo defaultEmailConfig = new EmailConfig().getDefaultEmailConfig(form);
         if (defaultEmailConfig != null)
         {
             try
