@@ -166,9 +166,7 @@ public class LoginActionProcessor extends DefaultFormActionProcessor
                 record.setValue(F_LOGIN.B_FORGOT.I_EMAIL_ERROR, "This email does not exist!");
             }
             
-            String hashValue = PasswordHashGen.toHash(email+System.currentTimeMillis());
-            
-            EmailUtil.sendMailViaDefaultEmail(form, "BiziBo: Request New Password", "Please use this to request a new password:\n\n"+hashValue, email);
+            EmailUtil.sendRequestPasswordMail(form, email);
             
         }
     }
