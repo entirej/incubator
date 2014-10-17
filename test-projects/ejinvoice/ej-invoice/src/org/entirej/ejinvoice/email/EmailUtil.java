@@ -7,6 +7,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import microsoft.exchange.webservices.data.BodyType;
 import microsoft.exchange.webservices.data.EmailAddress;
 import microsoft.exchange.webservices.data.EmailMessage;
 import microsoft.exchange.webservices.data.ExchangeCredentials;
@@ -75,6 +76,7 @@ public class EmailUtil
                 msg.setSubject(subject);
 
                 MessageBody body = MessageBody.getMessageBodyFromText(bodyText);
+                body.setBodyType(BodyType.Text);
 
                 msg.setBody(body);
 
