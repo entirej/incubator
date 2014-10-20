@@ -48,8 +48,11 @@ public class EmailUtil
     {
         String hashValue = PasswordHashGen.toHash(toAddress+System.currentTimeMillis());
         
+        String template = getEmailTemplate(form);
+        
+        template = template.replace("[PASSWORD_CODE]", hashValue);
 
-        sendMailViaDefaultEmail(form, "BiziBo Password Request", getEmailTemplate(form), toAddress);
+        sendMailViaDefaultEmail(form, "BiziBo Password Request", template, toAddress);
     }
     
     public static void sendMailViaDefaultEmail(EJForm form, String subject, String bodyText, String toAddress)

@@ -12,14 +12,15 @@ public class F_LOGIN
 
     public static class B_LOGON
     {
-        public static final String ID            = "logon";
-        public static final String I_LOGIN_LABEL = "loginLabel";
-        public static final String I_PASSWORD    = "password";
-        public static final String I_LOGIN       = "login";
-        public static final String I_SIGNUP      = "signup";
-        public static final String I_FORGOT      = "forgot";
-        public static final String I_EMAIL       = "email";
-        public static final String I_BIZIBO_LOGO = "biziboLogo";
+        public static final String ID                    = "logon";
+        public static final String I_LOGIN_LABEL         = "loginLabel";
+        public static final String I_PASSWORD            = "password";
+        public static final String I_LOGIN               = "login";
+        public static final String I_SIGNUP              = "signup";
+        public static final String I_FORGOT              = "forgot";
+        public static final String I_ENTER_PASSWORD_CODE = "enterPasswordCode";
+        public static final String I_EMAIL               = "email";
+        public static final String I_BIZIBO_LOGO         = "biziboLogo";
 
     }
 
@@ -74,6 +75,7 @@ public class F_LOGIN
     public static final String C_FORGOT                  = "forgot";
 
     public static final String AC_CANCEL_REGISTRATION    = "CANCEL_REGISTRATION";
+    public static final String AC_ENTER_PASSWORD_CODE    = "ENTER_PASSWORD_CODE";
     public static final String AC_FORGOT_PASSWORD        = "FORGOT_PASSWORD";
     public static final String AC_FORGOT_PASSWORD_CANCEL = "FORGOT_PASSWORD_CANCEL";
     public static final String AC_LOGON                  = "LOGON";
