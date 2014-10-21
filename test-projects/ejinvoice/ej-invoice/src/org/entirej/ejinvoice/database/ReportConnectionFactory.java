@@ -8,31 +8,29 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import org.entirej.constants.EJ_PROPERTIES;
-import org.entirej.framework.core.EJFrameworkManager;
-import org.entirej.framework.core.interfaces.EJConnectionFactory;
-import org.entirej.framework.core.interfaces.EJFrameworkConnection;
+import org.entirej.framework.report.EJReportFrameworkManager;
+import org.entirej.framework.report.interfaces.EJReportConnectionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ConnectionFactory implements EJConnectionFactory
+public class ReportConnectionFactory implements EJReportConnectionFactory
 {
-    private Logger connectionFactoryLogger = LoggerFactory.getLogger(this.getClass());
-    
+    private Logger              connectionFactoryLogger = LoggerFactory.getLogger(this.getClass());
+
     private volatile DataSource dataSource;
-    
-    public ConnectionFactory()
+
+    public ReportConnectionFactory()
     {
 
     }
 
     @Override
-    public EJFrameworkConnection createConnection(EJFrameworkManager fwkManager)
+    public ReportFrameworkConnection createConnection(EJReportFrameworkManager fwkManager)
     {
-        return new FrameworkConnection(fwkManager, this);
+        return new ReportFrameworkConnection(fwkManager, this);
     }
 
-    Connection getConnection(EJFrameworkManager fwkManager)
+    Connection getConnection(EJReportFrameworkManager fwkManager)
     {
         Connection conn = null;
         // long startTime = System.currentTimeMillis();
@@ -44,10 +42,11 @@ public class ConnectionFactory implements EJConnectionFactory
                 if (dataSource == null)
                 {
                     // String dataSourceID = "jdbc/ejinvoice";
-                  //  String dataSourceID = (String)fwkManager.getApplicationLevelParameter(EJ_PROPERTIES.P_DATA_SOURCE_NAME).getValue();
-                    
-                    //System.out.println("Connection to datasource: "+dataSourceID);
-                    
+                    // String dataSourceID =
+                    // (String)fwkManager.getApplicationLevelParameter(EJ_PROPERTIES.P_DATA_SOURCE_NAME).getValue();
+
+                    // System.out.println("Connection to datasource: "+dataSourceID);
+
                     String dataSourceID = "jdbc/ejinvoice-hosted";
                     assert dataSourceID != null;
                     Context initContext = new InitialContext();

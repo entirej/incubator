@@ -189,7 +189,7 @@ public class OutstandingInvoicesActionProcessor extends DefaultFormActionProcess
             invoiceUpdated = false;
             if (updatedInvoiceId != null)
             {
-                new InvoiceService().updateInvoicPDF(form, updatedInvoiceId, InvoiceReport.generateInvoicePDF(form.getConnection(), updatedInvoiceId, updatedInvoiceLocale));
+                new InvoiceService().updateInvoicPDF(form, updatedInvoiceId, InvoiceReport.generateEJReportInvoicePDF(form.getConnection(), updatedInvoiceId, updatedInvoiceLocale));
                 updatedInvoiceId = null;
                 updatedInvoiceLocale = null;
             }

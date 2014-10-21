@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entirejFramework>
+    <version><![CDATA[1.0]]></version>
+    <connectionFactoryClassName><![CDATA[org.entirej.ejinvoice.database.ReportConnectionFactory]]></connectionFactoryClassName>
+    <translatorClassName></translatorClassName>
+    <applicationLevelParameterList>
+        <appicationLevelParameter name="USER_ID" dataType="java.lang.String" defaultValue=""></appicationLevelParameter>
+    </applicationLevelParameterList>
+    <packages>
+        <reportPackage name="org/entirej/ejinvoice/reports"/>
+    </packages>
+    <visualAttributes>
+        <visualAttribute name="HEADER_TITLE">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>16</fontSize>
+            <useAsDynamicVA>false</useAsDynamicVA>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="BOLD_TEXT">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <useAsDynamicVA>false</useAsDynamicVA>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Bold]]></weight>
+            <foregroundColor></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="LINE_BG">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <useAsDynamicVA>false</useAsDynamicVA>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r130g127b127]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="TABLE_EVEN_ROW">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <useAsDynamicVA>false</useAsDynamicVA>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor></foregroundColor>
+            <backgroundColor><![CDATA[r227g227b227]]></backgroundColor>
+        </visualAttribute>
+        <visualAttribute name="LABEL_BG">
+            <fontName><![CDATA[Unspecified]]></fontName>
+            <fontSize>-1</fontSize>
+            <useAsDynamicVA>false</useAsDynamicVA>
+            <style><![CDATA[Unspecified]]></style>
+            <weight><![CDATA[Unspecified]]></weight>
+            <foregroundColor><![CDATA[r128g126b128]]></foregroundColor>
+            <backgroundColor></backgroundColor>
+        </visualAttribute>
+    </visualAttributes>
+</entirejFramework>
