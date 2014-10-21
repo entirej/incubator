@@ -30,15 +30,47 @@ public class InvoiceReport
         reportManager = EJReportFrameworkInitialiser.initialiseFramework("report.ejprop");
     }
 
-    public static void openInvoicePDF(EJManagedFrameworkConnection connection, final int invId, Locale locale, String exportName)
+    public static void openEJReportInvoicePDF(EJManagedFrameworkConnection connection, final int invId, Locale locale, String exportName)
     {
         try
         {
             File tempFile = File.createTempFile("tmpejinv", String.valueOf(invId));
 
+            reportManager.changeLocale(locale);
+            EJReport INV_A4 = reportManager.createReport("INV_A4");
+            INV_A4.getReportParameter("INV_ID").setValue(invId);
+
+            // only add Image value if need to show in report
+            URL img = InvoiceReport.class.getClassLoader().getResource("icons/Bizibo.png");
+            if (img != null)
+            {
+                try
+                {
+                    INV_A4.getReportParameter("EJ_BIZIBO_IMG").setValue(Files.readAllBytes(Paths.get(img.toURI())));
+                }
+                catch (URISyntaxException e)
+                {
+                    e.printStackTrace();
+                }
+            }
+            EJJasperReports.exportReport(reportManager, INV_A4, tempFile.getAbsolutePath(), EJReportExportType.PDF);
+            EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName + ".pdf");
+            tempFile.deleteOnExit();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+    public static void openInvoicePDF(EJManagedFrameworkConnection connection, final int invId, Locale locale, String exportName)
+    {
+        try
+        {
+            File tempFile = File.createTempFile("tmpejinv", String.valueOf(invId));
+            
             EJJasperReportParameter invID = new EJJasperReportParameter("EJ_INV_ID", invId);
             EJJasperReportParameter invBiziboImage = new EJJasperReportParameter("EJ_BIZIBO_IMG", null);
-
+            
             // only add Image value if need to show in report
             URL img = InvoiceReport.class.getClassLoader().getResource("icons/Bizibo.png");
             if (img != null)
@@ -52,7 +84,7 @@ public class InvoiceReport
                     e.printStackTrace();
                 }
             }
-
+            
             EJJasperReportParameter localeParameter = new EJJasperReportParameter(JRParameter.REPORT_LOCALE, locale);
             EJJasperReports.exportReport(InvoiceReport.class.getResourceAsStream("INV_A4.jasper"), tempFile.getAbsolutePath(), EJReportExportType.PDF, (Connection) connection.getConnectionObject(), invID, invBiziboImage, localeParameter);
             EJRWTFileDownload.download(tempFile.getAbsolutePath(), exportName + ".pdf");

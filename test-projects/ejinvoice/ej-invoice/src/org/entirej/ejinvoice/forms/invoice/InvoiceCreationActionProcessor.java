@@ -340,7 +340,7 @@ public class InvoiceCreationActionProcessor extends DefaultFormActionProcessor
             new InvoiceService().updateInvoicPDF(form, invId, InvoiceReport.generateInvoicePDF(connection, invId, invoice.getLocale()));
             new InvoiceService().updateInvoicDtlPDF(form, invId, InvoiceReport.generateInvoiceDtlPDF(connection, invId, invoice.getLocale()));
 
-            InvoiceReport.openInvoicePDF(connection, invId, invoice.getLocale(), nr);
+            InvoiceReport.openEJReportInvoicePDF(connection, invId, invoice.getLocale(), nr);
 
             form.getBlock(F_INVOICE_CREATION.B_MARKED_FOR_INVOICE_PROJECT_ITEMS.ID).executeQuery();
             if (form.getBlock(F_INVOICE_CREATION.B_APPROVED_PROJECT_ITEMS.ID).getBlockRecords().size() > 0)
