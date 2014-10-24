@@ -60,19 +60,37 @@ public class F_LOGIN
 
     }
 
+    public static class B_ENTER_NEW_PASSWORD
+    {
+        public static final String ID                       = "enterNewPassword";
+        public static final String I_CODE                   = "code";
+        public static final String I_CODE_MESSAGE           = "codeMessage";
+        public static final String I_PASSWORD               = "password";
+        public static final String I_PASSWORD_ERROR         = "passwordError";
+        public static final String I_CONFIRM_PASSWORD       = "confirmPassword";
+        public static final String I_CONFIRM_PASSWORD_ERROR = "confirmPasswordError";
+        public static final String I_CHANGE_BUTTON          = "changeButton";
+        public static final String I_CANCEL_BUTTON          = "cancelButton";
+        public static final String I_BIZIBO_LOGO            = "biziboLogo";
+        public static final String I_TITLE                  = "title";
+
+    }
+
     public static final String C_STACKED = "stacked";
 
     public static class C_STACKED_PAGES
     {
-        public static final String LOGON    = "logon";
-        public static final String REGISTER = "register";
-        public static final String FORGOT   = "forgot";
+        public static final String LOGON        = "logon";
+        public static final String REGISTER     = "register";
+        public static final String FORGOT       = "forgot";
+        public static final String NEW_PASSWORD = "newPassword";
 
     }
 
     public static final String C_LOGON                   = "logon";
     public static final String C_COMPANY                 = "company";
     public static final String C_FORGOT                  = "forgot";
+    public static final String C_ENTER_NEW_PASSWORD      = "enterNewPassword";
 
     public static final String AC_CANCEL_REGISTRATION    = "CANCEL_REGISTRATION";
     public static final String AC_ENTER_PASSWORD_CODE    = "ENTER_PASSWORD_CODE";

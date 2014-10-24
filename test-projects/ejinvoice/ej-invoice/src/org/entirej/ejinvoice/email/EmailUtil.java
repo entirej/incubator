@@ -53,6 +53,13 @@ public class EmailUtil
         template = template.replace("[PASSWORD_CODE]", hashValue);
 
         sendMailViaDefaultEmail(form, "BiziBo Password Request", template, toAddress);
+        
+        
+    }
+    
+    private void setUsersPasswordCode(String emailAddress, String code)
+    {
+        
     }
     
     public static void sendMailViaDefaultEmail(EJForm form, String subject, String bodyText, String toAddress)
