@@ -20,366 +20,368 @@
         <applicationProperties>
         </applicationProperties>
         <blockList>
-            <block name="Invoice" referenced="false" controlBlock="false">
-                <description></description>
-                <serviceClassName><![CDATA[org.entirej.ejinvoice.reports.services.ReportInvoiceService]]></serviceClassName>
-                <actionProcessorClassName></actionProcessorClassName>
-                <screenType><![CDATA[FORM_LATOUT]]></screenType>
-                <x><![CDATA[0]]></x>
-                <y><![CDATA[0]]></y>
-                <width><![CDATA[552]]></width>
-                <height><![CDATA[272]]></height>
-                <itemList>
-                    <item name="id">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <defaultQueryValue><![CDATA[REPORT_PARAMETER:INV_ID]]></defaultQueryValue>
-                    </item>
-                    <item name="vatNr">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="localeLanguage">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="companyName">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="nr">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="custName">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="invoiceAddress">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="invoiceSummary">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="invoiceNotes">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="localeCountry">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="invDate">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="vatAmount">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="dueDate">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="companyAddress">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="amountInclVat">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="vatRate">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="amountExclVat">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="companyLogo">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.Object]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                </itemList>
-                <screenItemList>
-                    <screenitem name="TITLE" type="LABEL">
-                        <x><![CDATA[400]]></x>
-                        <y><![CDATA[9]]></y>
-                        <width><![CDATA[150]]></width>
-                        <height><![CDATA[25]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[HEADER_TITLE]]></va>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[INVOICE]]></text>
-                    </screenitem>
-                    <screenitem name="COMPANY_NAME" type="TEXT">
-                        <x><![CDATA[400]]></x>
-                        <y><![CDATA[40]]></y>
-                        <width><![CDATA[150]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[BOLD_TEXT]]></va>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyName]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                    <screenitem name="COMPANY_ADDRESS" type="TEXT">
-                        <x><![CDATA[400]]></x>
-                        <y><![CDATA[61]]></y>
-                        <width><![CDATA[150]]></width>
-                        <height><![CDATA[60]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyAddress]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                    <screenitem name="VAT_NR" type="TEXT">
-                        <x><![CDATA[400]]></x>
-                        <y><![CDATA[122]]></y>
-                        <width><![CDATA[150]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                    <screenitem name="TITLE_LINE" type="LINE">
-                        <x><![CDATA[390]]></x>
-                        <y><![CDATA[35]]></y>
-                        <width><![CDATA[1]]></width>
-                        <height><![CDATA[105]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LINE_BG]]></va>
-                        <lineWidth><![CDATA[1.0]]></lineWidth>
-                        <lineStyle><![CDATA[SOLID]]></lineStyle>
-                        <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
-                    </screenitem>
-                    <screenitem name="LBL_FROM" type="LABEL">
-                        <x><![CDATA[280]]></x>
-                        <y><![CDATA[40]]></y>
-                        <width><![CDATA[100]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[From]]></text>
-                    </screenitem>
-                    <screenitem name="LBL_VAT_NO" type="LABEL">
-                        <x><![CDATA[280]]></x>
-                        <y><![CDATA[120]]></y>
-                        <width><![CDATA[100]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[VAT No.]]></text>
-                    </screenitem>
-                    <screenitem name="COMP_LOGO" type="IMAGE">
-                        <x><![CDATA[30]]></x>
-                        <y><![CDATA[40]]></y>
-                        <width><![CDATA[200]]></width>
-                        <height><![CDATA[70]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyLogo]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                    </screenitem>
-                    <screenitem name="INV_ID" type="LABEL">
-                        <x><![CDATA[300]]></x>
-                        <y><![CDATA[154]]></y>
-                        <width><![CDATA[80]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[Invoice ID]]></text>
-                    </screenitem>
-                    <screenitem name="ISSUE_DATE" type="LABEL">
-                        <x><![CDATA[300]]></x>
-                        <y><![CDATA[177]]></y>
-                        <width><![CDATA[80]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[issue Date]]></text>
-                    </screenitem>
-                    <screenitem name="DUE_DATE" type="LABEL">
-                        <x><![CDATA[300]]></x>
-                        <y><![CDATA[197]]></y>
-                        <width><![CDATA[80]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[Due Date]]></text>
-                    </screenitem>
-                    <screenitem name="INV_LINE" type="LINE">
-                        <x><![CDATA[390]]></x>
-                        <y><![CDATA[150]]></y>
-                        <width><![CDATA[1]]></width>
-                        <height><![CDATA[70]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LINE_BG]]></va>
-                        <lineWidth><![CDATA[1.0]]></lineWidth>
-                        <lineStyle><![CDATA[SOLID]]></lineStyle>
-                        <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
-                    </screenitem>
-                    <screenitem name="NR" type="TEXT">
-                        <x><![CDATA[400]]></x>
-                        <y><![CDATA[154]]></y>
-                        <width><![CDATA[150]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[BOLD_TEXT]]></va>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.nr]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                    <screenitem name="INV_DATE" type="DATE">
-                        <x><![CDATA[400]]></x>
-                        <y><![CDATA[177]]></y>
-                        <width><![CDATA[150]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invDate]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <manualFormat></manualFormat>
-                        <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
-                    </screenitem>
-                    <screenitem name="INV_DUE_DATE" type="DATE">
-                        <x><![CDATA[400]]></x>
-                        <y><![CDATA[197]]></y>
-                        <width><![CDATA[80]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.dueDate]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <manualFormat></manualFormat>
-                        <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
-                    </screenitem>
-                    <screenitem name="DUE_NOTE" type="LABEL">
-                        <x><![CDATA[460]]></x>
-                        <y><![CDATA[197]]></y>
-                        <width><![CDATA[90]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[(upon receipt)]]></text>
-                    </screenitem>
-                    <screenitem name="INV_FOR" type="LABEL">
-                        <x><![CDATA[12]]></x>
-                        <y><![CDATA[151]]></y>
-                        <width><![CDATA[54]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[Invoice For]]></text>
-                    </screenitem>
-                    <screenitem name="INV_FOR_LINE" type="LINE">
-                        <x><![CDATA[70]]></x>
-                        <y><![CDATA[142]]></y>
-                        <width><![CDATA[1]]></width>
-                        <height><![CDATA[74]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <lineWidth><![CDATA[1.0]]></lineWidth>
-                        <lineStyle><![CDATA[DASHED]]></lineStyle>
-                        <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
-                    </screenitem>
-                    <screenitem name="CUST_NAME" type="TEXT">
-                        <x><![CDATA[80]]></x>
-                        <y><![CDATA[151]]></y>
-                        <width><![CDATA[210]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[BOLD_TEXT]]></va>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.custName]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                    <screenitem name="INV_ADDRESS" type="TEXT">
-                        <x><![CDATA[80]]></x>
-                        <y><![CDATA[171]]></y>
-                        <width><![CDATA[200]]></width>
-                        <height><![CDATA[49]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceAddress]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                    <screenitem name="INV_SUMMARY_LINE" type="LINE">
-                        <x><![CDATA[70]]></x>
-                        <y><![CDATA[235]]></y>
-                        <width><![CDATA[1]]></width>
-                        <height><![CDATA[34]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LINE_BG]]></va>
-                        <lineWidth><![CDATA[1.0]]></lineWidth>
-                        <lineStyle><![CDATA[SOLID]]></lineStyle>
-                        <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
-                    </screenitem>
-                    <screenitem name="INV_SUMMARY" type="TEXT">
-                        <x><![CDATA[80]]></x>
-                        <y><![CDATA[240]]></y>
-                        <width><![CDATA[470]]></width>
-                        <height><![CDATA[26]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceSummary]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                </screenItemList>
-                <blockGroup>
-                </blockGroup>
-            </block>
+            <ej.header.blocks>
+                <block name="Invoice" referenced="false" controlBlock="false">
+                    <description></description>
+                    <serviceClassName><![CDATA[org.entirej.ejinvoice.reports.services.ReportInvoiceService]]></serviceClassName>
+                    <actionProcessorClassName></actionProcessorClassName>
+                    <screenType><![CDATA[FORM_LATOUT]]></screenType>
+                    <x><![CDATA[0]]></x>
+                    <y><![CDATA[0]]></y>
+                    <width><![CDATA[554]]></width>
+                    <height><![CDATA[272]]></height>
+                    <itemList>
+                        <item name="id">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <defaultQueryValue><![CDATA[REPORT_PARAMETER:INV_ID]]></defaultQueryValue>
+                        </item>
+                        <item name="vatNr">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="localeLanguage">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="companyName">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="nr">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="custName">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="invoiceAddress">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="invoiceSummary">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="invoiceNotes">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="localeCountry">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="invDate">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="vatAmount">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="dueDate">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="companyAddress">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="amountInclVat">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="vatRate">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="amountExclVat">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="companyLogo">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.Object]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                    </itemList>
+                    <screenItemList>
+                        <screenitem name="TITLE" type="LABEL">
+                            <x><![CDATA[400]]></x>
+                            <y><![CDATA[9]]></y>
+                            <width><![CDATA[150]]></width>
+                            <height><![CDATA[25]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[HEADER_TITLE]]></va>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[INVOICE]]></text>
+                        </screenitem>
+                        <screenitem name="COMPANY_NAME" type="TEXT">
+                            <x><![CDATA[400]]></x>
+                            <y><![CDATA[40]]></y>
+                            <width><![CDATA[150]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[BOLD_TEXT]]></va>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyName]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                        <screenitem name="COMPANY_ADDRESS" type="TEXT">
+                            <x><![CDATA[400]]></x>
+                            <y><![CDATA[61]]></y>
+                            <width><![CDATA[150]]></width>
+                            <height><![CDATA[60]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyAddress]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                        <screenitem name="VAT_NR" type="TEXT">
+                            <x><![CDATA[400]]></x>
+                            <y><![CDATA[122]]></y>
+                            <width><![CDATA[150]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                        <screenitem name="TITLE_LINE" type="LINE">
+                            <x><![CDATA[390]]></x>
+                            <y><![CDATA[35]]></y>
+                            <width><![CDATA[1]]></width>
+                            <height><![CDATA[105]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LINE_BG]]></va>
+                            <lineWidth><![CDATA[1.0]]></lineWidth>
+                            <lineStyle><![CDATA[SOLID]]></lineStyle>
+                            <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
+                        </screenitem>
+                        <screenitem name="LBL_FROM" type="LABEL">
+                            <x><![CDATA[280]]></x>
+                            <y><![CDATA[40]]></y>
+                            <width><![CDATA[100]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[From]]></text>
+                        </screenitem>
+                        <screenitem name="LBL_VAT_NO" type="LABEL">
+                            <x><![CDATA[280]]></x>
+                            <y><![CDATA[120]]></y>
+                            <width><![CDATA[100]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[VAT No.]]></text>
+                        </screenitem>
+                        <screenitem name="COMP_LOGO" type="IMAGE">
+                            <x><![CDATA[30]]></x>
+                            <y><![CDATA[40]]></y>
+                            <width><![CDATA[200]]></width>
+                            <height><![CDATA[70]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyLogo]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                        </screenitem>
+                        <screenitem name="INV_ID" type="LABEL">
+                            <x><![CDATA[300]]></x>
+                            <y><![CDATA[154]]></y>
+                            <width><![CDATA[80]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[Invoice ID]]></text>
+                        </screenitem>
+                        <screenitem name="ISSUE_DATE" type="LABEL">
+                            <x><![CDATA[300]]></x>
+                            <y><![CDATA[177]]></y>
+                            <width><![CDATA[80]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[issue Date]]></text>
+                        </screenitem>
+                        <screenitem name="DUE_DATE" type="LABEL">
+                            <x><![CDATA[300]]></x>
+                            <y><![CDATA[197]]></y>
+                            <width><![CDATA[80]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[Due Date]]></text>
+                        </screenitem>
+                        <screenitem name="INV_LINE" type="LINE">
+                            <x><![CDATA[390]]></x>
+                            <y><![CDATA[150]]></y>
+                            <width><![CDATA[1]]></width>
+                            <height><![CDATA[70]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LINE_BG]]></va>
+                            <lineWidth><![CDATA[1.0]]></lineWidth>
+                            <lineStyle><![CDATA[SOLID]]></lineStyle>
+                            <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
+                        </screenitem>
+                        <screenitem name="NR" type="TEXT">
+                            <x><![CDATA[400]]></x>
+                            <y><![CDATA[154]]></y>
+                            <width><![CDATA[150]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[BOLD_TEXT]]></va>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.nr]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                        <screenitem name="INV_DATE" type="DATE">
+                            <x><![CDATA[400]]></x>
+                            <y><![CDATA[177]]></y>
+                            <width><![CDATA[150]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invDate]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <manualFormat></manualFormat>
+                            <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
+                        </screenitem>
+                        <screenitem name="INV_DUE_DATE" type="DATE">
+                            <x><![CDATA[400]]></x>
+                            <y><![CDATA[197]]></y>
+                            <width><![CDATA[80]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.dueDate]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <manualFormat></manualFormat>
+                            <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
+                        </screenitem>
+                        <screenitem name="DUE_NOTE" type="LABEL">
+                            <x><![CDATA[460]]></x>
+                            <y><![CDATA[197]]></y>
+                            <width><![CDATA[90]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[(upon receipt)]]></text>
+                        </screenitem>
+                        <screenitem name="INV_FOR" type="LABEL">
+                            <x><![CDATA[12]]></x>
+                            <y><![CDATA[151]]></y>
+                            <width><![CDATA[54]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[Invoice For]]></text>
+                        </screenitem>
+                        <screenitem name="INV_FOR_LINE" type="LINE">
+                            <x><![CDATA[70]]></x>
+                            <y><![CDATA[142]]></y>
+                            <width><![CDATA[1]]></width>
+                            <height><![CDATA[74]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <lineWidth><![CDATA[1.0]]></lineWidth>
+                            <lineStyle><![CDATA[DASHED]]></lineStyle>
+                            <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
+                        </screenitem>
+                        <screenitem name="CUST_NAME" type="TEXT">
+                            <x><![CDATA[80]]></x>
+                            <y><![CDATA[151]]></y>
+                            <width><![CDATA[210]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[BOLD_TEXT]]></va>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.custName]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                        <screenitem name="INV_ADDRESS" type="TEXT">
+                            <x><![CDATA[80]]></x>
+                            <y><![CDATA[171]]></y>
+                            <width><![CDATA[200]]></width>
+                            <height><![CDATA[49]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceAddress]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                        <screenitem name="INV_SUMMARY_LINE" type="LINE">
+                            <x><![CDATA[70]]></x>
+                            <y><![CDATA[235]]></y>
+                            <width><![CDATA[1]]></width>
+                            <height><![CDATA[34]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LINE_BG]]></va>
+                            <lineWidth><![CDATA[1.0]]></lineWidth>
+                            <lineStyle><![CDATA[SOLID]]></lineStyle>
+                            <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
+                        </screenitem>
+                        <screenitem name="INV_SUMMARY" type="TEXT">
+                            <x><![CDATA[80]]></x>
+                            <y><![CDATA[240]]></y>
+                            <width><![CDATA[470]]></width>
+                            <height><![CDATA[26]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceSummary]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                    </screenItemList>
+                    <blockGroup>
+                    </blockGroup>
+                </block>
+            </ej.header.blocks>
             <block name="InvPositions" referenced="false" controlBlock="false">
                 <description></description>
                 <serviceClassName><![CDATA[org.entirej.ejinvoice.reports.services.ReportInvoicePositionsService]]></serviceClassName>
@@ -387,7 +389,7 @@
                 <screenType><![CDATA[TABLE_LAYOUT]]></screenType>
                 <evenVA><![CDATA[TABLE_EVEN_ROW]]></evenVA>
                 <x><![CDATA[0]]></x>
-                <y><![CDATA[275]]></y>
+                <y><![CDATA[4]]></y>
                 <width><![CDATA[552]]></width>
                 <height><![CDATA[89]]></height>
                 <itemList>
@@ -803,64 +805,106 @@
                     </columnitem>
                 </screenColumnList>
             </block>
-            <block name="Footer" referenced="false" controlBlock="true">
+            <block name="InvSummary" referenced="false" controlBlock="true">
                 <description></description>
                 <actionProcessorClassName></actionProcessorClassName>
                 <screenType><![CDATA[FORM_LATOUT]]></screenType>
                 <x><![CDATA[0]]></x>
-                <y><![CDATA[744]]></y>
+                <y><![CDATA[97]]></y>
                 <width><![CDATA[552]]></width>
-                <height><![CDATA[55]]></height>
+                <height><![CDATA[61]]></height>
                 <itemList>
                 </itemList>
                 <screenItemList>
-                    <screenitem name="footerLine" type="LINE">
-                        <x><![CDATA[0]]></x>
-                        <y><![CDATA[0]]></y>
-                        <width><![CDATA[552]]></width>
-                        <height><![CDATA[1]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LINE_BG]]></va>
-                        <lineWidth><![CDATA[1.0]]></lineWidth>
-                        <lineStyle><![CDATA[SOLID]]></lineStyle>
-                        <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
-                    </screenitem>
-                    <screenitem name="INV_NOTES" type="TEXT">
-                        <x><![CDATA[0]]></x>
-                        <y><![CDATA[0]]></y>
-                        <width><![CDATA[549]]></width>
-                        <height><![CDATA[52]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceNotes]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                    </screenitem>
-                    <screenitem name="INV_GEN_BY" type="LABEL">
-                        <x><![CDATA[365]]></x>
-                        <y><![CDATA[17]]></y>
-                        <width><![CDATA[80]]></width>
+                    <screenitem name="SUB_TOTAL" type="LABEL">
+                        <x><![CDATA[362]]></x>
+                        <y><![CDATA[1]]></y>
+                        <width><![CDATA[94]]></width>
                         <height><![CDATA[20]]></height>
                         <visible><![CDATA[true]]></visible>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
+                        <va><![CDATA[LABEL_BG]]></va>
+                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
                         <vAlignment><![CDATA[CENTER]]></vAlignment>
                         <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[Generated by]]></text>
+                        <text><![CDATA[Subtotal]]></text>
                     </screenitem>
-                    <screenitem name="GEN_BY_IMG" type="IMAGE">
-                        <x><![CDATA[438]]></x>
-                        <y><![CDATA[11]]></y>
-                        <width><![CDATA[80]]></width>
-                        <height><![CDATA[31]]></height>
+                    <screenitem name="AMOUNT_EX_VT" type="NUMBER">
+                        <x><![CDATA[457]]></x>
+                        <y><![CDATA[1]]></y>
+                        <width><![CDATA[92]]></width>
+                        <height><![CDATA[20]]></height>
                         <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[REPORT_PARAMETER:EJ_BIZIBO_IMG]]></valueProvider>
-                        <hAlignment><![CDATA[LEFT]]></hAlignment>
+                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.amountExclVat]]></valueProvider>
+                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
                         <vAlignment><![CDATA[CENTER]]></vAlignment>
+                        <rotation><![CDATA[NONE]]></rotation>
+                        <manualFormat></manualFormat>
+                        <localeFormat><![CDATA[CURRENCY]]></localeFormat>
                     </screenitem>
                 </screenItemList>
                 <blockGroup>
                 </blockGroup>
             </block>
+            <ej.footer.blocks>
+                <block name="Footer" referenced="false" controlBlock="true">
+                    <description></description>
+                    <actionProcessorClassName></actionProcessorClassName>
+                    <screenType><![CDATA[FORM_LATOUT]]></screenType>
+                    <x><![CDATA[0]]></x>
+                    <y><![CDATA[0]]></y>
+                    <width><![CDATA[554]]></width>
+                    <height><![CDATA[58]]></height>
+                    <itemList>
+                    </itemList>
+                    <screenItemList>
+                        <screenitem name="footerLine" type="LINE">
+                            <x><![CDATA[0]]></x>
+                            <y><![CDATA[0]]></y>
+                            <width><![CDATA[552]]></width>
+                            <height><![CDATA[1]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LINE_BG]]></va>
+                            <lineWidth><![CDATA[1.0]]></lineWidth>
+                            <lineStyle><![CDATA[SOLID]]></lineStyle>
+                            <lineDirection><![CDATA[TO_DOWN]]></lineDirection>
+                        </screenitem>
+                        <screenitem name="INV_NOTES" type="TEXT">
+                            <x><![CDATA[0]]></x>
+                            <y><![CDATA[0]]></y>
+                            <width><![CDATA[549]]></width>
+                            <height><![CDATA[52]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceNotes]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                        </screenitem>
+                        <screenitem name="INV_GEN_BY" type="LABEL">
+                            <x><![CDATA[365]]></x>
+                            <y><![CDATA[17]]></y>
+                            <width><![CDATA[80]]></width>
+                            <height><![CDATA[20]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[Generated by]]></text>
+                        </screenitem>
+                        <screenitem name="GEN_BY_IMG" type="IMAGE">
+                            <x><![CDATA[438]]></x>
+                            <y><![CDATA[11]]></y>
+                            <width><![CDATA[80]]></width>
+                            <height><![CDATA[31]]></height>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[REPORT_PARAMETER:EJ_BIZIBO_IMG]]></valueProvider>
+                            <hAlignment><![CDATA[LEFT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                        </screenitem>
+                    </screenItemList>
+                    <blockGroup>
+                    </blockGroup>
+                </block>
+            </ej.footer.blocks>
         </blockList>
     </report>
 </entirejFramework>
