@@ -10,7 +10,7 @@ import org.entirej.framework.report.service.EJReportStatementExecutor;
 public class ReportInvoicePositionsService implements EJReportBlockService<ReportInvoicePositions>
 {
     private final EJReportStatementExecutor _statementExecutor;
-    private String                          _selectStatement = new StringBuilder().append("\nSELECT * FROM INVOICE_POSITIONS ").toString();
+    private String                          _selectStatement = new StringBuilder().append("SELECT * FROM INVOICE_POSITIONS ").toString();
 
     public ReportInvoicePositionsService()
     {

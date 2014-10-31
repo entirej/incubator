@@ -64,6 +64,8 @@ public class F_PROJECTS
         public static final String I_EDIT                           = "edit";
         public static final String I_TASKS                          = "tasks";
         public static final String I_DISPLAY_TEXT                   = "displayText";
+        public static final String I_MAXIMUM_HOURS                  = "maximumHours";
+        public static final String I_BOOKABLE_HOURS                 = "bookableHours";
 
     }
 

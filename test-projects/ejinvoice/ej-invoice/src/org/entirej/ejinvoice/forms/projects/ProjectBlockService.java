@@ -38,6 +38,8 @@ public class ProjectBlockService implements EJBlockService<Project>
         _selectStatement.append(",      COMPANY_ID ");
         _selectStatement.append(",      INVOICEABLE ");
         _selectStatement.append(",      FIX_PRICE ");
+        _selectStatement.append(",      BOOKABLE_HOURS ");
+        _selectStatement.append(",      MAXIMUM_HOURS ");
         _selectStatement.append(",      (select count(*) ");
         _selectStatement.append("        from   customer_project_timeentry cpte ");
         _selectStatement.append("        ,      customer_project_tasks cupt ");
@@ -124,6 +126,8 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+            parameters.add(new EJStatementParameter("MAXIMUM_HOURS", BigDecimal.class, record.getMaximumHours()));
+            parameters.add(new EJStatementParameter("BOOKABLE_HOURS", BigDecimal.class, record.getBookableHours()));
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
@@ -172,6 +176,8 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+            parameters.add(new EJStatementParameter("MAXIMUM_HOURS", BigDecimal.class, record.getMaximumHours()));
+            parameters.add(new EJStatementParameter("BOOKABLE_HOURS", BigDecimal.class, record.getBookableHours()));
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
@@ -206,6 +212,8 @@ public class ProjectBlockService implements EJBlockService<Project>
 
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
+            parameters.add(new EJStatementParameter("MAXIMUM_HOURS", BigDecimal.class, record.getMaximumHours()));
+            parameters.add(new EJStatementParameter("BOOKABLE_HOURS", BigDecimal.class, record.getBookableHours()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustomerId() == null)
@@ -295,6 +303,22 @@ public class ProjectBlockService implements EJBlockService<Project>
             else
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
+            }
+            if (record.getInitialBookableHours() == null)
+            {
+                criteria.add(EJRestrictions.isNull("BOOKABLE_HOURS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("BOOKABLE_HOURS", record.getInitialBookableHours()));
+            }
+            if (record.getInitialMaximumHours() == null)
+            {
+                criteria.add(EJRestrictions.isNull("MAXIMUM_HOURS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("MAXIMUM_HOURS", record.getInitialMaximumHours()));
             }
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
@@ -407,6 +431,23 @@ public class ProjectBlockService implements EJBlockService<Project>
             {
                 criteria.add(EJRestrictions.equals("FIX_PRICE", record.getInitialFixPrice()));
             }
+            if (record.getInitialBookableHours() == null)
+            {
+                criteria.add(EJRestrictions.isNull("BOOKABLE_HOURS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("BOOKABLE_HOURS", record.getInitialBookableHours()));
+            }
+            if (record.getInitialMaximumHours() == null)
+            {
+                criteria.add(EJRestrictions.isNull("MAXIMUM_HOURS"));
+            }
+            else
+            {
+                criteria.add(EJRestrictions.equals("MAXIMUM_HOURS", record.getInitialMaximumHours()));
+            }
+
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeDelete(form, "customer_projects", criteria, parameters.toArray(paramArray));

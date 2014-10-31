@@ -23,6 +23,8 @@ public class Project
     private EJPojoProperty<String>     _status;
     private EJPojoProperty<String>     _notes;
     private EJPojoProperty<String>     _displayText;
+    private EJPojoProperty<Integer>    _bookableHours;
+    private EJPojoProperty<Integer>    _maximumHours;
 
     private EJPojoProperty<Long>       _openItems;
     private EJPojoProperty<Long>       _plannedItems;
@@ -59,6 +61,44 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_locale);
     }
 
+    
+    @EJFieldName("BOOKABLE_HOURS")
+    public Integer getBookableHours()
+    {
+        return EJPojoProperty.getPropertyValue(_bookableHours);
+    }
+
+    @EJFieldName("BOOKABLE_HOURS")
+    public void setBookableHours(Integer bookableHours)
+    {
+        _bookableHours = EJPojoProperty.setPropertyValue(_bookableHours, bookableHours);
+    }
+
+    @EJFieldName("BOOKABLE_HOURS")
+    public Integer getInitialBookableHours()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_bookableHours);
+    }
+    
+    @EJFieldName("MAXIMUM_HOURS")
+    public Integer getMaximumHours()
+    {
+        return EJPojoProperty.getPropertyValue(_maximumHours);
+    }
+
+    @EJFieldName("MAXIMUM_HOURS")
+    public void setMaximumHours(Integer maximumHours)
+    {
+        _maximumHours = EJPojoProperty.setPropertyValue(_maximumHours, maximumHours);
+    }
+
+    @EJFieldName("MAXIMUM_HOURS")
+    public Integer getInitialMaximumHours()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_maximumHours);
+    }
+    
+    
     @EJFieldName("ID")
     public Integer getId()
     {
@@ -561,6 +601,8 @@ public class Project
         EJPojoProperty.clearInitialValue(_approvedItems);
         EJPojoProperty.clearInitialValue(_markedFormInvoiceItems);
         EJPojoProperty.clearInitialValue(_displayText);
+        EJPojoProperty.clearInitialValue(_maximumHours);
+        EJPojoProperty.clearInitialValue(_bookableHours);
 
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);
