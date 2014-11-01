@@ -89,56 +89,62 @@ public class F_PROJECTS
 
     public static class B_PROJECTS_EDIT
     {
-        public static final String ID                  = "ProjectsEdit";
-        public static final String I_NAME              = "name";
-        public static final String I_NAME_ERROR        = "nameError";
-        public static final String I_DESCRIPTION       = "description";
-        public static final String I_STATUS            = "status";
-        public static final String I_STATUS_VALUE      = "statusValue";
-        public static final String I_STATUS_ERROR      = "statusError";
-        public static final String I_INVOICEABLE       = "invoiceable";
-        public static final String I_FIX_PRICE         = "fixPrice";
-        public static final String I_START_DATE        = "startDate";
-        public static final String I_END_DATE          = "endDate";
-        public static final String I_NOTES             = "notes";
-        public static final String I_CUSTOMER_ID       = "customerId";
-        public static final String I_CUSTOMER_ID_ERROR = "customerIdError";
-        public static final String I_CUSTOMER_NAME     = "customerName";
-        public static final String I_SAVE              = "save";
-        public static final String I_CANCEL            = "cancel";
-        public static final String I_PAGE_TITLE        = "pageTitle";
+        public static final String ID                     = "ProjectsEdit";
+        public static final String I_NAME                 = "name";
+        public static final String I_NAME_ERROR           = "nameError";
+        public static final String I_DESCRIPTION          = "description";
+        public static final String I_STATUS               = "status";
+        public static final String I_STATUS_VALUE         = "statusValue";
+        public static final String I_STATUS_ERROR         = "statusError";
+        public static final String I_INVOICEABLE          = "invoiceable";
+        public static final String I_FIX_PRICE            = "fixPrice";
+        public static final String I_START_DATE           = "startDate";
+        public static final String I_END_DATE             = "endDate";
+        public static final String I_NOTES                = "notes";
+        public static final String I_CUSTOMER_ID          = "customerId";
+        public static final String I_CUSTOMER_ID_ERROR    = "customerIdError";
+        public static final String I_CUSTOMER_NAME        = "customerName";
+        public static final String I_SAVE                 = "save";
+        public static final String I_CANCEL               = "cancel";
+        public static final String I_PAGE_TITLE           = "pageTitle";
+        public static final String I_MAXIMUM_HOURS        = "maximumHours";
+        public static final String I_BOOKABLE_HOURS       = "bookableHours";
+        public static final String I_BOOKABLE_HOURS_ERROR = "bookableHoursError";
 
     }
 
     public static class B_PROJECT_INSERT
     {
-        public static final String ID                  = "ProjectInsert";
-        public static final String I_NAME              = "name";
-        public static final String I_NAME_ERROR        = "nameError";
-        public static final String I_DESCRIPTION       = "description";
-        public static final String I_STATUS            = "status";
-        public static final String I_STATUS_VALUE      = "statusValue";
-        public static final String I_STATUS_ERROR      = "statusError";
-        public static final String I_INVOICEABLE       = "invoiceable";
-        public static final String I_FIX_PRICE         = "fixPrice";
-        public static final String I_START_DATE        = "startDate";
-        public static final String I_END_DATE          = "endDate";
-        public static final String I_NOTES             = "notes";
-        public static final String I_CUSTOMER_ID       = "customerId";
-        public static final String I_CUSTOMER_ID_ERROR = "customerIdError";
-        public static final String I_CUSTOMER_NAME     = "customerName";
-        public static final String I_SAVE              = "save";
-        public static final String I_CANCEL            = "cancel";
-        public static final String I_PAGE_TITLE        = "pageTitle";
-        public static final String I_TASK_TITLE        = "taskTitle";
-        public static final String I_TASK_NAME         = "taskName";
-        public static final String I_TASK_NAME_ERROR   = "taskNameError";
-        public static final String I_TASK_INVOICEABLE  = "taskInvoiceable";
-        public static final String I_TASK_STATUS       = "taskStatus";
-        public static final String I_TASK_STATUS_ERROR = "taskStatusError";
-        public static final String I_TASK_FIX_PRICE    = "taskFixPrice";
-        public static final String I_TASK_HOURLY_RATE  = "taskHourlyRate";
-        public static final String I_TASK_NOTES        = "taskNotes";
+        public static final String ID                     = "ProjectInsert";
+        public static final String I_NAME                 = "name";
+        public static final String I_NAME_ERROR           = "nameError";
+        public static final String I_DESCRIPTION          = "description";
+        public static final String I_STATUS               = "status";
+        public static final String I_STATUS_VALUE         = "statusValue";
+        public static final String I_STATUS_ERROR         = "statusError";
+        public static final String I_INVOICEABLE          = "invoiceable";
+        public static final String I_FIX_PRICE            = "fixPrice";
+        public static final String I_START_DATE           = "startDate";
+        public static final String I_END_DATE             = "endDate";
+        public static final String I_NOTES                = "notes";
+        public static final String I_CUSTOMER_ID          = "customerId";
+        public static final String I_CUSTOMER_ID_ERROR    = "customerIdError";
+        public static final String I_CUSTOMER_NAME        = "customerName";
+        public static final String I_SAVE                 = "save";
+        public static final String I_CANCEL               = "cancel";
+        public static final String I_PAGE_TITLE           = "pageTitle";
+        public static final String I_TASK_TITLE           = "taskTitle";
+        public static final String I_TASK_NAME            = "taskName";
+        public static final String I_TASK_NAME_ERROR      = "taskNameError";
+        public static final String I_TASK_INVOICEABLE     = "taskInvoiceable";
+        public static final String I_TASK_STATUS          = "taskStatus";
+        public static final String I_TASK_STATUS_ERROR    = "taskStatusError";
+        public static final String I_TASK_FIX_PRICE       = "taskFixPrice";
+        public static final String I_TASK_HOURLY_RATE     = "taskHourlyRate";
+        public static final String I_TASK_NOTES           = "taskNotes";
+        public static final String I_MAXIMUM_HOURS        = "maximumHours";
+        public static final String I_BOOKABLE_HOURS       = "bookableHours";
+        public static final String I_BOOKABLE_HOURS_ERROR = "bookableHoursError";
 
     }
 

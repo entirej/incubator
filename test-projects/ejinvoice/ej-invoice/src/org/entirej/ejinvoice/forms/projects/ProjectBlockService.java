@@ -97,10 +97,13 @@ public class ProjectBlockService implements EJBlockService<Project>
     {
         User user = (User)form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();
         
+        ProjectService projectService = new ProjectService();
+        
         List<Project> projects = _statementExecutor.executeQuery(Project.class, form, _selectStatement.toString(), queryCriteria);
         for (Project project : projects)
         {
             project.setLocale(user.getLocale());
+            project.setTotalBookedHours(projectService.getTotalProjectBookedHours(form, project.getCompanyId(), project.getId()));
         }
         
         return projects;
@@ -126,8 +129,8 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
-            parameters.add(new EJStatementParameter("MAXIMUM_HOURS", BigDecimal.class, record.getMaximumHours()));
-            parameters.add(new EJStatementParameter("BOOKABLE_HOURS", BigDecimal.class, record.getBookableHours()));
+            parameters.add(new EJStatementParameter("MAXIMUM_HOURS", Integer.class, record.getMaximumHours()));
+            parameters.add(new EJStatementParameter("BOOKABLE_HOURS", Integer.class, record.getBookableHours()));
 
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "customer_projects", parameters.toArray(paramArray));
@@ -212,8 +215,8 @@ public class ProjectBlockService implements EJBlockService<Project>
 
             parameters.add(new EJStatementParameter("INVOICEABLE", String.class, record.getInvoiceable()));
             parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getFixPrice()));
-            parameters.add(new EJStatementParameter("MAXIMUM_HOURS", BigDecimal.class, record.getMaximumHours()));
-            parameters.add(new EJStatementParameter("BOOKABLE_HOURS", BigDecimal.class, record.getBookableHours()));
+            parameters.add(new EJStatementParameter("MAXIMUM_HOURS", Integer.class, record.getMaximumHours()));
+            parameters.add(new EJStatementParameter("BOOKABLE_HOURS", Integer.class, record.getBookableHours()));
 
             EJStatementCriteria criteria = new EJStatementCriteria();
             if (record.getInitialCustomerId() == null)

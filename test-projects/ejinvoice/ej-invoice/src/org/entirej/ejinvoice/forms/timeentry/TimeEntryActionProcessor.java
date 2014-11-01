@@ -1,5 +1,6 @@
 package org.entirej.ejinvoice.forms.timeentry;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -294,6 +295,16 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
             }
         }
 
+        Time start = entry.getStartTime();
+        Time end = entry.getEndTime();
+        
+        double timeAfter = form.createDateHelper().getMinutesAfter(new Timestamp(end.getTime()), new Timestamp(start.getTime()));
+
+        if (!new ProjectService().canBookHoursToProject(form,  new BigDecimal(timeAfter), entry.getCompanyId(), entry.getCuprId()))
+        {
+            throw new EJApplicationException(new EJMessage(EJMessageLevel.ERROR,
+                    "The total number of hours for this project will be exceeded with this time entry. Maximim allowable hours remaining: "+new ProjectService().getRemainingBookableHours(form, entry.getCompanyId(), entry.getCuprId())));
+        }
     }
 
 

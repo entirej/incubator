@@ -118,6 +118,8 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_DESCRIPTION, record.getValue(F_PROJECTS.B_PROJECTS.I_DESCRIPTION));
             editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_END_DATE, record.getValue(F_PROJECTS.B_PROJECTS.I_END_DATE));
             editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_MAXIMUM_HOURS, record.getValue(F_PROJECTS.B_PROJECTS.I_MAXIMUM_HOURS));
+            editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_BOOKABLE_HOURS, record.getValue(F_PROJECTS.B_PROJECTS.I_BOOKABLE_HOURS));
             editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_INVOICEABLE, record.getValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE));
             editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_NAME, record.getValue(F_PROJECTS.B_PROJECTS.I_NAME));
             editRecord.setValue(F_PROJECTS.B_PROJECTS_EDIT.I_NOTES, record.getValue(F_PROJECTS.B_PROJECTS.I_NOTES));
@@ -136,7 +138,12 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             Integer customerId = (Integer) record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_CUSTOMER_ID);
             String name = (String) record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_NAME);
             String status = (String) record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_STATUS);
+            Integer maximumHours = (Integer)record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_MAXIMUM_HOURS);
+            Integer bookableHours = (Integer)record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_BOOKABLE_HOURS);
 
+            if (bookableHours == null) { bookableHours = 0;};
+            if (maximumHours == null) { maximumHours = 0;};
+            
             boolean error = false;
             if (customerId == null)
             {
@@ -153,6 +160,11 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
                 error = true;
                 setError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_STATUS, "Please choose a project status");
             }
+            if (bookableHours > maximumHours)
+            {
+                error = true;
+                setError(form, F_PROJECTS.B_PROJECTS_EDIT.ID, F_PROJECTS.B_PROJECTS_EDIT.I_BOOKABLE_HOURS, "The bookable hours cannot be more than the maximum allowed hours");
+            }
             if (error)
             {
                 throw new EJActionProcessorException();
@@ -164,6 +176,8 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_DESCRIPTION, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_DESCRIPTION));
             baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_END_DATE, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_END_DATE));
             baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_FIX_PRICE));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_BOOKABLE_HOURS, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_BOOKABLE_HOURS));
+            baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_MAXIMUM_HOURS, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_MAXIMUM_HOURS));
             baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_INVOICEABLE));
             baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_NAME, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_NAME));
             baseRecord.setValue(F_PROJECTS.B_PROJECTS.I_NOTES, record.getValue(F_PROJECTS.B_PROJECTS_EDIT.I_NOTES));
@@ -194,7 +208,9 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             String status = (String) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_STATUS);
             String taskName = (String) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_NAME);
             String taskStatus = (String) record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS);
-
+            Integer maximumHours = (Integer)record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_MAXIMUM_HOURS);
+            Integer bookableHours = (Integer)record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_BOOKABLE_HOURS);
+            
             boolean error = false;
             if (customerId == null)
             {
@@ -221,7 +237,12 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
                 error = true;
                 setError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_TASK_STATUS, "Please choose a task status");
             }
-
+            if (bookableHours > maximumHours)
+            {
+                error = true;
+                setError(form, F_PROJECTS.B_PROJECT_INSERT.ID, F_PROJECTS.B_PROJECT_INSERT.I_BOOKABLE_HOURS, "The bookable hours cannot be more than the maximum allowed hours");
+            }
+            
             if (error)
             {
                 throw new EJApplicationException();
@@ -237,6 +258,8 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_DESCRIPTION, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_DESCRIPTION));
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_END_DATE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_END_DATE));
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_FIX_PRICE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_FIX_PRICE));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_BOOKABLE_HOURS, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_BOOKABLE_HOURS));
+            newRecord.setValue(F_PROJECTS.B_PROJECTS.I_MAXIMUM_HOURS, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_MAXIMUM_HOURS));
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_INVOICEABLE, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_INVOICEABLE));
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_NAME, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_NAME));
             newRecord.setValue(F_PROJECTS.B_PROJECTS.I_NOTES, record.getValue(F_PROJECTS.B_PROJECT_INSERT.I_NOTES));

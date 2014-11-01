@@ -25,6 +25,7 @@ public class Project
     private EJPojoProperty<String>     _displayText;
     private EJPojoProperty<Integer>    _bookableHours;
     private EJPojoProperty<Integer>    _maximumHours;
+    private EJPojoProperty<BigDecimal> _totalBookedHours;
 
     private EJPojoProperty<Long>       _openItems;
     private EJPojoProperty<Long>       _plannedItems;
@@ -61,7 +62,6 @@ public class Project
         return EJPojoProperty.getPropertyInitialValue(_locale);
     }
 
-    
     @EJFieldName("BOOKABLE_HOURS")
     public Integer getBookableHours()
     {
@@ -79,7 +79,7 @@ public class Project
     {
         return EJPojoProperty.getPropertyInitialValue(_bookableHours);
     }
-    
+
     @EJFieldName("MAXIMUM_HOURS")
     public Integer getMaximumHours()
     {
@@ -97,8 +97,25 @@ public class Project
     {
         return EJPojoProperty.getPropertyInitialValue(_maximumHours);
     }
-    
-    
+
+    @EJFieldName("TOTAL_BOOKED_HOURS")
+    public BigDecimal getTotalBookedHours()
+    {
+        return EJPojoProperty.getPropertyValue(_totalBookedHours);
+    }
+
+    @EJFieldName("TOTAL_BOOKED_HOURS")
+    public void setTotalBookedHours(BigDecimal totalBookedHours)
+    {
+        _totalBookedHours = EJPojoProperty.setPropertyValue(_totalBookedHours, totalBookedHours);
+    }
+
+    @EJFieldName("TOTAL_BOOKED_HOURS")
+    public BigDecimal getInitialTotalBookedHours()
+    {
+        return EJPojoProperty.getPropertyInitialValue(_totalBookedHours);
+    }
+
     @EJFieldName("ID")
     public Integer getId()
     {
@@ -546,19 +563,19 @@ public class Project
     @EJFieldName("DISPLAY_TEXT")
     public String getDisplayText()
     {
-        NumberFormat format = null;
+        NumberFormat numberFormat = null;
         DateFormat dateFormat = null;
         if (getLocale() == null)
         {
-            format = NumberFormat.getNumberInstance();
+            numberFormat = NumberFormat.getNumberInstance();
             dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
         }
         else
         {
-            format = NumberFormat.getNumberInstance(getLocale());
+            numberFormat = NumberFormat.getNumberInstance(getLocale());
             dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM, getLocale());
         }
-        format.setMinimumFractionDigits(2);
+        numberFormat.setMinimumFractionDigits(2);
 
         StringBuilder display = new StringBuilder();
         display.append("<table border=0 cellpadding=0 cellspacing=0 width=100%");
@@ -569,13 +586,31 @@ public class Project
         display.append("</td>");
 
         display.append("<td align=\"left\"  width=\"30%\">" + getCustomerName() + "</td>");
-        display.append("<td align=\"right\"  width=\"15%\">" + (getStartDate() == null ? "&nbsp;" : "Start: "+dateFormat.format(getStartDate())) + "</td>");
-        display.append("<td align=\"right\"  width=\"15%\">" + (getEndDate() == null ? "&nbsp;" : "End: "+dateFormat.format(getEndDate())) + "</td>");
+        display.append("<td align=\"right\"  width=\"15%\">" + (getStartDate() == null ? "&nbsp;" : "Start: " + dateFormat.format(getStartDate())) + "</td>");
+        display.append("<td align=\"right\"  width=\"15%\">" + (getEndDate() == null ? "&nbsp;" : "End: " + dateFormat.format(getEndDate())) + "</td>");
         display.append("</tr>");
 
         display.append("<tr>");
         display.append("<td align=\"left\"  width=\"70%\" colspan=2>" + (getNotes() == null ? "&nbsp;" : getNotes()) + "</td>");
-        display.append("<td align=\"right\"  width=\"30%\" colspan=2>" + (getFixPrice() == null ? "&nbsp;" : "Fix Price: "+format.format(getFixPrice())) + "</td>");
+        display.append("<td align=\"right\"  width=\"30%\" colspan=2>" + (getFixPrice() == null ? "&nbsp;" : "Fix Price: " + numberFormat.format(getFixPrice())) + "</td>");
+        display.append("</tr>");
+
+        display.append("<tr>");
+        display.append("<td align=\"left\"  width=\"70%\" colspan=4>");
+        display.append("<span style =\"font-weight: normal; font-size: 100% \">Maximum Hours: " + numberFormat.format((getMaximumHours() == null ? 0 : getMaximumHours())) + "</span>");
+        display.append("</td>");
+        display.append("</tr>");
+
+        display.append("<tr>");
+        display.append("<td align=\"left\"  width=\"70%\" colspan=4>");
+        display.append("<span style =\"font-weight: normal; font-size: 100% \">Bookable Hours: " + numberFormat.format((getBookableHours() == null ? 0 : getBookableHours())) + "</span>");
+        display.append("</td>");
+        display.append("</tr>");
+
+        display.append("<tr>");
+        display.append("<td align=\"left\"  width=\"70%\" colspan=4>");
+        display.append("<span style =\"font-weight: normal; font-size: 100% \">Total Hours Booked: " + numberFormat.format((getTotalBookedHours() == null ? 0 : getTotalBookedHours())) + "</span>");
+        display.append("</td>");
         display.append("</tr>");
 
         display.append("</table>");
@@ -603,6 +638,7 @@ public class Project
         EJPojoProperty.clearInitialValue(_displayText);
         EJPojoProperty.clearInitialValue(_maximumHours);
         EJPojoProperty.clearInitialValue(_bookableHours);
+        EJPojoProperty.clearInitialValue(_totalBookedHours);
 
         EJPojoProperty.clearInitialValue(_invoiceable);
         EJPojoProperty.clearInitialValue(_fixPrice);
