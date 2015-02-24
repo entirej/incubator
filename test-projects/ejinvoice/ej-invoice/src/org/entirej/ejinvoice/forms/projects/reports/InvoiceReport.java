@@ -8,19 +8,15 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Connection;
 import java.util.Locale;
 
-import net.sf.jasperreports.engine.JRParameter;
-
 import org.entirej.applicationframework.rwt.file.EJRWTFileDownload;
+import org.entirej.ejinvoice.reports.constants.R_INV_A4;
 import org.entirej.framework.core.EJManagedFrameworkConnection;
 import org.entirej.framework.report.EJReport;
 import org.entirej.framework.report.EJReportFrameworkInitialiser;
 import org.entirej.framework.report.EJReportFrameworkManager;
-import org.entirej.framework.report.enumerations.EJReportExportType;
 import org.entirej.framework.report.interfaces.EJReportRunner;
 
 public class InvoiceReport
@@ -38,8 +34,8 @@ public class InvoiceReport
             File tempFile = File.createTempFile("tmpejinv", String.valueOf(invId));
 
             reportManager.changeLocale(locale);
-            EJReport INV_A4 = reportManager.createReport("INV_A4");
-            INV_A4.getReportParameter("INV_ID").setValue(invId);
+            EJReport INV_A4 = reportManager.createReport(R_INV_A4.ID);
+            INV_A4.getReportParameter(R_INV_A4.P_INV_ID).setValue(invId);
 
             // only add Image value if need to show in report
             URL img = InvoiceReport.class.getClassLoader().getResource("icons/Bizibo.png");
@@ -47,7 +43,7 @@ public class InvoiceReport
             {
                 try
                 {
-                    INV_A4.getReportParameter("EJ_BIZIBO_IMG").setValue(Files.readAllBytes(Paths.get(img.toURI())));
+                    INV_A4.getReportParameter(R_INV_A4.P_EJ_BIZIBO_IMG).setValue(Files.readAllBytes(Paths.get(img.toURI())));
                 }
                 catch (URISyntaxException e)
                 {
@@ -145,6 +141,7 @@ public class InvoiceReport
     {
         try
         {
+            
             File tempFile = File.createTempFile("tmpejinv", String.valueOf(invId));
 
             reportManager.changeLocale(locale);

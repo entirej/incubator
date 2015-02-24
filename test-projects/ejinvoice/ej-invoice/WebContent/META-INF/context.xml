@@ -3,7 +3,7 @@
     <!-- Specify a JDBC datasource -->
      <Resource name="jdbc/ejinvoice-hosted" auth="Container"
         type="javax.sql.DataSource"
-        username="ejinvoice" password="ejinvoice"
+        username="root" 
         driverClassName="com.mysql.jdbc.Driver"
         url="jdbc:mysql://127.0.0.1:3306/ej-invoice"
         maxActive="40" maxIdle="20"  minIdle="5" testWhileIdle="true"
