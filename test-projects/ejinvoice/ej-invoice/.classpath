@@ -56,6 +56,10 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry combineaccessrules="false" kind="src" path="/ej-invoice-report"/>
-	<classpathentry kind="con" path="org.eclipse.jasper.runtime.EJ_REPORT_JASPER_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jasper.runtime.EJ_REPORT_JASPER_CONTAINER">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
