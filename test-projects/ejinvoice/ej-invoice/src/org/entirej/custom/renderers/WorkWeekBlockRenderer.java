@@ -1407,7 +1407,8 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                                
                                 
                                 builder.append(text);
-                                builder.append("</td>");
+// added &nbsp;
+                                builder.append("&nbsp;</td>");
                             }
 
                             builder.append("</tr>");
@@ -1489,7 +1490,8 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
         builder.append("<ejl>");
         builder.append(String.format("<strong style=\"cursor: hand;color: #4a4a4a; font-size: 14px;\" %s >%s</strong></ejl><br />%s",actionDef, text, dayStr));
 
-        builder.append("</td>");
+        // added &nbsp;
+        builder.append("&nbsp;</td>");
     }
 
     public void addTotalLine(StringBuilder builder, final String paddingStyle, String styleClass, String cellStyleTOP, String cellStyleLEFT, String total)
@@ -1589,7 +1591,8 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                 builder.append(total);
             }
 
-            builder.append("</td>");
+            //added &nbsp;
+            builder.append("&nbsp;</td>");
 
         }
     }
@@ -1670,7 +1673,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
 
             builder.append(String.format(" font style=\'%s\'", caseProperty));
 
-            builder.append(">");
+            builder.append(">&nbsp;");
 
             builder.append("</td>");
 
