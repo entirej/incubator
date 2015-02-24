@@ -201,7 +201,7 @@ public class F_CUSTOMERS
     public static final String C_CUSTOMERS_TOOLBAR      = "CustomersToolbar";
     public static final String C_CUSTOMER               = "Customer";
     public static final String C_CUSTOMERS_KEY          = "CustomersKey";
-    public static final String C_CUSTOMERS__UPDATE      = "Customers Update";
+    public static final String C_CUSTOMERS_UPDATE       = "Customers Update";
     public static final String C_CUSTOMERS_INSERT       = "CustomersInsert";
 
     public static final String AC_CREATE_NEW_CUSTOMER   = "CREATE_NEW_CUSTOMER";

@@ -39,7 +39,7 @@ public class F_TIME_ENTRY
         public static final String I_HOURS_LABEL              = "hoursLabel";
         public static final String I_EQUALS_LABEL             = "equalsLabel";
         public static final String I_NOTES                    = "notes";
-        public static final String I_ADD__ENTRY               = "Add Entry";
+        public static final String I_ADD_ENTRY                = "Add Entry";
         public static final String I_EDIT_COMPANY_INFORMATION = "editCompanyInformation";
         public static final String I_PROJECT_LABEL            = "projectLabel";
         public static final String I_PROCESS_LABEL            = "processLabel";

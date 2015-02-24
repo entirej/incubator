@@ -47,16 +47,17 @@ public class CompanyBlockService implements EJBlockService<Company>
         {
             // Initialise the value list
             parameters.clear();
-            parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
-            parameters.add(new EJStatementParameter("INVOICE_FOOTER", String.class, record.getInvoiceFooter()));
-            parameters.add(new EJStatementParameter("INVOICE_SUMMARY", String.class, record.getInvoiceSummary()));
-            parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             parameters.add(new EJStatementParameter("ID", Integer.class, record.getId()));
-            parameters.add(new EJStatementParameter("LOGO", Object.class, record.getLogo()));
             parameters.add(new EJStatementParameter("NAME", String.class, record.getName()));
+            parameters.add(new EJStatementParameter("ADDRESS", String.class, record.getAddress()));
             parameters.add(new EJStatementParameter("POST_CODE", String.class, record.getPostCode()));
             parameters.add(new EJStatementParameter("TOWN", String.class, record.getTown()));
+            parameters.add(new EJStatementParameter("COUNTRY", String.class, record.getCountry()));
             parameters.add(new EJStatementParameter("VAT_NR", String.class, record.getVatNr()));
+            parameters.add(new EJStatementParameter("INVOICE_FOOTER", String.class, record.getInvoiceFooter()));
+            parameters.add(new EJStatementParameter("INVOICE_SUMMARY", String.class, record.getInvoiceSummary()));
+            parameters.add(new EJStatementParameter("LOGO", Object.class, record.getLogo()));
+            
             EJStatementParameter[] paramArray = new EJStatementParameter[parameters.size()];
             recordsProcessed += _statementExecutor.executeInsert(form, "company_information", parameters.toArray(paramArray));
             record.clearInitialValues();

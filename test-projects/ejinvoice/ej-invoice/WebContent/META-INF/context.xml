@@ -5,7 +5,7 @@
         type="javax.sql.DataSource"
         username="ejinvoice" password="ejinvoice"
         driverClassName="com.mysql.jdbc.Driver"
-        url="jdbc:mysql://mysql-entirej.whelastic.net/ej-invoice"
+        url="jdbc:mysql://127.0.0.1:3306/ej-invoice"
         maxActive="40" maxIdle="20"  minIdle="5" testWhileIdle="true"
         validationQuery="SELECT 1" />
 </Context>

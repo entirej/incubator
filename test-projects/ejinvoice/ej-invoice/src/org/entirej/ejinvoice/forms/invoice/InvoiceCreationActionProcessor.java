@@ -338,7 +338,7 @@ public class InvoiceCreationActionProcessor extends DefaultFormActionProcessor
             new InvoiceService().createInvoice(form, invoice);
             EJManagedFrameworkConnection connection = form.getConnection();
             new InvoiceService().updateInvoicPDF(form, invId, InvoiceReport.generateEJReportInvoicePDF(connection, invId, invoice.getLocale()));
-            new InvoiceService().updateInvoicDtlPDF(form, invId, InvoiceReport.generateInvoiceDtlPDF(connection, invId, invoice.getLocale()));
+//            new InvoiceService().updateInvoicDtlPDF(form, invId, InvoiceReport.generateInvoiceDtlPDF(connection, invId, invoice.getLocale()));
 
             InvoiceReport.openEJReportInvoicePDF(connection, invId, invoice.getLocale(), nr);
 
