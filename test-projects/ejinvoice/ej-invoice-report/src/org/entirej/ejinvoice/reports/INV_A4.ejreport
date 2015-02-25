@@ -4,6 +4,7 @@
         <reportTitle><![CDATA[Invoice]]></reportTitle>
         <reportDisplayName></reportDisplayName>
         <width>595</width>
+        <ignorePagination>false</ignorePagination>
         <height>842</height>
         <marginTop>20</marginTop>
         <marginBottom>20</marginBottom>
@@ -13,6 +14,8 @@
         <footerHeight>60</footerHeight>
         <orientation><![CDATA[PORTRAIT]]></orientation>
         <actionProcessorClassName><![CDATA[org.entirej.framework.report.actionprocessor.EJDefaultReportActionProcessor]]></actionProcessorClassName>
+        <va></va>
+        <exportType><![CDATA[PDF]]></exportType>
         <reportParameterList>
             <reportParameter name="INV_ID" dataType="java.lang.Integer" defaultValue=""></reportParameter>
             <reportParameter name="EJ_BIZIBO_IMG" dataType="java.lang.Object" defaultValue=""></reportParameter>
@@ -30,6 +33,9 @@
                     <y><![CDATA[0]]></y>
                     <width><![CDATA[554]]></width>
                     <height><![CDATA[272]]></height>
+                    <headerColHeight><![CDATA[20]]></headerColHeight>
+                    <detailColHeight><![CDATA[20]]></detailColHeight>
+                    <footerColHeight><![CDATA[20]]></footerColHeight>
                     <itemList>
                         <item name="id">
                             <blockServiceItem>true</blockServiceItem>
@@ -128,6 +134,8 @@
                             <y><![CDATA[9]]></y>
                             <width><![CDATA[150]]></width>
                             <height><![CDATA[25]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[HEADER_TITLE]]></va>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
@@ -140,9 +148,13 @@
                             <y><![CDATA[40]]></y>
                             <width><![CDATA[150]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[BOLD_TEXT]]></va>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyName]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -152,8 +164,12 @@
                             <y><![CDATA[61]]></y>
                             <width><![CDATA[150]]></width>
                             <height><![CDATA[60]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyAddress]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -163,7 +179,11 @@
                             <y><![CDATA[122]]></y>
                             <width><![CDATA[150]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -173,6 +193,8 @@
                             <y><![CDATA[35]]></y>
                             <width><![CDATA[1]]></width>
                             <height><![CDATA[105]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LINE_BG]]></va>
                             <lineWidth><![CDATA[1.0]]></lineWidth>
@@ -184,6 +206,8 @@
                             <y><![CDATA[40]]></y>
                             <width><![CDATA[100]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LABEL_BG]]></va>
                             <hAlignment><![CDATA[RIGHT]]></hAlignment>
@@ -196,6 +220,8 @@
                             <y><![CDATA[120]]></y>
                             <width><![CDATA[100]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LABEL_BG]]></va>
                             <hAlignment><![CDATA[RIGHT]]></hAlignment>
@@ -208,16 +234,23 @@
                             <y><![CDATA[40]]></y>
                             <width><![CDATA[200]]></width>
                             <height><![CDATA[70]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.companyLogo]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <defaultImage></defaultImage>
                         </screenitem>
                         <screenitem name="INV_ID" type="LABEL">
                             <x><![CDATA[300]]></x>
                             <y><![CDATA[154]]></y>
                             <width><![CDATA[80]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LABEL_BG]]></va>
                             <hAlignment><![CDATA[RIGHT]]></hAlignment>
@@ -230,6 +263,8 @@
                             <y><![CDATA[177]]></y>
                             <width><![CDATA[80]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LABEL_BG]]></va>
                             <hAlignment><![CDATA[RIGHT]]></hAlignment>
@@ -242,6 +277,8 @@
                             <y><![CDATA[197]]></y>
                             <width><![CDATA[80]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LABEL_BG]]></va>
                             <hAlignment><![CDATA[RIGHT]]></hAlignment>
@@ -254,6 +291,8 @@
                             <y><![CDATA[150]]></y>
                             <width><![CDATA[1]]></width>
                             <height><![CDATA[70]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LINE_BG]]></va>
                             <lineWidth><![CDATA[1.0]]></lineWidth>
@@ -265,9 +304,13 @@
                             <y><![CDATA[154]]></y>
                             <width><![CDATA[150]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[BOLD_TEXT]]></va>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.nr]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -277,8 +320,12 @@
                             <y><![CDATA[177]]></y>
                             <width><![CDATA[150]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invDate]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -290,8 +337,12 @@
                             <y><![CDATA[197]]></y>
                             <width><![CDATA[80]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.dueDate]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -303,6 +354,8 @@
                             <y><![CDATA[197]]></y>
                             <width><![CDATA[90]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
@@ -314,6 +367,8 @@
                             <y><![CDATA[151]]></y>
                             <width><![CDATA[54]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LABEL_BG]]></va>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
@@ -326,6 +381,8 @@
                             <y><![CDATA[142]]></y>
                             <width><![CDATA[1]]></width>
                             <height><![CDATA[74]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LABEL_BG]]></va>
                             <lineWidth><![CDATA[1.0]]></lineWidth>
@@ -337,9 +394,13 @@
                             <y><![CDATA[151]]></y>
                             <width><![CDATA[210]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[BOLD_TEXT]]></va>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.custName]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -349,8 +410,12 @@
                             <y><![CDATA[171]]></y>
                             <width><![CDATA[200]]></width>
                             <height><![CDATA[49]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceAddress]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -360,6 +425,8 @@
                             <y><![CDATA[235]]></y>
                             <width><![CDATA[1]]></width>
                             <height><![CDATA[34]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LINE_BG]]></va>
                             <lineWidth><![CDATA[1.0]]></lineWidth>
@@ -371,8 +438,12 @@
                             <y><![CDATA[240]]></y>
                             <width><![CDATA[470]]></width>
                             <height><![CDATA[26]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceSummary]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -382,469 +453,523 @@
                     </blockGroup>
                 </block>
             </ej.header.blocks>
-            <block name="InvPositions" referenced="false" controlBlock="false">
-                <description></description>
-                <serviceClassName><![CDATA[org.entirej.ejinvoice.reports.services.ReportInvoicePositionsService]]></serviceClassName>
-                <actionProcessorClassName></actionProcessorClassName>
-                <screenType><![CDATA[TABLE_LAYOUT]]></screenType>
-                <evenVA><![CDATA[TABLE_EVEN_ROW]]></evenVA>
-                <x><![CDATA[0]]></x>
-                <y><![CDATA[4]]></y>
-                <width><![CDATA[552]]></width>
-                <height><![CDATA[89]]></height>
-                <itemList>
-                    <item name="projectName">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="periodTo">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="amount">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="payRate">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="periodFrom">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="text">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="cuptId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="id">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="companyId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="hoursWorked">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="invId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <defaultQueryValue><![CDATA[BLOCK_ITEM:Invoice.id]]></defaultQueryValue>
-                    </item>
-                    <item name="status">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="cuprId">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="fixPrice">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                    <item name="taskName">
-                        <blockServiceItem>true</blockServiceItem>
-                        <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
-                        <defaultQueryValue></defaultQueryValue>
-                    </item>
-                </itemList>
-                <screenColumnList>
-                    <columnitem name="Description" showHeader="true" showFooter="false">
-                        <headerScreen>
-                            <width><![CDATA[190]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[false]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="Description" type="LABEL">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[180]]></width>
-                                <height><![CDATA[25]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <va><![CDATA[BOLD_TEXT]]></va>
-                                <hAlignment><![CDATA[LEFT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <text><![CDATA[Description]]></text>
-                            </screenitem>
-                        </headerScreen>
-                        <detailScreen>
-                            <width><![CDATA[190]]></width>
-                            <height><![CDATA[40]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[false]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="NOTES" type="TEXT">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[180]]></width>
-                                <height><![CDATA[15]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.text]]></valueProvider>
-                                <hAlignment><![CDATA[LEFT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                            </screenitem>
-                            <screenitem name="FROM_DT" type="DATE">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[16]]></y>
-                                <width><![CDATA[50]]></width>
-                                <height><![CDATA[15]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.periodFrom]]></valueProvider>
-                                <hAlignment><![CDATA[LEFT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <manualFormat></manualFormat>
-                                <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
-                            </screenitem>
-                            <screenitem name="PRD_SEP" type="LABEL">
-                                <x><![CDATA[58]]></x>
-                                <y><![CDATA[16]]></y>
-                                <width><![CDATA[14]]></width>
-                                <height><![CDATA[15]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <hAlignment><![CDATA[LEFT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <text><![CDATA[-]]></text>
-                            </screenitem>
-                            <screenitem name="TO_DT" type="DATE">
-                                <x><![CDATA[73]]></x>
-                                <y><![CDATA[16]]></y>
-                                <width><![CDATA[50]]></width>
-                                <height><![CDATA[15]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.periodTo]]></valueProvider>
-                                <hAlignment><![CDATA[LEFT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <manualFormat></manualFormat>
-                                <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
-                            </screenitem>
-                        </detailScreen>
-                        <footerScreen>
-                            <width><![CDATA[120]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[false]]></showBottomLine>
-                            <showLeftLine><![CDATA[false]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[1.0]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA></lineVA>
-                        </footerScreen>
-                    </columnitem>
-                    <columnitem name="Hours Worked" showHeader="true" showFooter="false">
-                        <headerScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="Hours Worked" type="LABEL">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[25]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <va><![CDATA[BOLD_TEXT]]></va>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <text><![CDATA[Hours Worked]]></text>
-                            </screenitem>
-                        </headerScreen>
-                        <detailScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[40]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="hoursWorked" type="TEXT">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[35]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.hoursWorked]]></valueProvider>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                            </screenitem>
-                        </detailScreen>
-                        <footerScreen>
-                            <width><![CDATA[120]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[false]]></showBottomLine>
-                            <showLeftLine><![CDATA[false]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[1.0]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA></lineVA>
-                        </footerScreen>
-                    </columnitem>
-                    <columnitem name="Unit Price" showHeader="true" showFooter="false">
-                        <headerScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="Unit Price" type="LABEL">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[25]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <va><![CDATA[BOLD_TEXT]]></va>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <text><![CDATA[Unit Price]]></text>
-                            </screenitem>
-                        </headerScreen>
-                        <detailScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[40]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="payRate" type="NUMBER">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[35]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.payRate]]></valueProvider>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <manualFormat></manualFormat>
-                                <localeFormat><![CDATA[CURRENCY]]></localeFormat>
-                            </screenitem>
-                        </detailScreen>
-                        <footerScreen>
-                            <width><![CDATA[120]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[false]]></showBottomLine>
-                            <showLeftLine><![CDATA[false]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[1.0]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA></lineVA>
-                        </footerScreen>
-                    </columnitem>
-                    <columnitem name="Fixed Price" showHeader="true" showFooter="false">
-                        <headerScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="Fixed Price" type="LABEL">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[25]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <va><![CDATA[BOLD_TEXT]]></va>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <text><![CDATA[Fixed Price]]></text>
-                            </screenitem>
-                        </headerScreen>
-                        <detailScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[40]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="fixPrice" type="NUMBER">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[35]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.fixPrice]]></valueProvider>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <manualFormat></manualFormat>
-                                <localeFormat><![CDATA[CURRENCY]]></localeFormat>
-                            </screenitem>
-                        </detailScreen>
-                        <footerScreen>
-                            <width><![CDATA[120]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[false]]></showBottomLine>
-                            <showLeftLine><![CDATA[false]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[1.0]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA></lineVA>
-                        </footerScreen>
-                    </columnitem>
-                    <columnitem name="amount" showHeader="true" showFooter="false">
-                        <headerScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="Amount" type="LABEL">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[25]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <va><![CDATA[BOLD_TEXT]]></va>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <text><![CDATA[Amount]]></text>
-                            </screenitem>
-                        </headerScreen>
-                        <detailScreen>
-                            <width><![CDATA[90]]></width>
-                            <height><![CDATA[40]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[true]]></showBottomLine>
-                            <showLeftLine><![CDATA[true]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[0.5]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA><![CDATA[LINE_BG]]></lineVA>
-                            <screenitem name="amount" type="NUMBER">
-                                <x><![CDATA[5]]></x>
-                                <y><![CDATA[0]]></y>
-                                <width><![CDATA[80]]></width>
-                                <height><![CDATA[35]]></height>
-                                <visible><![CDATA[true]]></visible>
-                                <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.amount]]></valueProvider>
-                                <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                                <vAlignment><![CDATA[CENTER]]></vAlignment>
-                                <rotation><![CDATA[NONE]]></rotation>
-                                <manualFormat></manualFormat>
-                                <localeFormat><![CDATA[CURRENCY]]></localeFormat>
-                            </screenitem>
-                        </detailScreen>
-                        <footerScreen>
-                            <width><![CDATA[120]]></width>
-                            <height><![CDATA[30]]></height>
-                            <showTopLine><![CDATA[false]]></showTopLine>
-                            <showBottomLine><![CDATA[false]]></showBottomLine>
-                            <showLeftLine><![CDATA[false]]></showLeftLine>
-                            <showRightLine><![CDATA[false]]></showRightLine>
-                            <lineWidth><![CDATA[1.0]]></lineWidth>
-                            <lineStyle><![CDATA[SOLID]]></lineStyle>
-                            <lineVA></lineVA>
-                        </footerScreen>
-                    </columnitem>
-                </screenColumnList>
-            </block>
-            <block name="InvSummary" referenced="false" controlBlock="true">
-                <description></description>
-                <actionProcessorClassName></actionProcessorClassName>
-                <screenType><![CDATA[FORM_LATOUT]]></screenType>
-                <x><![CDATA[0]]></x>
-                <y><![CDATA[97]]></y>
-                <width><![CDATA[552]]></width>
-                <height><![CDATA[61]]></height>
-                <itemList>
-                </itemList>
-                <screenItemList>
-                    <screenitem name="SUB_TOTAL" type="LABEL">
-                        <x><![CDATA[362]]></x>
-                        <y><![CDATA[1]]></y>
-                        <width><![CDATA[94]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <va><![CDATA[LABEL_BG]]></va>
-                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <text><![CDATA[Subtotal]]></text>
-                    </screenitem>
-                    <screenitem name="AMOUNT_EX_VT" type="NUMBER">
-                        <x><![CDATA[457]]></x>
-                        <y><![CDATA[1]]></y>
-                        <width><![CDATA[92]]></width>
-                        <height><![CDATA[20]]></height>
-                        <visible><![CDATA[true]]></visible>
-                        <valueProvider><![CDATA[BLOCK_ITEM:Invoice.amountExclVat]]></valueProvider>
-                        <hAlignment><![CDATA[RIGHT]]></hAlignment>
-                        <vAlignment><![CDATA[CENTER]]></vAlignment>
-                        <rotation><![CDATA[NONE]]></rotation>
-                        <manualFormat></manualFormat>
-                        <localeFormat><![CDATA[CURRENCY]]></localeFormat>
-                    </screenitem>
-                </screenItemList>
-                <blockGroup>
-                </blockGroup>
-            </block>
+            <blockGroup name="PAGE1">
+                <block name="InvPositions" referenced="false" controlBlock="false">
+                    <description></description>
+                    <serviceClassName><![CDATA[org.entirej.ejinvoice.reports.services.ReportInvoicePositionsService]]></serviceClassName>
+                    <actionProcessorClassName></actionProcessorClassName>
+                    <screenType><![CDATA[TABLE_LAYOUT]]></screenType>
+                    <evenVA><![CDATA[TABLE_EVEN_ROW]]></evenVA>
+                    <x><![CDATA[0]]></x>
+                    <y><![CDATA[4]]></y>
+                    <width><![CDATA[552]]></width>
+                    <height><![CDATA[89]]></height>
+                    <headerColHeight><![CDATA[20]]></headerColHeight>
+                    <detailColHeight><![CDATA[20]]></detailColHeight>
+                    <footerColHeight><![CDATA[20]]></footerColHeight>
+                    <itemList>
+                        <item name="projectName">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="periodTo">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="amount">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="payRate">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="periodFrom">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.sql.Date]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="text">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="cuptId">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="id">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="companyId">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="hoursWorked">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="invId">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <defaultQueryValue><![CDATA[BLOCK_ITEM:Invoice.id]]></defaultQueryValue>
+                        </item>
+                        <item name="status">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="cuprId">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.Integer]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="fixPrice">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.math.BigDecimal]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                        <item name="taskName">
+                            <blockServiceItem>true</blockServiceItem>
+                            <dataTypeClassName><![CDATA[java.lang.String]]></dataTypeClassName>
+                            <defaultQueryValue></defaultQueryValue>
+                        </item>
+                    </itemList>
+                    <screenColumnList>
+                        <columnitem name="Description" showHeader="true" showFooter="false">
+                            <headerScreen>
+                                <width><![CDATA[190]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[false]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="Description" type="LABEL">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[180]]></width>
+                                    <height><![CDATA[25]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <va><![CDATA[BOLD_TEXT]]></va>
+                                    <hAlignment><![CDATA[LEFT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <text><![CDATA[Description]]></text>
+                                </screenitem>
+                            </headerScreen>
+                            <detailScreen>
+                                <width><![CDATA[190]]></width>
+                                <height><![CDATA[40]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[false]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="NOTES" type="TEXT">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[180]]></width>
+                                    <height><![CDATA[15]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.text]]></valueProvider>
+                                    <expandToFit>false</expandToFit>
+                                    <markup><![CDATA[NONE]]></markup>
+                                    <hAlignment><![CDATA[LEFT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                </screenitem>
+                                <screenitem name="FROM_DT" type="DATE">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[16]]></y>
+                                    <width><![CDATA[50]]></width>
+                                    <height><![CDATA[15]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.periodFrom]]></valueProvider>
+                                    <expandToFit>false</expandToFit>
+                                    <markup><![CDATA[NONE]]></markup>
+                                    <hAlignment><![CDATA[LEFT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <manualFormat></manualFormat>
+                                    <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
+                                </screenitem>
+                                <screenitem name="PRD_SEP" type="LABEL">
+                                    <x><![CDATA[58]]></x>
+                                    <y><![CDATA[16]]></y>
+                                    <width><![CDATA[14]]></width>
+                                    <height><![CDATA[15]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <hAlignment><![CDATA[LEFT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <text><![CDATA[-]]></text>
+                                </screenitem>
+                                <screenitem name="TO_DT" type="DATE">
+                                    <x><![CDATA[73]]></x>
+                                    <y><![CDATA[16]]></y>
+                                    <width><![CDATA[50]]></width>
+                                    <height><![CDATA[15]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.periodTo]]></valueProvider>
+                                    <expandToFit>false</expandToFit>
+                                    <markup><![CDATA[NONE]]></markup>
+                                    <hAlignment><![CDATA[LEFT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <manualFormat></manualFormat>
+                                    <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
+                                </screenitem>
+                            </detailScreen>
+                            <footerScreen>
+                                <width><![CDATA[120]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[false]]></showBottomLine>
+                                <showLeftLine><![CDATA[false]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[1.0]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA></lineVA>
+                            </footerScreen>
+                        </columnitem>
+                        <columnitem name="Hours Worked" showHeader="true" showFooter="false">
+                            <headerScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="Hours Worked" type="LABEL">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[25]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <va><![CDATA[BOLD_TEXT]]></va>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <text><![CDATA[Hours Worked]]></text>
+                                </screenitem>
+                            </headerScreen>
+                            <detailScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[40]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="hoursWorked" type="TEXT">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[35]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.hoursWorked]]></valueProvider>
+                                    <expandToFit>false</expandToFit>
+                                    <markup><![CDATA[NONE]]></markup>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                </screenitem>
+                            </detailScreen>
+                            <footerScreen>
+                                <width><![CDATA[120]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[false]]></showBottomLine>
+                                <showLeftLine><![CDATA[false]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[1.0]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA></lineVA>
+                            </footerScreen>
+                        </columnitem>
+                        <columnitem name="Unit Price" showHeader="true" showFooter="false">
+                            <headerScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="Unit Price" type="LABEL">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[25]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <va><![CDATA[BOLD_TEXT]]></va>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <text><![CDATA[Unit Price]]></text>
+                                </screenitem>
+                            </headerScreen>
+                            <detailScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[40]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="payRate" type="NUMBER">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[35]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.payRate]]></valueProvider>
+                                    <expandToFit>false</expandToFit>
+                                    <markup><![CDATA[NONE]]></markup>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <manualFormat></manualFormat>
+                                    <localeFormat><![CDATA[CURRENCY]]></localeFormat>
+                                </screenitem>
+                            </detailScreen>
+                            <footerScreen>
+                                <width><![CDATA[120]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[false]]></showBottomLine>
+                                <showLeftLine><![CDATA[false]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[1.0]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA></lineVA>
+                            </footerScreen>
+                        </columnitem>
+                        <columnitem name="Fixed Price" showHeader="true" showFooter="false">
+                            <headerScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="Fixed Price" type="LABEL">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[25]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <va><![CDATA[BOLD_TEXT]]></va>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <text><![CDATA[Fixed Price]]></text>
+                                </screenitem>
+                            </headerScreen>
+                            <detailScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[40]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="fixPrice" type="NUMBER">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[35]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.fixPrice]]></valueProvider>
+                                    <expandToFit>false</expandToFit>
+                                    <markup><![CDATA[NONE]]></markup>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <manualFormat></manualFormat>
+                                    <localeFormat><![CDATA[CURRENCY]]></localeFormat>
+                                </screenitem>
+                            </detailScreen>
+                            <footerScreen>
+                                <width><![CDATA[120]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[false]]></showBottomLine>
+                                <showLeftLine><![CDATA[false]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[1.0]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA></lineVA>
+                            </footerScreen>
+                        </columnitem>
+                        <columnitem name="amount" showHeader="true" showFooter="false">
+                            <headerScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="Amount" type="LABEL">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[25]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <va><![CDATA[BOLD_TEXT]]></va>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <text><![CDATA[Amount]]></text>
+                                </screenitem>
+                            </headerScreen>
+                            <detailScreen>
+                                <width><![CDATA[90]]></width>
+                                <height><![CDATA[40]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[true]]></showBottomLine>
+                                <showLeftLine><![CDATA[true]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[0.5]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA><![CDATA[LINE_BG]]></lineVA>
+                                <screenitem name="amount" type="NUMBER">
+                                    <x><![CDATA[5]]></x>
+                                    <y><![CDATA[0]]></y>
+                                    <width><![CDATA[80]]></width>
+                                    <height><![CDATA[35]]></height>
+                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                                    <visible><![CDATA[true]]></visible>
+                                    <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.amount]]></valueProvider>
+                                    <expandToFit>false</expandToFit>
+                                    <markup><![CDATA[NONE]]></markup>
+                                    <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                                    <vAlignment><![CDATA[CENTER]]></vAlignment>
+                                    <rotation><![CDATA[NONE]]></rotation>
+                                    <manualFormat></manualFormat>
+                                    <localeFormat><![CDATA[CURRENCY]]></localeFormat>
+                                </screenitem>
+                            </detailScreen>
+                            <footerScreen>
+                                <width><![CDATA[120]]></width>
+                                <height><![CDATA[30]]></height>
+                                <showTopLine><![CDATA[false]]></showTopLine>
+                                <showBottomLine><![CDATA[false]]></showBottomLine>
+                                <showLeftLine><![CDATA[false]]></showLeftLine>
+                                <showRightLine><![CDATA[false]]></showRightLine>
+                                <lineWidth><![CDATA[1.0]]></lineWidth>
+                                <lineStyle><![CDATA[SOLID]]></lineStyle>
+                                <lineVA></lineVA>
+                            </footerScreen>
+                        </columnitem>
+                    </screenColumnList>
+                </block>
+                <block name="InvSummary" referenced="false" controlBlock="true">
+                    <description></description>
+                    <actionProcessorClassName></actionProcessorClassName>
+                    <screenType><![CDATA[FORM_LATOUT]]></screenType>
+                    <x><![CDATA[0]]></x>
+                    <y><![CDATA[97]]></y>
+                    <width><![CDATA[552]]></width>
+                    <height><![CDATA[61]]></height>
+                    <headerColHeight><![CDATA[20]]></headerColHeight>
+                    <detailColHeight><![CDATA[20]]></detailColHeight>
+                    <footerColHeight><![CDATA[20]]></footerColHeight>
+                    <itemList>
+                    </itemList>
+                    <screenItemList>
+                        <screenitem name="SUB_TOTAL" type="LABEL">
+                            <x><![CDATA[362]]></x>
+                            <y><![CDATA[1]]></y>
+                            <width><![CDATA[94]]></width>
+                            <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                            <visible><![CDATA[true]]></visible>
+                            <va><![CDATA[LABEL_BG]]></va>
+                            <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <text><![CDATA[Subtotal]]></text>
+                        </screenitem>
+                        <screenitem name="AMOUNT_EX_VT" type="NUMBER">
+                            <x><![CDATA[457]]></x>
+                            <y><![CDATA[1]]></y>
+                            <width><![CDATA[92]]></width>
+                            <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
+                            <visible><![CDATA[true]]></visible>
+                            <valueProvider><![CDATA[BLOCK_ITEM:Invoice.amountExclVat]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
+                            <hAlignment><![CDATA[RIGHT]]></hAlignment>
+                            <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <rotation><![CDATA[NONE]]></rotation>
+                            <manualFormat></manualFormat>
+                            <localeFormat><![CDATA[CURRENCY]]></localeFormat>
+                        </screenitem>
+                    </screenItemList>
+                    <blockGroup>
+                    </blockGroup>
+                </block>
+            </blockGroup>
             <ej.footer.blocks>
                 <block name="Footer" referenced="false" controlBlock="true">
                     <description></description>
@@ -854,6 +979,9 @@
                     <y><![CDATA[0]]></y>
                     <width><![CDATA[554]]></width>
                     <height><![CDATA[58]]></height>
+                    <headerColHeight><![CDATA[20]]></headerColHeight>
+                    <detailColHeight><![CDATA[20]]></detailColHeight>
+                    <footerColHeight><![CDATA[20]]></footerColHeight>
                     <itemList>
                     </itemList>
                     <screenItemList>
@@ -862,6 +990,8 @@
                             <y><![CDATA[0]]></y>
                             <width><![CDATA[552]]></width>
                             <height><![CDATA[1]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <va><![CDATA[LINE_BG]]></va>
                             <lineWidth><![CDATA[1.0]]></lineWidth>
@@ -873,8 +1003,12 @@
                             <y><![CDATA[0]]></y>
                             <width><![CDATA[549]]></width>
                             <height><![CDATA[52]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[BLOCK_ITEM:Invoice.invoiceNotes]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
                             <rotation><![CDATA[NONE]]></rotation>
@@ -884,6 +1018,8 @@
                             <y><![CDATA[17]]></y>
                             <width><![CDATA[80]]></width>
                             <height><![CDATA[20]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
@@ -895,10 +1031,15 @@
                             <y><![CDATA[11]]></y>
                             <width><![CDATA[80]]></width>
                             <height><![CDATA[31]]></height>
+                            <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                            <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                             <visible><![CDATA[true]]></visible>
                             <valueProvider><![CDATA[REPORT_PARAMETER:EJ_BIZIBO_IMG]]></valueProvider>
+                            <expandToFit>false</expandToFit>
+                            <markup><![CDATA[NONE]]></markup>
                             <hAlignment><![CDATA[LEFT]]></hAlignment>
                             <vAlignment><![CDATA[CENTER]]></vAlignment>
+                            <defaultImage></defaultImage>
                         </screenitem>
                     </screenItemList>
                     <blockGroup>
