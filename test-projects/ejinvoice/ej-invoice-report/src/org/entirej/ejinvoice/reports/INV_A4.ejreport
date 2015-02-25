@@ -584,9 +584,9 @@
                                 <screenitem name="NOTES" type="TEXT">
                                     <x><![CDATA[5]]></x>
                                     <y><![CDATA[0]]></y>
-                                    <width><![CDATA[180]]></width>
+                                    <width><![CDATA[100]]></width>
                                     <height><![CDATA[15]]></height>
-                                    <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
+                                    <widthAsPercentage><![CDATA[true]]></widthAsPercentage>
                                     <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
                                     <visible><![CDATA[true]]></visible>
                                     <valueProvider><![CDATA[BLOCK_ITEM:InvPositions.text]]></valueProvider>
@@ -599,7 +599,7 @@
                                 <screenitem name="FROM_DT" type="DATE">
                                     <x><![CDATA[5]]></x>
                                     <y><![CDATA[16]]></y>
-                                    <width><![CDATA[50]]></width>
+                                    <width><![CDATA[55]]></width>
                                     <height><![CDATA[15]]></height>
                                     <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
                                     <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
@@ -614,7 +614,7 @@
                                     <localeFormat><![CDATA[DATE_SHORT]]></localeFormat>
                                 </screenitem>
                                 <screenitem name="PRD_SEP" type="LABEL">
-                                    <x><![CDATA[58]]></x>
+                                    <x><![CDATA[63]]></x>
                                     <y><![CDATA[16]]></y>
                                     <width><![CDATA[14]]></width>
                                     <height><![CDATA[15]]></height>
@@ -627,9 +627,9 @@
                                     <text><![CDATA[-]]></text>
                                 </screenitem>
                                 <screenitem name="TO_DT" type="DATE">
-                                    <x><![CDATA[73]]></x>
+                                    <x><![CDATA[78]]></x>
                                     <y><![CDATA[16]]></y>
-                                    <width><![CDATA[50]]></width>
+                                    <width><![CDATA[55]]></width>
                                     <height><![CDATA[15]]></height>
                                     <widthAsPercentage><![CDATA[false]]></widthAsPercentage>
                                     <heightAsPercentage><![CDATA[false]]></heightAsPercentage>
@@ -645,7 +645,7 @@
                                 </screenitem>
                             </detailScreen>
                             <footerScreen>
-                                <width><![CDATA[120]]></width>
+                                <width><![CDATA[190]]></width>
                                 <height><![CDATA[30]]></height>
                                 <showTopLine><![CDATA[false]]></showTopLine>
                                 <showBottomLine><![CDATA[false]]></showBottomLine>
@@ -709,7 +709,7 @@
                                 </screenitem>
                             </detailScreen>
                             <footerScreen>
-                                <width><![CDATA[120]]></width>
+                                <width><![CDATA[90]]></width>
                                 <height><![CDATA[30]]></height>
                                 <showTopLine><![CDATA[false]]></showTopLine>
                                 <showBottomLine><![CDATA[false]]></showBottomLine>
@@ -775,7 +775,7 @@
                                 </screenitem>
                             </detailScreen>
                             <footerScreen>
-                                <width><![CDATA[120]]></width>
+                                <width><![CDATA[90]]></width>
                                 <height><![CDATA[30]]></height>
                                 <showTopLine><![CDATA[false]]></showTopLine>
                                 <showBottomLine><![CDATA[false]]></showBottomLine>
@@ -841,7 +841,7 @@
                                 </screenitem>
                             </detailScreen>
                             <footerScreen>
-                                <width><![CDATA[120]]></width>
+                                <width><![CDATA[90]]></width>
                                 <height><![CDATA[30]]></height>
                                 <showTopLine><![CDATA[false]]></showTopLine>
                                 <showBottomLine><![CDATA[false]]></showBottomLine>
@@ -907,7 +907,7 @@
                                 </screenitem>
                             </detailScreen>
                             <footerScreen>
-                                <width><![CDATA[120]]></width>
+                                <width><![CDATA[90]]></width>
                                 <height><![CDATA[30]]></height>
                                 <showTopLine><![CDATA[false]]></showTopLine>
                                 <showBottomLine><![CDATA[false]]></showBottomLine>
