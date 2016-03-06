@@ -18,7 +18,14 @@ import org.entirej.framework.core.service.EJStatementParameter;
 public class ProjectTasksBlockService implements EJBlockService<ProjectTasks>
 {
     private final EJStatementExecutor _statementExecutor;
-    private String                    _selectStatement = "SELECT CPR_ID, (SELECT FIX_PRICE FROM CUSTOMER_PROJECTS WHERE ID = customer_project_tasks.CPR_ID) PROJECT_FIX_PRICE , ID,NAME,NOTES,PAY_RATE,COMPANY_ID, FIX_PRICE, STATUS,  INVOICEABLE, (SELECT NAME FROM CUSTOMER WHERE ID = (SELECT CUSTOMER_ID FROM CUSTOMER_PROJECTS WHERE ID = CUSTOMER_PROJECT_TASKS.CPR_ID)) CUSTOMER_NAME,(SELECT NAME FROM CUSTOMER_PROJECTS WHERE ID = CUSTOMER_PROJECT_TASKS.CPR_ID) PROJECT_NAME FROM customer_project_tasks";
+    private String                    _selectStatement = "SELECT CPR_ID, "
+    		+ "(SELECT FIX_PRICE FROM CUSTOMER_PROJECTS WHERE ID = customer_project_tasks.CPR_ID) PROJECT_FIX_PRICE"
+    		+ " , ID,NAME,NOTES,PAY_RATE,COMPANY_ID, "
+    		+ "FIX_PRICE, STATUS,  INVOICEABLE, "
+    		+ "(SELECT NAME FROM CUSTOMER WHERE ID = (SELECT CUSTOMER_ID "
+    		+ "FROM CUSTOMER_PROJECTS WHERE ID = CUSTOMER_PROJECT_TASKS.CPR_ID)) CUSTOMER_NAME,"
+    		+ "(SELECT NAME FROM CUSTOMER_PROJECTS WHERE ID = CUSTOMER_PROJECT_TASKS.CPR_ID) PROJECT_NAME "
+    		+ "FROM customer_project_tasks";
 
     public ProjectTasksBlockService()
     {
