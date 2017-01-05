@@ -43,7 +43,7 @@ public class TEMOSJbossConnectionFactory implements EJConnectionFactory
                 assert dataSourceID != null;
                 Context initContext = new InitialContext();
                 
-                dataSource = (DataSource)initContext.lookup("java:/bizibo");
+                dataSource = (DataSource)initContext.lookup("java:/ej-invoice");
                 
                 
                 

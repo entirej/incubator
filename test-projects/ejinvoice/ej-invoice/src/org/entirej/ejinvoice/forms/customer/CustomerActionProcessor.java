@@ -35,8 +35,10 @@ public class CustomerActionProcessor extends DefaultFormActionProcessor implemen
     private Integer customerId       = null;
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_CUSTOMERS.AC_CREATE_NEW_CUSTOMER.equals(command))
         {
             form.getBlock(F_CUSTOMERS.B_CUSTOMERS_INSERT.ID).clear(true);

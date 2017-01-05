@@ -45,8 +45,9 @@ public class UsersActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
         if (F_USERS.AC_CREATE_NEW_USER.equals(command))
         {
             User user = (User) form.getApplicationLevelParameter(EJ_PROPERTIES.P_USER).getValue();

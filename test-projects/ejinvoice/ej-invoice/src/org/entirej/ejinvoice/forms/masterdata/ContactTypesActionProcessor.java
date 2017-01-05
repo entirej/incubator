@@ -22,8 +22,10 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 public class ContactTypesActionProcessor extends DefaultFormActionProcessor
 {
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_CONTACT_TYPES.AC_CREATE_CONTACT_TYPE.equals(command))
         {
             form.getBlock(F_CONTACT_TYPES.B_CONTACT_TYPES_INSERT.ID).clear(true);

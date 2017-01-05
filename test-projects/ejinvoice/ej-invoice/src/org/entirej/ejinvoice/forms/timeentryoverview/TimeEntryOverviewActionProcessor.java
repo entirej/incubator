@@ -39,7 +39,7 @@ public class TimeEntryOverviewActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
         if (F_TIME_ENTRY_OVERVIEW.AC_REFRESH_USER_TOTAL_HOURS.equals(command))
         {

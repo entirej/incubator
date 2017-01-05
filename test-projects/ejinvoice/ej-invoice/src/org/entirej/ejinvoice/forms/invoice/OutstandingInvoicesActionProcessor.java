@@ -80,8 +80,9 @@ public class OutstandingInvoicesActionProcessor extends DefaultFormActionProcess
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
         if (F_OUTSTANDING_INVOICES.AC_SHOW_INVOICE.equals(command))
         {
             InvoiceReport.downloadReport(new InvoiceService().getInvoicPDF(form, (int) record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_ID)), record.getValue(F_OUTSTANDING_INVOICES.B_INVOICE_HISTORY.I_NR) + ".pdf");

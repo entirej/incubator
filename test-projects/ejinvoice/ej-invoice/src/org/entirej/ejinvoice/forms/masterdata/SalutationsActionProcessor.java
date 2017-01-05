@@ -15,8 +15,10 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 public class SalutationsActionProcessor extends DefaultFormActionProcessor
 {
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_SALUTATIONS.AC_CREATE_SALUTATION.equals(command))
         {
             form.getBlock(F_SALUTATIONS.B_SALUTATIONS_INSERT.ID).clear(true);

@@ -26,11 +26,6 @@ public class ME001FormActionProcessor extends EJDefaultFormActionProcessor
 //        queryCriteria.add(EJRestrictions.isNull(F_ME001.B_USER_BLOCK.I_CLUB_ID));
     }
 
-    @Override
-    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
-    {
-        super.validateItem(form, record, itemName, screenType);
-    }
 
     @Override
     public void newFormInstance(EJForm form) throws EJActionProcessorException
@@ -41,7 +36,7 @@ public class ME001FormActionProcessor extends EJDefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
 //        if (F_ME001.AC_TOOLBAR_ADD.equals(command))
 //        {

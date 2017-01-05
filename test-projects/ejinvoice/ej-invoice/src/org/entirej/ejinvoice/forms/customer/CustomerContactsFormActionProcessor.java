@@ -41,8 +41,10 @@ import org.entirej.framework.core.enumerations.EJScreenType;
 public class CustomerContactsFormActionProcessor extends DefaultFormActionProcessor
 {
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_CUSTOMER_CONTACTS.AC_QUERY_CONTACTS.equals(command))
         {
             form.getBlock(F_CUSTOMER_CONTACTS.B_CUSTOMER_CONTACTS.ID).executeQuery();

@@ -64,8 +64,11 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+
         if (F_COMPANY.AC_EDIT_SAVE.equals(command))
         {
             String name = (String) record.getValue(F_COMPANY.B_COMPANIES_EDIT.I_NAME);
@@ -80,7 +83,7 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             {
                 throw new EJActionProcessorException();
             }
-            
+
             EJRecord companyRecord = form.getBlock(F_COMPANY.B_COMPANIES.ID).getFocusedRecord();
 
             companyRecord.setValue(F_COMPANY.B_COMPANIES.I_NAME, record.getValue(F_COMPANY.B_COMPANIES.I_NAME));
@@ -92,10 +95,10 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             companyRecord.setValue(F_COMPANY.B_COMPANIES.I_POST_CODE, record.getValue(F_COMPANY.B_COMPANIES.I_POST_CODE));
             companyRecord.setValue(F_COMPANY.B_COMPANIES.I_TOWN, record.getValue(F_COMPANY.B_COMPANIES.I_TOWN));
             companyRecord.setValue(F_COMPANY.B_COMPANIES.I_VAT_NR, record.getValue(F_COMPANY.B_COMPANIES.I_VAT_NR));
-            
+
             form.getBlock(F_COMPANY.B_COMPANIES.ID).updateRecord(companyRecord);
             form.saveChanges();
-            
+
             form.getForm(F_TIME_ENTRY.ID).getBlock(F_TIME_ENTRY.B_COMPANY.ID).executeQuery();
             form.setFormParameter(F_COMPANY.P_IN_EDIT_MODE, false);
         }
@@ -121,9 +124,9 @@ public class CompaniesActionProcessor extends DefaultFormActionProcessor
             }
         }
     }
-    
+
     @Override
-    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
+    public void validateItem(EJForm form, String blockName, String itemName, EJScreenType screenType, EJRecord newValues) throws EJActionProcessorException
     {
         form.setFormParameter(F_COMPANY.P_IN_EDIT_MODE, true);
     }

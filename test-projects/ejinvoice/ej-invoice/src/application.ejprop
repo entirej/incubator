@@ -15,8 +15,8 @@
         <appicationLevelParameter name="USER_ID" dataType="java.lang.Integer" defaultValue=""></appicationLevelParameter>
         <appicationLevelParameter name="COMPANY_ID" dataType="java.lang.Integer" defaultValue=""></appicationLevelParameter>
         <appicationLevelParameter name="builtBy" dataType="java.lang.String" defaultValue="Built with EntireJ"></appicationLevelParameter>
-        <appicationLevelParameter name="DATABASE_NAME" dataType="java.lang.String" defaultValue="bizibo"></appicationLevelParameter>
-        <appicationLevelParameter name="dataSourceName" dataType="java.lang.String" defaultValue="bizibo"></appicationLevelParameter>
+        <appicationLevelParameter name="DATABASE_NAME" dataType="java.lang.String" defaultValue="ej-invoice"></appicationLevelParameter>
+        <appicationLevelParameter name="dataSourceName" dataType="java.lang.String" defaultValue="ej-invoice"></appicationLevelParameter>
         <appicationLevelParameter name="newCompanyDefaultsCompanyId" dataType="java.lang.Integer" defaultValue="369"></appicationLevelParameter>
     </applicationLevelParameterList>
     <applicationDefinedProperties>

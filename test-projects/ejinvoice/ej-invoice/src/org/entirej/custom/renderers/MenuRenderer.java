@@ -284,4 +284,18 @@ public class MenuRenderer implements EJRWTAppBlockRenderer
         return gd;
     }
 
+    @Override
+    public void setFilter(String filter)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getFilter()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

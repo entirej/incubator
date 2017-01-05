@@ -70,9 +70,11 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
                 .setValue(getDiffMinutesString(timestamp.getTime(), timestamp.getTime()));
     }
 
+    
     @Override
-    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
+    public void validateItem(EJForm form, String blockName, String itemName, EJScreenType screenType, EJRecord newValues) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
         if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.ID.equals(record.getBlockName()))
         {
             if (F_TIME_ENTRY.B_TIME_ENTRY_ENTRY.I_PROJECT.equals(itemName))
@@ -138,8 +140,10 @@ public class TimeEntryActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         EJBlock timeEntryBlock = form.getBlock(F_TIME_ENTRY.B_TIME_ENTRY.ID);
         if (F_TIME_ENTRY.AC_DELETE_TIME_ENTRY.equals(command))
         {

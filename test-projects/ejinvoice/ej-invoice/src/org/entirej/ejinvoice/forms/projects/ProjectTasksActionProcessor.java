@@ -73,8 +73,10 @@ public class ProjectTasksActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_PROJECT_TASKS.AC_ADD_NEW_TASK.equals(command))
         {
             form.getBlock(F_PROJECT_TASKS.B_PROJECT_TASK_INSERT.ID).clear(true);

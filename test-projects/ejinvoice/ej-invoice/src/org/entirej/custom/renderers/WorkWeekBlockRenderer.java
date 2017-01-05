@@ -560,7 +560,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
                 {
                     group.setText(frameTitle);
                 }
-                _browser = new EJRWTHtmlView(group, SWT.NONE)
+                _browser = new EJRWTHtmlView(group, SWT.NONE, true)
                 {
                     private static final long serialVersionUID = 1L;
 
@@ -597,7 +597,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
             }
             else
             {
-                _browser = new EJRWTHtmlView(scrollComposite, SWT.BORDER)
+                _browser = new EJRWTHtmlView(scrollComposite, SWT.BORDER, true)
                 {
 
                     private static final long serialVersionUID = 1L;
@@ -638,7 +638,7 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
         }
         else
         {
-            _browser = new EJRWTHtmlView(scrollComposite, SWT.NONE)
+            _browser = new EJRWTHtmlView(scrollComposite, SWT.NONE, true)
             {
                 private static final long serialVersionUID = 1L;
 
@@ -1828,6 +1828,20 @@ public class WorkWeekBlockRenderer implements EJRWTAppBlockRenderer, KeyListener
         {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    @Override
+    public void setFilter(String filter)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getFilter()
+    {
+        // TODO Auto-generated method stub
         return null;
     }
 

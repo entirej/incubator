@@ -138,7 +138,7 @@ public class ProjectBlockService implements EJBlockService<Project>
             parameters.add(new EJStatementParameter("PAY_RATE", BigDecimal.class, record.getTaskPayRate()));
             parameters.add(new EJStatementParameter("COMPANY_ID", Integer.class, record.getCompanyId()));
 
-            parameters.add(new EJStatementParameter("FIX_PRICE", Integer.class, record.getTaskFixPrice()));
+            parameters.add(new EJStatementParameter("FIX_PRICE", BigDecimal.class, record.getTaskFixPrice()));
             parameters.add(new EJStatementParameter("STATUS", Integer.class, record.getTaskStatus()));
             parameters.add(new EJStatementParameter("INVOICEABLE", Integer.class, record.getTaskInvoiceable()));
 

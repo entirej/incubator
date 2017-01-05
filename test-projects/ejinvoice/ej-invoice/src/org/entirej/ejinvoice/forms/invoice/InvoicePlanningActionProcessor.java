@@ -44,8 +44,10 @@ public class InvoicePlanningActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_INVOICE_PLANNING.AC_REFRESH_BLOCKS.equals(command))
         {
             if (record.getValue(F_INVOICE_PLANNING.B_INVOICE_HEADER.I_CUSTOMER_ID) != null)

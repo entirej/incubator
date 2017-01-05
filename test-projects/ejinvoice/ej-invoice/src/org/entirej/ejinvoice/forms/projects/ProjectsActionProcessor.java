@@ -1,21 +1,12 @@
 package org.entirej.ejinvoice.forms.projects;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.Locale;
 
-import org.apache.commons.validator.routines.EmailValidator;
 import org.entirej.constants.EJ_PROPERTIES;
 import org.entirej.ejinvoice.DefaultFormActionProcessor;
 import org.entirej.ejinvoice.PKSequenceService;
-import org.entirej.ejinvoice.forms.constants.F_CUSTOMERS;
-import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
-import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_PROJECTS;
 import org.entirej.ejinvoice.forms.constants.F_TIME_ENTRY;
-import org.entirej.ejinvoice.forms.invoice.InvoicePosition;
-import org.entirej.ejinvoice.forms.invoice.InvoiceService;
-import org.entirej.ejinvoice.forms.timeentry.Customer;
 import org.entirej.ejinvoice.forms.timeentry.FormHandler;
 import org.entirej.ejinvoice.menu.MenuBlockService;
 import org.entirej.framework.core.EJActionProcessorException;
@@ -24,14 +15,9 @@ import org.entirej.framework.core.EJBlock;
 import org.entirej.framework.core.EJForm;
 import org.entirej.framework.core.EJMessage;
 import org.entirej.framework.core.EJRecord;
-import org.entirej.framework.core.data.controllers.EJQuestion;
 import org.entirej.framework.core.enumerations.EJMessageLevel;
-import org.entirej.framework.core.enumerations.EJPopupButton;
-import org.entirej.framework.core.enumerations.EJQuestionButton;
 import org.entirej.framework.core.enumerations.EJRecordType;
 import org.entirej.framework.core.enumerations.EJScreenType;
-import org.entirej.framework.core.service.EJQueryCriteria;
-import org.entirej.framework.core.service.EJRestrictions;
 
 public class ProjectsActionProcessor extends DefaultFormActionProcessor
 {
@@ -39,9 +25,12 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
     private boolean    timeEntryInserted      = false;
     private BigDecimal markedForInvoiceAmount = new BigDecimal(0);
 
+    
+    
     @Override
-    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
+    public void validateItem(EJForm form, String blockName, String itemName, EJScreenType screenType, EJRecord newValues) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
 
         if (F_PROJECTS.B_PROJECTS.I_FIX_PRICE.equals(itemName) && EJScreenType.INSERT.equals(screenType))
         {
@@ -76,8 +65,10 @@ public class ProjectsActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_PROJECTS.AC_SHOW_PROJECT_TASKS.equals(command))
         {
             Integer projectId = (Integer) record.getValue(F_PROJECTS.B_PROJECTS.I_ID);

@@ -43,9 +43,11 @@ public class InvoiceCreationActionProcessor extends DefaultFormActionProcessor
         form.setFormParameter(F_INVOICE_CREATION.P_ITEMS_TO_INVOICE, 1);
     }
 
+    
     @Override
-    public void validateItem(EJForm form, EJRecord record, String itemName, EJScreenType screenType) throws EJActionProcessorException
+    public void validateItem(EJForm form, String blockName, String itemName, EJScreenType screenType, EJRecord newValues) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
         if (F_INVOICE_CREATION.B_FILTER.I_CUSTOMER_ID.equals(itemName))
         {
             if (record.getValue(itemName) != null)
@@ -65,8 +67,10 @@ public class InvoiceCreationActionProcessor extends DefaultFormActionProcessor
     }
 
     @Override
-    public void executeActionCommand(EJForm form, EJRecord record, String command, EJScreenType screenType) throws EJActionProcessorException
+    public void executeActionCommand(EJForm form, String blockName, String command, EJScreenType screenType) throws EJActionProcessorException
     {
+        EJRecord record = form.getBlock(blockName).getFocusedRecord();
+        
         if (F_INVOICE_CREATION.AC_DELETE_APPROVED_ITEM.equals(command))
         {
             EJQuestion question = new EJQuestion(form, "ASK_DELETE_APPROVED_POSITION");
